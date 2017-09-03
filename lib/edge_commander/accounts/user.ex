@@ -41,6 +41,7 @@ defmodule EdgeCommander.Accounts.User do
   @doc false
   def changeset(%User{} = user, attrs) do
     user
+    |> cast(attrs, [:firstname, :lastname, :username, :password, :email])
     |> validate_required([:firstname, :lastname, :username, :password, :email])
     |> unique_constraint(:username, [message: "Username has already been taken."])
     |> unique_constraint(:email, [message: "Email has already been taken."])
