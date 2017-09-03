@@ -4,7 +4,7 @@
       <div class="ui fluid card">
         <div class="content">
         <form class="ui form" method="post">
-          <input type="hidden" name="_csrf_token" value="<%= get_csrf_token() %>">
+          <input type="hidden" name="_csrf_token" value="<%= @csrf_token %>">
           <div class="field">
             <label>Firstname</label>
             <input type="text" placeholder="Firstname" name="firstname" required>
