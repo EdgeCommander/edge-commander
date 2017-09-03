@@ -1,0 +1,27 @@
+<div class="page-login">
+  <div class="ui centered grid container">
+    <div class="nine wide column">
+      <div class="ui fluid card">
+        <div class="content">
+        <form class="ui form" method="POST" action="/session">
+          <div class="field">
+            <label>Email</label>
+            <input type="text" name="email" placeholder="Eamil">
+          </div>
+          <div class="field">
+            <label>Password</label>
+            <input type="password" name="password" placeholder="Password">
+          </div>
+          <button class="ui primary labeled icon button" type="submit">
+            <i class="unlock alternate icon"></i>
+            Login
+          </button>
+        </form>
+        <div class="ui message">
+              New to us? <a href="/users/sign_up">Sign Up</a>
+        </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
