@@ -13,9 +13,28 @@
 
   <body>
     <div class="container">
-
-      <p class="alert alert-info" role="alert"><%= get_flash(@conn, :info) %></p>
-      <p class="alert alert-danger" role="alert"><%= get_flash(@conn, :error) %></p>
+      <%
+      info = get_flash(@conn, :info)
+      error = get_flash(@conn, :error)
+      %>
+      <%= if info do %>
+        <div class="ui info message">
+          <i class="close icon"></i>
+          <div class="header">
+            Please Listen!
+          </div>
+          <p><%= info %></p>
+        </div>
+      <% end %>
+      <%= if error do %>
+        <div class="ui negative message">
+          <i class="close icon"></i>
+          <div class="header">
+            Please Listen!
+          </div>
+          <p><%= error %></p>
+        </div>
+      <% end %>
 
       <main role="main">
         <%= render @view_module, @view_template, assigns %>
