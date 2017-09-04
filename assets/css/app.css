@@ -1,1 +1,18 @@
 /* This file is for your main application css. */
+
+
+.container {
+  background: white;
+}
+
+
+div#left{
+  float:left;
+  width:100px;
+  min-height: 400px;
+}
+
+div#right{
+  margin-left: 10px;
+  min-height: 400px;
+}

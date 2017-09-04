@@ -1,3 +1,22 @@
-hello
 
-<%= link "Logout", to: session_path(@conn, :delete), method: :delete, class: "item" %>
+<div id="left">
+  <div class="ui left vertical sidebar labeled icon menu visible">
+    <a class="item">
+      <i class="home icon"></i>
+      Home
+    </a>
+    <a class="item">
+      <i class="block layout icon"></i>
+      Topics
+    </a>
+    <a class="item">
+      <i class="smile icon"></i>
+      Friends
+    </a>
+    <%= link "Logout", to: session_path(@conn, :delete), method: :delete, class: "item" %>
+  </div>
+
+</div>
+
+
+<div id="right">RIGHT</div>

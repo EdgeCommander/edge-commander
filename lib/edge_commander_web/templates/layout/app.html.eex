@@ -42,5 +42,10 @@
 
     </div> <!-- /container -->
     <script src="<%= static_path(@conn, "/js/app.js") %>"></script>
+    <script type="text/javascript">
+      $(document).ready(function () {
+        console.log("JQuery loaded buddy.");
+      });
+    </script>
   </body>
 </html>
