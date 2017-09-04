@@ -14,7 +14,7 @@ exports.config = {
       // To change the order of concatenation of files, explicitly mention here
       // order: {
       //   before: [
-      //     "vendor/js/jquery-2.1.1.js",
+      //     "vendor/js/jquery.min.js"
       //     "vendor/js/bootstrap.min.js"
       //   ]
       // }
@@ -57,6 +57,10 @@ exports.config = {
   },
 
   npm: {
-    enabled: true
+    enabled: true,
+    globals: {
+      $: 'jquery',
+      jQuery: 'jquery'
+    }
   }
 };
