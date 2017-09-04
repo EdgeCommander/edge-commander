@@ -3,7 +3,8 @@
     <div class="nine wide column">
       <div class="ui fluid card">
         <div class="content">
-        <form class="ui form" method="POST" action="/session">
+        <form class="ui form" method="POST" action="/users/session">
+          <input type="hidden" name="_csrf_token" value="<%= @csrf_token %>">
           <div class="field">
             <label>Email</label>
             <input type="text" name="email" placeholder="Eamil">

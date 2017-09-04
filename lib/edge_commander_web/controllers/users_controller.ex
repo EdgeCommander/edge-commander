@@ -33,7 +33,8 @@ defmodule EdgeCommanderWeb.UsersController do
   end
 
   defp merge_last_signed_in(params) do
-    {:ok, Map.merge(params, %{"last_signed_in" => Ecto.DateTime.utc})}
+    username = String.split(params["email"], "@") |> List.first
+    {:ok, Map.merge(params, %{"username" => username, "last_signed_in" => Ecto.DateTime.utc})}
   end
 
   defp changeset_is_fine(params) do

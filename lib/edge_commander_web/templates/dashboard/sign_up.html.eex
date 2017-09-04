@@ -31,7 +31,7 @@
           </button>
         </form>
         <div class="ui message">
-              Not New to us? <a href="/sign_in">Sign In</a>
+              Not New to us? <a href="/users/sign_in">Sign In</a>
         </div>
         </div>
       </div>

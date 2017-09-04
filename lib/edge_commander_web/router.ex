@@ -16,10 +16,15 @@ defmodule EdgeCommanderWeb.Router do
   scope "/", EdgeCommanderWeb do
     pipe_through :browser # Use the default browser stack
 
+    get "/", RooterController, :index
+
     get "/users/sign_in", DashboardController, :sign_in
     get "/users/sign_up", DashboardController, :sign_up
 
     post "/users/sign_up", UsersController, :sign_up
+
+    post "/users/session", SessionController, :create
+    delete "/users/session", SessionController, :delete
   end
 
   # Other scopes may use custom stacks.
