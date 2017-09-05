@@ -34,22 +34,22 @@
       <div class="ui form success">
         <div class="field">
           <label>Name</label>
-          <input type="text" placeholder="Galway Route.">
+          <input type="text" placeholder="Galway Route." id="nvr_name">
         </div>
         <div class="field">
           <label>IP or URL</label>
-          <input type="text" placeholder="https://youripmaybe">
+          <input type="text" placeholder="https://youripmaybe" id="nvr_ip">
         </div>
         <div class="field">
           <label>Username</label>
-          <input type="text" placeholder="jondoe">
+          <input type="text" placeholder="jondoe" id="nvr_username">
         </div>
         <div class="field">
           <label>Password</label>
-          <input type="text" placeholder="supersecret">
+          <input type="text" placeholder="supersecret" id="nvr_password">
         </div>
         <div class="field">
-          <div class="ui slider checkbox">
+          <div class="ui slider checkbox" id="is_monitoring">
             <input type="checkbox" tabindex="0" class="hidden">
             <label>Monitoring</label>
           </div>
@@ -62,7 +62,7 @@
       </div>
     </div>
     <div class="actions">
-      <button class="ui primary button">
+      <button class="ui primary button" id="saveModal">
         Save
       </button>
       <button class="ui button" id="discardModal">

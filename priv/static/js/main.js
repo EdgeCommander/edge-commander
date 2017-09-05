@@ -2,7 +2,8 @@ var initializeDataTable,
     closeMessageBox,
     replaceEntryWithAddButton,
     onNVRButton,
-    discardModal;
+    discardModal,
+    saveModal;
 
 initializeDataTable = function() {
   $('#example').DataTable();
@@ -40,10 +41,21 @@ discardModal = function() {
   });
 };
 
+saveModal = function() {
+  $("#saveModal").on("click", function() {
+    var name          = $("#nvr_name").val(),
+        IP            = $("#nvr_ip").val(),
+        username      = $("#nvr_username").val(),
+        password      = $("#nvr_password").val(),
+        is_monitoring = $("#is_monitoring").hasClass("checked");
+  });
+};
+
 window.initializeNVR = function() {
   initializeDataTable();
   closeMessageBox();
   replaceEntryWithAddButton();
   onNVRButton();
   discardModal();
+  saveModal();
 };
