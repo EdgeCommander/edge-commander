@@ -12,6 +12,7 @@ div#left{
 
 div#right{
   margin-left: 10px;
+  margin-top: 10px;
   min-height: 400px;
 }
 

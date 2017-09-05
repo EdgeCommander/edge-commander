@@ -23,6 +23,56 @@
 
 
 <div id="right">
+  <button class="ui labeled icon button" id="addNvr">
+    <i class="add circle icon"></i>
+    Add NVR
+  </button>
+
+  <div class="ui modal tiny" id="NVRaddModal">
+    <div class="header">Add NVR</div>
+    <div class="content">
+      <div class="ui form success">
+        <div class="field">
+          <label>Name</label>
+          <input type="text" placeholder="Galway Route.">
+        </div>
+        <div class="field">
+          <label>IP or URL</label>
+          <input type="text" placeholder="https://youripmaybe">
+        </div>
+        <div class="field">
+          <label>Username</label>
+          <input type="text" placeholder="jondoe">
+        </div>
+        <div class="field">
+          <label>Password</label>
+          <input type="text" placeholder="supersecret">
+        </div>
+        <div class="field">
+          <div class="ui slider checkbox">
+            <input type="checkbox" tabindex="0" class="hidden">
+            <label>Monitoring</label>
+          </div>
+          <label></label>
+        </div>
+<%#         <div class="ui success message">
+          <div class="header">Form Completed</div>
+          <p>You're all signed up for the newsletter.</p>
+        </div> %>
+      </div>
+    </div>
+    <div class="actions">
+      <button class="ui primary button">
+        Save
+      </button>
+      <button class="ui button" id="discardModal">
+        Discard
+      </button>
+    </div>
+  </div>
+
+
+
   <table id="example" class="ui celled table" cellspacing="0" width="100%">
     <thead>
       <tr>
@@ -31,6 +81,7 @@
           <th>Port</th>
           <th>Username</th>
           <th>Password</th>
+          <th>Monitoring</th>
       </tr>
     </thead>
     <tfoot>
@@ -40,6 +91,7 @@
           <th>Port</th>
           <th>Username</th>
           <th>Password</th>
+          <th>Monitoring</th>
       </tr>
     </tfoot>
     <tbody>
@@ -49,6 +101,7 @@
             <td>Edinburgh</td>
             <td>61</td>
             <td>2011/04/25</td>
+            <td>Yess</td>
         </tr>
     </tbody>
   </table>
