@@ -46,10 +46,11 @@
     <script src="<%= static_path(@conn, "/js/jquery.dataTables.min.js") %>"></script>
     <script src="<%= static_path(@conn, "/js/dataTables.semanticui.min.js") %>"></script>
     <script src="<%= static_path(@conn, "/js/semantic.min.js") %>"></script>
+    <script src="<%= static_path(@conn, "/js/main.js") %>"></script>
     <script type="text/javascript">
       $(document).ready(function () {
         console.log("JQuery loaded buddy.");
-        $('#example').DataTable();
+        window.initializeNVR();
       });
     </script>
   </body>
