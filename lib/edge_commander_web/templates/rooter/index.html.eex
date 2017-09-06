@@ -32,21 +32,26 @@
     <div class="header">Add NVR</div>
     <div class="content">
       <div class="ui form success">
+        <input type="hidden" id="user_id" value="<%= @user.id %>">
         <div class="field">
           <label>Name</label>
-          <input type="text" placeholder="Galway Route." id="nvr_name">
+          <input type="text" placeholder="Galway Route." id="nvr_name" name="nvr_name">
         </div>
         <div class="field">
           <label>IP or URL</label>
-          <input type="text" placeholder="https://youripmaybe" id="nvr_ip">
+          <input type="text" placeholder="https://youripmaybe" id="nvr_ip" name="nvr_ip">
         </div>
         <div class="field">
           <label>Username</label>
-          <input type="text" placeholder="jondoe" id="nvr_username">
+          <input type="text" placeholder="jondoe" id="nvr_username" name="nvr_username">
         </div>
         <div class="field">
           <label>Password</label>
-          <input type="text" placeholder="supersecret" id="nvr_password">
+          <input type="text" placeholder="supersecret" id="nvr_password" name="nvr_password">
+        </div>
+        <div class="field">
+          <label>Port</label>
+          <input type="text" placeholder="i.e. 453" id="nvr_port" name="nvr_port">
         </div>
         <div class="field">
           <div class="ui slider checkbox" id="is_monitoring">
