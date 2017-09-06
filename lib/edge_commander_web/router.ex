@@ -24,7 +24,9 @@ defmodule EdgeCommanderWeb.Router do
     post "/users/sign_up", UsersController, :sign_up
 
     post "/users/session", SessionController, :create
-    delete "/users/session", SessionController, :delete
+    get "/users/session", SessionController, :delete
+
+    post "/nvrs/new", NvrsController, :create
   end
 
   # Other scopes may use custom stacks.

@@ -13,43 +13,101 @@
       <i class="smile icon"></i>
       Friends
     </a>
-    <%= link "Logout", to: session_path(@conn, :delete), method: :delete, class: "item" %>
+    <a href="/users/session" class="item">
+      <i class="sign out icon"></i>
+      Logout
+    </a>
   </div>
 
 </div>
 
 
 <div id="right">
-<table id="example" class="ui celled table" cellspacing="0" width="100%">
-  <thead>
+  <button class="ui labeled icon button" id="addNvr">
+    <i class="add circle icon"></i>
+    Add NVR
+  </button>
+
+  <div class="ui modal tiny" id="NVRaddModal">
+    <div class="header">Add NVR</div>
+    <div class="content">
+      <div class="ui form success">
+        <input type="hidden" id="user_id" value="<%= @user.id %>">
+        <div class="field">
+          <label>Name</label>
+          <input type="text" placeholder="Galway Route." id="nvr_name" name="nvr_name">
+        </div>
+        <div class="field">
+          <label>IP or URL</label>
+          <input type="text" placeholder="https://youripmaybe" id="nvr_ip" name="nvr_ip">
+        </div>
+        <div class="field">
+          <label>Username</label>
+          <input type="text" placeholder="jondoe" id="nvr_username" name="nvr_username">
+        </div>
+        <div class="field">
+          <label>Password</label>
+          <input type="text" placeholder="supersecret" id="nvr_password" name="nvr_password">
+        </div>
+        <div class="field">
+          <label>Port</label>
+          <input type="text" placeholder="i.e. 453" id="nvr_port" name="nvr_port">
+        </div>
+        <div class="field">
+          <div class="ui slider checkbox" id="is_monitoring">
+            <input type="checkbox" tabindex="0" class="hidden">
+            <label>Monitoring</label>
+          </div>
+          <label></label>
+        </div>
+<%#         <div class="ui success message">
+          <div class="header">Form Completed</div>
+          <p>You're all signed up for the newsletter.</p>
+        </div> %>
+      </div>
+    </div>
+    <div class="actions">
+      <button class="ui primary button" id="saveModal">
+        Save
+      </button>
+      <button class="ui button" id="discardModal">
+        Discard
+      </button>
+    </div>
+  </div>
+
+
+
+  <table id="example" class="ui celled table" cellspacing="0" width="100%">
+    <thead>
       <tr>
           <th>Name</th>
-          <th>Position</th>
-          <th>Office</th>
-          <th>Age</th>
-          <th>Start date</th>
-          <th>Salary</th>
+          <th>IP</th>
+          <th>Port</th>
+          <th>Username</th>
+          <th>Password</th>
+          <th>Monitoring</th>
       </tr>
-  </thead>
-  <tfoot>
+    </thead>
+    <tfoot>
       <tr>
           <th>Name</th>
-          <th>Position</th>
-          <th>Office</th>
-          <th>Age</th>
-          <th>Start date</th>
-          <th>Salary</th>
+          <th>IP</th>
+          <th>Port</th>
+          <th>Username</th>
+          <th>Password</th>
+          <th>Monitoring</th>
       </tr>
-  </tfoot>
-  <tbody>
-      <tr>
-          <td>Tiger Nixon</td>
-          <td>System Architect</td>
-          <td>Edinburgh</td>
-          <td>61</td>
-          <td>2011/04/25</td>
-          <td>$320,800</td>
-      </tr>
-  </tbody>
-</table>
+    </tfoot>
+    <tbody>
+        <tr>
+            <td>Tiger Nixon</td>
+            <td>System Architect</td>
+            <td>Edinburgh</td>
+            <td>61</td>
+            <td>2011/04/25</td>
+            <td>Yess</td>
+        </tr>
+    </tbody>
+  </table>
 </div>

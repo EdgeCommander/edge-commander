@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="">
     <meta name="author" content="">
+    <%= Phoenix.HTML.Tag.csrf_meta_tag() %>
 
     <title>EdgeCommander!</title>
     <link rel="stylesheet" href="<%= static_path(@conn, "/css/app.css") %>">
@@ -46,10 +47,11 @@
     <script src="<%= static_path(@conn, "/js/jquery.dataTables.min.js") %>"></script>
     <script src="<%= static_path(@conn, "/js/dataTables.semanticui.min.js") %>"></script>
     <script src="<%= static_path(@conn, "/js/semantic.min.js") %>"></script>
+    <script src="<%= static_path(@conn, "/js/main.js") %>"></script>
     <script type="text/javascript">
       $(document).ready(function () {
         console.log("JQuery loaded buddy.");
-        $('#example').DataTable();
+        window.initializeNVR();
       });
     </script>
   </body>

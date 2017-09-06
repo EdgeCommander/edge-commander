@@ -5,7 +5,7 @@ defmodule EdgeCommanderWeb.RooterController do
 
   def index(conn, _params) do
     with %User{} <- current_user(conn) do
-      render conn, "index.html"
+      render(conn, "index.html", user: current_user(conn))
     else
       _ ->
         conn
