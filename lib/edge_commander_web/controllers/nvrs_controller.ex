@@ -34,7 +34,7 @@ defmodule EdgeCommanderWeb.NvrsController do
         traversed_errors = for {_key, values} <- errors, value <- values, do: "#{value}"
         conn
         |> put_status(400)
-        |> json(%{ errors: traversed_errors |> Poison.encode! })
+        |> json(%{ errors: traversed_errors })
     end
   end
 end

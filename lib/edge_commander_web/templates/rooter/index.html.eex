@@ -31,7 +31,12 @@
   <div class="ui modal tiny" id="NVRaddModal">
     <div class="header">Add NVR</div>
     <div class="content">
-      <div class="ui form success">
+      <div class="ui form">
+        <div class="ui message hide" id="nvrErrorDetails">
+          <div class="header">We had some issues</div>
+          <ul class="list" id="errorOnNVR">
+          </ul>
+        </div>
         <input type="hidden" id="user_id" value="<%= @user.id %>">
         <div class="field">
           <label>Name</label>
@@ -51,7 +56,7 @@
         </div>
         <div class="field">
           <label>Port</label>
-          <input type="text" placeholder="i.e. 453" id="nvr_port" name="nvr_port">
+          <input type="number" placeholder="i.e. 453" id="nvr_port" name="nvr_port">
         </div>
         <div class="field">
           <div class="ui slider checkbox" id="is_monitoring">

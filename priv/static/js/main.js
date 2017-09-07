@@ -5,7 +5,8 @@ var initializeDataTable,
     formValidations,
     discardModal,
     saveModal,
-    sendAJAXRequest;
+    sendAJAXRequest,
+    clearForm;
 
 sendAJAXRequest = function(settings) {
   var headers, token, xhrRequestChangeMonth;
@@ -19,20 +20,33 @@ sendAJAXRequest = function(settings) {
   return xhrRequestChangeMonth = jQuery.ajax(settings);
 };
 
+clearForm = function() {
+  $("#nvr_name").val("");
+  $("#nvr_ip").val("");
+  $("#nvr_username").val("");
+  $("#nvr_password").val("");
+  $("#nvr_port").val("");
+  $("#user_id").val("");
+}
+
 var onError, onSuccess;
 
 onError = function(jqXHR, status, error) {
-  // Notification.show(jqXHR.responseText);
-  console.log(jqXHR.responseText);
+  var cList = $('ul#errorOnNVR')
+  $.each(jqXHR.responseJSON.errors, function(index, value) {
+    console.log(value);
+    var li = $('<li/>')
+        .text(value)
+        .appendTo(cList);
+  });
+  $("#nvrErrorDetails").removeClass("hide");
   return false;
 };
 
 onSuccess = function(result, status, jqXHR) {
-  // $('#modal-add-admin').modal('hide');
+  $("#NVRaddModal").modal("hide");
+  clearForm();
   console.log(result);
-  // Notification.show("Admin has been added!");
-  // clearForm();
-  // addNewRow(result);
   return true;
 };
 
@@ -69,6 +83,8 @@ onNVRButton = function() {
 discardModal = function() {
   $("#discardModal").on("click", function() {
     $("#NVRaddModal").modal("hide");
+    $('ul#errorOnNVR').html("")
+    $("#nvrErrorDetails").addClass("hide");
   });
 };
 

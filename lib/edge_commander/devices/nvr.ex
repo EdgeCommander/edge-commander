@@ -2,8 +2,10 @@ defmodule EdgeCommander.Devices.Nvr do
   use Ecto.Schema
   import Ecto.Changeset
   alias EdgeCommander.Devices.Nvr
+  require IEx
 
   @ip_regex ~r/^(http(s?):\/\/)?(((www\.)?+[a-zA-Z0-9\.\-\_]+(\.[a-zA-Z]{2,3})+)|(\b(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\b))(\/[a-zA-Z0-9\_\-\s\.\/\?\%\#\&\=]*)?$/
+  @valid_number ~r/^\d+$/
 
   schema "nvrs" do
     belongs_to :user, EdgeCommander.Accounts.User
@@ -19,22 +21,6 @@ defmodule EdgeCommander.Devices.Nvr do
     field :username, :string
 
     timestamps()
-  end
-
-  defp _check_port(changeset) do
-    case changeset do
-      %Ecto.Changeset{valid?: true, changes: %{port: port}} ->
-        test_port_or_add_error(changeset, port)
-      _ ->
-        changeset
-    end
-  end
-
-  defp test_port_or_add_error(changeset, port) do
-    case Integer.parse(port) do
-      {_number, ""} -> put_change(changeset, :port, port)
-      _ -> add_error(changeset, :port, "Please enter an integer value.")
-    end
   end
 
   @doc false
