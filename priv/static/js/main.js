@@ -27,6 +27,8 @@ clearForm = function() {
   $("#nvr_password").val("");
   $("#nvr_port").val("");
   $("#user_id").val("");
+  $('ul#errorOnNVR').html("")
+  $("#nvrErrorDetails").addClass("hide");
 }
 
 var onError, onSuccess;

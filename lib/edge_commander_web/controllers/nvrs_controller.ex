@@ -9,7 +9,6 @@ defmodule EdgeCommanderWeb.NvrsController do
     changeset = Nvr.changeset(%Nvr{}, params)
     case Repo.insert(changeset) do
       {:ok, nvr} ->
-        IEx.pry
         %EdgeCommander.Devices.Nvr{
           name: name,
           username: username,

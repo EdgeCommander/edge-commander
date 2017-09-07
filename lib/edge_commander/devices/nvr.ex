@@ -36,5 +36,6 @@ defmodule EdgeCommander.Devices.Nvr do
     |> validate_length(:username, [min: 3, message: "Username should be at least 2 character(s)."])
     |> validate_length(:password, [min: 3, message: "Password should be at least 2 character(s)."])
     |> validate_format(:ip, @ip_regex, [message: "URL / IP format isn't valid!"])
+    |> validate_inclusion(:port, 1..65535, [message: "Port isn't valid!"])
   end
 end
