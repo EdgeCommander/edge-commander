@@ -55,7 +55,7 @@
           <input type="text" placeholder="supersecret" id="nvr_password" name="nvr_password">
         </div>
         <div class="field">
-          <label>Port</label>
+          <label>HTTP Port</label>
           <input type="number" placeholder="i.e. 453" id="nvr_port" name="nvr_port">
         </div>
         <div class="field">

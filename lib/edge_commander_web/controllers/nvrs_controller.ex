@@ -3,6 +3,7 @@ defmodule EdgeCommanderWeb.NvrsController do
   alias EdgeCommander.Devices.Nvr
   alias EdgeCommander.Repo
   alias EdgeCommander.Util
+  import EdgeCommander.Devices, only: [update_nvr_ISAPI: 1]
   require IEx
 
   def create(conn, params) do
@@ -17,6 +18,8 @@ defmodule EdgeCommanderWeb.NvrsController do
           port: port,
           is_monitoring: is_monitoring
         } = nvr
+
+        spawn(fn -> update_nvr_ISAPI(nvr) end)
 
         conn
         |> put_status(:created)

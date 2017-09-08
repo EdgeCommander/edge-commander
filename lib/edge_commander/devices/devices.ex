@@ -4,9 +4,56 @@ defmodule EdgeCommander.Devices do
   """
 
   import Ecto.Query, warn: false
+  import EdgeCommander.Util, only: [parse_inner_array: 1, parse_single_element: 2]
   alias EdgeCommander.Repo
+  require Logger
+  require IEx
 
   alias EdgeCommander.Devices.Nvr
+
+  def update_nvr_ISAPI(nvr)  do
+    request_url = "#{nvr.ip}:#{nvr.port}/ISAPI/System/deviceInfo"
+    hackney = [basic_auth: {"#{nvr.username}", "#{nvr.password}"}]
+
+    dispatch_url_request(HTTPoison.get(request_url, [], hackney: hackney), nvr)
+  end
+
+  def dispatch_url_request({:ok,  %HTTPoison.Response{body: body}}, nvr) do
+    prepare_changeset_for_ISAPI(body, nvr)
+  end
+  def dispatch_url_request(_, nvr), do: Logger.info "#{nvr.name} didnt respond for ISAPI."
+
+  def prepare_changeset_for_ISAPI(body, nvr) do
+    nvr
+    |> Nvr.changeset(
+      %{
+        firmware_version: fetch_device_info(body, 'firmwareVersion'),
+        model: fetch_device_info(body, 'model'),
+        extra: %{
+          device_name: fetch_device_info(body, 'deviceName'),
+          device_id: fetch_device_info(body, 'deviceID'),
+          serial_number: fetch_device_info(body, 'serialNumber'),
+          mac_address: fetch_device_info(body, 'macAddress'),
+          firmware_released_date: fetch_device_info(body, 'firmwareReleasedDate'),
+          encoder_version: fetch_device_info(body, 'encoderVersion'),
+          encoder_released_date: fetch_device_info(body, 'encoderReleasedDate'),
+          device_type: fetch_device_info(body, 'deviceType')
+        }
+      }
+    )
+    |> Repo.update()
+    |> declare_ISAPI_update
+  end
+
+  defp declare_ISAPI_update({:ok, updated_ISAPI_nvr}), do: Logger.info "#{updated_ISAPI_nvr.name} has been updated with ISAPI attrs."
+  defp declare_ISAPI_update({:error, changeset}), do: Logger.info "Error: #{changeset}"
+
+  def fetch_device_info(body, attr) do
+    IEx.pry
+    body
+    |> parse_inner_array
+    |> parse_single_element('/DeviceInfo/#{attr}')
+  end
 
   @doc """
   Returns the list of nvrs.
