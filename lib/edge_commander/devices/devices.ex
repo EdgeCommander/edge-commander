@@ -49,7 +49,6 @@ defmodule EdgeCommander.Devices do
   defp declare_ISAPI_update({:error, changeset}), do: Logger.info "Error: #{changeset}"
 
   def fetch_device_info(body, attr) do
-    IEx.pry
     body
     |> parse_inner_array
     |> parse_single_element('/DeviceInfo/#{attr}')
