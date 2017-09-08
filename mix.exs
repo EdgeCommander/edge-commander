@@ -42,7 +42,8 @@ defmodule EdgeCommander.Mixfile do
       {:gettext, "~> 0.11"},
       {:cowboy, "~> 1.0"},
       {:comeonin, "~> 3.0"},
-      {:dotenv, "~> 2.1.0"}
+      {:dotenv, "~> 2.1.0"},
+      {:httpoison, "~> 0.13.0"}
     ]
   end
 
