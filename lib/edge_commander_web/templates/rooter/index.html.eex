@@ -82,6 +82,17 @@
   </div>
 
 
+  <table id="test">
+    <thead>
+      <tr>
+        <th>test</th>
+      </tr>
+    </thead>
+    <tbody>
+      
+    </tbody>
+  </table>
+
 
   <table id="example" class="ui celled table" cellspacing="0" width="100%">
     <thead>

@@ -53,7 +53,38 @@ onSuccess = function(result, status, jqXHR) {
 };
 
 initializeDataTable = function() {
-  $('#example').DataTable();
+  $('#test').DataTable({
+    ajax: {
+      url: "/get_all_nvrs",
+      dataSrc: function(data) {
+        // console.log(d);
+        // console.log(d.nvrs);
+        return data.nvrs;
+      },
+      error: function(xhr, error, thrown) {
+        if (xhr.responseJSON) {
+          console.log(xhr.responseJSON.message);
+        } else {
+          console.log("Something went wrong, Please try again.");
+        }
+      }
+    },
+    columns: [
+      {
+        orderable: false,
+        data: null,
+        defaultContent: ''
+      },
+    ],
+    autoWidth: false,
+    info: false,
+    bPaginate: true,
+    pageLength: 50,
+    "language": {
+      "emptyTable": "No data available"
+    },
+    order: [[0, "desc"]]
+  });
 };
 
 closeMessageBox = function() {
