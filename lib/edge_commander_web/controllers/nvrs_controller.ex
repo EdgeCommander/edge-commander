@@ -3,7 +3,7 @@ defmodule EdgeCommanderWeb.NvrsController do
   alias EdgeCommander.Devices.Nvr
   alias EdgeCommander.Repo
   alias EdgeCommander.Util
-  import EdgeCommander.Devices, only: [update_nvr_ISAPI: 1]
+  import EdgeCommander.Devices, only: [update_nvr_ISAPI: 1, list_nvrs: 0]
   require IEx
 
   def create(conn, params) do
@@ -38,5 +38,28 @@ defmodule EdgeCommanderWeb.NvrsController do
         |> put_status(400)
         |> json(%{ errors: traversed_errors })
     end
+  end
+
+  def get_all_nvrs(conn, _params)  do
+    nvrs = 
+      list_nvrs()
+      |> Enum.map(fn(nvr) ->
+        %{
+          name: nvr.name,
+          username: nvr.username,
+          password: nvr.password,
+          ip: nvr.ip,
+          port: nvr.port,
+          is_monitoring: nvr.is_monitoring,
+          firmware_version: nvr.firmware_version,
+          model: nvr.model,
+          extra: nvr.extra
+        }
+      end)
+    conn
+    |> put_status(200)
+    |> json(%{
+      "nvrs": nvrs
+    })
   end
 end

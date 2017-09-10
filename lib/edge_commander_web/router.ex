@@ -27,6 +27,7 @@ defmodule EdgeCommanderWeb.Router do
     get "/users/session", SessionController, :delete
 
     post "/nvrs/new", NvrsController, :create
+    get "/get_all_nvrs", NvrsController, :get_all_nvrs
   end
 
   # Other scopes may use custom stacks.
