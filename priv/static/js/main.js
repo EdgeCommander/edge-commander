@@ -52,8 +52,10 @@ onSuccess = function(result, status, jqXHR) {
   return true;
 };
 
+var NVRtable;
+
 initializeDataTable = function() {
-  $('#test').DataTable({
+  NVRtable = $('#example').DataTable({
     ajax: {
       url: "/get_all_nvrs",
       dataSrc: function(data) {
@@ -75,15 +77,141 @@ initializeDataTable = function() {
         data: null,
         defaultContent: ''
       },
+      {
+        data: function(row, type, set, meta) {
+          return row.name;
+        }
+      },
+      {
+        data: function(row, type, set, meta) {
+          return row.ip;
+        }
+      },
+      {
+        data: function(row, type, set, meta) {
+          return row.port;
+        }
+      },
+      {
+        data: function(row, type, set, meta) {
+          return row.username;
+        }
+      },
+      {
+        data: function(row, type, set, meta) {
+          return row.password;
+        }
+      },
+      {
+        data: function(row, type, set, meta) {
+          console.log(row.is_monitoring);
+          if (row.is_monitoring == true) {
+            return "Yes";
+          }
+          return "No";
+        }
+      },
     ],
     autoWidth: false,
     info: false,
     bPaginate: true,
-    pageLength: 50,
+    pageLength: 5,
     "language": {
       "emptyTable": "No data available"
     },
-    order: [[0, "desc"]]
+    order: [[1, "desc"]],
+    drawCallback: function() {
+      var api;
+      api = this.api();
+      $.each(api.rows({
+        page: 'current'
+      }).data(), function(i, data) {
+        return $("table#example > tbody > tr:eq(" + i + ") td:eq(0)")
+                .addClass("details-control")
+                .css( "text-align", "center" )
+                .css( "cursor", "pointer" )
+                .html("<i class='plus icon'></i>");
+      });
+    }
+  });
+};
+
+var showDetails, format;
+
+format =  function(row) {
+  console.log(row);
+  if (!row || row.model === null) {
+    return "No data available."
+  }
+  return "<table class='ui celled striped table' style='width: 60%;'>\
+      <thead>\
+        <tr>\
+          <th colspan='2'>\
+            Device Information\
+          </th>\
+        </tr>\
+      </thead>\
+      <tbody>\
+        <tr>\
+          <td>Firmware Version</td>\
+          <td>"+ row.firmware_version +"</td>\
+        </tr>\
+        <tr>\
+          <td>Model</td>\
+          <td>"+ row.model +"</td>\
+        </tr>\
+        <tr>\
+          <td>Device Name</td>\
+          <td>"+ row.extra.device_name +"</td>\
+        </tr>\
+        <tr>\
+          <td>Device Type</td>\
+          <td>"+ row.extra.device_type +"</td>\
+        </tr>\
+        <tr>\
+          <td>Device Id</td>\
+          <td>"+ row.extra.device_id +"</td>\
+        </tr>\
+        <tr>\
+          <td>Encorder Released Date</td>\
+          <td>"+ row.extra.encoder_released_date +"</td>\
+        </tr>\
+        <tr>\
+          <td>Encoder Version</td>\
+          <td>"+ row.extra.encoder_version +"</td>\
+        </tr>\
+        <tr>\
+          <td>Firmware Released Date</td>\
+          <td>"+ row.extra.firmware_released_date +"</td>\
+        </tr>\
+        <tr>\
+          <td>Mac Address</td>\
+          <td>"+ row.extra.mac_address +"</td>\
+        </tr>\
+        <tr>\
+          <td>Serial Number</td>\
+          <td>"+ row.extra.serial_number +"</td>\
+        </tr>\
+      </tbody>\
+    </table>"
+};
+
+showDetails = function() {
+  $('#example tbody').on('click', 'td.details-control', function() {
+    var row, tr;
+    tr = $(this).closest('tr');
+    row = NVRtable.row(tr);
+    if (row.child.isShown()) {
+      row.child.hide();
+      tr.removeClass('shown');
+      tr.find('td.details-control')
+        .html("<i class='plus icon' aria-hidden='true'></i>");
+    } else {
+      row.child(format(row.data())).show();
+      tr.addClass('shown');
+      tr.find('td.details-control')
+        .html("<i class='remove icon' aria-hidden='true'></i>");
+    }
   });
 };
 
@@ -167,5 +295,6 @@ window.initializeNVR = function() {
   replaceEntryWithAddButton();
   onNVRButton();
   discardModal();
+  showDetails();
   saveModal();
 };

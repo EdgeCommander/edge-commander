@@ -81,51 +81,20 @@
     </div>
   </div>
 
-
-  <table id="test">
-    <thead>
-      <tr>
-        <th>test</th>
-      </tr>
-    </thead>
-    <tbody>
-      
-    </tbody>
-  </table>
-
-
   <table id="example" class="ui celled table" cellspacing="0" width="100%">
     <thead>
       <tr>
-          <th>Name</th>
-          <th>IP</th>
-          <th>Port</th>
-          <th>Username</th>
-          <th>Password</th>
-          <th>Monitoring</th>
+        <th>ISAPI</th>
+        <th>Name</th>
+        <th>IP</th>
+        <th>Port</th>
+        <th>Username</th>
+        <th>Password</th>
+        <th>Monitoring</th>
       </tr>
     </thead>
-    <tfoot>
-      <tr>
-          <th>Name</th>
-          <th>IP</th>
-          <th>Port</th>
-          <th>Username</th>
-          <th>Password</th>
-          <th>Monitoring</th>
-      </tr>
-    </tfoot>
     <tbody>
-      <%= for nvr <- @nvrs do %>
-        <tr>
-          <td><%= nvr.name %></td>
-          <td><%= nvr.ip %></td>
-          <td><%= nvr.port %></td>
-          <td><%= nvr.username %></td>
-          <td><%= nvr.password %></td>
-          <td><%= nvr.is_monitoring %></td>
-        </tr>
-      <% end %>
+
     </tbody>
   </table>
 </div>
