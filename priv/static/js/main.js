@@ -6,7 +6,8 @@ var initializeDataTable,
     discardModal,
     saveModal,
     sendAJAXRequest,
-    clearForm;
+    clearForm,
+    NVRtable;
 
 sendAJAXRequest = function(settings) {
   var headers, token, xhrRequestChangeMonth;
@@ -48,11 +49,10 @@ onError = function(jqXHR, status, error) {
 onSuccess = function(result, status, jqXHR) {
   $("#NVRaddModal").modal("hide");
   clearForm();
+  NVRtable.ajax.reload();
   console.log(result);
   return true;
 };
-
-var NVRtable;
 
 initializeDataTable = function() {
   NVRtable = $('#example').DataTable({
@@ -115,7 +115,7 @@ initializeDataTable = function() {
     autoWidth: false,
     info: false,
     bPaginate: true,
-    pageLength: 5,
+    pageLength: 50,
     "language": {
       "emptyTable": "No data available"
     },
