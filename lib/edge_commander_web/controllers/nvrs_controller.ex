@@ -45,6 +45,7 @@ defmodule EdgeCommanderWeb.NvrsController do
       list_nvrs()
       |> Enum.map(fn(nvr) ->
         %{
+          id: nvr.id,
           name: nvr.name,
           username: nvr.username,
           password: nvr.password,

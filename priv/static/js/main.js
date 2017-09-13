@@ -71,6 +71,14 @@ initializeDataTable = function() {
         }
       }
     },
+    "createdRow": function (row, data, rowIndex) {
+        $.each($('td', row), function (colIndex) {
+            if (colIndex === 8 || colIndex === 7) {
+              console.log(colIndex);
+              $(this).attr('data-id', data.id);
+            }
+        });
+    },
     columns: [
       {
         orderable: false,
@@ -104,7 +112,6 @@ initializeDataTable = function() {
       },
       {
         data: function(row, type, set, meta) {
-          console.log(row.is_monitoring);
           if (row.is_monitoring == true) {
             return "Yes";
           }
@@ -147,6 +154,20 @@ initializeDataTable = function() {
                 .html("<i class='plus icon'></i>");
       });
     }
+  });
+};
+
+var deleteNVR;
+
+deleteNVR = function() {
+  $("#example").on("click", ".deleteNVR", function() {
+    var nvrRow, result;
+    result = confirm("Are you sure to delete this NVR?");
+    if (result === false) {
+      return;
+    }
+    nvrRow = $(this).parents('tr');
+
   });
 };
 
