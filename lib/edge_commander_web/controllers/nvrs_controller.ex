@@ -3,7 +3,7 @@ defmodule EdgeCommanderWeb.NvrsController do
   alias EdgeCommander.Devices.Nvr
   alias EdgeCommander.Repo
   alias EdgeCommander.Util
-  import EdgeCommander.Devices, only: [update_nvr_ISAPI: 1, list_nvrs: 0]
+  import EdgeCommander.Devices, only: [update_nvr_ISAPI: 1, list_nvrs: 0, get_nvr!: 1]
   require IEx
 
   def create(conn, params) do
@@ -62,5 +62,24 @@ defmodule EdgeCommanderWeb.NvrsController do
     |> json(%{
       "nvrs": nvrs
     })
+  end
+
+  def delete(conn, %{"id" => id} = _params) do
+    get_nvr!(id)
+    |> Repo.delete
+    |> case do
+      {:ok, %EdgeCommander.Devices.Nvr{}} ->
+        conn
+        |> put_status(200)
+        |> json(%{
+          "deleted": true
+        })
+      {:error, changeset} ->
+        errors = Util.parse_changeset(changeset)
+        traversed_errors = for {_key, values} <- errors, value <- values, do: "#{value}"
+        conn
+        |> put_status(400)
+        |> json(%{ errors: traversed_errors })
+    end
   end
 end

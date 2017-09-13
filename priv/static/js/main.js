@@ -167,8 +167,39 @@ deleteNVR = function() {
       return;
     }
     nvrRow = $(this).parents('tr');
+    nvrID = $(this).attr('data-id');
 
+    var data = {};
+    data.id = nvrID;
+    var settings;
+
+    settings = {
+      cache: false,
+      data: data,
+      dataType: 'json',
+      error: onNVRDeleteError,
+      success: onNVRDeleteSuccess,
+      contentType: "application/x-www-form-urlencoded",
+      context: {nvrRow: nvrRow},
+      type: "DELETE",
+      url: "/nvrs/delete"
+    };
+
+    sendAJAXRequest(settings);
   });
+};
+
+var onNVRDeleteError, onNVRDeleteSuccess;
+
+onNVRDeleteError = function(jqXHR, status, error) {
+  console.log(jqXHR.responseJSON);
+  return false;
+};
+
+onNVRDeleteSuccess = function(result, status, jqXHR) {
+  console.log(result);
+  this.nvrRow.remove();
+  return true;
 };
 
 var showDetails, format;
@@ -332,4 +363,5 @@ window.initializeNVR = function() {
   discardModal();
   showDetails();
   saveModal();
+  deleteNVR();
 };
