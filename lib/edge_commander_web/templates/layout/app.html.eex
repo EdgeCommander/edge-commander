@@ -9,8 +9,9 @@
     <%= Phoenix.HTML.Tag.csrf_meta_tag() %>
 
     <title>EdgeCommander!</title>
-    <link rel="stylesheet" href="<%= static_path(@conn, "/css/app.css") %>">
+    <link rel="stylesheet" href="<%= static_path(@conn, "/css/dataTables.semanticui.min.css") %>">
     <link rel="stylesheet" href="<%= static_path(@conn, "/css/semantic.min.css") %>">
+    <link rel="stylesheet" href="<%= static_path(@conn, "/css/app.css") %>">
   </head>
 
   <body>

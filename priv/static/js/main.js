@@ -111,6 +111,20 @@ initializeDataTable = function() {
           return "No";
         }
       },
+      {
+        orderable: false,
+        data: function(row, type, set, meta) {
+          return "<i class='write square icon'></i>"
+        },
+        className: 'center aligned editNVR',
+      },
+      {
+        orderable: false,
+        data: function(row, type, set, meta) {
+          return "<i class='trash icon'></i>"
+        },
+        className: 'center aligned deleteNVR',
+      },
     ],
     autoWidth: false,
     info: false,
