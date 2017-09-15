@@ -49,6 +49,7 @@ onError = function(jqXHR, status, error) {
 onSuccess = function(result, status, jqXHR) {
   $("#NVRaddModal").modal("hide");
   clearForm();
+  $.notify("NVR has been added", "success");
   NVRtable.ajax.reload();
   console.log(result);
   return true;
@@ -199,6 +200,7 @@ onNVRDeleteError = function(jqXHR, status, error) {
 onNVRDeleteSuccess = function(result, status, jqXHR) {
   console.log(result);
   this.nvrRow.remove();
+  $.notify("NVR has been deleted", "success");
   return true;
 };
 
