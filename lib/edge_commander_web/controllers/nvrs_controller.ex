@@ -85,4 +85,40 @@ defmodule EdgeCommanderWeb.NvrsController do
         |> json(%{ errors: traversed_errors })
     end
   end
+
+  def update(conn, %{"id" => id} = params) do
+    get_nvr!(id)
+    |> Nvr.changeset(params)
+    |> Repo.update
+    |> case do
+      {:ok, nvr} ->
+        %EdgeCommander.Devices.Nvr{
+          name: name,
+          username: username,
+          password: password,
+          ip: ip,
+          port: port,
+          is_monitoring: is_monitoring,
+          inserted_at: inserted_at
+        } = nvr
+
+        conn
+        |> put_status(:created)
+        |> json(%{
+          "name" => name,
+          "username" => username,
+          "password" => password,
+          "ip" => ip,
+          "port" => port,
+          "is_monitoring" => is_monitoring,
+          "created_at" => inserted_at
+        })
+      {:error, changeset} ->
+        errors = Util.parse_changeset(changeset)
+        traversed_errors = for {_key, values} <- errors, value <- values, do: "#{value}"
+        conn
+        |> put_status(400)
+        |> json(%{ errors: traversed_errors })   
+    end
+  end
 end
