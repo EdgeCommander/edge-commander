@@ -13,6 +13,7 @@ config :edge_commander, EdgeCommanderWeb.Endpoint,
 
 # Configure your database
 config :edge_commander, EdgeCommander.Repo,
+  adapter: Ecto.Adapters.Postgres,
   url: System.get_env("DATABASE_URL"),
   socket_options: [keepalive: true],
   timeout: 60_000,
