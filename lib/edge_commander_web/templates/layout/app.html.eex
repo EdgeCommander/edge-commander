@@ -10,6 +10,7 @@
 
     <title>EdgeCommander!</title>
     <link rel="stylesheet" href="<%= static_path(@conn, "/css/dataTables.semanticui.min.css") %>">
+    <link rel="stylesheet" href="<%= static_path(@conn, "/css/Semantic-UI-Alert.css") %>">
     <link rel="stylesheet" href="<%= static_path(@conn, "/css/semantic.min.css") %>">
     <link rel="stylesheet" href="<%= static_path(@conn, "/css/app.css") %>">
   </head>
@@ -48,7 +49,7 @@
     <script src="<%= static_path(@conn, "/js/jquery.dataTables.min.js") %>"></script>
     <script src="<%= static_path(@conn, "/js/dataTables.semanticui.min.js") %>"></script>
     <script src="<%= static_path(@conn, "/js/semantic.min.js") %>"></script>
-    <script src="<%= static_path(@conn, "/js/notify.min.js") %>"></script>
+    <script src="<%= static_path(@conn, "/js/Semantic-UI-Alert.js") %>"></script>
     <script src="<%= static_path(@conn, "/js/main.js") %>"></script>
     <script type="text/javascript">
       $(document).ready(function () {

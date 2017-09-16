@@ -49,7 +49,15 @@ onError = function(jqXHR, status, error) {
 onSuccess = function(result, status, jqXHR) {
   $("#NVRaddModal").modal("hide");
   clearForm();
-  $.notify("NVR has been added", "success");
+  $.uiAlert({
+    textHead: 'Congratulations!', // header
+    text: 'NVR has been added.', // Text
+    bgcolor: '#0D71BB', // background-color
+    textcolor: '#fff', // color
+    position: 'top-right',// position . top And bottom ||  left / center / right
+    icon: 'checkmark box', // icon in semantic-UI
+    time: 3, // time
+  })
   NVRtable.ajax.reload();
   console.log(result);
   return true;
