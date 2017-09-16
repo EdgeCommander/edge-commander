@@ -43,12 +43,14 @@ onError = function(jqXHR, status, error) {
         .appendTo(cList);
   });
   $("#nvrErrorDetails").removeClass("hide");
+  $("#set_to_load").removeClass("loading");
   return false;
 };
 
 onSuccess = function(result, status, jqXHR) {
   $("#NVRaddModal").modal("hide");
   clearForm();
+  $("#set_to_load").removeClass("loading");
   $.uiAlert({
     textHead: 'Congratulations!', // header
     text: 'NVR has been added.', // Text
@@ -326,6 +328,9 @@ onNVRButton = function() {
   $("#addNvr")
     .on("click", function(){
       $('.ui.checkbox').checkbox();
+      $(".modal").modal({
+        closable: false,
+      });
       $('.tiny.modal').modal('show');
   });
 };
@@ -340,6 +345,7 @@ discardModal = function() {
 
 saveModal = function() {
   $("#saveModal").on("click", function() {
+    $("#set_to_load").addClass("loading");
     var name          = $("#nvr_name").val(),
         IP            = $("#nvr_ip").val(),
         username      = $("#nvr_username").val(),

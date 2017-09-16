@@ -31,7 +31,7 @@
   <div class="ui modal tiny" id="NVRaddModal">
     <div class="header">Add NVR</div>
     <div class="content">
-      <div class="ui form">
+      <div class="ui form" id="set_to_load">
         <div class="ui message hide" id="nvrErrorDetails">
           <div class="header">We had some issues</div>
           <ul class="list" id="errorOnNVR">
