@@ -16,7 +16,8 @@ defmodule EdgeCommanderWeb.NvrsController do
           password: password,
           ip: ip,
           port: port,
-          is_monitoring: is_monitoring
+          is_monitoring: is_monitoring,
+          inserted_at: inserted_at
         } = nvr
 
         update_nvr_ISAPI(nvr)
@@ -29,7 +30,8 @@ defmodule EdgeCommanderWeb.NvrsController do
           "password" => password,
           "ip" => ip,
           "port" => port,
-          "is_monitoring" => is_monitoring
+          "is_monitoring" => is_monitoring,
+          "created_at" => inserted_at
         })
       {:error, changeset} ->
         errors = Util.parse_changeset(changeset)
@@ -52,6 +54,7 @@ defmodule EdgeCommanderWeb.NvrsController do
           ip: nvr.ip,
           port: nvr.port,
           is_monitoring: nvr.is_monitoring,
+          created_at: nvr.inserted_at,
           firmware_version: nvr.firmware_version,
           model: nvr.model,
           extra: nvr.extra

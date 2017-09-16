@@ -82,7 +82,7 @@ initializeDataTable = function() {
     },
     "createdRow": function (row, data, rowIndex) {
         $.each($('td', row), function (colIndex) {
-            if (colIndex === 8 || colIndex === 7) {
+            if (colIndex === 8 || colIndex === 9) {
               console.log(colIndex);
               $(this).attr('data-id', data.id);
             }
@@ -128,18 +128,23 @@ initializeDataTable = function() {
         }
       },
       {
+        data: function(row, type, set, meta) {
+          return "" + moment(row.created_at).format('MMMM Do YYYY, H:mm:ss') +"";
+        }, sType: 'uk_datetime'
+      },
+      {
         orderable: false,
         data: function(row, type, set, meta) {
           return "<i class='write square icon'></i>"
         },
-        className: 'center aligned editNVR',
+        className: 'center aligned editNVR'
       },
       {
         orderable: false,
         data: function(row, type, set, meta) {
           return "<i class='trash icon'></i>"
         },
-        className: 'center aligned deleteNVR',
+        className: 'center aligned deleteNVR'
       },
     ],
     autoWidth: false,
@@ -149,7 +154,7 @@ initializeDataTable = function() {
     "language": {
       "emptyTable": "No data available"
     },
-    order: [[1, "desc"]],
+    order: [[7, "desc"]],
     drawCallback: function() {
       var api;
       api = this.api();
@@ -208,7 +213,15 @@ onNVRDeleteError = function(jqXHR, status, error) {
 onNVRDeleteSuccess = function(result, status, jqXHR) {
   console.log(result);
   this.nvrRow.remove();
-  $.notify("NVR has been deleted", "success");
+  $.uiAlert({
+    textHead: 'Congratulations!', // header
+    text: 'NVR has been deleted.', // Text
+    bgcolor: '#0D71BB', // background-color
+    textcolor: '#fff', // color
+    position: 'top-right',// position . top And bottom ||  left / center / right
+    icon: 'checkmark box', // icon in semantic-UI
+    time: 3, // time
+  })
   return true;
 };
 
