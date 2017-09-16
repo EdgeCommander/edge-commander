@@ -29,6 +29,9 @@ clearForm = function() {
   $("#nvr_port").val("");
   $("#user_id").val("");
   $('ul#errorOnNVR').html("");
+  $("#is_monitoring")
+    .removeClass("am_box_checked")
+    .addClass("am_box_un_checked");
   $("#nvrErrorDetails").addClass("hide");
 }
 
@@ -42,6 +45,9 @@ editClearFrom = function() {
   $("#edit_nvr_port").val("");
   $('ul#errorOnEditNVR').html("");
   $("#nvrEditErrorDetails").addClass("hide");
+  $("#edit_is_monitoring")
+    .removeClass("am_box_checked")
+    .addClass("am_box_un_checked");
 }
 
 var onError, onSuccess;
@@ -396,7 +402,9 @@ onNVREditButton = function() {
     });
     if (row.data().is_monitoring) {
       console.log("what is");
-      // $("#is_monitoring").addClass("checked");
+      $("#edit_is_monitoring")
+        .removeClass("am_box_un_checked")
+        .addClass("am_box_checked");
     }
     $('#NVReditModal').modal('show');
   });
@@ -415,7 +423,7 @@ updateNVRdo = function(){
         username      = $("#edit_nvr_username").val(),
         password      = $("#edit_nvr_password").val(),
         port          = $("#edit_nvr_port").val(),
-        is_monitoring = $("#edit_is_monitoring").hasClass("checked");
+        is_monitoring = $("#edit_is_monitoring").hasClass("am_box_checked");
 
     var data = {};
         data.name = name;
@@ -452,6 +460,37 @@ discardModal = function() {
   });
 };
 
+var enableADDDisableCheck, enableEDITDisableCheck;
+
+enableADDDisableCheck = function(){
+  $("#is_monitoring").on("click", function(){
+    if ($("#is_monitoring").hasClass("am_box_un_checked")) {
+      $("#is_monitoring")
+        .removeClass("am_box_un_checked")
+        .addClass("am_box_checked");
+    } else {
+      $("#is_monitoring")
+        .removeClass("am_box_checked")
+        .addClass("am_box_un_checked");
+    }
+  });
+};
+
+enableEDITDisableCheck = function(){
+  $("#edit_is_monitoring").on("click", function(){
+    if ($("#edit_is_monitoring").hasClass("am_box_un_checked")) {
+      $("#edit_is_monitoring")
+        .removeClass("am_box_un_checked")
+        .addClass("am_box_checked");
+    } else {
+      $("#edit_is_monitoring")
+        .removeClass("am_box_checked")
+        .addClass("am_box_un_checked");
+    }
+  });
+};
+
+
 var discardEditModal;
 
 discardEditModal = function() {
@@ -459,6 +498,7 @@ discardEditModal = function() {
     $("#NVReditModal").modal("hide");
     $('ul#errorOnNVR').html("")
     editClearFrom();
+    $("#edit_is_monitoring").removeClass("checked");
     $("#nvrErrorDetails").addClass("hide");
   });
 };
@@ -475,7 +515,7 @@ saveModal = function() {
         password      = $("#nvr_password").val(),
         port          = $("#nvr_port").val(),
         user_id       = $("#user_id").val(),
-        is_monitoring = $("#is_monitoring").hasClass("checked");
+        is_monitoring = $("#is_monitoring").hasClass("am_box_checked");
 
     var data = {};
         data.name = name;
@@ -516,6 +556,8 @@ window.initializeNVR = function() {
   showDetails();
   saveModal();
   deleteNVR();
+  enableADDDisableCheck();
+  enableEDITDisableCheck();
   updateNVRdo();
   discardEditModal();
   onNVREditButton();

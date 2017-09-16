@@ -56,11 +56,8 @@
           <input type="number" placeholder="i.e. 453" id="edit_nvr_port" name="nvr_port">
         </div>
         <div class="field">
-          <div class="ui slider checkbox" id="edit_is_monitoring">
-            <input type="checkbox" tabindex="0" class="hidden">
-            <label>Monitoring</label>
-          </div>
-          <label></label>
+          <div name="" class="am_box_un_checked" id="edit_is_monitoring"></div>
+          <label style="width: 14%;margin-top: -16px;margin-left: 21px;text-align:right;">Monitoring</label>
         </div>
       </div>
     </div>
@@ -112,11 +109,8 @@
           <input type="number" placeholder="i.e. 453" id="nvr_port" name="nvr_port">
         </div>
         <div class="field">
-          <div class="ui slider checkbox" id="is_monitoring">
-            <input type="checkbox" tabindex="0" class="hidden">
-            <label>Monitoring</label>
-          </div>
-          <label></label>
+          <div name="" class="am_box_un_checked" id="is_monitoring"></div>
+          <label style="width: 14%;margin-top: -16px;margin-left: 21px;text-align:right;">Monitoring</label>
         </div>
 <%#         <div class="ui success message">
           <div class="header">Form Completed</div>

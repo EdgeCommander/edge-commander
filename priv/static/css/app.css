@@ -49,3 +49,24 @@ div#right{
   width: 625px;
   margin: 0 auto;
 }
+
+.am_box_checked {
+  border: solid 1px white;
+  width: 15px;
+  height: 15px;
+  background-color: #0d71bb;
+}
+
+.am_box_un_checked {
+  border: solid 1px black;
+  width: 15px;
+  height: 15px;
+}
+
+#is_monitoring {
+  cursor: pointer;
+}
+
+#edit_is_monitoring {
+  cursor: pointer;
+}
