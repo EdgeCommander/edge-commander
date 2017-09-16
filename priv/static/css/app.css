@@ -36,6 +36,10 @@ div#right{
   cursor: pointer;
 }
 
+.ui.left.vertical.sidebar.labeled.icon.menu.visible.set_to_lock {
+  width: 95px;
+}
+
 .ui.negative {
   width: 625px;
   margin: 0 auto;

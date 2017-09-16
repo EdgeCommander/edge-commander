@@ -168,7 +168,8 @@ initializeDataTable = function() {
             return "Yes";
           }
           return "No";
-        }
+        },
+        className: 'center aligned'
       },
       {
         data: function(row, type, set, meta) {
