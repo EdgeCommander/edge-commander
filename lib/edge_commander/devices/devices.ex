@@ -13,9 +13,10 @@ defmodule EdgeCommander.Devices do
 
   def update_nvr_ISAPI(nvr)  do
     request_url = "#{nvr.ip}:#{nvr.port}/ISAPI/System/deviceInfo"
-    hackney = [basic_auth: {"#{nvr.username}", "#{nvr.password}"}]
+    hackney = [basic_auth: {"#{nvr.username}", "#{nvr.password}"}, timeout: 50_000, recv_timeout: 50_000]
 
-    dispatch_url_request(HTTPoison.get(request_url, [], hackney: hackney), nvr)
+    HTTPoison.get(request_url, [], hackney: hackney)
+    |> dispatch_url_request(nvr)
   end
 
   def dispatch_url_request({:ok,  %HTTPoison.Response{body: body}}, nvr) do

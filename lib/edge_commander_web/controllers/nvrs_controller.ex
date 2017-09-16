@@ -3,7 +3,7 @@ defmodule EdgeCommanderWeb.NvrsController do
   alias EdgeCommander.Devices.Nvr
   alias EdgeCommander.Repo
   alias EdgeCommander.Util
-  import EdgeCommander.Devices, only: [update_nvr_ISAPI: 1, list_nvrs: 0]
+  import EdgeCommander.Devices, only: [update_nvr_ISAPI: 1, list_nvrs: 0, get_nvr!: 1]
   require IEx
 
   def create(conn, params) do
@@ -16,10 +16,11 @@ defmodule EdgeCommanderWeb.NvrsController do
           password: password,
           ip: ip,
           port: port,
-          is_monitoring: is_monitoring
+          is_monitoring: is_monitoring,
+          inserted_at: inserted_at
         } = nvr
 
-        spawn(fn -> update_nvr_ISAPI(nvr) end)
+        update_nvr_ISAPI(nvr)
 
         conn
         |> put_status(:created)
@@ -29,7 +30,8 @@ defmodule EdgeCommanderWeb.NvrsController do
           "password" => password,
           "ip" => ip,
           "port" => port,
-          "is_monitoring" => is_monitoring
+          "is_monitoring" => is_monitoring,
+          "created_at" => inserted_at
         })
       {:error, changeset} ->
         errors = Util.parse_changeset(changeset)
@@ -45,12 +47,14 @@ defmodule EdgeCommanderWeb.NvrsController do
       list_nvrs()
       |> Enum.map(fn(nvr) ->
         %{
+          id: nvr.id,
           name: nvr.name,
           username: nvr.username,
           password: nvr.password,
           ip: nvr.ip,
           port: nvr.port,
           is_monitoring: nvr.is_monitoring,
+          created_at: nvr.inserted_at,
           firmware_version: nvr.firmware_version,
           model: nvr.model,
           extra: nvr.extra
@@ -61,5 +65,60 @@ defmodule EdgeCommanderWeb.NvrsController do
     |> json(%{
       "nvrs": nvrs
     })
+  end
+
+  def delete(conn, %{"id" => id} = _params) do
+    get_nvr!(id)
+    |> Repo.delete
+    |> case do
+      {:ok, %EdgeCommander.Devices.Nvr{}} ->
+        conn
+        |> put_status(200)
+        |> json(%{
+          "deleted": true
+        })
+      {:error, changeset} ->
+        errors = Util.parse_changeset(changeset)
+        traversed_errors = for {_key, values} <- errors, value <- values, do: "#{value}"
+        conn
+        |> put_status(400)
+        |> json(%{ errors: traversed_errors })
+    end
+  end
+
+  def update(conn, %{"id" => id} = params) do
+    get_nvr!(id)
+    |> Nvr.changeset(params)
+    |> Repo.update
+    |> case do
+      {:ok, nvr} ->
+        %EdgeCommander.Devices.Nvr{
+          name: name,
+          username: username,
+          password: password,
+          ip: ip,
+          port: port,
+          is_monitoring: is_monitoring,
+          inserted_at: inserted_at
+        } = nvr
+
+        conn
+        |> put_status(:created)
+        |> json(%{
+          "name" => name,
+          "username" => username,
+          "password" => password,
+          "ip" => ip,
+          "port" => port,
+          "is_monitoring" => is_monitoring,
+          "created_at" => inserted_at
+        })
+      {:error, changeset} ->
+        errors = Util.parse_changeset(changeset)
+        traversed_errors = for {_key, values} <- errors, value <- values, do: "#{value}"
+        conn
+        |> put_status(400)
+        |> json(%{ errors: traversed_errors })   
+    end
   end
 end
