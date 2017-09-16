@@ -35,3 +35,13 @@ div#right{
 .editNVR, .deleteNVR {
   cursor: pointer;
 }
+
+.ui.negative {
+  width: 625px;
+  margin: 0 auto;
+}
+
+.ui.info {
+  width: 625px;
+  margin: 0 auto;
+}
