@@ -19,7 +19,7 @@ defmodule EdgeCommanderWeb.NvrsController do
           is_monitoring: is_monitoring
         } = nvr
 
-        spawn(fn -> update_nvr_ISAPI(nvr) end)
+        update_nvr_ISAPI(nvr)
 
         conn
         |> put_status(:created)
