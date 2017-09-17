@@ -12,6 +12,8 @@ defmodule EdgeCommander.Application do
       supervisor(EdgeCommander.Repo, []),
       # Start the endpoint when the application starts
       supervisor(EdgeCommanderWeb.Endpoint, []),
+      ThreeScraper.Cookie,
+      EdgeCommander.ThreeScraper
       # Start your own worker by calling: EdgeCommander.Worker.start_link(arg1, arg2, arg3)
       # worker(EdgeCommander.Worker, [arg1, arg2, arg3]),
     ]
