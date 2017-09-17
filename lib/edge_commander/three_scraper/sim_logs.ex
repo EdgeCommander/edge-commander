@@ -12,7 +12,6 @@ defmodule EdgeCommander.ThreeScraper.SimLogs do
     field :number, :string
     field :volume_used, :string
 
-    timestamps()
   end
 
   @doc false
