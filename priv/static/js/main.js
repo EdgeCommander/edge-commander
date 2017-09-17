@@ -364,6 +364,13 @@ closeMessageBox = function() {
   ;
 };
 
+var fadeOutMessageBox;
+
+fadeOutMessageBox = function() {
+  $('.ui.info.message').fadeIn().delay(1000).fadeOut()
+  $('.ui.negative.message').fadeIn().delay(1000).fadeOut();
+};
+
 replaceEntryWithAddButton = function() {
   $(".dataTables_length").html("")
   var addNVRButton = $("#addNvr");
@@ -543,10 +550,6 @@ saveModal = function() {
   });
 };
 
-// formValidations = function() {
-  
-// }
-
 window.initializeNVR = function() {
   initializeDataTable();
   closeMessageBox();
@@ -560,5 +563,6 @@ window.initializeNVR = function() {
   enableEDITDisableCheck();
   updateNVRdo();
   discardEditModal();
+  fadeOutMessageBox();
   onNVREditButton();
 };

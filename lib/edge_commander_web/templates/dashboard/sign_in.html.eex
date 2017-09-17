@@ -7,7 +7,7 @@
           <input type="hidden" name="_csrf_token" value="<%= @csrf_token %>">
           <div class="field">
             <label>Email</label>
-            <input type="text" name="email" placeholder="Eamil">
+            <input type="text" name="email" placeholder="Email">
           </div>
           <div class="field">
             <label>Password</label>
