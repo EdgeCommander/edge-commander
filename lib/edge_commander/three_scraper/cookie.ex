@@ -53,7 +53,7 @@ defmodule ThreeScraper.Cookie do
   def login_form do
     username = Application.get_env(:three_scraper, :username)
     password = Application.get_env(:three_scraper, :password)
-    [{"username", "marco@evercam.io"}, {"password", "Nixers1e3"}, {"section", "section"}]
+    [{"username", username}, {"password", password}, {"section", "section"}]
   end
 
   def get_headers_retry do
