@@ -9,8 +9,6 @@ defmodule EdgeCommander.Repo.Migrations.CreateSimLogs do
       add :allowance, :string
       add :volume_used, :string
       add :datetime, :naive_datetime
-
-      timestamps()
     end
 
   end
