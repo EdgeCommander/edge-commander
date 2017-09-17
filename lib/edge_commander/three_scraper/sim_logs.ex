@@ -7,7 +7,7 @@ defmodule EdgeCommander.ThreeScraper.SimLogs do
   schema "sim_logs" do
     field :addon, :string
     field :allowance, :string
-    field :datatime, :naive_datetime
+    field :datetime, :naive_datetime
     field :name, :string
     field :number, :string
     field :volume_used, :string
