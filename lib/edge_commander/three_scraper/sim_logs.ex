@@ -18,7 +18,7 @@ defmodule EdgeCommander.ThreeScraper.SimLogs do
   @doc false
   def changeset(%SimLogs{} = sim_logs, attrs) do
     sim_logs
-    |> cast(attrs, [:number, :name, :addon, :allowance, :volume_used, :datatime])
-    |> validate_required([:number, :name, :addon, :allowance, :volume_used, :datatime])
+    |> cast(attrs, [:number, :name, :addon, :allowance, :volume_used, :datetime])
+    |> validate_required([:number, :name, :addon, :allowance, :volume_used, :datetime])
   end
 end
