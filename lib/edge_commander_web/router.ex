@@ -17,6 +17,9 @@ defmodule EdgeCommanderWeb.Router do
     pipe_through :browser # Use the default browser stack
 
     get "/", RooterController, :index
+    get "/sim_logs_report", RooterController, :sim_logs
+
+    get "/get_sims_data", SimsController, :get_sim_logs
 
     get "/users/sign_in", DashboardController, :sign_in
     get "/users/sign_up", DashboardController, :sign_up

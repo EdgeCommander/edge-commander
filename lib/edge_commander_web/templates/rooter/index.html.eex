@@ -5,6 +5,10 @@
       <i class="home icon"></i>
       Devices
     </a>
+    <a class="item" href="/sim_logs_report">
+      <i class="newspaper icon"></i>
+      Sims
+    </a>
     <a class="item">
       <i class="block layout icon"></i>
       Settings
@@ -18,7 +22,6 @@
       Logout
     </a>
   </div>
-
 </div>
 
 
