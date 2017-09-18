@@ -45,6 +45,13 @@ initializeSimLogsTable = function() {
         data: function(row, type, set, meta) {
           return row.percentage_used;
         }
+      },
+      {
+        data: function(row, type, set, meta) {
+          console.log(row);
+          var days_left = (row.allowance_in_number - row.current_in_number) / (row.current_in_number - row.yesterday_in_number)
+          return days_left;
+        }
       }
     ],
     autoWidth: false,

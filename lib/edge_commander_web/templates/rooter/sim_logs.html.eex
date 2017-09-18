@@ -15,6 +15,7 @@
         <th>Volume Used Today</th>
         <th>Volume Used Yesterday</th>
         <th>% Used</th>
+        <th>Days Remaining</th>
       </tr>
     </thead>
     <tbody>
