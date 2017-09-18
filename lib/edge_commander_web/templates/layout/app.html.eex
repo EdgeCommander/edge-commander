@@ -8,7 +8,7 @@
     <meta name="author" content="">
     <%= Phoenix.HTML.Tag.csrf_meta_tag() %>
 
-    <title>EdgeCommander!</title>
+    <title>EdgeCommander.com : Device Management & Monitoring Made Easy</title>
     <link rel="stylesheet" href="<%= static_path(@conn, "/css/dataTables.semanticui.min.css") %>">
     <link rel="stylesheet" href="<%= static_path(@conn, "/css/Semantic-UI-Alert.css") %>">
     <link rel="stylesheet" href="<%= static_path(@conn, "/css/semantic.min.css") %>">
@@ -52,10 +52,12 @@
     <script src="<%= static_path(@conn, "/js/Semantic-UI-Alert.js") %>"></script>
     <script src="<%= static_path(@conn, "/js/moment.js") %>"></script>
     <script src="<%= static_path(@conn, "/js/main.js") %>"></script>
+    <script src="<%= static_path(@conn, "/js/simlogs.js") %>"></script>
     <script type="text/javascript">
       $(document).ready(function () {
         console.log("JQuery loaded buddy.");
         window.initializeNVR();
+        window.initializeSimLogs();
       });
     </script>
   </body>

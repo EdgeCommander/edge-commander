@@ -1,24 +1,6 @@
 
 <div id="left">
-  <div class="ui left vertical sidebar labeled icon menu visible set_to_lock">
-    <a class="item" href="/">
-      <i class="home icon"></i>
-      Devices
-    </a>
-    <a class="item">
-      <i class="block layout icon"></i>
-      Settings
-    </a>
-    <a class="item">
-      <i class="smile icon"></i>
-      Status Report
-    </a>
-    <a href="/users/session" class="item">
-      <i class="sign out icon"></i>
-      Logout
-    </a>
-  </div>
-
+  <%= render_existing @view_module, "menu_list.html", assigns %>
 </div>
 
 

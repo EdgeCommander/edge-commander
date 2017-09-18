@@ -1,0 +1,24 @@
+
+<div id="left">
+  <%= render_existing @view_module, "menu_list.html", assigns %>
+</div>
+
+
+<div id="right">
+
+  <table id="sim_logs" class="ui celled table" cellspacing="0" width="100%">
+    <thead>
+      <tr>
+        <th>Number</th>
+        <th>Name</th>
+        <th>Allowance</th>
+        <th>Volume Used Today</th>
+        <th>Volume Used Yesterday</th>
+        <%# <th>Days Remaining</th> %>
+      </tr>
+    </thead>
+    <tbody>
+
+    </tbody>
+  </table>
+</div>
