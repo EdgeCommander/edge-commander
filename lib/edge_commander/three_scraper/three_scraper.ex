@@ -12,7 +12,7 @@ defmodule EdgeCommander.ThreeScraper do
   require Logger
   alias ThreeScraper.SIM
 
-  @period 60 * 60 * 1000 # one hour
+  @period 12 * 60 * 60 * 1000 # 24 hour
 
   def start_link(args) do
     GenServer.start_link(__MODULE__, args, name: __MODULE__)
