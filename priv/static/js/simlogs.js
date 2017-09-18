@@ -40,6 +40,11 @@ initializeSimLogsTable = function() {
         data: function(row, type, set, meta) {
           return row.volume_used_yesterday;
         }
+      },
+      {
+        data: function(row, type, set, meta) {
+          return row.percentage_used;
+        }
       }
     ],
     autoWidth: false,

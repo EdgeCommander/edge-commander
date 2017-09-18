@@ -14,7 +14,7 @@
         <th>Allowance</th>
         <th>Volume Used Today</th>
         <th>Volume Used Yesterday</th>
-        <%# <th>Days Remaining</th> %>
+        <th>% Used</th>
       </tr>
     </thead>
     <tbody>

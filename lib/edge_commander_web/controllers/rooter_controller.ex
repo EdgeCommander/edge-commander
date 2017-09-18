@@ -16,7 +16,7 @@ defmodule EdgeCommanderWeb.RooterController do
     end
   end
 
-  def sim_logs(conn, params) do
+  def sim_logs(conn, _params) do
     with %User{} <- current_user(conn) do
       render(conn, "sim_logs.html")
     else
