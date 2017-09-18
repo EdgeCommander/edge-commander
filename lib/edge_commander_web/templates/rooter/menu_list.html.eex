@@ -1,7 +1,7 @@
   <div class="ui left vertical sidebar labeled icon menu visible set_to_lock">
     <a class="item" href="/">
       <i class="home icon"></i>
-      Devices
+      NVRs
     </a>
     <a class="item" href="/sim_logs_report">
       <i class="newspaper icon"></i>
