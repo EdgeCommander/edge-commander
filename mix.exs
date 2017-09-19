@@ -46,7 +46,8 @@ defmodule EdgeCommander.Mixfile do
       {:httpoison, "~> 0.13.0"},
       {:quantum, ">= 2.1.0"},
       {:timex, "~> 3.0"},
-      {:floki, "~> 0.18"}
+      {:floki, "~> 0.18"},
+      {:calendar, "~> 0.17.2"}
     ]
   end
 
