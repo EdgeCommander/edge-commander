@@ -1,8 +1,5 @@
 defmodule EdgeCommanderWeb.SimsController do
   use EdgeCommanderWeb, :controller
-  alias EdgeCommander.Repo
-  alias EdgeCommander.Util
-  alias EdgeCommander.ThreeScraper.SimLogs
   import EdgeCommander.ThreeScraper, only: [all_sim_numbers: 0, get_last_two_days: 1]
   require IEx
 

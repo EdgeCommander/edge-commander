@@ -27,7 +27,6 @@ clearForm = function() {
   $("#nvr_username").val("");
   $("#nvr_password").val("");
   $("#nvr_port").val("");
-  $("#user_id").val("");
   $('ul#errorOnNVR').html("");
   $("#is_monitoring")
     .removeClass("am_box_checked")
@@ -533,6 +532,7 @@ saveModal = function() {
         data.is_monitoring = is_monitoring;
         data.user_id = user_id;
 
+    console.log(data);
     var settings;
 
     settings = {

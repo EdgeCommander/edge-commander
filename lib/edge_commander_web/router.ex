@@ -34,6 +34,9 @@ defmodule EdgeCommanderWeb.Router do
 
     delete "/nvrs/delete", NvrsController, :delete
     patch "/nvrs/update", NvrsController, :update
+
+    get "/update_status_report", NvrsController, :update_status_report
+    get "/status_report", RooterController, :status_report
   end
 
   # Other scopes may use custom stacks.

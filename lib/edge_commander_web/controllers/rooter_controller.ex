@@ -26,4 +26,15 @@ defmodule EdgeCommanderWeb.RooterController do
         |> redirect(to: "/users/sign_in")
     end
   end
+
+  def status_report(conn, _params) do
+    with %User{} <- current_user(conn) do
+      render(conn, "status_report.html")
+    else
+      _ ->
+        conn
+        |> put_flash(:error, "You must be logged in to see that page :).")
+        |> redirect(to: "/users/sign_in")
+    end
+  end
 end

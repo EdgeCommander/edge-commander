@@ -24,4 +24,14 @@ defmodule EdgeCommander.Util do
       [] -> ""
     end
   end
+
+  def port_open?(address, port) do
+    case :gen_tcp.connect(to_char_list(address), port, [:binary, active: false], 1000) do
+      {:ok, socket} ->
+        :gen_tcp.close(socket)
+        true
+      {:error, _error} ->
+        false
+    end
+  end
 end

@@ -12,6 +12,7 @@
     <link rel="stylesheet" href="<%= static_path(@conn, "/css/dataTables.semanticui.min.css") %>">
     <link rel="stylesheet" href="<%= static_path(@conn, "/css/Semantic-UI-Alert.css") %>">
     <link rel="stylesheet" href="<%= static_path(@conn, "/css/semantic.min.css") %>">
+    <link rel="stylesheet" href="<%= static_path(@conn, "/css/visavail.css") %>">
     <link rel="stylesheet" href="<%= static_path(@conn, "/css/app.css") %>">
   </head>
 
@@ -51,13 +52,17 @@
     <script src="<%= static_path(@conn, "/js/semantic.min.js") %>"></script>
     <script src="<%= static_path(@conn, "/js/Semantic-UI-Alert.js") %>"></script>
     <script src="<%= static_path(@conn, "/js/moment.js") %>"></script>
+    <script src="<%= static_path(@conn, "/js/d3.min.js") %>"></script>
+    <script src="<%= static_path(@conn, "/js/visavail.js") %>"></script>
     <script src="<%= static_path(@conn, "/js/main.js") %>"></script>
     <script src="<%= static_path(@conn, "/js/simlogs.js") %>"></script>
+    <script src="<%= static_path(@conn, "/js/statusreport.js") %>"></script>
     <script type="text/javascript">
       $(document).ready(function () {
         console.log("JQuery loaded buddy.");
         window.initializeNVR();
         window.initializeSimLogs();
+        window.initializeStatusReport();
       });
     </script>
   </body>

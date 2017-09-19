@@ -1,0 +1,14 @@
+<div id="left">
+  <%= render_existing @view_module, "menu_list.html", assigns %>
+</div>
+
+
+<div id="right">
+  <select class="ui dropdown start_report">
+    <option value="7">7 Day</option>
+    <option value="30">30 Day</option>
+  </select>
+  <div style="margin: 0 auto;width: 100%;margin-left: 117px;padding: 10px;" id="visavail_container">
+      <p id="draw_report" class="margin-top-5"></p>
+  </div>
+</div>

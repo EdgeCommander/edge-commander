@@ -5,6 +5,8 @@ defmodule EdgeCommander.Accounts.User do
 
 
   schema "users" do
+    has_many :nvrs, Nvr
+
     field :firstname, :string
     field :lastname, :string
     field :email, :string
