@@ -12,13 +12,13 @@ sendAJAXRequest = function(settings) {
   return xhrRequestChangeMonth = jQuery.ajax(settings);
 };
 
-var onError, onSuccess;
+var onErrorR, onSuccessR;
 
-onError = function(jqXHR, status, error) {
+onErrorR = function(jqXHR, status, error) {
   return false;
 };
 
-onSuccess = function(result, status, jqXHR) {
+onSuccessR = function(result, status, jqXHR) {
   console.log(result);
   startReport(result.data)
   return true;
@@ -53,8 +53,8 @@ initializeReport = function() {
       cache: false,
       data: data,
       dataType: 'json',
-      error: onError,
-      success: onSuccess,
+      error: onErrorR,
+      success: onSuccessR,
       contentType: "application/x-www-form-urlencoded",
       type: "GET",
       url: "/update_status_report"
