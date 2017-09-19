@@ -11,7 +11,7 @@
       <i class="block layout icon"></i>
       Settings
     </a>
-    <a class="item">
+    <a class="item" href="/status_report">
       <i class="smile icon"></i>
       Status Report
     </a>

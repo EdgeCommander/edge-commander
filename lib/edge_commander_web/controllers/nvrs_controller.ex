@@ -194,8 +194,6 @@ defmodule EdgeCommanderWeb.NvrsController do
         unshift_log
         |> Enum.with_index
         |> Enum.map(fn({log, index}) ->
-          IO.inspect log
-          IO.inspect index
           [format_date_time(log.done_at), digit_status(log.action), done_at_with_index(logs, index + 1, "Etc/UTC")]
         end)
     end

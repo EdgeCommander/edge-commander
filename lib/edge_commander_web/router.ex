@@ -36,6 +36,7 @@ defmodule EdgeCommanderWeb.Router do
     patch "/nvrs/update", NvrsController, :update
 
     get "/update_status_report", NvrsController, :update_status_report
+    get "/status_report", RooterController, :status_report
   end
 
   # Other scopes may use custom stacks.

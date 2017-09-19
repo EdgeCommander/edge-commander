@@ -1,3 +1,4 @@
+var initializeSimLogsTable;
 initializeSimLogsTable = function() {
   // $('#sim_logs').DataTable();
   $('#sim_logs').DataTable({

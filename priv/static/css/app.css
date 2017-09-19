@@ -6,14 +6,19 @@
 
 div#left{
   float:left;
-  width:100px;
+  width:7%;
   min-height: 400px;
 }
 
 div#right{
   margin-left: 10px;
   margin-top: 10px;
+  width: 100%;
   min-height: 400px;
+}
+
+#visavail_container {
+  width: 80%;
 }
 
 .page-login {
