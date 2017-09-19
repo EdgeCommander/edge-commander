@@ -11,7 +11,7 @@ defmodule EdgeCommander.Monitors do
 
   def get_monitored_nvrs do
     Nvr
-    |> select([nvr], %{nvr_id: nvr.id, nvr_ip: nvr.ip, nvr_port: nvr.port, nvr_name: nvr.name})
+    |> select([nvr], %{nvr_id: nvr.id, nvr_ip: nvr.ip, nvr_port: nvr.port, nvr_name: nvr.name, nvr_created_at: nvr.inserted_at})
     |> where([nvr], nvr.is_monitoring == true)
     |> distinct([nvr], nvr.ip)
     |> Repo.all

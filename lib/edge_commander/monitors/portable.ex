@@ -28,7 +28,8 @@ defmodule EdgeCommander.Portable do
         nvr_id: nvr.nvr_id,
         nvr_name: nvr.nvr_name,
         status: status,
-        done_at: Calendar.DateTime.now_utc
+        done_at: Calendar.DateTime.now_utc,
+        nvr_created_at: nvr.nvr_created_at
     })
     |> Repo.insert()
     |> rest_the_case

@@ -6,6 +6,7 @@ defmodule EdgeCommander.Repo.Migrations.CreateNvrPorts do
       add :nvr_id, :integer
       add :nvr_name, :string
       add :done_at, :utc_datetime
+      add :nvr_created_at, :utc_datetime
       add :status, :boolean, default: false, null: false
       add :extra, :map
 
