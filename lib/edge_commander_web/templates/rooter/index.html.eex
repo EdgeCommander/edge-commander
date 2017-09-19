@@ -16,7 +16,6 @@
           <ul class="list" id="errorOnEditNVR">
           </ul>
         </div>
-        <input type="hidden" id="user_id" value="<%= @user.id %>">
         <div class="field">
           <label>Name</label>
           <input type="text" placeholder="Galway Route." id="edit_nvr_name" name="nvr_name">
