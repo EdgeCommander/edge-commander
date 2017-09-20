@@ -28,6 +28,7 @@ clearForm = function() {
   $("#nvr_password").val("");
   $("#nvr_port").val("");
   $('ul#errorOnNVR').html("");
+  $("#set_to_load").removeClass("loading");
   $("#is_monitoring")
     .removeClass("am_box_checked")
     .addClass("am_box_un_checked");
@@ -44,6 +45,7 @@ editClearFrom = function() {
   $("#edit_nvr_port").val("");
   $('ul#errorOnEditNVR').html("");
   $("#nvrEditErrorDetails").addClass("hide");
+  $("#set_edit_to_load").removeClass("loading");
   $("#edit_is_monitoring")
     .removeClass("am_box_checked")
     .addClass("am_box_un_checked");
