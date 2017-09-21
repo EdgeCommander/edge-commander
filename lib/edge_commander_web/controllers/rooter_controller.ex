@@ -2,12 +2,11 @@ defmodule EdgeCommanderWeb.RooterController do
   use EdgeCommanderWeb, :controller
   alias EdgeCommander.Accounts.User
   import EdgeCommander.Accounts, only: [current_user: 1]
-  import EdgeCommander.Devices, only: [list_nvrs: 0]
+  import Gravatar
 
   def index(conn, _params) do
     with %User{} <- current_user(conn) do
-      nvrs = list_nvrs()
-      render(conn, "index.html", user: current_user(conn), nvrs: nvrs)
+      render(conn, "index.html", user: current_user(conn), gravatar_url: current_user(conn) |> Map.get(:email) |> gravatar_url(secure: true))
     else
       _ ->
         conn
@@ -18,7 +17,7 @@ defmodule EdgeCommanderWeb.RooterController do
 
   def sim_logs(conn, _params) do
     with %User{} <- current_user(conn) do
-      render(conn, "sim_logs.html")
+      render(conn, "sim_logs.html", user: current_user(conn), gravatar_url: current_user(conn) |> Map.get(:email) |> gravatar_url(secure: true), csrf_token: get_csrf_token())
     else
       _ ->
         conn

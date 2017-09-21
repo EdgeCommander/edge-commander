@@ -1,6 +1,6 @@
 defmodule EdgeCommanderWeb.SimsController do
   use EdgeCommanderWeb, :controller
-  import EdgeCommander.ThreeScraper, only: [all_sim_numbers: 0, get_last_two_days: 1]
+  import EdgeCommander.ThreeScraper, only: [all_sim_numbers: 0, get_last_two_days: 1, get_all_records_for_sim: 1]
   require IEx
 
   def get_sim_logs(conn, _params)  do
@@ -22,13 +22,35 @@ defmodule EdgeCommanderWeb.SimsController do
           percentage_used: "#{(current_in_number / allowance_in_number * 100) |> Float.round(3)} %",
           current_in_number: current_in_number,
           yesterday_in_number: yesterday_in_number,
-          allowance_in_number: allowance_in_number
+          allowance_in_number: allowance_in_number,
+          date_of_use: entries |> List.first |> Map.get(:datetime)
         }
       end)
     conn
     |> put_status(200)
     |> json(%{
       "logs": logs
+    })
+  end
+
+  def create_morris_line_data(conn, %{"sim_number" => sim_number } = _params) do
+    morris_data =
+      sim_number
+      |> get_all_records_for_sim()
+      |> Enum.map(fn(one_record) ->
+        {current_in_number, _} = one_record |> get_volume_used() |> String.replace(",", "") |> Float.parse()
+        {allowance_in_number, _} = one_record |> get_allowance() |> String.replace(",", "") |> Float.parse()
+
+        %{
+          datetime: one_record.datetime |> Calendar.Strftime.strftime("%Y-%m-%d %H:%M:%S") |> elem(1),
+          percentage_used: (current_in_number / allowance_in_number * 100) |> Float.round(3)
+        }
+      end)
+
+    conn
+    |> put_status(200)
+    |> json(%{
+      "morris_data": morris_data
     })
   end
 

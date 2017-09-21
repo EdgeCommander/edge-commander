@@ -1,0 +1,1 @@
+var BootstrapSelectsplitter=function(){var t=function(){$("#m_selectsplitter_1, #m_selectsplitter_2").selectsplitter()};return{init:function(){t()}}}();jQuery(document).ready(function(){BootstrapSelectsplitter.init()});

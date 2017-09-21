@@ -53,6 +53,13 @@ defmodule EdgeCommander.ThreeScraper do
     |> Repo.all
   end
 
+  def get_all_records_for_sim(sim_number) do
+    SimLogs
+    |> where(number: ^sim_number)
+    |> order_by(asc: :datetime)
+    |> Repo.all
+  end
+
   def list_sim_logs do
     Repo.all(SimLogs)
   end
