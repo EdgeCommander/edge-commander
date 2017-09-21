@@ -83,6 +83,10 @@ var logs = $.get( "/get_sims_data", function( data ) {
 });
  setTimeout(function () {
   DatatableDataLocalDemo.init(dupper);
+  $("#clean_moriss_data").on("click", function () {
+    console.log("heell");
+    $("#myfirstchart").html("");
+  });
   $("#child_data_local").on("click", "#show-morris-graph", function(){
     console.log($(this).data("id"));
     var settingsForMorris;
@@ -124,3 +128,9 @@ onMorrisSuccess = function (result, status, jqXHR) {
   });
   console.log(result.morris_data);
 };
+
+var cleanMorris_data = function() {
+  $("#clean_moriss_data").on("click", function () {
+    console.log("heell");
+  });
+}

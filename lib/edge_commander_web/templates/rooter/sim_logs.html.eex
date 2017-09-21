@@ -909,7 +909,7 @@
                     <div id="myfirstchart" style="height: 250px;"></div>
                   </div>
                   <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal" id="clean_moriss_data">
                       Close
                     </button>
                   </div>
