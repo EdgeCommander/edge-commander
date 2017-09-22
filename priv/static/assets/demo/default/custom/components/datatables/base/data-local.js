@@ -57,6 +57,16 @@ var DatatableDataLocalDemo = function() {
                   field: "percentage_used",
                   title: "% Used",
                   textAlign: "center"
+                },
+                {
+                  field: "",
+                  title: "Remaning Days",
+                  textAlign: "center",
+                  template: function(t) {
+                    console.log(t);
+                    var days_left = (t.allowance_in_number - t.current_in_number) / (t.current_in_number - t.yesterday_in_number)
+                    return Math.round(days_left * 100) / 100;
+                  }
                 }
               ]
             }),
@@ -118,7 +128,7 @@ onMorrisSuccess = function (result, status, jqXHR) {
     data: result.morris_data,
     // The name of the data record attribute that contains x-values.
     xkey: 'datetime',
-    parseTime: false,
+    parseTime: true,
     // A list of names of data record attributes that contain y-values.
     ykeys: ['percentage_used'],
     // Labels for the ykeys -- will be displayed when you hover over the
