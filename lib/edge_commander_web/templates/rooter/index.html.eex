@@ -838,6 +838,78 @@
                                     </span>
                                 </a>
                             </li>
+                            <li class="m-menu__item" aria-haspopup="true" >
+                                <a  href="/sims" class="m-menu__link ">
+                                    <i class="m-menu__link-icon la  la-building"></i>
+                                    <span class="m-menu__link-title">
+                                        <span class="m-menu__link-wrap">
+                                            <span class="m-menu__link-text">
+                                                NVRs
+                                            </span>>
+                                        </span>
+                                    </span>
+                                </a>
+                            </li>
+                            <li class="m-menu__item" aria-haspopup="true" >
+                                <a  href="/sims" class="m-menu__link ">
+                                    <i class="m-menu__link-icon fa  fa-barcode"></i>
+                                    <span class="m-menu__link-title">
+                                        <span class="m-menu__link-wrap">
+                                            <span class="m-menu__link-text">
+                                                Status Report
+                                            </span>>
+                                        </span>
+                                    </span>
+                                </a>
+                            </li>
+                            <li class="m-menu__item" aria-haspopup="true" >
+                                <a  href="/sims" class="m-menu__link ">
+                                    <i class="m-menu__link-icon fa fa-registered"></i>
+                                    <span class="m-menu__link-title">
+                                        <span class="m-menu__link-wrap">
+                                            <span class="m-menu__link-text">
+                                                Routers
+                                            </span>>
+                                        </span>
+                                    </span>
+                                </a>
+                            </li>
+                            <li class="m-menu__item" aria-haspopup="true" >
+                                <a  href="/sims" class="m-menu__link ">
+                                    <i class="m-menu__link-icon fa  fa-leanpub"></i>
+                                    <span class="m-menu__link-title">
+                                        <span class="m-menu__link-wrap">
+                                            <span class="m-menu__link-text">
+                                                Sites
+                                            </span>>
+                                        </span>
+                                    </span>
+                                </a>
+                            </li>
+                            <li class="m-menu__item" aria-haspopup="true" >
+                                <a  href="/sims" class="m-menu__link ">
+                                    <i class="m-menu__link-icon fa fa-bullhorn"></i>
+                                    <span class="m-menu__link-title">
+                                        <span class="m-menu__link-wrap">
+                                            <span class="m-menu__link-text">
+                                                Commands
+                                            </span>>
+                                        </span>
+                                    </span>
+                                </a>
+                            </li>
+                            <li class="m-menu__item" aria-haspopup="true" >
+                                <a  href="/sims" class="m-menu__link ">
+                                    <i class="m-menu__link-icon fa  fa-eercast"></i>
+                                    <span class="m-menu__link-title">
+                                        <span class="m-menu__link-wrap">
+                                            <span class="m-menu__link-text">
+                                                Password Generator
+                                            </span>>
+                                        </span>
+                                    </span>
+                                </a>
+                            </li>
                         </ul>
                     </div>
                     <!-- END: Aside Menu -->
