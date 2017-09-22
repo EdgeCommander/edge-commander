@@ -39,7 +39,7 @@ defmodule EdgeCommanderWeb.RooterController do
 
   def status_report(conn, _params) do
     with %User{} <- current_user(conn) do
-      render(conn, "status_report.html")
+      render(conn, "status_report.html", user: current_user(conn), gravatar_url: current_user(conn) |> Map.get(:email) |> gravatar_url(secure: true))
     else
       _ ->
         conn
