@@ -10,8 +10,7 @@
     <link href="<%= static_path(@conn, "/assets/vendors/base/vendors.bundle.css") %>" rel="stylesheet" type="text/css" />
     <link href="<%= static_path(@conn, "/assets/demo/default/base/style.bundle.css") %>" rel="stylesheet" type="text/css" />
 
-    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/morris.js/0.5.1/morris.css">
-
+    <link href="<%= static_path(@conn, "/css/personal.css") %>" rel="stylesheet" type="text/css" />
     <!--end::Base Styles -->
     <link rel="shortcut icon" href="<%= static_path(@conn, "/assets/demo/default/media/img/logo/favicon.ico") %>" />
 
