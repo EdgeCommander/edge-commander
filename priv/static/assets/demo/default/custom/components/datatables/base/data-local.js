@@ -25,7 +25,6 @@ var DatatableDataLocalDemo = function() {
                     sortable: !1,
                     selector: !1,
                     template: function(t) {
-                      console.log(t);
                       return '<span data-toggle="modal" data-target="#m_modal_4" style="color: blue;text-decoration: underline;cursor: pointer;" href="#" id="show-morris-graph" data-id="' + t.number + '">' + t.number  + '</span>'
                     }
                 }, {
@@ -63,7 +62,6 @@ var DatatableDataLocalDemo = function() {
                   title: "Remaning Days",
                   textAlign: "center",
                   template: function(t) {
-                    console.log(t);
                     var days_left = (t.allowance_in_number - t.current_in_number) / (t.current_in_number - t.yesterday_in_number)
                     return Math.round(days_left * 100) / 100;
                   }
@@ -85,22 +83,25 @@ var DatatableDataLocalDemo = function() {
 }();
 
 var dupper;
-var logs = $.get( "/get_sims_data", function( data ) {
+
+$.get( "/get_sims_data", function( data ) {
   console.log(data.logs);
   dupper = data.logs;
-  // return data.logs;
-  // alert( "Load was performed." );
 });
- setTimeout(function () {
+
+
+setTimeout(function () {
   DatatableDataLocalDemo.init(dupper);
   $("#clean_moriss_data").on("click", function () {
     console.log("heell");
+    dupper = ''
     $("#m_morris_1").html("");
   });
+
   $("#child_data_local").on("click", "#show-morris-graph", function(){
     console.log($(this).data("id"));
     var settingsForMorris;
-    settings = {
+    settingsForMorris = {
       cache: false,
       data: {sim_number: $(this).data("id")},
       dataType: 'json',
@@ -111,10 +112,10 @@ var logs = $.get( "/get_sims_data", function( data ) {
       url: "/create_morris_line_data"
     };
 
-    $.ajax(settings);
+    $.ajax(settingsForMorris);
 
   });
- }, 2000);
+}, 2000);
 
 
 var onMorrisError, onMorrisSuccess;
@@ -133,7 +134,8 @@ onMorrisSuccess = function (result, status, jqXHR) {
     ykeys: ['percentage_used'],
     // Labels for the ykeys -- will be displayed when you hover over the
     // chart.
-    labels: ['Used'],
+    labels: ['Volume Used'],
+    postUnits: ' MB',
     lineColors: ['#0b62a4']
   });
   console.log(result.morris_data);
