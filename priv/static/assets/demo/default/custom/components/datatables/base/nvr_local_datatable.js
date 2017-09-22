@@ -1,7 +1,15 @@
 
 var DatatableDataNVR = function() {
     var r = function(r) {
-            $("<div/>").attr("id", "child_data_local_" + r.data.id).appendTo("dd")},
+          console.log(r.detailCell);
+          console.log(r);
+          if (r.data.extra != null) {
+            // todo create table here
+            r.detailCell.html(r.data.extra);
+          } else {
+            r.detailCell.html("No data available.");
+          }
+        },
         e = function(src) {
             a = $(".m_nvr_datatable").mDatatable({
                 data: {
