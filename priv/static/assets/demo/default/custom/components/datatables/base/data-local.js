@@ -5,13 +5,13 @@ var DatatableDataLocalDemo = function() {
                 data: {
                     type: "local",
                     source: src,
-                    pageSize: 10
+                    pageSize: 50
                 },
                 layout: {
                     theme: "default",
                     class: "",
                     scroll: !1,
-                    height: 450,
+                    height: 950,
                     footer: !1
                 },
                 sortable: !0,
@@ -85,7 +85,7 @@ var logs = $.get( "/get_sims_data", function( data ) {
   DatatableDataLocalDemo.init(dupper);
   $("#clean_moriss_data").on("click", function () {
     console.log("heell");
-    $("#myfirstchart").html("");
+    $("#m_morris_1").html("");
   });
   $("#child_data_local").on("click", "#show-morris-graph", function(){
     console.log($(this).data("id"));
@@ -112,7 +112,7 @@ var onMorrisError, onMorrisSuccess;
 onMorrisSuccess = function (result, status, jqXHR) {
   new Morris.Line({
     // ID of the element in which to draw the chart.
-    element: 'myfirstchart',
+    element: 'm_morris_1',
     // Chart data records -- each entry in this array corresponds to a point on
     // the chart.
     data: result.morris_data,
@@ -123,14 +123,8 @@ onMorrisSuccess = function (result, status, jqXHR) {
     ykeys: ['percentage_used'],
     // Labels for the ykeys -- will be displayed when you hover over the
     // chart.
-    labels: ['Datetime'],
-    lineColors: ['#373651','#E65A26']
+    labels: ['Used'],
+    lineColors: ['#0b62a4']
   });
   console.log(result.morris_data);
 };
-
-var cleanMorris_data = function() {
-  $("#clean_moriss_data").on("click", function () {
-    console.log("heell");
-  });
-}

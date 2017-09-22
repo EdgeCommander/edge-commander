@@ -42,8 +42,8 @@ defmodule EdgeCommanderWeb.SimsController do
         {allowance_in_number, _} = one_record |> get_allowance() |> String.replace(",", "") |> Float.parse()
 
         %{
-          datetime: one_record.datetime |> Calendar.Strftime.strftime("%Y-%m-%d %H:%M:%S") |> elem(1),
-          percentage_used: (current_in_number / allowance_in_number * 100) |> Float.round(3)
+          datetime: "#{shit_datetime(one_record.datetime)}",
+          percentage_used: "#{(current_in_number / allowance_in_number * 100) |> Float.round(3)} %"
         }
       end)
 
@@ -52,6 +52,12 @@ defmodule EdgeCommanderWeb.SimsController do
     |> json(%{
       "morris_data": morris_data
     })
+  end
+
+  defp shit_datetime(datetime) do
+    datetime
+    |> Calendar.Strftime.strftime("%Y-%m-%d %H:%M:%S")
+    |> elem(1)
   end
 
   defp get_volume_used(log) do
