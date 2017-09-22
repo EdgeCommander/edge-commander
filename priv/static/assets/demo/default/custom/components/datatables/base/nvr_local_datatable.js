@@ -5,7 +5,59 @@ var DatatableDataNVR = function() {
           console.log(r);
           if (r.data.extra != null) {
             // todo create table here
-            r.detailCell.html(r.data.extra);
+            r.detailCell.html(
+                "<table class='ui celled striped table' style='width: 40%;'>\
+                      <thead>\
+                        <tr>\
+                          <th colspan='2'>\
+                            Device Information\
+                          </th>\
+                        </tr>\
+                      </thead>\
+                      <tbody>\
+                        <tr>\
+                          <td>Firmware Version</td>\
+                          <td>"+ r.data.firmware_version +"</td>\
+                        </tr>\
+                        <tr>\
+                          <td>Model</td>\
+                          <td>"+ r.data.model +"</td>\
+                        </tr>\
+                        <tr>\
+                          <td>Device Name</td>\
+                          <td>"+ r.data.extra.device_name +"</td>\
+                        </tr>\
+                        <tr>\
+                          <td>Device Type</td>\
+                          <td>"+ r.data.extra.device_type +"</td>\
+                        </tr>\
+                        <tr>\
+                          <td>Device Id</td>\
+                          <td>"+ r.data.extra.device_id +"</td>\
+                        </tr>\
+                        <tr>\
+                          <td>Encorder Released Date</td>\
+                          <td>"+ r.data.extra.encoder_released_date +"</td>\
+                        </tr>\
+                        <tr>\
+                          <td>Encoder Version</td>\
+                          <td>"+ r.data.extra.encoder_version +"</td>\
+                        </tr>\
+                        <tr>\
+                          <td>Firmware Released Date</td>\
+                          <td>"+ r.data.extra.firmware_released_date +"</td>\
+                        </tr>\
+                        <tr>\
+                          <td>Mac Address</td>\
+                          <td>"+ r.data.extra.mac_address +"</td>\
+                        </tr>\
+                        <tr>\
+                          <td>Serial Number</td>\
+                          <td>"+ r.data.extra.serial_number +"</td>\
+                        </tr>\
+                      </tbody>\
+                    </table>"
+            );
           } else {
             r.detailCell.html("No data available.");
           }
