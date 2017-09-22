@@ -35,17 +35,17 @@ initializeSimLogsTable = function() {
       {
         data: function(row, type, set, meta) {
           return row.volume_used_today;
-        }
+        }, sWidth: "200px"
       },
       {
         data: function(row, type, set, meta) {
           return row.volume_used_yesterday;
-        }
+        }, sWidth: "200px"
       },
       {
         data: function(row, type, set, meta) {
           return row.percentage_used;
-        }
+        }, sWidth: "200px"
       },
       {
         data: function(row, type, set, meta) {
@@ -56,6 +56,9 @@ initializeSimLogsTable = function() {
       }
     ],
     autoWidth: false,
+    sScrollX: "100%",
+    sScrollXInner: "110%",
+    bScrollCollapse: true,
     info: false,
     bPaginate: true,
     pageLength: 50,
