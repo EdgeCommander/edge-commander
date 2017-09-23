@@ -26,9 +26,20 @@ defmodule EdgeCommanderWeb.RooterController do
     end
   end
 
+  def nvrs(conn, _params) do
+    with %User{} <- current_user(conn) do
+      render(conn, "nvrs.html", user: current_user(conn), gravatar_url: current_user(conn) |> Map.get(:email) |> gravatar_url(secure: true), csrf_token: get_csrf_token())
+    else
+      _ ->
+        conn
+        |> put_flash(:error, "You must be logged in to see that page :).")
+        |> redirect(to: "/users/sign_in")
+    end
+  end
+
   def status_report(conn, _params) do
     with %User{} <- current_user(conn) do
-      render(conn, "status_report.html")
+      render(conn, "status_report.html", user: current_user(conn), gravatar_url: current_user(conn) |> Map.get(:email) |> gravatar_url(secure: true))
     else
       _ ->
         conn

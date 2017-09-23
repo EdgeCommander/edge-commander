@@ -838,7 +838,7 @@
                                 </a>
                             </li>
                             <li class="m-menu__item" aria-haspopup="true" >
-                                <a  href="/sims" class="m-menu__link ">
+                                <a  href="/nvrs" class="m-menu__link ">
                                     <i class="m-menu__link-icon la  la-building"></i>
                                     <span class="m-menu__link-title">
                                         <span class="m-menu__link-wrap">
@@ -850,7 +850,7 @@
                                 </a>
                             </li>
                             <li class="m-menu__item" aria-haspopup="true" >
-                                <a  href="/sims" class="m-menu__link ">
+                                <a  href="/status_report" class="m-menu__link ">
                                     <i class="m-menu__link-icon fa  fa-barcode"></i>
                                     <span class="m-menu__link-title">
                                         <span class="m-menu__link-wrap">
@@ -969,7 +969,7 @@
                 <div class="modal-content">
                   <div class="modal-header">
                     <h5 class="modal-title" id="exampleModalLabel">
-                      Volume Used.
+                      Volume Used
                     </h5>
                   </div>
                   <div class="modal-body">

@@ -43,7 +43,7 @@ defmodule EdgeCommanderWeb.SimsController do
 
         %{
           datetime: "#{shit_datetime(one_record.datetime)}",
-          percentage_used: "#{(current_in_number / allowance_in_number * 100) |> Float.round(3)} %"
+          percentage_used: (current_in_number / allowance_in_number * 100) |> Float.round(3)
         }
       end)
 
@@ -56,7 +56,7 @@ defmodule EdgeCommanderWeb.SimsController do
 
   defp shit_datetime(datetime) do
     datetime
-    |> Calendar.Strftime.strftime("%Y-%m-%d %H:%M:%S")
+    |> Calendar.Strftime.strftime("%Y-%m-%d %H:%M")
     |> elem(1)
   end
 
