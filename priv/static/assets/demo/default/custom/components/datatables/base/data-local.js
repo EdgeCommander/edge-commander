@@ -180,7 +180,7 @@ onMorrisSuccess = function (result, status, jqXHR) {
           scaleLabel: {
             fontStyle: "bold",
             display: true,
-            labelString: 'Day'
+            labelString: 'Date & Time'
           }
         }],
         yAxes: [{
