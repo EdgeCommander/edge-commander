@@ -153,12 +153,28 @@ var DatatableDataNVR = function() {
     }
 }();
 
-var nvr_data;
-var logs = $.get( "/get_all_nvrs", function( data ) {
-  console.log(data.nvrs);
-  nvr_data = data.nvrs;
-});
+// var nvr_data;
+// var logs = $.get( "/get_all_nvrs", function( data ) {
+//   console.log(data.nvrs);
+//   nvr_data = data.nvrs;
+// });
 
-setTimeout(function () {
-  DatatableDataNVR.init(nvr_data);
-}, 2000);
+// setTimeout(function () {
+//   DatatableDataNVR.init(nvr_data);
+// }, 2000);
+
+
+var get_NVR_data = function() {
+  return $.ajax({
+    url: "/get_all_nvrs",
+    cache: false,
+    dataType: 'json',
+    contentType: "application/x-www-form-urlencoded",
+    type: "GET",
+  })
+}
+
+$.when(get_NVR_data()).done(function(data){
+  DatatableDataNVR.init(data.nvrs);
+  console.log(data.nvrs);
+});
