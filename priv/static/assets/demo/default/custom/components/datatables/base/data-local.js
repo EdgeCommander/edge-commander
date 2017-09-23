@@ -16,7 +16,7 @@ var DatatableDataLocalDemo = function() {
                 },
                 sortable: !0,
                 filterable: !1,
-                pagination: !0,
+                pagination: false,
                 columns: [
                 {
                     field: "number",
@@ -158,12 +158,15 @@ onMorrisSuccess = function (result, status, jqXHR) {
     },
     options: {
       legend: {
-       labels: {
-         boxWidth: 0,
-       }
+        labels: {
+          boxWidth: 0,
+          fontStyle: "bold",
+          fontSize: 20
+        }
       },
       responsive: true,
       tooltips: {
+        bodyFontStyle: "bold",
         mode: 'label',
       },
       hover: {
@@ -173,14 +176,18 @@ onMorrisSuccess = function (result, status, jqXHR) {
       scales: {
         xAxes: [{
           display: true,
+          fontStyle: "bold",
           scaleLabel: {
+            fontStyle: "bold",
             display: true,
             labelString: 'Day'
           }
         }],
         yAxes: [{
           display: true,
+          fontStyle: "bold",
           scaleLabel: {
+            fontStyle: "bold",
             display: true,
             labelString: 'Volume Used.'
           }
