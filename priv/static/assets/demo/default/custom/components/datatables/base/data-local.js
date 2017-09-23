@@ -92,10 +92,11 @@ $.get( "/get_sims_data", function( data ) {
 
 setTimeout(function () {
   DatatableDataLocalDemo.init(dupper);
-  $("#clean_moriss_data").on("click", function () {
+  $("#clear_chartsjs").on("click", function () {
     console.log("heell");
     dupper = ''
-    $("#m_morris_1").html("");
+    $("#iam_canvas").html("");
+    $("#iam_canvas").html("<canvas id='canvas'></canvas>");
   });
 
   $("#child_data_local").on("click", "#show-morris-graph", function(){

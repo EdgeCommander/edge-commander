@@ -968,12 +968,12 @@
               <div class="modal-dialog modal-lg" role="document">
                 <div class="modal-content">
                   <div class="modal-body">
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close" id="clear_chartsjs">
                         <span aria-hidden="true">
                             &times;
                         </span>
                     </button>
-                    <div style="width:100%;">
+                    <div style="width:100%;" id="iam_canvas">
                       <canvas id="canvas"></canvas>
                     </div>
                   </div>
