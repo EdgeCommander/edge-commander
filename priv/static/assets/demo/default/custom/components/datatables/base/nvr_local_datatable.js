@@ -78,7 +78,7 @@ var DatatableDataNVR = function() {
                 },
                 sortable: !0,
                 filterable: !1,
-                pagination: !0,
+                pagination: false,
                 detail: {
                     title: "Load sub table",
                     content: r

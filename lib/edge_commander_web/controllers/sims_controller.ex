@@ -42,7 +42,7 @@ defmodule EdgeCommanderWeb.SimsController do
         {allowance_in_number, _} = one_record |> get_allowance() |> String.replace(",", "") |> Float.parse()
 
         %{
-          datetime: "#{shit_datetime(one_record.datetime)}",
+          datetime: "#{shift_datetime(one_record.datetime)}",
           percentage_used: (current_in_number / allowance_in_number * 100) |> Float.round(3)
         }
       end)
@@ -54,9 +54,9 @@ defmodule EdgeCommanderWeb.SimsController do
     })
   end
 
-  defp shit_datetime(datetime) do
+  defp shift_datetime(datetime) do
     datetime
-    |> Calendar.Strftime.strftime("%A")
+    |> Calendar.Strftime.strftime("%Y-%m-%d %H:%M:%S")
     |> IO.inspect
     |> elem(1)
   end
