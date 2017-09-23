@@ -967,18 +967,15 @@
             <div class="modal fade" id="m_modal_4" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" data-backdrop="static" data-keyboard="false">
               <div class="modal-dialog modal-lg" role="document">
                 <div class="modal-content">
-                  <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">
-                      Volume Used
-                    </h5>
-                  </div>
                   <div class="modal-body">
-                    <div id="m_morris_1" style="height: 250px;"></div>
-                  </div>
-                  <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal" id="clean_moriss_data">
-                      Close
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close" id="clear_chartsjs">
+                        <span aria-hidden="true">
+                            &times;
+                        </span>
                     </button>
+                    <div style="width:100%;" id="iam_canvas">
+                      <canvas id="canvas"></canvas>
+                    </div>
                   </div>
                 </div>
               </div>
