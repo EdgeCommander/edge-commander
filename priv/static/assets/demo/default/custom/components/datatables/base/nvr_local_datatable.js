@@ -165,7 +165,6 @@ var DatatableDataNVR = function() {
 
 
 var get_NVR_data = function() {
-  NProgress.start();
   return $.ajax({
     url: "/get_all_nvrs",
     cache: false,
@@ -176,7 +175,6 @@ var get_NVR_data = function() {
 }
 
 $.when(get_NVR_data()).done(function(data){
-  NProgress.done();
   DatatableDataNVR.init(data.nvrs);
   console.log(data.nvrs);
 });

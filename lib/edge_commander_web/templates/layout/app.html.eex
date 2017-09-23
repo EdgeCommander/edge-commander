@@ -28,7 +28,6 @@
 
     <!--begin::Base Scripts -->
     <script src="<%= static_path(@conn, "/js/jquery.min.js") %>"></script>
-    <script src="<%= static_path(@conn, "/js/nprogress.js") %>"></script>
     <%= if @conn.request_path == "/" or @conn.request_path == "/sims" or @conn.request_path == "/nvrs" do %>
         <!-- begin::Quick Nav -->
         <!--begin::Base Scripts -->

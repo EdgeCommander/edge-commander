@@ -129,7 +129,7 @@ onMorrisSuccess = function (result, status, jqXHR) {
     data: result.morris_data,
     // The name of the data record attribute that contains x-values.
     xkey: 'datetime',
-    parseTime: false,
+    parseTime: true,
     // A list of names of data record attributes that contain y-values.
     ykeys: ['percentage_used'],
     // Labels for the ykeys -- will be displayed when you hover over the
