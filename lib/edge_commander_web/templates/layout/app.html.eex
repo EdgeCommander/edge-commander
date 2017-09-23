@@ -10,6 +10,8 @@
     <link href="<%= static_path(@conn, "/assets/vendors/base/vendors.bundle.css") %>" rel="stylesheet" type="text/css" />
     <link href="<%= static_path(@conn, "/assets/demo/default/base/style.bundle.css") %>" rel="stylesheet" type="text/css" />
 
+    <link href="<%= static_path(@conn, "/css/nprogress.css") %>" rel="stylesheet" type="text/css" />
+
     <link href="<%= static_path(@conn, "/css/personal.css") %>" rel="stylesheet" type="text/css" />
     <!--end::Base Styles -->
     <link rel="shortcut icon" href="<%= static_path(@conn, "/assets/demo/default/media/img/logo/favicon.ico") %>" />
@@ -26,6 +28,7 @@
 
     <!--begin::Base Scripts -->
     <script src="<%= static_path(@conn, "/js/jquery.min.js") %>"></script>
+    <script src="<%= static_path(@conn, "/js/nprogress.js") %>"></script>
     <%= if @conn.request_path == "/" or @conn.request_path == "/sims" or @conn.request_path == "/nvrs" do %>
         <!-- begin::Quick Nav -->
         <!--begin::Base Scripts -->
