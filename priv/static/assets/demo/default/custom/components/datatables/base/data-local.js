@@ -109,7 +109,7 @@ setTimeout(function () {
       success: onMorrisSuccess,
       contentType: "application/x-www-form-urlencoded",
       type: "GET",
-      url: "/create_morris_line_data"
+      url: "/create_chartjs_line_data"
     };
 
     $.ajax(settingsForMorris);
@@ -121,22 +121,76 @@ setTimeout(function () {
 var onMorrisError, onMorrisSuccess;
 
 onMorrisSuccess = function (result, status, jqXHR) {
-  new Morris.Line({
-    // ID of the element in which to draw the chart.
-    element: 'm_morris_1',
-    // Chart data records -- each entry in this array corresponds to a point on
-    // the chart.
-    data: result.morris_data,
-    // The name of the data record attribute that contains x-values.
-    xkey: 'datetime',
-    parseTime: true,
-    // A list of names of data record attributes that contain y-values.
-    ykeys: ['percentage_used'],
-    // Labels for the ykeys -- will be displayed when you hover over the
-    // chart.
-    labels: ['Volume Used'],
-    postUnits: ' MB',
-    lineColors: ['#0b62a4']
+
+  var labelsZchartjs = [], dataZChartsJS = [];
+  $.each(result.chartjs_data, function( index, element ) {
+    labelsZchartjs.push(element.datetime);
+    dataZChartsJS.push(element.percentage_used);
+    console.log(element);
+    // element == this
   });
-  console.log(result.morris_data);
+
+  var chartColors = {
+    red: 'rgb(255, 99, 132)',
+    orange: 'rgb(255, 159, 64)',
+    yellow: 'rgb(255, 205, 86)',
+    green: 'rgb(75, 192, 192)',
+    blue: 'rgb(54, 162, 235)',
+    purple: 'rgb(153, 102, 255)',
+    grey: 'rgb(231,233,237)'
+  };
+
+  var randomScalingFactor = function() {
+    return (Math.random() > 0.5 ? 1.0 : -1.0) * Math.round(Math.random() * 100);
+  }
+  var config = {
+    type: 'line',
+    data: {
+      labels: labelsZchartjs,
+      datasets: [{
+        label: "Volume Used",
+        fill: false,
+        backgroundColor: chartColors.blue,
+        borderColor: chartColors.blue,
+        data: dataZChartsJS,
+      }]
+    },
+    options: {
+      legend: {
+       labels: {
+         boxWidth: 0,
+       }
+      },
+      responsive: true,
+      tooltips: {
+        mode: 'label',
+      },
+      hover: {
+        mode: 'nearest',
+        intersect: true
+      },
+      scales: {
+        xAxes: [{
+          display: true,
+          scaleLabel: {
+            display: true,
+            labelString: 'Day'
+          }
+        }],
+        yAxes: [{
+          display: true,
+          scaleLabel: {
+            display: true,
+            labelString: 'Volume Used.'
+          }
+        }]
+      }
+    }
+  };
+
+
+  var ctx = document.getElementById("canvas").getContext("2d");
+  window.myLine = new Chart(ctx, config);
+
+  console.log(result.chartjs_data);
 };

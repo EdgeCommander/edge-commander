@@ -33,8 +33,8 @@ defmodule EdgeCommanderWeb.SimsController do
     })
   end
 
-  def create_morris_line_data(conn, %{"sim_number" => sim_number } = _params) do
-    morris_data =
+  def create_chartjs_line_data(conn, %{"sim_number" => sim_number } = _params) do
+    chartjs_data =
       sim_number
       |> get_all_records_for_sim()
       |> Enum.map(fn(one_record) ->
@@ -50,13 +50,14 @@ defmodule EdgeCommanderWeb.SimsController do
     conn
     |> put_status(200)
     |> json(%{
-      "morris_data": morris_data
+      "chartjs_data": chartjs_data
     })
   end
 
   defp shit_datetime(datetime) do
     datetime
-    |> Calendar.Strftime.strftime("%Y-%m-%d %H:%M")
+    |> Calendar.Strftime.strftime("%A")
+    |> IO.inspect
     |> elem(1)
   end
 
