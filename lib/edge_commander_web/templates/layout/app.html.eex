@@ -10,6 +10,8 @@
     <link href="<%= static_path(@conn, "/assets/vendors/base/vendors.bundle.css") %>" rel="stylesheet" type="text/css" />
     <link href="<%= static_path(@conn, "/assets/demo/default/base/style.bundle.css") %>" rel="stylesheet" type="text/css" />
 
+    <link href="<%= static_path(@conn, "/css/visavail.css") %>" rel="stylesheet" type="text/css" />
+
     <link href="<%= static_path(@conn, "/css/personal.css") %>" rel="stylesheet" type="text/css" />
     <!--end::Base Styles -->
     <link rel="shortcut icon" href="<%= static_path(@conn, "/assets/demo/default/media/img/logo/favicon.ico") %>" />
@@ -26,7 +28,7 @@
 
     <!--begin::Base Scripts -->
     <script src="<%= static_path(@conn, "/js/jquery.min.js") %>"></script>
-    <%= if @conn.request_path == "/" or @conn.request_path == "/sims" or @conn.request_path == "/nvrs" do %>
+    <%= if @conn.request_path == "/" or @conn.request_path == "/sims" or @conn.request_path == "/nvrs" or @conn.request_path == "/status_report" do %>
         <!-- begin::Quick Nav -->
         <!--begin::Base Scripts -->
         <script src="assets/vendors/base/vendors.bundle.js" type="text/javascript"></script>
@@ -44,6 +46,15 @@
 
     <%= if @conn.request_path == "/nvrs" do %>
       <script src="<%= static_path(@conn, "/assets/demo/default/custom/components/datatables/base/nvr_local_datatable.js") %>"> type="text/javascript"></script>
+    <%  end %>
+
+    <%= if @conn.request_path == "/status_report" do %>
+      <script src="<%= static_path(@conn, "/js/d3.min.js") %>"> type="text/javascript"></script>
+      <script src="<%= static_path(@conn, "/js/visavail.js") %>"> type="text/javascript"></script>
+      <script src="<%= static_path(@conn, "/js/statusreport.js") %>"> type="text/javascript"></script>
+      <script type="text/javascript">
+          window.initializeReport();
+      </script>
     <%  end %>
     <!--end::Page Snippets -->
 </html>

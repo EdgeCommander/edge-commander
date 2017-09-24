@@ -234,7 +234,7 @@ defmodule EdgeCommanderWeb.NvrsController do
     if status == true do
       nvr_name
     else
-      "#{nvr_name} offline"
+      "#{nvr_name}  <span class='fa fa-chain'></span>"
     end
   end
 

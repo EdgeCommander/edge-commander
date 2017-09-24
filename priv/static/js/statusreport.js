@@ -3,7 +3,7 @@ var initializeReport, sendAJAXRequest, nvr_logs;
 sendAJAXRequest = function(settings) {
   var headers, token, xhrRequestChangeMonth;
   token = $('meta[name="csrf-token"]');
-  if (token.size() > 0) {
+  if (token.length > 0) {
     headers = {
       "X-CSRF-Token": token.attr("content")
     };
@@ -30,38 +30,36 @@ startReport = function(logs) {
   console.log("starting")
   var chart;
   nvr_logs = logs;
-  chart = visavailChart().width(900);
-  // chart.width($('#visavail_container').width() - 500);
+  chart = visavailChart();
+  chart.width($('.m-portlet__body').width() - 150)
+  chart.dataHeight = 10
+  // chart.width($('#visavail_container').width() - 200);
   $('#draw_report').text('');
   d3.select('#draw_report').datum(logs).call(chart);
 };
 
-onResize = function() {
-  return $(window).resize(function() {
-    return startReport(nvr_logs);
-  });
-};
+
+$(window).resize(function() {
+  startReport(nvr_logs);
+});
 
 initializeReport = function() {
-  console.log("ddddgdgg");
-  $(".start_report").on("change", function(){
 
-    var data = {};
-    var settings;
+  var data = {};
+  var settings;
 
-    settings = {
-      cache: false,
-      data: data,
-      dataType: 'json',
-      error: onErrorR,
-      success: onSuccessR,
-      contentType: "application/x-www-form-urlencoded",
-      type: "GET",
-      url: "/update_status_report"
-    };
+  settings = {
+    cache: false,
+    data: data,
+    dataType: 'json',
+    error: onErrorR,
+    success: onSuccessR,
+    contentType: "application/x-www-form-urlencoded",
+    type: "GET",
+    url: "/update_status_report"
+  };
 
-    sendAJAXRequest(settings);
-  });
+  sendAJAXRequest(settings);
 }
 
 var startDropDown;
@@ -76,6 +74,5 @@ var onLoadStartReport = function () {
 
 window.initializeStatusReport = function() {
   initializeReport();
-  startDropDown();
   onResize();
 };
