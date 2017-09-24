@@ -940,7 +940,10 @@
                     <div class="m-content">
                       <div class="m-portlet m-portlet--mobile">
                         <div class="m-portlet__body">
-                          <img src="assets/app/media/img//users/Selection_181.png" style="width: 100%" alt=""/>
+                            <div style="margin: 0 auto; width: 100%;padding: 10px" id="visavail_container">
+                              <p id="draw_report" class="margin-top-5"></p>
+                            </div>
+<%#                           <img src="assets/app/media/img//users/Selection_181.png" style="width: 100%" alt=""/> %>
                           <!--begin: Search Form -->
                           <!--end: Search Form -->
                           <!--begin: Datatable -->
