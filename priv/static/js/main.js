@@ -12,7 +12,7 @@ var initializeDataTable,
 sendAJAXRequest = function(settings) {
   var headers, token, xhrRequestChangeMonth;
   token = $('meta[name="csrf-token"]');
-  if (token.size() > 0) {
+  if (token.length > 0) {
     headers = {
       "X-CSRF-Token": token.attr("content")
     };
@@ -66,19 +66,9 @@ onError = function(jqXHR, status, error) {
 };
 
 onSuccess = function(result, status, jqXHR) {
-  $("#NVRaddModal").modal("hide");
+  $(".add_nvr_to_db").modal("hide");
   clearForm();
   $("#set_to_load").removeClass("loading");
-  $.uiAlert({
-    textHead: 'Congratulations!', // header
-    text: 'NVR has been added.', // Text
-    bgcolor: '#0D71BB', // background-color
-    textcolor: '#fff', // color
-    position: 'top-right',// position . top And bottom ||  left / center / right
-    icon: 'checkmark box', // icon in semantic-UI
-    time: 3, // time
-  })
-  NVRtable.ajax.reload();
   console.log(result);
   return true;
 };
@@ -514,16 +504,16 @@ discardEditModal = function() {
 
 saveModal = function() {
   $("#saveModal").on("click", function() {
-    $('ul#errorOnNVR').html("");
-    $("#nvrErrorDetails").addClass("hide");
-    $("#set_to_load").addClass("loading");
+    // $('ul#errorOnNVR').html("");
+    // $("#nvrErrorDetails").addClass("hide");
+    // $("#set_to_load").addClass("loading");
     var name          = $("#nvr_name").val(),
         IP            = $("#nvr_ip").val(),
         username      = $("#nvr_username").val(),
         password      = $("#nvr_password").val(),
         port          = $("#nvr_port").val(),
         user_id       = $("#user_id").val(),
-        is_monitoring = $("#is_monitoring").hasClass("am_box_checked");
+        is_monitoring = $('input[id=nvr_is_monitoring]:checked').length > 0;
 
     var data = {};
         data.name = name;
@@ -553,18 +543,18 @@ saveModal = function() {
 };
 
 window.initializeNVR = function() {
-  initializeDataTable();
-  closeMessageBox();
-  replaceEntryWithAddButton();
-  onNVRButton();
+  // initializeDataTable();
+  // closeMessageBox();
+  // replaceEntryWithAddButton();
+  // onNVRButton();
   discardModal();
-  showDetails();
+  // showDetails();
   saveModal();
-  deleteNVR();
-  enableADDDisableCheck();
-  enableEDITDisableCheck();
-  updateNVRdo();
-  discardEditModal();
-  fadeOutMessageBox();
-  onNVREditButton();
+  // deleteNVR();
+  // enableADDDisableCheck();
+  // enableEDITDisableCheck();
+  // updateNVRdo();
+  // discardEditModal();
+  // fadeOutMessageBox();
+  // onNVREditButton();
 };

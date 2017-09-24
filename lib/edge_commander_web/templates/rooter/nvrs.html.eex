@@ -957,30 +957,97 @@
                                   </div>
                                 </div>
                               </div>
+                            <div class="col-xl-4 order-1 order-xl-2 m--align-right">
+                                <a href="#" class="btn btn-primary m-btn m-btn--custom m-btn--icon m-btn--air m-btn--pill" data-toggle="modal" data-target="#m_modal_1">
+                                    <span>
+                                        <i class="fa fa-plus-square"></i>
+                                        <span>
+                                            Add NVR
+                                        </span>
+                                    </span>
+                                </a>
+                                <div class="m-separator m-separator--dashed d-xl-none"></div>
+                            </div>
                             </div>
                           </div>
                           <!--end: Search Form -->
 
 
-
  <!--begin::Modal-->
-            <div class="modal fade" id="m_modal_4" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" data-backdrop="static" data-keyboard="false">
-              <div class="modal-dialog modal-lg" role="document">
-                <div class="modal-content">
-                  <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">
-                    </h5>
-                  </div>
-                  <div class="modal-body">
-                  </div>
-                  <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal" id="clean_moriss_data">
-                      Close
-                    </button>
-                  </div>
-                </div>
-              </div>
-            </div>
+                        <div class="modal fade add_nvr_to_db" style="padding: 0px;" id="m_modal_1" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                            <div class="modal-dialog" role="document">
+                                <div class="modal-content" style="padding: 0px;">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="exampleModalLabel">
+                                            Add NVR
+                                        </h5>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">
+                                                &times;
+                                            </span>
+                                        </button>
+                                    </div>
+                                    <div class="modal-body" style="padding: 0px;">
+                                        <div class="m-form m-form--fit m-form--label-align-right">
+                                            <div class="m-portlet__body">
+<%#                                                 <div class="form-group m-form__group m--margin-top-10">
+                                                    <div class="alert m-alert m-alert--default" role="alert">
+                                                        The example form below demonstrates common HTML form elements solid background style:
+                                                    </div>
+                                                </div> %>
+                                                <div class="form-group m-form__group">
+                                                    <input type="hidden" id="user_id" value="<%= @user.id %>">
+                                                    <label>
+                                                        Name
+                                                    </label>
+                                                    <input type="text" class="form-control m-input m-input--solid" id="nvr_name" aria-describedby="emailHelp" placeholder="Galway route.">
+                                                </div>
+                                                <div class="form-group m-form__group">
+                                                    <label>
+                                                        IP
+                                                    </label>
+                                                    <input type="text" class="form-control m-input m-input--solid" id="nvr_ip" placeholder="https://youripmaybe">
+                                                </div>
+                                                <div class="form-group m-form__group">
+                                                    <label>
+                                                        Username
+                                                    </label>
+                                                    <input type="text" class="form-control m-input m-input--solid" id="nvr_username" placeholder="i.e admin">
+                                                </div>
+                                                <div class="form-group m-form__group">
+                                                    <label>
+                                                        Password
+                                                    </label>
+                                                    <input type="text" class="form-control m-input m-input--solid" id="nvr_password" placeholder="Super Secret">
+                                                </div>
+                                                <div class="form-group m-form__group">
+                                                    <label>
+                                                        Port
+                                                    </label>
+                                                    <input type="number" class="form-control m-input m-input--solid" id="nvr_port" placeholder="i.e 80">
+                                                </div>
+                                                <div class="m-form__group form-group">
+                                                    <label class="m-checkbox">
+                                                        <input type="checkbox" id="nvr_is_monitoring">
+                                                        Monitoring
+                                                        <span></span>
+                                                    </label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!--end::Form-->
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button id="discardModal" type="button" class="btn btn-secondary" data-dismiss="modal">
+                                            Close
+                                        </button>
+                                        <button id="saveModal" type="button" class="btn btn-primary">
+                                            Save changes
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
             <!--end::Modal-->
 
 
