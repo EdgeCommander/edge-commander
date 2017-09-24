@@ -1,0 +1,10 @@
+#api-wait {
+  left: 44%;
+  position: fixed;
+  top: 44%;
+  z-index: 99999;
+}
+
+.hide_me {
+  display: none;
+}

@@ -967,6 +967,7 @@
             <div class="modal fade" id="m_modal_4" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" data-backdrop="static" data-keyboard="false">
               <div class="modal-dialog modal-lg" role="document">
                 <div class="modal-content">
+                    <img src="/images/loading.gif" id="api-wait" class="hide_me">
                   <div class="modal-body">
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close" id="clear_chartsjs">
                         <span aria-hidden="true">

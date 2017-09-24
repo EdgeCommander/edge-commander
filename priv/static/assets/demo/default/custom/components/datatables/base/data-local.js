@@ -101,6 +101,7 @@ setTimeout(function () {
 
   $("#child_data_local").on("click", "#show-morris-graph", function(){
     console.log($(this).data("id"));
+    $("#api-wait").removeClass("hide_me");
     var settingsForMorris;
     settingsForMorris = {
       cache: false,
@@ -196,7 +197,7 @@ onMorrisSuccess = function (result, status, jqXHR) {
     }
   };
 
-
+  $("#api-wait").addClass("hide_me");
   var ctx = document.getElementById("canvas").getContext("2d");
   window.myLine = new Chart(ctx, config);
 
