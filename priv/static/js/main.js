@@ -29,10 +29,8 @@ clearForm = function() {
   $("#nvr_port").val("");
   $('ul#errorOnNVR').html("");
   $("#set_to_load").removeClass("loading");
-  $("#is_monitoring")
-    .removeClass("am_box_checked")
-    .addClass("am_box_un_checked");
-  $("#nvrErrorDetails").addClass("hide");
+  $("#body-nvr-dis *").prop('disabled', false);
+  $("#nvrErrorDetails").addClass("hide_me");
 }
 
 var editClearFrom;
@@ -44,7 +42,7 @@ editClearFrom = function() {
   $("#edit_nvr_password").val("");
   $("#edit_nvr_port").val("");
   $('ul#errorOnEditNVR').html("");
-  $("#nvrEditErrorDetails").addClass("hide");
+  $("#nvrEditErrorDetails").addClass("hide_me");
   $("#set_edit_to_load").removeClass("loading");
   $("#edit_is_monitoring")
     .removeClass("am_box_checked")
@@ -60,13 +58,17 @@ onError = function(jqXHR, status, error) {
         .text(value)
         .appendTo(cList);
   });
-  $("#nvrErrorDetails").removeClass("hide");
+  $("#nvrErrorDetails").removeClass("hide_me");
+  $("#api-wait").addClass("hide_me");
+  $("#body-nvr-dis *").prop('disabled', false);
   $("#set_to_load").removeClass("loading");
   return false;
 };
 
 onSuccess = function(result, status, jqXHR) {
-  $(".add_nvr_to_db").modal("hide");
+  $(".modal-backdrop").remove();
+  $("#m_modal_1").modal("hide");
+  $("#api-wait").addClass("hide_me");
   clearForm();
   $("#set_to_load").removeClass("loading");
   console.log(result);
@@ -83,7 +85,7 @@ onEditError = function(jqXHR, status, error) {
         .text(value)
         .appendTo(cList);
   });
-  $("#nvrEditErrorDetails").removeClass("hide");
+  $("#nvrEditErrorDetails").removeClass("hide_me");
   $(".set_edit_to_load").removeClass("loading");
   return false;
 };
@@ -100,7 +102,7 @@ onEditSuccess = function(result, status, jqXHR) {
     icon: 'checkmark box', // icon in semantic-UI
     time: 3, // time
   })
-  $("#NVReditModal").modal("hide");
+  $("#NVReditModal").modal("hide_me");
   NVRtable.ajax.reload();
   console.log(result);
   return true;
@@ -331,7 +333,7 @@ showDetails = function() {
     tr = $(this).closest('tr');
     row = NVRtable.row(tr);
     if (row.child.isShown()) {
-      row.child.hide();
+      row.child.hide_me();
       tr.removeClass('shown');
       tr.find('td.details-control')
         .html("<i class='plus icon' aria-hidden='true'></i>");
@@ -370,13 +372,8 @@ replaceEntryWithAddButton = function() {
 };
 
 onNVRButton = function() {
-  $("#addNvr")
-    .on("click", function(){
-      $('.ui.checkbox').checkbox();
-      $(".modal").modal({
-        closable: false,
-      });
-      $('#NVRaddModal').modal('show');
+  $("#addNVR").on("click", function(){
+    $('.add_nvr_to_db').modal('show');
   });
 };
 
@@ -413,7 +410,7 @@ var updateNVRdo;
 updateNVRdo = function(){
   $("#editModal").on("click", function() {
     $('ul#errorOnEditNVR').html("");
-    $("#nvrEditErrorDetails").addClass("hide");
+    $("#nvrEditErrorDetails").addClass("hide_me");
     $(".set_edit_to_load").addClass("loading");
     var nvrID = $(this).attr('data-id');
     var name          = $("#edit_nvr_name").val(),
@@ -451,10 +448,10 @@ updateNVRdo = function(){
 
 discardModal = function() {
   $("#discardModal").on("click", function() {
-    $("#NVRaddModal").modal("hide");
+    $("#NVRaddModal").modal("hide_me");
     $('ul#errorOnNVR').html("")
     clearForm();
-    $("#nvrErrorDetails").addClass("hide");
+    $("#nvrErrorDetails").addClass("hide_me");
   });
 };
 
@@ -493,19 +490,21 @@ var discardEditModal;
 
 discardEditModal = function() {
   $("#discardEditModal").on("click", function() {
-    $("#NVReditModal").modal("hide");
+    $("#NVReditModal").modal("hide_me");
     $('ul#errorOnNVR').html("")
     editClearFrom();
     $("#edit_is_monitoring").removeClass("checked");
-    $("#nvrErrorDetails").addClass("hide");
+    $("#nvrErrorDetails").addClass("hide_me");
   });
 };
 
 
 saveModal = function() {
   $("#saveModal").on("click", function() {
-    // $('ul#errorOnNVR').html("");
-    // $("#nvrErrorDetails").addClass("hide");
+    $('ul#errorOnNVR').html("");
+    $("#api-wait").removeClass("hide_me");
+    $("#body-nvr-dis *").prop('disabled',true);
+    $("#nvrErrorDetails").addClass("hide_me");
     // $("#set_to_load").addClass("loading");
     var name          = $("#nvr_name").val(),
         IP            = $("#nvr_ip").val(),
@@ -546,7 +545,7 @@ window.initializeNVR = function() {
   // initializeDataTable();
   // closeMessageBox();
   // replaceEntryWithAddButton();
-  // onNVRButton();
+  onNVRButton();
   discardModal();
   // showDetails();
   saveModal();

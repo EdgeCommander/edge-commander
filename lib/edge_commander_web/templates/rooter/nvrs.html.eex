@@ -939,9 +939,9 @@
                     <!-- END: Subheader -->
                     <div class="m-content">
                       <div class="m-portlet m-portlet--mobile">
-                        <div class="m-portlet__body">
+                        <div class="m-portlet__body" style="padding: 10px;">
                           <!--begin: Search Form -->
-                          <div class="m-form m-form--label-align-right m--margin-top-20 m--margin-bottom-30">
+                          <div class="m-form m-form--label-align-right m--margin-bottom-10">
                             <div class="row align-items-center">
                               <div class="col-xl-8 order-2 order-xl-1">
                                 <div class="form-group m-form__group row align-items-center">
@@ -958,7 +958,7 @@
                                 </div>
                               </div>
                             <div class="col-xl-4 order-1 order-xl-2 m--align-right">
-                                <a href="#" class="btn btn-primary m-btn m-btn--custom m-btn--icon m-btn--air m-btn--pill" data-toggle="modal" data-target="#m_modal_1">
+                                <a href="#" id="addNVR" class="btn btn-primary m-btn m-btn--icon">
                                     <span>
                                         <i class="fa fa-plus-square"></i>
                                         <span>
@@ -987,14 +987,17 @@
                                             </span>
                                         </button>
                                     </div>
-                                    <div class="modal-body" style="padding: 0px;">
+                                    <div class="modal-body" id="body-nvr-dis" style="padding: 0px;">
+                                        <img src="/images/loading.gif" id="api-wait" class="hide_me">
                                         <div class="m-form m-form--fit m-form--label-align-right">
-                                            <div class="m-portlet__body">
-<%#                                                 <div class="form-group m-form__group m--margin-top-10">
-                                                    <div class="alert m-alert m-alert--default" role="alert">
-                                                        The example form below demonstrates common HTML form elements solid background style:
+                                            <div style="padding: 10px;" class="m-portlet__body">
+                                                <div id="nvrErrorDetails" class="hide_me">
+                                                    <div class="form-group m-form__group m--margin-top-10">
+                                                        <div class="alert m-alert m-alert--default" role="alert">
+                                                            <ul id="errorOnNVR" style="margin:0px"></ul>
+                                                        </div>
                                                     </div>
-                                                </div> %>
+                                                </div>
                                                 <div class="form-group m-form__group">
                                                     <input type="hidden" id="user_id" value="<%= @user.id %>">
                                                     <label>
@@ -1037,7 +1040,7 @@
                                         </div>
                                         <!--end::Form-->
                                     </div>
-                                    <div class="modal-footer">
+                                    <div class="modal-footer" style="padding: 11px;">
                                         <button id="discardModal" type="button" class="btn btn-secondary" data-dismiss="modal">
                                             Close
                                         </button>

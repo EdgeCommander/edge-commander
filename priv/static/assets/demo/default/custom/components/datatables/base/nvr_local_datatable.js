@@ -1,69 +1,7 @@
 
 var DatatableDataNVR = function() {
-    var r = function(r) {
-          console.log(r.detailCell);
-          console.log(r);
-          if (r.data.extra != null) {
-            // todo create table here
-            r.detailCell.html(
-                "<table class='ui celled striped table' style='width: 40%;'>\
-                      <thead>\
-                        <tr>\
-                          <th colspan='2'>\
-                            Device Information\
-                          </th>\
-                        </tr>\
-                      </thead>\
-                      <tbody>\
-                        <tr>\
-                          <td>Firmware Version</td>\
-                          <td>"+ r.data.firmware_version +"</td>\
-                        </tr>\
-                        <tr>\
-                          <td>Model</td>\
-                          <td>"+ r.data.model +"</td>\
-                        </tr>\
-                        <tr>\
-                          <td>Device Name</td>\
-                          <td>"+ r.data.extra.device_name +"</td>\
-                        </tr>\
-                        <tr>\
-                          <td>Device Type</td>\
-                          <td>"+ r.data.extra.device_type +"</td>\
-                        </tr>\
-                        <tr>\
-                          <td>Device Id</td>\
-                          <td>"+ r.data.extra.device_id +"</td>\
-                        </tr>\
-                        <tr>\
-                          <td>Encorder Released Date</td>\
-                          <td>"+ r.data.extra.encoder_released_date +"</td>\
-                        </tr>\
-                        <tr>\
-                          <td>Encoder Version</td>\
-                          <td>"+ r.data.extra.encoder_version +"</td>\
-                        </tr>\
-                        <tr>\
-                          <td>Firmware Released Date</td>\
-                          <td>"+ r.data.extra.firmware_released_date +"</td>\
-                        </tr>\
-                        <tr>\
-                          <td>Mac Address</td>\
-                          <td>"+ r.data.extra.mac_address +"</td>\
-                        </tr>\
-                        <tr>\
-                          <td>Serial Number</td>\
-                          <td>"+ r.data.extra.serial_number +"</td>\
-                        </tr>\
-                      </tbody>\
-                    </table>"
-            );
-          } else {
-            r.detailCell.html("No data available.");
-          }
-        },
-        e = function(src) {
-            a = $(".m_nvr_datatable").mDatatable({
+    var e = function(src) {
+          var a = $(".m_nvr_datatable").mDatatable({
                 data: {
                     type: "local",
                     source: src,
@@ -79,18 +17,7 @@ var DatatableDataNVR = function() {
                 sortable: !0,
                 filterable: !1,
                 pagination: false,
-                detail: {
-                    title: "Load sub table",
-                    content: r
-                },
                 columns: [
-                {
-                    field: "id",
-                    title: "",
-                    width: 20,
-                    sortable: !1,
-                    textAlign: "center"
-                },
                 {
                     field: "name",
                     title: "Name",
@@ -112,6 +39,16 @@ var DatatableDataNVR = function() {
                 }, {
                     field: "password",
                     title: "Password",
+                    textAlign: "center",
+                    width: 150
+                }, {
+                    field: "model",
+                    title: "Model",
+                    textAlign: "center",
+                    width: 200
+                }, {
+                    field: "firmware_version",
+                    title: "Firmware Version",
                     textAlign: "center",
                     width: 150
                 }, {
@@ -153,17 +90,6 @@ var DatatableDataNVR = function() {
     }
 }();
 
-// var nvr_data;
-// var logs = $.get( "/get_all_nvrs", function( data ) {
-//   console.log(data.nvrs);
-//   nvr_data = data.nvrs;
-// });
-
-// setTimeout(function () {
-//   DatatableDataNVR.init(nvr_data);
-// }, 2000);
-
-
 var get_NVR_data = function() {
   return $.ajax({
     url: "/get_all_nvrs",
@@ -174,7 +100,130 @@ var get_NVR_data = function() {
   })
 }
 
-$.when(get_NVR_data()).done(function(data){
-  DatatableDataNVR.init(data.nvrs);
-  console.log(data.nvrs);
-});
+var startNVRTable = function() {
+  $.when(get_NVR_data()).done(function(data){
+    DatatableDataNVR.init(data.nvrs);
+    console.log(data.nvrs);
+  });
+};
+
+// $.when(get_NVR_data()).done(function(data){
+//   DatatableDataNVR.init(data.nvrs);
+//   console.log(data.nvrs);
+// });
+
+
+var onNVRButton = function() {
+  $("#addNVR").on("click", function(){
+    $('.add_nvr_to_db').modal('show');
+  });
+};
+
+var discardModal = function() {
+  $("#discardModal").on("click", function() {
+    $("#NVRaddModal").modal("hide_me");
+    $('ul#errorOnNVR').html("")
+    clearForm();
+    $("#nvrErrorDetails").addClass("hide_me");
+  });
+};
+
+var clearForm = function() {
+  $("#nvr_name").val("");
+  $("#nvr_ip").val("");
+  $("#nvr_username").val("");
+  $("#nvr_password").val("");
+  $("#nvr_port").val("");
+  $('ul#errorOnNVR').html("");
+  $("#set_to_load").removeClass("loading");
+  $("#body-nvr-dis *").prop('disabled', false);
+  $("#nvrErrorDetails").addClass("hide_me");
+};
+
+var saveModal = function() {
+  $("#saveModal").on("click", function() {
+    $('ul#errorOnNVR').html("");
+    $("#api-wait").removeClass("hide_me");
+    $("#body-nvr-dis *").prop('disabled',true);
+    $("#nvrErrorDetails").addClass("hide_me");
+    // $("#set_to_load").addClass("loading");
+    var name          = $("#nvr_name").val(),
+        IP            = $("#nvr_ip").val(),
+        username      = $("#nvr_username").val(),
+        password      = $("#nvr_password").val(),
+        port          = $("#nvr_port").val(),
+        user_id       = $("#user_id").val(),
+        is_monitoring = $('input[id=nvr_is_monitoring]:checked').length > 0;
+
+    var data = {};
+        data.name = name;
+        data.ip = IP;
+        data.username = username;
+        data.password = password;
+        data.port = port;
+        data.is_monitoring = is_monitoring;
+        data.user_id = user_id;
+
+    console.log(data);
+    var settings;
+
+    settings = {
+      cache: false,
+      data: data,
+      dataType: 'json',
+      error: onError,
+      success: onSuccess,
+      contentType: "application/x-www-form-urlencoded",
+      type: "POST",
+      url: "/nvrs/new"
+    };
+
+    sendAJAXRequest(settings);
+  });
+};
+
+var onError, onSuccess;
+
+onError = function(jqXHR, status, error) {
+  var cList = $('ul#errorOnNVR')
+  $.each(jqXHR.responseJSON.errors, function(index, value) {
+    var li = $('<li/>')
+        .text(value)
+        .appendTo(cList);
+  });
+  $("#nvrErrorDetails").removeClass("hide_me");
+  $("#api-wait").addClass("hide_me");
+  $("#body-nvr-dis *").prop('disabled', false);
+  $("#set_to_load").removeClass("loading");
+  return false;
+};
+
+onSuccess = function(result, status, jqXHR) {
+  startNVRTable();
+  $(".modal-backdrop").remove();
+  $("#m_modal_1").modal("hide");
+  $("#api-wait").addClass("hide_me");
+  clearForm();
+  $("#set_to_load").removeClass("loading");
+  console.log(result);
+  return true;
+};
+
+var sendAJAXRequest = function(settings) {
+  var headers, token, xhrRequestChangeMonth;
+  token = $('meta[name="csrf-token"]');
+  if (token.length > 0) {
+    headers = {
+      "X-CSRF-Token": token.attr("content")
+    };
+    settings.headers = headers;
+  }
+  return xhrRequestChangeMonth = jQuery.ajax(settings);
+};
+
+window.initializeNVR = function() {
+  startNVRTable();
+  onNVRButton();
+  discardModal();
+  saveModal();
+};
