@@ -45,7 +45,11 @@
     <%  end %>
 
     <%= if @conn.request_path == "/nvrs" do %>
+      <link href="<%= static_path(@conn, "/css/for_nvr.css") %>" rel="stylesheet" type="text/css" />
       <script src="<%= static_path(@conn, "/assets/demo/default/custom/components/datatables/base/nvr_local_datatable.js") %>"> type="text/javascript"></script>
+      <script type="text/javascript">
+        window.initializeNVR();
+      </script>
     <%  end %>
 
     <%= if @conn.request_path == "/status_report" do %>

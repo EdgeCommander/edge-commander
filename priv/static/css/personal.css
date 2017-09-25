@@ -8,3 +8,19 @@
 .hide_me {
   display: none;
 }
+
+.modal .modal-content .modal-header {
+  padding: 11px;
+}
+
+.add_nvr_to_db > .m-portlet__body {
+  padding: 10px;
+}
+
+.m-form .m-form__group {
+  padding-bottom: 0px; 
+}
+
+.errorOnNVR {
+  margin: 0px;
+}
