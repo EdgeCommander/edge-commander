@@ -36,7 +36,7 @@ var DatatableDataNVR = function() {
                           <td>"+ r.data.extra.device_id +"</td>\
                         </tr>\
                         <tr>\
-                          <td>Encorder Released Date</td>\
+                          <td>Encoder Released Date</td>\
                           <td>"+ r.data.extra.encoder_released_date +"</td>\
                         </tr>\
                         <tr>\
