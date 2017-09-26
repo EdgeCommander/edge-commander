@@ -1,11 +1,14 @@
 
 var DatatableDataLocalDemo = function() {
-    var e = function(src) {
+    var e = function() {
             a = $(".m_datatable").mDatatable({
                 data: {
-                    type: "local",
-                    source: src,
-                    pageSize: 50
+                  type: "remote",
+                  source: "/get_sims_data",
+                  pageSize: 50,
+                  serverPaging: false,
+                  serverFiltering: false,
+                  serverSorting: false
                 },
                 layout: {
                     theme: "default",
@@ -75,30 +78,27 @@ var DatatableDataLocalDemo = function() {
         }).val(i.generalSearch)
     };
     return {
-        init: function(logs) {
-          console.log('test');
-            e(logs)
+        init: function() {
+            e()
         }
     }
 }();
 
-var dupper;
 
-$.get( "/get_sims_data", function( data ) {
-  console.log(data.logs);
-  dupper = data.logs;
-});
+var startSIMDatatable = function() {
+  DatatableDataLocalDemo.init();
+};
 
-
-setTimeout(function () {
-  DatatableDataLocalDemo.init(dupper);
+var clearCHARThtml = function() {
   $("#clear_chartsjs").on("click", function () {
     console.log("heell");
-    dupper = ''
     $("#iam_canvas").html("");
     $("#iam_canvas").html("<canvas id='canvas'></canvas>");
-  });
+  });  
+}
 
+
+var startMORRISChartJS = function () {
   $("#child_data_local").on("click", "#show-morris-graph", function(){
     console.log($(this).data("id"));
     $("#api-wait").removeClass("hide_me");
@@ -116,9 +116,8 @@ setTimeout(function () {
 
     $.ajax(settingsForMorris);
 
-  });
-}, 2000);
-
+  });  
+};
 
 var onMorrisError, onMorrisSuccess;
 
@@ -202,4 +201,11 @@ onMorrisSuccess = function (result, status, jqXHR) {
   window.myLine = new Chart(ctx, config);
 
   console.log(result.chartjs_data);
+};
+
+
+window.initializeSIMs = function() {
+  startSIMDatatable();
+  startMORRISChartJS();
+  clearCHARThtml();
 };

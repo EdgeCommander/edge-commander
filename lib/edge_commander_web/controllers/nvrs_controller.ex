@@ -65,9 +65,7 @@ defmodule EdgeCommanderWeb.NvrsController do
       end)
     conn
     |> put_status(200)
-    |> json(%{
-      "nvrs": nvrs
-    })
+    |> json(nvrs)
   end
 
   def delete(conn, %{"id" => id} = _params) do

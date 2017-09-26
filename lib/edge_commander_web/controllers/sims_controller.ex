@@ -28,9 +28,7 @@ defmodule EdgeCommanderWeb.SimsController do
       end)
     conn
     |> put_status(200)
-    |> json(%{
-      "logs": logs
-    })
+    |> json(logs)
   end
 
   def create_chartjs_line_data(conn, %{"sim_number" => sim_number } = _params) do
