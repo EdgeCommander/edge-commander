@@ -270,7 +270,13 @@ onNVRDeleteError = function(jqXHR, status, error) {
 
 onNVRDeleteSuccess = function(result, status, jqXHR) {
   this.nvrRow.remove();
-  $.notify("NVR has been deleted.", "info");
+  $.notify({
+    // options
+    message: 'NVR has been deleted.'
+  },{
+    // settings
+    type: 'info'
+  });
   console.log(result);
   return true;
 };
