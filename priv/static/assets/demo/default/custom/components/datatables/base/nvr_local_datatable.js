@@ -22,6 +22,28 @@ var DatatableDataNVR = function() {
     pagination: false,
     columns: [
     {
+      field: "edit",
+      title: "",
+      width: 40,
+      title: "#",
+      locked: {left: 'xl'},
+      sortable: false,
+      template: function(t) {
+        return "<div class='cursor_to_pointer fa fa-edit' data-id='"+ t.id +"'></div>";
+      },
+    },
+    {
+      field: "delete",
+      title: "",
+      width: 40,
+      title: "#",
+      locked: {left: 'xl'},
+      sortable: false,
+      template: function(t) {
+        return "<div class='deleteNVR cursor_to_pointer fa fa-trash' data-id='"+ t.id +"'></div>";
+      },
+    },
+    {
         field: "name",
         title: "Name",
         width: 150,
@@ -60,7 +82,6 @@ var DatatableDataNVR = function() {
         textAlign: "center",
         width: 100,
         template: function(t) {
-          console.log(t);
           if (t.is_monitoring) {
             return "Yes";
           } else{
@@ -72,7 +93,6 @@ var DatatableDataNVR = function() {
         title: "Created At",
         textAlign: "center",
         template: function(t) {
-          console.log(t);
           return "" + moment(t.created_at).format('MMMM Do YYYY, H:mm:ss') +"";
         },
         width: 200
@@ -84,7 +104,6 @@ var DatatableDataNVR = function() {
 onSearching = function() {
   i = nvrDataTable.getDataSourceQuery();
   $("#m_form_search").on("keyup", function(e) {
-      console.log($(this).val().toLowerCase());
       nvrDataTable.search($(this).val().toLowerCase())
   }).val(i.generalSearch)
 }
@@ -156,7 +175,6 @@ var saveModal = function() {
         data.is_monitoring = is_monitoring;
         data.user_id = user_id;
 
-    console.log(data);
     var settings;
 
     settings = {
@@ -191,12 +209,10 @@ onError = function(jqXHR, status, error) {
 };
 
 onSuccess = function(result, status, jqXHR) {
-  nvrDataTable.reload();
   $(".modal-backdrop").remove();
   $("#m_modal_1").modal("hide");
   $("#api-wait").addClass("hide_me");
   clearForm();
-  $("#set_to_load").removeClass("loading");
   console.log(result);
   return true;
 };
@@ -213,10 +229,57 @@ var sendAJAXRequest = function(settings) {
   return xhrRequestChangeMonth = jQuery.ajax(settings);
 };
 
+var deleteNVR;
+
+deleteNVR = function() {
+  $(".m_nvr_datatable").on("click", ".deleteNVR", function() {
+    var nvrRow, result;
+    result = confirm("Are you sure to delete this NVR?");
+    if (result === false) {
+      return;
+    }
+    nvrRow = $(this).parents('tr');
+    nvrID = $(this).attr('data-id');
+
+    var data = {};
+    data.id = nvrID;
+    var settings;
+
+    settings = {
+      cache: false,
+      data: data,
+      dataType: 'json',
+      error: onNVRDeleteError,
+      success: onNVRDeleteSuccess,
+      contentType: "application/x-www-form-urlencoded",
+      context: {nvrRow: nvrRow},
+      type: "DELETE",
+      url: "/nvrs/delete"
+    };
+
+    sendAJAXRequest(settings);
+  });
+};
+
+var onNVRDeleteError, onNVRDeleteSuccess;
+
+onNVRDeleteError = function(jqXHR, status, error) {
+  console.log(jqXHR.responseJSON);
+  return false;
+};
+
+onNVRDeleteSuccess = function(result, status, jqXHR) {
+  this.nvrRow.remove();
+  $.notify("NVR has been deleted.", "info");
+  console.log(result);
+  return true;
+};
+
 window.initializeNVR = function() {
   startNVRTable();
   onSearching();
   onNVRButton();
   discardModal();
   saveModal();
+  deleteNVR();
 };

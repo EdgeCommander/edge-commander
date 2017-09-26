@@ -24,3 +24,7 @@
 .errorOnNVR {
   margin: 0px;
 }
+
+.cursor_to_pointer {
+  cursor: pointer;
+}
