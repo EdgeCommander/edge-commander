@@ -3,16 +3,19 @@ var DatatableDataNVR = function() {
     var e = function(src) {
           var a = $(".m_nvr_datatable").mDatatable({
                 data: {
-                    type: "local",
-                    source: src,
-                    pageSize: 50
+                  type: "remote",
+                  source: "/get_all_nvrs",
+                  pageSize: 50,
+                  serverPaging: false,
+                  serverFiltering: false,
+                  serverSorting: false
                 },
                 layout: {
-                    theme: "default",
-                    class: "",
-                    scroll: !1,
-                    height: 950,
-                    footer: !1
+                  theme: "default",
+                  class: "",
+                  scroll: !1,
+                  height: 950,
+                  footer: !1
                 },
                 sortable: !0,
                 filterable: !1,
@@ -83,9 +86,9 @@ var DatatableDataNVR = function() {
         }).val(i.generalSearch)
     };
     return {
-        init: function(logs) {
+        init: function() {
           console.log('test');
-            e(logs)
+            e();
         }
     }
 }();
@@ -101,10 +104,10 @@ var get_NVR_data = function() {
 }
 
 var startNVRTable = function() {
-  $.when(get_NVR_data()).done(function(data){
-    DatatableDataNVR.init(data.nvrs);
-    console.log(data.nvrs);
-  });
+  // $.when(get_NVR_data()).done(function(data){
+    DatatableDataNVR.init();
+    // console.log(data.nvrs);
+  // });
 };
 
 // $.when(get_NVR_data()).done(function(data){
