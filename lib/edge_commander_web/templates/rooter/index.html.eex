@@ -863,7 +863,7 @@
                                 </a>
                             </li>
                             <li class="m-menu__item" aria-haspopup="true" >
-                                <a  href="/sims" class="m-menu__link ">
+                                <a  href="/" class="m-menu__link ">
                                     <i class="m-menu__link-icon fa fa-registered"></i>
                                     <span class="m-menu__link-title">
                                         <span class="m-menu__link-wrap">
@@ -875,7 +875,7 @@
                                 </a>
                             </li>
                             <li class="m-menu__item" aria-haspopup="true" >
-                                <a  href="/sims" class="m-menu__link ">
+                                <a  href="/" class="m-menu__link ">
                                     <i class="m-menu__link-icon fa  fa-leanpub"></i>
                                     <span class="m-menu__link-title">
                                         <span class="m-menu__link-wrap">
@@ -887,7 +887,7 @@
                                 </a>
                             </li>
                             <li class="m-menu__item" aria-haspopup="true" >
-                                <a  href="/sims" class="m-menu__link ">
+                                <a  href="/" class="m-menu__link ">
                                     <i class="m-menu__link-icon fa fa-bullhorn"></i>
                                     <span class="m-menu__link-title">
                                         <span class="m-menu__link-wrap">
@@ -899,7 +899,7 @@
                                 </a>
                             </li>
                             <li class="m-menu__item" aria-haspopup="true" >
-                                <a  href="/sims" class="m-menu__link ">
+                                <a  href="/" class="m-menu__link ">
                                     <i class="m-menu__link-icon fa  fa-eercast"></i>
                                     <span class="m-menu__link-title">
                                         <span class="m-menu__link-wrap">
