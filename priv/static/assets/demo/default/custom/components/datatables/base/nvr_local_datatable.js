@@ -209,6 +209,8 @@ onError = function(jqXHR, status, error) {
 };
 
 onSuccess = function(result, status, jqXHR) {
+  nvrDataTable.destroy();
+  startNVRTable();
   $(".modal-backdrop").remove();
   $("#m_modal_1").modal("hide");
   $("#api-wait").addClass("hide_me");
@@ -270,6 +272,8 @@ onNVRDeleteError = function(jqXHR, status, error) {
 
 onNVRDeleteSuccess = function(result, status, jqXHR) {
   this.nvrRow.remove();
+  nvrDataTable.destroy();
+  startNVRTable();
   $.notify({
     // options
     message: 'NVR has been deleted.'
