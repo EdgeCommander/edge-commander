@@ -1,97 +1,94 @@
+var nvrDataTable = null;
 
 var DatatableDataNVR = function() {
-    var e = function(src) {
-          var a = $(".m_nvr_datatable").mDatatable({
-                data: {
-                  type: "remote",
-                  source: "/get_all_nvrs",
-                  pageSize: 50,
-                  serverPaging: false,
-                  serverFiltering: false,
-                  serverSorting: false
-                },
-                layout: {
-                  theme: "default",
-                  class: "",
-                  scroll: !1,
-                  height: 950,
-                  footer: !1
-                },
-                sortable: !0,
-                filterable: !1,
-                pagination: false,
-                columns: [
-                {
-                    field: "name",
-                    title: "Name",
-                    width: 150,
-                    sortable: !1,
-                    selector: !1,
-                }, {
-                    field: "ip",
-                    title: "IP",
-                    width: 150
-                }, {
-                    field: "username",
-                    title: "Username",
-                    textAlign: "center",
-                    width: 100,
-                    responsive: {
-                        visible: "lg"
-                    }
-                }, {
-                    field: "password",
-                    title: "Password",
-                    textAlign: "center",
-                    width: 150
-                }, {
-                    field: "model",
-                    title: "Model",
-                    textAlign: "center",
-                    width: 200
-                }, {
-                    field: "firmware_version",
-                    title: "Firmware Version",
-                    textAlign: "center",
-                    width: 150
-                }, {
-                    field: "is_monitoring",
-                    title: "Monitoring",
-                    textAlign: "center",
-                    width: 100,
-                    template: function(t) {
-                      console.log(t);
-                      if (t.is_monitoring) {
-                        return "Yes";
-                      } else{
-                        return "No";
-                      }
-                    },
-                }, {
-                    field: "created_at",
-                    title: "Created At",
-                    textAlign: "center",
-                    template: function(t) {
-                      console.log(t);
-                      return "" + moment(t.created_at).format('MMMM Do YYYY, H:mm:ss') +"";
-                    },
-                    width: 200
-                }
-              ]
-            }),
-            i = a.getDataSourceQuery();
-        $("#m_form_search").on("keyup", function(e) {
-            console.log($(this).val().toLowerCase());
-            a.search($(this).val().toLowerCase())
-        }).val(i.generalSearch)
-    };
-    return {
-        init: function() {
-          console.log('test');
-            e();
+  nvrDataTable = $(".m_nvr_datatable").mDatatable({
+    data: {
+      type: "remote",
+      source: "/get_all_nvrs",
+      pageSize: 50,
+      serverPaging: false,
+      serverFiltering: false,
+      serverSorting: false
+    },
+    layout: {
+      theme: "default",
+      class: "",
+      scroll: !1,
+      height: 950,
+      footer: !1
+    },
+    sortable: !0,
+    filterable: !1,
+    pagination: false,
+    columns: [
+    {
+        field: "name",
+        title: "Name",
+        width: 150,
+        sortable: !1,
+        selector: !1,
+    }, {
+        field: "ip",
+        title: "IP",
+        width: 150
+    }, {
+        field: "username",
+        title: "Username",
+        textAlign: "center",
+        width: 100,
+        responsive: {
+            visible: "lg"
         }
-    }
-}();
+    }, {
+        field: "password",
+        title: "Password",
+        textAlign: "center",
+        width: 150
+    }, {
+        field: "model",
+        title: "Model",
+        textAlign: "center",
+        width: 200
+    }, {
+        field: "firmware_version",
+        title: "Firmware Version",
+        textAlign: "center",
+        width: 150
+    }, {
+        field: "is_monitoring",
+        title: "Monitoring",
+        textAlign: "center",
+        width: 100,
+        template: function(t) {
+          console.log(t);
+          if (t.is_monitoring) {
+            return "Yes";
+          } else{
+            return "No";
+          }
+        },
+    }, {
+        field: "created_at",
+        title: "Created At",
+        textAlign: "center",
+        template: function(t) {
+          console.log(t);
+          return "" + moment(t.created_at).format('MMMM Do YYYY, H:mm:ss') +"";
+        },
+        width: 200
+      }
+    ]
+  });
+};
+
+onSearching = function() {
+  i = nvrDataTable.getDataSourceQuery();
+  $("#m_form_search").on("keyup", function(e) {
+      console.log($(this).val().toLowerCase());
+      nvrDataTable.search($(this).val().toLowerCase())
+  }).val(i.generalSearch)
+}
+
 
 var get_NVR_data = function() {
   return $.ajax({
@@ -104,16 +101,8 @@ var get_NVR_data = function() {
 }
 
 var startNVRTable = function() {
-  // $.when(get_NVR_data()).done(function(data){
-    DatatableDataNVR.init();
-    // console.log(data.nvrs);
-  // });
+  DatatableDataNVR();
 };
-
-// $.when(get_NVR_data()).done(function(data){
-//   DatatableDataNVR.init(data.nvrs);
-//   console.log(data.nvrs);
-// });
 
 
 var onNVRButton = function() {
@@ -202,7 +191,7 @@ onError = function(jqXHR, status, error) {
 };
 
 onSuccess = function(result, status, jqXHR) {
-  startNVRTable();
+  nvrDataTable.reload();
   $(".modal-backdrop").remove();
   $("#m_modal_1").modal("hide");
   $("#api-wait").addClass("hide_me");
@@ -226,6 +215,7 @@ var sendAJAXRequest = function(settings) {
 
 window.initializeNVR = function() {
   startNVRTable();
+  onSearching();
   onNVRButton();
   discardModal();
   saveModal();
