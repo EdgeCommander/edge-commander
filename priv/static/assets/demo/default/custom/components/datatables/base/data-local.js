@@ -149,7 +149,7 @@ onMorrisSuccess = function (result, status, jqXHR) {
     data: {
       labels: labelsZchartjs,
       datasets: [{
-        label: "Volume Used",
+        label: " % Allowance Used",
         fill: false,
         backgroundColor: chartColors.blue,
         borderColor: chartColors.blue,
@@ -175,21 +175,32 @@ onMorrisSuccess = function (result, status, jqXHR) {
       },
       scales: {
         xAxes: [{
+          ticks: {
+              autoSkip : true,
+              callback: function(value, index, values) {
+                return new moment(value).format('YYYY-MM-DD');
+              }
+          },
           display: true,
           fontStyle: "bold",
           scaleLabel: {
             fontStyle: "bold",
-            display: true,
+            display: false,
             labelString: 'Date & Time'
           }
         }],
         yAxes: [{
+          ticks: {
+              min: 0,
+              max: 100,
+              stepSize: 10
+          },
           display: true,
           fontStyle: "bold",
           scaleLabel: {
             fontStyle: "bold",
             display: true,
-            labelString: 'Volume Used.'
+            labelString: 'Volume Used'
           }
         }]
       }
