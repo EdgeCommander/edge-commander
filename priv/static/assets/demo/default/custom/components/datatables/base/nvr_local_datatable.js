@@ -209,6 +209,13 @@ onError = function(jqXHR, status, error) {
 };
 
 onSuccess = function(result, status, jqXHR) {
+  $.notify({
+    // options
+    message: 'NVR has been added.'
+  },{
+    // settings
+    type: 'info'
+  });
   $(".modal-backdrop").remove();
   $("#m_modal_1").modal("hide");
   $("#api-wait").addClass("hide_me");
@@ -270,8 +277,6 @@ onNVRDeleteError = function(jqXHR, status, error) {
 
 onNVRDeleteSuccess = function(result, status, jqXHR) {
   this.nvrRow.remove();
-  nvrDataTable.destroy();
-  startNVRTable();
   $.notify({
     // options
     message: 'NVR has been deleted.'
@@ -366,6 +371,13 @@ onEditError = function(jqXHR, status, error) {
 };
 
 onEditSuccess = function(result, status, jqXHR) {
+  $.notify({
+    // options
+    message: 'NVR has been updated.'
+  },{
+    // settings
+    type: 'info'
+  });
   $("#api-wait").addClass("hide_me");
   editClearFrom();
   $("#edit_nvr_to_db").modal("hide");
