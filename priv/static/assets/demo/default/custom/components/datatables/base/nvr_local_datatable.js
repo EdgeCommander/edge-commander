@@ -29,7 +29,7 @@ var DatatableDataNVR = function() {
       locked: {left: 'xl'},
       sortable: false,
       template: function(t) {
-        return "<div class='cursor_to_pointer fa fa-edit' data-id='"+ t.id +"'></div>";
+        return "<div class='editNVR cursor_to_pointer fa fa-edit' data-id='"+ t.id +"'></div>";
       },
     },
     {
@@ -209,8 +209,6 @@ onError = function(jqXHR, status, error) {
 };
 
 onSuccess = function(result, status, jqXHR) {
-  nvrDataTable.destroy();
-  startNVRTable();
   $(".modal-backdrop").remove();
   $("#m_modal_1").modal("hide");
   $("#api-wait").addClass("hide_me");
@@ -285,6 +283,109 @@ onNVRDeleteSuccess = function(result, status, jqXHR) {
   return true;
 };
 
+var onNVREditButton;
+
+onNVREditButton = function() {
+  $(".m_nvr_datatable").on("click", ".editNVR", function(){
+
+    var row = $(this).closest('tr');
+    var data = nvrDataTable.jsonData[row.index()];
+    console.log(row.index())
+
+    $("#saveEditModal").attr('data-id', $(this).data("id"));
+    $("#edit_nvr_name").val(data.name);
+    $("#edit_nvr_ip").val(data.ip);
+    $("#edit_nvr_username").val(data.username);
+    $("#edit_nvr_password").val(data.password);
+    $("#edit_nvr_port").val(data.port);
+
+    if (data.is_monitoring) {
+      $('#edit_nvr_is_monitoring').prop('checked', true);
+    }
+    $('#edit_nvr_to_db').modal('show');
+  });
+};
+
+
+var updateNVRdo;
+
+updateNVRdo = function(){
+  $("#saveEditModal").on("click", function() {
+    $("#body-nvr-edit-dis *").prop('disabled', true);
+    $('ul#errorOnEditNVR').html("");
+    $("#api-wait").removeClass("hide_me");
+    $("#nvrEditErrorDetails").addClass("hide_me");
+
+    var nvrID = $(this).attr('data-id');
+    var name          = $("#edit_nvr_name").val(),
+        IP            = $("#edit_nvr_ip").val(),
+        username      = $("#edit_nvr_username").val(),
+        password      = $("#edit_nvr_password").val(),
+        port          = $("#edit_nvr_port").val(),
+        is_monitoring = $('input[id=edit_nvr_is_monitoring]:checked').length > 0;
+
+    var data = {};
+        data.name = name;
+        data.ip = IP;
+        data.username = username;
+        data.password = password;
+        data.port = port;
+        data.is_monitoring = is_monitoring;
+        data.id = nvrID;
+
+    var settings;
+
+    settings = {
+      cache: false,
+      data: data,
+      dataType: 'json',
+      error: onEditError,
+      success: onEditSuccess,
+      contentType: "application/x-www-form-urlencoded",
+      type: "PATCH",
+      url: "/nvrs/update"
+    };
+
+    sendAJAXRequest(settings);
+  });
+};
+
+var onEditError, onEditSuccess;
+
+onEditError = function(jqXHR, status, error) {
+  $("#api-wait").addClass("hide_me");
+  $("#body-nvr-edit-dis *").prop('disabled', false);
+  var cList = $('ul#errorOnEditNVR')
+  $.each(jqXHR.responseJSON.errors, function(index, value) {
+    var li = $('<li/>')
+        .text(value)
+        .appendTo(cList);
+  });
+  $("#nvrEditErrorDetails").removeClass("hide_me");
+  return false;
+};
+
+onEditSuccess = function(result, status, jqXHR) {
+  $("#api-wait").addClass("hide_me");
+  editClearFrom();
+  $("#edit_nvr_to_db").modal("hide");
+  console.log(result);
+  return true;
+};
+
+var editClearFrom;
+
+editClearFrom = function() {
+  $("#edit_nvr_name").val("");
+  $("#edit_nvr_ip").val("");
+  $("#edit_nvr_username").val("");
+  $("#edit_nvr_password").val("");
+  $("#edit_nvr_port").val("");
+  $('ul#errorOnEditNVR').html("");
+  $("#body-nvr-edit-dis *").prop('disabled', false);
+  $("#nvrEditErrorDetails").addClass("hide_me");
+}
+
 window.initializeNVR = function() {
   startNVRTable();
   onSearching();
@@ -292,4 +393,6 @@ window.initializeNVR = function() {
   discardModal();
   saveModal();
   deleteNVR();
+  onNVREditButton();
+  updateNVRdo();
 };
