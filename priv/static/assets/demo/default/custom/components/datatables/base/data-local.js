@@ -200,7 +200,7 @@ onMorrisSuccess = function (result, status, jqXHR) {
           scaleLabel: {
             fontStyle: "bold",
             display: true,
-            labelString: 'Volume Used'
+            labelString: '% Allowance Used'
           }
         }]
       }
