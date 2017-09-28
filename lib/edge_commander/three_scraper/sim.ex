@@ -12,12 +12,8 @@ defmodule ThreeScraper.SIM do
   ]
 
   def get_info do
-    tasks = for sim <- get_sims() do
-      Task.async(fn -> get_sim_data(sim) end)
-    end
-    for task <- tasks do
-      Task.await(task, 60_000)
-    end
+    for sim <- get_sims() do
+      get_sim_data(sim)
   end
 
   def get_sims do
