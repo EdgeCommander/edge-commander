@@ -14,6 +14,7 @@ defmodule ThreeScraper.SIM do
   def get_info do
     for sim <- get_sims() do
       get_sim_data(sim)
+    end
   end
 
   def get_sims do
