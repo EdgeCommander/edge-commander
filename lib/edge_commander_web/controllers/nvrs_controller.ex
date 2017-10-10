@@ -127,7 +127,7 @@ defmodule EdgeCommanderWeb.NvrsController do
     days = get_history_days(params["history_days"])
     current_user = current_user(conn)
     current_user_id = current_user.id
-    all_logs = get_logs_for_days("-7", current_user.id)
+    all_logs = get_logs_for_days(days, current_user.id)
     current_user_nvrs =
       Nvr
       |> where(user_id: ^current_user_id)
@@ -159,7 +159,7 @@ defmodule EdgeCommanderWeb.NvrsController do
     })
   end
 
-  def fromat_logs(status, logs, timezone, created_at, days) do
+  def fromat_logs(status, logs, _timezone, created_at, days) do
     {day, ""} = days |> Integer.parse
     days_in_seconds = day * 24 * 60 * 60
     starting_of_week =
