@@ -43,9 +43,10 @@ $(window).resize(function() {
   startReport(nvr_logs);
 });
 
-initializeReport = function() {
+initializeReport = function(days) {
 
   var data = {};
+      data.history_days = days
   var settings;
 
   settings = {
@@ -62,17 +63,36 @@ initializeReport = function() {
   sendAJAXRequest(settings);
 }
 
-var startDropDown;
+$( document ).ready(function() {
+  $(".ranges ul li").on("click", function() {
+    clickedValues = $(this).data("range-key");
+    console.log($(this).data("range-key"));
 
-startDropDown = function() {
-  $('.dropdown').dropdown();
-}
+    var history_days;
 
-var onLoadStartReport = function () {
-  
-};
+    switch (clickedValues) {
+    case "Today":
+        history_days = 1
+        break
+    case "Yesterday":
+        history_days = 2
+        break
+    case "Last 7 Days":
+        history_days = 7
+        break
+    case "Last 30 Days":
+        history_days = 30
+        break
+    default:
+        history_days = 1
+    }
+
+    console.log(history_days);
+    initializeReport(history_days);
+  });
+});
 
 window.initializeStatusReport = function() {
-  initializeReport();
-  onResize();
+  initializeReport(1);
+  // onSelectDate();
 };
