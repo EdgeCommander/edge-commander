@@ -1025,9 +1025,27 @@
                                                 </div>
                                                 <div class="form-group m-form__group">
                                                     <label>
-                                                        Port
+                                                        HTTP Port
                                                     </label>
-                                                    <input type="number" class="form-control m-input m-input--solid" id="nvr_port" placeholder="i.e 80">
+                                                    <input type="number" class="form-control m-input m-input--solid" id="http_nvr_port" placeholder="i.e 80">
+                                                </div>
+                                                <div class="form-group m-form__group">
+                                                    <label>
+                                                        RTSP Port
+                                                    </label>
+                                                    <input type="number" class="form-control m-input m-input--solid" id="rtsp_nvr_port" placeholder="i.e 880">
+                                                </div>
+                                                <div class="form-group m-form__group">
+                                                    <label>
+                                                        SDK Port
+                                                    </label>
+                                                    <input type="number" class="form-control m-input m-input--solid" id="sdk_nvr_port" placeholder="i.e 840">
+                                                </div>
+                                                <div class="form-group m-form__group">
+                                                    <label>
+                                                        VH Port
+                                                    </label>
+                                                    <input type="number" class="form-control m-input m-input--solid" id="vh_nvr_port" placeholder="i.e 890">
                                                 </div>
                                                 <div class="m-form__group form-group">
                                                     <label class="m-checkbox">

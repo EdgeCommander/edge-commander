@@ -49,11 +49,37 @@ var DatatableDataNVR = function() {
         width: 150,
         sortable: !1,
         selector: !1,
-    }, {
+    },
+    {
         field: "ip",
         title: "IP",
         width: 150
-    }, {
+    },
+    {
+        field: "port",
+        title: "HTTP Port",
+        textAlign: "center",
+        width: 150
+    },
+    {
+        field: "vh_port",
+        title: "VH Port",
+        textAlign: "center",
+        width: 150
+    },
+    {
+        field: "sdk_port",
+        title: "SDK Port",
+        textAlign: "center",
+        width: 150
+    },
+    {
+        field: "rtstp_port",
+        title: "RTSP Port",
+        textAlign: "center",
+        width: 150
+    },
+    {
         field: "username",
         title: "Username",
         textAlign: "center",
@@ -108,7 +134,6 @@ onSearching = function() {
   }).val(i.generalSearch)
 }
 
-
 var get_NVR_data = function() {
   return $.ajax({
     url: "/get_all_nvrs",
@@ -145,6 +170,9 @@ var clearForm = function() {
   $("#nvr_username").val("");
   $("#nvr_password").val("");
   $("#nvr_port").val("");
+  $("#sdk_nvr_port").val("");
+  $("#vh_nvr_port").val("");
+  $("#rtsp_nvr_port").val("");
   $('ul#errorOnNVR').html("");
   $("#set_to_load").removeClass("loading");
   $("#body-nvr-dis *").prop('disabled', false);
@@ -393,6 +421,9 @@ editClearFrom = function() {
   $("#edit_nvr_username").val("");
   $("#edit_nvr_password").val("");
   $("#edit_nvr_port").val("");
+  $("#edit_sdk_nvr_port").val("");
+  $("#edit_vh_nvr_port").val("");
+  $("#edit_rtsp_nvr_port").val("");
   $('ul#errorOnEditNVR').html("");
   $("#body-nvr-edit-dis *").prop('disabled', false);
   $("#nvrEditErrorDetails").addClass("hide_me");

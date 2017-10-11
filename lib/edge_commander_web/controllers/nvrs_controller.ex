@@ -60,7 +60,10 @@ defmodule EdgeCommanderWeb.NvrsController do
           created_at: nvr.inserted_at,
           firmware_version: nvr.firmware_version,
           model: nvr.model,
-          extra: nvr.extra
+          extra: nvr.extra,
+          vh_port: nvr.vh_port,
+          sdk_port: nvr.sdk_port,
+          rtsp_port: nvr.rtsp_port
         }
       end)
     conn
