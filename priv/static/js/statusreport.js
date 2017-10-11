@@ -19,6 +19,7 @@ onErrorR = function(jqXHR, status, error) {
 };
 
 onSuccessR = function(result, status, jqXHR) {
+  $("#api-waiting").addClass("hide_me");
   console.log(result);
   startReport(result.data)
   return true;
@@ -65,6 +66,7 @@ initializeReport = function(days) {
 
 $( document ).ready(function() {
   $(".ranges ul li").on("click", function() {
+    $("#api-waiting").removeClass("hide_me");
     clickedValues = $(this).data("range-key");
     console.log($(this).data("range-key"));
 

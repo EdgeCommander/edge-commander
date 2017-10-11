@@ -5,6 +5,14 @@
   z-index: 99999;
 }
 
+#api-waiting {
+  left: 50%;
+  position: fixed;
+  top: 50%;
+  z-index: 99999;
+}
+
+
 .hide_me {
   display: none;
 }
