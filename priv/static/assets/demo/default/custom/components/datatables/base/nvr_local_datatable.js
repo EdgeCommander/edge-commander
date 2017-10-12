@@ -253,7 +253,7 @@ onSuccess = function(result, status, jqXHR) {
   $(".modal-backdrop").remove();
   $("#m_modal_1").modal("hide");
   $("#api-wait").addClass("hide_me");
-  reInitializeDT();
+  nvrDataTable.reload();
   clearForm();
   console.log(result);
   return true;
@@ -320,7 +320,7 @@ onNVRDeleteSuccess = function(result, status, jqXHR) {
     type: 'info'
   });
   console.log(result);
-  reInitializeDT();
+  nvrDataTable.reload();
   return true;
 };
 
@@ -426,7 +426,7 @@ onEditSuccess = function(result, status, jqXHR) {
   $("#api-wait").addClass("hide_me");
   editClearFrom();
   $("#edit_nvr_to_db").modal("hide");
-  reInitializeDT();
+  nvrDataTable.reload();
   console.log(result);
   return true;
 };
@@ -445,12 +445,6 @@ editClearFrom = function() {
   $('ul#errorOnEditNVR').html("");
   $("#body-nvr-edit-dis *").prop('disabled', false);
   $("#nvrEditErrorDetails").addClass("hide_me");
-}
-
-var reInitializeDT = function() {
-  $(".m_nvr_datatable").remove();
-  $(".reload").after('<div class="m_nvr_datatable" id="child_data_local"></div>');
-  DatatableDataNVR();
 }
 
 window.initializeNVR = function() {
