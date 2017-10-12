@@ -20,7 +20,7 @@ defmodule EdgeCommander.Mixfile do
   def application do
     [
       mod: {EdgeCommander.Application, []},
-      extra_applications: [:logger, :runtime_tools]
+      extra_applications: [:logger, :runtime_tools, :con_cache]
     ]
   end
 
@@ -47,7 +47,8 @@ defmodule EdgeCommander.Mixfile do
       {:quantum, ">= 2.1.0"},
       {:timex, "~> 3.0"},
       {:floki, "~> 0.18"},
-      {:calendar, "~> 0.17.2"}
+      {:calendar, "~> 0.17.2"},
+      {:con_cache, "~> 0.12.1"}
     ]
   end
 

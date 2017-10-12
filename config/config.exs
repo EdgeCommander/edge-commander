@@ -25,9 +25,10 @@ config :logger, :console,
 # Import environment specific config. This must remain at the bottom
 # of this file so it overrides the configuration defined above.
 
-# config :edge_commander, EdgeCommander.Scheduler,
-#   jobs: [
-#     # Every minute
-#     {"* * * * *",      {EdgeCommander.Portable, :start_porting, []}},
-#   ]
+config :edge_commander, EdgeCommander.Scheduler,
+  jobs: [
+    # Every minute
+    {"* * * * *",      {EdgeCommander.Portable, :start_porting, []}},
+  ]
+
 import_config "#{Mix.env}.exs"

@@ -974,18 +974,13 @@
 
 
  <!--begin::Modal-->
-                        <div class="modal fade add_nvr_to_db" style="padding: 0px;" id="m_modal_1" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                        <div class="modal fade add_nvr_to_db" style="padding: 0px;" id="m_modal_1" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" data-backdrop="static" data-keyboard="false">
                             <div class="modal-dialog" role="document">
                                 <div class="modal-content" style="padding: 0px;">
                                     <div class="modal-header">
                                         <h5 class="modal-title" id="exampleModalLabel">
                                             Add NVR
                                         </h5>
-                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                            <span aria-hidden="true">
-                                                &times;
-                                            </span>
-                                        </button>
                                     </div>
                                     <div class="modal-body" id="body-nvr-dis" style="padding: 0px;">
                                         <img src="/images/loading.gif" id="api-wait" class="hide_me">
@@ -1073,7 +1068,7 @@
 
 
  <!--beginEDIT::Modal-->
-                        <div class="modal fade" id="edit_nvr_to_db" style="padding: 0px;">
+                        <div class="modal fade" id="edit_nvr_to_db" style="padding: 0px;" data-backdrop="static" data-keyboard="false">
                             <div class="modal-dialog" role="document">
                                 <div class="modal-content" style="padding: 0px;">
                                     <div class="modal-header">
