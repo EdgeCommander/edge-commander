@@ -18,13 +18,27 @@ defmodule EdgeCommander.Portable do
     end)
   end
 
+  defp get_current_status(nvr_id) do
+    ConCache.get(:current_nvr_status, nvr_id)
+  end
+
   def port_status_to_db({:ok, _}, nvr) do
-    changeset_to_db(nvr, true)
-    update_nvr_status(nvr, true)
+    case get_current_status(nvr.nvr_id) do
+      nil ->
+        changeset_to_db(nvr, true)
+        update_nvr_status(nvr, true)
+      true ->
+        Logger.info "Status already true."
+    end
   end
   def port_status_to_db({:error, _}, nvr) do
-    changeset_to_db(nvr, false)
-    update_nvr_status(nvr, false)
+    case get_current_status(nvr.nvr_id) do
+      nil ->
+        changeset_to_db(nvr, false)
+        update_nvr_status(nvr, false)
+      false ->
+        Logger.info "Status already false."
+    end
   end
   # {:error, :nxdomain}
   # {:error, :timeout}
@@ -37,6 +51,7 @@ defmodule EdgeCommander.Portable do
   end
 
   def changeset_to_db(nvr, status) do
+    ConCache.dirty_put(:current_nvr_status, nvr.nvr_id, status)
     %NvrPorts{}
     |> NvrPorts.changeset(%{
         nvr_id: nvr.nvr_id,
