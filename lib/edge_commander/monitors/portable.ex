@@ -27,6 +27,9 @@ defmodule EdgeCommander.Portable do
       nil ->
         changeset_to_db(nvr, true)
         update_nvr_status(nvr, true)
+      false ->
+        changeset_to_db(nvr, true)
+        update_nvr_status(nvr, true)
       true ->
         Logger.info "Status already true."
     end
@@ -34,6 +37,9 @@ defmodule EdgeCommander.Portable do
   def port_status_to_db({:error, _}, nvr) do
     case get_current_status(nvr.nvr_id) do
       nil ->
+        changeset_to_db(nvr, false)
+        update_nvr_status(nvr, false)
+      true ->
         changeset_to_db(nvr, false)
         update_nvr_status(nvr, false)
       false ->
