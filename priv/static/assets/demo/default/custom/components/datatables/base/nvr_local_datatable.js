@@ -74,7 +74,7 @@ var DatatableDataNVR = function() {
         width: 150
     },
     {
-        field: "rtstp_port",
+        field: "rtsp_port",
         title: "RTSP Port",
         textAlign: "center",
         width: 150
@@ -169,7 +169,7 @@ var clearForm = function() {
   $("#nvr_ip").val("");
   $("#nvr_username").val("");
   $("#nvr_password").val("");
-  $("#nvr_port").val("");
+  $("#http_nvr_port").val("");
   $("#sdk_nvr_port").val("");
   $("#vh_nvr_port").val("");
   $("#rtsp_nvr_port").val("");
@@ -190,7 +190,10 @@ var saveModal = function() {
         IP            = $("#nvr_ip").val(),
         username      = $("#nvr_username").val(),
         password      = $("#nvr_password").val(),
-        port          = $("#nvr_port").val(),
+        http_nvr_port = $("#http_nvr_port").val(),
+        sdk_nvr_port  = $("#sdk_nvr_port").val(),
+        vh_nvr_port   = $("#vh_nvr_port").val(),
+        rtsp_nvr_port = $("#rtsp_nvr_port").val(),
         user_id       = $("#user_id").val(),
         is_monitoring = $('input[id=nvr_is_monitoring]:checked').length > 0;
 
@@ -199,7 +202,10 @@ var saveModal = function() {
         data.ip = IP;
         data.username = username;
         data.password = password;
-        data.port = port;
+        data.port = http_nvr_port;
+        data.sdk_port = sdk_nvr_port;
+        data.vh_port = vh_nvr_port;
+        data.rtsp_port = rtsp_nvr_port;
         data.is_monitoring = is_monitoring;
         data.user_id = user_id;
 
@@ -247,6 +253,7 @@ onSuccess = function(result, status, jqXHR) {
   $(".modal-backdrop").remove();
   $("#m_modal_1").modal("hide");
   $("#api-wait").addClass("hide_me");
+  reInitializeDT();
   clearForm();
   console.log(result);
   return true;
@@ -313,13 +320,14 @@ onNVRDeleteSuccess = function(result, status, jqXHR) {
     type: 'info'
   });
   console.log(result);
+  reInitializeDT();
   return true;
 };
 
 var onNVREditButton;
 
 onNVREditButton = function() {
-  $(".m_nvr_datatable").on("click", ".editNVR", function(){
+  $(document).on("click", ".editNVR", function(){
 
     var row = $(this).closest('tr');
     var data = nvrDataTable.jsonData[row.index()];
@@ -330,7 +338,10 @@ onNVREditButton = function() {
     $("#edit_nvr_ip").val(data.ip);
     $("#edit_nvr_username").val(data.username);
     $("#edit_nvr_password").val(data.password);
-    $("#edit_nvr_port").val(data.port);
+    $("#edit_http_nvr_port").val(data.port);
+    $("#edit_vh_nvr_port").val(data.vh_port);
+    $("#edit_sdk_nvr_port").val(data.sdk_port);
+    $("#edit_rtsp_nvr_port").val(data.rtsp_port);
 
     if (data.is_monitoring) {
       $('#edit_nvr_is_monitoring').prop('checked', true);
@@ -354,7 +365,10 @@ updateNVRdo = function(){
         IP            = $("#edit_nvr_ip").val(),
         username      = $("#edit_nvr_username").val(),
         password      = $("#edit_nvr_password").val(),
-        port          = $("#edit_nvr_port").val(),
+        http_nvr_port = $("#edit_http_nvr_port").val(),
+        sdk_nvr_port  = $("#edit_sdk_nvr_port").val(),
+        vh_nvr_port   = $("#edit_vh_nvr_port").val(),
+        rtsp_nvr_port = $("#edit_rtsp_nvr_port").val(),
         is_monitoring = $('input[id=edit_nvr_is_monitoring]:checked').length > 0;
 
     var data = {};
@@ -362,7 +376,10 @@ updateNVRdo = function(){
         data.ip = IP;
         data.username = username;
         data.password = password;
-        data.port = port;
+        data.port = http_nvr_port;
+        data.sdk_port = sdk_nvr_port;
+        data.vh_port = vh_nvr_port;
+        data.rtsp_port = rtsp_nvr_port;
         data.is_monitoring = is_monitoring;
         data.id = nvrID;
 
@@ -409,6 +426,7 @@ onEditSuccess = function(result, status, jqXHR) {
   $("#api-wait").addClass("hide_me");
   editClearFrom();
   $("#edit_nvr_to_db").modal("hide");
+  reInitializeDT();
   console.log(result);
   return true;
 };
@@ -420,13 +438,19 @@ editClearFrom = function() {
   $("#edit_nvr_ip").val("");
   $("#edit_nvr_username").val("");
   $("#edit_nvr_password").val("");
-  $("#edit_nvr_port").val("");
+  $("#edit_http_nvr_port").val("");
   $("#edit_sdk_nvr_port").val("");
   $("#edit_vh_nvr_port").val("");
   $("#edit_rtsp_nvr_port").val("");
   $('ul#errorOnEditNVR').html("");
   $("#body-nvr-edit-dis *").prop('disabled', false);
   $("#nvrEditErrorDetails").addClass("hide_me");
+}
+
+var reInitializeDT = function() {
+  $(".m_nvr_datatable").remove();
+  $(".reload").after('<div class="m_nvr_datatable" id="child_data_local"></div>');
+  DatatableDataNVR();
 }
 
 window.initializeNVR = function() {
