@@ -18,6 +18,9 @@ defmodule EdgeCommander.Devices.Nvr do
     field :name, :string
     field :password, :string
     field :port, :integer
+    field :vh_port, :integer
+    field :sdk_port, :integer
+    field :rtsp_port, :integer
     field :username, :string
     field :nvr_status, :boolean, default: true
 
@@ -27,7 +30,7 @@ defmodule EdgeCommander.Devices.Nvr do
   @doc false
   def changeset(%Nvr{} = nvr, attrs) do
     nvr
-    |> cast(attrs, [:name, :ip, :port, :username, :password, :is_monitoring, :model, :firmware_version, :extra, :user_id, :nvr_status])
+    |> cast(attrs, [:name, :ip, :port, :username, :password, :is_monitoring, :model, :firmware_version, :extra, :user_id, :nvr_status, :vh_port, :rtsp_port, :sdk_port])
     |> validate_required(:name, [message: "Name cannot be empty."])
     |> validate_required(:ip, [message: "IP / URL cannot be empty."])
     |> validate_required(:port, [message: "Port cannot be empty."])
