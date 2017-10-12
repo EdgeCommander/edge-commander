@@ -173,9 +173,9 @@ defmodule EdgeCommanderWeb.NvrsController do
       |> Calendar.DateTime.advance!(days_in_seconds)
 
     no_event_logged =
-      case starting_of_week < created_at do
-        true -> created_at
-        false -> starting_of_week
+      case DateTime.compare starting_of_week, created_at do
+        :gt -> starting_of_week
+        _ -> created_at
       end
 
     unshift_log =
