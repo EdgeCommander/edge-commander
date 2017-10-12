@@ -274,7 +274,7 @@ var sendAJAXRequest = function(settings) {
 var deleteNVR;
 
 deleteNVR = function() {
-  $(".m_nvr_datatable").on("click", ".deleteNVR", function() {
+  $(document).on("click", ".deleteNVR", function() {
     var nvrRow, result;
     result = confirm("Are you sure to delete this NVR?");
     if (result === false) {
