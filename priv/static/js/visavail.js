@@ -372,7 +372,7 @@ function visavailChart() {
               return window.pageXOffset + matrix.e + 'px';
             })
             .style('top', function () {
-              return window.pageYOffset + matrix.f - 11 + 'px';
+              return window.pageYOffset + matrix.f - 14 + 'px';
             })
             .style('height', dataHeight + 11 + 'px');
           })
