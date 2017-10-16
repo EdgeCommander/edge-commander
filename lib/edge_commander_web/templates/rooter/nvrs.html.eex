@@ -957,20 +957,90 @@
                                   </div>
                                 </div>
                               </div>
-                            <div class="col-xl-4 order-1 order-xl-2 m--align-right">
-                                <a href="#" id="addNVR" class="btn btn-primary m-btn m-btn--icon">
-                                    <span>
-                                        <i class="fa fa-plus-square"></i>
-                                        <span>
-                                            Add NVR
-                                        </span>
-                                    </span>
-                                </a>
-                                <div class="m-separator m-separator--dashed d-xl-none"></div>
-                            </div>
+                              <div class="col-xl-4 order-1 order-xl-2 m--align-right">
+                                  <a href="#" id="addNVR" class="btn btn-primary m-btn m-btn--icon">
+                                      <span>
+                                          <i class="fa fa-plus-square"></i>
+                                          <span>
+                                              Add NVR
+                                          </span>
+                                      </span>
+                                  </a>
+                                  <div class="m-separator m-separator--dashed d-xl-none"></div>
+                                  <div href="#" class="btn btn-default grey" data-toggle="modal" data-target="#toggle-datatable-columns">
+                                    <i class="fa fa-columns"></i>
+                                  </div>
+                              </div>
                             </div>
                           </div>
                           <!--end: Search Form -->
+
+
+<%# show and hide columns modal %>
+
+<div id="toggle-datatable-columns" class="modal fade" style="padding: 0px;">
+  <div class="modal-dialog" style="width:300px;">
+    <div class="modal-content" style="padding: 0px;">
+      <div class="modal-header">
+        <div class="caption"><strong>Show/Hide Columns</strong></div>
+        <div class="cancel">
+          <a class="cancel_link" href="#" data-dismiss="modal">X</a>
+        </div>
+      </div>
+      <div class="modal-body" style="padding: 15px;padding-bottom: 0px;">
+        <div class="form-group">
+          <div class="column-checkbox">
+            <label class="m-checkbox m-checkbox--single m-checkbox--solid m-checkbox--brand" style="width: auto;"><input type="checkbox" class="nvr-column" data-field="edit" checked><span></span> Edit</label>
+          </div>
+          <div class="column-checkbox">
+            <label class="m-checkbox m-checkbox--single m-checkbox--solid m-checkbox--brand" style="width: auto;"><input class="nvr-column" type="checkbox" data-field="delete" checked><span></span> Delete</label>
+          </div>
+          <div class="column-checkbox">
+            <label class="m-checkbox m-checkbox--single m-checkbox--solid m-checkbox--brand" style="width: auto;"><input class="nvr-column" type="checkbox" data-field="name" checked><span></span> Name</label>
+          </div>
+          <div class="column-checkbox">
+            <label class="m-checkbox m-checkbox--single m-checkbox--solid m-checkbox--brand" style="width: auto;"><input class="nvr-column" type="checkbox" data-field="ip" checked><span></span> IP</label>
+          </div>
+          <div class="column-checkbox">
+            <label class="m-checkbox m-checkbox--single m-checkbox--solid m-checkbox--brand" style="width: auto;"><input class="nvr-column" type="checkbox" data-field="port" checked><span></span> HTTP Port</label>
+          </div>
+          <div class="column-checkbox">
+            <label class="m-checkbox m-checkbox--single m-checkbox--solid m-checkbox--brand" style="width: auto;"><input class="nvr-column" type="checkbox" data-field="vh_port" checked><span></span> VH Port</label>
+          </div>
+          <div class="column-checkbox">
+            <label class="m-checkbox m-checkbox--single m-checkbox--solid m-checkbox--brand" style="width: auto;"><input class="nvr-column" type="checkbox" data-field="sdk_port" checked><span></span> SDK Port</label>
+          </div>
+          <div class="column-checkbox">
+            <label class="m-checkbox m-checkbox--single m-checkbox--solid m-checkbox--brand" style="width: auto;"><input class="nvr-column" type="checkbox" data-field="rtsp_port" checked><span></span> RTSP Port</label>
+          </div>
+          <div class="column-checkbox">
+            <label class="m-checkbox m-checkbox--single m-checkbox--solid m-checkbox--brand" style="width: auto;"><input class="nvr-column" type="checkbox" data-field="username" checked><span></span> Username</label>
+          </div>
+          <div class="column-checkbox">
+            <label class="m-checkbox m-checkbox--single m-checkbox--solid m-checkbox--brand" style="width: auto;"><input class="nvr-column" type="checkbox" data-field="password" checked><span></span> Password</label>
+          </div>
+          <div class="column-checkbox">
+            <label class="m-checkbox m-checkbox--single m-checkbox--solid m-checkbox--brand" style="width: auto;"><input class="nvr-column" type="checkbox" data-field="model" checked><span></span> Model</label>
+          </div>
+          <div class="column-checkbox">
+            <label class="m-checkbox m-checkbox--single m-checkbox--solid m-checkbox--brand" style="width: auto;"><input class="nvr-column" type="checkbox" data-field="firmware_version" checked><span></span> Firmware Version</label>
+          </div>
+          <div class="column-checkbox">
+            <label class="m-checkbox m-checkbox--single m-checkbox--solid m-checkbox--brand" style="width: auto;"><input class="nvr-column" type="checkbox" data-field="is_monitoring" checked><span></span> Monitoring</label>
+          </div>
+          <div class="column-checkbox">
+            <label class="m-checkbox m-checkbox--single m-checkbox--solid m-checkbox--brand" style="width: auto;"><input class="nvr-column" type="checkbox" data-field="created_at" checked><span></span> Created At</label>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer" style="padding: 11px;">
+        <div class="pull-right">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
 
 
  <!--begin::Modal-->

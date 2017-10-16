@@ -447,6 +447,22 @@ editClearFrom = function() {
   $("#nvrEditErrorDetails").addClass("hide_me");
 }
 
+var showHideColumns;
+
+showHideColumns = function() {
+  $(".nvr-column").on("click", function(){
+    console.log($(this).attr("data-field"));
+    var ColToHide = $(this).attr("data-field");
+    if(this.checked){
+      $("th[data-field='" + ColToHide + "']").show();
+      $("td[data-field='" + ColToHide + "']").show();
+    }else{
+      $("th[data-field='" + ColToHide + "']").hide();
+      $("td[data-field='" + ColToHide + "']").hide();
+    }
+  });
+};
+
 window.initializeNVR = function() {
   startNVRTable();
   onSearching();
@@ -456,4 +472,5 @@ window.initializeNVR = function() {
   deleteNVR();
   onNVREditButton();
   updateNVRdo();
+  showHideColumns();
 };

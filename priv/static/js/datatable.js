@@ -869,6 +869,14 @@
           dt.insertData();
         };
 
+        // get local data here
+        if (options.data.type === 'local'
+          // for remote json type data
+          || typeof options.data.source.read === 'undefined' && datatable.jsonData !== null) {
+          afterGetData();
+          return;
+        }
+
         // getting data from remote only
         console.log(dt.getData());
         dt.getData().done(afterGetData);

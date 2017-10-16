@@ -944,7 +944,13 @@
                           <div class="m-form m-form--label-align-right m--margin-bottom-10">
                             <div class="row align-items-center">
                               <div class="col-xl-8 order-2 order-xl-1">
+                                <%# <div class="m-separator m-separator--dashed d-xl-none"></div> %>
                                 <div class="form-group m-form__group row align-items-center">
+                                  <div class="col-md-1" style="max-width: 5.33333%">
+                                    <div href="#" class="btn btn-default grey" data-toggle="modal" data-target="#toggle-datatable-columns">
+                                     <i class="fa fa-columns"></i>
+                                    </div>
+                                   </div>
                                   <div class="col-md-4">
                                     <div class="m-input-icon m-input-icon--left">
                                       <input type="text" class="form-control m-input m-input--solid" placeholder="Search..." id="m_form_search">
@@ -961,7 +967,48 @@
                           </div>
                           <!--end: Search Form -->
 
-
+<div id="toggle-datatable-columns" class="modal fade" style="padding: 0px;">
+  <div class="modal-dialog" style="width:300px;">
+    <div class="modal-content" style="padding: 0px;">
+      <div class="modal-header">
+        <div class="caption"><strong>Show/Hide Columns</strong></div>
+        <div class="cancel">
+          <a class="cancel_link" href="#" data-dismiss="modal">X</a>
+        </div>
+      </div>
+      <div class="modal-body" style="padding: 15px;padding-bottom: 0px;">
+        <div class="form-group">
+          <div class="column-checkbox">
+            <label class="m-checkbox m-checkbox--single m-checkbox--solid m-checkbox--brand" style="width: auto;"><input type="checkbox" class="sims-column" data-field="number" checked><span></span> Number</label>
+          </div>
+          <div class="column-checkbox">
+            <label class="m-checkbox m-checkbox--single m-checkbox--solid m-checkbox--brand" style="width: auto;"><input class="sims-column" type="checkbox" data-field="name" checked><span></span> Name</label>
+          </div>
+          <div class="column-checkbox">
+            <label class="m-checkbox m-checkbox--single m-checkbox--solid m-checkbox--brand" style="width: auto;"><input class="sims-column" type="checkbox" data-field="allowance" checked><span></span> Allowance</label>
+          </div>
+          <div class="column-checkbox">
+            <label class="m-checkbox m-checkbox--single m-checkbox--solid m-checkbox--brand" style="width: auto;"><input class="sims-column" type="checkbox" data-field="volume_used_today" checked><span></span> Volume Used Today</label>
+          </div>
+          <div class="column-checkbox">
+            <label class="m-checkbox m-checkbox--single m-checkbox--solid m-checkbox--brand" style="width: auto;"><input class="sims-column" type="checkbox" data-field="volume_used_yesterday" checked><span></span> Volume Used Yesterday</label>
+          </div>
+          <div class="column-checkbox">
+            <label class="m-checkbox m-checkbox--single m-checkbox--solid m-checkbox--brand" style="width: auto;"><input class="sims-column" type="checkbox" data-field="percentage_used" checked><span></span> % Used</label>
+          </div>
+          <div class="column-checkbox">
+            <label class="m-checkbox m-checkbox--single m-checkbox--solid m-checkbox--brand" style="width: auto;"><input class="sims-column" type="checkbox" data-field="remaining_days" checked><span></span> Remaining Days</label>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer" style="padding: 11px;">
+        <div class="pull-right">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
 
  <!--begin::Modal-->
             <div class="modal fade" id="m_modal_4" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" data-backdrop="static" data-keyboard="false">
