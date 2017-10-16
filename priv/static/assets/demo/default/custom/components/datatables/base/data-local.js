@@ -61,7 +61,7 @@ var DatatableDataLocalDemo = function() {
                   textAlign: "center"
                 },
                 {
-                  field: "",
+                  field: "remaining_days",
                   title: "Remaning Days",
                   textAlign: "center",
                   template: function(t) {
@@ -214,9 +214,25 @@ onMorrisSuccess = function (result, status, jqXHR) {
   console.log(result.chartjs_data);
 };
 
+var showHideColumns;
+
+showHideColumns = function() {
+  $(".sims-column").on("click", function(){
+    console.log($(this).attr("data-field"));
+    var ColToHide = $(this).attr("data-field");
+    if(this.checked){
+      $("th[data-field='" + ColToHide + "']").show();
+      $("td[data-field='" + ColToHide + "']").show();
+    }else{
+      $("th[data-field='" + ColToHide + "']").hide();
+      $("td[data-field='" + ColToHide + "']").hide();
+    }
+  });
+};
 
 window.initializeSIMs = function() {
   startSIMDatatable();
   startMORRISChartJS();
   clearCHARThtml();
+  showHideColumns();
 };
