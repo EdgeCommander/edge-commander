@@ -849,7 +849,7 @@
                                     </span>
                                 </a>
                             </li>
-                            <li class="m-menu__item m-menu__item--active" aria-haspopup="true" >
+                            <li class="m-menu__item" aria-haspopup="true" >
                                 <a  href="/status_report" class="m-menu__link ">
                                     <i class="m-menu__link-icon fa  fa-barcode"></i>
                                     <span class="m-menu__link-title">
@@ -861,7 +861,7 @@
                                     </span>
                                 </a>
                             </li>
-                            <li class="m-menu__item" aria-haspopup="true" >
+                            <li class="m-menu__item m-menu__item--active" aria-haspopup="true" >
                                 <a  href="/routers" class="m-menu__link ">
                                     <i class="m-menu__link-icon fa fa-registered"></i>
                                     <span class="m-menu__link-title">
@@ -920,7 +920,7 @@
                         <div class="d-flex align-items-center">
                             <div class="mr-auto">
                                 <h3 class="m-subheader__title ">
-                                    Status Report
+                                    Routers
                                 </h3>
                             </div>
                             <div>
@@ -939,15 +939,250 @@
                     <!-- END: Subheader -->
                     <div class="m-content">
                       <div class="m-portlet m-portlet--mobile">
-                        <div class="m-portlet__body">
-                            <div style="margin: 0 auto; width: 100%;padding: 10px" id="visavail_container">
-                              <img src="/images/loading.gif" id="api-waiting" class="hide_me">
-                              <p id="draw_report" class="margin-top-5"></p>
-                            </div>
-<%#                           <img src="assets/app/media/img//users/Selection_181.png" style="width: 100%" alt=""/> %>
+                        <div class="m-portlet__body" style="padding: 10px;">
                           <!--begin: Search Form -->
+                          <div class="m-form m-form--label-align-right m--margin-bottom-10">
+                            <div class="row align-items-center">
+                              <div class="col-xl-8 order-2 order-xl-1">
+                                <div class="form-group m-form__group row align-items-center">
+                                  <div class="col-md-4">
+                                    <div class="m-input-icon m-input-icon--left">
+                                      <input type="text" class="form-control m-input m-input--solid" placeholder="Search..." id="m_form_search">
+                                      <span class="m-input-icon__icon m-input-icon__icon--left">
+                                        <span>
+                                          <i class="la la-search"></i>
+                                        </span>
+                                      </span>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                              <div class="col-xl-4 order-1 order-xl-2 m--align-right">
+                                  <a href="#" id="addROUTER" class="btn btn-primary m-btn m-btn--icon">
+                                      <span>
+                                          <i class="fa fa-plus-square"></i>
+                                          <span>
+                                              Add Router
+                                          </span>
+                                      </span>
+                                  </a>
+                                  <div class="m-separator m-separator--dashed d-xl-none"></div>
+                                  <div href="#" class="btn btn-default grey" data-toggle="modal" data-target="#toggle-datatable-columns">
+                                    <i class="fa fa-columns"></i>
+                                  </div>
+                              </div>
+                            </div>
+                          </div>
                           <!--end: Search Form -->
+
+
+<%# show and hide columns modal %>
+
+<div id="toggle-datatable-columns" class="modal fade" style="padding: 0px;">
+  <div class="modal-dialog" style="width:300px;">
+    <div class="modal-content" style="padding: 0px;">
+      <div class="modal-header">
+        <div class="caption"><strong>Show/Hide Columns</strong></div>
+        <div class="cancel">
+          <a class="cancel_link" href="#" data-dismiss="modal">X</a>
+        </div>
+      </div>
+      <div class="modal-body" style="padding: 15px;padding-bottom: 0px;">
+        <div class="form-group">
+          <div class="column-checkbox">
+            <label class="m-checkbox m-checkbox--single m-checkbox--solid m-checkbox--brand" style="width: auto;"><input type="checkbox" class="router-column" data-field="edit" checked><span></span> Edit</label>
+          </div>
+          <div class="column-checkbox">
+            <label class="m-checkbox m-checkbox--single m-checkbox--solid m-checkbox--brand" style="width: auto;"><input class="router-column" type="checkbox" data-field="delete" checked><span></span> Delete</label>
+          </div>
+          <div class="column-checkbox">
+            <label class="m-checkbox m-checkbox--single m-checkbox--solid m-checkbox--brand" style="width: auto;"><input class="router-column" type="checkbox" data-field="name" checked><span></span> Name</label>
+          </div>
+          <div class="column-checkbox">
+            <label class="m-checkbox m-checkbox--single m-checkbox--solid m-checkbox--brand" style="width: auto;"><input class="router-column" type="checkbox" data-field="ip" checked><span></span> IP</label>
+          </div>
+          <div class="column-checkbox">
+            <label class="m-checkbox m-checkbox--single m-checkbox--solid m-checkbox--brand" style="width: auto;"><input class="router-column" type="checkbox" data-field="port" checked><span></span> HTTP Port</label>
+          </div>
+          <div class="column-checkbox">
+            <label class="m-checkbox m-checkbox--single m-checkbox--solid m-checkbox--brand" style="width: auto;"><input class="router-column" type="checkbox" data-field="username" checked><span></span> Username</label>
+          </div>
+          <div class="column-checkbox">
+            <label class="m-checkbox m-checkbox--single m-checkbox--solid m-checkbox--brand" style="width: auto;"><input class="router-column" type="checkbox" data-field="password" checked><span></span> Password</label>
+          </div>
+          <div class="column-checkbox">
+            <label class="m-checkbox m-checkbox--single m-checkbox--solid m-checkbox--brand" style="width: auto;"><input class="router-column" type="checkbox" data-field="is_monitoring" checked><span></span> Monitoring</label>
+          </div>
+          <div class="column-checkbox">
+            <label class="m-checkbox m-checkbox--single m-checkbox--solid m-checkbox--brand" style="width: auto;"><input class="router-column" type="checkbox" data-field="created_at" checked><span></span> Created At</label>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer" style="padding: 11px;">
+        <div class="pull-right">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+ <!--begin::Modal-->
+                        <div class="modal fade add_router_to_db" style="padding: 0px;" id="m_modal_1" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" data-backdrop="static" data-keyboard="false">
+                            <div class="modal-dialog" role="document">
+                                <div class="modal-content" style="padding: 0px;">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="exampleModalLabel">
+                                            Add Router
+                                        </h5>
+                                    </div>
+                                    <div class="modal-body" id="body-router-dis" style="padding: 0px;">
+                                        <img src="/images/loading.gif" id="api-wait" class="hide_me">
+                                        <div class="m-form m-form--fit m-form--label-align-right">
+                                            <div style="padding: 10px;" class="m-portlet__body">
+                                                <div id="routerErrorDetails" class="hide_me">
+                                                    <div class="form-group m-form__group m--margin-top-10">
+                                                        <div class="alert m-alert m-alert--default" role="alert">
+                                                            <ul id="errorOnROUTER" style="margin:0px"></ul>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group m-form__group">
+                                                    <input type="hidden" id="user_id" value="<%= @user.id %>">
+                                                    <label>
+                                                        Name
+                                                    </label>
+                                                    <input type="text" class="form-control m-input m-input--solid" id="router_name" aria-describedby="emailHelp" placeholder="Galway route.">
+                                                </div>
+                                                <div class="form-group m-form__group">
+                                                    <label>
+                                                        IP
+                                                    </label>
+                                                    <input type="text" class="form-control m-input m-input--solid" id="router_ip" placeholder="https://youripmaybe">
+                                                </div>
+                                                <div class="form-group m-form__group">
+                                                    <label>
+                                                        Username
+                                                    </label>
+                                                    <input type="text" class="form-control m-input m-input--solid" id="router_username" placeholder="i.e admin">
+                                                </div>
+                                                <div class="form-group m-form__group">
+                                                    <label>
+                                                        Password
+                                                    </label>
+                                                    <input type="text" class="form-control m-input m-input--solid" id="router_password" placeholder="Super Secret">
+                                                </div>
+                                                <div class="form-group m-form__group">
+                                                    <label>
+                                                        HTTP Port
+                                                    </label>
+                                                    <input type="number" class="form-control m-input m-input--solid" id="http_router_port" placeholder="i.e 80">
+                                                </div>
+                                                <div class="m-form__group form-group">
+                                                    <label class="m-checkbox">
+                                                        <input type="checkbox" id="router_is_monitoring">
+                                                        Monitoring
+                                                        <span></span>
+                                                    </label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!--end::Form-->
+                                    </div>
+                                    <div class="modal-footer" style="padding: 11px;">
+                                        <button id="discardModal" type="button" class="btn btn-secondary" data-dismiss="modal">
+                                            Close
+                                        </button>
+                                        <button id="saveModal" type="button" class="btn btn-primary">
+                                            Save changes
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+            <!--end::Modal-->
+
+
+ <!--beginEDIT::Modal-->
+                        <div class="modal fade" id="edit_router_to_db" style="padding: 0px;" data-backdrop="static" data-keyboard="false">
+                            <div class="modal-dialog" role="document">
+                                <div class="modal-content" style="padding: 0px;">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="exampleModalLabel">
+                                            Edit Router
+                                        </h5>
+                                    </div>
+                                    <div class="modal-body" id="body-router-edit-dis" style="padding: 0px;">
+                                        <img src="/images/loading.gif" id="api-wait" class="hide_me">
+                                        <div class="m-form m-form--fit m-form--label-align-right">
+                                            <div style="padding: 10px;" class="m-portlet__body">
+                                                <div id="routerEditErrorDetails" class="hide_me">
+                                                    <div class="form-group m-form__group m--margin-top-10">
+                                                        <div class="alert m-alert m-alert--default" role="alert">
+                                                            <ul id="errorOnEditROUTER" style="margin:0px"></ul>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group m-form__group">
+                                                    <input type="hidden" id="user_id" value="<%= @user.id %>">
+                                                    <label>
+                                                        Name
+                                                    </label>
+                                                    <input type="text" class="form-control m-input m-input--solid" id="edit_router_name" aria-describedby="emailHelp" placeholder="Galway route.">
+                                                </div>
+                                                <div class="form-group m-form__group">
+                                                    <label>
+                                                        IP
+                                                    </label>
+                                                    <input type="text" class="form-control m-input m-input--solid" id="edit_router_ip" placeholder="https://youripmaybe">
+                                                </div>
+                                                <div class="form-group m-form__group">
+                                                    <label>
+                                                        Username
+                                                    </label>
+                                                    <input type="text" class="form-control m-input m-input--solid" id="edit_router_username" placeholder="i.e admin">
+                                                </div>
+                                                <div class="form-group m-form__group">
+                                                    <label>
+                                                        Password
+                                                    </label>
+                                                    <input type="text" class="form-control m-input m-input--solid" id="edit_router_password" placeholder="Super Secret">
+                                                </div>
+                                                <div class="form-group m-form__group">
+                                                    <label>
+                                                        HTTP Port
+                                                    </label>
+                                                    <input type="number" class="form-control m-input m-input--solid" id="edit_http_router_port" placeholder="i.e 80">
+                                                </div>
+                                                <div class="m-form__group form-group">
+                                                    <label class="m-checkbox">
+                                                        <input type="checkbox" id="edit_router_is_monitoring">
+                                                        Monitoring
+                                                        <span></span>
+                                                    </label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!--end::Form-->
+                                    </div>
+                                    <div class="modal-footer" style="padding: 11px;">
+                                        <button id="discardEditModal" type="button" class="btn btn-secondary" data-dismiss="modal">
+                                            Close
+                                        </button>
+                                        <button id="saveEditModal" type="button" class="btn btn-primary">
+                                            Save changes
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+            <!--end::Modal-->
+
+
                           <!--begin: Datatable -->
+                          <font class="reload"></font>
+                          <div class="m_router_datatable" id="child_data_local"></div>
                           <!--end: Datatable -->
                         </div>
                       </div>

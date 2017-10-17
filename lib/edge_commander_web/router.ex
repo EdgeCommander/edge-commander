@@ -19,6 +19,7 @@ defmodule EdgeCommanderWeb.Router do
     get "/", RooterController, :index
     get "/sims", RooterController, :sim_logs
     get "/nvrs", RooterController, :nvrs
+    get "/routers", RooterController, :routers
 
     get "/get_sims_data", SimsController, :get_sim_logs
     get "/create_chartjs_line_data", SimsController, :create_chartjs_line_data
@@ -30,6 +31,11 @@ defmodule EdgeCommanderWeb.Router do
 
     post "/users/session", SessionController, :create
     get "/users/session", SessionController, :delete
+
+    get "/get_all_routers", RoutersController, :get_all_routers
+    post "/routers/new", RoutersController, :create
+    patch "/routers/update", RoutersController, :update
+    delete "/routers/delete", RoutersController, :delete
 
     post "/nvrs/new", NvrsController, :create
     get "/get_all_nvrs", NvrsController, :get_all_nvrs

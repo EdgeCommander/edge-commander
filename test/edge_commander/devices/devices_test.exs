@@ -78,4 +78,78 @@ defmodule EdgeCommander.DevicesTest do
       assert %Ecto.Changeset{} = Devices.change_nvr(nvr)
     end
   end
+
+  describe "routers" do
+    alias EdgeCommander.Devices.Router
+
+    @valid_attrs %{extra: %{}, ip: "some ip", is_monitoring: true, name: "some name", password: "some password", port: 42, status: true, username: "some username"}
+    @update_attrs %{extra: %{}, ip: "some updated ip", is_monitoring: false, name: "some updated name", password: "some updated password", port: 43, status: false, username: "some updated username"}
+    @invalid_attrs %{extra: nil, ip: nil, is_monitoring: nil, name: nil, password: nil, port: nil, status: nil, username: nil}
+
+    def router_fixture(attrs \\ %{}) do
+      {:ok, router} =
+        attrs
+        |> Enum.into(@valid_attrs)
+        |> Devices.create_router()
+
+      router
+    end
+
+    test "list_routers/0 returns all routers" do
+      router = router_fixture()
+      assert Devices.list_routers() == [router]
+    end
+
+    test "get_router!/1 returns the router with given id" do
+      router = router_fixture()
+      assert Devices.get_router!(router.id) == router
+    end
+
+    test "create_router/1 with valid data creates a router" do
+      assert {:ok, %Router{} = router} = Devices.create_router(@valid_attrs)
+      assert router.extra == %{}
+      assert router.ip == "some ip"
+      assert router.is_monitoring == true
+      assert router.name == "some name"
+      assert router.password == "some password"
+      assert router.port == 42
+      assert router.status == true
+      assert router.username == "some username"
+    end
+
+    test "create_router/1 with invalid data returns error changeset" do
+      assert {:error, %Ecto.Changeset{}} = Devices.create_router(@invalid_attrs)
+    end
+
+    test "update_router/2 with valid data updates the router" do
+      router = router_fixture()
+      assert {:ok, router} = Devices.update_router(router, @update_attrs)
+      assert %Router{} = router
+      assert router.extra == %{}
+      assert router.ip == "some updated ip"
+      assert router.is_monitoring == false
+      assert router.name == "some updated name"
+      assert router.password == "some updated password"
+      assert router.port == 43
+      assert router.status == false
+      assert router.username == "some updated username"
+    end
+
+    test "update_router/2 with invalid data returns error changeset" do
+      router = router_fixture()
+      assert {:error, %Ecto.Changeset{}} = Devices.update_router(router, @invalid_attrs)
+      assert router == Devices.get_router!(router.id)
+    end
+
+    test "delete_router/1 deletes the router" do
+      router = router_fixture()
+      assert {:ok, %Router{}} = Devices.delete_router(router)
+      assert_raise Ecto.NoResultsError, fn -> Devices.get_router!(router.id) end
+    end
+
+    test "change_router/1 returns a router changeset" do
+      router = router_fixture()
+      assert %Ecto.Changeset{} = Devices.change_router(router)
+    end
+  end
 end
