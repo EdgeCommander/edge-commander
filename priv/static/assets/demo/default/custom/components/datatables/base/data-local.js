@@ -73,7 +73,6 @@ var DatatableDataLocalDemo = function() {
             }),
             i = a.getDataSourceQuery();
         $("#m_form_search").on("keyup", function(e) {
-            console.log($(this).val().toLowerCase());
             a.search($(this).val().toLowerCase())
         }).val(i.generalSearch)
     };
@@ -91,7 +90,6 @@ var startSIMDatatable = function() {
 
 var clearCHARThtml = function() {
   $("#clear_chartsjs").on("click", function () {
-    console.log("heell");
     $("#iam_canvas").html("");
     $("#iam_canvas").html("<canvas id='canvas'></canvas>");
   });  
@@ -100,7 +98,6 @@ var clearCHARThtml = function() {
 
 var startMORRISChartJS = function () {
   $("#child_data_local").on("click", "#show-morris-graph", function(){
-    console.log($(this).data("id"));
     $("#api-wait").removeClass("hide_me");
     var settingsForMorris;
     settingsForMorris = {
@@ -127,7 +124,6 @@ onMorrisSuccess = function (result, status, jqXHR) {
   $.each(result.chartjs_data, function( index, element ) {
     labelsZchartjs.push(element.datetime);
     dataZChartsJS.push(element.percentage_used);
-    console.log(element);
     // element == this
   });
 
@@ -210,15 +206,12 @@ onMorrisSuccess = function (result, status, jqXHR) {
   $("#api-wait").addClass("hide_me");
   var ctx = document.getElementById("canvas").getContext("2d");
   window.myLine = new Chart(ctx, config);
-
-  console.log(result.chartjs_data);
 };
 
 var showHideColumns;
 
 showHideColumns = function() {
   $(".sims-column").on("click", function(){
-    console.log($(this).attr("data-field"));
     var ColToHide = $(this).attr("data-field");
     if(this.checked){
       $("th[data-field='" + ColToHide + "']").show();

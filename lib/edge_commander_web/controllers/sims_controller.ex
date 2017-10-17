@@ -55,7 +55,6 @@ defmodule EdgeCommanderWeb.SimsController do
   defp shift_datetime(datetime) do
     datetime
     |> Calendar.Strftime.strftime("%Y-%m-%d %H:%M:%S")
-    |> IO.inspect
     |> elem(1)
   end
 

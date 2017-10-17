@@ -56,6 +56,7 @@ defmodule EdgeCommander.ThreeScraper do
   def get_all_records_for_sim(sim_number) do
     SimLogs
     |> where(number: ^sim_number)
+    |> distinct([s], fragment("date_trunc('day', ?)", s.datetime))
     |> order_by(asc: :datetime)
     |> Repo.all
   end
