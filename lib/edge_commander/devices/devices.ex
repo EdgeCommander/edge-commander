@@ -148,4 +148,100 @@ defmodule EdgeCommander.Devices do
   def change_nvr(%Nvr{} = nvr) do
     Nvr.changeset(nvr, %{})
   end
+
+  alias EdgeCommander.Devices.Router
+
+  @doc """
+  Returns the list of routers.
+
+  ## Examples
+
+      iex> list_routers()
+      [%Router{}, ...]
+
+  """
+  def list_routers do
+    Repo.all(Router)
+  end
+
+  @doc """
+  Gets a single router.
+
+  Raises `Ecto.NoResultsError` if the Router does not exist.
+
+  ## Examples
+
+      iex> get_router!(123)
+      %Router{}
+
+      iex> get_router!(456)
+      ** (Ecto.NoResultsError)
+
+  """
+  def get_router!(id), do: Repo.get!(Router, id)
+
+  @doc """
+  Creates a router.
+
+  ## Examples
+
+      iex> create_router(%{field: value})
+      {:ok, %Router{}}
+
+      iex> create_router(%{field: bad_value})
+      {:error, %Ecto.Changeset{}}
+
+  """
+  def create_router(attrs \\ %{}) do
+    %Router{}
+    |> Router.changeset(attrs)
+    |> Repo.insert()
+  end
+
+  @doc """
+  Updates a router.
+
+  ## Examples
+
+      iex> update_router(router, %{field: new_value})
+      {:ok, %Router{}}
+
+      iex> update_router(router, %{field: bad_value})
+      {:error, %Ecto.Changeset{}}
+
+  """
+  def update_router(%Router{} = router, attrs) do
+    router
+    |> Router.changeset(attrs)
+    |> Repo.update()
+  end
+
+  @doc """
+  Deletes a Router.
+
+  ## Examples
+
+      iex> delete_router(router)
+      {:ok, %Router{}}
+
+      iex> delete_router(router)
+      {:error, %Ecto.Changeset{}}
+
+  """
+  def delete_router(%Router{} = router) do
+    Repo.delete(router)
+  end
+
+  @doc """
+  Returns an `%Ecto.Changeset{}` for tracking router changes.
+
+  ## Examples
+
+      iex> change_router(router)
+      %Ecto.Changeset{source: %Router{}}
+
+  """
+  def change_router(%Router{} = router) do
+    Router.changeset(router, %{})
+  end
 end

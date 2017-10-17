@@ -47,4 +47,15 @@ defmodule EdgeCommanderWeb.RooterController do
         |> redirect(to: "/users/sign_in")
     end
   end
+
+  def routers(conn, _params) do
+    with %User{} <- current_user(conn) do
+      render(conn, "routers.html", user: current_user(conn), gravatar_url: current_user(conn) |> Map.get(:email) |> gravatar_url(secure: true))
+    else
+      _ ->
+        conn
+        |> put_flash(:error, "You must be logged in to see that page :).")
+        |> redirect(to: "/users/sign_in")
+    end
+  end
 end

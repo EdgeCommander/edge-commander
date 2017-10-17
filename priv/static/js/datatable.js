@@ -878,7 +878,6 @@
         }
 
         // getting data from remote only
-        console.log(dt.getData());
         dt.getData().done(afterGetData);
       },
 
