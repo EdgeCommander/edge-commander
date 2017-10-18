@@ -48,7 +48,8 @@ defmodule EdgeCommander.Mixfile do
       {:timex, "~> 3.0"},
       {:floki, "~> 0.18"},
       {:calendar, "~> 0.17.2"},
-      {:con_cache, "~> 0.12.1"}
+      {:con_cache, "~> 0.12.1"},
+      {:mailgun, github: "evercam/mailgun"}
     ]
   end
 

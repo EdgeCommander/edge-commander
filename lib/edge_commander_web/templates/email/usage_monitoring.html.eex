@@ -1,0 +1,5 @@
+<%= @usage %>
+<%= @number %>
+<%= @volume_used %>
+<%= @allowance %>
+<%= @name %>
