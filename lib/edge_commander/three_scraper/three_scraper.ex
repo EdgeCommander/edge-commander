@@ -48,7 +48,8 @@ defmodule EdgeCommander.ThreeScraper do
   def get_last_two_days(number) do
     SimLogs
     |> where(number: ^number)
-    |> order_by(desc: :id)
+    |> distinct([s], [desc: fragment("date_trunc('day', ?)", s.datetime)])
+    |> order_by(desc: :datetime)
     |> limit(2)
     |> Repo.all
   end
