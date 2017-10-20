@@ -29,6 +29,8 @@ config :edge_commander, EdgeCommander.Scheduler,
   jobs: [
     # Every minute
     {"* * * * *",      {EdgeCommander.Portable, :start_porting, []}},
+    # Runs every midnight:
+    {"@daily",         {EdgeCommander.Commands, :start_usage_command, []}}
   ]
 
 import_config "#{Mix.env}.exs"

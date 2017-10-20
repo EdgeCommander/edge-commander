@@ -5,12 +5,30 @@ defmodule EdgeCommander.Commands do
   alias EdgeCommander.Commands.Rule
   require Logger
 
-  def usage_command do
+  def start_usage_command do
+    get_active_usage_rules()
+    |> Enum.map(fn(recipients) ->
+      usage_command(recipients)
+    end)
+  end
+
+  def get_active_usage_rules do
+    Rule
+    |> where(active: true)
+    |> where(category: "usage_command")
+    |> Repo.all
+    |> Enum.map(fn(rule) ->
+      rule.recipients
+    end)
+  end
+
+  def usage_command(senders) do
     all_sim_numbers()
     |> Enum.map(fn(number) ->
       %EdgeCommander.ThreeScraper.SimLogs{
         volume_used: volume_used,
         allowance: allowance,
+        addon: addon,
         name: name
       } = get_last_record_for_number(number)
 
@@ -18,19 +36,19 @@ defmodule EdgeCommander.Commands do
       {allowance_in_number, _} = allowance |> String.replace(",", "") |> Float.parse()
 
       percentage_used = (current_in_number / allowance_in_number * 100) |> Float.round(3)
-      send_usage_email(percentage_used, number, volume_used, allowance, name)
+      send_usage_email(senders, percentage_used, number, volume_used, allowance, name, addon)
     end)
   end
 
-  def send_usage_email(usage, _number, _volume_used, _allowance, _name) when usage < 90, do: Logger.info "Usage is lower than 90%."
-  def send_usage_email(usage, number, volume_used, allowance, name) do
+  def send_usage_email(_senders, usage, _number, _volume_used, _allowance, _name, _addon) when usage < 90, do: Logger.info "Usage is lower than 90%."
+  def send_usage_email(senders, usage, number, volume_used, allowance, name, addon) do
     Application.get_env(:edge_commander, :send_emails_for_usage)
-    |> send_email(usage, number, volume_used, allowance, name)
+    |> send_email(senders, usage, number, volume_used, allowance, name, addon)
   end
 
-  defp send_email(false, _usage, _number, _volume_used, _allowance, _name), do: Logger.info "Application is in dev mode."
-  defp send_email(true, usage, number, volume_used, allowance, name) do
-    EdgeCommander.EcMailer.usage_monitoring(usage, number, volume_used, allowance, name)
+  defp send_email(false, _senders, _usage, _number, _volume_used, _allowance, _name, _addon), do: Logger.info "Application is in dev mode."
+  defp send_email(true, senders, usage, number, volume_used, allowance, name, addon) do
+    EdgeCommander.EcMailer.usage_monitoring(senders, usage, number, volume_used, allowance, name, addon)
   end
 
   def list_rules do
