@@ -205,7 +205,7 @@ onSuccess = function(result, status, jqXHR) {
   $(".modal-backdrop").remove();
   $("#m_modal_1").modal("hide");
   $("#api-wait").addClass("hide_me");
-  routerDataTable.reload();
+  routerDataTable.load();
   clearForm();
   console.log(result);
   return true;
@@ -272,7 +272,7 @@ onROUTERDeleteSuccess = function(result, status, jqXHR) {
     type: 'info'
   });
   console.log(result);
-  routerDataTable.reload();
+  routerDataTable.load();
   return true;
 };
 
@@ -369,7 +369,7 @@ onEditSuccess = function(result, status, jqXHR) {
   $("#api-wait").addClass("hide_me");
   editClearFrom();
   $("#edit_router_to_db").modal("hide");
-  routerDataTable.reload();
+  routerDataTable.load();
   console.log(result);
   return true;
 };

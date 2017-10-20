@@ -253,7 +253,7 @@ onSuccess = function(result, status, jqXHR) {
   $(".modal-backdrop").remove();
   $("#m_modal_1").modal("hide");
   $("#api-wait").addClass("hide_me");
-  nvrDataTable.reload();
+  nvrDataTable.load();
   clearForm();
   console.log(result);
   return true;
@@ -320,7 +320,7 @@ onNVRDeleteSuccess = function(result, status, jqXHR) {
     type: 'info'
   });
   console.log(result);
-  nvrDataTable.reload();
+  nvrDataTable.load();
   return true;
 };
 
@@ -426,7 +426,7 @@ onEditSuccess = function(result, status, jqXHR) {
   $("#api-wait").addClass("hide_me");
   editClearFrom();
   $("#edit_nvr_to_db").modal("hide");
-  nvrDataTable.reload();
+  nvrDataTable.load();
   console.log(result);
   return true;
 };

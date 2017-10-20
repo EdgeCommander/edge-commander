@@ -12,6 +12,7 @@
 
     // global variables
     var datatable = this;
+    var afterGetData = null;
 
     // debug enabled?
     // 1) state will be cleared on each refresh
@@ -840,7 +841,7 @@
       dataRender: function () {
         $(datatable.table).siblings('.m-datatable__pager').removeClass('m-datatable--paging-loaded');
 
-        var afterGetData = function (result) {
+        afterGetData = function (result) {
           $(datatable).removeClass('m-datatable--error');
           // pagination enabled
           if (options.pagination) {
@@ -881,6 +882,12 @@
         dt.getData().done(afterGetData);
       },
 
+      /**
+       * Reload data with ajax
+       */
+      loadFromAjax: function () {
+        dt.getData().done(afterGetData);
+      },
       /**
        * Process ajax data
        */
@@ -2153,7 +2160,8 @@
        * @returns {jQuery}
        */
       load: function () {
-        API.reload();
+        // API.reload();
+        dt.loadFromAjax();
         return datatable;
       },
 

@@ -21,6 +21,12 @@ config :edge_commander, EdgeCommanderWeb.Endpoint,
 # Do not print debug messages in production
 config :logger, level: :info
 
+config :edge_commander, :mailgun,
+  domain: System.get_env("MAILGUN_DOMAIN"),
+  key: System.get_env("MAILGUN_KEY"),
+  mode: :prod
+
+config :edge_commander, :send_emails_for_usage, true
 # ## SSL Support
 #
 # To get SSL working, you will need to add the `https` key
