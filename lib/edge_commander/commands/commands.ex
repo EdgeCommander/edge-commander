@@ -2,6 +2,7 @@ defmodule EdgeCommander.Commands do
   import Ecto.Query, warn: false
   import EdgeCommander.ThreeScraper, only: [all_sim_numbers: 0, get_last_record_for_number: 1]
   alias EdgeCommander.Repo
+  alias EdgeCommander.Commands.Rule
   require Logger
 
   def usage_command do
@@ -30,5 +31,31 @@ defmodule EdgeCommander.Commands do
   defp send_email(false, _usage, _number, _volume_used, _allowance, _name), do: Logger.info "Application is in dev mode."
   defp send_email(true, usage, number, volume_used, allowance, name) do
     EdgeCommander.EcMailer.usage_monitoring(usage, number, volume_used, allowance, name)
+  end
+
+  def list_rules do
+    Repo.all(Rule)
+  end
+
+  def get_rule!(id), do: Repo.get!(Rule, id)
+
+  def create_rule(attrs \\ %{}) do
+    %Rule{}
+    |> Rule.changeset(attrs)
+    |> Repo.insert()
+  end
+
+  def update_rule(%Rule{} = rule, attrs) do
+    rule
+    |> Rule.changeset(attrs)
+    |> Repo.update()
+  end
+
+  def delete_rule(%Rule{} = rule) do
+    Repo.delete(rule)
+  end
+
+  def change_rule(%Rule{} = rule) do
+    Rule.changeset(rule, %{})
   end
 end
