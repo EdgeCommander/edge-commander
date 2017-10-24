@@ -897,39 +897,21 @@
                       <div class="m-portlet m-portlet--mobile">
                         <div class="m-portlet__body" style="padding: 10px;">
                         <!--begin::Portlet-->
-                            <div class="m-portlet__head">
-                                <div class="m-portlet__head-caption">
-                                    <div class="m-portlet__head-title">
-                                        <h3 class="m-portlet__head-text" id="sim_name">
-                                            
-                                        </h3>
-                                    </div>
+                          <div class="m-portlet__body  m-portlet__body--no-padding">
+                              <div class="row m-row--no-padding m-row--col-separator-xl">
+                                <div style="width:100%;" id="iam_canvas">
+                                  <canvas id="canvas"></canvas>
                                 </div>
-                            </div>
-                            <div class="m-portlet__body">
-                                <ul class="nav nav-pills nav-fill" role="tablist">
-                                    <li class="nav-item">
-                                        <a class="nav-link active" data-toggle="tab" href="#m_tabs_5_1">
-                                            Graph
-                                        </a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a class="nav-link" data-toggle="tab" href="#m_tabs_5_2">
-                                            Table
-                                        </a>
-                                    </li>
-                                </ul>
-                                <div class="tab-content">
-                                    <div class="tab-pane active" id="m_tabs_5_1" role="tabpanel">
-                                      <div style="width:100%;" id="iam_canvas">
-                                        <canvas id="canvas"></canvas>
-                                      </div>
-                                    </div>
-                                    <div class="tab-pane" id="m_tabs_5_2" role="tabpanel">
-                                      <div class="m_datatable"></div>
-                                    </div>
-                                </div>
-                            </div>
+                              </div>
+                          </div>
+                        </div>
+                        <div class="m-portlet__body" style="padding: 10px;">
+                          <div class="m-portlet__body  m-portlet__body--no-padding">
+                              <div class="row m-row--no-padding m-row--col-separator-xl">
+                                <div class="m_datatable"></div>
+                              </div>
+                          </div>
+                        </div>
                         <!--end::Portlet-->
 
 

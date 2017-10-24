@@ -21,8 +21,6 @@ var onMorrisError, onMorrisSuccess;
 onMorrisSuccess = function (result, status, jqXHR) {
 
   var labelsZchartjs = [], dataZChartsJS = [];
-  console.log(result.chartjs_data[0].sim_name);
-  $("#sim_name").text(result.chartjs_data[0].sim_name)
   $.each(result.chartjs_data, function( index, element ) {
     labelsZchartjs.push(element.datetime);
     dataZChartsJS.push(element.percentage_used);
