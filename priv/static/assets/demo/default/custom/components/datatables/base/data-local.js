@@ -35,22 +35,22 @@ var DatatableDataLocalDemo = function() {
                     title: "Name",
                     width: 200
                 }, {
-                    field: "allowance",
-                    title: "Allowance",
+                    field: "allowance_in_number",
+                    title: "Allowance (MB)",
                     textAlign: "center",
                     responsive: {
                         visible: "lg"
                     }
                 }, {
-                    field: "volume_used_today",
-                    title: "Volume Used Today",
+                    field: "current_in_number",
+                    title: "Volume Used Today (MB)",
                     textAlign: "center",
                     width: 200
                 }, {
-                    field: "volume_used_yesterday",
-                    title: "Volume Used Yesterday",
+                    field: "yesterday_in_number",
+                    title: "Volume Used Yesterday (MB)",
                     textAlign: "center",
-                    width: 200,
+                    width: 250,
                     responsive: {
                         visible: "lg"
                     }
