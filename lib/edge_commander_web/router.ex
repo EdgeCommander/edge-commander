@@ -16,8 +16,7 @@ defmodule EdgeCommanderWeb.Router do
   scope "/", EdgeCommanderWeb do
     pipe_through :browser # Use the default browser stack
 
-    get "/", RooterController, :index
-    get "/sims", RooterController, :sim_logs
+    get "/", RooterController, :sim_logs
     get "/nvrs", RooterController, :nvrs
     get "/routers", RooterController, :routers
     get "/commands", RooterController, :commands

@@ -813,20 +813,8 @@
          data-menu-scrollable="false" data-menu-dropdown-timeout="500"  
         >
                         <ul class="m-menu__nav  m-menu__nav--dropdown-submenu-arrow ">
-                            <li class="m-menu__item" aria-haspopup="true" >
-                                <a  href="/" class="m-menu__link ">
-                                    <i class="m-menu__link-icon flaticon-line-graph"></i>
-                                    <span class="m-menu__link-title">
-                                        <span class="m-menu__link-wrap">
-                                            <span class="m-menu__link-text">
-                                                Dashboard
-                                            </span>>
-                                        </span>
-                                    </span>
-                                </a>
-                            </li>
                             <li class="m-menu__item m-menu__item--active" aria-haspopup="true" >
-                                <a  href="/sims" class="m-menu__link ">
+                                <a  href="/" class="m-menu__link ">
                                     <i class="m-menu__link-icon fa fa-newspaper-o"></i>
                                     <span class="m-menu__link-title">
                                         <span class="m-menu__link-wrap">
@@ -897,18 +885,6 @@
                                     </span>
                                 </a>
                             </li>
-                            <li class="m-menu__item" aria-haspopup="true" >
-                                <a  href="/" class="m-menu__link ">
-                                    <i class="m-menu__link-icon fa  fa-eercast"></i>
-                                    <span class="m-menu__link-title">
-                                        <span class="m-menu__link-wrap">
-                                            <span class="m-menu__link-text">
-                                                Password Generator
-                                            </span>>
-                                        </span>
-                                    </span>
-                                </a>
-                            </li>
                         </ul>
                     </div>
                     <!-- END: Aside Menu -->
@@ -946,11 +922,11 @@
                               <div class="col-xl-8 order-2 order-xl-1">
                                 <%# <div class="m-separator m-separator--dashed d-xl-none"></div> %>
                                 <div class="form-group m-form__group row align-items-center">
-                                  <div class="col-md-1" style="max-width: 5.33333%">
+<%#                                   <div class="col-md-1" style="max-width: 5.33333%">
                                     <div href="#" class="btn btn-default grey" data-toggle="modal" data-target="#toggle-datatable-columns">
                                      <i class="fa fa-columns"></i>
                                     </div>
-                                   </div>
+                                   </div> %>
                                   <div class="col-md-4">
                                     <div class="m-input-icon m-input-icon--left">
                                       <input type="text" class="form-control m-input m-input--solid" placeholder="Search..." id="m_form_search">
@@ -962,6 +938,11 @@
                                     </div>
                                   </div>
                                 </div>
+                              </div>
+                              <div class="col-xl-4 order-1 order-xl-2 m--align-right">
+                                  <div href="#" class="btn btn-default grey" data-toggle="modal" data-target="#toggle-datatable-columns">
+                                    <i class="fa fa-columns"></i>
+                                  </div>
                               </div>
                             </div>
                           </div>
