@@ -28,29 +28,29 @@ var DatatableDataLocalDemo = function() {
                     sortable: !1,
                     selector: !1,
                     template: function(t) {
-                      return '<span data-toggle="modal" data-target="#m_modal_4" style="color: blue;text-decoration: underline;cursor: pointer;" href="#" id="show-morris-graph" data-id="' + t.number + '">' + t.number  + '</span>'
+                      return '<a style="color: blue;text-decoration: underline;cursor: pointer;" href="/sims/' + t.number + '" id="show-morris-graph" data-id="' + t.number + '">' + t.number  + '</a>'
                     }
                 }, {
                     field: "name",
                     title: "Name",
-                    width: 200
+                    width: 250
                 }, {
                     field: "allowance_in_number",
-                    title: "Allowance (MB)",
+                    title: "MB Allowance",
                     textAlign: "center",
                     responsive: {
                         visible: "lg"
                     }
                 }, {
                     field: "current_in_number",
-                    title: "Volume Used Today (MB)",
+                    title: " MB Used (Today)",
                     textAlign: "center",
-                    width: 200
+                    width: 150
                 }, {
                     field: "yesterday_in_number",
-                    title: "Volume Used Yesterday (MB)",
+                    title: "MB Used (Yest.)",
                     textAlign: "center",
-                    width: 250,
+                    width: 150,
                     responsive: {
                         visible: "lg"
                     }

@@ -62,6 +62,22 @@ defmodule EdgeCommander.ThreeScraper do
     |> Repo.all
   end
 
+  def get_single_sim(sim_number) do
+    SimLogs
+    |> where(number: ^sim_number)
+    |> order_by(desc: :id)
+    |> Repo.all
+  end
+
+  def get_sim_name(sim_number) do
+    SimLogs
+    |> where(number: ^sim_number)
+    |> order_by(desc: :id)
+    |> limit(1)
+    |> Repo.one
+    |> Map.get(:name)
+  end
+
   def get_all_records_for_sim(sim_number) do
     SimLogs
     |> where(number: ^sim_number)

@@ -3,6 +3,7 @@ defmodule EdgeCommanderWeb.RooterController do
   alias EdgeCommander.Accounts.User
   import EdgeCommander.Accounts, only: [current_user: 1]
   import Gravatar
+  require IEx
 
   def index(conn, _params) do
     with %User{} <- current_user(conn) do
@@ -62,6 +63,17 @@ defmodule EdgeCommanderWeb.RooterController do
   def commands(conn, _params) do
     with %User{} <- current_user(conn) do
       render(conn, "commands.html", user: current_user(conn), gravatar_url: current_user(conn) |> Map.get(:email) |> gravatar_url(secure: true))
+    else
+      _ ->
+        conn
+        |> put_flash(:error, "You must be logged in to see that page :).")
+        |> redirect(to: "/users/sign_in")
+    end
+  end
+
+  def sim_graph_and_details(conn, _params) do
+    with %User{} <- current_user(conn) do
+      render(conn, "sim_graph_and_details.html", user: current_user(conn), gravatar_url: current_user(conn) |> Map.get(:email) |> gravatar_url(secure: true))
     else
       _ ->
         conn
