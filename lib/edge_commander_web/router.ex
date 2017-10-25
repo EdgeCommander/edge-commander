@@ -20,8 +20,10 @@ defmodule EdgeCommanderWeb.Router do
     get "/nvrs", RooterController, :nvrs
     get "/routers", RooterController, :routers
     get "/commands", RooterController, :commands
+    get "/sims/:sim_number", RooterController, :sim_graph_and_details
 
     get "/get_sims_data", SimsController, :get_sim_logs
+    get "/get_single_sim_data/:sim_number", SimsController, :get_single_sim_data
     get "/create_chartjs_line_data", SimsController, :create_chartjs_line_data
 
     get "/users/sign_in", DashboardController, :sign_in
