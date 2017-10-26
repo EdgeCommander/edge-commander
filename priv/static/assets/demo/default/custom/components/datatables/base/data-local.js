@@ -25,7 +25,7 @@ var DatatableDataLocalDemo = function() {
                     field: "number",
                     title: "Number",
                     width: 150,
-                    sortable: !1,
+                    sortable: "desc",
                     selector: !1,
                     template: function(t) {
                       return '<a style="color: blue;text-decoration: underline;cursor: pointer;" href="/sims/' + t.number + '" id="show-morris-graph" data-id="' + t.number + '">' + t.number  + '</a>'

@@ -40,7 +40,7 @@ defmodule EdgeCommanderWeb.SimsController do
           allowance: entries |> List.first |> get_allowance(),
           volume_used_today: entries |> List.first |> get_volume_used(),
           volume_used_yesterday: entries |> List.last |> get_volume_used(),
-          percentage_used: "#{(current_in_number / allowance_in_number * 100) |> Float.round(3)} %",
+          percentage_used: (current_in_number / allowance_in_number * 100) |> Float.round(3),
           current_in_number: current_in_number,
           yesterday_in_number: yesterday_in_number,
           allowance_in_number: allowance_in_number,
