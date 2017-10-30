@@ -27,6 +27,7 @@ config :edge_commander, :mailgun,
   mode: :prod
 
 config :edge_commander, :send_emails_for_usage, true
+config :edge_commander, :send_emails_for_raid, true
 # ## SSL Support
 #
 # To get SSL working, you will need to add the `https` key

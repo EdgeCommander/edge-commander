@@ -42,6 +42,7 @@ config :edge_commander, EdgeCommanderWeb.Endpoint,
 # Do not include metadata nor timestamps in development logs
 config :logger, :console, format: "[$level] $message\n"
 config :edge_commander, :send_emails_for_usage, false
+config :edge_commander, :send_emails_for_raid, false
 
 # Set a higher stacktrace during development. Avoid configuring such
 # in production as building large stacktraces may be expensive.
