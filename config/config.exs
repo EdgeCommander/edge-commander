@@ -32,7 +32,7 @@ config :edge_commander, EdgeCommander.Scheduler,
     # Runs every midnight:
     {"@daily",         {EdgeCommander.Commands, :start_usage_command, []}},
     # Every 15 minutes
-    {"*/15 * * * *",   {EdgeCommander.Raid, :check_failed_drives, []}},
+    {"@daily",   {EdgeCommander.Raid, :check_failed_drives, []}},
   ]
 
 import_config "#{Mix.env}.exs"
