@@ -22,6 +22,7 @@ defmodule EdgeCommanderWeb.Router do
     get "/commands", RooterController, :commands
     get "/sims/:sim_number", RooterController, :sim_graph_and_details
 
+
     get "/get_sims_data", SimsController, :get_sim_logs
     get "/get_single_sim_data/:sim_number", SimsController, :get_single_sim_data
     get "/create_chartjs_line_data", SimsController, :create_chartjs_line_data
@@ -52,6 +53,11 @@ defmodule EdgeCommanderWeb.Router do
     post "/rules/new", CommandsController, :create
     patch "/rules/update", CommandsController, :update
     delete "/rules/delete", CommandsController, :delete
+
+
+    post "/send_sms", SimsController, :send_sms
+
+
   end
 
   # Other scopes may use custom stacks.

@@ -3,6 +3,11 @@ defmodule EdgeCommanderWeb.SimsController do
   import EdgeCommander.ThreeScraper, only: [all_sim_numbers: 0, get_last_two_days: 1, get_all_records_for_sim: 1, get_single_sim: 1]
   require IEx
 
+
+
+
+ 
+
   def get_single_sim_data(conn, %{"sim_number" => sim_number } = _params) do
     logs =
       get_single_sim(sim_number)
@@ -73,6 +78,42 @@ defmodule EdgeCommanderWeb.SimsController do
     })
   end
 
+  def send_sms(conn,  %{"sms_message" => sms_message, "to_number" => to_number} = _params)  do
+  
+
+    url = "https://rest.nexmo.com/sms/json"
+    body = Poison.encode!(%{
+      "api_key": System.get_env("NEXMO_API_KEY"),
+      "api_secret": System.get_env("NEXMO_API_SECRET"),
+      "to": to_number,
+      "from": "EdgeCommander" ,
+      "text": sms_message
+    })
+    headers = [{"Content-type", "application/json"}]
+    
+    case HTTPoison.post(url, body, headers, []) do
+      {:ok, %HTTPoison.Response{status_code: 200, body: body}} ->
+        results = 
+          body
+          |> Poison.decode
+          |> elem(1)
+          |> Map.get("messages")
+          |> List.first
+        status_code = results |> Map.get("status")
+        error_text = results |> Map.get("error-text")
+        conn
+        |> put_status(200)
+        |> json(%{status: status_code, error_text: error_text})
+      {:error, %HTTPoison.Error{reason: reason}} ->
+        conn
+        |> put_status(404)
+        |> json(%{reason: reason})
+    end
+   
+  end
+
+  
+
   defp shift_datetime(datetime) do
     datetime
     |> Calendar.Strftime.strftime("%Y-%m-%d %H:%M:%S")
@@ -94,4 +135,14 @@ defmodule EdgeCommanderWeb.SimsController do
   defp get_allowance(log) do
     log.allowance
   end
+
+
+
+
+
+
+
+
+
+
 end

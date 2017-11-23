@@ -71,9 +71,9 @@ defmodule EdgeCommanderWeb.RooterController do
     end
   end
 
-  def sim_graph_and_details(conn, _params) do
+  def sim_graph_and_details(conn, %{"sim_number" => sim_number} = _params) do
     with %User{} <- current_user(conn) do
-      render(conn, "sim_graph_and_details.html", user: current_user(conn), gravatar_url: current_user(conn) |> Map.get(:email) |> gravatar_url(secure: true))
+      render(conn, "sim_graph_and_details.html", user: current_user(conn), gravatar_url: current_user(conn) |> Map.get(:email) |> gravatar_url(secure: true), sim_number: sim_number)
     else
       _ ->
         conn

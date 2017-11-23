@@ -50,8 +50,7 @@ defmodule EdgeCommander.Mixfile do
       {:calendar, "~> 0.17.2"},
       {:con_cache, "~> 0.12.1"},
       {:mailgun, github: "evercam/mailgun"},
-      {:sshex, "2.2.1"},
-      {:ex_nexmo, "~> 0.1.2"}
+      {:sshex, "2.2.1"}
     ]
   end
 

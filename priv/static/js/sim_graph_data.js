@@ -174,10 +174,109 @@ var startSIMTABDatatable = function() {
   dataTableSIMTAB.init();
 };
 
+var sendAJAXRequest = function(settings) {
+  var headers, token, xhrRequestChangeMonth;
+  token = $('meta[name="csrf-token"]');
+  if (token.length > 0) {
+    headers = {
+      "X-CSRF-Token": token.attr("content")
+    };
+    settings.headers = headers;
+  }
+  return xhrRequestChangeMonth = jQuery.ajax(settings);
+};
 
+
+var clearForm = function() {
+  $("#smsMessage").val("");
+  $("#set_to_load").removeClass("loading");
+  $("#body-sms-dis *").prop('disabled', false);
+  $("#smsErrorDetails").addClass("hide_me");
+};
+
+function sendSMS() {
+  $(".send-sms-nexmo").on("click", function() {
+ 
+  $('ul#errorOnNVR').html("");
+    $("#api-wait").removeClass("hide_me");
+    $("#body-sms-dis *").prop('disabled',true);
+    $("#smsErrorDetails").addClass("hide_me");
+
+    
+    var sms_message  = $("#smsMessage").val(),
+    to_number        = $("#toNumber").val()
+
+    var data = {};
+    data.sms_message = sms_message;
+    data.to_number = to_number;
+
+    console.log(data);
+
+    var settings;
+
+    settings = {
+      cache: false,
+      data: data,
+      dataType: 'json',
+      error: onSMSError,
+      success: onSMSSuccess,
+      contentType: "application/x-www-form-urlencoded",
+      type: "POST",
+      url: "/send_sms"
+    };
+
+    sendAJAXRequest(settings);
+
+  });
+};
+
+var onSMSError, onSMSSuccess;
+
+onSMSError = function(jqXHR, status, error) {
+    $.notify({
+      // options
+      message: "Something went wrong."
+    },{
+      // settings
+      type: 'Danger'
+    });
+  $("#smsErrorDetails").removeClass("hide_me");
+  $("#api-wait").addClass("hide_me");
+  $("#body-sms-dis *").prop('disabled', false);
+  $("#set_to_load").removeClass("loading");
+  return false;
+};
+
+onSMSSuccess = function(result, status, jqXHR) {
+  console.log(result);
+  if (result.status != 0) {
+    $.notify({
+      // options
+      message: result.error_text
+    },{
+      // settings
+      type: 'danger'
+    });
+  } else
+  {
+    $.notify({
+      // options
+      message: "Your message has been sent."
+    },{
+      // settings
+      type: 'Info'
+    });
+  }
+  $(".modal-backdrop").remove();
+  $("#smsModal").modal("hide");
+  $("#api-wait").addClass("hide_me");
+  clearForm();
+  return true;
+};
 
 window.initializeSimTabs = function() {
   console.log("helll");
   startMORRISChartJS();
   startSIMTABDatatable();
+  sendSMS();
 };
