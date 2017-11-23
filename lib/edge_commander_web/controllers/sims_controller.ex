@@ -3,11 +3,6 @@ defmodule EdgeCommanderWeb.SimsController do
   import EdgeCommander.ThreeScraper, only: [all_sim_numbers: 0, get_last_two_days: 1, get_all_records_for_sim: 1, get_single_sim: 1]
   require IEx
 
-
-
-
- 
-
   def get_single_sim_data(conn, %{"sim_number" => sim_number } = _params) do
     logs =
       get_single_sim(sim_number)
@@ -79,8 +74,6 @@ defmodule EdgeCommanderWeb.SimsController do
   end
 
   def send_sms(conn,  %{"sms_message" => sms_message, "to_number" => to_number} = _params)  do
-  
-
     url = "https://rest.nexmo.com/sms/json"
     body = Poison.encode!(%{
       "api_key": System.get_env("NEXMO_API_KEY"),
@@ -112,8 +105,6 @@ defmodule EdgeCommanderWeb.SimsController do
    
   end
 
-  
-
   defp shift_datetime(datetime) do
     datetime
     |> Calendar.Strftime.strftime("%Y-%m-%d %H:%M:%S")
@@ -135,14 +126,4 @@ defmodule EdgeCommanderWeb.SimsController do
   defp get_allowance(log) do
     log.allowance
   end
-
-
-
-
-
-
-
-
-
-
 end

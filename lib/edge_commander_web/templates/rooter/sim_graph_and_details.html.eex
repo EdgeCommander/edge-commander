@@ -15,8 +15,6 @@
         <!-- begin:: Page -->
         <div class="m-grid m-grid--hor m-grid--root m-page">
 
-
-
             <!-- BEGIN: Header -->
             <header class="m-grid__item    m-header "  data-minimize-offset="200" data-minimize-mobile-offset="200" >
                 <div class="m-container m-container--fluid m-container--full-height">
@@ -900,7 +898,6 @@
                     <div class="m-content">
                       <div class="m-portlet m-portlet--mobile">
                         <div class="m-portlet__body" style="padding: 10px;">
-
                         <div class="pull-right">
                              <button type="button" class="btn btn-primary m-btn m-btn--icon" data-toggle="modal" data-target="#smsModal">
                                   <span>
@@ -911,14 +908,7 @@
                                   </span>
                               </button>
                         </div>
-
-                        
-
-
                         <div class="clearfix"></div>
-
-
-
                         <!--begin::Portlet-->
                           <div class="m-portlet__body  m-portlet__body--no-padding">
                               <div class="row m-row--no-padding m-row--col-separator-xl">
@@ -939,12 +929,8 @@
                     <div class="m-portlet__body" style="padding: 10px;">
                           <%# <div class="m-portlet__body  m-portlet__body--no-padding">
                               <div class="row m-row--no-padding m-row--col-separator-xl">
-
                                 <div style="height: 30px"> </div>      
-
-
                                 <h3>Router Response Message</h3>
-
                                <table class="table table-striped">
                                   <thead>
                                       <tr>
@@ -952,7 +938,6 @@
                                         <th width="80%">Message</th>
                                       </tr>
                                   </thead>
-
                                    <tbody>
                                        <tr>
                                             <td style="vertical-align: middle;">10-11-2017</td>
@@ -964,19 +949,12 @@
                                                 Firmware:9.0.7</p>
                                             </td>
                                        </tr>
-
                                    </tbody>
-                              
                                 </table>
-
                               </div> %>
                           </div>
                         </div>
-
-                        
                         <!--end::Portlet-->
-
-
  <!--begin::Modal-->
             <div class="modal fade" id="m_modal_4" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" data-backdrop="static" data-keyboard="false">
               <div class="modal-dialog modal-lg" role="document">
@@ -1588,24 +1566,14 @@
                     </div>
                 </div>
             </div>
-
-
         </div>
         <!-- end::Quick Sidebar -->
         <!-- begin::Scroll Top -->
-
-
         <div class="m-scroll-top m-scroll-top--skin-top" data-toggle="m-scroll-top" data-scroll-offset="500" data-scroll-speed="300">
             <i class="la la-arrow-up"></i>
         </div>
         <!-- end::Scroll Top -->
         <!-- begin::Quick Nav -->
-
-
-
-
-
-
 <!-- Modal -->
 <div class="modal fade" id="smsModal"  tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" data-backdrop="static" data-keyboard="false">
   <div class="modal-dialog" role="document">
@@ -1617,8 +1585,6 @@
       </div>
       <div class="modal-body" id="body-sms-dis">
         <img src="/images/loading.gif" id="api-wait" class="hide_me">
-
-
     <div id="smsErrorDetails" class="hide_me">
         <div class="form-group m-form__group m--margin-top-10">
             <div class="alert m-alert m-alert--default" role="alert">
@@ -1627,19 +1593,14 @@
         </div>
     </div>
 
-
-        <input type="hidden" id="toNumber" value="<%= @sim_number %>">
-
-
-        <div class="form-group m-form__group">
-            <label>
-                Message
-            </label>
-            <input type="text" class="form-control m-input m-input--solid" id="smsMessage">
-         </div>
-
-
-      </div>
+    <input type="hidden" id="toNumber" value="<%= @sim_number %>">
+    <div class="form-group m-form__group">
+        <label>
+            Message
+        </label>
+        <input type="text" class="form-control m-input m-input--solid" id="smsMessage">
+     </div>
+   </div>
       <div class="modal-footer" style="padding: 11px;">
         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
         <button type="button" class="btn btn-primary send-sms-nexmo" data-dismiss="modal">Send</button>
@@ -1647,7 +1608,4 @@
     </div>
   </div>
 </div>
-
-
 </body>
-

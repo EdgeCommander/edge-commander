@@ -196,12 +196,11 @@ var clearForm = function() {
 
 function sendSMS() {
   $(".send-sms-nexmo").on("click", function() {
- 
+
   $('ul#errorOnNVR').html("");
     $("#api-wait").removeClass("hide_me");
     $("#body-sms-dis *").prop('disabled',true);
     $("#smsErrorDetails").addClass("hide_me");
-
     
     var sms_message  = $("#smsMessage").val(),
     to_number        = $("#toNumber").val()
@@ -209,9 +208,7 @@ function sendSMS() {
     var data = {};
     data.sms_message = sms_message;
     data.to_number = to_number;
-
     console.log(data);
-
     var settings;
 
     settings = {
@@ -226,7 +223,6 @@ function sendSMS() {
     };
 
     sendAJAXRequest(settings);
-
   });
 };
 
@@ -264,7 +260,7 @@ onSMSSuccess = function(result, status, jqXHR) {
       message: "Your message has been sent."
     },{
       // settings
-      type: 'Info'
+      type: 'info'
     });
   }
   $(".modal-backdrop").remove();
