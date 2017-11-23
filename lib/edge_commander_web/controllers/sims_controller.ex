@@ -78,7 +78,7 @@ defmodule EdgeCommanderWeb.SimsController do
     body = Poison.encode!(%{
       "api_key": System.get_env("NEXMO_API_KEY"),
       "api_secret": System.get_env("NEXMO_API_SECRET"),
-      "to": to_number,
+      "to": to_number |> number_with_code,
       "from": "EdgeCommander" ,
       "text": sms_message
     })
@@ -102,8 +102,9 @@ defmodule EdgeCommanderWeb.SimsController do
         |> put_status(404)
         |> json(%{reason: reason})
     end
-   
   end
+
+  defp number_with_code("0" <> number), do: "+353#{number}"
 
   defp shift_datetime(datetime) do
     datetime
