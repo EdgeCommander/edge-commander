@@ -106,11 +106,9 @@ defmodule EdgeCommanderWeb.SimsController do
         |> put_status(404)
         |> json(%{reason: reason})
     end
-   
   end
 
   defp number_with_code("0" <> number), do: "+353#{number}"
-
 
   defp shift_datetime(datetime) do
     datetime
