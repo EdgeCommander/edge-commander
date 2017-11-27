@@ -186,7 +186,6 @@ var sendAJAXRequest = function(settings) {
   return xhrRequestChangeMonth = jQuery.ajax(settings);
 };
 
-
 var clearForm = function() {
   $("#smsMessage").val("");
   $("#set_to_load").removeClass("loading");
@@ -208,7 +207,7 @@ function sendSMS() {
     var data = {};
     data.sms_message = sms_message;
     data.to_number = to_number;
-    console.log(data);
+
     var settings;
 
     settings = {
