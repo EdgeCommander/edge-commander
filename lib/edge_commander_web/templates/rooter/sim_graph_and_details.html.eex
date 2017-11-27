@@ -927,31 +927,30 @@
                         </div>
 
                     <div class="m-portlet__body" style="padding: 10px;">
-                          <%# <div class="m-portlet__body  m-portlet__body--no-padding">
+                         <div class="m-portlet__body  m-portlet__body--no-padding">
                               <div class="row m-row--no-padding m-row--col-separator-xl">
                                 <div style="height: 30px"> </div>      
-                                <h3>Router Response Message</h3>
+                                <h3>Router Response Messages</h3>
                                <table class="table table-striped">
                                   <thead>
                                       <tr>
-                                        <th width="20%">Date</th>
+                                        <th width="20%">Receive Date</th>
                                         <th width="80%">Message</th>
                                       </tr>
                                   </thead>
-                                   <tbody>
-                                       <tr>
-                                            <td style="vertical-align: middle;">10-11-2017</td>
-                                            <td style="vertical-align: middle;">
-                                                <p>From PRO AC: PRO AC has connected to the Internet on USB2.</br>
-                                                Signal: 77 % (4G).</br>
-                                                IP: 100.86.249.67.</br>
-                                                Traffic (d/u):(0/0) WLAN n WLAN 5GHz n</br>
-                                                Firmware:9.0.7</p>
-                                            </td>
-                                       </tr>
+                                       <%= for sms <- @sms_list do %>      
+                                           <tr>
+                                                <td style="vertical-align: middle;"><%= sms["date-received"] %>
+                                                </td>
+                                                <td style="vertical-align: middle;">
+                                                    <%= sms["body"] %>
+                                                </td>
+                                           </tr>
+                                       <% end %>
+
                                    </tbody>
                                 </table>
-                              </div> %>
+                              </div> 
                           </div>
                         </div>
                         <!--end::Portlet-->

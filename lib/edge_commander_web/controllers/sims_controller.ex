@@ -74,12 +74,13 @@ defmodule EdgeCommanderWeb.SimsController do
   end
 
   def send_sms(conn,  %{"sms_message" => sms_message, "to_number" => to_number} = _params)  do
+
     url = "https://rest.nexmo.com/sms/json"
     body = Poison.encode!(%{
       "api_key": System.get_env("NEXMO_API_KEY"),
       "api_secret": System.get_env("NEXMO_API_SECRET"),
-      "to": to_number,
-      "from": "EdgeCommander" ,
+      "to": to_number |> number_with_code,
+      "from": "EdgeCommander",
       "text": sms_message
     })
     headers = [{"Content-type", "application/json"}]
@@ -92,18 +93,24 @@ defmodule EdgeCommanderWeb.SimsController do
           |> elem(1)
           |> Map.get("messages")
           |> List.first
+
         status_code = results |> Map.get("status")
         error_text = results |> Map.get("error-text")
         conn
         |> put_status(200)
         |> json(%{status: status_code, error_text: error_text})
-      {:error, %HTTPoison.Error{reason: reason}} ->
+
+
+        {:error, %HTTPoison.Error{reason: reason}} ->
         conn
         |> put_status(404)
         |> json(%{reason: reason})
     end
    
   end
+
+  defp number_with_code("0" <> number), do: "+353#{number}"
+
 
   defp shift_datetime(datetime) do
     datetime
