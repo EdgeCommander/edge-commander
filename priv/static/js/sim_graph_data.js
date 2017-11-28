@@ -105,6 +105,8 @@ onMorrisSuccess = function (result, status, jqXHR) {
 
   $("#api-wait").addClass("hide_me");
   var ctx = document.getElementById("canvas").getContext("2d");
+  var ctx_div = document.getElementById("canvas");
+  ctx_div.height = 90;
   window.myLine = new Chart(ctx, config);
 };
 

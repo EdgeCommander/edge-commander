@@ -4,6 +4,7 @@ defmodule EdgeCommanderWeb.RooterController do
   import EdgeCommander.Accounts, only: [current_user: 1]
   import Gravatar
   require IEx
+  require Logger
 
   def index(conn, _params) do
     with %User{} <- current_user(conn) do
@@ -88,11 +89,10 @@ defmodule EdgeCommanderWeb.RooterController do
           |> Map.get("items")
 
         from = number_with_code(sim_number)
-
         sms_list = filter_sms(sms_list, from, to)
 
-        {:error, %{status_code: 404}} ->
-        # do something with a 404
+        {:error, %{status_code: 400}} ->
+          Logger.info "No messages found"
     end
 
     with %User{} <- current_user(conn) do
@@ -105,10 +105,11 @@ defmodule EdgeCommanderWeb.RooterController do
     end
   end
 
-  defp filter_sms(list, from ,to) do
+  defp filter_sms(list, from_num ,to_num) do
      for list = %{ "from" => from, "to" => to } <- list,
-      from == from &&  to == to , do:  list
+      from == from_num &&  to == to_num , do:  list
   end
- 
+
   defp number_with_code("0" <> number), do: "353#{number}"
+
 end
