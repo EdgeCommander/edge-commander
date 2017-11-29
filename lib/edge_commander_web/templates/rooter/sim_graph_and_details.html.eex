@@ -925,45 +925,8 @@
                               </div>
                           </div>
                         </div>
-
-                    <div class="m-portlet__body" style="padding: 10px;">
-                         <div class="m-portlet__body  m-portlet__body--no-padding">
-                              <div class="row m-row--no-padding m-row--col-separator-xl">
-                                <div style="height: 30px"> </div>      
-                                <h3>Router Response Messages</h3>
-                               <table class="table table-bordered table-striped">
-                                  <thead>
-                                      <tr>
-                                        <th width="20%">Receive Date</th>
-                                        <th width="80%">Message</th>
-                                      </tr>
-                                  </thead>
-                                       <%=  if length(@sms_list) > 0 do %>
-                                           <%= for sms <- @sms_list do %>
-                                               <tr>
-                                                    <td style="vertical-align: middle;"><%= sms["date-received"] %>
-                                                    </td>
-                                                    <td style="vertical-align: middle;">
-                                                          <%=
-                                                          list = String.split(sms["body"],"\\n");
-                                                          Enum.map(list, fn(s) -> %>
-                                                            <%= s %> </br>
-                                                          <% end) %>
-                                                    </td>
-                                               </tr>
-                                               <% end %>
-                                        <%= else %>
-                                            <tr>
-                                                <td colspan="2" class="text-center">Sorry no message found!</td>
-                                            </tr>
-                                        <%=end %>
-                                   </tbody>
-                                </table>
-                              </div> 
-                          </div>
-                        </div>
-                        <!--end::Portlet-->
- <!--begin::Modal-->
+                    
+            <!--begin::Modal-->
             <div class="modal fade" id="m_modal_4" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" data-backdrop="static" data-keyboard="false">
               <div class="modal-dialog modal-lg" role="document">
                 <div class="modal-content">
@@ -983,8 +946,61 @@
             </div>
             <!--end::Modal-->
                         </div>
-                      </div>
-                    </div>
+                        <div class="m-portlet m-portlet--mobile">
+                            <div class="m-portlet__body" style="padding: 10px;">
+                                 <div class="m-portlet__body  m-portlet__body--no-padding">
+                              <div class="row m-row--no-padding m-row--col-separator-xl">
+                                <div style="height: 30px"> </div>
+                                <h3>Messages History</h3>
+                               <table class="table table-bordered table-striped">
+                                  <thead>
+                                      <tr>
+                                        <th width="20%">Date</th>
+                                        <th width="20%" class="text-center">Type</th>
+                                        <th width="60%">Message</th>
+                                      </tr>
+                                  </thead>
+                                       <%=  if length(@sms_list) > 0 do %>
+                                           <%= for sms <- @sms_list do %>
+                                               <tr>
+                                                    <td style="vertical-align: middle;"><%= sms["date-received"] %>
+                                                    </td>
+                                                    <td class="text-center">
+                                                        <%
+                                                        type = sms["type"]
+                                                        if type == "MO" do
+                                                          type_val =  "Received"
+                                                          class_val = "m-badge--metal";
+                                                         else
+                                                            type_val ="Sent"
+                                                            class_val = "m-badge--success";
+                                                        end
+                                                        %>
+                                                        <span class="m-badge <%= class_val %> m-badge--wide"> <%= type_val %>
+                                                        </span>
+                                                    </td>
+                                                    <td style="vertical-align: middle;">
+                                                          <%=
+                                                          list = String.split(sms["body"],"\\n");
+                                                          Enum.map(list, fn(s) -> %>
+                                                            <%= s %> </br>
+                                                          <% end) %>
+                                                    </td>
+                                               </tr>
+                                               <% end %>
+                                        <% else %>
+                                            <tr>
+                                                <td colspan="3" class="text-center">Sorry no message found!</td>
+                                            </tr>
+                                        <% end %>
+                                   </tbody>
+                                </table>
+                              </div>
+                          </div>
+                        </div>
+                            </div>
+                        </div>
+                 </div>
                   </div>
                 </div>
             <!-- end:: Body -->
