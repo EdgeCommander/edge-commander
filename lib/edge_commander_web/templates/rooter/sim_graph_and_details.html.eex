@@ -965,7 +965,7 @@
                                                <tr>
                                                     <td style="vertical-align: middle;"><%= sms["date-received"] %>
                                                     </td>
-                                                    <td class="text-center">
+                                                    <td style="vertical-align: middle;" class="text-center">
                                                         <%
                                                         type = sms["type"]
                                                         if type == "MO" do
