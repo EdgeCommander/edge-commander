@@ -907,7 +907,7 @@
             var classes = [];
             // add sorted class to cells
             if (params.sort.field === column.field) {
-              classes.push('m-datatable__cell--sorted');
+              classes.push('m-datatable__cell--sorted ');
             }
 
             // apply text align
