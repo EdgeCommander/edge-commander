@@ -89,7 +89,7 @@ onMorrisSuccess = function (result, status, jqXHR) {
           ticks: {
               min: 0,
               max: 100,
-              stepSize: 10
+              stepSize: 20
           },
           display: true,
           fontStyle: "bold",
@@ -105,6 +105,8 @@ onMorrisSuccess = function (result, status, jqXHR) {
 
   $("#api-wait").addClass("hide_me");
   var ctx = document.getElementById("canvas").getContext("2d");
+  var ctx_div = document.getElementById("canvas");
+  ctx_div.height = 60;
   window.myLine = new Chart(ctx, config);
 };
 
