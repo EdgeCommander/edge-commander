@@ -11,14 +11,14 @@ defmodule EdgeCommanderWeb.SimsController do
         {allowance_in_number, _} = number |> get_allowance() |> String.replace(",", "") |> Float.parse()
 
         %{
-          allowance: number |> get_allowance(),
-          volume_used_today: number |> get_volume_used(),
-          percentage_used: "#{(current_in_number / allowance_in_number * 100) |> Float.round(3)} %",
-          current_in_number: current_in_number,
-          allowance_in_number: allowance_in_number,
-          date_of_use: number |> Map.get(:datetime)
+          "allowance" => number |> get_allowance(),
+          "volume_used_today" => number |> get_volume_used(),
+          "percentage_used" => (current_in_number / allowance_in_number * 100) |> Float.round(3),
+          "current_in_number" => current_in_number,
+          "allowance_in_number" => allowance_in_number,
+          "date_of_use" => number |> Map.get(:datetime)
         }
-      end)
+      end) |> Enum.sort(& (&1["percentage_used"] >= &2["percentage_used"]))
     conn
     |> put_status(200)
     |> json(logs)
@@ -35,18 +35,18 @@ defmodule EdgeCommanderWeb.SimsController do
         {allowance_in_number, _} = entries |> List.first |> get_allowance() |> String.replace(",", "") |> Float.parse()
 
         %{
-          number: entries |> List.first |> get_number(),
-          name: entries |> List.first |> get_name(),
-          allowance: entries |> List.first |> get_allowance(),
-          volume_used_today: entries |> List.first |> get_volume_used(),
-          volume_used_yesterday: entries |> List.last |> get_volume_used(),
-          percentage_used: (current_in_number / allowance_in_number * 100) |> Float.round(3),
-          current_in_number: current_in_number,
-          yesterday_in_number: yesterday_in_number,
-          allowance_in_number: allowance_in_number,
-          date_of_use: entries |> List.first |> Map.get(:datetime)
+          "number" => entries |> List.first |> get_number(),
+          "name" => entries |> List.first |> get_name(),
+          "allowance" => entries |> List.first |> get_allowance(),
+          "volume_used_today" => entries |> List.first |> get_volume_used(),
+          "volume_used_yesterday" => entries |> List.last |> get_volume_used(),
+          "percentage_used" => (current_in_number / allowance_in_number * 100) |> Float.round(3),
+          "current_in_number" => current_in_number,
+          "yesterday_in_number" => yesterday_in_number,
+          "allowance_in_number" => allowance_in_number,
+          "date_of_use" => entries |> List.first |> Map.get(:datetime)
         }
-      end)
+      end) |> Enum.sort(& (&1["percentage_used"] >= &2["percentage_used"]))
     conn
     |> put_status(200)
     |> json(logs)
