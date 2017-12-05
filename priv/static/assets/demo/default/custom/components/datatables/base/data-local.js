@@ -71,7 +71,8 @@ var DatatableDataLocalDemo = function() {
                 }
               ]
             }),
-            i = a.getDataSourceQuery();
+            i = a.getDataSourceQuery(),
+            a.setDataSourceParam('sort', {field: "percentage_used", sort: "desc"});
         $("#m_form_search").on("keyup", function(e) {
             a.search($(this).val().toLowerCase())
         }).val(i.generalSearch)
