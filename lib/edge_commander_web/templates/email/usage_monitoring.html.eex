@@ -1,1 +1,46 @@
-#TODO
+<html>
+<head>
+  <title>Data Usage Alert</title>
+</head>
+<body style="font-size: 12px">
+    <div style=" width: 80%; margin: auto;">
+        <div style="background: #eee; padding:5px 10px;">
+         <div style="float: left;">
+            <img src="https://lh3.googleusercontent.com/kw8kv7w7maKy9sVx4E9XCEnN5KivTfXvX1Y9Bv2qojV2dFmlBgySCBU0VTJDtICw3GY=w300" width="60px">
+         </div> 
+         <div style="float: left;">
+            <h2 style="margin: 18px 10px">SIM Data Usage Alert</h2>
+         </div> 
+         <div style="clear: both;"></div>
+      </div>
+      <h3>
+        <%= 
+        "Data usage alert (#{@usage}% of #{String.trim(@addon, " Broadband")}) on SIM #{@number} (#{@name})"
+        %>
+      </h3>
+      <table  width="100%" cellspacing="0" style="margin: 10px 0;">
+        <thead>
+           <tr style="background: #fff">
+            <td style="font-weight: bold;border: #eee 1px solid; padding: 5px; font-size: 12px;">Number</td>
+            <td style="border: #eee 1px solid; padding: 5px; font-size: 12px;"><%= @number %></td>
+          </tr>
+          <tr style="background: #eee">
+            <td style="font-weight: bold;border: #eee 1px solid; padding: 5px; font-size: 12px;">Allowance</td>
+            <td style="border: #eee 1px solid; padding: 5px; font-size: 12px;"><%= @allowance %></td>
+          </tr>
+           <tr style="background: #fff">
+            <td style="font-weight: bold;border: #eee 1px solid; padding: 5px; font-size: 12px;">Usage</td>
+            <td style="border: #eee 1px solid; padding: 5px; font-size: 12px;"><%= @usage %></td>
+          </tr>
+          <tr style="background: #eee">
+            <td style="font-weight: bold;border: #eee 1px solid; padding: 5px; font-size: 12px;">Volume Used</td>
+            <td style="border: #eee 1px solid; padding: 5px; font-size: 12px;"><%= @volume_used %></td>
+          </tr>
+        </thead>
+      </table>
+      <img src="https://edgecommander.com/wp-content/uploads/2017/11/edgecommander.png" width="200px" style="border: solid 1px #eee;">
+      <h3>Edgecommander</h3>
+      <p>6-7 Granby Row,</br> Dublin 1,</br> D01 FW20,</br> Ireland.<p>
+    </div>
+</body>
+</html>
