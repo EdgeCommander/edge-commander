@@ -103,6 +103,46 @@ var DatatableDataNVR = function() {
         textAlign: "center",
         width: 150
     }, {
+        field: "encoder_released_date",
+        title: "Encoder Released Date",
+        textAlign: "center",
+        width: 180,
+        template: function(data) {
+          return data.extra["encoder_released_date"];
+        }
+    }, {
+        field: "encoder_version",
+        title: "Encoder Version",
+        textAlign: "center",
+        width: 150,
+        template: function(data) {
+          return data.extra["encoder_version"];
+        }
+    }, {
+        field: "firmware_released_date",
+        title: "Firmware Released Date",
+        textAlign: "center",
+        width: 180,
+        template: function(data) {
+          return data.extra["firmware_released_date"];
+        }
+    }, {
+        field: "serial_number",
+        title: "Serial Number",
+        textAlign: "left",
+        width: 380,
+        template: function(data) {
+          return data.extra["serial_number"];
+        }
+    }, {
+        field: "mac_address",
+        title: "Mac Address",
+        textAlign: "center",
+        width: 150,
+        template: function(data) {
+          return data.extra["mac_address"];
+        }
+    }, {
         field: "is_monitoring",
         title: "Monitoring",
         textAlign: "center",
