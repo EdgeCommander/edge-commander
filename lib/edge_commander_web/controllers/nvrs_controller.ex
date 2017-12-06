@@ -63,13 +63,26 @@ defmodule EdgeCommanderWeb.NvrsController do
           extra: nvr.extra,
           vh_port: nvr.vh_port,
           sdk_port: nvr.sdk_port,
-          rtsp_port: nvr.rtsp_port
+          rtsp_port: nvr.rtsp_port,
+          encoder_released_date: nvr |> get_extra_data("encoder_released_date"),
+          encoder_version: nvr |> get_extra_data("encoder_version"),
+          firmware_released_date: nvr |> get_extra_data("firmware_released_date"),
+          serial_number: nvr |> get_extra_data("serial_number"),
+          mac_address: nvr |> get_extra_data("mac_address")
         }
       end)
     conn
     |> put_status(200)
     |> json(nvrs)
   end
+  
+  defp get_extra_data(nvr,extra_field) do
+    nvr.extra
+    |> get_extra_value(nvr, extra_field)
+  end
+
+  defp get_extra_value(nil, _, _), do: ""
+  defp get_extra_value(_, nvr, extra_field),  do: nvr.extra |> Map.get(extra_field)
 
   def delete(conn, %{"id" => id} = _params) do
     get_nvr!(id)
