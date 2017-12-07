@@ -45,7 +45,7 @@ onMorrisSuccess = function (result, status, jqXHR) {
     data: {
       labels: labelsZchartjs,
       datasets: [{
-        label: " % Allowance Used",
+        label: "",
         fill: false,
         backgroundColor: chartColors.blue,
         borderColor: chartColors.blue,
@@ -106,7 +106,7 @@ onMorrisSuccess = function (result, status, jqXHR) {
   $("#api-wait").addClass("hide_me");
   var ctx = document.getElementById("canvas").getContext("2d");
   var ctx_div = document.getElementById("canvas");
-  ctx_div.height = 60;
+  ctx_div.height = 200;
   window.myLine = new Chart(ctx, config);
 };
 
@@ -126,7 +126,6 @@ var dataTableSIMTAB = function() {
                     theme: "default",
                     class: "",
                     scroll: !1,
-                    height: 950,
                     footer: !1
                 },
                 sortable: !0,
@@ -136,7 +135,7 @@ var dataTableSIMTAB = function() {
                 {
                     field: "date_of_use",
                     title: "DateTime",
-                    width: 250,
+                    width: 190,
                     template: function(t) {
                       console.log(t);
                       return "" + moment(t.date_of_use).format('MMMM Do YYYY, H:mm:ss') +"";
@@ -145,17 +144,17 @@ var dataTableSIMTAB = function() {
                     field: "allowance_in_number",
                     title: "MB Allowance",
                     textAlign: "center",
-                    width: 200
+                    width: 100
                 }, {
                     field: "current_in_number",
                     title: "MB Used (Today)",
                     textAlign: "center",
-                    width: 200
+                    width: 120
                 }, {
                     field: "percentage_used",
                     title: "% Used",
                     textAlign: "center",
-                    width: 200
+                    width: 80
                 }
               ]
             }),
