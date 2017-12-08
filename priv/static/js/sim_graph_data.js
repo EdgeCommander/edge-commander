@@ -108,8 +108,8 @@ onMorrisSuccess = function (result, status, jqXHR) {
   var ctx_div = document.getElementById("canvas");
   ctx_div.height = 200;
   window.myLine = new Chart(ctx, config);
+  resizeTableDiv();
 };
-
 
 var dataTableSIMTAB = function() {
     var e = function() {
@@ -277,3 +277,13 @@ window.initializeSimTabs = function() {
   startSIMTABDatatable();
   sendSMS();
 };
+
+var resizeTableDiv = function() {
+  var objDiv = document.getElementById("iam_canvas");
+  var convasHeight = objDiv.scrollHeight + 18;
+  $("#sm_datatable_inner").css("min-height", convasHeight).css("max-height", convasHeight).css("overflow-y", "auto");
+};
+
+$(window).resize(function() {
+  resizeTableDiv();
+});
