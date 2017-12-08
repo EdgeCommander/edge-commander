@@ -135,7 +135,7 @@ var dataTableSIMTAB = function() {
                 {
                     field: "date_of_use",
                     title: "DateTime",
-                    width: 190,
+                    width: 195,
                     template: function(t) {
                       console.log(t);
                       return "" + moment(t.date_of_use).format('MMMM Do YYYY, H:mm:ss') +"";
