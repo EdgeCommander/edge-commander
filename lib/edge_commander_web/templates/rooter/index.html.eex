@@ -12,7 +12,7 @@
     <!-- end::Body -->
     <body class="m-page--fluid m--skin- m-content--skin-light2 m-header--fixed m-header--fixed-mobile m-aside-left--enabled m-aside-left--skin-dark m-aside-left--offcanvas m-footer--push m-aside--offcanvas-default"  >
         <!-- begin:: Page -->
-        <div class="m-grid m-grid--hor m-grid--root m-page">
+        <div class="m-grid m-grid--hor m-grid--root m-page" id="page_content_main">
             <!-- BEGIN: Header -->
             <header class="m-grid__item    m-header "  data-minimize-offset="200" data-minimize-mobile-offset="200" >
                 <div class="m-container m-container--fluid m-container--full-height">
