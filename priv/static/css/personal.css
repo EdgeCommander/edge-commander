@@ -71,27 +71,22 @@
 }
 
 .custom_header {
-    background: #f2f3f8 !important
+  background: #f2f3f8 !important
 }
 
 .content_right_panel{
-    margin-top: -70px;
-    z-index: 1000;
-    margin-bottom: 0 !important
+  margin-top: -70px;
+  z-index: 1030;
+  margin-bottom: 0 !important
 }
 
 .parent_container {
-    display: table;
+  display: table;
 }
-.child_container {
-    width: 30px;
-    background-color: red;
-    display: table-cell;
-    vertical-align: top;
-}
+
 .content_container {
-    height: 100%;
-    background-color: blue;
+  height: 100%;
+  background-color: blue;
 }
 
 @media (max-width: 992px) {
@@ -99,4 +94,3 @@
     margin-top: -2px ;
   }
 }
-
