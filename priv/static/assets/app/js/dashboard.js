@@ -1297,3 +1297,14 @@ var Dashboard = function() {
 jQuery(document).ready(function() {
   Dashboard.init()
 });
+
+function resize_main_div()
+{
+  var heights = window.innerHeight;
+  document.getElementById("page_content_main").style.height = heights + "px";
+}
+resize_main_div();
+
+window.onresize = function() {
+  resize_main_div();
+};

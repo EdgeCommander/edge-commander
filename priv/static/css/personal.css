@@ -64,3 +64,33 @@
 .sim_log_datatable .m-portlet__body{
   padding: 10px; 
 }
+
+.left_head{
+  padding: 20px 50px;
+  background: #282a3c;
+}
+
+.custom_header {
+  background: #f2f3f8 !important
+}
+
+.content_right_panel{
+  margin-top: -70px;
+  z-index: 1030;
+  margin-bottom: 0 !important
+}
+
+.parent_container {
+  display: table;
+}
+
+.content_container {
+  height: 100%;
+  background-color: blue;
+}
+
+@media (max-width: 992px) {
+  .content_right_panel{
+    margin-top: -2px ;
+  }
+}
