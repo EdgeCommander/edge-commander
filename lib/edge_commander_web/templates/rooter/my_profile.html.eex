@@ -96,7 +96,7 @@
                                     </span>
                                 </a>
                             </li>
-                            <li class="m-menu__item m-menu__item--active" aria-haspopup="true" >
+                            <li class="m-menu__item" aria-haspopup="true" >
                                 <a  href="/status_report" class="m-menu__link ">
                                     <i class="m-menu__link-icon fa  fa-barcode"></i>
                                     <span class="m-menu__link-title">
@@ -144,7 +144,7 @@
                                     </span>
                                 </a>
                             </li>
-                            <li class="m-menu__item" aria-haspopup="true" >
+                            <li class="m-menu__item m-menu__item--active" aria-haspopup="true" >
                                 <a  href="/my_profile" class="m-menu__link ">
                                     <i class="m-menu__link-icon fa fa-user"></i>
                                     <span class="m-menu__link-title">
@@ -175,34 +175,82 @@
                 <!-- END: Left Aside -->
                 <div class="m-grid__item m-grid__item--fluid m-wrapper content_right_panel">
                     <!-- BEGIN: Subheader -->
-                    <div class="m-subheader " style="padding: 5px 30px 0 5px;">
-                        <div class="d-flex align-items-center">
-                            <div>
-                                <span class="m-subheader__daterange" id="m_dashboard_daterangepicker">
-                                    <span class="m-subheader__daterange-label">
-                                        <span class="m-subheader__daterange-title"></span>
-                                        <span class="m-subheader__daterange-date m--font-brand"></span>
-                                    </span>
-                                    <a href="#" class="btn btn-sm btn-brand m-btn m-btn--icon m-btn--icon-only m-btn--custom m-btn--pill">
-                                        <i class="la la-angle-down"></i>
-                                    </a>
-                                </span>
-                            </div>
-                        </div>
-                    </div>
                     <!-- END: Subheader -->
-                    <div class="m-content">
-                      <div class="m-portlet m-portlet--mobile" style="margin-bottom: 0">
-                        <div class="m-portlet__body">
-                            <div style="margin: 0 auto; width: 100%;padding: 10px" id="visavail_container">
-                              <img src="/images/loading.gif" id="api-waiting" class="hide_me">
-                              <p id="draw_report" class="margin-top-5"></p>
+                      <div class="m-content">
+                         <img src="/images/loading.gif" id="api-wait" class="hide_me">
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <div class="m-portlet m-portlet--tab">
+                                <div class="m-portlet__head">
+                                    <div class="m-portlet__head-caption">
+                                        <div class="m-portlet__head-title">
+                                            <span class="m-portlet__head-icon m--hide">
+                                                <i class="la la-gear"></i>
+                                            </span>
+                                            <h3 class="m-portlet__head-text">
+                                                <i class="fa fa-user"></i> My Profile
+                                            </h3>
+                                        </div>
+                                    </div>
+                                </div>
+                                    <!--begin::Form-->
+                                    <div class="m-form m-form--fit m-form--label-align-right">
+                                        <div class="m-portlet__body">
+
+                                            <div id="myProfileErrorDetail" class="hide_me">
+                                              <div class="form-group m-form__group m--margin-top-10">
+                                                  <div class="alert m-alert m-alert--default" role="alert">
+                                                      <ul id="errorOnUpdate" style="margin:0px"></ul>
+                                                  </div>
+                                              </div>
+                                            </div>
+
+                                             <div class="form-group m-form__group col-lg-4">
+                                              <img class="gravatar pull-left" src="<%= @gravatar_url %>">
+                                              <div class="username">
+                                                <span class="grey">Username </span><span><strong><%= @user.username %></strong></span>
+                                              </div>
+                                              <p class="small grey">Manage your avatar with <a href="https://en.gravatar.com/" target="_blank">Gravatar</a> </p>
+                                            </div>
+                                            <input type="hidden" id="id"  value="<%= @user.id %>">
+                                            
+                                            <div class="form-group m-form__group col-lg-4">
+                                                <label for="firstname">
+                                                    First Name
+                                                </label>
+                                                <input type="text" class="form-control m-input" id="firstname" value="<%= @user.firstname %>">
+                                            </div>
+                                            <div class="form-group m-form__group col-lg-4">
+                                                <label for="lastname">
+                                                    Last Name
+                                                </label>
+                                                <input type="text" class="form-control m-input" id="lastname" value="<%= @user.lastname %>">
+                                            </div>
+                                            <div class="form-group m-form__group col-lg-4">
+                                                <label for="email">
+                                                    Email
+                                                </label>
+                                                <input type="email" class="form-control m-input" id="email" value="<%= @user.email %>">
+                                            </div>
+                                            <div class="form-group m-form__group col-lg-4">
+                                                <label for="email">
+                                                    Password
+                                                </label>
+                                                <input type="password" class="form-control m-input" id="password" value="" >
+                                            </div>
+                                           
+                                        </div>
+                                        <div class="m-portlet__foot m-portlet__foot--fit">
+                                            <div class="m-form__actions">
+                                                <button type="button" class="btn btn-primary" id="updateMyProfile">
+                                                    Update
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!--end::Form-->
                             </div>
-<%#                           <img src="assets/app/media/img//users/Selection_181.png" style="width: 100%" alt=""/> %>
-                          <!--begin: Search Form -->
-                          <!--end: Search Form -->
-                          <!--begin: Datatable -->
-                          <!--end: Datatable -->
+                            </div>
                         </div>
                       </div>
                     </div>

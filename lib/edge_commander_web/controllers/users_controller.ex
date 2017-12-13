@@ -4,6 +4,8 @@ defmodule EdgeCommanderWeb.UsersController do
   alias EdgeCommander.Accounts.User
   alias EdgeCommander.Util
   require Logger
+  import EdgeCommander.Accounts, only: [get_user!: 1]
+  require IEx
 
   def sign_up(conn, params) do
     with  {:ok, updated_params} <- merge_last_signed_in(params),
@@ -30,6 +32,40 @@ defmodule EdgeCommanderWeb.UsersController do
         |> put_flash(:error, error |> List.first)
         |> redirect(to: "/users/sign_up")
     end
+  end
+
+  def update_profile(conn, %{"id" => id} = params) do
+    get_user!(id)
+    |> User.changeset(params)
+    |> Repo.update
+    |> case do
+      {:ok, user} ->
+        %User{
+          firstname: firstname,
+          lastname: lastname,
+          email: email,
+          password: password,
+          id: id
+        } = user
+
+        conn
+        |> put_status(:created)
+        |> json(%{
+          "firstname" => firstname,
+          "lastname" => lastname,
+          "email" => email,
+          "password" => password,
+          "id" => id
+        })
+
+      {:error, changeset} ->
+        IO.inspect changeset
+        errors = Util.parse_changeset(changeset)
+        traversed_errors = for {_key, values} <- errors, value <- values, do: "#{value}"
+        conn
+        |> put_status(400)
+        |> json(%{ errors: traversed_errors })
+      end
   end
 
   defp merge_last_signed_in(params) do

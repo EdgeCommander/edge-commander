@@ -125,6 +125,17 @@ defmodule EdgeCommanderWeb.RooterController do
     end
   end
 
+  def get_my_profile(conn, _params) do
+    with %User{} <- current_user(conn) do
+      render(conn, "my_profile.html", user: current_user(conn), gravatar_url: current_user(conn) |> Map.get(:email) |> gravatar_url(secure: true))
+    else
+      _ ->
+        conn
+        |> put_flash(:error, "You must be logged in to see that page :).")
+        |> redirect(to: "/users/sign_in")
+    end
+  end
+
   defp filter_reveived_sms(list, from_num ,to_num) do
      for list = %{ "from" => from, "to" => to } <- list,
       from == from_num &&  to == to_num , do:  list
@@ -136,5 +147,4 @@ defmodule EdgeCommanderWeb.RooterController do
   end
 
   defp number_with_code("0" <> number), do: "353#{number}"
-
 end
