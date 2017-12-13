@@ -3,7 +3,7 @@
 This is an open source application written in Phoenix that allows monitoring & management of devices on the edge.
 
 That includes:
-+ NVRs (Hikvision)
++ NVRs (Hikvision or OnVIF)
 + Routers (Dovado)
 + SIMs (From Three (Ireland))
 
