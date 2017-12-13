@@ -89,6 +89,13 @@
   background-color: blue;
 }
 
+.gravatar, .account-password .gravatar {
+  border-radius: 50%;
+  margin-right: 15px;
+  margin-top: -4px;
+  width: 60px
+}
+
 @media (max-width: 992px) {
   .content_right_panel{
     margin-top: -2px ;

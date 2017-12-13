@@ -43,7 +43,11 @@ defmodule EdgeCommander.Accounts.User do
   def changeset(%User{} = user, attrs) do
     user
     |> cast(attrs, [:firstname, :lastname, :username, :password, :email])
-    |> validate_required([:firstname, :lastname, :username, :password, :email])
+    |> validate_required(:firstname, [message: "Firstname cannot be empty."])
+    |> validate_required(:lastname, [message: "Lastname cannot be empty."])
+    |> validate_required(:password, [message: "Password cannot be empty."])
+    |> validate_required(:email, [message: "Email cannot be empty."])
+    |> validate_required(:username)
     |> unique_constraint(:username, [message: "Username has already been taken."])
     |> unique_constraint(:email, [message: "Email has already been taken."])
     |> validate_confirmation(:password, [message: "Passwords do not match"])
