@@ -5,7 +5,6 @@ defmodule EdgeCommanderWeb.UsersController do
   alias EdgeCommander.Util
   require Logger
   import EdgeCommander.Accounts, only: [get_user!: 1]
-  require IEx
 
   def sign_up(conn, params) do
     with  {:ok, updated_params} <- merge_last_signed_in(params),
@@ -59,7 +58,6 @@ defmodule EdgeCommanderWeb.UsersController do
         })
 
       {:error, changeset} ->
-        IO.inspect changeset
         errors = Util.parse_changeset(changeset)
         traversed_errors = for {_key, values} <- errors, value <- values, do: "#{value}"
         conn

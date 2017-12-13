@@ -21,7 +21,7 @@ defmodule EdgeCommanderWeb.Router do
     get "/routers", RooterController, :routers
     get "/commands", RooterController, :commands
     get "/sims/:sim_number", RooterController, :sim_graph_and_details
-    get "/my_profile", RooterController, :get_my_profile
+    get "/my_profile", RooterController, :my_profile
 
     get "/get_sims_data", SimsController, :get_sim_logs
     get "/get_single_sim_data/:sim_number", SimsController, :get_single_sim_data

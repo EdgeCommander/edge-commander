@@ -125,7 +125,7 @@ defmodule EdgeCommanderWeb.RooterController do
     end
   end
 
-  def get_my_profile(conn, _params) do
+  def my_profile(conn, _params) do
     with %User{} <- current_user(conn) do
       render(conn, "my_profile.html", user: current_user(conn), gravatar_url: current_user(conn) |> Map.get(:email) |> gravatar_url(secure: true))
     else
