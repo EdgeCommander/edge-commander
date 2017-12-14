@@ -22,7 +22,7 @@
                             <div class="m-stack m-stack--ver m-stack--general">
                                 <div class="m-stack__item m-stack__item--middle m-brand__logo">
                                      <a href="/" class="m-brand__logo-wrapper">
-                                        <img alt="" src="<%= static_path(@conn, "/assets/demo/default/media/img/logo/logo_default_dark.png") %>" />
+                                        <img alt="" src="<%= static_path(@conn, "/assets/demo/default/media/img/logo/logo_default_dark.png") %>"/>
                                     </a>
                                 </div>
                                 <div class="m-stack__item m-stack__item--middle m-brand__tools">
@@ -210,68 +210,6 @@
                             </div>
                           </div>
                           <!--end: Search Form -->
-
-<div id="toggle-datatable-columns" class="modal fade" style="padding: 0px;">
-  <div class="modal-dialog" style="width:300px;">
-    <div class="modal-content" style="padding: 0px;">
-      <div class="modal-header">
-        <div class="caption"><strong>Show/Hide Columns</strong></div>
-        <div class="cancel">
-          <a class="cancel_link" href="#" data-dismiss="modal">X</a>
-        </div>
-      </div>
-      <div class="modal-body" style="padding: 15px;padding-bottom: 0px;">
-        <div class="form-group">
-          <div class="column-checkbox">
-            <label class="m-checkbox m-checkbox--single m-checkbox--solid m-checkbox--brand" style="width: auto;"><input type="checkbox" class="sims-column" data-field="number" checked><span></span> Number</label>
-          </div>
-          <div class="column-checkbox">
-            <label class="m-checkbox m-checkbox--single m-checkbox--solid m-checkbox--brand" style="width: auto;"><input class="sims-column" type="checkbox" data-field="name" checked><span></span> Name</label>
-          </div>
-          <div class="column-checkbox">
-            <label class="m-checkbox m-checkbox--single m-checkbox--solid m-checkbox--brand" style="width: auto;"><input class="sims-column" type="checkbox" data-field="allowance" checked><span></span> Allowance</label>
-          </div>
-          <div class="column-checkbox">
-            <label class="m-checkbox m-checkbox--single m-checkbox--solid m-checkbox--brand" style="width: auto;"><input class="sims-column" type="checkbox" data-field="volume_used_today" checked><span></span> Volume Used Today</label>
-          </div>
-          <div class="column-checkbox">
-            <label class="m-checkbox m-checkbox--single m-checkbox--solid m-checkbox--brand" style="width: auto;"><input class="sims-column" type="checkbox" data-field="volume_used_yesterday" checked><span></span> Volume Used Yesterday</label>
-          </div>
-          <div class="column-checkbox">
-            <label class="m-checkbox m-checkbox--single m-checkbox--solid m-checkbox--brand" style="width: auto;"><input class="sims-column" type="checkbox" data-field="percentage_used" checked><span></span> % Used</label>
-          </div>
-          <div class="column-checkbox">
-            <label class="m-checkbox m-checkbox--single m-checkbox--solid m-checkbox--brand" style="width: auto;"><input class="sims-column" type="checkbox" data-field="remaining_days" checked><span></span> Remaining Days</label>
-          </div>
-        </div>
-      </div>
-      <div class="modal-footer" style="padding: 11px;">
-        <div class="pull-right">
-          <button type="button" class="btn btn-default" data-dismiss="modal">OK</button>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
- <!--begin::Modal-->
-            <div class="modal fade" id="m_modal_4" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" data-backdrop="static" data-keyboard="false">
-              <div class="modal-dialog modal-lg" role="document">
-                <div class="modal-content">
-                    <img src="/images/loading.gif" id="api-wait" class="hide_me">
-                  <div class="modal-body">
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close" id="clear_chartsjs">
-                        <span aria-hidden="true">
-                            &times;
-                        </span>
-                    </button>
-                    <div style="width:100%;" id="iam_canvas">
-                      <canvas id="canvas"></canvas>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <!--end::Modal-->
                           <!--begin: Datatable -->
                           <div class="m_datatable" id="child_data_local"></div>
                           <!--end: Datatable -->
@@ -868,6 +806,67 @@
             </div>
         </div>
         <!-- end::Quick Sidebar -->
+        <div id="toggle-datatable-columns" class="modal fade" style="padding: 0px;">
+  <div class="modal-dialog" style="width:300px;">
+    <div class="modal-content" style="padding: 0px;">
+      <div class="modal-header">
+        <div class="caption"><strong>Show/Hide Columns</strong></div>
+        <div class="cancel">
+          <a class="cancel_link" href="#" data-dismiss="modal">X</a>
+        </div>
+      </div>
+      <div class="modal-body" style="padding: 15px;padding-bottom: 0px;">
+        <div class="form-group">
+          <div class="column-checkbox">
+            <label class="m-checkbox m-checkbox--single m-checkbox--solid m-checkbox--brand" style="width: auto;"><input type="checkbox" class="sims-column" data-field="number" checked><span></span> Number</label>
+          </div>
+          <div class="column-checkbox">
+            <label class="m-checkbox m-checkbox--single m-checkbox--solid m-checkbox--brand" style="width: auto;"><input class="sims-column" type="checkbox" data-field="name" checked><span></span> Name</label>
+          </div>
+          <div class="column-checkbox">
+            <label class="m-checkbox m-checkbox--single m-checkbox--solid m-checkbox--brand" style="width: auto;"><input class="sims-column" type="checkbox" data-field="allowance" checked><span></span> Allowance</label>
+          </div>
+          <div class="column-checkbox">
+            <label class="m-checkbox m-checkbox--single m-checkbox--solid m-checkbox--brand" style="width: auto;"><input class="sims-column" type="checkbox" data-field="volume_used_today" checked><span></span> Volume Used Today</label>
+          </div>
+          <div class="column-checkbox">
+            <label class="m-checkbox m-checkbox--single m-checkbox--solid m-checkbox--brand" style="width: auto;"><input class="sims-column" type="checkbox" data-field="volume_used_yesterday" checked><span></span> Volume Used Yesterday</label>
+          </div>
+          <div class="column-checkbox">
+            <label class="m-checkbox m-checkbox--single m-checkbox--solid m-checkbox--brand" style="width: auto;"><input class="sims-column" type="checkbox" data-field="percentage_used" checked><span></span> % Used</label>
+          </div>
+          <div class="column-checkbox">
+            <label class="m-checkbox m-checkbox--single m-checkbox--solid m-checkbox--brand" style="width: auto;"><input class="sims-column" type="checkbox" data-field="remaining_days" checked><span></span> Remaining Days</label>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer" style="padding: 11px;">
+        <div class="pull-right">
+          <button type="button" class="btn btn-default" data-dismiss="modal">OK</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+ <!--begin::Modal-->
+            <div class="modal fade" id="m_modal_4" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" data-backdrop="static" data-keyboard="false">
+              <div class="modal-dialog modal-lg" role="document">
+                <div class="modal-content">
+                    <img src="/images/loading.gif" id="api-wait" class="hide_me">
+                  <div class="modal-body">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close" id="clear_chartsjs">
+                        <span aria-hidden="true">
+                            &times;
+                        </span>
+                    </button>
+                    <div style="width:100%;" id="iam_canvas">
+                      <canvas id="canvas"></canvas>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!--end::Modal-->
         <!-- begin::Scroll Top -->
         <div class="m-scroll-top m-scroll-top--skin-top" data-toggle="m-scroll-top" data-scroll-offset="500" data-scroll-speed="300">
             <i class="la la-arrow-up"></i>
