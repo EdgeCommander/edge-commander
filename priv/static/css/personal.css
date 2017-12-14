@@ -96,6 +96,14 @@
   width: 60px
 }
 
+.m-header--fixed .m-header{
+  position: inherit !important;
+}
+
+.m-header--fixed .m-body {
+    padding-top: 0 !important;
+}
+
 @media (max-width: 992px) {
   .content_right_panel{
     margin-top: -2px ;
