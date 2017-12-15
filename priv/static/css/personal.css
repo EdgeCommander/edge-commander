@@ -111,6 +111,15 @@ a {
 a:hover {
   color: #9c9c9c !important;
 }
+
+::-moz-selection { /* Code for Firefox */
+  background: #eee;
+}
+
+::selection {
+  background: #eee;
+}
+
 .m-aside-left.m-aside-left--skin-dark {
   background-color: #2b2b2b;
 }
@@ -151,6 +160,95 @@ a:hover {
 
 .m-brand.m-brand--skin-dark .m-brand__tools .m-brand__toggler.m-brand__toggler--active span,.m-brand.m-brand--skin-dark .m-brand__tools .m-brand__toggler.m-brand__toggler--active span::after, .m-brand.m-brand--skin-dark .m-brand__tools .m-brand__toggler.m-brand__toggler--active span::before {
   background: #cecece;
+}
+
+.m-datatable.m-datatable--default>.m-datatable__table>.m-datatable__head .m-datatable__row>.m-datatable__cell>span>i {
+  color: #2b2b2b;
+}
+
+.m-datatable.m-datatable--default>.m-datatable__table>.m-datatable__foot .m-datatable__row>.m-datatable__cell, .m-datatable.m-datatable--default>.m-datatable__table>.m-datatable__head .m-datatable__row>.m-datatable__cell {
+  background: #eee !important;
+}
+
+.m-datatable.m-datatable--default>.m-datatable__table>.m-datatable__body .m-datatable__row.m-datatable__row--even>.m-datatable__cell {
+  background: #f9f9f9;
+}
+
+.m-datatable.m-datatable--default>.m-datatable__table>.m-datatable__body .m-datatable__row.m-datatable__row--hover:not(.m-datatable__row--active)>.m-datatable__cell {
+  background: #eee;
+}
+
+.m-checkbox.m-checkbox--brand.m-checkbox--solid>input:checked~span {
+  background: #eee;
+}
+
+.btn-primary,.btn.btn-default,.btn-brand {
+  color: #333;
+  background-color: #e5e5e5;
+  border-color: #ccc;
+  border-radius: 0;
+}
+.btn-primary:hover,.btn.btn-default:hover,.btn-brand:hover{
+  background-color: #d6d6d6;
+  color: #333 !important;
+  border-color: #ccc;
+}
+
+.daterangepicker .ranges li.active {
+  background: #2b2b2b;
+  color: #fff;
+  border: 1px solid #1d1d1d;
+}
+
+.form-control.m-input--solid:focus {
+  background-color: #ebedf2;
+  border-color: #343434;
+  color: #575962;
+}
+
+.form-control:focus {
+  border-color: #343434;
+  color: #575962;
+}
+
+.m-checkbox.m-checkbox--solid>span {
+  background: #eee;
+  border: 1px solid transparent!important;
+}
+
+.m-checkbox.m-checkbox--brand.m-checkbox--solid>span:after {
+  border: solid #585858;
+}
+
+.m--font-brand {
+  color: #2b2b2b!important;
+}
+
+.m-datatable__cell a{
+  color: #0775ce !important;
+}
+
+.btn-dark{
+  color: #9c9c9c;
+  background-color: #212121;
+  border-color: #212121;
+  border-radius: 0;
+}
+
+.btn-dark:hover{
+  color: #fff !important;
+  background-color: #2b2b2b;
+  border-color: #212121;
+  border-radius: 0;
+}
+
+.m-form.m-form--fit .m-form__content, .m-form.m-form--fit .m-form__group, .m-form.m-form--fit .m-form__heading {
+  padding-left: inherit;
+  padding-right: inherit;
+}
+
+.modal .modal-content .modal-header {
+  padding: 11px 11px 11px 22px;
 }
 
 @media (min-width: 993px){
