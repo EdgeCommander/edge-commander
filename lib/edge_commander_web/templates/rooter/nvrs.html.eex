@@ -956,7 +956,7 @@
                           <button id="discardEditModal" type="button" class="btn btn-secondary" data-dismiss="modal">
                               Close
                           </button>
-                          <button id="saveEditModal" type="button" class="btn btn-primary">
+                          <button id="saveEditModal" type="button" class="btn btn-primary btn-dark">
                               Save changes
                           </button>
                       </div>
@@ -1048,7 +1048,7 @@
                           <button id="discardModal" type="button" class="btn btn-secondary" data-dismiss="modal">
                               Close
                           </button>
-                          <button id="saveModal" type="button" class="btn btn-primary">
+                          <button id="saveModal" type="button" class="btn btn-primary btn-dark">
                               Save changes
                           </button>
                       </div>
