@@ -113,11 +113,11 @@ a:hover {
 }
 
 ::-moz-selection { /* Code for Firefox */
-    background: #eee;
+  background: #eee;
 }
 
 ::selection {
-    background: #eee;
+  background: #eee;
 }
 
 .m-aside-left.m-aside-left--skin-dark {
