@@ -128,6 +128,18 @@ var DatatableDataNVR = function() {
         textAlign: "center",
         width: 150
     }, {
+        field: "nvr_status",
+        title: "Online",
+        textAlign: "center",
+        width: 150,
+        template: function(data) {
+          if(data.nvr_status == false){
+            return "<span style='color:#d9534d'>No</span> <span>("+ data.extra["reason"] +")</span>"
+          }else{
+            return "<span style='color:#5cb85c'>Yes</span>"
+          }
+        }
+    }, {
         field: "is_monitoring",
         title: "Monitoring",
         textAlign: "center",
