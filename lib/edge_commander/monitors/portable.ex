@@ -10,6 +10,8 @@ defmodule EdgeCommander.Portable do
   alias EdgeCommander.Devices.Nvr
   alias EdgeCommander.Monitors.NvrPorts
 
+  require IEx
+
   def start_porting do
     get_monitored_nvrs()
     |> Enum.each(fn(nvr) ->
@@ -26,22 +28,22 @@ defmodule EdgeCommander.Portable do
     case get_current_status(nvr.nvr_id) do
       nil ->
         changeset_to_db(nvr, true)
-        update_nvr_status(nvr, true)
+        update_nvr_status(nvr, nil, true)
       false ->
         changeset_to_db(nvr, true)
-        update_nvr_status(nvr, true)
+        update_nvr_status(nvr, nil, true)
       true ->
         Logger.info "Status already true."
     end
   end
-  def port_status_to_db({:error, _}, nvr) do
+  def port_status_to_db({:error, reason}, nvr) do
     case get_current_status(nvr.nvr_id) do
       nil ->
         changeset_to_db(nvr, false)
-        update_nvr_status(nvr, false)
+        update_nvr_status(nvr, reason, false)
       true ->
         changeset_to_db(nvr, false)
-        update_nvr_status(nvr, false)
+        update_nvr_status(nvr, reason, false)
       false ->
         Logger.info "Status already false."
     end
@@ -49,10 +51,26 @@ defmodule EdgeCommander.Portable do
   # {:error, :nxdomain}
   # {:error, :timeout}
 
-  def update_nvr_status(nvr, status) do
-    IO.inspect status
+  def update_nvr_status(nvr, nil, status) do
     get_nvr!(nvr.nvr_id)
     |> Nvr.changeset(%{nvr_status: status})
+    |> Repo.update!()
+  end
+
+  def update_nvr_status(nvr, reason, status) do
+    reason_value =
+      reason
+      |> Kernel.inspect()
+      |> String.replace(":", "")
+
+    nvr_record = get_nvr!(nvr.nvr_id)
+    extra =
+      nvr_record.extra
+      |> Map.delete("reason")
+      |> Map.put("reason", reason_value)
+
+    nvr_record
+    |> Nvr.changeset(%{nvr_status: status, extra: extra})
     |> Repo.update!()
   end
 

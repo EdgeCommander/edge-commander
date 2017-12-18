@@ -68,7 +68,9 @@ defmodule EdgeCommanderWeb.NvrsController do
           encoder_version: nvr |> get_extra_data("encoder_version"),
           firmware_released_date: nvr |> get_extra_data("firmware_released_date"),
           serial_number: nvr |> get_extra_data("serial_number"),
-          mac_address: nvr |> get_extra_data("mac_address")
+          mac_address: nvr |> get_extra_data("mac_address"),
+          reason: nvr |> get_extra_data("reason"),
+          nvr_status: nvr.nvr_status
         }
       end)
     conn
