@@ -10,8 +10,6 @@ defmodule EdgeCommander.Portable do
   alias EdgeCommander.Devices.Nvr
   alias EdgeCommander.Monitors.NvrPorts
 
-  require IEx
-
   def start_porting do
     get_monitored_nvrs()
     |> Enum.each(fn(nvr) ->
