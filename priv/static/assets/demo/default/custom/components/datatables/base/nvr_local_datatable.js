@@ -129,14 +129,18 @@ var DatatableDataNVR = function() {
         width: 150
     }, {
         field: "nvr_status",
-        title: "Online",
+        title: "Status",
         textAlign: "center",
-        width: 150,
+        width: 250,
         template: function(data) {
           if(data.nvr_status == false){
-            return "<span style='color:#d9534d'>No</span> <span>("+ data.extra["reason"] +")</span>"
+            reason  = data.reason;
+            if(reason == ''){
+              reason = "Sorry no reason found!";
+            }
+            return "<span style='color:#d9534d'>Offline</span> <span>("+ reason +")</span>";
           }else{
-            return "<span style='color:#5cb85c'>Yes</span>"
+            return "<span style='color:#5cb85c'>Online</span>";
           }
         }
     }, {
