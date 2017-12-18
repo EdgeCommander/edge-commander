@@ -136,9 +136,9 @@ var DatatableDataNVR = function() {
           if(data.nvr_status == false){
             reason  = data.reason;
             if(reason == ''){
-              reason = "Sorry no reason found!";
+              reason = "no reason found.";
             }
-            return "<span style='color:#d9534d'>Offline</span> <span>("+ reason +")</span>";
+            return "<span style='color:#d9534d'>Offline</span> <span>(" + reason + ")</span>";
           }else{
             return "<span style='color:#5cb85c'>Online</span>";
           }
