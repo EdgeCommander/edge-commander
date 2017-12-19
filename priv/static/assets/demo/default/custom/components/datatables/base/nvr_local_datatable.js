@@ -46,14 +46,14 @@ var DatatableDataNVR = function() {
     {
         field: "name",
         title: "Name",
-        width: 150,
+        width: 230,
         sortable: !1,
         selector: !1,
     },
     {
         field: "ip",
         title: "IP",
-        width: 150
+        width: 230
     },
     {
         field: "port",
@@ -121,7 +121,7 @@ var DatatableDataNVR = function() {
         field: "serial_number",
         title: "Serial Number",
         textAlign: "left",
-        width: 380
+        width: 400
     }, {
         field: "mac_address",
         title: "Mac Address",
@@ -162,7 +162,7 @@ var DatatableDataNVR = function() {
         template: function(t) {
           return "" + moment(t.created_at).format('MMMM Do YYYY, H:mm:ss') +"";
         },
-        width: 200
+        width: 250
       }
     ]
   });

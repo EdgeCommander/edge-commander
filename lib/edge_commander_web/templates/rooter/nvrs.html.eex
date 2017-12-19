@@ -857,6 +857,24 @@
                     <label class="m-checkbox m-checkbox--single m-checkbox--solid m-checkbox--brand" style="width: auto;"><input class="nvr-column" type="checkbox" data-field="firmware_version" checked><span></span> Firmware Version</label>
                   </div>
                   <div class="column-checkbox">
+                    <label class="m-checkbox m-checkbox--single m-checkbox--solid m-checkbox--brand" style="width: auto;"><input class="nvr-column" type="checkbox" data-field="encoder_released_date" checked><span></span> Encoder Released Date</label>
+                  </div>
+                  <div class="column-checkbox">
+                    <label class="m-checkbox m-checkbox--single m-checkbox--solid m-checkbox--brand" style="width: auto;"><input class="nvr-column" type="checkbox" data-field="encoder_version" checked><span></span> Encoder Version</label>
+                  </div>
+                  <div class="column-checkbox">
+                    <label class="m-checkbox m-checkbox--single m-checkbox--solid m-checkbox--brand" style="width: auto;"><input class="nvr-column" type="checkbox" data-field="firmware_released_date" checked><span></span> Firmware Released Date</label>
+                  </div>
+                  <div class="column-checkbox">
+                    <label class="m-checkbox m-checkbox--single m-checkbox--solid m-checkbox--brand" style="width: auto;"><input class="nvr-column" type="checkbox" data-field="serial_number" checked><span></span> Serial Number</label>
+                  </div>
+                  <div class="column-checkbox">
+                    <label class="m-checkbox m-checkbox--single m-checkbox--solid m-checkbox--brand" style="width: auto;"><input class="nvr-column" type="checkbox" data-field="mac_address" checked><span></span> Mac Address</label>
+                  </div>
+                  <div class="column-checkbox">
+                    <label class="m-checkbox m-checkbox--single m-checkbox--solid m-checkbox--brand" style="width: auto;"><input class="nvr-column" type="checkbox" data-field="nvr_status" checked><span></span> Status</label>
+                  </div>
+                  <div class="column-checkbox">
                     <label class="m-checkbox m-checkbox--single m-checkbox--solid m-checkbox--brand" style="width: auto;"><input class="nvr-column" type="checkbox" data-field="is_monitoring" checked><span></span> Monitoring</label>
                   </div>
                   <div class="column-checkbox">
