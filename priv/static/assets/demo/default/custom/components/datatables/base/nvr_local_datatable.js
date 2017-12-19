@@ -22,26 +22,15 @@ var DatatableDataNVR = function() {
     pagination: false,
     columns: [
     {
-      field: "edit",
-      title: "",
-      width: 40,
-      title: "#",
+      field: "actions",
+      width: 60,
+      title: "Actions",
+      textAlign: "center",
       locked: {left: 'xl'},
       sortable: false,
       template: function(t) {
-        return "<div class='editNVR cursor_to_pointer fa fa-edit' data-id='"+ t.id +"'></div>";
-      },
-    },
-    {
-      field: "delete",
-      title: "",
-      width: 40,
-      title: "#",
-      locked: {left: 'xl'},
-      sortable: false,
-      template: function(t) {
-        return "<div class='deleteNVR cursor_to_pointer fa fa-trash' data-id='"+ t.id +"'></div>";
-      },
+        return "<div class='editNVR cursor_to_pointer fa fa-edit' data-id='"+ t.id +"'></div> <div class='deleteNVR cursor_to_pointer fa fa-trash' data-id='"+ t.id +"'></div>";
+      }
     },
     {
         field: "name",
