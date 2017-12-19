@@ -46,7 +46,7 @@ var DatatableDataROUTER = function() {
     {
         field: "name",
         title: "Name",
-        width: 150,
+        width: 220,
         sortable: !1,
         selector: !1,
     },
@@ -93,7 +93,7 @@ var DatatableDataROUTER = function() {
         template: function(t) {
           return "" + moment(t.created_at).format('MMMM Do YYYY, H:mm:ss') +"";
         },
-        width: 200
+        width: 230
       }
     ]
   });

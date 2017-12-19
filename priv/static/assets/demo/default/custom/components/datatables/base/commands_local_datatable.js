@@ -47,7 +47,7 @@ var DatatableDataCOMMAND = function() {
     {
         field: "rule_name",
         title: "Rule Name",
-        width: 150,
+        width: 250,
         sortable: !1,
         selector: !1,
     },
