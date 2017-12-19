@@ -823,10 +823,7 @@
                               <div class="modal-body" style="padding: 15px;padding-bottom: 0px;">
                                 <div class="form-group">
                                   <div class="column-checkbox">
-                                    <label class="m-checkbox m-checkbox--single m-checkbox--solid m-checkbox--brand" style="width: auto;"><input type="checkbox" class="rule-column" data-field="edit" checked><span></span> Edit</label>
-                                  </div>
-                                  <div class="column-checkbox">
-                                    <label class="m-checkbox m-checkbox--single m-checkbox--solid m-checkbox--brand" style="width: auto;"><input class="rule-column" type="checkbox" data-field="delete" checked><span></span> Delete</label>
+                                    <label class="m-checkbox m-checkbox--single m-checkbox--solid m-checkbox--brand" style="width: auto;"><input type="checkbox" class="rule-column" data-field="actions" checked><span></span> Actions</label>
                                   </div>
                                   <div class="column-checkbox">
                                     <label class="m-checkbox m-checkbox--single m-checkbox--solid m-checkbox--brand" style="width: auto;"><input class="rule-column" type="checkbox" data-field="rule_name" checked><span></span> Rule Name</label>

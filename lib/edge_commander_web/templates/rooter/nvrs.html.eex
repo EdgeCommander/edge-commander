@@ -821,10 +821,7 @@
               <div class="modal-body" style="padding: 15px;padding-bottom: 0px;">
                 <div class="form-group">
                   <div class="column-checkbox">
-                    <label class="m-checkbox m-checkbox--single m-checkbox--solid m-checkbox--brand" style="width: auto;"><input type="checkbox" class="nvr-column" data-field="edit" checked><span></span> Edit</label>
-                  </div>
-                  <div class="column-checkbox">
-                    <label class="m-checkbox m-checkbox--single m-checkbox--solid m-checkbox--brand" style="width: auto;"><input class="nvr-column" type="checkbox" data-field="delete" checked><span></span> Delete</label>
+                    <label class="m-checkbox m-checkbox--single m-checkbox--solid m-checkbox--brand" style="width: auto;"><input type="checkbox" class="nvr-column" data-field="actions" checked><span></span> Actions</label>
                   </div>
                   <div class="column-checkbox">
                     <label class="m-checkbox m-checkbox--single m-checkbox--solid m-checkbox--brand" style="width: auto;"><input class="nvr-column" type="checkbox" data-field="name" checked><span></span> Name</label>

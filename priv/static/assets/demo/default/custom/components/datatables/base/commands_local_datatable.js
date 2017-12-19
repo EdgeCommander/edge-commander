@@ -23,25 +23,13 @@ var DatatableDataCOMMAND = function() {
     pagination: false,
     columns: [
     {
-      field: "edit",
-      title: "",
-      width: 40,
-      title: "#",
+      field: "actions",
+      width: 60,
+      title: "Actions",
       locked: {left: 'xl'},
       sortable: false,
       template: function(t) {
-        return "<div class='editRULE cursor_to_pointer fa fa-edit' data-id='"+ t.id +"'></div>";
-      },
-    },
-    {
-      field: "delete",
-      title: "",
-      width: 40,
-      title: "#",
-      locked: {left: 'xl'},
-      sortable: false,
-      template: function(t) {
-        return "<div class='deleteRULE cursor_to_pointer fa fa-trash' data-id='"+ t.id +"'></div>";
+        return "<div class='editRULE cursor_to_pointer fa fa-edit' data-id='"+ t.id +"'></div> <div class='deleteRULE cursor_to_pointer fa fa-trash' data-id='"+ t.id +"'></div>";
       },
     },
     {
