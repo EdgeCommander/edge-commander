@@ -80,7 +80,7 @@ defmodule EdgeCommanderWeb.SimsController do
       "api_key": System.get_env("NEXMO_API_KEY"),
       "api_secret": System.get_env("NEXMO_API_SECRET"),
       "to": to_number |> number_with_code,
-      "from": "EdgeCommander",
+      "from": System.get_env("NEXMO_API_NUMBER"),
       "text": sms_message
     })
     headers = [{"Content-type", "application/json"}]
