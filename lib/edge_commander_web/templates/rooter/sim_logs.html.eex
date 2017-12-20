@@ -824,13 +824,13 @@
             <label class="m-checkbox m-checkbox--single m-checkbox--solid m-checkbox--brand" style="width: auto;"><input class="sims-column" type="checkbox" data-field="name" checked><span></span> Name</label>
           </div>
           <div class="column-checkbox">
-            <label class="m-checkbox m-checkbox--single m-checkbox--solid m-checkbox--brand" style="width: auto;"><input class="sims-column" type="checkbox" data-field="allowance" checked><span></span> Allowance</label>
+            <label class="m-checkbox m-checkbox--single m-checkbox--solid m-checkbox--brand" style="width: auto;"><input class="sims-column" type="checkbox" data-field="allowance_in_number" checked><span></span> MB Allowance</label>
           </div>
           <div class="column-checkbox">
-            <label class="m-checkbox m-checkbox--single m-checkbox--solid m-checkbox--brand" style="width: auto;"><input class="sims-column" type="checkbox" data-field="volume_used_today" checked><span></span> Volume Used Today</label>
+            <label class="m-checkbox m-checkbox--single m-checkbox--solid m-checkbox--brand" style="width: auto;"><input class="sims-column" type="checkbox" data-field="current_in_number" checked><span></span> MB Used (Today)</label>
           </div>
           <div class="column-checkbox">
-            <label class="m-checkbox m-checkbox--single m-checkbox--solid m-checkbox--brand" style="width: auto;"><input class="sims-column" type="checkbox" data-field="volume_used_yesterday" checked><span></span> Volume Used Yesterday</label>
+            <label class="m-checkbox m-checkbox--single m-checkbox--solid m-checkbox--brand" style="width: auto;"><input class="sims-column" type="checkbox" data-field="yesterday_in_number" checked><span></span> MB Used (Yest.)</label>
           </div>
           <div class="column-checkbox">
             <label class="m-checkbox m-checkbox--single m-checkbox--solid m-checkbox--brand" style="width: auto;"><input class="sims-column" type="checkbox" data-field="percentage_used" checked><span></span> % Used</label>
