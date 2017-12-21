@@ -73,7 +73,7 @@ defmodule EdgeCommanderWeb.RooterController do
   end
 
 
-  def get_sms(api_key, api_secret, date, to) do
+  defp get_sms(api_key, api_secret, date, to) do
     url = "https://rest.nexmo.com/search/messages?api_key=#{api_key}&api_secret=#{api_secret}&date=#{date}&to=#{to}"
     case HTTPoison.get(url, [], [recv_timeout: 50000]) do
       {:ok, %{status_code: 200, body: body}} ->
