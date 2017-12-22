@@ -859,39 +859,47 @@
                                             Add Rule
                                         </h5>
                                     </div>
-                                    <div class="modal-body" id="body-rule-dis" style="padding: 0px;">
+                                    <div class="modal-body" id="body-rule-dis">
                                         <img src="/images/loading.gif" id="api-wait" class="hide_me">
-                                        <div class="m-form m-form--fit m-form--label-align-right">
-                                            <div style="padding: 10px;" class="m-portlet__body">
-                                                <div id="ruleErrorDetails" class="hide_me">
-                                                    <div class="form-group m-form__group m--margin-top-10">
-                                                        <div class="alert m-alert m-alert--default" role="alert">
-                                                            <ul id="errorOnRULE" style="margin:0px"></ul>
-                                                        </div>
-                                                    </div>
+                                        <div id="ruleErrorDetails" class="hide_me">
+                                            <div class="form-group m-form__group m--margin-top-10">
+                                                <div class="alert m-alert m-alert--default" role="alert">
+                                                    <ul id="errorOnRULE" style="margin:0px"></ul>
                                                 </div>
-                                                <div class="form-group m-form__group">
-                                                    <input type="hidden" id="user_id" value="<%= @user.id %>">
-                                                    <label>
-                                                        Rule Name
-                                                    </label>
+                                            </div>
+                                        </div>
+                                        <div class="m-form m-form--fit m-form--label-align-left">
+                                            <input type="hidden" id="user_id" value="<%= @user.id %>">
+                                            <div class="form-group m-form__group row">
+                                                <label class="col-3 col-form-label">
+                                                    Rule Name
+                                                </label>
+                                                <div class="col-9">
                                                     <input type="text" class="form-control m-input m-input--solid" id="rule_name" aria-describedby="emailHelp" placeholder="Test Usage.">
                                                 </div>
-                                                <div class="form-group m-form__group">
-                                                    <label for="exampleSelect1">
-                                                        Category
-                                                    </label>
+                                            </div>
+                                            <div class="form-group m-form__group row">
+                                                <label class="col-3 col-form-label">
+                                                    Category
+                                                </label>
+                                                <div class="col-9">
                                                     <select class="form-control m-input" id="rule_category">
                                                         <option value="usage_command">Usage > 90%</option>
                                                     </select>
                                                 </div>
-                                                <div class="form-group m-form__group">
-                                                    <label>
-                                                        Recipients
-                                                    </label>
+                                            </div>
+                                            <div class="form-group m-form__group row">
+                                                <label class="col-3 col-form-label">
+                                                    Recipients
+                                                </label>
+                                                <div class="col-9">
                                                     <input type="text" class="form-control m-input m-input--solid" id="rule_recipients" aria-describedby="emailHelp" placeholder="test@user.com,who@am.io">
                                                 </div>
-                                                <div class="m-form__group form-group">
+                                            </div>
+                                            <div class="form-group m-form__group row">
+                                                <label class="col-3 col-form-label">
+                                                </label>
+                                                <div class="col-9">
                                                     <label class="m-checkbox">
                                                         <input type="checkbox" id="rule_is_active">
                                                         Active
@@ -923,39 +931,47 @@
                                             Edit Router
                                         </h5>
                                     </div>
-                                    <div class="modal-body" id="body-rule-edit-dis" style="padding: 0px;">
+                                    <div class="modal-body" id="body-rule-edit-dis">
                                         <img src="/images/loading.gif" id="api-wait" class="hide_me">
-                                        <div class="m-form m-form--fit m-form--label-align-right">
-                                            <div style="padding: 10px;" class="m-portlet__body">
-                                                <div id="ruleEditErrorDetails" class="hide_me">
-                                                    <div class="form-group m-form__group m--margin-top-10">
-                                                        <div class="alert m-alert m-alert--default" role="alert">
-                                                            <ul id="errorOnEditRULE" style="margin:0px"></ul>
-                                                        </div>
-                                                    </div>
+                                        <div id="ruleEditErrorDetails" class="hide_me">
+                                            <div class="form-group m-form__group m--margin-top-10">
+                                                <div class="alert m-alert m-alert--default" role="alert">
+                                                    <ul id="errorOnEditRULE" style="margin:0px"></ul>
                                                 </div>
-                                                <div class="form-group m-form__group">
-                                                    <input type="hidden" id="user_id" value="<%= @user.id %>">
-                                                    <label>
-                                                        Rule Name
-                                                    </label>
+                                            </div>
+                                        </div>
+                                        <div class="m-form m-form--fit m-form--label-align-left">
+                                            <input type="hidden" id="user_id" value="<%= @user.id %>">
+                                            <div class="form-group m-form__group row">
+                                                <label class="col-3 col-form-label">
+                                                    Rule Name
+                                                </label>
+                                                <div class="col-9">
                                                     <input type="text" class="form-control m-input m-input--solid" id="edit_rule_name" aria-describedby="emailHelp" placeholder="Test Usage.">
                                                 </div>
-                                                <div class="form-group m-form__group">
-                                                    <label for="exampleSelect1">
-                                                        Category
-                                                    </label>
+                                            </div>
+                                            <div class="form-group m-form__group row">
+                                                <label class="col-3 col-form-label">
+                                                    Category
+                                                </label>
+                                                <div class="col-9">
                                                     <select class="form-control m-input" id="edit_rule_category">
                                                         <option value="usage_command">Usage > 90%</option>
                                                     </select>
                                                 </div>
-                                                <div class="form-group m-form__group">
-                                                    <label>
-                                                        Recipients
-                                                    </label>
+                                            </div>
+                                            <div class="form-group m-form__group row">
+                                                <label class="col-3 col-form-label">
+                                                    Recipients
+                                                </label>
+                                                <div class="col-9">
                                                     <input type="text" class="form-control m-input m-input--solid" id="edit_rule_recipients" aria-describedby="emailHelp" placeholder="test@user.com,who@am.io">
                                                 </div>
-                                                <div class="m-form__group form-group">
+                                            </div>
+                                            <div class="form-group m-form__group row">
+                                                <label class="col-3 col-form-label">
+                                                </label>
+                                                <div class="col-9">
                                                     <label class="m-checkbox">
                                                         <input type="checkbox" id="edit_rule_is_active">
                                                         Active

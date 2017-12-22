@@ -875,7 +875,7 @@
 <!-- end::Scroll Top -->
 <!-- begin::Quick Nav -->
 <!-- Modal -->
-<div class="modal fade" id="smsModal"  tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" data-backdrop="static" data-keyboard="false">
+<div class="modal fade" id="smsModal" style="padding: 0px;" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" data-backdrop="static" data-keyboard="false">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
@@ -892,17 +892,21 @@
                         </div>
                     </div>
                 </div>
-                <input type="hidden" id="toNumber" value="<%= @sim_number %>">
-                <div class="form-group m-form__group">
-                    <label>
+                <div class="m-form m-form--fit m-form--label-align-left">
+                  <input type="hidden" id="toNumber" value="<%= @sim_number %>">
+                  <div class="form-group m-form__group row">
+                    <label class="col-3 col-form-label">
                         Message
                     </label>
-                    <input type="text" class="form-control m-input m-input--solid" id="smsMessage">
+                    <div class="col-9">
+                      <input type="text" class="form-control m-input m-input--solid" id="smsMessage">
+                    </div>
+                  </div>
                 </div>
             </div>
-            <div class="modal-footer" style="padding: 11px;">
+            <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary send-sms-nexmo" data-dismiss="modal">Send</button>
+                <button type="button" class="btn btn-primary btn-dark send-sms-nexmo" data-dismiss="modal">Send</button>
             </div>
         </div>
     </div>

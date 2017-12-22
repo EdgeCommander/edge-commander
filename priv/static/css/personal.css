@@ -253,6 +253,14 @@ a:hover {
   padding: 11px 11px 11px 22px;
 }
 
+.modal .modal-content .modal-footer{
+  padding:11px 25px;
+}
+
+.modal .modal-content .modal-body {
+  padding: 5px 25px;
+}
+
 @media (min-width: 993px){
   .m-aside-left--minimize .m-aside-menu.m-aside-menu--skin-dark .m-menu__nav>.m-menu__item>.m-menu__link>.m-menu__link-icon {
     color: #9c9c9c !important;

@@ -896,78 +896,97 @@
                               Edit NVR
                           </h5>
                       </div>
-                      <div class="modal-body" id="body-nvr-edit-dis" style="padding: 0px;">
+                      <div class="modal-body" id="body-nvr-edit-dis">
                           <img src="/images/loading.gif" id="api-wait" class="hide_me">
-                          <div class="m-form m-form--fit m-form--label-align-right">
-                              <div style="padding: 10px;" class="m-portlet__body">
-                                  <div id="nvrEditErrorDetails" class="hide_me">
-                                      <div class="form-group m-form__group m--margin-top-10">
-                                          <div class="alert m-alert m-alert--default" role="alert">
-                                              <ul id="errorOnEditNVR" style="margin:0px"></ul>
-                                          </div>
-                                      </div>
+                           <div id="nvrEditErrorDetails" class="hide_me">
+                              <div class="form-group m-form__group m--margin-top-10">
+                                  <div class="alert m-alert m-alert--default" role="alert">
+                                      <ul id="errorOnEditNVR" style="margin:0px"></ul>
                                   </div>
-                                  <div class="form-group m-form__group">
-                                      <input type="hidden" id="user_id" value="<%= @user.id %>">
-                                      <label>
-                                          Name
-                                      </label>
-                                      <input type="text" class="form-control m-input m-input--solid" id="edit_nvr_name" aria-describedby="emailHelp" placeholder="Galway route.">
-                                  </div>
-                                  <div class="form-group m-form__group">
-                                      <label>
-                                          IP
-                                      </label>
-                                      <input type="text" class="form-control m-input m-input--solid" id="edit_nvr_ip" placeholder="https://youripmaybe">
-                                  </div>
-                                  <div class="form-group m-form__group">
-                                      <label>
-                                          Username
-                                      </label>
-                                      <input type="text" class="form-control m-input m-input--solid" id="edit_nvr_username" placeholder="i.e admin">
-                                  </div>
-                                  <div class="form-group m-form__group">
-                                      <label>
-                                          Password
-                                      </label>
-                                      <input type="text" class="form-control m-input m-input--solid" id="edit_nvr_password" placeholder="Super Secret">
-                                  </div>
-                                  <div class="form-group m-form__group">
-                                      <label>
-                                          HTTP Port
-                                      </label>
-                                      <input type="number" class="form-control m-input m-input--solid" id="edit_http_nvr_port" placeholder="i.e 80">
-                                  </div>
-                                  <div class="form-group m-form__group">
-                                      <label>
-                                          RTSP Port
-                                      </label>
-                                      <input type="number" class="form-control m-input m-input--solid" id="edit_rtsp_nvr_port" placeholder="i.e 880">
-                                  </div>
-                                  <div class="form-group m-form__group">
-                                      <label>
-                                          SDK Port
-                                      </label>
-                                      <input type="number" class="form-control m-input m-input--solid" id="edit_sdk_nvr_port" placeholder="i.e 840">
-                                  </div>
-                                  <div class="form-group m-form__group">
-                                      <label>
-                                          VH Port
-                                      </label>
-                                      <input type="number" class="form-control m-input m-input--solid" id="edit_vh_nvr_port" placeholder="i.e 890">
-                                  </div>
-                                  <div class="m-form__group form-group">
-                                      <label class="m-checkbox">
+                              </div>
+                           </div>
+
+                          <div class="m-form m-form--fit m-form--label-align-left">
+                              <input type="hidden" id="user_id" value="<%= @user.id %>">
+                                <div class="form-group m-form__group row">
+                                    <label class="col-3 col-form-label">
+                                        Name
+                                    </label>
+                                    <div class="col-9">
+                                       <input type="text" class="form-control m-input m-input--solid" id="edit_nvr_name" aria-describedby="emailHelp" placeholder="Galway route.">
+                                    </div>
+                                </div>
+                                <div class="form-group m-form__group row">
+                                    <label class="col-3 col-form-label">
+                                        IP
+                                    </label>
+                                    <div class="col-9">
+                                       <input type="text" class="form-control m-input m-input--solid" id="edit_nvr_ip" placeholder="https://youripmaybe">
+                                    </div>
+                                </div>
+                                <div class="form-group m-form__group row">
+                                    <label class="col-3 col-form-label">
+                                        Username
+                                    </label>
+                                    <div class="col-9">
+                                        <input type="text" class="form-control m-input m-input--solid" id="edit_nvr_username" placeholder="i.e admin">
+                                    </div>
+                                </div>
+                                <div class="form-group m-form__group row">
+                                    <label class="col-3 col-form-label">
+                                        Password
+                                    </label>
+                                    <div class="col-9">
+                                        <input type="text" class="form-control m-input m-input--solid" id="edit_nvr_password" placeholder="Super Secret">
+                                    </div>
+                                </div>
+                                <div class="form-group m-form__group row">
+                                    <label class="col-3 col-form-label">
+                                        HTTP Port
+                                    </label>
+                                    <div class="col-9">
+                                        <input type="number" class="form-control m-input m-input--solid" id="edit_http_nvr_port" placeholder="i.e 80">
+                                    </div>
+                                </div>
+                                <div class="form-group m-form__group row">
+                                    <label class="col-3 col-form-label">
+                                        RTSP Port
+                                    </label>
+                                    <div class="col-9">
+                                        <input type="number" class="form-control m-input m-input--solid" id="edit_rtsp_nvr_port" placeholder="i.e 880">
+                                    </div>
+                                </div>
+                                <div class="form-group m-form__group row">
+                                    <label class="col-3 col-form-label">
+                                        SDK Port
+                                    </label>
+                                    <div class="col-9">
+                                        <input type="number" class="form-control m-input m-input--solid" id="edit_sdk_nvr_port" placeholder="i.e 840">
+                                    </div>
+                                </div>
+                                <div class="form-group m-form__group row">
+                                    <label class="col-3 col-form-label">
+                                        VH Port
+                                    </label>
+                                    <div class="col-9">
+                                        <input type="number" class="form-control m-input m-input--solid" id="edit_vh_nvr_port" placeholder="i.e 890">
+                                    </div>
+                                </div>
+                                <div class="form-group m-form__group row">
+                                    <label class="col-3 col-form-label">
+                                    </label>
+                                    <div class="col-9">
+                                        <label class="m-checkbox">
                                           <input type="checkbox" id="edit_nvr_is_monitoring">
                                           Monitoring
                                           <span></span>
                                       </label>
-                                  </div>
-                              </div>
-                          </div>
+                                    </div>
+                                </div>
+                           </div>
                           <!--end::Form-->
                       </div>
-                      <div class="modal-footer" style="padding: 11px;">
+                      <div class="modal-footer">
                           <button id="discardEditModal" type="button" class="btn btn-secondary" data-dismiss="modal">
                               Close
                           </button>
@@ -988,78 +1007,96 @@
                               Add NVR
                           </h5>
                       </div>
-                      <div class="modal-body" id="body-nvr-dis" style="padding: 0px;">
+                      <div class="modal-body" id="body-nvr-dis">
                           <img src="/images/loading.gif" id="api-wait" class="hide_me">
-                          <div class="m-form m-form--fit m-form--label-align-right">
-                              <div style="padding: 10px;" class="m-portlet__body">
-                                  <div id="nvrErrorDetails" class="hide_me">
-                                      <div class="form-group m-form__group m--margin-top-10">
-                                          <div class="alert m-alert m-alert--default" role="alert">
-                                              <ul id="errorOnNVR" style="margin:0px"></ul>
-                                          </div>
-                                      </div>
+                          <div id="nvrErrorDetails" class="hide_me">
+                              <div class="form-group m-form__group m--margin-top-10">
+                                  <div class="alert m-alert m-alert--default" role="alert">
+                                      <ul id="errorOnNVR" style="margin:0px"></ul>
                                   </div>
-                                  <div class="form-group m-form__group">
-                                      <input type="hidden" id="user_id" value="<%= @user.id %>">
-                                      <label>
-                                          Name
-                                      </label>
-                                      <input type="text" class="form-control m-input m-input--solid" id="nvr_name" aria-describedby="emailHelp" placeholder="Galway route.">
-                                  </div>
-                                  <div class="form-group m-form__group">
-                                      <label>
-                                          IP
-                                      </label>
-                                      <input type="text" class="form-control m-input m-input--solid" id="nvr_ip" placeholder="https://youripmaybe">
-                                  </div>
-                                  <div class="form-group m-form__group">
-                                      <label>
-                                          Username
-                                      </label>
-                                      <input type="text" class="form-control m-input m-input--solid" id="nvr_username" placeholder="i.e admin">
-                                  </div>
-                                  <div class="form-group m-form__group">
-                                      <label>
-                                          Password
-                                      </label>
-                                      <input type="text" class="form-control m-input m-input--solid" id="nvr_password" placeholder="Super Secret">
-                                  </div>
-                                  <div class="form-group m-form__group">
-                                      <label>
-                                          HTTP Port
-                                      </label>
-                                      <input type="number" class="form-control m-input m-input--solid" id="http_nvr_port" placeholder="i.e 80">
-                                  </div>
-                                  <div class="form-group m-form__group">
-                                      <label>
-                                          RTSP Port
-                                      </label>
-                                      <input type="number" class="form-control m-input m-input--solid" id="rtsp_nvr_port" placeholder="i.e 880">
-                                  </div>
-                                  <div class="form-group m-form__group">
-                                      <label>
-                                          SDK Port
-                                      </label>
-                                      <input type="number" class="form-control m-input m-input--solid" id="sdk_nvr_port" placeholder="i.e 840">
-                                  </div>
-                                  <div class="form-group m-form__group">
-                                      <label>
-                                          VH Port
-                                      </label>
-                                      <input type="number" class="form-control m-input m-input--solid" id="vh_nvr_port" placeholder="i.e 890">
-                                  </div>
-                                  <div class="m-form__group form-group">
-                                      <label class="m-checkbox">
+                              </div>
+                          </div>
+                           <div class="m-form m-form--fit m-form--label-align-left">
+                              <input type="hidden" id="user_id" value="<%= @user.id %>">
+                                <div class="form-group m-form__group row">
+                                    <label class="col-3 col-form-label">
+                                        Name
+                                    </label>
+                                    <div class="col-9">
+                                        <input type="text" class="form-control m-input m-input--solid"  id="nvr_name" aria-describedby="emailHelp" placeholder="Galway route.">
+                                    </div>
+                                </div>
+                                <div class="form-group m-form__group row">
+                                    <label class="col-3 col-form-label">
+                                        IP
+                                    </label>
+                                    <div class="col-9">
+                                        <input type="text" class="form-control m-input m-input--solid" id="nvr_ip" placeholder="https://youripmaybe">
+                                    </div>
+                                </div>
+                                <div class="form-group m-form__group row">
+                                    <label class="col-3 col-form-label">
+                                        Username
+                                    </label>
+                                    <div class="col-9">
+                                        <input type="text" class="form-control m-input m-input--solid" id="nvr_username" placeholder="i.e admin">
+                                    </div>
+                                </div>
+                                <div class="form-group m-form__group row">
+                                    <label class="col-3 col-form-label">
+                                        Password
+                                    </label>
+                                    <div class="col-9">
+                                        <input type="text" class="form-control m-input m-input--solid" id="nvr_password" placeholder="Super Secret">
+                                    </div>
+                                </div>
+                                <div class="form-group m-form__group row">
+                                    <label class="col-3 col-form-label">
+                                        HTTP Port
+                                    </label>
+                                    <div class="col-9">
+                                        <input type="number" class="form-control m-input m-input--solid" id="http_nvr_port" placeholder="i.e 80">
+                                    </div>
+                                </div>
+                                <div class="form-group m-form__group row">
+                                    <label class="col-3 col-form-label">
+                                        RTSP Port
+                                    </label>
+                                    <div class="col-9">
+                                        <input type="number" class="form-control m-input m-input--solid" id="rtsp_nvr_port" placeholder="i.e 880">
+                                    </div>
+                                </div>
+                                <div class="form-group m-form__group row">
+                                    <label class="col-3 col-form-label">
+                                        SDK Port
+                                    </label>
+                                    <div class="col-9">
+                                        <input type="number" class="form-control m-input m-input--solid" id="sdk_nvr_port" placeholder="i.e 840">
+                                    </div>
+                                </div>
+                                <div class="form-group m-form__group row">
+                                    <label class="col-3 col-form-label">
+                                        VH Port
+                                    </label>
+                                    <div class="col-9">
+                                        <input type="number" class="form-control m-input m-input--solid" id="vh_nvr_port" placeholder="i.e 890">
+                                    </div>
+                                </div>
+                                <div class="form-group m-form__group row">
+                                    <label class="col-3 col-form-label">
+                                    </label>
+                                    <div class="col-9">
+                                        <label class="m-checkbox">
                                           <input type="checkbox" id="nvr_is_monitoring">
                                           Monitoring
                                           <span></span>
                                       </label>
-                                  </div>
-                              </div>
-                          </div>
+                                    </div>
+                                </div>
+                           </div>
                           <!--end::Form-->
                       </div>
-                      <div class="modal-footer" style="padding: 11px;">
+                      <div class="modal-footer">
                           <button id="discardModal" type="button" class="btn btn-secondary" data-dismiss="modal">
                               Close
                           </button>
