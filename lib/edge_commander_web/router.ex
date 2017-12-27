@@ -57,6 +57,12 @@ defmodule EdgeCommanderWeb.Router do
     
     post "/send_sms", SimsController, :send_sms
 
+    get "/sites", RooterController, :sites
+    get "/get_all_sites", SitesController, :get_all_sites
+    post "/sites/new", SitesController, :create
+    patch "/sites/update", SitesController, :update
+    delete "/sites/delete", SitesController, :delete
+
   end
 
   # Other scopes may use custom stacks.

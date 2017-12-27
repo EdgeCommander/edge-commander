@@ -13,7 +13,7 @@
     <body class="m-page--fluid m--skin- m-content--skin-light2 m-header--fixed m-header--fixed-mobile m-aside-left--enabled m-aside-left--skin-dark m-aside-left--offcanvas m-footer--push m-aside--offcanvas-default"  >
         <!-- begin:: Page -->
         <div class="m-grid m-grid--hor m-grid--root m-page" id="page_content_main">
-            <!-- BEGIN: Header -->
+           <!-- BEGIN: Header -->
             <header class="m-grid__item m-header custom_header"  data-minimize-offset="200" data-minimize-mobile-offset="200" >
                 <div class="m-container m-container--fluid m-container--full-height">
                     <div class="m-stack m-stack--ver m-stack--desktop">
@@ -108,7 +108,7 @@
                                     </span>
                                 </a>
                             </li>
-                            <li class="m-menu__item m-menu__item--active" aria-haspopup="true" >
+                            <li class="m-menu__item" aria-haspopup="true" >
                                 <a  href="/routers" class="m-menu__link ">
                                     <i class="m-menu__link-icon fa fa-registered"></i>
                                     <span class="m-menu__link-title">
@@ -120,7 +120,7 @@
                                     </span>
                                 </a>
                             </li>
-                            <li class="m-menu__item" aria-haspopup="true" >
+                            <li class="m-menu__item m-menu__item--active" aria-haspopup="true" >
                                 <a  href="/sites" class="m-menu__link ">
                                     <i class="m-menu__link-icon fa  fa-leanpub"></i>
                                     <span class="m-menu__link-title">
@@ -197,11 +197,11 @@
                                 </div>
                               </div>
                               <div class="col-xl-4 order-1 order-xl-2 m--align-right">
-                                  <a href="#" id="addROUTER" class="btn btn-primary m-btn m-btn--icon">
+                                  <a href="#" id="addSite" class="btn btn-primary m-btn m-btn--icon">
                                       <span>
                                           <i class="fa fa-plus-square"></i>
                                           <span>
-                                              Add Router
+                                              Add Site
                                           </span>
                                       </span>
                                   </a>
@@ -215,7 +215,7 @@
                           <!--end: Search Form -->
                           <!--begin: Datatable -->
                           <font class="reload"></font>
-                          <div class="m_router_datatable" id="child_data_local"></div>
+                          <div class="m_commands_datatable" id="child_data_local"></div>
                           <!--end: Datatable -->
                         </div>
                       </div>
@@ -823,28 +823,28 @@
                               <div class="modal-body" style="padding: 15px;padding-bottom: 0px;">
                                 <div class="form-group">
                                   <div class="column-checkbox">
-                                    <label class="m-checkbox m-checkbox--single m-checkbox--solid m-checkbox--brand" style="width: auto;"><input class="router-column" type="checkbox" data-field="actions" checked><span></span> Actions</label>
+                                    <label class="m-checkbox m-checkbox--single m-checkbox--solid m-checkbox--brand" style="width: auto;"><input type="checkbox" class="rule-column" data-field="actions" checked><span></span> Actions</label>
                                   </div>
                                   <div class="column-checkbox">
-                                    <label class="m-checkbox m-checkbox--single m-checkbox--solid m-checkbox--brand" style="width: auto;"><input class="router-column" type="checkbox" data-field="name" checked><span></span> Name</label>
+                                    <label class="m-checkbox m-checkbox--single m-checkbox--solid m-checkbox--brand" style="width: auto;"><input class="rule-column" type="checkbox" data-field="name" checked><span></span> Name</label>
                                   </div>
                                   <div class="column-checkbox">
-                                    <label class="m-checkbox m-checkbox--single m-checkbox--solid m-checkbox--brand" style="width: auto;"><input class="router-column" type="checkbox" data-field="ip" checked><span></span> IP</label>
+                                    <label class="m-checkbox m-checkbox--single m-checkbox--solid m-checkbox--brand" style="width: auto;"><input class="rule-column" type="checkbox" data-field="location" checked><span></span> Location</label>
                                   </div>
                                   <div class="column-checkbox">
-                                    <label class="m-checkbox m-checkbox--single m-checkbox--solid m-checkbox--brand" style="width: auto;"><input class="router-column" type="checkbox" data-field="port" checked><span></span> HTTP Port</label>
+                                    <label class="m-checkbox m-checkbox--single m-checkbox--solid m-checkbox--brand" style="width: auto;"><input class="rule-column" type="checkbox" data-field="sim_number" checked><span></span> Sim Number</label>
                                   </div>
+
                                   <div class="column-checkbox">
-                                    <label class="m-checkbox m-checkbox--single m-checkbox--solid m-checkbox--brand" style="width: auto;"><input class="router-column" type="checkbox" data-field="username" checked><span></span> Username</label>
+                                    <label class="m-checkbox m-checkbox--single m-checkbox--solid m-checkbox--brand" style="width: auto;"><input class="rule-column" type="checkbox" data-field="router_name" checked><span></span> Router Name</label>
                                   </div>
+
                                   <div class="column-checkbox">
-                                    <label class="m-checkbox m-checkbox--single m-checkbox--solid m-checkbox--brand" style="width: auto;"><input class="router-column" type="checkbox" data-field="password" checked><span></span> Password</label>
+                                    <label class="m-checkbox m-checkbox--single m-checkbox--solid m-checkbox--brand" style="width: auto;"><input class="rule-column" type="checkbox" data-field="nvr_name" checked><span></span> NVR Name</label>
                                   </div>
+                                 
                                   <div class="column-checkbox">
-                                    <label class="m-checkbox m-checkbox--single m-checkbox--solid m-checkbox--brand" style="width: auto;"><input class="router-column" type="checkbox" data-field="is_monitoring" checked><span></span> Monitoring</label>
-                                  </div>
-                                  <div class="column-checkbox">
-                                    <label class="m-checkbox m-checkbox--single m-checkbox--solid m-checkbox--brand" style="width: auto;"><input class="router-column" type="checkbox" data-field="created_at" checked><span></span> Created At</label>
+                                    <label class="m-checkbox m-checkbox--single m-checkbox--solid m-checkbox--brand" style="width: auto;"><input class="rule-column" type="checkbox" data-field="created_at" checked><span></span> Created At</label>
                                   </div>
                                 </div>
                               </div>
@@ -857,24 +857,23 @@
                           </div>
                         </div>
                          <!--begin::Modal-->
-                        <div class="modal fade add_router_to_db" style="padding: 0px;" id="m_modal_1" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" data-backdrop="static" data-keyboard="false">
+                        <div class="modal fade add_site_to_db" style="padding: 0px;" id="m_modal_1" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" data-backdrop="static" data-keyboard="false">
                             <div class="modal-dialog" role="document">
                                 <div class="modal-content" style="padding: 0px;">
                                     <div class="modal-header">
                                         <h5 class="modal-title" id="exampleModalLabel">
-                                            Add Router
+                                            Add Site
                                         </h5>
                                     </div>
-                                    <div class="modal-body" id="body-router-dis">
+                                    <div class="modal-body" id="body-site-dis">
                                         <img src="/images/loading.gif" id="api-wait" class="hide_me">
-                                        <div id="routerErrorDetails" class="hide_me">
+                                        <div id="siteErrorDetails" class="hide_me">
                                             <div class="form-group m-form__group m--margin-top-10">
                                                 <div class="alert m-alert m-alert--default" role="alert">
-                                                    <ul id="errorOnROUTER" style="margin:0px"></ul>
+                                                    <ul id="errorOnSite" style="margin:0px"></ul>
                                                 </div>
                                             </div>
                                         </div>
-
                                         <div class="m-form m-form--fit m-form--label-align-left">
                                             <input type="hidden" id="user_id" value="<%= @user.id %>">
                                             <div class="form-group m-form__group row">
@@ -882,56 +881,65 @@
                                                     Name
                                                 </label>
                                                 <div class="col-9">
-                                                   <input type="text" class="form-control m-input m-input--solid" id="router_name" aria-describedby="emailHelp" placeholder="Galway route.">
+                                                    <input type="text" class="form-control m-input m-input--solid" id="name" aria-describedby="emailHelp" placeholder="Site Name">
                                                 </div>
                                             </div>
                                             <div class="form-group m-form__group row">
                                                 <label class="col-3 col-form-label">
-                                                    IP
+                                                    Location
                                                 </label>
                                                 <div class="col-9">
-                                                    <input type="text" class="form-control m-input m-input--solid" id="router_ip" placeholder="https://youripmaybe">
+                                                    <input type="text" class="form-control m-input m-input--solid" id="location" aria-describedby="emailHelp" placeholder="Site Location.">
                                                 </div>
                                             </div>
                                             <div class="form-group m-form__group row">
                                                 <label class="col-3 col-form-label">
-                                                    Username
+                                                    SIM Number
                                                 </label>
                                                 <div class="col-9">
-                                                    <input type="text" class="form-control m-input m-input--solid" id="router_username" placeholder="i.e admin">
+                                                    <select class="form-control m-input" id="sim_number">
+                                                        <%= for sim <- @all_sim_numbers do %>
+                                                            <option value="<%= sim %>"><%= sim %></option>
+                                                        <% end %>
+                                                    </select>
                                                 </div>
                                             </div>
                                             <div class="form-group m-form__group row">
                                                 <label class="col-3 col-form-label">
-                                                    Password
+                                                    Router
                                                 </label>
                                                 <div class="col-9">
-                                                    <input type="text" class="form-control m-input m-input--solid" id="router_password" placeholder="Super Secret">
+                                                    <select class="form-control m-input drop-input" id="router_id">
+                                                        <%= for router <- @list_routers do %>
+                                                            <option value="<%= router.id %>"><%= router.name %></option>
+                                                        <% end %>
+                                                    </select>
                                                 </div>
                                             </div>
                                             <div class="form-group m-form__group row">
                                                 <label class="col-3 col-form-label">
-                                                    HTTP Port
+                                                    NVR
                                                 </label>
                                                 <div class="col-9">
-                                                    <input type="number" class="form-control m-input m-input--solid" id="http_router_port" placeholder="i.e 80">
+                                                    <select class="form-control m-input drop-input" id="nvr_id">
+                                                        <%= for nvr <- @list_nvrs do %>
+                                                            <option value="<%= nvr.id %>"><%= nvr.name %></option>
+                                                        <% end %>
+                                                    </select>
                                                 </div>
                                             </div>
                                             <div class="form-group m-form__group row">
                                                 <label class="col-3 col-form-label">
+                                                    Note
                                                 </label>
                                                 <div class="col-9">
-                                                    <label class="m-checkbox">
-                                                        <input type="checkbox" id="router_is_monitoring">
-                                                        Monitoring
-                                                        <span></span>
-                                                    </label>
+                                                    <input type="text" class="form-control m-input m-input--solid" id="notes" aria-describedby="emailHelp" placeholder="Short Note.">
                                                 </div>
                                             </div>
                                         </div>
                                         <!--end::Form-->
                                     </div>
-                                    <div class="modal-footer">
+                                    <div class="modal-footer" style="padding: 11px;">
                                         <button id="discardModal" type="button" class="btn btn-secondary" data-dismiss="modal">
                                             Close
                                         </button>
@@ -944,20 +952,20 @@
                         </div>
                         <!--end::Modal-->
                          <!--beginEDIT::Modal-->
-                        <div class="modal fade" id="edit_router_to_db" style="padding: 0px;" data-backdrop="static" data-keyboard="false">
+                        <div class="modal fade" id="edit_site_to_db" style="padding: 0px;" data-backdrop="static" data-keyboard="false">
                             <div class="modal-dialog" role="document">
                                 <div class="modal-content" style="padding: 0px;">
                                     <div class="modal-header">
                                         <h5 class="modal-title" id="exampleModalLabel">
-                                            Edit Router
+                                            Edit Site
                                         </h5>
                                     </div>
-                                    <div class="modal-body" id="body-router-edit-dis">
-                                        <img src="/images/loading.gif" id="api-wait" class="hide_me">
-                                         <div id="routerEditErrorDetails" class="hide_me">
+                                    <div class="modal-body" id="body-site-edit-dis">
+                                         <img src="/images/loading.gif" id="api-wait" class="hide_me">
+                                        <div id="siteEditErrorDetails" class="hide_me">
                                             <div class="form-group m-form__group m--margin-top-10">
                                                 <div class="alert m-alert m-alert--default" role="alert">
-                                                    <ul id="errorOnEditROUTER" style="margin:0px"></ul>
+                                                    <ul id="errorOnEditSite" style="margin:0px"></ul>
                                                 </div>
                                             </div>
                                         </div>
@@ -968,56 +976,65 @@
                                                     Name
                                                 </label>
                                                 <div class="col-9">
-                                                   <input type="text" class="form-control m-input m-input--solid" id="edit_router_name" aria-describedby="emailHelp" placeholder="Galway route.">
+                                                    <input type="text" class="form-control m-input m-input--solid" id="edit_name" aria-describedby="emailHelp" placeholder="Site Name">
                                                 </div>
                                             </div>
                                             <div class="form-group m-form__group row">
                                                 <label class="col-3 col-form-label">
-                                                    IP
+                                                    Location
                                                 </label>
                                                 <div class="col-9">
-                                                    <input type="text" class="form-control m-input m-input--solid" id="edit_router_ip" placeholder="https://youripmaybe">
+                                                    <input type="text" class="form-control m-input m-input--solid" id="edit_location" aria-describedby="emailHelp" placeholder="Site Location.">
                                                 </div>
                                             </div>
                                             <div class="form-group m-form__group row">
                                                 <label class="col-3 col-form-label">
-                                                    Username
+                                                    SIM Number
                                                 </label>
                                                 <div class="col-9">
-                                                    <input type="text" class="form-control m-input m-input--solid" id="edit_router_username" placeholder="i.e admin">
+                                                    <select class="form-control m-input" id="edit_sim_number">
+                                                        <%= for sim <- @all_sim_numbers do %>
+                                                            <option value="<%= sim %>"><%= sim %></option>
+                                                        <% end %>
+                                                    </select>
                                                 </div>
                                             </div>
                                             <div class="form-group m-form__group row">
                                                 <label class="col-3 col-form-label">
-                                                    Password
+                                                    Router
                                                 </label>
                                                 <div class="col-9">
-                                                    <input type="text" class="form-control m-input m-input--solid" id="edit_router_password" placeholder="Super Secret">
+                                                    <select class="form-control m-input drop-input" id="edit_router_id">
+                                                        <%= for router <- @list_routers do %>
+                                                            <option value="<%= router.id %>"><%= router.name %></option>
+                                                        <% end %>
+                                                    </select>
                                                 </div>
                                             </div>
                                             <div class="form-group m-form__group row">
                                                 <label class="col-3 col-form-label">
-                                                    HTTP Port
+                                                    NVR
                                                 </label>
                                                 <div class="col-9">
-                                                    <input type="number" class="form-control m-input m-input--solid" id="edit_http_router_port" placeholder="i.e 80">
+                                                    <select class="form-control m-input drop-input" id="edit_nvr_id">
+                                                        <%= for nvr <- @list_nvrs do %>
+                                                            <option value="<%= nvr.id %>"><%= nvr.name %></option>
+                                                        <% end %>
+                                                    </select>
                                                 </div>
                                             </div>
                                             <div class="form-group m-form__group row">
                                                 <label class="col-3 col-form-label">
+                                                    Note
                                                 </label>
                                                 <div class="col-9">
-                                                    <label class="m-checkbox">
-                                                        <input type="checkbox" id="edit_router_is_monitoring">
-                                                        Monitoring
-                                                        <span></span>
-                                                    </label>
+                                                    <input type="text" class="form-control m-input m-input--solid" id="edit_notes" aria-describedby="emailHelp" placeholder="Short Note.">
                                                 </div>
                                             </div>
                                         </div>
                                         <!--end::Form-->
                                     </div>
-                                    <div class="modal-footer">
+                                    <div class="modal-footer" style="padding: 11px;">
                                         <button id="discardEditModal" type="button" class="btn btn-secondary" data-dismiss="modal">
                                             Close
                                         </button>
