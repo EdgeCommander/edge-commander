@@ -1,7 +1,7 @@
 var sitesDataTable = null;
 
 var DatatableDataSites = function() {
-  sitesDataTable = $(".m_commands_datatable").mDatatable({
+  sitesDataTable = $(".m_sites_datatable").mDatatable({
     data: {
       type: "remote",
       speedLoad: true,
@@ -29,13 +29,13 @@ var DatatableDataSites = function() {
       locked: {left: 'xl'},
       sortable: false,
       template: function(t) {
-        return "<div class='editRULE cursor_to_pointer fa fa-edit' data-id='"+ t.id +"'></div> <div class='deleteSite cursor_to_pointer fa fa-trash' data-id='"+ t.id +"'></div>";
+        return "<div class='editSite cursor_to_pointer fa fa-edit' data-id='"+ t.id +"'></div> <div class='deleteSite cursor_to_pointer fa fa-trash' data-id='"+ t.id +"'></div>";
       },
     },
     {
         field: "name",
         title: "Name",
-        width: 250,
+        width: 180,
         sortable: !1,
         selector: !1,
     },
@@ -43,13 +43,13 @@ var DatatableDataSites = function() {
         field: "location",
         title: "Location",
         textAlign: "center",
-        width: 150
+        width: 180
     },
     {
         field: "sim_number",
         title: "Sim Number",
         textAlign: "center",
-        width: 200,
+        width: 150,
         responsive: {
             visible: "lg"
         }
@@ -58,13 +58,13 @@ var DatatableDataSites = function() {
         field: "router_name",
         title: "Router Name",
         textAlign: "left",
-        width: 200
+        width: 220
     },
     {
         field: "nvr_name",
         title: "NVR Name",
         textAlign: "left",
-        width: 200
+        width: 230
     }, {
         field: "created_at",
         title: "Created At",
@@ -120,7 +120,7 @@ var saveModal = function() {
     $("#api-wait").removeClass("hide_me");
     $("#body-site-dis *").prop('disabled',true);
     $("#siteErrorDetails").addClass("hide_me");
-    // $("#set_to_load").addClass("loading");
+
     var name        = $("#name").val(),
         location    = $("#location").val(),
         sim_number  = $('#sim_number').find(":selected").val(),
@@ -183,7 +183,6 @@ onSuccess = function(result, status, jqXHR) {
   $("#api-wait").addClass("hide_me");
   sitesDataTable.load();
   clearForm();
-  console.log(result);
   return true;
 };
 
@@ -247,7 +246,6 @@ onSiteDeleteSuccess = function(result, status, jqXHR) {
     // settings
     type: 'info'
   });
-  console.log(result);
   sitesDataTable.load();
   return true;
 };
@@ -255,25 +253,25 @@ onSiteDeleteSuccess = function(result, status, jqXHR) {
 var onSiteEditButton;
 
 onSiteEditButton = function() {
-  $(document).on("click", ".editRULE", function(){
+  $(document).on("click", ".editSite", function(){
     var row = $(this).closest('tr');
     var data = sitesDataTable.jsonData[row.index()];
     console.log(row.index())
     $("#saveEditModal").attr('data-id', $(this).data("id"));
 
     router_id = 
-    $('#edit_router_id option').filter(function () { 
-      return $(this).html() == data.router_name; 
-    }).val();
+      $('#edit_router_id option').filter(function () { 
+        return $(this).html() == data.router_name; 
+      }).val();
 
     nvr_id = 
-    $('#edit_nvr_id option').filter(function () { 
-      return $(this).html() == data.nvr_name; 
-    }).val();
+      $('#edit_nvr_id option').filter(function () { 
+        return $(this).html() == data.nvr_name; 
+      }).val();
 
     $("#edit_name").val(data.name);
     $("#edit_location").val(data.location);
-    $("#edit_sim_number").val("0" + data.sim_number);
+    $("#edit_sim_number").val(data.sim_number);
     $("#edit_router_id").val(router_id);
     $("#edit_nvr_id").val(nvr_id);
     $("#edit_notes").val(data.notes);
@@ -352,7 +350,6 @@ onEditSuccess = function(result, status, jqXHR) {
   editClearFrom();
   $("#edit_site_to_db").modal("hide");
   sitesDataTable.load();
-  console.log(result);
   return true;
 };
 
@@ -368,7 +365,7 @@ editClearFrom = function() {
 var showHideColumns;
 
 showHideColumns = function() {
-  $(".rule-column").on("click", function(){
+  $(".site-column").on("click", function(){
     console.log($(this).attr("data-field"));
     var ColToHide = $(this).attr("data-field");
     if(this.checked){
@@ -381,7 +378,7 @@ showHideColumns = function() {
   });
 };
 
-window.initializeCommands = function() {
+window.initializeSites = function() {
   startSitesTable();
   onSearching();
   onSiteButton();

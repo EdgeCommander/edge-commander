@@ -215,7 +215,7 @@
                           <!--end: Search Form -->
                           <!--begin: Datatable -->
                           <font class="reload"></font>
-                          <div class="m_commands_datatable" id="child_data_local"></div>
+                          <div class="m_sites_datatable" id="child_data_local"></div>
                           <!--end: Datatable -->
                         </div>
                       </div>
@@ -823,28 +823,28 @@
                               <div class="modal-body" style="padding: 15px;padding-bottom: 0px;">
                                 <div class="form-group">
                                   <div class="column-checkbox">
-                                    <label class="m-checkbox m-checkbox--single m-checkbox--solid m-checkbox--brand" style="width: auto;"><input type="checkbox" class="rule-column" data-field="actions" checked><span></span> Actions</label>
+                                    <label class="m-checkbox m-checkbox--single m-checkbox--solid m-checkbox--brand" style="width: auto;"><input type="checkbox" class="site-column" data-field="actions" checked><span></span> Actions</label>
                                   </div>
                                   <div class="column-checkbox">
-                                    <label class="m-checkbox m-checkbox--single m-checkbox--solid m-checkbox--brand" style="width: auto;"><input class="rule-column" type="checkbox" data-field="name" checked><span></span> Name</label>
+                                    <label class="m-checkbox m-checkbox--single m-checkbox--solid m-checkbox--brand" style="width: auto;"><input class="site-column" type="checkbox" data-field="name" checked><span></span> Name</label>
                                   </div>
                                   <div class="column-checkbox">
-                                    <label class="m-checkbox m-checkbox--single m-checkbox--solid m-checkbox--brand" style="width: auto;"><input class="rule-column" type="checkbox" data-field="location" checked><span></span> Location</label>
+                                    <label class="m-checkbox m-checkbox--single m-checkbox--solid m-checkbox--brand" style="width: auto;"><input class="site-column" type="checkbox" data-field="location" checked><span></span> Location</label>
                                   </div>
                                   <div class="column-checkbox">
-                                    <label class="m-checkbox m-checkbox--single m-checkbox--solid m-checkbox--brand" style="width: auto;"><input class="rule-column" type="checkbox" data-field="sim_number" checked><span></span> Sim Number</label>
-                                  </div>
-
-                                  <div class="column-checkbox">
-                                    <label class="m-checkbox m-checkbox--single m-checkbox--solid m-checkbox--brand" style="width: auto;"><input class="rule-column" type="checkbox" data-field="router_name" checked><span></span> Router Name</label>
+                                    <label class="m-checkbox m-checkbox--single m-checkbox--solid m-checkbox--brand" style="width: auto;"><input class="site-column" type="checkbox" data-field="sim_number" checked><span></span> Sim Number</label>
                                   </div>
 
                                   <div class="column-checkbox">
-                                    <label class="m-checkbox m-checkbox--single m-checkbox--solid m-checkbox--brand" style="width: auto;"><input class="rule-column" type="checkbox" data-field="nvr_name" checked><span></span> NVR Name</label>
+                                    <label class="m-checkbox m-checkbox--single m-checkbox--solid m-checkbox--brand" style="width: auto;"><input class="site-column" type="checkbox" data-field="router_name" checked><span></span> Router Name</label>
+                                  </div>
+
+                                  <div class="column-checkbox">
+                                    <label class="m-checkbox m-checkbox--single m-checkbox--solid m-checkbox--brand" style="width: auto;"><input class="site-column" type="checkbox" data-field="nvr_name" checked><span></span> NVR Name</label>
                                   </div>
                                  
                                   <div class="column-checkbox">
-                                    <label class="m-checkbox m-checkbox--single m-checkbox--solid m-checkbox--brand" style="width: auto;"><input class="rule-column" type="checkbox" data-field="created_at" checked><span></span> Created At</label>
+                                    <label class="m-checkbox m-checkbox--single m-checkbox--solid m-checkbox--brand" style="width: auto;"><input class="site-column" type="checkbox" data-field="created_at" checked><span></span> Created At</label>
                                   </div>
                                 </div>
                               </div>

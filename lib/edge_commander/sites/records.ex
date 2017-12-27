@@ -10,7 +10,7 @@ defmodule EdgeCommander.Sites.Records do
     field :notes, :string
     field :nvr_id, :integer
     field :router_id, :integer
-    field :sim_number, :integer
+    field :sim_number, :string
     field :user_id, :integer
 
     timestamps()

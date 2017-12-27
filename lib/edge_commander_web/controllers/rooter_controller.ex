@@ -5,7 +5,6 @@ defmodule EdgeCommanderWeb.RooterController do
   import EdgeCommander.Devices, only: [list_nvrs: 0, list_routers: 0]
   import EdgeCommander.ThreeScraper, only: [all_sim_numbers: 0]
   import Gravatar
-  require IEx
   require Logger
 
   def index(conn, _params) do

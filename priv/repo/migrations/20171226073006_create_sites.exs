@@ -5,7 +5,7 @@ defmodule EdgeCommander.Repo.Migrations.CreateSites do
     create table(:sites) do
       add :name, :string
       add :location, :string
-      add :sim_number, :integer
+      add :sim_number, :string
       add :router_id, :integer
       add :nvr_id, :integer
       add :notes, :string

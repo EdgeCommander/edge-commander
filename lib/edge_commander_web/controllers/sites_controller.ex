@@ -37,7 +37,7 @@ defmodule EdgeCommanderWeb.SitesController do
         traversed_errors = for {_key, values} <- errors, value <- values, do: "#{value}"
         conn
         |> put_status(400)
-        |> json(%{ errors: traversed_errors })
+        |> json(%{errors: traversed_errors})
     end
   end
 
@@ -66,7 +66,7 @@ defmodule EdgeCommanderWeb.SitesController do
     |> Records.changeset(params)
     |> Repo.update
     |> case do
-      {:ok, rule} ->
+      {:ok, site} ->
         %EdgeCommander.Sites.Records{
           name: name,
           location: location,
@@ -75,7 +75,7 @@ defmodule EdgeCommanderWeb.SitesController do
           nvr_id: nvr_id,
           notes: notes,
           inserted_at: inserted_at
-        } = rule
+        } = site
 
         conn
         |> put_status(:created)
@@ -93,7 +93,7 @@ defmodule EdgeCommanderWeb.SitesController do
         traversed_errors = for {_key, values} <- errors, value <- values, do: "#{value}"
         conn
         |> put_status(400)
-        |> json(%{ errors: traversed_errors })   
+        |> json(%{errors: traversed_errors})   
     end
   end
 
@@ -112,18 +112,12 @@ defmodule EdgeCommanderWeb.SitesController do
         traversed_errors = for {_key, values} <- errors, value <- values, do: "#{value}"
         conn
         |> put_status(400)
-        |> json(%{ errors: traversed_errors })
+        |> json(%{errors: traversed_errors})
     end
   end
 
-  defp get_router_name(id)  do
-    router_data = get_router!(id)
-    router_data.name
-  end
-
-  defp get_nvr_name(id)  do
-    nvr_data = get_nvr!(id)
-    nvr_data.name
-  end
+  defp get_router_name(id) do router_data = get_router!(id); router_data.name end
+  
+  defp get_nvr_name(id) do nvr_data = get_nvr!(id); nvr_data.name end
 
 end
