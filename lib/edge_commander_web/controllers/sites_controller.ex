@@ -51,7 +51,9 @@ defmodule EdgeCommanderWeb.SitesController do
           location: site.location,
           sim_number: site.sim_number,
           router_name: site.router_id |> get_router_name,
+          router_id: site.router_id,
           nvr_name: site.nvr_id |> get_nvr_name,
+          nvr_id: site.nvr_id,
           notes: site.notes,
           created_at: site.inserted_at
         }
