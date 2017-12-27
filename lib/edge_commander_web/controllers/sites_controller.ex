@@ -116,8 +116,7 @@ defmodule EdgeCommanderWeb.SitesController do
     end
   end
 
-  defp get_router_name(id) do router_data = get_router!(id); router_data.name end
-  
-  defp get_nvr_name(id) do nvr_data = get_nvr!(id); nvr_data.name end
+  defp get_router_name(id),  do: get_router!(id) |> Map.get(:name)
 
+  defp get_nvr_name(id),  do: get_nvr!(id) |> Map.get(:name)
 end
