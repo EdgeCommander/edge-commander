@@ -65,6 +65,12 @@ var DatatableDataSites = function() {
         title: "NVR Name",
         textAlign: "left",
         width: 230
+    },
+    {
+        field: "notes",
+        title: "Notes",
+        textAlign: "left",
+        width: 230
     }, {
         field: "created_at",
         title: "Created At",
@@ -258,22 +264,11 @@ onSiteEditButton = function() {
     var data = sitesDataTable.jsonData[row.index()];
     console.log(row.index())
     $("#saveEditModal").attr('data-id', $(this).data("id"));
-
-    router_id = 
-      $('#edit_router_id option').filter(function () { 
-        return $(this).html() == data.router_name; 
-      }).val();
-
-    nvr_id = 
-      $('#edit_nvr_id option').filter(function () { 
-        return $(this).html() == data.nvr_name; 
-      }).val();
-
     $("#edit_name").val(data.name);
     $("#edit_location").val(data.location);
     $("#edit_sim_number").val(data.sim_number);
-    $("#edit_router_id").val(router_id);
-    $("#edit_nvr_id").val(nvr_id);
+    $("#edit_router_id").val(data.router_id);
+    $("#edit_nvr_id").val(data.nvr_id);
     $("#edit_notes").val(data.notes);
     $('#edit_site_to_db').modal('show');
   });
