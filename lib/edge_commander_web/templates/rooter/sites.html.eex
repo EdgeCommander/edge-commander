@@ -842,6 +842,10 @@
                                   <div class="column-checkbox">
                                     <label class="m-checkbox m-checkbox--single m-checkbox--solid m-checkbox--brand" style="width: auto;"><input class="site-column" type="checkbox" data-field="nvr_name" checked><span></span> NVR Name</label>
                                   </div>
+
+                                   <div class="column-checkbox">
+                                    <label class="m-checkbox m-checkbox--single m-checkbox--solid m-checkbox--brand" style="width: auto;"><input class="site-column" type="checkbox" data-field="notes" checked><span></span> Notes</label>
+                                  </div>
                                  
                                   <div class="column-checkbox">
                                     <label class="m-checkbox m-checkbox--single m-checkbox--solid m-checkbox--brand" style="width: auto;"><input class="site-column" type="checkbox" data-field="created_at" checked><span></span> Created At</label>
