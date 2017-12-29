@@ -13,7 +13,11 @@ defmodule EdgeCommanderWeb.SitesController do
       {:ok, site} ->
         %EdgeCommander.Sites.Records{
           name: name,
-          location: location,
+          location: %{
+            "lat" => latitude,
+            "lng" => longitude,
+            "map_area" => map_area
+          },
           sim_number: sim_number,
           router_id: router_id,
           nvr_id: nvr_id,
@@ -25,7 +29,9 @@ defmodule EdgeCommanderWeb.SitesController do
         |> put_status(:created)
         |> json(%{
           "name" => name,
-          "location" => location,
+          "lat" => latitude,
+          "lng" => longitude,
+          "map_area" => map_area,
           "sim_number" => sim_number,
           "router_id" => router_id,
           "nvr_id" => nvr_id,
@@ -51,9 +57,7 @@ defmodule EdgeCommanderWeb.SitesController do
           location: site.location,
           sim_number: site.sim_number,
           router_name: site.router_id |> get_router_name,
-          router_id: site.router_id,
           nvr_name: site.nvr_id |> get_nvr_name,
-          nvr_id: site.nvr_id,
           notes: site.notes,
           created_at: site.inserted_at
         }

@@ -862,7 +862,7 @@
                         </div>
                          <!--begin::Modal-->
                         <div class="modal fade add_site_to_db" style="padding: 0px;" id="m_modal_1" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" data-backdrop="static" data-keyboard="false">
-                            <div class="modal-dialog" role="document">
+                            <div class="modal-dialog modal-lg" role="document">
                                 <div class="modal-content" style="padding: 0px;">
                                     <div class="modal-header">
                                         <h5 class="modal-title" id="exampleModalLabel">
@@ -880,65 +880,93 @@
                                         </div>
                                         <div class="m-form m-form--fit m-form--label-align-left">
                                             <input type="hidden" id="user_id" value="<%= @user.id %>">
-                                            <div class="form-group m-form__group row">
-                                                <label class="col-3 col-form-label">
-                                                    Name
-                                                </label>
-                                                <div class="col-9">
-                                                    <input type="text" class="form-control m-input m-input--solid" id="name" aria-describedby="emailHelp" placeholder="Site Name">
-                                                </div>
-                                            </div>
-                                            <div class="form-group m-form__group row">
-                                                <label class="col-3 col-form-label">
-                                                    Location
-                                                </label>
-                                                <div class="col-9">
-                                                    <input type="text" class="form-control m-input m-input--solid" id="location" aria-describedby="emailHelp" placeholder="Site Location.">
-                                                </div>
-                                            </div>
-                                            <div class="form-group m-form__group row">
-                                                <label class="col-3 col-form-label">
-                                                    SIM Number
-                                                </label>
-                                                <div class="col-9">
-                                                    <select class="form-control m-input" id="sim_number">
-                                                        <%= for sim <- @all_sim_numbers do %>
-                                                            <option value="<%= sim %>"><%= sim %></option>
-                                                        <% end %>
-                                                    </select>
-                                                </div>
-                                            </div>
-                                            <div class="form-group m-form__group row">
-                                                <label class="col-3 col-form-label">
-                                                    Router
-                                                </label>
-                                                <div class="col-9">
-                                                    <select class="form-control m-input drop-input" id="router_id">
-                                                        <%= for router <- @list_routers do %>
-                                                            <option value="<%= router.id %>"><%= router.name %></option>
-                                                        <% end %>
-                                                    </select>
-                                                </div>
-                                            </div>
-                                            <div class="form-group m-form__group row">
-                                                <label class="col-3 col-form-label">
-                                                    NVR
-                                                </label>
-                                                <div class="col-9">
-                                                    <select class="form-control m-input drop-input" id="nvr_id">
-                                                        <%= for nvr <- @list_nvrs do %>
-                                                            <option value="<%= nvr.id %>"><%= nvr.name %></option>
-                                                        <% end %>
-                                                    </select>
-                                                </div>
-                                            </div>
-                                            <div class="form-group m-form__group row">
-                                                <label class="col-3 col-form-label">
-                                                    Note
-                                                </label>
-                                                <div class="col-9">
-                                                    <input type="text" class="form-control m-input m-input--solid" id="notes" aria-describedby="emailHelp" placeholder="Short Note.">
-                                                </div>
+                                            <div class="row">
+                                                    <div class="col-lg-6">
+                                                        <div class="form-group m-form__group row">
+                                                            <label class="col-3 col-form-label">
+                                                                Name
+                                                            </label>
+                                                            <div class="col-9">
+                                                                <input type="text" class="form-control m-input m-input--solid" id="name" aria-describedby="emailHelp" placeholder="Site Name">
+                                                            </div>
+                                                        </div>
+                                                    
+                                                        <div class="form-group m-form__group row">
+                                                        <label class="col-3 col-form-label">
+                                                            SIM
+                                                        </label>
+                                                        <div class="col-9">
+                                                            <select class="form-control m-input" id="sim_number">
+                                                                <%= for sim <- @all_sim_numbers do %>
+                                                                    <option value="<%= sim %>"><%= sim %></option>
+                                                                <% end %>
+                                                            </select>
+                                                        </div>
+                                                        </div>
+                                                        <div class="form-group m-form__group row">
+                                                            <label class="col-3 col-form-label">
+                                                                Router
+                                                            </label>
+                                                            <div class="col-9">
+                                                                <select class="form-control m-input drop-input" id="router_id">
+                                                                    <%= for router <- @list_routers do %>
+                                                                        <option value="<%= router.id %>"><%= router.name %></option>
+                                                                    <% end %>
+                                                                </select>
+                                                            </div>
+                                                        </div>
+                                                        <div class="form-group m-form__group row">
+                                                            <label class="col-3 col-form-label">
+                                                                NVR
+                                                            </label>
+                                                            <div class="col-9">
+                                                                <select class="form-control m-input drop-input" id="nvr_id">
+                                                                    <%= for nvr <- @list_nvrs do %>
+                                                                        <option value="<%= nvr.id %>"><%= nvr.name %></option>
+                                                                    <% end %>
+                                                                </select>
+                                                            </div>
+                                                        </div>
+                                                        <div class="form-group m-form__group row">
+                                                            <label class="col-3 col-form-label">
+                                                                Note
+                                                            </label>
+                                                            <div class="col-9">
+                                                                <input type="text" class="form-control m-input m-input--solid" id="notes" aria-describedby="emailHelp" placeholder="Short Note.">
+                                                            </div>
+                                                        </div>
+                                                    <div class="form-group m-form__group row">
+                                                        <label class="col-3 col-form-label">
+                                                            Latitude
+                                                        </label>
+                                                        <div class="col-9">
+                                                            <input name="lat" type="text" class="form-control m-input m-input--solid readonly" id="latitude" readonly>
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group m-form__group row">
+                                                        <label class="col-3 col-form-label">
+                                                            Longitude
+                                                        </label>
+                                                        <div class="col-9">
+                                                            <input name="lng" type="text" class="form-control m-input m-input--solid readonly" id="longitude" readonly>
+                                                        </div>
+                                                    </div>
+                                                </div>  
+                                                <div class="col-lg-6">
+                                                    <div class="form-group m-form__group row">
+                                                        <label class="col-3 col-form-label">
+                                                            Location
+                                                        </label>
+                                                        <div class="col-9">
+                                                           <input type="text" class="form-control m-input m-input--solid" id="map_area" aria-describedby="emailHelp" placeholder="Search Location" value="Dublin, Ireland">
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group m-form__group row">
+                                                        <div class="col-12">
+                                                           <div class="map_canvas" id="map" style="height:300px;width:100%"></div>
+                                                        </div>
+                                                    </div>
+                                                </div>      
                                             </div>
                                         </div>
                                         <!--end::Form-->

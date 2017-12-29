@@ -43,6 +43,10 @@ var DatatableDataSites = function() {
         field: "location",
         title: "Location",
         textAlign: "center",
+        template: function(t) {
+          console.log(t);
+          return t.location.map_area;
+        },
         width: 180
     },
     {
@@ -99,6 +103,7 @@ var startSitesTable = function() {
 var onSiteButton = function() {
   $("#addSite").on("click", function(){
     $('.add_site_to_db').modal('show');
+    addMapView();
   });
 };
 
@@ -128,20 +133,27 @@ var saveModal = function() {
     $("#siteErrorDetails").addClass("hide_me");
 
     var name        = $("#name").val(),
-        location    = $("#location").val(),
+        map_area    = $("#map_area").val(),
         sim_number  = $('#sim_number').find(":selected").val(),
         router_id   = $('#router_id').find(":selected").val(),
         nvr_id      = $('#nvr_id').find(":selected").val(),
-        notes        = $("#notes").val(),
+        notes       = $("#notes").val(),
+        latitude    = $("#latitude").val(),
+        longitude   = $("#longitude").val(),
         user_id     = $("#user_id").val();
+
 
     var data = {};
         data.name = name;
-        data.location = location;
         data.sim_number = sim_number;
         data.router_id = router_id;
         data.nvr_id = nvr_id;
         data.notes = notes;
+        data.location = {
+          lat: latitude,
+          lng: longitude,
+          map_area: map_area
+        };
         data.user_id = user_id;
 
     var settings;
@@ -202,6 +214,26 @@ var sendAJAXRequest = function(settings) {
     settings.headers = headers;
   }
   return xhrRequestChangeMonth = jQuery.ajax(settings);
+};
+
+var addMapView;
+addMapView = function() {
+  var options = {
+    map: ".map_canvas",
+    details: "div",
+    markerOptions: {
+      draggable: true,
+    }
+  };
+  $("#map_area").geocomplete(options);
+  $("#map_area").bind("geocode:dragged", function(event, latLng){
+    $("input[name=lat]").val(latLng.lat());
+    $("input[name=lng]").val(latLng.lng());
+  });
+  $("#map_area").trigger("geocode");
+  $("#map_area").keyup(function(){
+    $(".pac-container").css("z-index","1500");
+  }).keyup();
 };
 
 var deleteSite;
