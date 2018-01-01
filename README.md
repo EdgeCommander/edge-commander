@@ -1,4 +1,4 @@
-# Edge Commander : Device Management & Monitoring
+# Edge Commander : Device Management & Monitoring [![Build Status][travis-image]][travis-url]
 
 This is an open source application written in Phoenix that allows monitoring & management of devices on the edge.
 
@@ -13,3 +13,6 @@ Functionality includes:
 + If This Then That alerts (e.g. If SIM usage is > X then Notify)
 
 It is designed to be an extensible platform for system integrators to monitor client-side equipment.
+
+[travis-url]: https://travis-ci.org/EdgeCommander/edge-commander
+[travis-image]: https://travis-ci.org/EdgeCommander/edge-commander.svg?branch=master
