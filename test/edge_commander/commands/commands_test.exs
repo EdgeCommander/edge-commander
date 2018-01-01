@@ -6,9 +6,9 @@ defmodule EdgeCommander.CommandsTest do
   describe "rules" do
     alias EdgeCommander.Commands.Rule
 
-    @valid_attrs %{active: true, category: "some category", recipients: "some recipients", rule_name: "some rule_name"}
-    @update_attrs %{active: false, category: "some updated category", recipients: "some updated recipients", rule_name: "some updated rule_name"}
-    @invalid_attrs %{active: nil, category: nil, recipients: nil, rule_name: nil}
+    @valid_attrs %{active: true, category: "some category", recipients: ["test@user.com"], rule_name: "some rule_name"}
+    @update_attrs %{active: false, category: "some updated category", recipients: ["who@am.io"], rule_name: "some updated rule_name"}
+    @invalid_attrs %{active: nil, category: nil, recipients: [], rule_name: nil}
 
     def rule_fixture(attrs \\ %{}) do
       {:ok, rule} =
@@ -33,7 +33,7 @@ defmodule EdgeCommander.CommandsTest do
       assert {:ok, %Rule{} = rule} = Commands.create_rule(@valid_attrs)
       assert rule.active == true
       assert rule.category == "some category"
-      assert rule.recipients == "some recipients"
+      assert rule.recipients == ["test@user.com"]
       assert rule.rule_name == "some rule_name"
     end
 
@@ -47,7 +47,7 @@ defmodule EdgeCommander.CommandsTest do
       assert %Rule{} = rule
       assert rule.active == false
       assert rule.category == "some updated category"
-      assert rule.recipients == "some updated recipients"
+      assert rule.recipients == ["who@am.io"]
       assert rule.rule_name == "some updated rule_name"
     end
 
