@@ -6,9 +6,9 @@ defmodule EdgeCommander.AccountsTest do
   describe "users" do
     alias EdgeCommander.Accounts.User
 
-    @valid_attrs %{email: "some email", name: "some name", password: "some password"}
-    @update_attrs %{email: "some updated email", name: "some updated name", password: "some updated password"}
-    @invalid_attrs %{email: nil, name: nil, password: nil}
+    @valid_attrs %{email: "some email", password: "some password", username: "some username", lastname: "some lastname", firstname: "some firstname"}
+    @update_attrs %{email: "some updated email", password: "some updated password", username: "some updated username", lastname: "some updated lastname", firstname: "some updated firstname"}
+    @invalid_attrs %{email: nil, password: nil, username: nil, lastname: nil, firstname: nil}
 
     def user_fixture(attrs \\ %{}) do
       {:ok, user} =
@@ -21,19 +21,20 @@ defmodule EdgeCommander.AccountsTest do
 
     test "list_users/0 returns all users" do
       user = user_fixture()
-      assert Accounts.list_users() == [user]
+      assert Accounts.list_users() |> List.first |> Map.delete(:last_signed_in) == [user] |> List.first |> Map.delete(:last_signed_in)
     end
 
     test "get_user!/1 returns the user with given id" do
       user = user_fixture()
-      assert Accounts.get_user!(user.id) == user
+      assert Accounts.get_user!(user.id) |> Map.delete(:last_signed_in) == user |> Map.delete(:last_signed_in)
     end
 
     test "create_user/1 with valid data creates a user" do
       assert {:ok, %User{} = user} = Accounts.create_user(@valid_attrs)
       assert user.email == "some email"
-      assert user.name == "some name"
-      assert user.password == "some password"
+      assert user.username == "some username"
+      assert user.lastname == "some lastname"
+      assert user.firstname == "some firstname"
     end
 
     test "create_user/1 with invalid data returns error changeset" do
@@ -45,14 +46,15 @@ defmodule EdgeCommander.AccountsTest do
       assert {:ok, user} = Accounts.update_user(user, @update_attrs)
       assert %User{} = user
       assert user.email == "some updated email"
-      assert user.name == "some updated name"
-      assert user.password == "some updated password"
+      assert user.username == "some updated username"
+      assert user.lastname == "some updated lastname"
+      assert user.firstname == "some updated firstname"
     end
 
     test "update_user/2 with invalid data returns error changeset" do
       user = user_fixture()
       assert {:error, %Ecto.Changeset{}} = Accounts.update_user(user, @invalid_attrs)
-      assert user == Accounts.get_user!(user.id)
+      assert user |> Map.delete(:last_signed_in) == Accounts.get_user!(user.id) |> Map.delete(:last_signed_in)
     end
 
     test "delete_user/1 deletes the user" do

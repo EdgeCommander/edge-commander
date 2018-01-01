@@ -6,8 +6,8 @@ defmodule EdgeCommander.DevicesTest do
   describe "nvrs" do
     alias EdgeCommander.Devices.Nvr
 
-    @valid_attrs %{extra: %{}, firmware_version: "some firmware_version", ip: "some ip", is_monitoring: true, model: "some model", name: "some name", password: "some password", port: "some port", username: "some username"}
-    @update_attrs %{extra: %{}, firmware_version: "some updated firmware_version", ip: "some updated ip", is_monitoring: false, model: "some updated model", name: "some updated name", password: "some updated password", port: "some updated port", username: "some updated username"}
+    @valid_attrs %{extra: %{}, firmware_version: "some firmware_version", ip: "110.39.130.42", is_monitoring: true, model: "some model", name: "some name", password: "some password", port: "80", username: "some username"}
+    @update_attrs %{extra: %{}, firmware_version: "some updated firmware_version", ip: "110.39.130.98", is_monitoring: false, model: "some updated model", name: "some updated name", password: "some updated password", port: "81", username: "some updated username"}
     @invalid_attrs %{extra: nil, firmware_version: nil, ip: nil, is_monitoring: nil, model: nil, name: nil, password: nil, port: nil, username: nil}
 
     def nvr_fixture(attrs \\ %{}) do
@@ -33,12 +33,12 @@ defmodule EdgeCommander.DevicesTest do
       assert {:ok, %Nvr{} = nvr} = Devices.create_nvr(@valid_attrs)
       assert nvr.extra == %{}
       assert nvr.firmware_version == "some firmware_version"
-      assert nvr.ip == "some ip"
+      assert nvr.ip == "110.39.130.42"
       assert nvr.is_monitoring == true
       assert nvr.model == "some model"
       assert nvr.name == "some name"
       assert nvr.password == "some password"
-      assert nvr.port == "some port"
+      assert nvr.port == 80
       assert nvr.username == "some username"
     end
 
@@ -52,12 +52,12 @@ defmodule EdgeCommander.DevicesTest do
       assert %Nvr{} = nvr
       assert nvr.extra == %{}
       assert nvr.firmware_version == "some updated firmware_version"
-      assert nvr.ip == "some updated ip"
+      assert nvr.ip == "110.39.130.98"
       assert nvr.is_monitoring == false
       assert nvr.model == "some updated model"
       assert nvr.name == "some updated name"
       assert nvr.password == "some updated password"
-      assert nvr.port == "some updated port"
+      assert nvr.port == 81
       assert nvr.username == "some updated username"
     end
 
@@ -82,8 +82,8 @@ defmodule EdgeCommander.DevicesTest do
   describe "routers" do
     alias EdgeCommander.Devices.Router
 
-    @valid_attrs %{extra: %{}, ip: "some ip", is_monitoring: true, name: "some name", password: "some password", port: 42, status: true, username: "some username"}
-    @update_attrs %{extra: %{}, ip: "some updated ip", is_monitoring: false, name: "some updated name", password: "some updated password", port: 43, status: false, username: "some updated username"}
+    @valid_attrs %{extra: %{}, ip: "110.39.130.42", is_monitoring: true, name: "some name", password: "some password", port: 42, router_status: true, username: "some username"}
+    @update_attrs %{extra: %{}, ip: "110.39.130.98", is_monitoring: false, name: "some updated name", password: "some updated password", port: 43, router_status: false, username: "some updated username"}
     @invalid_attrs %{extra: nil, ip: nil, is_monitoring: nil, name: nil, password: nil, port: nil, status: nil, username: nil}
 
     def router_fixture(attrs \\ %{}) do
@@ -108,12 +108,12 @@ defmodule EdgeCommander.DevicesTest do
     test "create_router/1 with valid data creates a router" do
       assert {:ok, %Router{} = router} = Devices.create_router(@valid_attrs)
       assert router.extra == %{}
-      assert router.ip == "some ip"
+      assert router.ip == "110.39.130.42"
       assert router.is_monitoring == true
       assert router.name == "some name"
       assert router.password == "some password"
       assert router.port == 42
-      assert router.status == true
+      assert router.router_status == true
       assert router.username == "some username"
     end
 
@@ -126,12 +126,12 @@ defmodule EdgeCommander.DevicesTest do
       assert {:ok, router} = Devices.update_router(router, @update_attrs)
       assert %Router{} = router
       assert router.extra == %{}
-      assert router.ip == "some updated ip"
+      assert router.ip == "110.39.130.98"
       assert router.is_monitoring == false
       assert router.name == "some updated name"
       assert router.password == "some updated password"
       assert router.port == 43
-      assert router.status == false
+      assert router.router_status == false
       assert router.username == "some updated username"
     end
 

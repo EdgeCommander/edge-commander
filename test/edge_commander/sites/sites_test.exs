@@ -6,9 +6,9 @@ defmodule EdgeCommander.SitesTest do
   describe "sites" do
     alias EdgeCommander.Sites.Records
 
-    @valid_attrs %{location: "some location", name: "some name", notes: "some notes", nvr_id: 42, router_id: 42, sim_number: 42, user_id: 42}
-    @update_attrs %{location: "some updated location", name: "some updated name", notes: "some updated notes", nvr_id: 43, router_id: 43, sim_number: 43, user_id: 43}
-    @invalid_attrs %{location: nil, name: nil, notes: nil, nvr_id: nil, router_id: nil, sim_number: nil, user_id: nil}
+    @valid_attrs %{location: "some location", name: "some name", notes: "some notes", nvr_id: 42, router_id: 42, sim_number: "some sim_number"}
+    @update_attrs %{location: "some updated location", name: "some updated name", notes: "some updated notes", nvr_id: 43, router_id: 43, sim_number: "some updated sim_number"}
+    @invalid_attrs %{location: nil, name: nil, notes: nil, nvr_id: nil, router_id: nil, sim_number: nil}
 
     def records_fixture(attrs \\ %{}) do
       {:ok, records} =
@@ -36,8 +36,7 @@ defmodule EdgeCommander.SitesTest do
       assert records.notes == "some notes"
       assert records.nvr_id == 42
       assert records.router_id == 42
-      assert records.sim_number == 42
-      assert records.user_id == 42
+      assert records.sim_number == "some sim_number"
     end
 
     test "create_records/1 with invalid data returns error changeset" do
@@ -46,15 +45,13 @@ defmodule EdgeCommander.SitesTest do
 
     test "update_records/2 with valid data updates the records" do
       records = records_fixture()
-      assert {:ok, records} = Sites.update_records(records, @update_attrs)
-      assert %Records{} = records
+      assert {:ok, %Records{} = records} = Sites.update_records(records, @update_attrs)
       assert records.location == "some updated location"
       assert records.name == "some updated name"
       assert records.notes == "some updated notes"
       assert records.nvr_id == 43
       assert records.router_id == 43
-      assert records.sim_number == 43
-      assert records.user_id == 43
+      assert records.sim_number == "some updated sim_number"
     end
 
     test "update_records/2 with invalid data returns error changeset" do
