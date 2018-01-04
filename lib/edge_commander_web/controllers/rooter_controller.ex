@@ -3,7 +3,7 @@ defmodule EdgeCommanderWeb.RooterController do
   alias EdgeCommander.Accounts.User
   import EdgeCommander.Accounts, only: [current_user: 1]
   import EdgeCommander.Devices, only: [list_nvrs: 0, list_routers: 0]
-  import EdgeCommander.ThreeScraper, only: [all_sim_numbers: 0]
+  import EdgeCommander.ThreeScraper, only: [all_sims: 0]
   import Gravatar
   require Logger
 
@@ -131,7 +131,7 @@ defmodule EdgeCommanderWeb.RooterController do
 
   def sites(conn, _params) do
     with %User{} <- current_user(conn) do
-      render(conn, "sites.html", user: current_user(conn), gravatar_url: current_user(conn) |> Map.get(:email) |> gravatar_url(secure: true), list_nvrs: list_nvrs(), list_routers: list_routers(), all_sim_numbers: all_sim_numbers())
+      render(conn, "sites.html", user: current_user(conn), gravatar_url: current_user(conn) |> Map.get(:email) |> gravatar_url(secure: true), list_nvrs: list_nvrs(), list_routers: list_routers(), all_sims: all_sims())
     else
       _ ->
         conn

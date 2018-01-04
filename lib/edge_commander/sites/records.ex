@@ -5,7 +5,7 @@ defmodule EdgeCommander.Sites.Records do
 
 
   schema "sites" do
-    field :location, :string
+    field :location, :map
     field :name, :string
     field :notes, :string
     field :nvr_id, :integer
