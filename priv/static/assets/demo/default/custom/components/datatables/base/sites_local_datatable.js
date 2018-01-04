@@ -33,57 +33,57 @@ var DatatableDataSites = function() {
       },
     },
     {
-        field: "name",
-        title: "Name",
-        width: 180,
-        sortable: !1,
-        selector: !1,
+      field: "name",
+      title: "Name",
+      width: 180,
+      sortable: !1,
+      selector: !1,
     },
     {
-        field: "location",
-        title: "Location",
-        textAlign: "center",
-        template: function(t) {
-          console.log(t);
-          return t.location.map_area;
-        },
-        width: 180
+      field: "map_area",
+      title: "Location",
+      textAlign: "left",
+      template: function(t) {
+        console.log(t);
+        return t.location.map_area;
+      },
+      width: 300
     },
     {
-        field: "sim_number",
-        title: "Sim Number",
-        textAlign: "center",
-        width: 150,
-        responsive: {
-            visible: "lg"
-        }
-    },
-    {
-        field: "router_name",
-        title: "Router Name",
-        textAlign: "left",
-        width: 220
-    },
-    {
-        field: "nvr_name",
-        title: "NVR Name",
-        textAlign: "left",
-        width: 230
-    },
-    {
-        field: "notes",
-        title: "Notes",
-        textAlign: "left",
-        width: 230
-    }, {
-        field: "created_at",
-        title: "Created At",
-        textAlign: "center",
-        template: function(t) {
-          return "" + moment(t.created_at).format('MMMM Do YYYY, H:mm:ss') +"";
-        },
-        width: 200
+      field: "sim_number",
+      title: "Sim Number",
+      textAlign: "center",
+      width: 150,
+      responsive: {
+          visible: "lg"
       }
+    },
+    {
+      field: "router_name",
+      title: "Router Name",
+      textAlign: "left",
+      width: 220
+    },
+    {
+      field: "nvr_name",
+      title: "NVR Name",
+      textAlign: "left",
+      width: 230
+    },
+    {
+      field: "notes",
+      title: "Notes",
+      textAlign: "left",
+      width: 230
+    }, {
+      field: "created_at",
+      title: "Created At",
+      textAlign: "center",
+      template: function(t) {
+        return "" + moment(t.created_at).format('MMMM Do YYYY, H:mm:ss') +"";
+      },
+      width: 200
+    } 
     ]
   });
 };
@@ -103,7 +103,9 @@ var startSitesTable = function() {
 var onSiteButton = function() {
   $("#addSite").on("click", function(){
     $('.add_site_to_db').modal('show');
-    addMapView();
+    $('.add_site_to_db').on('shown.bs.modal', function () {
+      addMapView();
+    })
   });
 };
 
@@ -216,24 +218,68 @@ var sendAJAXRequest = function(settings) {
   return xhrRequestChangeMonth = jQuery.ajax(settings);
 };
 
+
 var addMapView;
+
 addMapView = function() {
-  var options = {
-    map: ".map_canvas",
-    details: "div",
-    markerOptions: {
+    var initialLat = $('#latitude').val();
+    var initialLong = $('#longitude').val();
+    initialLat = initialLat?initialLat:53.3498053;
+    initialLong = initialLong?initialLong:-6.260309699999993;
+
+    var latlng = new google.maps.LatLng(initialLat, initialLong);
+    var options = {
+      zoom: 15,
+      center: latlng,
+      mapTypeId: google.maps.MapTypeId.ROADMAP
+    };
+    map = new google.maps.Map(document.getElementById("map_canvas"), options);
+    geocoder = new google.maps.Geocoder();
+    marker = new google.maps.Marker({
+      map: map,
       draggable: true,
-    }
-  };
-  $("#map_area").geocomplete(options);
-  $("#map_area").bind("geocode:dragged", function(event, latLng){
-    $("input[name=lat]").val(latLng.lat());
-    $("input[name=lng]").val(latLng.lng());
-  });
-  $("#map_area").trigger("geocode");
-  $("#map_area").keyup(function(){
-    $(".pac-container").css("z-index","1500");
-  }).keyup();
+      position: latlng
+    });
+
+    google.maps.event.addListener(marker, "dragend", function () {
+      var point = marker.getPosition();
+      map.panTo(point);
+      geocoder.geocode({'latLng': marker.getPosition()}, function (results, status) {
+        if (status == google.maps.GeocoderStatus.OK) {
+          map.setCenter(results[0].geometry.location);
+          marker.setPosition(results[0].geometry.location);
+          $('#latitude').val(marker.getPosition().lat());
+          $('#longitude').val(marker.getPosition().lng());
+        }
+      });
+    });
+
+    var PostCodeid = '#map_area';
+    $(function () {
+        $(PostCodeid).autocomplete({
+          source: function (request, response) {
+              geocoder.geocode({
+                'address': request.term
+              }, function (results, status) {
+                response($.map(results, function (item) {
+                  return {
+                    label: item.formatted_address,
+                    value: item.formatted_address,
+                    lat: item.geometry.location.lat(),
+                    lon: item.geometry.location.lng()
+                  };
+                }));
+              });
+          },
+          select: function (event, ui) {
+            $('#latitude').val(ui.item.lat);
+            $('#longitude').val(ui.item.lon);
+            var latlng = new google.maps.LatLng(ui.item.lat, ui.item.lon);
+            marker.setPosition(latlng);
+            addMapView();
+          }
+        });
+    });
 };
 
 var deleteSite;
@@ -291,20 +337,94 @@ onSiteDeleteSuccess = function(result, status, jqXHR) {
 var onSiteEditButton;
 
 onSiteEditButton = function() {
+
   $(document).on("click", ".editSite", function(){
+
     var row = $(this).closest('tr');
     var data = sitesDataTable.jsonData[row.index()];
-    console.log(row.index())
     $("#saveEditModal").attr('data-id', $(this).data("id"));
+    var lng = data.location.lng
+    var lat = data.location.lat
+    var map_area = data.location.map_area
+
     $("#edit_name").val(data.name);
-    $("#edit_location").val(data.location);
+    $("#edit_map_area").val(map_area);
     $("#edit_sim_number").val(data.sim_number);
     $("#edit_router_id").val(data.router_id);
     $("#edit_nvr_id").val(data.nvr_id);
     $("#edit_notes").val(data.notes);
+    $("#edit_longitude").val(lng);
+    $("#edit_latitude").val(lat);
     $('#edit_site_to_db').modal('show');
+    $('#edit_site_to_db').on('shown.bs.modal', function () {
+     mapEditView();
+    })
   });
 };
+
+var mapEditView;
+
+mapEditView = function() {
+    var initialLat = $('#edit_latitude').val();
+    var initialLong = $('#edit_longitude').val();
+    initialLat = initialLat?initialLat:53.3498053;
+    initialLong = initialLong?initialLong:-6.260309699999993;
+
+    var latlng = new google.maps.LatLng(initialLat, initialLong);
+    var options = {
+      zoom: 15,
+      center: latlng,
+      mapTypeId: google.maps.MapTypeId.ROADMAP
+    };
+    map = new google.maps.Map(document.getElementById("edit_map_canvas"), options);
+    geocoder = new google.maps.Geocoder();
+    marker = new google.maps.Marker({
+      map: map,
+      draggable: true,
+      position: latlng
+    });
+
+    google.maps.event.addListener(marker, "dragend", function () {
+      var point = marker.getPosition();
+      map.panTo(point);
+      geocoder.geocode({'latLng': marker.getPosition()}, function (results, status) {
+        if (status == google.maps.GeocoderStatus.OK) {
+          map.setCenter(results[0].geometry.location);
+          marker.setPosition(results[0].geometry.location);
+          $('#edit_latitude').val(marker.getPosition().lat());
+          $('#edit_longitude').val(marker.getPosition().lng());
+        }
+      });
+    });
+
+    var PostCodeid = '#edit_map_area';
+    $(function () {
+        $(PostCodeid).autocomplete({
+          source: function (request, response) {
+              geocoder.geocode({
+                'address': request.term
+              }, function (results, status) {
+                response($.map(results, function (item) {
+                  return {
+                    label: item.formatted_address,
+                    value: item.formatted_address,
+                    lat: item.geometry.location.lat(),
+                    lon: item.geometry.location.lng()
+                  };
+                }));
+              });
+          },
+          select: function (event, ui) {
+            $('#edit_latitude').val(ui.item.lat);
+            $('#edit_longitude').val(ui.item.lon);
+            var latlng = new google.maps.LatLng(ui.item.lat, ui.item.lon);
+            marker.setPosition(latlng);
+            mapEditView();
+          }
+        });
+    });
+};
+
 
 var updateSitedo;
 
@@ -318,19 +438,25 @@ updateSitedo = function(){
     var siteID = $(this).attr('data-id');
 
     var name        = $("#edit_name").val(),
-        location    = $("#edit_location").val(),
+        map_area    = $("#edit_map_area").val(),
         sim_number  = $('#edit_sim_number').find(":selected").val(),
         router_id   = $('#edit_router_id').find(":selected").val(),
         nvr_id      = $('#edit_nvr_id').find(":selected").val(),
+        latitude    = $("#edit_latitude").val(),
+        longitude   = $("#edit_longitude").val(),
         notes       = $("#edit_notes").val()
 
     var data = {};
         data.name = name;
-        data.location = location;
         data.sim_number = sim_number;
         data.router_id = router_id;
         data.nvr_id = nvr_id;
         data.notes = notes;
+        data.location = {
+          lat: latitude,
+          lng: longitude,
+          map_area: map_area
+        };
         data.id = siteID;
 
     var settings;
