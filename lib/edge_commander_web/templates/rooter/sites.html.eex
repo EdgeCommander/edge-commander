@@ -897,8 +897,8 @@
                                                         </label>
                                                         <div class="col-9">
                                                             <select class="form-control m-input" id="sim_number">
-                                                                <%= for sim <- @all_sim_numbers do %>
-                                                                    <option value="<%= sim %>"><%= sim %></option>
+                                                                <%= for sim <- @all_sims do %>
+                                                                    <option value="<%= sim.number %>"><%= sim.number %> &nbsp;<%= sim.name %></option>
                                                                 <% end %>
                                                             </select>
                                                         </div>
@@ -1019,8 +1019,8 @@
                                                         </label>
                                                         <div class="col-9">
                                                             <select class="form-control m-input" id="edit_sim_number">
-                                                                <%= for sim <- @all_sim_numbers do %>
-                                                                    <option value="<%= sim %>"><%= sim %></option>
+                                                                <%= for sim <- @all_sims do %>
+                                                                    <option value="<%= sim.number %>"><%= sim.number %> &nbsp;<%= sim.name %></option>
                                                                 <% end %>
                                                             </select>
                                                         </div>

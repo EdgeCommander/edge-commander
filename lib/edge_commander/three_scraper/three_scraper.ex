@@ -38,6 +38,12 @@ defmodule EdgeCommander.ThreeScraper do
     {:noreply, state}
   end
 
+  def all_sims do
+    SimLogs
+    |> distinct(true)
+    |> Repo.all
+  end
+
   def all_sim_numbers do
     SimLogs
     |> select([sim], sim.number)
