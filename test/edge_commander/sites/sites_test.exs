@@ -6,8 +6,8 @@ defmodule EdgeCommander.SitesTest do
   describe "sites" do
     alias EdgeCommander.Sites.Records
 
-    @valid_attrs %{location: "some location", name: "some name", notes: "some notes", nvr_id: 42, router_id: 42, sim_number: "some sim_number"}
-    @update_attrs %{location: "some updated location", name: "some updated name", notes: "some updated notes", nvr_id: 43, router_id: 43, sim_number: "some updated sim_number"}
+    @valid_attrs %{location: %{"lat" => 8787, "lng" => 8787, "map_area" => "Critical"}, name: "some name", notes: "some notes", nvr_id: 42, router_id: 42, sim_number: "some sim_number"}
+    @update_attrs %{location: %{"lat" => 8787, "lng" => 8787, "map_area" => "Critical"}, name: "some updated name", notes: "some updated notes", nvr_id: 43, router_id: 43, sim_number: "some updated sim_number"}
     @invalid_attrs %{location: nil, name: nil, notes: nil, nvr_id: nil, router_id: nil, sim_number: nil}
 
     def records_fixture(attrs \\ %{}) do
@@ -31,7 +31,6 @@ defmodule EdgeCommander.SitesTest do
 
     test "create_records/1 with valid data creates a records" do
       assert {:ok, %Records{} = records} = Sites.create_records(@valid_attrs)
-      assert records.location == "some location"
       assert records.name == "some name"
       assert records.notes == "some notes"
       assert records.nvr_id == 42
@@ -46,7 +45,6 @@ defmodule EdgeCommander.SitesTest do
     test "update_records/2 with valid data updates the records" do
       records = records_fixture()
       assert {:ok, %Records{} = records} = Sites.update_records(records, @update_attrs)
-      assert records.location == "some updated location"
       assert records.name == "some updated name"
       assert records.notes == "some updated notes"
       assert records.nvr_id == 43
