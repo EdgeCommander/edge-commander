@@ -2,8 +2,8 @@
 -- PostgreSQL database dump
 --
 
--- Dumped from database version 9.4.10
--- Dumped by pg_dump version 9.5.5
+-- Dumped from database version 9.5.10
+-- Dumped by pg_dump version 9.5.10
 
 SET statement_timeout = 0;
 SET lock_timeout = 0;
@@ -272,7 +272,7 @@ ALTER SEQUENCE sim_logs_id_seq OWNED BY sim_logs.id;
 CREATE TABLE sites (
     id bigint NOT NULL,
     name character varying(255),
-    location character varying(255),
+    location jsonb,
     sim_number character varying(255),
     router_id integer,
     nvr_id integer,
