@@ -40,7 +40,7 @@ defmodule EdgeCommander.ThreeScraper do
 
   def all_sims do
     SimLogs
-    |> distinct(true)
+    |> distinct([s], desc: s.name)
     |> Repo.all
   end
 
