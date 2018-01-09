@@ -222,64 +222,66 @@ var sendAJAXRequest = function(settings) {
 var addMapView;
 
 addMapView = function() {
-    var initialLat = $('#latitude').val();
-    var initialLong = $('#longitude').val();
-    initialLat = initialLat?initialLat:53.3498053;
-    initialLong = initialLong?initialLong:-6.260309699999993;
+  var initialLat = $('#latitude').val();
+  var initialLong = $('#longitude').val();
+  initialLat = initialLat?initialLat:53.349805;
+  initialLong = initialLong?initialLong:-6.260310;
 
-    var latlng = new google.maps.LatLng(initialLat, initialLong);
-    var options = {
-      zoom: 15,
-      center: latlng,
-      mapTypeId: google.maps.MapTypeId.ROADMAP
-    };
-    map = new google.maps.Map(document.getElementById("map_canvas"), options);
-    geocoder = new google.maps.Geocoder();
-    marker = new google.maps.Marker({
-      map: map,
-      draggable: true,
-      position: latlng
+  var latlng = new google.maps.LatLng(initialLat, initialLong);
+  var options = {
+    zoom: 15,
+    center: latlng,
+    mapTypeId: google.maps.MapTypeId.ROADMAP
+  };
+  map = new google.maps.Map(document.getElementById("map_canvas"), options);
+  geocoder = new google.maps.Geocoder();
+  marker = new google.maps.Marker({
+    map: map,
+    draggable: true,
+    position: latlng
+  });
+
+  google.maps.event.addListener(marker, "dragend", function () {
+    var point = marker.getPosition();
+    map.panTo(point);
+    geocoder.geocode({'latLng': marker.getPosition()}, function (results, status) {
+      if (status == google.maps.GeocoderStatus.OK) {
+        map.setCenter(results[0].geometry.location);
+        marker.setPosition(results[0].geometry.location);
+        var latVal = marker.getPosition().lat();
+        var lngVal = marker.getPosition().lng();
+        $('#latitude').val(latVal.toFixed(6));
+        $('#longitude').val(lngVal.toFixed(6));
+      }
     });
+  });
 
-    google.maps.event.addListener(marker, "dragend", function () {
-      var point = marker.getPosition();
-      map.panTo(point);
-      geocoder.geocode({'latLng': marker.getPosition()}, function (results, status) {
-        if (status == google.maps.GeocoderStatus.OK) {
-          map.setCenter(results[0].geometry.location);
-          marker.setPosition(results[0].geometry.location);
-          $('#latitude').val(marker.getPosition().lat());
-          $('#longitude').val(marker.getPosition().lng());
-        }
+  var PostCodeid = '#map_area';
+  $(PostCodeid).autocomplete({
+    source: function (request, response) {
+      geocoder.geocode({
+        'address': request.term
+      }, function (results, status) {
+        response($.map(results, function (item) {
+          return {
+            label: item.formatted_address,
+            value: item.formatted_address,
+            lat: item.geometry.location.lat(),
+            lon: item.geometry.location.lng()
+          };
+        }));
       });
-    });
-
-    var PostCodeid = '#map_area';
-    $(function () {
-        $(PostCodeid).autocomplete({
-          source: function (request, response) {
-              geocoder.geocode({
-                'address': request.term
-              }, function (results, status) {
-                response($.map(results, function (item) {
-                  return {
-                    label: item.formatted_address,
-                    value: item.formatted_address,
-                    lat: item.geometry.location.lat(),
-                    lon: item.geometry.location.lng()
-                  };
-                }));
-              });
-          },
-          select: function (event, ui) {
-            $('#latitude').val(ui.item.lat);
-            $('#longitude').val(ui.item.lon);
-            var latlng = new google.maps.LatLng(ui.item.lat, ui.item.lon);
-            marker.setPosition(latlng);
-            addMapView();
-          }
-        });
-    });
+    },
+    select: function (event, ui) {
+      var latVal = ui.item.lat;
+      var lngVal = ui.item.lon;
+      $('#latitude').val(latVal.toFixed(6));
+      $('#longitude').val(lngVal.toFixed(6));
+      var latlng = new google.maps.LatLng(latVal, lngVal);
+      marker.setPosition(latlng);
+      addMapView();
+    }
+  });
 };
 
 var deleteSite;
@@ -365,66 +367,67 @@ onSiteEditButton = function() {
 var mapEditView;
 
 mapEditView = function() {
-    var initialLat = $('#edit_latitude').val();
-    var initialLong = $('#edit_longitude').val();
-    initialLat = initialLat?initialLat:53.3498053;
-    initialLong = initialLong?initialLong:-6.260309699999993;
+  var initialLat = $('#edit_latitude').val();
+  var initialLong = $('#edit_longitude').val();
+  initialLat = initialLat?initialLat:53.3498053;
+  initialLong = initialLong?initialLong:-6.260309699999993;
 
-    var latlng = new google.maps.LatLng(initialLat, initialLong);
-    var options = {
-      zoom: 15,
-      center: latlng,
-      mapTypeId: google.maps.MapTypeId.ROADMAP
-    };
-    map = new google.maps.Map(document.getElementById("edit_map_canvas"), options);
-    geocoder = new google.maps.Geocoder();
-    marker = new google.maps.Marker({
-      map: map,
-      draggable: true,
-      position: latlng
+  var latlng = new google.maps.LatLng(initialLat, initialLong);
+  var options = {
+    zoom: 15,
+    center: latlng,
+    mapTypeId: google.maps.MapTypeId.ROADMAP
+  };
+  map = new google.maps.Map(document.getElementById("edit_map_canvas"), options);
+  geocoder = new google.maps.Geocoder();
+  marker = new google.maps.Marker({
+    map: map,
+    draggable: true,
+    position: latlng
+  });
+
+  google.maps.event.addListener(marker, "dragend", function () {
+    var point = marker.getPosition();
+    map.panTo(point);
+    geocoder.geocode({'latLng': marker.getPosition()}, function (results, status) {
+      if (status == google.maps.GeocoderStatus.OK) {
+        map.setCenter(results[0].geometry.location);
+        marker.setPosition(results[0].geometry.location);
+        var latVal = marker.getPosition().lat();
+        var lngVal = marker.getPosition().lng();
+        $('#edit_latitude').val(latVal.toFixed(6));
+        $('#edit_longitude').val(lngVal.toFixed(6));
+      }
     });
+  });
 
-    google.maps.event.addListener(marker, "dragend", function () {
-      var point = marker.getPosition();
-      map.panTo(point);
-      geocoder.geocode({'latLng': marker.getPosition()}, function (results, status) {
-        if (status == google.maps.GeocoderStatus.OK) {
-          map.setCenter(results[0].geometry.location);
-          marker.setPosition(results[0].geometry.location);
-          $('#edit_latitude').val(marker.getPosition().lat());
-          $('#edit_longitude').val(marker.getPosition().lng());
-        }
+  var PostCodeid = '#edit_map_area';
+  $(PostCodeid).autocomplete({
+    source: function (request, response) {
+      geocoder.geocode({
+        'address': request.term
+      }, function (results, status) {
+        response($.map(results, function (item) {
+          return {
+            label: item.formatted_address,
+            value: item.formatted_address,
+            lat: item.geometry.location.lat(),
+            lon: item.geometry.location.lng()
+          };
+        }));
       });
-    });
-
-    var PostCodeid = '#edit_map_area';
-    $(function () {
-        $(PostCodeid).autocomplete({
-          source: function (request, response) {
-              geocoder.geocode({
-                'address': request.term
-              }, function (results, status) {
-                response($.map(results, function (item) {
-                  return {
-                    label: item.formatted_address,
-                    value: item.formatted_address,
-                    lat: item.geometry.location.lat(),
-                    lon: item.geometry.location.lng()
-                  };
-                }));
-              });
-          },
-          select: function (event, ui) {
-            $('#edit_latitude').val(ui.item.lat);
-            $('#edit_longitude').val(ui.item.lon);
-            var latlng = new google.maps.LatLng(ui.item.lat, ui.item.lon);
-            marker.setPosition(latlng);
-            mapEditView();
-          }
-        });
-    });
+    },
+    select: function (event, ui) {
+      var latVal = ui.item.lat;
+      var lngVal = ui.item.lon;
+      $('#edit_latitude').val(latVal.toFixed(6));
+      $('#edit_longitude').val(lngVal.toFixed(6));
+      var latlng = new google.maps.LatLng(latVal, lngVal);
+      marker.setPosition(latlng);
+      mapEditView();
+    }
+  });
 };
-
 
 var updateSitedo;
 

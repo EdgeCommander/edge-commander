@@ -829,7 +829,7 @@
                                     <label class="m-checkbox m-checkbox--single m-checkbox--solid m-checkbox--brand" style="width: auto;"><input class="site-column" type="checkbox" data-field="name" checked><span></span> Name</label>
                                   </div>
                                   <div class="column-checkbox">
-                                    <label class="m-checkbox m-checkbox--single m-checkbox--solid m-checkbox--brand" style="width: auto;"><input class="site-column" type="checkbox" data-field="location" checked><span></span> Location</label>
+                                    <label class="m-checkbox m-checkbox--single m-checkbox--solid m-checkbox--brand" style="width: auto;"><input class="site-column" type="checkbox" data-field="map_area" checked><span></span> Location</label>
                                   </div>
                                   <div class="column-checkbox">
                                     <label class="m-checkbox m-checkbox--single m-checkbox--solid m-checkbox--brand" style="width: auto;"><input class="site-column" type="checkbox" data-field="sim_number" checked><span></span> Sim Number</label>
@@ -940,7 +940,7 @@
                                                             Latitude
                                                         </label>
                                                         <div class="col-9">
-                                                            <input name="lat" type="text" class="form-control m-input m-input--solid readonly" id="latitude" readonly value="53.3498053">
+                                                            <input name="lat" type="text" class="form-control m-input m-input--solid readonly" id="latitude" readonly value="53.349805">
                                                         </div>
                                                     </div>
                                                     <div class="form-group m-form__group row">
@@ -948,7 +948,7 @@
                                                             Longitude
                                                         </label>
                                                         <div class="col-9">
-                                                            <input name="lng" type="text" class="form-control m-input m-input--solid readonly" id="longitude" readonly value="-6.260309699999993">
+                                                            <input name="lng" type="text" class="form-control m-input m-input--solid readonly" id="longitude" readonly value="-6.2603010">
                                                         </div>
                                                     </div>
                                                 </div>
