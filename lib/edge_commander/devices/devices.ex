@@ -65,7 +65,9 @@ defmodule EdgeCommander.Devices do
 
   """
   def list_nvrs do
-    Repo.all(Nvr)
+    Nvr
+    |> order_by(:name)
+    |> Repo.all
   end
 
   @doc """
@@ -161,7 +163,9 @@ defmodule EdgeCommander.Devices do
 
   """
   def list_routers do
-    Repo.all(Router)
+    Router
+    |> order_by(:name)
+    |> Repo.all
   end
 
   @doc """

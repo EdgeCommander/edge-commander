@@ -940,7 +940,7 @@
                                                             Latitude
                                                         </label>
                                                         <div class="col-9">
-                                                            <input name="lat" type="text" class="form-control m-input m-input--solid readonly" id="latitude" readonly value="53.349805">
+                                                            <input name="lat" type="text" class="form-control m-input m-input--solid readonly" id="latitude" readonly>
                                                         </div>
                                                     </div>
                                                     <div class="form-group m-form__group row">
@@ -948,7 +948,7 @@
                                                             Longitude
                                                         </label>
                                                         <div class="col-9">
-                                                            <input name="lng" type="text" class="form-control m-input m-input--solid readonly" id="longitude" readonly value="-6.2603010">
+                                                            <input name="lng" type="text" class="form-control m-input m-input--solid readonly" id="longitude" readonly>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -958,7 +958,7 @@
                                                             Location
                                                         </label>
                                                         <div class="col-9">
-                                                           <input type="text" class="form-control m-input m-input--solid" id="map_area" aria-describedby="emailHelp" placeholder="Search Location" value="Dublin, Ireland">
+                                                           <input type="text" class="form-control m-input m-input--solid" id="map_area" aria-describedby="emailHelp" placeholder="Search Location">
                                                         </div>
                                                     </div>
                                                     <div class="form-group m-form__group row">

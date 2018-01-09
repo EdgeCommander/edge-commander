@@ -104,6 +104,9 @@ var onSiteButton = function() {
   $("#addSite").on("click", function(){
     $('.add_site_to_db').modal('show');
     $('.add_site_to_db').on('shown.bs.modal', function () {
+      $("#map_area").val("Dublin, Ireland");
+      $("#latitude").val("53.349805");
+      $("#longitude").val("-6.2603010");
       addMapView();
     })
   });
@@ -119,7 +122,6 @@ var discardModal = function() {
 
 var clearForm = function() {
   $("#name").val("");
-  $("#location").val("");
   $("#notes").val("");
   $('ul#errorOnSite').html("");
   $("#set_to_load").removeClass("loading");
@@ -513,6 +515,7 @@ var editClearFrom;
 
 editClearFrom = function() {
   $("#edit_rule_name").val("");
+  $("#edit_notes").val("");
   $('ul#errorOnEditSite').html("");
   $("#body-site-edit-dis *").prop('disabled', false);
   $("#siteEditErrorDetails").addClass("hide_me");
