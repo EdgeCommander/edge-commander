@@ -66,6 +66,9 @@ defmodule EdgeCommanderWeb.Router do
     patch "/sites/update", SitesController, :update
     delete "/sites/delete", SitesController, :delete
 
+    get "/sms_messages", RooterController, :sms_messages
+    get "/get_all_sms", SmsController, :get_all_sms
+
   end
 
   # Other scopes may use custom stacks.

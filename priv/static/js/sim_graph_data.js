@@ -236,7 +236,7 @@ onSMSError = function(jqXHR, status, error) {
       message: "Something went wrong."
     },{
       // settings
-      type: 'Danger'
+      type: 'danger'
     });
   $("#smsErrorDetails").removeClass("hide_me");
   $("#api-wait").addClass("hide_me");

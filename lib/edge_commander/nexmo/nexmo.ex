@@ -18,7 +18,9 @@ defmodule EdgeCommander.Nexmo do
 
   """
   def list_sms_messages do
-    Repo.all(SimMessages)
+    SimMessages
+    |> order_by(desc: :inserted_at)
+    |> Repo.all
   end
 
   @doc """

@@ -105,4 +105,15 @@ defmodule EdgeCommanderWeb.RooterController do
         |> redirect(to: "/users/sign_in")
     end
   end
+
+  def sms_messages(conn, _params) do
+    with %User{} <- current_user(conn) do
+      render(conn, "sms_messages.html", user: current_user(conn), gravatar_url: current_user(conn) |> Map.get(:email) |> gravatar_url(secure: true), list_nvrs: list_nvrs(), list_routers: list_routers(), all_sims: all_sims())
+    else
+      _ ->
+        conn
+        |> put_flash(:error, "You must be logged in to see that page :).")
+        |> redirect(to: "/users/sign_in")
+    end
+  end
 end
