@@ -228,6 +228,11 @@ showHideColumns = function() {
 autoLoadSmsTable = function() {
   smsDataTable.load();
 }
+var onSendSMSFocus = function() {
+  $('.add_sms_to_db').on('shown.bs.modal', function () {
+    $('#smsMessage').focus();
+  })  
+};
 
 window.initializeSmsMessages = function() {
   startSmsTable();
@@ -236,4 +241,5 @@ window.initializeSmsMessages = function() {
   discardModal();
   sendSMS();
   showHideColumns();
+  onSendSMSFocus();
 };
