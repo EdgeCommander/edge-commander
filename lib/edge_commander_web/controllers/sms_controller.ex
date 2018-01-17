@@ -1,8 +1,5 @@
 defmodule EdgeCommanderWeb.SmsController do
   use EdgeCommanderWeb, :controller
-  alias EdgeCommander.Nexmo.SimMessages
-  alias EdgeCommander.Repo
-  alias EdgeCommander.Util
   import Ecto.Query, warn: false
   import EdgeCommander.Nexmo, only: [list_sms_messages: 0]
 
