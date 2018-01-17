@@ -29,8 +29,8 @@ config :edge_commander, EdgeCommander.Scheduler,
   jobs: [
     # Every minute
     {"* * * * *",      {EdgeCommander.Portable, :start_porting, []}},
-    # Every 15 minutes
-    {"*/15 * * * *",         {EdgeCommander.Commands, :start_usage_command, []}},
+    # Runs every midnight:
+    {"@daily",         {EdgeCommander.Commands, :start_usage_command, []}},
     # Every 15 minutes
     {"@daily",   {EdgeCommander.Raid, :check_failed_drives, []}},
   ]
