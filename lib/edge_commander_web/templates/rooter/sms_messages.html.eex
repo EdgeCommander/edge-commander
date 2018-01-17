@@ -842,7 +842,7 @@
                                     <label class="m-checkbox m-checkbox--single m-checkbox--solid m-checkbox--brand" style="width: auto;"><input class="sms-column" type="checkbox" data-field="to" checked><span></span> To</label>
                                   </div>
                                   <div class="column-checkbox">
-                                    <label class="m-checkbox m-checkbox--single m-checkbox--solid m-checkbox--brand" style="width: auto;"><input class="sms-column" type="checkbox" data-field="message_id" checked><span></span> Message ID</label>
+                                    <label class="m-checkbox m-checkbox--single m-checkbox--solid m-checkbox--brand" style="width: auto;"><input class="sms-column" type="checkbox" data-field="message_id"><span></span> Message ID</label>
                                   </div>
 
                                   <div class="column-checkbox">
@@ -878,6 +878,9 @@
                                         <h5 class="modal-title" id="exampleModalLabel">
                                             Send SMS
                                         </h5>
+                                        <div class="cancel">
+                                            <a href="#" id="discardModal" data-dismiss="modal">X</a>
+                                        </div>
                                     </div>
                                     <div class="modal-body" id="body-sms-dis">
                                         <img src="/images/loading.gif" id="api-wait" class="hide_me">
@@ -914,10 +917,7 @@
                                         <!--end::Form-->
                                     </div>
                                     <div class="modal-footer" style="padding: 11px;">
-                                        <button id="discardModal" type="button" class="btn btn-secondary" data-dismiss="modal">
-                                            Close
-                                        </button>
-                                        <button id="send-sms-nexmo" type="button" class="btn btn-primary btn-dark">
+                                        <button id="send-sms-nexmo" type="button" class="btn btn-default">
                                             Send
                                         </button>
                                     </div>

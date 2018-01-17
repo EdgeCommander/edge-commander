@@ -854,6 +854,9 @@
                 <h5 class="modal-title" id="exampleModalLabel">
                     SMS To <%= @sim_number %>
                 </h5>
+                <div class="cancel">
+                  <a href="#" id="discardModal" data-dismiss="modal">X</a>
+                </div>
             </div>
             <div class="modal-body" id="body-sms-dis">
                 <img src="/images/loading.gif" id="api-wait" class="hide_me">
@@ -878,8 +881,7 @@
                 </div>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary btn-dark send-sms-nexmo" data-dismiss="modal">Send</button>
+                <button type="button" class="btn btn-default send-sms-nexmo" data-dismiss="modal">Send</button>
             </div>
         </div>
     </div>

@@ -880,6 +880,9 @@
                                         <h5 class="modal-title" id="exampleModalLabel">
                                             Add Site
                                         </h5>
+                                        <div class="cancel">
+                                            <a href="#" id="discardModal" data-dismiss="modal">X</a>
+                                        </div>
                                     </div>
                                     <div class="modal-body" id="body-site-dis">
                                         <img src="/images/loading.gif" id="api-wait" class="hide_me">
@@ -984,10 +987,7 @@
                                         <!--end::Form-->
                                     </div>
                                     <div class="modal-footer" style="padding: 11px;">
-                                        <button id="discardModal" type="button" class="btn btn-secondary" data-dismiss="modal">
-                                            Close
-                                        </button>
-                                        <button id="saveModal" type="button" class="btn btn-primary btn-dark">
+                                        <button id="saveModal" type="button" class="btn btn-default">
                                             Save changes
                                         </button>
                                     </div>
@@ -1003,6 +1003,9 @@
                                         <h5 class="modal-title" id="exampleModalLabel">
                                             Edit Site
                                         </h5>
+                                        <div class="cancel">
+                                            <a href="#" id="discardEditModal" data-dismiss="modal">X</a>
+                                        </div>
                                     </div>
                                     <div class="modal-body" id="body-site-edit-dis">
                                          <img src="/images/loading.gif" id="api-wait" class="hide_me">
@@ -1106,10 +1109,7 @@
                                         <!--end::Form-->
                                     </div>
                                     <div class="modal-footer" style="padding: 11px;">
-                                        <button id="discardEditModal" type="button" class="btn btn-secondary" data-dismiss="modal">
-                                            Close
-                                        </button>
-                                        <button id="saveEditModal" type="button" class="btn btn-primary btn-dark">
+                                        <button id="saveEditModal" type="button" class="btn btn-default">
                                             Save changes
                                         </button>
                                     </div>

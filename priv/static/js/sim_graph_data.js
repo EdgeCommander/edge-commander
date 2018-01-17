@@ -345,11 +345,18 @@ var loadSmsDataTable = function() {
   smsDataTable.load();
 };
 
+var onSendSMSFocus = function() {
+  $('#smsModal').on('shown.bs.modal', function () {
+    $('#smsMessage').focus();
+  })  
+};
+
 window.initializeSimTabs = function() {
   startMORRISChartJS();
   startSIMTABDatatable();
   sendSMS();
   smsDataTable();
+  onSendSMSFocus();
 };
 
 var resizeTableDiv = function() {

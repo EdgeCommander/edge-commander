@@ -39,7 +39,10 @@ var DatatableDataSms = function() {
       field: "message_id",
       title: "Message ID",
       textAlign: "left",
-      width: 180
+      width: 180,
+      responsive: {
+        hidden: 'lg'
+      }
     },
     {
       field: "type",
@@ -228,6 +231,11 @@ showHideColumns = function() {
 autoLoadSmsTable = function() {
   smsDataTable.load();
 }
+var onSendSMSFocus = function() {
+  $('.add_sms_to_db').on('shown.bs.modal', function () {
+    $('#smsMessage').focus();
+  })  
+};
 
 window.initializeSmsMessages = function() {
   startSmsTable();
@@ -236,4 +244,5 @@ window.initializeSmsMessages = function() {
   discardModal();
   sendSMS();
   showHideColumns();
+  onSendSMSFocus();
 };

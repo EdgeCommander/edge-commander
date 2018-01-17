@@ -260,7 +260,7 @@
                                                     <label class="col-3 col-form-label">
                                                     </label>
                                                     <div class="col-9">
-                                                      <button type="button" class="btn btn-primary btn-dark" id="updateMyProfile">
+                                                      <button type="button" class="btn btn-default" id="updateMyProfile">
                                                         Save Changes
                                                       </button>
                                                     </div>
