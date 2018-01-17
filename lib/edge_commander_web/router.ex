@@ -26,6 +26,7 @@ defmodule EdgeCommanderWeb.Router do
     get "/get_sims_data", SimsController, :get_sim_logs
     get "/get_single_sim_data/:sim_number", SimsController, :get_single_sim_data
     get "/create_chartjs_line_data", SimsController, :create_chartjs_line_data
+    get "/get_single_sim_sms/:sim_number", SimsController, :get_single_sim_sms
 
     get "/users/sign_in", DashboardController, :sign_in
     get "/users/sign_up", DashboardController, :sign_up
@@ -56,12 +57,17 @@ defmodule EdgeCommanderWeb.Router do
     delete "/rules/delete", CommandsController, :delete
     
     post "/send_sms", SimsController, :send_sms
+    get "/receive_sms", SimsController, :receive_sms
+    get "/delivery_receipt", SimsController, :delivery_receipt
 
     get "/sites", RooterController, :sites
     get "/get_all_sites", SitesController, :get_all_sites
     post "/sites/new", SitesController, :create
     patch "/sites/update", SitesController, :update
     delete "/sites/delete", SitesController, :delete
+
+    get "/sms_messages", RooterController, :sms_messages
+    get "/get_all_sms", SmsController, :get_all_sms
 
   end
 

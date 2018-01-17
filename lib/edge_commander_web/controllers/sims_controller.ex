@@ -1,6 +1,11 @@
 defmodule EdgeCommanderWeb.SimsController do
   use EdgeCommanderWeb, :controller
   import EdgeCommander.ThreeScraper, only: [all_sim_numbers: 0, get_last_two_days: 1, get_all_records_for_sim: 1, get_single_sim: 1]
+  import EdgeCommander.Nexmo, only: [get_message: 1, get_single_sim_messages: 1]
+  alias EdgeCommander.Nexmo.SimMessages
+  alias EdgeCommander.Repo
+  alias EdgeCommander.Util
+  require Logger
   require IEx
 
   def get_single_sim_data(conn, %{"sim_number" => sim_number } = _params) do
@@ -73,7 +78,7 @@ defmodule EdgeCommanderWeb.SimsController do
     })
   end
 
-  def send_sms(conn,  %{"sms_message" => sms_message, "to_number" => to_number} = _params)  do
+  def send_sms(conn,  %{"sms_message" => sms_message, "to_number" => to_number, "user_id" => user_id} = _params) do
 
     url = "https://rest.nexmo.com/sms/json"
     body = Poison.encode!(%{
@@ -87,7 +92,8 @@ defmodule EdgeCommanderWeb.SimsController do
     
     case HTTPoison.post(url, body, headers, []) do
       {:ok, %HTTPoison.Response{status_code: 200, body: body}} ->
-        results = 
+
+        results =
           body
           |> Poison.decode
           |> elem(1)
@@ -95,19 +101,94 @@ defmodule EdgeCommanderWeb.SimsController do
           |> List.first
 
         status_code = results |> Map.get("status")
+        status_code |> save_send_sms(results, sms_message, user_id)
+
         error_text = results |> Map.get("error-text")
         conn
         |> put_status(200)
         |> json(%{status: status_code, error_text: error_text})
 
-        {:error, %HTTPoison.Error{reason: reason}} ->
+      {:error, %HTTPoison.Error{reason: reason}} ->
         conn
         |> put_status(404)
         |> json(%{reason: reason})
     end
   end
 
-  defp number_with_code("0" <> number), do: "+353#{number}"
+  defp save_send_sms("0", results, sms_message, user_id) do
+    params = %{
+      to: results |> Map.get("to") |> number_without_code,
+      from: System.get_env("NEXMO_API_NUMBER") |> number_without_code,
+      message_id: results |> Map.get("message-id"),
+      status: "Pending",
+      text: sms_message,
+      type: "MT",
+      user_id: user_id
+    }
+    changeset = SimMessages.changeset(%SimMessages{}, params)
+    case Repo.insert(changeset) do
+      {:ok, _} -> Logger.info "SMS has been saved"
+      {:error, changeset} -> Logger.info Util.parse_changeset(changeset)
+    end
+  end
+
+  defp save_send_sms(_status, _results, _sms_message, _user_id), do: :noop
+
+  def receive_sms(conn, params) do
+    params = %{
+      to: params["to"] |> number_without_code,
+      from: params["msisdn"] |> number_without_code,
+      message_id: params["messageId"],
+      status: "Received",
+      text: params["text"],
+      type: "MO",
+      user_id: 0
+    }
+    changeset = SimMessages.changeset(%SimMessages{}, params)
+    case Repo.insert(changeset) do
+      {:ok, _} -> Logger.info "SMS has been saved"
+      {:error, changeset} -> Logger.info Util.parse_changeset(changeset)
+    end
+    conn
+    |> json(%{void: 0})
+  end
+
+  def delivery_receipt(conn, params) do
+    status = params["status"]
+    message_id = params["messageId"]
+    params = %{
+      status: status
+    }
+    get_message(message_id)
+    |> SimMessages.changeset(params)
+    |> Repo.update
+    |> case do
+      {:ok, _} -> Logger.info "SMS Status has been Updated"
+      {:error, changeset} -> Logger.info Util.parse_changeset(changeset)
+    end
+    conn
+    |> json(%{void: 0})
+  end
+
+  def get_single_sim_sms(conn, %{"sim_number" => sim_number} = _params) do
+    single_sim_sms =
+      get_single_sim_messages(sim_number)
+      |> Enum.map(fn(sms) ->
+        %{
+          inserted_at: sms.inserted_at,
+          type: sms.type,
+          status: sms.status,
+          text: sms.text
+        }
+      end)
+    conn
+    |> put_status(200)
+    |> json(single_sim_sms)
+  end
+
+  defp number_with_code("0" <> number), do: "353#{number}"
+
+  defp number_without_code("353" <> number), do: "0#{number}"
 
   defp shift_datetime(datetime) do
     datetime

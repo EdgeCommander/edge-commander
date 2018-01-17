@@ -137,7 +137,6 @@ var dataTableSIMTAB = function() {
                     title: "DateTime",
                     width: 195,
                     template: function(t) {
-                      console.log(t);
                       return "" + moment(t.date_of_use).format('MMMM Do YYYY, H:mm:ss') +"";
                     }
                 }, {
@@ -197,7 +196,6 @@ var clearForm = function() {
 
 function sendSMS() {
   $(".send-sms-nexmo").on("click", function() {
-
   $('ul#errorOnNVR').html("");
     $("#api-wait").removeClass("hide_me");
     $("#body-sms-dis *").prop('disabled',true);
@@ -205,10 +203,12 @@ function sendSMS() {
     
     var sms_message  = $("#smsMessage").val(),
     to_number        = $("#toNumber").val()
+    user_id          = $("#user_id").val()
 
     var data = {};
     data.sms_message = sms_message;
     data.to_number = to_number;
+    data.user_id = user_id;
 
     var settings;
 
@@ -224,6 +224,7 @@ function sendSMS() {
     };
 
     sendAJAXRequest(settings);
+
   });
 };
 
@@ -235,7 +236,7 @@ onSMSError = function(jqXHR, status, error) {
       message: "Something went wrong."
     },{
       // settings
-      type: 'Danger'
+      type: 'danger'
     });
   $("#smsErrorDetails").removeClass("hide_me");
   $("#api-wait").addClass("hide_me");
@@ -245,7 +246,6 @@ onSMSError = function(jqXHR, status, error) {
 };
 
 onSMSSuccess = function(result, status, jqXHR) {
-  console.log(result);
   if (result.status != 0) {
     $.notify({
       // options
@@ -266,16 +266,90 @@ onSMSSuccess = function(result, status, jqXHR) {
   }
   $(".modal-backdrop").remove();
   $("#smsModal").modal("hide");
+  smsDataTable.load();
   $("#api-wait").addClass("hide_me");
   clearForm();
   return true;
 };
 
+var smsDataTable = function() {
+  smsDataTable = $("#sim_sms_datatable").mDatatable({
+      data: {
+        type: "remote",
+        speedLoad: true,
+        source: "/get_single_sim_sms/" + window.location.href.substring(window.location.href.lastIndexOf('/') + 1) + "",
+        pageSize: 50,
+        serverPaging: false,
+        serverFiltering: false,
+        serverSorting: false
+      },
+      layout: {
+        theme: "default",
+        class: "",
+        scroll: !1,
+        height: 300,
+        footer: !1
+      },
+      sortable: 0,
+      filterable: !1,
+      pagination: false,
+      columns: [
+      {
+        field: "inserted_at",
+        title: "Date",
+        width: 180,
+        template: function(t) {
+          return "" + moment(t.inserted_at).format('MMMM Do YYYY, H:mm:ss') +"";
+        },
+      },
+      {
+        field: "type",
+        title: "Type",
+        width: 80,
+        template: function(data) {
+          if(data.type == "MO"){
+            return "<span class='m-badge m-badge--metal m-badge--wide'>Incommig</span>";
+          }else{
+            return "<span class='m-badge m-badge--success m-badge--wide'>Outgoing</span>";
+          }
+        }
+      },
+      {
+        field: "status",
+        title: "Status",
+        width: 80,
+        template: function(data) {
+          return "<span style='text-transform:capitalize'>"+data.status+"</sapn>"
+        }
+      },
+      {
+        field: "text",
+        title: "Message",
+        width: 550,
+        template: function(data) {
+          str = data.text;
+          return str.split("\n").join("<br/>");
+        }
+      }
+      ]
+    }),
+     mApp.block("#sim_sms_datatable", {
+      overlayColor: "#000000",
+      type: "loader",
+      state: "primary",
+      message: "Please Wait..."
+    })
+};
+
+var loadSmsDataTable = function() {
+  smsDataTable.load();
+};
+
 window.initializeSimTabs = function() {
-  console.log("helll");
   startMORRISChartJS();
   startSIMTABDatatable();
   sendSMS();
+  smsDataTable();
 };
 
 var resizeTableDiv = function() {
@@ -286,4 +360,5 @@ var resizeTableDiv = function() {
 
 $(window).resize(function() {
   resizeTableDiv();
+  initializeSimTabs();
 });

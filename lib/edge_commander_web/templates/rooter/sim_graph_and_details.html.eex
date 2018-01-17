@@ -144,6 +144,18 @@
                         </a>
                     </li>
                     <li class="m-menu__item" aria-haspopup="true" >
+                        <a  href="/sms_messages" class="m-menu__link ">
+                            <i class="m-menu__link-icon fa fa-envelope-open"></i>
+                            <span class="m-menu__link-title">
+                                <span class="m-menu__link-wrap">
+                                    <span class="m-menu__link-text">
+                                        SMS
+                                    </span>>
+                                </span>
+                            </span>
+                        </a>
+                    </li>
+                    <li class="m-menu__item" aria-haspopup="true" >
                         <a  href="/my_profile" class="m-menu__link ">
                             <i class="m-menu__link-icon fa fa-user"></i>
                             <span class="m-menu__link-title">
@@ -217,7 +229,9 @@
                     <div class="m-portlet__body" style="padding: 10px;">
                         <div class="m-portlet__body  m-portlet__body--no-padding">
                             <div style="margin: 10px 0">
-                                <h3 class="pull-left">SMS History</h3>
+                                <h3 class="pull-left">
+                                  SMS History <span style="font-size:12px">Last 10 SMS</span>
+                                </h3>
                                 <div class="pull-right">
                                     <button type="button" class="btn btn-primary m-btn m-btn--icon" data-toggle="modal" data-target="#smsModal">
                               <span>
@@ -230,49 +244,7 @@
                                 </div>
                                 <div class="clearfix"></div>
                             </div>
-                            <table class="table table-bordered table-striped">
-                                <thead>
-                                <tr>
-                                    <th width="20%">Date</th>
-                                    <th width="20%" class="text-center">Type</th>
-                                    <th width="60%">Message</th>
-                                </tr>
-                                </thead>
-                                <%=  if length(@sms_list) > 0 do %>
-                                <%= for sms <- @sms_list do %>
-                                <tr>
-                                    <td style="vertical-align: middle;"><%= sms["date-received"] %>
-                                    </td>
-                                    <td style="vertical-align: middle;" class="text-center">
-                                        <%
-                                        type = sms["type"]
-                                        if type == "MO" do
-                                        type_val =  "Received"
-                                        class_val = "m-badge--metal";
-                                        else
-                                        type_val ="Sent"
-                                        class_val = "m-badge--success";
-                                        end
-                                        %>
-                                 <span class="m-badge <%= class_val %> m-badge--wide"> <%= type_val %>
-                                 </span>
-                                    </td>
-                                    <td style="vertical-align: middle;">
-                                        <%=
-                                        list = String.split(sms["body"],"\\n");
-                                        Enum.map(list, fn(s) -> %>
-                                        <%= s %> </br>
-                                        <% end) %>
-                                    </td>
-                                </tr>
-                                <% end %>
-                                <% else %>
-                                <tr>
-                                    <td colspan="3" class="text-center">Sorry no message found!</td>
-                                </tr>
-                                <% end %>
-                                </tbody>
-                            </table>
+                          <div id="sim_sms_datatable"></div>
                         </div>
                     </div>
                 </div>
@@ -899,6 +871,7 @@
                         Message
                     </label>
                     <div class="col-9">
+                      <input type="hidden" id="user_id" value="<%= @user.id %>">
                       <input type="text" class="form-control m-input m-input--solid" id="smsMessage">
                     </div>
                   </div>
