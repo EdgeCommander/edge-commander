@@ -2,8 +2,8 @@
 -- PostgreSQL database dump
 --
 
--- Dumped from database version 9.5.10
--- Dumped by pg_dump version 9.5.10
+-- Dumped from database version 9.4.10
+-- Dumped by pg_dump version 9.5.5
 
 SET statement_timeout = 0;
 SET lock_timeout = 0;
@@ -303,6 +303,43 @@ ALTER SEQUENCE sites_id_seq OWNED BY sites.id;
 
 
 --
+-- Name: sms_messages; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE sms_messages (
+    id bigint NOT NULL,
+    "to" character varying(255),
+    "from" character varying(255),
+    message_id character varying(255),
+    status character varying(255),
+    text character varying(255),
+    type character varying(255),
+    user_id integer,
+    inserted_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL
+);
+
+
+--
+-- Name: sms_messages_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE sms_messages_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: sms_messages_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE sms_messages_id_seq OWNED BY sms_messages.id;
+
+
+--
 -- Name: users; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -392,6 +429,13 @@ ALTER TABLE ONLY sites ALTER COLUMN id SET DEFAULT nextval('sites_id_seq'::regcl
 -- Name: id; Type: DEFAULT; Schema: public; Owner: -
 --
 
+ALTER TABLE ONLY sms_messages ALTER COLUMN id SET DEFAULT nextval('sms_messages_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: -
+--
+
 ALTER TABLE ONLY users ALTER COLUMN id SET DEFAULT nextval('users_id_seq'::regclass);
 
 
@@ -460,6 +504,14 @@ ALTER TABLE ONLY sites
 
 
 --
+-- Name: sms_messages_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY sms_messages
+    ADD CONSTRAINT sms_messages_pkey PRIMARY KEY (id);
+
+
+--
 -- Name: users_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -510,5 +562,5 @@ ALTER TABLE ONLY sites
 -- PostgreSQL database dump complete
 --
 
-INSERT INTO "schema_migrations" (version) VALUES (20170903110534), (20170905021201), (20170917115900), (20170918163008), (20170919080052), (20171011095912), (20171017064837), (20171019110033), (20171030060503), (20171226073006);
+INSERT INTO "schema_migrations" (version) VALUES (20170903110534), (20170905021201), (20170917115900), (20170918163008), (20170919080052), (20171011095912), (20171017064837), (20171019110033), (20171030060503), (20171226073006), (20180112050018);
 
