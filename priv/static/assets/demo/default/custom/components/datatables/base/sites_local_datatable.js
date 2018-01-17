@@ -248,8 +248,6 @@ addMapView = function() {
     map.panTo(point);
     geocoder.geocode({'latLng': marker.getPosition()}, function (results, status) {
       if (status == google.maps.GeocoderStatus.OK) {
-        map.setCenter(results[0].geometry.location);
-        marker.setPosition(results[0].geometry.location);
         var latVal = marker.getPosition().lat();
         var lngVal = marker.getPosition().lng();
         $('#latitude').val(latVal.toFixed(6));
@@ -393,8 +391,6 @@ mapEditView = function() {
     map.panTo(point);
     geocoder.geocode({'latLng': marker.getPosition()}, function (results, status) {
       if (status == google.maps.GeocoderStatus.OK) {
-        map.setCenter(results[0].geometry.location);
-        marker.setPosition(results[0].geometry.location);
         var latVal = marker.getPosition().lat();
         var lngVal = marker.getPosition().lng();
         $('#edit_latitude').val(latVal.toFixed(6));
