@@ -9,7 +9,7 @@ defmodule EdgeCommander.EcMailer do
       to: Enum.join(senders, ","),
       subject: "Data usage alert (#{usage}% of #{String.trim(addon, " Broadband")}) on SIM #{number} (#{name})",
       from: @from,
-      # bcc: "marco@evercam.io",
+      bcc: "junaid@evercam.io",
       html: Phoenix.View.render_to_string(EdgeCommanderWeb.EmailView, "usage_monitoring.html", usage: usage, number: number, volume_used: volume_used, allowance: allowance, name: name, addon: addon),
       text: Phoenix.View.render_to_string(EdgeCommanderWeb.EmailView, "usage_monitoring.txt", usage: usage, number: number, volume_used: volume_used, allowance: allowance, name: name, addon: addon)
   end
