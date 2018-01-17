@@ -842,7 +842,7 @@
                                     <label class="m-checkbox m-checkbox--single m-checkbox--solid m-checkbox--brand" style="width: auto;"><input class="sms-column" type="checkbox" data-field="to" checked><span></span> To</label>
                                   </div>
                                   <div class="column-checkbox">
-                                    <label class="m-checkbox m-checkbox--single m-checkbox--solid m-checkbox--brand" style="width: auto;"><input class="sms-column" type="checkbox" data-field="message_id" checked><span></span> Message ID</label>
+                                    <label class="m-checkbox m-checkbox--single m-checkbox--solid m-checkbox--brand" style="width: auto;"><input class="sms-column" type="checkbox" data-field="message_id"><span></span> Message ID</label>
                                   </div>
 
                                   <div class="column-checkbox">

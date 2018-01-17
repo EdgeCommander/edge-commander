@@ -39,7 +39,10 @@ var DatatableDataSms = function() {
       field: "message_id",
       title: "Message ID",
       textAlign: "left",
-      width: 180
+      width: 180,
+      responsive: {
+        hidden: 'lg'
+      }
     },
     {
       field: "type",
