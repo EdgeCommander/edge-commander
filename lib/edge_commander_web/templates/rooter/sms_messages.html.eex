@@ -878,6 +878,9 @@
                                         <h5 class="modal-title" id="exampleModalLabel">
                                             Send SMS
                                         </h5>
+                                        <div class="cancel">
+                                            <a href="#" id="discardModal" data-dismiss="modal">X</a>
+                                        </div>
                                     </div>
                                     <div class="modal-body" id="body-sms-dis">
                                         <img src="/images/loading.gif" id="api-wait" class="hide_me">
@@ -914,10 +917,7 @@
                                         <!--end::Form-->
                                     </div>
                                     <div class="modal-footer" style="padding: 11px;">
-                                        <button id="discardModal" type="button" class="btn btn-secondary" data-dismiss="modal">
-                                            Close
-                                        </button>
-                                        <button id="send-sms-nexmo" type="button" class="btn btn-primary btn-dark">
+                                        <button id="send-sms-nexmo" type="button" class="btn btn-default">
                                             Send
                                         </button>
                                     </div>
