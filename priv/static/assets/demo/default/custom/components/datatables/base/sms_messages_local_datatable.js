@@ -52,7 +52,7 @@ var DatatableDataSms = function() {
       width: 80,
       template: function(data) {
         if(data.type == "MO"){
-          return "<span class='m-badge m-badge--metal m-badge--wide'>Incomig</span>";
+          return "<span class='m-badge m-badge--metal m-badge--wide'>Incoming</span>";
         }else{
           return "<span class='m-badge m-badge--success m-badge--wide'>Outgoing</span>";
         }
