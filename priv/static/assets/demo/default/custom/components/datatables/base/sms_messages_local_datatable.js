@@ -26,6 +26,7 @@ var DatatableDataSms = function() {
       field: "from",
       title: "From",
       width: 95,
+      textAlign: "left",
       sortable: !1,
       selector: !1,
     },
@@ -47,11 +48,11 @@ var DatatableDataSms = function() {
     {
       field: "type",
       title: "Type",
-      textAlign: "center",
+      textAlign: "left",
       width: 80,
       template: function(data) {
         if(data.type == "MO"){
-          return "<span class='m-badge m-badge--metal m-badge--wide'>Incommig</span>";
+          return "<span class='m-badge m-badge--metal m-badge--wide'>Incoming</span>";
         }else{
           return "<span class='m-badge m-badge--success m-badge--wide'>Outgoing</span>";
         }
@@ -66,7 +67,7 @@ var DatatableDataSms = function() {
     {
       field: "status",
       title: "Status",
-      textAlign: "center",
+      textAlign: "left",
       width: 80,
       template: function(data) {
         status = data.status;
@@ -82,7 +83,7 @@ var DatatableDataSms = function() {
     {
       field: "inserted_at",
       title: "Message Date",
-      textAlign: "center",
+      textAlign: "left",
       width: 200,
       template: function(t) {
         return "" + moment(t.inserted_at).format('MMMM Do YYYY, H:mm:ss') +"";
