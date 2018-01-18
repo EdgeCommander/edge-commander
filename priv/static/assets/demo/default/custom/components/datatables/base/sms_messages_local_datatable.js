@@ -18,7 +18,7 @@ var DatatableDataSms = function() {
       height: 950,
       footer: !1
     },
-    sortable: !1,
+    sortable: 1,
     filterable: !1,
     pagination: false,
     columns: [
