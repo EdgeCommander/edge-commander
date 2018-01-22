@@ -7,7 +7,6 @@ defmodule EdgeCommander.Nexmo do
   alias EdgeCommander.Repo
 
   alias EdgeCommander.Nexmo.SimMessages
-  require IEx
 
   @doc """
   Returns the list of sms_messages.

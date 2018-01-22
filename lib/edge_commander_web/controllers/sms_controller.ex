@@ -4,10 +4,8 @@ defmodule EdgeCommanderWeb.SmsController do
   import EdgeCommander.Nexmo, only: [list_sms_messages: 2]
 
   def get_all_sms(conn, params)  do
-
     from_date = params["from_date"]
     to_date = params["to_date"]
-
     sms_messages = 
       list_sms_messages(from_date, to_date)
       |> Enum.map(fn(sms) ->
