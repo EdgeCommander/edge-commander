@@ -1,6 +1,6 @@
 var smsDataTable = null;
 
-$( "#m_sms_datepicker_from" ).datepicker({autoclose:true, format:"yyyy-mm-dd"}).datepicker("setDate", new Date(new Date().getTime() - (480 * 60 * 60 * 1000)));
+$( "#m_sms_datepicker_from" ).datepicker({autoclose:true, format:"yyyy-mm-dd"}).datepicker("setDate", new Date(new Date().getTime() - (48 * 60 * 60 * 1000)));
 $( "#m_sms_datepicker_to" ).datepicker({autoclose:true, format:"yyyy-mm-dd"}).datepicker("setDate", new Date());
 
 var from_date = $("#m_sms_datepicker_from").val(),

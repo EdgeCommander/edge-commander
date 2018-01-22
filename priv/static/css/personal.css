@@ -155,6 +155,10 @@ a:hover {
   border-bottom: solid 1px #333333;
 }
 
+.m-aside-menu .m-menu__nav>.bottom_link {
+  border-top: solid 1px #333333;
+}
+
 .m-brand.m-brand--skin-dark .m-brand__tools .m-brand__toggler:hover span,.m-brand.m-brand--skin-dark .m-brand__tools .m-brand__toggler:hover span::after,.m-brand.m-brand--skin-dark .m-brand__tools .m-brand__toggler:hover span::before {
   background: #cecece;
 }
@@ -273,8 +277,12 @@ a:hover {
 }
 
 .m-datatable.m-datatable--default.m-datatable--loaded>.m-datatable__table>.m-datatable__body .m-datatable__row>.m-datatable__cell, .m-datatable.m-datatable--default.m-datatable--loaded>.m-datatable__table>.m-datatable__foot .m-datatable__row>.m-datatable__cell, .m-datatable.m-datatable--default.m-datatable--loaded>.m-datatable__table>.m-datatable__head .m-datatable__row>.m-datatable__cell {
-    display: table-cell;
-    border-right: solid 1px #fff;
+  display: table-cell;
+  border-right: solid 1px #fff;
+}
+
+.m-aside-menu.m-aside-menu--skin-dark .m-menu__nav>.m-menu__section .m-menu__section-text {
+  color: #5f6060;
 }
 
 @media (min-width: 993px){
