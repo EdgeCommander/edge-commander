@@ -17,9 +17,11 @@ defmodule EdgeCommander.Nexmo do
       [%SimMessages{}, ...]
 
   """
-  def list_sms_messages do
+  def list_sms_messages(from_date, to_date) do
+    from = NaiveDateTime.from_iso8601!(from_date <> " 00:00:00")
+    to = NaiveDateTime.from_iso8601!(to_date <> " 23:59:59")
     SimMessages
-    |> order_by(desc: :inserted_at)
+    |> where([c], c.inserted_at >= ^from and c.inserted_at <= ^to)
     |> Repo.all
   end
 

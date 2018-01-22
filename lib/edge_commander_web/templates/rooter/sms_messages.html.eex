@@ -194,9 +194,9 @@
                           <!--begin: Search Form -->
                           <div class="m-form m-form--label-align-right m--margin-bottom-10">
                             <div class="row align-items-center">
-                              <div class="col-xl-8 order-2 order-xl-1">
+                              <div class="col-xl-9 order-3 order-xl-1">
                                 <div class="form-group m-form__group row align-items-center">
-                                  <div class="col-md-4">
+                                  <div class="col-md-4" style="padding-right:0">
                                     <div class="m-input-icon m-input-icon--left">
                                       <input type="text" class="form-control m-input m-input--solid" placeholder="Search..." id="m_form_search">
                                       <span class="m-input-icon__icon m-input-icon__icon--left">
@@ -206,9 +206,33 @@
                                       </span>
                                     </div>
                                   </div>
+                                  <div class="col-md-8">
+                                    <div class="row">
+                                        <div class="col-sm-6" style="padding-right:0">
+                                             <div class="form-group m-form__group row">
+                                            <label class="col-lg-2 col-form-label">
+                                                From:
+                                            </label>
+                                            <div class="col-lg-10">
+                                                <input type="text" class="form-control m-input m-input--solid" id="m_sms_datepicker_from">
+                                            </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-6" style="padding-right:0">
+                                             <div class="form-group m-form__group row">
+                                            <label class="col-lg-1 col-form-label">
+                                                To:
+                                            </label>
+                                            <div class="col-lg-10">
+                                                <input type="text" class="form-control m-input m-input--solid" id="m_sms_datepicker_to">
+                                            </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                  </div>
                                 </div>
                               </div>
-                              <div class="col-xl-4 order-1 order-xl-2 m--align-right">
+                              <div class="col-xl-3 order-1 order-xl-3 m--align-right">
                                   <a href="#" id="sendSms" class="btn btn-primary m-btn m-btn--icon">
                                       <span>
                                           <i class="fa fa-plus-square"></i>

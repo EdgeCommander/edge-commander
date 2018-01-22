@@ -1,11 +1,17 @@
 var smsDataTable = null;
 
+$( "#m_sms_datepicker_from" ).datepicker({autoclose:true, format:"yyyy-mm-dd"}).datepicker("setDate", new Date(new Date().getTime() - (48 * 60 * 60 * 1000)));
+$( "#m_sms_datepicker_to" ).datepicker({autoclose:true, format:"yyyy-mm-dd"}).datepicker("setDate", new Date());
+
+var from_date = $("#m_sms_datepicker_from").val(),
+  to_date = $("#m_sms_datepicker_to").val();
+
 var DatatableDataSms = function() {
   smsDataTable = $(".sms_messages_datatable").mDatatable({
     data: {
       type: "remote",
       speedLoad: true,
-      source: "/get_all_sms",
+      source: "/get_all_sms/" + from_date + "/" + to_date,
       pageSize: 50,
       serverPaging: false,
       serverFiltering: false,
@@ -62,7 +68,7 @@ var DatatableDataSms = function() {
       field: "text",
       title: "Text Message",
       textAlign: "left",
-      width: 1010
+      width: 1060
     },
     {
       field: "status",
@@ -238,7 +244,21 @@ var onSendSMSFocus = function() {
   })  
 };
 
+var DateFilterInitialize = function() {
+  $('#m_sms_datepicker_from, #m_sms_datepicker_to').datepicker({
+    autoclose: true,
+    format: "yyyy-mm-dd"
+  }).on('changeDate', function(e) {
+    var from_date = $("#m_sms_datepicker_from").val(),
+        to_date = $("#m_sms_datepicker_to").val();
+    var loadSMS = smsDataTable;
+    loadSMS.data().options.data.source = "/get_all_sms/" + from_date + "/" + to_date;
+    loadSMS.load();
+  });
+}
+
 window.initializeSmsMessages = function() {
+  DateFilterInitialize();
   startSmsTable();
   onSearching();
   onSmsButton();
