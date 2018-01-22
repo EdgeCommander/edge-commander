@@ -68,7 +68,7 @@ var DatatableDataSms = function() {
       field: "text",
       title: "Text Message",
       textAlign: "left",
-      width: 1010
+      width: 1060
     },
     {
       field: "status",
