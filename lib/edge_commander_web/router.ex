@@ -67,7 +67,7 @@ defmodule EdgeCommanderWeb.Router do
     delete "/sites/delete", SitesController, :delete
 
     get "/sms_messages", RooterController, :sms_messages
-    get "/get_all_sms", SmsController, :get_all_sms
+    get "/get_all_sms/:from_date/:to_date", SmsController, :get_all_sms
 
   end
 
