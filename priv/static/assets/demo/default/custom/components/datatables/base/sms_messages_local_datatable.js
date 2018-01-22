@@ -96,6 +96,12 @@ var DatatableDataSms = function() {
       }
     }
     ]
+  }),
+   mApp.block(".sms_messages_datatable", {
+    overlayColor: "#000000",
+    type: "loader",
+    state: "primary",
+    message: "Please Wait..."
   });
 };
 
@@ -254,6 +260,12 @@ var DateFilterInitialize = function() {
     var loadSMS = smsDataTable;
     loadSMS.data().options.data.source = "/get_all_sms/" + from_date + "/" + to_date;
     loadSMS.load();
+    mApp.block(".sms_messages_datatable", {
+      overlayColor: "#000000",
+      type: "loader",
+      state: "primary",
+      message: "Please Wait..."
+    });
   });
 }
 

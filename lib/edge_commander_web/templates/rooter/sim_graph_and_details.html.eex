@@ -155,7 +155,11 @@
                             </span>
                         </a>
                     </li>
-                    <li class="m-menu__item" aria-haspopup="true" >
+                    <li class="m-menu__section">
+                        <h4 class="m-menu__section-text"></h4>
+                        <i class="m-menu__section-icon flaticon-more-v3"></i>
+                    </li>
+                    <li class="m-menu__item bottom_link" aria-haspopup="true" >
                         <a  href="/my_profile" class="m-menu__link ">
                             <i class="m-menu__link-icon fa fa-user"></i>
                             <span class="m-menu__link-title">
@@ -167,7 +171,7 @@
                             </span>
                         </a>
                     </li>
-                   <li class="m-menu__item" aria-haspopup="true" >
+                   <li class="m-menu__item bottom_link" aria-haspopup="true" >
                     <a  href="/users/session" class="m-menu__link ">
                         <i class="m-menu__link-icon fa fa-power-off"></i>
                         <span class="m-menu__link-title">
