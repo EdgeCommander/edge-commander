@@ -30,7 +30,7 @@ config :edge_commander, EdgeCommander.Scheduler,
     # Every minute
     {"* * * * *",      {EdgeCommander.Portable, :start_porting, []}},
     # Runs every midnight:
-    {"@daily",         {EdgeCommander.Commands, :start_usage_command, []}},
+    # {"@daily",         {EdgeCommander.Commands, :start_usage_command, []}},
     # Every 15 minutes
     {"@daily",   {EdgeCommander.Raid, :check_failed_drives, []}},
   ]
