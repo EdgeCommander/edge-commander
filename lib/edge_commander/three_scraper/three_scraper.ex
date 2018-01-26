@@ -26,7 +26,10 @@ defmodule EdgeCommander.ThreeScraper do
 
   def handle_info(:work, state) do
     Logger.info "Getting SIMS DATA"
-    sims = SIM.get_info() |> Enum.map(&Map.from_struct/1)
+    sims =
+      SIM.get_info()
+      |> Enum.map(&Map.from_struct/1)
+      |> Enum.filter(fn(s_sim) -> s_sim.addon != "NIL" end)
     Repo.insert_all(SimLogs, sims)
     Logger.info "Inserting SIMS DATA"
     Process.send_after(self(), :work, @period)

@@ -33,6 +33,7 @@ defmodule ThreeScraper.SIM do
       |> Floki.parse()
       |> Floki.find(".standardMyAccTable")
       |> Floki.find("tr")
+      |> ensure_three_trs
 
     [{"td", _, [addon]}, {"td", _, [allowance]}, {"td", _, [volume_used]}] =
       Floki.find(internet_usage_row, "td")
@@ -41,6 +42,19 @@ defmodule ThreeScraper.SIM do
             allowance: allowance,
             volume_used: volume_used,
             datetime: NaiveDateTime.utc_now()}
+  end
+
+  def ensure_three_trs(trs) do
+    length(trs)
+    |> assert_trs(trs)
+  end
+
+  def assert_trs(3, trs), do: trs
+  def assert_trs(2, trs), do: trs
+  def assert_trs(1, trs) do
+    new_trs = trs ++ [{"tr", [], [{"td", [], ["NIL"]}, {"td", [], ["NIL"]}, {"td", [], ["NIL"]}]}]
+    final_trs = new_trs ++ [{"tr", [], [{"td", [], ["NIL"]}, {"td", [], ["NIL"]}, {"td", [], ["NIL"]}]}]
+    final_trs
   end
 
   def extract_sims(body) do
