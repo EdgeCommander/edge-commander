@@ -6,7 +6,6 @@ defmodule EdgeCommanderWeb.SimsController do
   alias EdgeCommander.Repo
   alias EdgeCommander.Util
   require Logger
-  require IEx
 
   def get_single_sim_data(conn, %{"sim_number" => sim_number } = _params) do
     logs =
