@@ -5,8 +5,11 @@ defmodule EdgeCommanderWeb.Router do
     plug :accepts, ["html"]
     plug :fetch_session
     plug :fetch_flash
-    plug :protect_from_forgery
     plug :put_secure_browser_headers
+  end
+
+  pipeline :csrf do
+    plug :protect_from_forgery
   end
 
   pipeline :api do
@@ -57,7 +60,7 @@ defmodule EdgeCommanderWeb.Router do
     delete "/rules/delete", CommandsController, :delete
     
     post "/send_sms", SimsController, :send_sms
-    get "/receive_sms", SimsController, :receive_sms
+    post "/receive_sms", SimsController, :receive_sms
     get "/delivery_receipt", SimsController, :delivery_receipt
 
     get "/sites", RooterController, :sites
