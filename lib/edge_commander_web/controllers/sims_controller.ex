@@ -6,7 +6,6 @@ defmodule EdgeCommanderWeb.SimsController do
   alias EdgeCommander.Repo
   alias EdgeCommander.Util
   require Logger
-  require IEx
 
   def get_single_sim_data(conn, %{"sim_number" => sim_number } = _params) do
     logs =
@@ -79,7 +78,6 @@ defmodule EdgeCommanderWeb.SimsController do
   end
 
   def send_sms(conn,  %{"sms_message" => sms_message, "to_number" => to_number, "user_id" => user_id} = _params) do
-
     url = "https://rest.nexmo.com/sms/json"
     body = Poison.encode!(%{
       "api_key": System.get_env("NEXMO_API_KEY"),
@@ -136,11 +134,11 @@ defmodule EdgeCommanderWeb.SimsController do
 
   def receive_sms(conn, params) do
     params = %{
-      to: params["to"] |> number_without_code,
-      from: params["msisdn"] |> number_without_code,
-      message_id: params["messageId"],
+      to: params["to_number "] |> number_without_code,
+      from: params["from_number"] |> number_without_plus_code,
+      message_id: params["external_id"],
       status: "Received",
-      text: params["text"],
+      text: params["content"],
       type: "MO",
       user_id: 0
     }
@@ -189,6 +187,8 @@ defmodule EdgeCommanderWeb.SimsController do
   defp number_with_code("0" <> number), do: "353#{number}"
 
   defp number_without_code("353" <> number), do: "0#{number}"
+
+  defp number_without_plus_code("+353" <> number), do: "0#{number}"
 
   defp shift_datetime(datetime) do
     datetime
