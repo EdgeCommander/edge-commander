@@ -134,7 +134,7 @@ defmodule EdgeCommanderWeb.SimsController do
 
   def receive_sms(conn, params) do
     params = %{
-      to: params["to_number "] |> number_without_code,
+      to: params["to_number"] |> number_without_code,
       from: params["from_number"] |> number_without_plus_code,
       message_id: params["external_id"],
       status: "Received",
