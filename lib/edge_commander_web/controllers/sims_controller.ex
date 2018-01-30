@@ -78,7 +78,6 @@ defmodule EdgeCommanderWeb.SimsController do
   end
 
   def send_sms(conn,  %{"sms_message" => sms_message, "to_number" => to_number, "user_id" => user_id} = _params) do
-
     url = "https://rest.nexmo.com/sms/json"
     body = Poison.encode!(%{
       "api_key": System.get_env("NEXMO_API_KEY"),
@@ -134,7 +133,6 @@ defmodule EdgeCommanderWeb.SimsController do
   defp save_send_sms(_status, _results, _sms_message, _user_id), do: :noop
 
   def receive_sms(conn, params) do
-    IEx.pry
     params = %{
       to: params["to_number "] |> number_without_code,
       from: params["from_number"] |> number_without_plus_code,
