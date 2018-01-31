@@ -152,18 +152,9 @@ defmodule EdgeCommanderWeb.SimsController do
   end
 
   def delivery_receipt(conn, params) do
-    status = params["status"]
-    message_id = params["messageId"]
-    params = %{
-      status: status
-    }
-    get_message(message_id)
-    |> SimMessages.changeset(params)
-    |> Repo.update
-    |> case do
-      {:ok, _} -> Logger.info "SMS Status has been Updated"
-      {:error, changeset} -> Logger.info Util.parse_changeset(changeset)
-    end
+    get_message(params["messageId"])
+    |> ensure_message(params)
+
     conn
     |> json(%{void: 0})
   end
@@ -182,6 +173,19 @@ defmodule EdgeCommanderWeb.SimsController do
     conn
     |> put_status(200)
     |> json(single_sim_sms)
+  end
+
+  defp ensure_message(nil, _params), do: Logger.info "Message didn't send from EC."
+  defp ensure_message(message_id, params) do
+    message_id
+    |> SimMessages.changeset(%{
+      status: params["status"]
+    })
+    |> Repo.update
+    |> case do
+      {:ok, _} -> Logger.info "SMS Status has been Updated"
+      {:error, changeset} -> Logger.info Util.parse_changeset(changeset)
+    end
   end
 
   defp number_with_code("0" <> number), do: "353#{number}"

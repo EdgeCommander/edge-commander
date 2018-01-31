@@ -62,14 +62,8 @@ defmodule EdgeCommander.Portable do
       |> String.replace(":", "")
 
     nvr_record = get_nvr!(nvr.nvr_id)
-    extra =
-      nvr_record.extra
-      |> Map.delete("reason")
-      |> Map.put("reason", reason_value)
-
-    nvr_record
-    |> Nvr.changeset(%{nvr_status: status, extra: extra})
-    |> Repo.update!()
+    nvr_record.extra
+    |> ensure_extra_data(nvr_record, reason_value, status)
   end
 
   def changeset_to_db(nvr, status) do
@@ -89,5 +83,17 @@ defmodule EdgeCommander.Portable do
 
   defp rest_the_case({:ok, _}), do: Logger.info "Log added."
   defp rest_the_case({:error, changeset}), do: Logger.info "Error: #{changeset}"
+
+  defp ensure_extra_data(nil, _nvr_record, _reason_value, _status), do: :noop
+  defp ensure_extra_data(nvr_record_extra, nvr_record, reason_value, status) do
+    extra =
+      nvr_record_extra
+      |> Map.delete("reason")
+      |> Map.put("reason", reason_value)
+
+    nvr_record
+    |> Nvr.changeset(%{nvr_status: status, extra: extra})
+    |> Repo.update!()
+  end
 end
 
