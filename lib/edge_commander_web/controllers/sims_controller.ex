@@ -177,11 +177,10 @@ defmodule EdgeCommanderWeb.SimsController do
 
   defp ensure_message(nil, _params), do: Logger.info "Message didn't send from EC."
   defp ensure_message(message_id, params) do
-    params = %{
-      status: params["status"]
-    }
     message_id
-    |> SimMessages.changeset(params)
+    |> SimMessages.changeset(%{
+      status: params["status"]
+    })
     |> Repo.update
     |> case do
       {:ok, _} -> Logger.info "SMS Status has been Updated"
