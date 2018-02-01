@@ -9,7 +9,7 @@ defmodule EdgeCommander.EcMailer do
       to: Enum.join(senders, ","),
       subject: "Data usage alert (#{usage}% of #{String.trim(addon, " Broadband")}) on SIM #{number} (#{name})",
       from: @from,
-      bcc: "junaid@evercam.io",
+      bcc: "junaid@evercam.io,ali@evercam.io",
       html: Phoenix.View.render_to_string(EdgeCommanderWeb.EmailView, "usage_monitoring.html", usage: usage, number: number, volume_used: volume_used, allowance: allowance, name: name, addon: addon),
       text: Phoenix.View.render_to_string(EdgeCommanderWeb.EmailView, "usage_monitoring.txt", usage: usage, number: number, volume_used: volume_used, allowance: allowance, name: name, addon: addon)
   end
@@ -24,6 +24,16 @@ defmodule EdgeCommander.EcMailer do
       # bcc: "marco@evercam.io",
       html: Phoenix.View.render_to_string(EdgeCommanderWeb.EmailView, "send_email_for_raid.html", res: res),
       text: Phoenix.View.render_to_string(EdgeCommanderWeb.EmailView, "send_email_for_raid.txt", res: res)
+  end
+
+  def three_web_failure() do
+    Mailgun.Client.send_email @config,
+      to: "ali@evercam.io",
+      subject: "Three.ie connection failure",
+      from: @from,
+      bcc: "junaid@evercam.io",
+      html: Phoenix.View.render_to_string(EdgeCommanderWeb.EmailView, "three_web_failure.html", year: @year),
+      text: Phoenix.View.render_to_string(EdgeCommanderWeb.EmailView, "three_web_failure.txt", year: @year)
   end
 
 end

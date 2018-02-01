@@ -1,0 +1,25 @@
+<html>
+<head>
+  <title>Three.ie connection failure alert</title>
+</head>
+<body style="font-size: 12px">
+    <div style=" width: 80%; margin: auto;">
+        <div style="background: #eee; padding:5px 10px;">
+         <div style="float: left;">
+            <img src="https://lh3.googleusercontent.com/kw8kv7w7maKy9sVx4E9XCEnN5KivTfXvX1Y9Bv2qojV2dFmlBgySCBU0VTJDtICw3GY=w300" width="60px">
+         </div> 
+         <div style="float: left;">
+            <h2 style="margin: 18px 10px">Three.ie website connection failure alert</h2>
+         </div> 
+         <div style="clear: both;"></div>
+      </div>
+      <h3>
+          EdgeCommander has been disconnect with three.ie website.
+      </h3>
+      
+      <img src="https://edgecommander.com/wp-content/uploads/2017/11/edgecommander.png" width="200px" style="border: solid 1px #eee;">
+      <h3>Edgecommander</h3>
+      <p>6-7 Granby Row,</br> Dublin 1,</br> D01 FW20,</br> Ireland.<p>
+    </div>
+</body>
+</html>

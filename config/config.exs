@@ -33,6 +33,8 @@ config :edge_commander, EdgeCommander.Scheduler,
     {"@daily",         {EdgeCommander.Commands, :start_usage_command, []}},
     # Every 15 minutes
     {"@daily",   {EdgeCommander.Raid, :check_failed_drives, []}},
+    # Every 6 hour on zero minute
+    {"0 */6 * * *",  {ThreeScraper.Cookie, :get_cookies, [0]}},
   ]
 
 import_config "#{Mix.env}.exs"
