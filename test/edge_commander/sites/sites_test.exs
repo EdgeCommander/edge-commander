@@ -6,8 +6,8 @@ defmodule EdgeCommander.SitesTest do
   describe "sites" do
     alias EdgeCommander.Sites.Records
 
-    @valid_attrs %{location: %{"lat" => 8787, "lng" => 8787, "map_area" => "Critical"}, name: "some name", notes: "some notes", nvr_id: 42, router_id: 42, sim_number: "some sim_number"}
-    @update_attrs %{location: %{"lat" => 8787, "lng" => 8787, "map_area" => "Critical"}, name: "some updated name", notes: "some updated notes", nvr_id: 43, router_id: 43, sim_number: "some updated sim_number"}
+    @valid_attrs %{location: nil, name: "some name", notes: "some notes", nvr_id: 42, router_id: 42, sim_number: "some sim_number"}
+    @update_attrs %{location: nil, name: "some updated name", notes: "some updated notes", nvr_id: 43, router_id: 43, sim_number: "some updated sim_number"}
     @invalid_attrs %{location: nil, name: nil, notes: nil, nvr_id: nil, router_id: nil, sim_number: nil}
 
     def records_fixture(attrs \\ %{}) do
