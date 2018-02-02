@@ -12,7 +12,7 @@ defmodule EdgeCommander.ThreeScraper do
   require Logger
   alias ThreeScraper.SIM
 
-  @period 12 * 60 * 60 * 1000 # 24 hour
+  @period 3 * 60 * 60 * 1000 # 6 hour
 
   def start_link(args) do
     GenServer.start_link(__MODULE__, args, name: __MODULE__)
@@ -26,12 +26,51 @@ defmodule EdgeCommander.ThreeScraper do
 
   def handle_info(:work, state) do
     Logger.info "Getting SIMS DATA"
-    sims =
+    sim_data =
       SIM.get_info()
       |> Enum.map(&Map.from_struct/1)
       |> Enum.filter(fn(s_sim) -> s_sim.addon != "NIL" end)
-    Repo.insert_all(SimLogs, sims)
-    Logger.info "Inserting SIMS DATA"
+
+    Enum.each(sim_data, fn(log) ->
+      addon = log.addon
+      allowance = log.allowance
+      name = log.name
+      number = log.number
+      datetime = log.datetime
+      volume_used = log.volume_used
+
+      {new_addon, _} = addon |> String.replace(",", "") |> Float.parse()
+      {new_allowance, _} = allowance  |> String.replace(",", "") |> Float.parse()
+      {new_volume_used, _} = volume_used  |> String.replace(",", "") |> Float.parse()
+      new_record_list = [new_addon, new_allowance, new_volume_used]
+
+      old_data = number |> get_last_record_for_number()
+      {old_addon, _} = old_data.addon  |> String.replace(",", "") |> Float.parse()
+      {old_allowance, _} = old_data.allowance  |> String.replace(",", "") |> Float.parse()
+      {old_volume_used, _} = old_data.volume_used  |> String.replace(",", "") |> Float.parse()
+      old_record_list = [old_addon, old_allowance, old_volume_used]
+
+      if (old_record_list == new_record_list) == false do
+        sims_logs = %{
+          number: number,
+          name: name,
+          addon: addon,
+          allowance: allowance,
+          volume_used: volume_used,
+          datetime: datetime
+        }
+        changeset = SimLogs.changeset(%SimLogs{}, sims_logs)
+        case Repo.insert(changeset) do
+        {:ok, _logs} ->
+          Logger.info "Inserting SIM data for #{number}"
+        {:error, changeset} ->
+          Logger.error "Inserting SIM data failed for #{number}"
+        end
+      else
+        Logger.info "Data matched for #{number}"
+      end
+    end)
+    EdgeCommander.Commands.start_usage_command
     Process.send_after(self(), :work, @period)
     {:noreply, state}
   end
