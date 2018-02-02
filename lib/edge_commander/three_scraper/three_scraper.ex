@@ -63,7 +63,7 @@ defmodule EdgeCommander.ThreeScraper do
         case Repo.insert(changeset) do
         {:ok, _logs} ->
           Logger.info "Inserting SIM data for #{number}"
-        {:error, changeset} ->
+        {:error, _changeset} ->
           Logger.error "Inserting SIM data failed for #{number}"
         end
       else

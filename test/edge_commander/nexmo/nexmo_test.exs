@@ -20,8 +20,8 @@ defmodule EdgeCommander.NexmoTest do
     end
 
     test "list_sms_messages/0 returns all sms_messages" do
-      from_date = "2018-01-20";
-      to_date = "2018-02-01";
+      from_date = Date.utc_today |> Date.to_iso8601
+      to_date = Date.utc_today |> Date.to_iso8601
       sim_messages = sim_messages_fixture()
       assert Nexmo.list_sms_messages(from_date, to_date) == [sim_messages]
     end
