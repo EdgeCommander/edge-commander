@@ -45,6 +45,18 @@ defmodule EdgeCommanderWeb.SimsController do
     response 200, "Success"
   end
 
+  swagger_path :send_sms do
+    post "/v1/send_sms"
+    description "Enter SMS Details"
+    summary "Send SMS to sim"
+    parameters do
+      to_number :query, :string, "To Number (08xxxxxxxx)", required: true
+      sms_message :query, :string, "Message", required: true
+      user_id :query, :integer, "User ID", default: 1
+    end
+    response 200, "Success"
+  end
+
   def get_single_sim_data(conn, %{"sim_number" => sim_number } = _params) do
     logs =
       get_single_sim(sim_number)
