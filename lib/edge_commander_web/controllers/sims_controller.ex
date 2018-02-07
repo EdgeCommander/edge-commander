@@ -6,6 +6,40 @@ defmodule EdgeCommanderWeb.SimsController do
   alias EdgeCommander.Repo
   alias EdgeCommander.Util
   require Logger
+  use PhoenixSwagger
+
+  swagger_path :get_sim_logs do
+    get "/v1/get_sims_data"
+    description "Get ALL SIMS logs"
+    response 200, "Success"
+  end
+
+  swagger_path :get_single_sim_data do
+    get "/v1/get_single_sim_data/{sim_number}"
+    description "Get Single SIM logs"
+    parameters do
+      sim_number :path, :string, "SIM Number", required: true
+    end
+    response 200, "Success"
+  end
+
+  swagger_path :get_single_sim_sms do
+    get "/v1/get_single_sim_sms/{sim_number}"
+    description "Get Single SIM SMS (Last 10 SMS)"
+    parameters do
+      sim_number :path, :string, "SIM Number", required: true
+    end
+    response 200, "Success"
+  end
+
+  swagger_path :create_chartjs_line_data do
+    get "/v1/create_chartjs_line_data"
+    description "Get Single SIM Data Usage In %"
+    parameters do
+      sim_number :query, :string, "SIM Number", required: true
+    end
+    response 200, "Success"
+  end
 
   def get_single_sim_data(conn, %{"sim_number" => sim_number } = _params) do
     logs =

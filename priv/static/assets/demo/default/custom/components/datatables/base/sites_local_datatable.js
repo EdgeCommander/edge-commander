@@ -5,7 +5,7 @@ var DatatableDataSites = function() {
     data: {
       type: "remote",
       speedLoad: true,
-      source: "/get_all_sites",
+      source: "/v1/get_all_sites",
       pageSize: 50,
       serverPaging: false,
       serverFiltering: false,
@@ -170,7 +170,7 @@ var saveModal = function() {
       success: onSuccess,
       contentType: "application/x-www-form-urlencoded",
       type: "POST",
-      url: "/sites/new"
+      url: "/v1/sites/new"
     };
     sendAJAXRequest(settings);
   });
@@ -309,7 +309,7 @@ deleteSite = function() {
       contentType: "application/x-www-form-urlencoded",
       context: {ruleRow: ruleRow},
       type: "DELETE",
-      url: "/sites/delete"
+      url: "/v1/sites/delete"
     };
 
     sendAJAXRequest(settings);
@@ -470,7 +470,7 @@ updateSitedo = function(){
       success: onEditSuccess,
       contentType: "application/x-www-form-urlencoded",
       type: "PATCH",
-      url: "/sites/update"
+      url: "/v1/sites/update"
     };
 
     sendAJAXRequest(settings);

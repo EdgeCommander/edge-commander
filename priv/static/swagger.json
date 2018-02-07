@@ -1,0 +1,99 @@
+{
+  "swagger": "2.0",
+  "paths": {
+    "/v1/get_single_sim_sms/{sim_number}": {
+      "get": {
+        "tags": [
+          "Sims"
+        ],
+        "summary": "Get SMS For Single SIM",
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        },
+        "parameters": [
+          {
+            "type": "string",
+            "required": true,
+            "name": "sim_number",
+            "in": "path",
+            "description": "SIM Number"
+          }
+        ],
+        "operationId": "EdgeCommanderWeb.SimsController.get_single_sim_sms",
+        "description": "Get Single SIM SMS (Last 10 SMS)"
+      }
+    },
+    "/v1/get_single_sim_data/{sim_number}": {
+      "get": {
+        "tags": [
+          "Sims"
+        ],
+        "summary": "Get Logs For Single SIM",
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        },
+        "parameters": [
+          {
+            "type": "string",
+            "required": true,
+            "name": "sim_number",
+            "in": "path",
+            "description": "SIM Number"
+          }
+        ],
+        "operationId": "EdgeCommanderWeb.SimsController.get_single_sim_data",
+        "description": "Get Single SIM logs"
+      }
+    },
+    "/v1/get_sims_data": {
+      "get": {
+        "tags": [
+          "Sims"
+        ],
+        "summary": "Get Logs For All SIMs",
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        },
+        "parameters": [],
+        "operationId": "EdgeCommanderWeb.SimsController.get_sim_logs",
+        "description": "Get ALL SIMS logs"
+      }
+    },
+    "/v1/create_chartjs_line_data": {
+      "get": {
+        "tags": [
+          "Sims"
+        ],
+        "summary": "Get Data Usages In Percentages",
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        },
+        "parameters": [
+          {
+            "type": "string",
+            "required": true,
+            "name": "sim_number",
+            "in": "query",
+            "description": "SIM Number"
+          }
+        ],
+        "operationId": "EdgeCommanderWeb.SimsController.create_chartjs_line_data",
+        "description": "Get Single SIM Data Usage In %"
+      }
+    }
+  },
+  "info": {
+    "version": "1.0",
+    "title": "Edge Commander"
+  },
+  "host": "localhost:4000",
+  "definitions": {}
+}

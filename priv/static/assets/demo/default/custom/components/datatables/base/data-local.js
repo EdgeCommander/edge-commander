@@ -4,7 +4,7 @@ var DatatableDataLocalDemo = function() {
             a = $(".m_datatable").mDatatable({
                 data: {
                   type: "remote",
-                  source: "/get_sims_data",
+                  source: "/v1/get_sims_data",
                   pageSize: 50,
                   serverPaging: false,
                   serverFiltering: false,
@@ -109,7 +109,7 @@ var startMORRISChartJS = function () {
       success: onMorrisSuccess,
       contentType: "application/x-www-form-urlencoded",
       type: "GET",
-      url: "/create_chartjs_line_data"
+      url: "/v1/create_chartjs_line_data"
     };
 
     $.ajax(settingsForMorris);
