@@ -1,12 +1,163 @@
 {
   "swagger": "2.0",
   "paths": {
+    "/v1/routers/update": {
+      "patch": {
+        "tags": [
+          "Routers"
+        ],
+        "summary": "Update router by ID",
+        "responses": {
+          "201": {
+            "description": "Success"
+          }
+        },
+        "parameters": [
+          {
+            "type": "string",
+            "required": true,
+            "name": "id",
+            "in": "query",
+            "description": "Router ID"
+          },
+          {
+            "type": "string",
+            "required": true,
+            "name": "name",
+            "in": "query",
+            "description": "Updated name of the router"
+          },
+          {
+            "type": "string",
+            "required": true,
+            "name": "username",
+            "in": "query",
+            "description": "Updated username of the router"
+          },
+          {
+            "type": "string",
+            "required": true,
+            "name": "password",
+            "in": "query",
+            "description": "Updated password of the router"
+          },
+          {
+            "type": "string",
+            "required": true,
+            "name": "ip",
+            "in": "query",
+            "description": "Updated IP of the router"
+          },
+          {
+            "type": "integer",
+            "required": true,
+            "name": "port",
+            "in": "query",
+            "description": "Updated port of the router"
+          },
+          {
+            "type": "boolean",
+            "required": false,
+            "name": "is_monitoring",
+            "in": "query",
+            "description": "Is monitoring",
+            "default": false
+          }
+        ],
+        "operationId": "EdgeCommanderWeb.RoutersController.update",
+        "description": "Enter Router Details"
+      }
+    },
+    "/v1/routers/new": {
+      "post": {
+        "tags": [
+          "Routers"
+        ],
+        "summary": "Create router",
+        "responses": {
+          "201": {
+            "description": "Success"
+          }
+        },
+        "parameters": [
+          {
+            "type": "string",
+            "required": true,
+            "name": "name",
+            "in": "query",
+            "description": "Name"
+          },
+          {
+            "type": "string",
+            "required": true,
+            "name": "username",
+            "in": "query",
+            "description": "Username"
+          },
+          {
+            "type": "string",
+            "required": true,
+            "name": "password",
+            "in": "query",
+            "description": "Password"
+          },
+          {
+            "type": "string",
+            "required": true,
+            "name": "ip",
+            "in": "query",
+            "description": "IP"
+          },
+          {
+            "type": "integer",
+            "required": true,
+            "name": "port",
+            "in": "query",
+            "description": "Port"
+          },
+          {
+            "type": "boolean",
+            "required": false,
+            "name": "is_monitoring",
+            "in": "query",
+            "description": "Is monitoring",
+            "default": false
+          }
+        ],
+        "operationId": "EdgeCommanderWeb.RoutersController.create",
+        "description": "Enter Router Details"
+      }
+    },
+    "/v1/routers/delete": {
+      "delete": {
+        "tags": [
+          "Routers"
+        ],
+        "summary": "Delete router by ID",
+        "responses": {
+          "201": {
+            "description": "Success"
+          }
+        },
+        "parameters": [
+          {
+            "type": "string",
+            "required": true,
+            "name": "id",
+            "in": "query",
+            "description": "Router ID"
+          }
+        ],
+        "operationId": "EdgeCommanderWeb.RoutersController.delete",
+        "description": "Enter Router's ID"
+      }
+    },
     "/v1/get_single_sim_sms/{sim_number}": {
       "get": {
         "tags": [
           "Sims"
         ],
-        "summary": "Get SMS For Single SIM",
+        "summary": "Find sms by sim number",
         "responses": {
           "200": {
             "description": "Success"
@@ -30,7 +181,7 @@
         "tags": [
           "Sims"
         ],
-        "summary": "Get Logs For Single SIM",
+        "summary": "Find SIMs logs by sim number",
         "responses": {
           "200": {
             "description": "Success"
@@ -54,7 +205,7 @@
         "tags": [
           "Sims"
         ],
-        "summary": "Get Logs For All SIMs",
+        "summary": "All SIMs logs list",
         "responses": {
           "200": {
             "description": "Success"
@@ -65,12 +216,28 @@
         "description": "Get ALL SIMS logs"
       }
     },
+    "/v1/get_all_routers": {
+      "get": {
+        "tags": [
+          "Routers"
+        ],
+        "summary": "Routers list",
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        },
+        "parameters": [],
+        "operationId": "EdgeCommanderWeb.RoutersController.get_all_routers",
+        "description": "Get ALL Routers List"
+      }
+    },
     "/v1/create_chartjs_line_data": {
       "get": {
         "tags": [
           "Sims"
         ],
-        "summary": "Get Data Usages In Percentages",
+        "summary": "Find data usage in % by sim number",
         "responses": {
           "200": {
             "description": "Success"
