@@ -35,4 +35,12 @@ config :edge_commander, EdgeCommander.Scheduler,
     {"0 */6 * * *",  {ThreeScraper.Cookie, :get_cookies, [0]}},
   ]
 
+config :edge_commander, :phoenix_swagger,
+  swagger_files: %{
+    "priv/static/swagger.json" => [
+      router: EdgeCommanderWeb.Router,     # phoenix routes will be converted to swagger paths
+      endpoint: EdgeCommanderWeb.Endpoint  # (optional) endpoint config used to set host, port and https schemes.
+    ]
+  }
+
 import_config "#{Mix.env}.exs"

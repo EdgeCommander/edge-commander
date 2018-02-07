@@ -7,7 +7,42 @@ defmodule EdgeCommanderWeb.NvrsController do
   import EdgeCommander.Accounts, only: [current_user: 1]
   import EdgeCommander.Monitors
   import EdgeCommander.Devices, only: [update_nvr_ISAPI: 1, list_nvrs: 0, get_nvr!: 1]
-  require IEx
+  use PhoenixSwagger
+
+  swagger_path :get_all_nvrs do
+    get "/v1/get_all_nvrs"
+    description "Get ALL NVRs List"
+    summary "NVRs list"
+    response 200, "Success"
+  end
+
+  swagger_path :create do
+    post "/v1/nvrs/new"
+    description "Enter NVR Details"
+    summary "Create NVR"
+    parameters do
+      name :query, :string, "Name", required: true
+      username :query, :string, "Username", required: true
+      password :query, :string, "Password", required: true
+      ip :query, :string, "IP", required: true
+      port :query, :integer, "HTTP Port", required: true
+      vh_port :query, :integer, "VH Port", required: true
+      rtsp_port :query, :integer, "RTSP Port", required: true
+      sdk_port :query, :integer, "SDK Port", required: true
+      is_monitoring :query, :boolean, "Is monitoring", default: false
+    end
+    response 201, "Success"
+  end
+
+  swagger_path :delete do
+    delete "/v1/nvrs/delete"
+    description "Enter NVR's ID"
+    summary "Delete NVR by ID"
+    parameters do
+      id :query, :string, "Nvr ID", required: true
+    end
+    response 201, "Success"
+  end
 
   def create(conn, params) do
     changeset = Nvr.changeset(%Nvr{}, params)
@@ -18,7 +53,10 @@ defmodule EdgeCommanderWeb.NvrsController do
           username: username,
           password: password,
           ip: ip,
-          port: port,
+          port: http_port,
+          vh_port: vh_port,
+          rtsp_port: rtsp_port,
+          sdk_port: sdk_port,
           is_monitoring: is_monitoring,
           inserted_at: inserted_at
         } = nvr
@@ -32,7 +70,10 @@ defmodule EdgeCommanderWeb.NvrsController do
           "username" => username,
           "password" => password,
           "ip" => ip,
-          "port" => port,
+          "http_port" => http_port,
+          "vh_port" => vh_port,
+          "rtsp_port" => rtsp_port,
+          "sdk_port" => sdk_port,
           "is_monitoring" => is_monitoring,
           "created_at" => inserted_at
         })

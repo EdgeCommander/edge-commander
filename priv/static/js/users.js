@@ -43,7 +43,7 @@ var updateMyProfile = function() {
       success: onSuccess,
       contentType: "application/x-www-form-urlencoded",
       type: "PATCH",
-      url: "/update_profile"
+      url: "/v1/update_profile"
     };
 
     sendAJAXRequest1(settings);

@@ -4,7 +4,7 @@ var DatatableDataROUTER = function() {
   routerDataTable = $(".m_router_datatable").mDatatable({
     data: {
       type: "remote",
-      source: "/get_all_routers",
+      source: "/v1/get_all_routers",
       pageSize: 50,
       serverPaging: false,
       serverFiltering: false,
@@ -159,7 +159,7 @@ var saveModal = function() {
       success: onSuccess,
       contentType: "application/x-www-form-urlencoded",
       type: "POST",
-      url: "/routers/new"
+      url: "/v1/routers/new"
     };
 
     sendAJAXRequest(settings);
@@ -236,7 +236,7 @@ deleteROUTER = function() {
       contentType: "application/x-www-form-urlencoded",
       context: {routerRow: routerRow},
       type: "DELETE",
-      url: "/routers/delete"
+      url: "/v1/routers/delete"
     };
 
     sendAJAXRequest(settings);
@@ -324,7 +324,7 @@ updateROUTERdo = function(){
       success: onEditSuccess,
       contentType: "application/x-www-form-urlencoded",
       type: "PATCH",
-      url: "/routers/update"
+      url: "/v1/routers/update"
     };
 
     sendAJAXRequest(settings);
