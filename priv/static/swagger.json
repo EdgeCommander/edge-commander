@@ -152,6 +152,111 @@
         "description": "Enter Router's ID"
       }
     },
+    "/v1/nvrs/new": {
+      "post": {
+        "tags": [
+          "Nvrs"
+        ],
+        "summary": "Create NVR",
+        "responses": {
+          "201": {
+            "description": "Success"
+          }
+        },
+        "parameters": [
+          {
+            "type": "string",
+            "required": true,
+            "name": "name",
+            "in": "query",
+            "description": "Name"
+          },
+          {
+            "type": "string",
+            "required": true,
+            "name": "username",
+            "in": "query",
+            "description": "Username"
+          },
+          {
+            "type": "string",
+            "required": true,
+            "name": "password",
+            "in": "query",
+            "description": "Password"
+          },
+          {
+            "type": "string",
+            "required": true,
+            "name": "ip",
+            "in": "query",
+            "description": "IP"
+          },
+          {
+            "type": "integer",
+            "required": true,
+            "name": "port",
+            "in": "query",
+            "description": "HTTP Port"
+          },
+          {
+            "type": "integer",
+            "required": true,
+            "name": "vh_port",
+            "in": "query",
+            "description": "VH Port"
+          },
+          {
+            "type": "integer",
+            "required": true,
+            "name": "rtsp_port",
+            "in": "query",
+            "description": "RTSP Port"
+          },
+          {
+            "type": "integer",
+            "required": true,
+            "name": "sdk_port",
+            "in": "query",
+            "description": "SDK Port"
+          },
+          {
+            "type": "boolean",
+            "required": false,
+            "name": "is_monitoring",
+            "in": "query",
+            "description": "Is monitoring",
+            "default": false
+          }
+        ],
+        "operationId": "EdgeCommanderWeb.NvrsController.create",
+        "description": "Enter NVR Details"
+      }
+    },
+    "/v1/nvrs/delete": {
+      "delete": {
+        "tags": [
+          "Nvrs"
+        ],
+        "summary": "Delete NVR by ID",
+        "responses": {
+          "201": {
+            "description": "Success"
+          }
+        },
+        "parameters": [
+          {
+            "type": "string",
+            "required": true,
+            "name": "id",
+            "in": "query",
+            "description": "Nvr ID"
+          }
+        ],
+        "operationId": "EdgeCommanderWeb.NvrsController.delete",
+        "description": "Enter NVR's ID"
+      }
+    },
     "/v1/get_single_sim_sms/{sim_number}": {
       "get": {
         "tags": [
@@ -230,6 +335,22 @@
         "parameters": [],
         "operationId": "EdgeCommanderWeb.RoutersController.get_all_routers",
         "description": "Get ALL Routers List"
+      }
+    },
+    "/v1/get_all_nvrs": {
+      "get": {
+        "tags": [
+          "Nvrs"
+        ],
+        "summary": "NVRs list",
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        },
+        "parameters": [],
+        "operationId": "EdgeCommanderWeb.NvrsController.get_all_nvrs",
+        "description": "Get ALL NVRs List"
       }
     },
     "/v1/create_chartjs_line_data": {

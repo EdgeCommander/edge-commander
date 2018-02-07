@@ -51,10 +51,6 @@ end
     post "/users/session", SessionController, :create
     get "/users/session", SessionController, :delete
 
-    post "/nvrs/new", NvrsController, :create
-    get "/get_all_nvrs", NvrsController, :get_all_nvrs
-
-    delete "/nvrs/delete", NvrsController, :delete
     patch "/nvrs/update", NvrsController, :update
 
     get "/update_status_report", NvrsController, :update_status_report
@@ -96,8 +92,8 @@ end
     patch "/routers/update", RoutersController, :update
     delete "/routers/delete", RoutersController, :delete
 
-    post "/nvrs/new", NvrsController, :create
     get "/get_all_nvrs", NvrsController, :get_all_nvrs
+    post "/nvrs/new", NvrsController, :create
     delete "/nvrs/delete", NvrsController, :delete
     patch "/nvrs/update", NvrsController, :update
 
