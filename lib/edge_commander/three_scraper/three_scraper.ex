@@ -12,7 +12,7 @@ defmodule EdgeCommander.ThreeScraper do
   require Logger
   alias ThreeScraper.SIM
 
-  @period 3 * 60 * 60 * 1000 # 6 hour
+  @period 6 * 60 * 60 * 1000 # 6 hour
 
   def start_link(args) do
     GenServer.start_link(__MODULE__, args, name: __MODULE__)
@@ -70,7 +70,7 @@ defmodule EdgeCommander.ThreeScraper do
         Logger.info "Data matched for #{number}"
       end
     end)
-    EdgeCommander.Commands.start_usage_command
+    # EdgeCommander.Commands.start_usage_command
     Process.send_after(self(), :work, @period)
     {:noreply, state}
   end
