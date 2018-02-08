@@ -6,9 +6,9 @@ defmodule EdgeCommander.DevicesTest do
   describe "nvrs" do
     alias EdgeCommander.Devices.Nvr
 
-    @valid_attrs %{extra: %{}, firmware_version: "some firmware_version", ip: "110.39.130.42", is_monitoring: true, model: "some model", name: "some name", password: "some password", port: "80", username: "some username"}
-    @update_attrs %{extra: %{}, firmware_version: "some updated firmware_version", ip: "110.39.130.98", is_monitoring: false, model: "some updated model", name: "some updated name", password: "some updated password", port: "81", username: "some updated username"}
-    @invalid_attrs %{extra: nil, firmware_version: nil, ip: nil, is_monitoring: nil, model: nil, name: nil, password: nil, port: nil, username: nil}
+    @valid_attrs %{extra: %{}, firmware_version: "some firmware_version", ip: "110.39.130.42", is_monitoring: true, model: "some model", name: "some name", password: "some password", port: "80", vh_port: "8080", sdk_port: "9090", rtsp_port: "9000", username: "some username"}
+    @update_attrs %{extra: %{}, firmware_version: "some updated firmware_version", ip: "110.39.130.98", is_monitoring: false, model: "some updated model", name: "some updated name", password: "some updated password", port: "81", vh_port: "8181", sdk_port: "9191", rtsp_port: "9001", username: "some updated username"}
+    @invalid_attrs %{extra: nil, firmware_version: nil, ip: nil, is_monitoring: nil, model: nil, name: nil, password: nil, port: nil, vh_port: nil, sdk_port: nil, rtsp_port: nil, username: nil}
 
     def nvr_fixture(attrs \\ %{}) do
       {:ok, nvr} =
