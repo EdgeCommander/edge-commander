@@ -162,22 +162,11 @@ onSearching = function() {
   $("#m_form_search").on("keyup", function(e) {
       nvrDataTable.search($(this).val().toLowerCase())
   }).val(i.generalSearch)
-}
-
-var get_NVR_data = function() {
-  return $.ajax({
-    url: "/nvrs",
-    cache: false,
-    dataType: 'json',
-    contentType: "application/x-www-form-urlencoded",
-    type: "GET",
-  })
-}
+};
 
 var startNVRTable = function() {
   DatatableDataNVR();
 };
-
 
 var onNVRButton = function() {
   $("#addNVR").on("click", function(){
