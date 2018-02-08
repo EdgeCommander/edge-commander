@@ -9,7 +9,7 @@ var startMORRISChartJS = function () {
       success: onMorrisSuccess,
       contentType: "application/x-www-form-urlencoded",
       type: "GET",
-      url: "/v1/create_chartjs_line_data"
+      url: "/v1/chartjs/data"
     };
 
     $.ajax(settingsForMorris);
@@ -116,7 +116,7 @@ var dataTableSIMTAB = function() {
             a = $(".m_datatable").mDatatable({
                 data: {
                   type: "remote",
-                  source: "/v1/get_single_sim_data/" + window.location.href.substring(window.location.href.lastIndexOf('/') + 1) + "",
+                  source: "/v1/sim/data/" + window.location.href.substring(window.location.href.lastIndexOf('/') + 1) + "",
                   pageSize: 50,
                   serverPaging: false,
                   serverFiltering: false,
@@ -277,7 +277,7 @@ var smsDataTable = function() {
       data: {
         type: "remote",
         speedLoad: true,
-        source: "/v1/get_single_sim_sms/" + window.location.href.substring(window.location.href.lastIndexOf('/') + 1) + "",
+        source: "/v1/sim/sms/" + window.location.href.substring(window.location.href.lastIndexOf('/') + 1) + "",
         pageSize: 50,
         serverPaging: false,
         serverFiltering: false,

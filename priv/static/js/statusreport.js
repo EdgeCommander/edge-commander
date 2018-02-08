@@ -58,7 +58,7 @@ initializeReport = function(days) {
     success: onSuccessR,
     contentType: "application/x-www-form-urlencoded",
     type: "GET",
-    url: "/update_status_report"
+    url: "update_status_report"
   };
 
   sendAJAXRequest(settings);

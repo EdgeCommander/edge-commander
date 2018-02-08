@@ -1,6 +1,70 @@
 {
   "swagger": "2.0",
   "paths": {
+    "/v1/sim/sms/{sim_number}": {
+      "get": {
+        "tags": [
+          "Sims"
+        ],
+        "summary": "Find sms by sim number",
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        },
+        "parameters": [
+          {
+            "type": "string",
+            "required": true,
+            "name": "sim_number",
+            "in": "path",
+            "description": "Sim Number (08xxxxxxxx)"
+          }
+        ],
+        "operationId": "EdgeCommanderWeb.SimsController.get_single_sim_sms",
+        "description": "Returns latest 10 sms for single sim"
+      }
+    },
+    "/v1/sim/data/{sim_number}": {
+      "get": {
+        "tags": [
+          "Sims"
+        ],
+        "summary": "Find data by sim number",
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        },
+        "parameters": [
+          {
+            "type": "string",
+            "required": true,
+            "name": "sim_number",
+            "in": "path",
+            "description": "Sim Number (08xxxxxxxx)"
+          }
+        ],
+        "operationId": "EdgeCommanderWeb.SimsController.get_single_sim_data",
+        "description": "Returns list of data for single sim"
+      }
+    },
+    "/v1/sim/data": {
+      "get": {
+        "tags": [
+          "Sims"
+        ],
+        "summary": "Returns all SIMs data",
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        },
+        "parameters": [],
+        "operationId": "EdgeCommanderWeb.SimsController.get_sim_logs",
+        "description": "Returns data of all SIMs"
+      }
+    },
     "/v1/send_sms": {
       "post": {
         "tags": [
@@ -40,12 +104,12 @@
         "description": "Enter SMS Details"
       }
     },
-    "/v1/routers/update": {
+    "/v1/routers/{router_id}": {
       "patch": {
         "tags": [
           "Routers"
         ],
-        "summary": "Update router by ID",
+        "summary": "Updates a router bi ID",
         "responses": {
           "201": {
             "description": "Success"
@@ -55,41 +119,41 @@
           {
             "type": "string",
             "required": true,
-            "name": "id",
-            "in": "query",
-            "description": "Router ID"
+            "name": "router_id",
+            "in": "path",
+            "description": "ID of router that needs to be updated"
           },
           {
             "type": "string",
-            "required": true,
+            "required": false,
             "name": "name",
             "in": "query",
             "description": "Updated name of the router"
           },
           {
             "type": "string",
-            "required": true,
+            "required": false,
             "name": "username",
             "in": "query",
             "description": "Updated username of the router"
           },
           {
             "type": "string",
-            "required": true,
+            "required": false,
             "name": "password",
             "in": "query",
             "description": "Updated password of the router"
           },
           {
             "type": "string",
-            "required": true,
+            "required": false,
             "name": "ip",
             "in": "query",
             "description": "Updated IP of the router"
           },
           {
             "type": "integer",
-            "required": true,
+            "required": false,
             "name": "port",
             "in": "query",
             "description": "Updated port of the router"
@@ -99,20 +163,41 @@
             "required": false,
             "name": "is_monitoring",
             "in": "query",
-            "description": "Is monitoring",
-            "default": false
+            "description": "Is monitoring"
           }
         ],
         "operationId": "EdgeCommanderWeb.RoutersController.update",
-        "description": "Enter Router Details"
+        "description": ""
+      },
+      "delete": {
+        "tags": [
+          "Routers"
+        ],
+        "summary": "Delete router by ID",
+        "responses": {
+          "201": {
+            "description": "Success"
+          }
+        },
+        "parameters": [
+          {
+            "type": "string",
+            "required": true,
+            "name": "router_id",
+            "in": "path",
+            "description": "Router ID"
+          }
+        ],
+        "operationId": "EdgeCommanderWeb.RoutersController.delete",
+        "description": "Enter Router's ID"
       }
     },
-    "/v1/routers/new": {
+    "/v1/routers": {
       "post": {
         "tags": [
           "Routers"
         ],
-        "summary": "Create router",
+        "summary": "Add a new router",
         "responses": {
           "201": {
             "description": "Success"
@@ -164,15 +249,29 @@
           }
         ],
         "operationId": "EdgeCommanderWeb.RoutersController.create",
-        "description": "Enter Router Details"
-      }
-    },
-    "/v1/routers/delete": {
-      "delete": {
+        "description": ""
+      },
+      "get": {
         "tags": [
           "Routers"
         ],
-        "summary": "Delete router by ID",
+        "summary": "Returns all routers",
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        },
+        "parameters": [],
+        "operationId": "EdgeCommanderWeb.RoutersController.get_all_routers",
+        "description": "Returns routers list"
+      }
+    },
+    "/v1/nvrs/{nvr_id}": {
+      "delete": {
+        "tags": [
+          "Nvrs"
+        ],
+        "summary": "Delete NVR by ID",
         "responses": {
           "201": {
             "description": "Success"
@@ -182,21 +281,21 @@
           {
             "type": "string",
             "required": true,
-            "name": "id",
-            "in": "query",
-            "description": "Router ID"
+            "name": "nvr_id",
+            "in": "path",
+            "description": "NVR ID"
           }
         ],
-        "operationId": "EdgeCommanderWeb.RoutersController.delete",
-        "description": "Enter Router's ID"
+        "operationId": "EdgeCommanderWeb.NvrsController.delete",
+        "description": "Enter NVR's ID"
       }
     },
-    "/v1/nvrs/new": {
+    "/v1/nvrs": {
       "post": {
         "tags": [
           "Nvrs"
         ],
-        "summary": "Create NVR",
+        "summary": "Add a new NVR",
         "responses": {
           "201": {
             "description": "Success"
@@ -269,119 +368,13 @@
           }
         ],
         "operationId": "EdgeCommanderWeb.NvrsController.create",
-        "description": "Enter NVR Details"
-      }
-    },
-    "/v1/nvrs/delete": {
-      "delete": {
-        "tags": [
-          "Nvrs"
-        ],
-        "summary": "Delete NVR by ID",
-        "responses": {
-          "201": {
-            "description": "Success"
-          }
-        },
-        "parameters": [
-          {
-            "type": "string",
-            "required": true,
-            "name": "id",
-            "in": "query",
-            "description": "Nvr ID"
-          }
-        ],
-        "operationId": "EdgeCommanderWeb.NvrsController.delete",
-        "description": "Enter NVR's ID"
-      }
-    },
-    "/v1/get_single_sim_sms/{sim_number}": {
-      "get": {
-        "tags": [
-          "Sims"
-        ],
-        "summary": "Find sms by sim number",
-        "responses": {
-          "200": {
-            "description": "Success"
-          }
-        },
-        "parameters": [
-          {
-            "type": "string",
-            "required": true,
-            "name": "sim_number",
-            "in": "path",
-            "description": "SIM Number"
-          }
-        ],
-        "operationId": "EdgeCommanderWeb.SimsController.get_single_sim_sms",
-        "description": "Get Single SIM SMS (Last 10 SMS)"
-      }
-    },
-    "/v1/get_single_sim_data/{sim_number}": {
-      "get": {
-        "tags": [
-          "Sims"
-        ],
-        "summary": "Find SIMs logs by sim number",
-        "responses": {
-          "200": {
-            "description": "Success"
-          }
-        },
-        "parameters": [
-          {
-            "type": "string",
-            "required": true,
-            "name": "sim_number",
-            "in": "path",
-            "description": "SIM Number"
-          }
-        ],
-        "operationId": "EdgeCommanderWeb.SimsController.get_single_sim_data",
-        "description": "Get Single SIM logs"
-      }
-    },
-    "/v1/get_sims_data": {
-      "get": {
-        "tags": [
-          "Sims"
-        ],
-        "summary": "All SIMs logs list",
-        "responses": {
-          "200": {
-            "description": "Success"
-          }
-        },
-        "parameters": [],
-        "operationId": "EdgeCommanderWeb.SimsController.get_sim_logs",
-        "description": "Get ALL SIMS logs"
-      }
-    },
-    "/v1/get_all_routers": {
-      "get": {
-        "tags": [
-          "Routers"
-        ],
-        "summary": "Routers list",
-        "responses": {
-          "200": {
-            "description": "Success"
-          }
-        },
-        "parameters": [],
-        "operationId": "EdgeCommanderWeb.RoutersController.get_all_routers",
-        "description": "Get ALL Routers List"
-      }
-    },
-    "/v1/get_all_nvrs": {
+        "description": ""
+      },
       "get": {
         "tags": [
           "Nvrs"
         ],
-        "summary": "NVRs list",
+        "summary": "Returns all NVRs",
         "responses": {
           "200": {
             "description": "Success"
@@ -389,10 +382,10 @@
         },
         "parameters": [],
         "operationId": "EdgeCommanderWeb.NvrsController.get_all_nvrs",
-        "description": "Get ALL NVRs List"
+        "description": "Returns NVRs list"
       }
     },
-    "/v1/create_chartjs_line_data": {
+    "/v1/chartjs/data": {
       "get": {
         "tags": [
           "Sims"
@@ -409,11 +402,11 @@
             "required": true,
             "name": "sim_number",
             "in": "query",
-            "description": "SIM Number"
+            "description": "Sim Number (08xxxxxxxx)"
           }
         ],
         "operationId": "EdgeCommanderWeb.SimsController.create_chartjs_line_data",
-        "description": "Get Single SIM Data Usage In %"
+        "description": "Returns data usage in % for single sim"
       }
     }
   },
@@ -421,6 +414,6 @@
     "version": "1.0",
     "title": "Edge Commander"
   },
-  "host": "app.edgecommander.com",
+  "host": "localhost:4000",
   "definitions": {}
 }
