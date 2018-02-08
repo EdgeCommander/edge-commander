@@ -423,7 +423,7 @@ updateNVRdo = function(){
       success: onEditSuccess,
       contentType: "application/x-www-form-urlencoded",
       type: "PATCH",
-      url: "/v1/nvrs/update"
+      url: "/v1/nvrs/" + nvrID
     };
 
     sendAJAXRequest(settings);

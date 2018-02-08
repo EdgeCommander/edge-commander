@@ -43,6 +43,24 @@ defmodule EdgeCommanderWeb.NvrsController do
     response 201, "Success"
   end
 
+  swagger_path :update do
+    patch "/v1/nvrs/{nvr_id}"
+    summary "Update NVR by ID"
+    parameters do
+      nvr_id :path, :string, "ID of NVR that needs to be updated", required: true
+      name :query, :string, "Updated name of the NVR"
+      username :query, :string, "Updated Username of the NVR"
+      password :query, :string, "Updated Password of the NVR"
+      ip :query, :string, "Updated IP of the NVR"
+      port :query, :integer, "Updated HTTP Port of the NVR"
+      vh_port :query, :integer, "Updated VH Port of the NVR"
+      rtsp_port :query, :integer, "Updated RTSP Port of the NVR"
+      sdk_port :query, :integer, "Updated SDK Port of the NVR"
+      is_monitoring :query, :boolean, "Is monitoring"
+    end
+    response 201, "Success"
+  end
+
   def create(conn, params) do
     changeset = Nvr.changeset(%Nvr{}, params)
     case Repo.insert(changeset) do
@@ -145,7 +163,7 @@ defmodule EdgeCommanderWeb.NvrsController do
     end
   end
 
-  def update(conn, %{"id" => id} = params) do
+  def update(conn, %{"nvr_id" => id} = params) do
     get_nvr!(id)
     |> Nvr.changeset(params)
     |> Repo.update
@@ -156,7 +174,10 @@ defmodule EdgeCommanderWeb.NvrsController do
           username: username,
           password: password,
           ip: ip,
-          port: port,
+          port: http_port,
+          vh_port: vh_port,
+          rtsp_port: rtsp_port,
+          sdk_port: sdk_port,
           is_monitoring: is_monitoring,
           inserted_at: inserted_at
         } = nvr
@@ -168,7 +189,10 @@ defmodule EdgeCommanderWeb.NvrsController do
           "username" => username,
           "password" => password,
           "ip" => ip,
-          "port" => port,
+          "http_port" => http_port,
+          "vh_port" => vh_port,
+          "rtsp_port" => rtsp_port,
+          "sdk_port" => sdk_port,
           "is_monitoring" => is_monitoring,
           "created_at" => inserted_at
         })

@@ -109,7 +109,7 @@
         "tags": [
           "Routers"
         ],
-        "summary": "Updates a router bi ID",
+        "summary": "Updates a router by ID",
         "responses": {
           "201": {
             "description": "Success"
@@ -267,6 +267,91 @@
       }
     },
     "/v1/nvrs/{nvr_id}": {
+      "patch": {
+        "tags": [
+          "Nvrs"
+        ],
+        "summary": "Update NVR by ID",
+        "responses": {
+          "201": {
+            "description": "Success"
+          }
+        },
+        "parameters": [
+          {
+            "type": "string",
+            "required": true,
+            "name": "nvr_id",
+            "in": "path",
+            "description": "ID of NVR that needs to be updated"
+          },
+          {
+            "type": "string",
+            "required": false,
+            "name": "name",
+            "in": "query",
+            "description": "Updated name of the NVR"
+          },
+          {
+            "type": "string",
+            "required": false,
+            "name": "username",
+            "in": "query",
+            "description": "Updated Username of the NVR"
+          },
+          {
+            "type": "string",
+            "required": false,
+            "name": "password",
+            "in": "query",
+            "description": "Updated Password of the NVR"
+          },
+          {
+            "type": "string",
+            "required": false,
+            "name": "ip",
+            "in": "query",
+            "description": "Updated IP of the NVR"
+          },
+          {
+            "type": "integer",
+            "required": false,
+            "name": "port",
+            "in": "query",
+            "description": "Updated HTTP Port of the NVR"
+          },
+          {
+            "type": "integer",
+            "required": false,
+            "name": "vh_port",
+            "in": "query",
+            "description": "Updated VH Port of the NVR"
+          },
+          {
+            "type": "integer",
+            "required": false,
+            "name": "rtsp_port",
+            "in": "query",
+            "description": "Updated RTSP Port of the NVR"
+          },
+          {
+            "type": "integer",
+            "required": false,
+            "name": "sdk_port",
+            "in": "query",
+            "description": "Updated SDK Port of the NVR"
+          },
+          {
+            "type": "boolean",
+            "required": false,
+            "name": "is_monitoring",
+            "in": "query",
+            "description": "Is monitoring"
+          }
+        ],
+        "operationId": "EdgeCommanderWeb.NvrsController.update",
+        "description": ""
+      },
       "delete": {
         "tags": [
           "Nvrs"

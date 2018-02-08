@@ -30,7 +30,7 @@ defmodule EdgeCommanderWeb.RoutersController do
 
   swagger_path :update do
     patch "/v1/routers/{router_id}"
-    summary "Updates a router bi ID"
+    summary "Updates a router by ID"
     parameters do
       router_id :path, :string, "ID of router that needs to be updated", required: true
       name :query, :string, "Updated name of the router"

@@ -76,7 +76,7 @@ defmodule EdgeCommanderWeb.Router do
     get "/nvrs", NvrsController, :get_all_nvrs
     post "/nvrs", NvrsController, :create
     delete "/nvrs/:nvr_id", NvrsController, :delete
-    patch "/nvrs/update", NvrsController, :update
+    patch "/nvrs/:nvr_id", NvrsController, :update
 
     patch "/update_profile", UsersController, :update_profile
 
