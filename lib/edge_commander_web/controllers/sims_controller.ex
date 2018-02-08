@@ -9,38 +9,38 @@ defmodule EdgeCommanderWeb.SimsController do
   use PhoenixSwagger
 
   swagger_path :get_sim_logs do
-    get "/v1/get_sims_data"
-    description "Get ALL SIMS logs"
-    summary "All SIMs logs list"
+    get "/v1/sim/data"
+    description "Returns data of all SIMs"
+    summary "Returns all SIMs data"
     response 200, "Success"
   end
 
   swagger_path :get_single_sim_data do
-    get "/v1/get_single_sim_data/{sim_number}"
-    description "Get Single SIM logs"
-    summary "Find SIMs logs by sim number"
+    get "/v1/sim/data/{sim_number}"
+    description "Returns list of data for single sim"
+    summary "Find data by sim number"
     parameters do
-      sim_number :path, :string, "SIM Number", required: true
+      sim_number :path, :string, "Sim Number (08xxxxxxxx)", required: true
     end
     response 200, "Success"
   end
 
   swagger_path :get_single_sim_sms do
-    get "/v1/get_single_sim_sms/{sim_number}"
-    description "Get Single SIM SMS (Last 10 SMS)"
+    get "/v1/sim/sms/{sim_number}"
+    description "Returns latest 10 sms for single sim"
     summary "Find sms by sim number"
     parameters do
-      sim_number :path, :string, "SIM Number", required: true
+      sim_number :path, :string, "Sim Number (08xxxxxxxx)", required: true
     end
     response 200, "Success"
   end
 
   swagger_path :create_chartjs_line_data do
-    get "/v1/create_chartjs_line_data"
-    description "Get Single SIM Data Usage In %"
+    get "/v1/chartjs/data"
+    description "Returns data usage in % for single sim"
     summary "Find data usage in % by sim number"
     parameters do
-      sim_number :query, :string, "SIM Number", required: true
+      sim_number :query, :string, "Sim Number (08xxxxxxxx)", required: true
     end
     response 200, "Success"
   end

@@ -5,7 +5,7 @@ var DatatableDataSites = function() {
     data: {
       type: "remote",
       speedLoad: true,
-      source: "/v1/get_all_sites",
+      source: "/v1/sites",
       pageSize: 50,
       serverPaging: false,
       serverFiltering: false,
@@ -294,10 +294,10 @@ deleteSite = function() {
       return;
     }
     ruleRow = $(this).parents('tr');
-    ruleID = $(this).attr('data-id');
+    siteID = $(this).attr('data-id');
 
     var data = {};
-    data.id = ruleID;
+    data.id = siteID;
     var settings;
 
     settings = {
@@ -309,7 +309,7 @@ deleteSite = function() {
       contentType: "application/x-www-form-urlencoded",
       context: {ruleRow: ruleRow},
       type: "DELETE",
-      url: "/v1/sites/delete"
+      url: "/v1/sites/" + siteID
     };
 
     sendAJAXRequest(settings);

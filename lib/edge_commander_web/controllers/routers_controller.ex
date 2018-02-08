@@ -8,16 +8,15 @@ defmodule EdgeCommanderWeb.RoutersController do
   use PhoenixSwagger
 
   swagger_path :get_all_routers do
-    get "/v1/get_all_routers"
-    description "Get ALL Routers List"
-    summary "Routers list"
+    get "/v1/routers"
+    description "Returns routers list"
+    summary "Returns all routers"
     response 200, "Success"
   end
 
   swagger_path :create do
-    post "/v1/routers/new"
-    description "Enter Router Details"
-    summary "Create router"
+    post "/v1/routers"
+    summary "Add a new router"
     parameters do
       name :query, :string, "Name", required: true
       username :query, :string, "Username", required: true
@@ -30,27 +29,26 @@ defmodule EdgeCommanderWeb.RoutersController do
   end
 
   swagger_path :update do
-    patch "/v1/routers/update"
-    description "Enter Router Details"
-    summary "Update router by ID"
+    patch "/v1/routers/{router_id}"
+    summary "Updates a router by ID"
     parameters do
-      id :query, :string, "Router ID", required: true
-      name :query, :string, "Updated name of the router", required: true
-      username :query, :string, "Updated username of the router", required: true
-      password :query, :string, "Updated password of the router", required: true
-      ip :query, :string, "Updated IP of the router", required: true
-      port :query, :integer, "Updated port of the router", required: true
-      is_monitoring :query, :boolean, "Is monitoring", default: false
+      router_id :path, :string, "ID of router that needs to be updated", required: true
+      name :query, :string, "Updated name of the router"
+      username :query, :string, "Updated username of the router"
+      password :query, :string, "Updated password of the router"
+      ip :query, :string, "Updated IP of the router"
+      port :query, :integer, "Updated port of the router"
+      is_monitoring :query, :boolean, "Is monitoring"
     end
     response 201, "Success"
   end
 
   swagger_path :delete do
-    delete "/v1/routers/delete"
+    delete "/v1/routers/{router_id}"
     description "Enter Router's ID"
     summary "Delete router by ID"
     parameters do
-      id :query, :string, "Router ID", required: true
+      router_id :path, :string, "Router ID", required: true
     end
     response 201, "Success"
   end
@@ -110,7 +108,7 @@ defmodule EdgeCommanderWeb.RoutersController do
     |> json(routers)
   end
 
-  def update(conn, %{"id" => id} = params) do
+  def update(conn, %{"router_id" => id} = params) do
     get_router!(id)
     |> Router.changeset(params)
     |> Repo.update
@@ -146,7 +144,7 @@ defmodule EdgeCommanderWeb.RoutersController do
     end
   end
 
-  def delete(conn, %{"id" => id} = _params) do
+  def delete(conn, %{"router_id" => id} = _params) do
     get_router!(id)
     |> Repo.delete
     |> case do

@@ -5,7 +5,7 @@ var DatatableDataCOMMAND = function() {
     data: {
       type: "remote",
       speedLoad: true,
-      source: "/v1/get_all_rules",
+      source: "/v1/rules",
       pageSize: 50,
       serverPaging: false,
       serverFiltering: false,
@@ -226,7 +226,7 @@ deleteRULE = function() {
       contentType: "application/x-www-form-urlencoded",
       context: {ruleRow: ruleRow},
       type: "DELETE",
-      url: "/v1/rules/delete"
+      url: "/v1/rules/" + ruleID
     };
 
     sendAJAXRequest(settings);
