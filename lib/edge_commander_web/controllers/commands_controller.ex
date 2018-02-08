@@ -5,6 +5,24 @@ defmodule EdgeCommanderWeb.CommandsController do
   alias EdgeCommander.Util
   import Ecto.Query, warn: false
   import EdgeCommander.Commands, only: [list_rules: 0, get_rule!: 1]
+  use PhoenixSwagger
+
+  swagger_path :get_all_rules do
+    get "/v1/rules"
+    description "Returns rules list"
+    summary "Returns all rules"
+    response 200, "Success"
+  end
+
+  swagger_path :delete do
+    delete "/v1/rules/{rule_id}"
+    description "Enter Rule ID"
+    summary "Delete Rule by ID"
+    parameters do
+      rule_id :path, :string, "Rule ID", required: true
+    end
+    response 200, "Success"
+  end
 
   def create(conn, params) do
     changeset = Rule.changeset(%Rule{}, params)
@@ -80,7 +98,7 @@ defmodule EdgeCommanderWeb.CommandsController do
     end
   end
 
-  def delete(conn, %{"id" => id} = _params) do
+  def delete(conn, %{"rule_id" => id} = _params) do
     get_rule!(id)
     |> Repo.delete
     |> case do

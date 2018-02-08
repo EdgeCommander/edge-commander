@@ -170,7 +170,7 @@ var saveModal = function() {
       success: onSuccess,
       contentType: "application/x-www-form-urlencoded",
       type: "POST",
-      url: "/v1/sites"
+      url: "/v1/sites/new"
     };
     sendAJAXRequest(settings);
   });

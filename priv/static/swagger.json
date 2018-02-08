@@ -26,91 +26,6 @@
       }
     },
     "/v1/sites": {
-      "post": {
-        "tags": [
-          "Sites"
-        ],
-        "summary": "Add a new Site",
-        "responses": {
-          "201": {
-            "description": "Success"
-          }
-        },
-        "parameters": [
-          {
-            "type": "string",
-            "required": true,
-            "name": "name",
-            "in": "query",
-            "description": "Name"
-          },
-          {
-            "type": "string",
-            "required": true,
-            "name": "map_area",
-            "in": "query",
-            "description": "Location Address"
-          },
-          {
-            "type": "string",
-            "required": true,
-            "name": "lat",
-            "in": "query",
-            "description": "lat"
-          },
-          {
-            "type": "string",
-            "required": true,
-            "name": "lng",
-            "in": "query",
-            "description": "lng"
-          },
-          {
-            "type": "string",
-            "required": true,
-            "name": "sim_number",
-            "in": "query",
-            "description": "Sim Number (08xxxxxxxx)"
-          },
-          {
-            "type": "string",
-            "required": true,
-            "name": "router_id",
-            "in": "query",
-            "description": "Router ID"
-          },
-          {
-            "type": "integer",
-            "required": true,
-            "name": "nvr_id",
-            "in": "query",
-            "description": "NVR ID"
-          },
-          {
-            "type": "integer",
-            "required": true,
-            "name": "router_id",
-            "in": "query",
-            "description": "Router ID"
-          },
-          {
-            "type": "string",
-            "required": true,
-            "name": "notes",
-            "in": "query",
-            "description": "Notes"
-          },
-          {
-            "type": "integer",
-            "required": true,
-            "name": "user_id",
-            "in": "query",
-            "description": "User ID"
-          }
-        ],
-        "operationId": "EdgeCommanderWeb.SitesController.create",
-        "description": ""
-      },
       "get": {
         "tags": [
           "Sites"
@@ -227,6 +142,46 @@
         ],
         "operationId": "EdgeCommanderWeb.SimsController.send_sms",
         "description": "Enter SMS Details"
+      }
+    },
+    "/v1/rules/{rule_id}": {
+      "delete": {
+        "tags": [
+          "Commands"
+        ],
+        "summary": "Delete Rule by ID",
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        },
+        "parameters": [
+          {
+            "type": "string",
+            "required": true,
+            "name": "rule_id",
+            "in": "path",
+            "description": "Rule ID"
+          }
+        ],
+        "operationId": "EdgeCommanderWeb.CommandsController.delete",
+        "description": "Enter Rule ID"
+      }
+    },
+    "/v1/rules": {
+      "get": {
+        "tags": [
+          "Commands"
+        ],
+        "summary": "Returns all rules",
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        },
+        "parameters": [],
+        "operationId": "EdgeCommanderWeb.CommandsController.get_all_rules",
+        "description": "Returns rules list"
       }
     },
     "/v1/routers/{router_id}": {

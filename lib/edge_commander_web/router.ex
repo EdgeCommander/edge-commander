@@ -79,14 +79,14 @@ defmodule EdgeCommanderWeb.Router do
     patch "/nvrs/:nvr_id", NvrsController, :update
 
     get "/sites", SitesController, :get_all_sites
-    post "/sites", SitesController, :create
+    post "/sites/new", SitesController, :create
     patch "/sites/update", SitesController, :update
     delete "/sites/:site_id", SitesController, :delete
 
-    get "/get_all_rules", CommandsController, :get_all_rules
+    get "/rules", CommandsController, :get_all_rules
     post "/rules/new", CommandsController, :create
     patch "/rules/update", CommandsController, :update
-    delete "/rules/delete", CommandsController, :delete
+    delete "/rules/:rule_id", CommandsController, :delete
 
     patch "/update_profile", UsersController, :update_profile
 
