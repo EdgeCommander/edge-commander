@@ -57,6 +57,9 @@ defmodule EdgeCommanderWeb.Router do
     post "/users/session", SessionController, :create
     get "/users/session", SessionController, :delete
 
+    post "/receive_sms", SimsController, :receive_sms
+    get "/delivery_receipt", SimsController, :delivery_receipt
+
   end
 
   # Other scopes may use custom stacks.
