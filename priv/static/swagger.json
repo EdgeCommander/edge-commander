@@ -1,6 +1,131 @@
 {
   "swagger": "2.0",
   "paths": {
+    "/v1/sites/{site_id}": {
+      "delete": {
+        "tags": [
+          "Sites"
+        ],
+        "summary": "Delete Site by ID",
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        },
+        "parameters": [
+          {
+            "type": "string",
+            "required": true,
+            "name": "site_id",
+            "in": "path",
+            "description": "Site ID"
+          }
+        ],
+        "operationId": "EdgeCommanderWeb.SitesController.delete",
+        "description": "Enter Site ID"
+      }
+    },
+    "/v1/sites": {
+      "post": {
+        "tags": [
+          "Sites"
+        ],
+        "summary": "Add a new Site",
+        "responses": {
+          "201": {
+            "description": "Success"
+          }
+        },
+        "parameters": [
+          {
+            "type": "string",
+            "required": true,
+            "name": "name",
+            "in": "query",
+            "description": "Name"
+          },
+          {
+            "type": "string",
+            "required": true,
+            "name": "map_area",
+            "in": "query",
+            "description": "Location Address"
+          },
+          {
+            "type": "string",
+            "required": true,
+            "name": "lat",
+            "in": "query",
+            "description": "lat"
+          },
+          {
+            "type": "string",
+            "required": true,
+            "name": "lng",
+            "in": "query",
+            "description": "lng"
+          },
+          {
+            "type": "string",
+            "required": true,
+            "name": "sim_number",
+            "in": "query",
+            "description": "Sim Number (08xxxxxxxx)"
+          },
+          {
+            "type": "string",
+            "required": true,
+            "name": "router_id",
+            "in": "query",
+            "description": "Router ID"
+          },
+          {
+            "type": "integer",
+            "required": true,
+            "name": "nvr_id",
+            "in": "query",
+            "description": "NVR ID"
+          },
+          {
+            "type": "integer",
+            "required": true,
+            "name": "router_id",
+            "in": "query",
+            "description": "Router ID"
+          },
+          {
+            "type": "string",
+            "required": true,
+            "name": "notes",
+            "in": "query",
+            "description": "Notes"
+          },
+          {
+            "type": "integer",
+            "required": true,
+            "name": "user_id",
+            "in": "query",
+            "description": "User ID"
+          }
+        ],
+        "operationId": "EdgeCommanderWeb.SitesController.create",
+        "description": ""
+      },
+      "get": {
+        "tags": [
+          "Sites"
+        ],
+        "summary": "Returns all Sites",
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        },
+        "parameters": [],
+        "operationId": "EdgeCommanderWeb.SitesController.get_all_sites",
+        "description": "Returns Sites list"
+      }
+    },
     "/v1/sim/sms/{sim_number}": {
       "get": {
         "tags": [
@@ -358,7 +483,7 @@
         ],
         "summary": "Delete NVR by ID",
         "responses": {
-          "201": {
+          "200": {
             "description": "Success"
           }
         },

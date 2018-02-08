@@ -6,6 +6,42 @@ defmodule EdgeCommanderWeb.SitesController do
   import Ecto.Query, warn: false
   import EdgeCommander.Sites, only: [list_sites: 0, get_records!: 1]
   import EdgeCommander.Devices, only: [get_router!: 1, get_nvr!: 1]
+  use PhoenixSwagger
+
+  swagger_path :get_all_sites do
+    get "/v1/sites"
+    description "Returns Sites list"
+    summary "Returns all Sites"
+    response 200, "Success"
+  end
+
+  swagger_path :create do
+    post "/v1/sites"
+    summary "Add a new Site"
+    parameters do
+      name :query, :string, "Name", required: true
+      map_area :query, :string, "Location Address", required: true
+      lat :query, :string, "lat", required: true
+      lng :query, :string, "lng", required: true
+      sim_number :query, :string, "Sim Number (08xxxxxxxx)", required: true
+      router_id :query, :string, "Router ID", required: true
+      nvr_id :query, :integer, "NVR ID", required: true
+      router_id :query, :integer, "Router ID", required: true
+      notes :query, :string, "Notes", required: true
+      user_id :query, :integer, "User ID", required: true
+    end
+    response 201, "Success"
+  end
+
+  swagger_path :delete do
+    delete "/v1/sites/{site_id}"
+    description "Enter Site ID"
+    summary "Delete Site by ID"
+    parameters do
+      site_id :path, :string, "Site ID", required: true
+    end
+    response 200, "Success"
+  end
 
   def create(conn, params) do
     changeset = Records.changeset(%Records{}, params)
@@ -111,7 +147,7 @@ defmodule EdgeCommanderWeb.SitesController do
     end
   end
 
-  def delete(conn, %{"id" => id} = _params) do
+  def delete(conn, %{"site_id" => id} = _params) do
     get_records!(id)
     |> Repo.delete
     |> case do

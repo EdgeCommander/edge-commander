@@ -40,7 +40,7 @@ defmodule EdgeCommanderWeb.NvrsController do
     parameters do
       nvr_id :path, :string, "NVR ID", required: true
     end
-    response 201, "Success"
+    response 200, "Success"
   end
 
   swagger_path :update do

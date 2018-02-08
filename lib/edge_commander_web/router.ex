@@ -78,21 +78,21 @@ defmodule EdgeCommanderWeb.Router do
     delete "/nvrs/:nvr_id", NvrsController, :delete
     patch "/nvrs/:nvr_id", NvrsController, :update
 
-    patch "/update_profile", UsersController, :update_profile
+    get "/sites", SitesController, :get_all_sites
+    post "/sites", SitesController, :create
+    patch "/sites/update", SitesController, :update
+    delete "/sites/:site_id", SitesController, :delete
 
     get "/get_all_rules", CommandsController, :get_all_rules
     post "/rules/new", CommandsController, :create
     patch "/rules/update", CommandsController, :update
     delete "/rules/delete", CommandsController, :delete
 
+    patch "/update_profile", UsersController, :update_profile
+
     post "/send_sms", SimsController, :send_sms
     post "/receive_sms", SimsController, :receive_sms
     get "/delivery_receipt", SimsController, :delivery_receipt
-
-    get "/get_all_sites", SitesController, :get_all_sites
-    post "/sites/new", SitesController, :create
-    patch "/sites/update", SitesController, :update
-    delete "/sites/delete", SitesController, :delete
 
     get "/get_all_sms/:from_date/:to_date", SmsController, :get_all_sms
 
