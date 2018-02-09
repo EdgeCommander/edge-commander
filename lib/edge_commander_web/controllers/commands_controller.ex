@@ -11,16 +11,17 @@ defmodule EdgeCommanderWeb.CommandsController do
     get "/v1/rules"
     description "Returns rules list"
     summary "Returns all rules"
+    tag "Rules"
     response 200, "Success"
   end
 
   swagger_path :delete do
     delete "/v1/rules/{rule_id}"
-    description "Enter Rule ID"
-    summary "Delete Rule by ID"
+    summary "Delete rule by ID"
     parameters do
       rule_id :path, :string, "Rule ID", required: true
     end
+    tag "Rules"
     response 200, "Success"
   end
 

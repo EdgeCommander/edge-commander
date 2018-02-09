@@ -6,7 +6,7 @@
         "tags": [
           "Sites"
         ],
-        "summary": "Delete Site by ID",
+        "summary": "Delete site by ID",
         "responses": {
           "200": {
             "description": "Success"
@@ -22,7 +22,7 @@
           }
         ],
         "operationId": "EdgeCommanderWeb.SitesController.delete",
-        "description": "Enter Site ID"
+        "description": ""
       }
     },
     "/v1/sites": {
@@ -30,7 +30,7 @@
         "tags": [
           "Sites"
         ],
-        "summary": "Returns all Sites",
+        "summary": "Returns all sites",
         "responses": {
           "200": {
             "description": "Success"
@@ -38,10 +38,10 @@
         },
         "parameters": [],
         "operationId": "EdgeCommanderWeb.SitesController.get_all_sites",
-        "description": "Returns Sites list"
+        "description": "Returns sites list"
       }
     },
-    "/v1/sim/sms/{sim_number}": {
+    "/v1/sims/sms/{sim_number}": {
       "get": {
         "tags": [
           "Sims"
@@ -58,14 +58,14 @@
             "required": true,
             "name": "sim_number",
             "in": "path",
-            "description": "Sim Number (08xxxxxxxx)"
+            "description": "Sim number (08xxxxxxxx)"
           }
         ],
         "operationId": "EdgeCommanderWeb.SimsController.get_single_sim_sms",
         "description": "Returns latest 10 sms for single sim"
       }
     },
-    "/v1/sim/data/{sim_number}": {
+    "/v1/sims/data/{sim_number}": {
       "get": {
         "tags": [
           "Sims"
@@ -82,19 +82,19 @@
             "required": true,
             "name": "sim_number",
             "in": "path",
-            "description": "Sim Number (08xxxxxxxx)"
+            "description": "Sim number (08xxxxxxxx)"
           }
         ],
         "operationId": "EdgeCommanderWeb.SimsController.get_single_sim_data",
         "description": "Returns list of data for single sim"
       }
     },
-    "/v1/sim/data": {
+    "/v1/sims/data": {
       "get": {
         "tags": [
           "Sims"
         ],
-        "summary": "Returns all SIMs data",
+        "summary": "Returns all sims data",
         "responses": {
           "200": {
             "description": "Success"
@@ -102,7 +102,7 @@
         },
         "parameters": [],
         "operationId": "EdgeCommanderWeb.SimsController.get_sim_logs",
-        "description": "Returns data of all SIMs"
+        "description": "Returns data of all sims"
       }
     },
     "/v1/send_sms": {
@@ -110,7 +110,7 @@
         "tags": [
           "Sims"
         ],
-        "summary": "Send SMS to sim",
+        "summary": "Send sms to sim",
         "responses": {
           "200": {
             "description": "Success"
@@ -122,7 +122,7 @@
             "required": true,
             "name": "to_number",
             "in": "query",
-            "description": "To Number (08xxxxxxxx)"
+            "description": "To number (08xxxxxxxx)"
           },
           {
             "type": "string",
@@ -141,15 +141,15 @@
           }
         ],
         "operationId": "EdgeCommanderWeb.SimsController.send_sms",
-        "description": "Enter SMS Details"
+        "description": "Enter sms details"
       }
     },
     "/v1/rules/{rule_id}": {
       "delete": {
         "tags": [
-          "Commands"
+          "Rules"
         ],
-        "summary": "Delete Rule by ID",
+        "summary": "Delete rule by ID",
         "responses": {
           "200": {
             "description": "Success"
@@ -165,13 +165,13 @@
           }
         ],
         "operationId": "EdgeCommanderWeb.CommandsController.delete",
-        "description": "Enter Rule ID"
+        "description": ""
       }
     },
     "/v1/rules": {
       "get": {
         "tags": [
-          "Commands"
+          "Rules"
         ],
         "summary": "Returns all rules",
         "responses": {
@@ -229,7 +229,7 @@
             "required": false,
             "name": "ip",
             "in": "query",
-            "description": "Updated IP of the router"
+            "description": "Updated ip of the router"
           },
           {
             "type": "integer",
@@ -269,7 +269,7 @@
           }
         ],
         "operationId": "EdgeCommanderWeb.RoutersController.delete",
-        "description": "Enter Router's ID"
+        "description": ""
       }
     },
     "/v1/routers": {
@@ -310,7 +310,7 @@
             "required": true,
             "name": "ip",
             "in": "query",
-            "description": "IP"
+            "description": "Ip"
           },
           {
             "type": "integer",
@@ -351,7 +351,7 @@
         "tags": [
           "Nvrs"
         ],
-        "summary": "Update NVR by ID",
+        "summary": "Update nvr by ID",
         "responses": {
           "201": {
             "description": "Success"
@@ -363,63 +363,63 @@
             "required": true,
             "name": "nvr_id",
             "in": "path",
-            "description": "ID of NVR that needs to be updated"
+            "description": "ID of nvr that needs to be updated"
           },
           {
             "type": "string",
             "required": false,
             "name": "name",
             "in": "query",
-            "description": "Updated name of the NVR"
+            "description": "Updated name of the nvr"
           },
           {
             "type": "string",
             "required": false,
             "name": "username",
             "in": "query",
-            "description": "Updated Username of the NVR"
+            "description": "Updated username of the nvr"
           },
           {
             "type": "string",
             "required": false,
             "name": "password",
             "in": "query",
-            "description": "Updated Password of the NVR"
+            "description": "Updated password of the nvr"
           },
           {
             "type": "string",
             "required": false,
             "name": "ip",
             "in": "query",
-            "description": "Updated IP of the NVR"
+            "description": "Updated ip of the nvr"
           },
           {
             "type": "integer",
             "required": false,
             "name": "port",
             "in": "query",
-            "description": "Updated HTTP Port of the NVR"
+            "description": "Updated http port of the nvr"
           },
           {
             "type": "integer",
             "required": false,
             "name": "vh_port",
             "in": "query",
-            "description": "Updated VH Port of the NVR"
+            "description": "Updated vh port of the nvr"
           },
           {
             "type": "integer",
             "required": false,
             "name": "rtsp_port",
             "in": "query",
-            "description": "Updated RTSP Port of the NVR"
+            "description": "Updated rtsp port of the nvr"
           },
           {
             "type": "integer",
             "required": false,
             "name": "sdk_port",
             "in": "query",
-            "description": "Updated SDK Port of the NVR"
+            "description": "Updated sdk port of the nvr"
           },
           {
             "type": "boolean",
@@ -436,7 +436,7 @@
         "tags": [
           "Nvrs"
         ],
-        "summary": "Delete NVR by ID",
+        "summary": "Delete nvr by ID",
         "responses": {
           "200": {
             "description": "Success"
@@ -448,11 +448,11 @@
             "required": true,
             "name": "nvr_id",
             "in": "path",
-            "description": "NVR ID"
+            "description": "Nvr ID"
           }
         ],
         "operationId": "EdgeCommanderWeb.NvrsController.delete",
-        "description": "Enter NVR's ID"
+        "description": ""
       }
     },
     "/v1/nvrs": {
@@ -460,7 +460,7 @@
         "tags": [
           "Nvrs"
         ],
-        "summary": "Add a new NVR",
+        "summary": "Add a new nvr",
         "responses": {
           "201": {
             "description": "Success"
@@ -493,35 +493,35 @@
             "required": true,
             "name": "ip",
             "in": "query",
-            "description": "IP"
+            "description": "Ip"
           },
           {
             "type": "integer",
             "required": true,
             "name": "port",
             "in": "query",
-            "description": "HTTP Port"
+            "description": "Http port"
           },
           {
             "type": "integer",
             "required": true,
             "name": "vh_port",
             "in": "query",
-            "description": "VH Port"
+            "description": "Vh port"
           },
           {
             "type": "integer",
             "required": true,
             "name": "rtsp_port",
             "in": "query",
-            "description": "RTSP Port"
+            "description": "Rtsp port"
           },
           {
             "type": "integer",
             "required": true,
             "name": "sdk_port",
             "in": "query",
-            "description": "SDK Port"
+            "description": "Sdk port"
           },
           {
             "type": "boolean",
@@ -539,7 +539,7 @@
         "tags": [
           "Nvrs"
         ],
-        "summary": "Returns all NVRs",
+        "summary": "Returns all nvrs",
         "responses": {
           "200": {
             "description": "Success"
@@ -547,7 +547,7 @@
         },
         "parameters": [],
         "operationId": "EdgeCommanderWeb.NvrsController.get_all_nvrs",
-        "description": "Returns NVRs list"
+        "description": "Returns nvrs list"
       }
     },
     "/v1/chartjs/data": {
@@ -567,7 +567,7 @@
             "required": true,
             "name": "sim_number",
             "in": "query",
-            "description": "Sim Number (08xxxxxxxx)"
+            "description": "Sim number (08xxxxxxxx)"
           }
         ],
         "operationId": "EdgeCommanderWeb.SimsController.create_chartjs_line_data",
@@ -579,6 +579,6 @@
     "version": "1.0",
     "title": "Edge Commander"
   },
-  "host": "app.edgecommander.com",
+  "host": "localhost:4000",
   "definitions": {}
 }

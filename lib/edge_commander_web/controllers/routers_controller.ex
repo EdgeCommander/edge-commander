@@ -21,7 +21,7 @@ defmodule EdgeCommanderWeb.RoutersController do
       name :query, :string, "Name", required: true
       username :query, :string, "Username", required: true
       password :query, :string, "Password", required: true
-      ip :query, :string, "IP", required: true
+      ip :query, :string, "Ip", required: true
       port :query, :integer, "Port", required: true
       is_monitoring :query, :boolean, "Is monitoring", default: false
     end
@@ -36,7 +36,7 @@ defmodule EdgeCommanderWeb.RoutersController do
       name :query, :string, "Updated name of the router"
       username :query, :string, "Updated username of the router"
       password :query, :string, "Updated password of the router"
-      ip :query, :string, "Updated IP of the router"
+      ip :query, :string, "Updated ip of the router"
       port :query, :integer, "Updated port of the router"
       is_monitoring :query, :boolean, "Is monitoring"
     end
@@ -45,7 +45,6 @@ defmodule EdgeCommanderWeb.RoutersController do
 
   swagger_path :delete do
     delete "/v1/routers/{router_id}"
-    description "Enter Router's ID"
     summary "Delete router by ID"
     parameters do
       router_id :path, :string, "Router ID", required: true

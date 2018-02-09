@@ -4,7 +4,7 @@ var DatatableDataLocalDemo = function() {
             a = $(".m_datatable").mDatatable({
                 data: {
                   type: "remote",
-                  source: "/v1/sim/data",
+                  source: "/v1/sims/data",
                   pageSize: 50,
                   serverPaging: false,
                   serverFiltering: false,

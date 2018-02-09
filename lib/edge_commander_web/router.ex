@@ -22,7 +22,7 @@ defmodule EdgeCommanderWeb.Router do
         version: "1.0",
         title: "Edge Commander"
       },
-      host: "app.edgecommander.com"
+      host: "localhost:4000"
     }
   end
 
@@ -66,10 +66,10 @@ defmodule EdgeCommanderWeb.Router do
   scope "/v1", EdgeCommanderWeb do
     pipe_through :api
 
-    get "/sim/data", SimsController, :get_sim_logs
-    get "/sim/data/:sim_number", SimsController, :get_single_sim_data
+    get "/sims/data", SimsController, :get_sim_logs
+    get "/sims/data/:sim_number", SimsController, :get_single_sim_data
     get "/chartjs/data", SimsController, :create_chartjs_line_data
-    get "/sim/sms/:sim_number", SimsController, :get_single_sim_sms
+    get "/sims/sms/:sim_number", SimsController, :get_single_sim_sms
 
     get "/routers", RoutersController, :get_all_routers
     post "/routers", RoutersController, :create

@@ -10,15 +10,14 @@ defmodule EdgeCommanderWeb.SitesController do
 
   swagger_path :get_all_sites do
     get "/v1/sites"
-    description "Returns Sites list"
-    summary "Returns all Sites"
+    description "Returns sites list"
+    summary "Returns all sites"
     response 200, "Success"
   end
 
   swagger_path :delete do
     delete "/v1/sites/{site_id}"
-    description "Enter Site ID"
-    summary "Delete Site by ID"
+    summary "Delete site by ID"
     parameters do
       site_id :path, :string, "Site ID", required: true
     end

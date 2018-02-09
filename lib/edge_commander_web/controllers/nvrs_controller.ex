@@ -11,23 +11,23 @@ defmodule EdgeCommanderWeb.NvrsController do
 
   swagger_path :get_all_nvrs do
     get "/v1/nvrs"
-    description "Returns NVRs list"
-    summary "Returns all NVRs"
+    description "Returns nvrs list"
+    summary "Returns all nvrs"
     response 200, "Success"
   end
 
   swagger_path :create do
     post "/v1/nvrs"
-    summary "Add a new NVR"
+    summary "Add a new nvr"
     parameters do
       name :query, :string, "Name", required: true
       username :query, :string, "Username", required: true
       password :query, :string, "Password", required: true
-      ip :query, :string, "IP", required: true
-      port :query, :integer, "HTTP Port", required: true
-      vh_port :query, :integer, "VH Port", required: true
-      rtsp_port :query, :integer, "RTSP Port", required: true
-      sdk_port :query, :integer, "SDK Port", required: true
+      ip :query, :string, "Ip", required: true
+      port :query, :integer, "Http port", required: true
+      vh_port :query, :integer, "Vh port", required: true
+      rtsp_port :query, :integer, "Rtsp port", required: true
+      sdk_port :query, :integer, "Sdk port", required: true
       is_monitoring :query, :boolean, "Is monitoring", default: false
     end
     response 201, "Success"
@@ -35,27 +35,26 @@ defmodule EdgeCommanderWeb.NvrsController do
 
   swagger_path :delete do
     delete "/v1/nvrs/{nvr_id}"
-    description "Enter NVR's ID"
-    summary "Delete NVR by ID"
+    summary "Delete nvr by ID"
     parameters do
-      nvr_id :path, :string, "NVR ID", required: true
+      nvr_id :path, :string, "Nvr ID", required: true
     end
     response 200, "Success"
   end
 
   swagger_path :update do
     patch "/v1/nvrs/{nvr_id}"
-    summary "Update NVR by ID"
+    summary "Update nvr by ID"
     parameters do
-      nvr_id :path, :string, "ID of NVR that needs to be updated", required: true
-      name :query, :string, "Updated name of the NVR"
-      username :query, :string, "Updated Username of the NVR"
-      password :query, :string, "Updated Password of the NVR"
-      ip :query, :string, "Updated IP of the NVR"
-      port :query, :integer, "Updated HTTP Port of the NVR"
-      vh_port :query, :integer, "Updated VH Port of the NVR"
-      rtsp_port :query, :integer, "Updated RTSP Port of the NVR"
-      sdk_port :query, :integer, "Updated SDK Port of the NVR"
+      nvr_id :path, :string, "ID of nvr that needs to be updated", required: true
+      name :query, :string, "Updated name of the nvr"
+      username :query, :string, "Updated username of the nvr"
+      password :query, :string, "Updated password of the nvr"
+      ip :query, :string, "Updated ip of the nvr"
+      port :query, :integer, "Updated http port of the nvr"
+      vh_port :query, :integer, "Updated vh port of the nvr"
+      rtsp_port :query, :integer, "Updated rtsp port of the nvr"
+      sdk_port :query, :integer, "Updated sdk port of the nvr"
       is_monitoring :query, :boolean, "Is monitoring"
     end
     response 201, "Success"

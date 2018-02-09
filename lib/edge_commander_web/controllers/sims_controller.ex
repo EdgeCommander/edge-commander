@@ -9,28 +9,28 @@ defmodule EdgeCommanderWeb.SimsController do
   use PhoenixSwagger
 
   swagger_path :get_sim_logs do
-    get "/v1/sim/data"
-    description "Returns data of all SIMs"
-    summary "Returns all SIMs data"
+    get "/v1/sims/data"
+    description "Returns data of all sims"
+    summary "Returns all sims data"
     response 200, "Success"
   end
 
   swagger_path :get_single_sim_data do
-    get "/v1/sim/data/{sim_number}"
+    get "/v1/sims/data/{sim_number}"
     description "Returns list of data for single sim"
     summary "Find data by sim number"
     parameters do
-      sim_number :path, :string, "Sim Number (08xxxxxxxx)", required: true
+      sim_number :path, :string, "Sim number (08xxxxxxxx)", required: true
     end
     response 200, "Success"
   end
 
   swagger_path :get_single_sim_sms do
-    get "/v1/sim/sms/{sim_number}"
+    get "/v1/sims/sms/{sim_number}"
     description "Returns latest 10 sms for single sim"
     summary "Find sms by sim number"
     parameters do
-      sim_number :path, :string, "Sim Number (08xxxxxxxx)", required: true
+      sim_number :path, :string, "Sim number (08xxxxxxxx)", required: true
     end
     response 200, "Success"
   end
@@ -40,17 +40,17 @@ defmodule EdgeCommanderWeb.SimsController do
     description "Returns data usage in % for single sim"
     summary "Find data usage in % by sim number"
     parameters do
-      sim_number :query, :string, "Sim Number (08xxxxxxxx)", required: true
+      sim_number :query, :string, "Sim number (08xxxxxxxx)", required: true
     end
     response 200, "Success"
   end
 
   swagger_path :send_sms do
     post "/v1/send_sms"
-    description "Enter SMS Details"
-    summary "Send SMS to sim"
+    description "Enter sms details"
+    summary "Send sms to sim"
     parameters do
-      to_number :query, :string, "To Number (08xxxxxxxx)", required: true
+      to_number :query, :string, "To number (08xxxxxxxx)", required: true
       sms_message :query, :string, "Message", required: true
       user_id :query, :integer, "User ID", default: 1
     end

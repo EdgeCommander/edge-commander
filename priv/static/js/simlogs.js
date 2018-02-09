@@ -3,7 +3,7 @@ initializeSimLogsTable = function() {
   // $('#sim_logs').DataTable();
   $('#sim_logs').DataTable({
     ajax: {
-      url: "/v1/sim/data",
+      url: "/v1/sims/data",
       dataSrc: function(data) {
         console.log(data);
         return data.logs;
