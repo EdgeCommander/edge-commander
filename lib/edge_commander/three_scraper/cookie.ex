@@ -23,7 +23,7 @@ defmodule ThreeScraper.Cookie do
 
 
   def init(_args) do
-    {:ok, get_cookies(0)}
+    {:ok, email_alert(0)}
   end
 
   def handle_call(:get, _from, cookies) do
@@ -31,7 +31,7 @@ defmodule ThreeScraper.Cookie do
   end
 
   def handle_call(:update, _from, _old_cookies) do
-    cookies = get_cookies(0)
+    cookies = get_cookies()
     {:reply, cookies, cookies}
   end
 
@@ -39,7 +39,18 @@ defmodule ThreeScraper.Cookie do
     {:reply, :ok, cookie}
   end
 
-  def get_cookies(counter) do
+  def get_cookies() do
+    headers = get_headers_retry()
+    cookies = :hackney.cookies(headers)
+    case :proplists.get_value("ObSSOCookie", cookies) do
+      [cookie | _cookie_opts] -> cookie
+      :undefined ->
+        Logger.error("can't get cookie")
+        get_cookies()
+    end
+  end
+
+   def email_alert(counter) do
     headers = get_headers_retry()
     cookies = :hackney.cookies(headers)
     case :proplists.get_value("ObSSOCookie", cookies) do
@@ -51,7 +62,7 @@ defmodule ThreeScraper.Cookie do
           Logger.info("email has been sent")
           EdgeCommander.EcMailer.three_web_failure()
          end
-        get_cookies(counter)
+        email_alert(counter)
     end
   end
 
