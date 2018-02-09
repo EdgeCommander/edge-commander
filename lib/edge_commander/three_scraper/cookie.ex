@@ -49,7 +49,7 @@ defmodule ThreeScraper.Cookie do
         counter = counter + 1
          if counter == 10 do
           Logger.info("email has been sent")
-          EdgeCommander.EcMailer.three_web_failure()
+          # EdgeCommander.EcMailer.three_web_failure()
          end
         get_cookies(counter)
     end
