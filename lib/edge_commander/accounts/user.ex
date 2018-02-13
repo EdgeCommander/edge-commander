@@ -11,6 +11,8 @@ defmodule EdgeCommander.Accounts.User do
     field :email, :string
     field :username, :string
     field :password, :string
+    field :api_key, :string
+    field :api_id, :string
     field :password_confirmation, :string, virtual: true
     field :last_signed_in, :utc_datetime
 
@@ -42,14 +44,14 @@ defmodule EdgeCommander.Accounts.User do
   @doc false
   def changeset(%User{} = user, attrs) do
     user
-    |> cast(attrs, [:firstname, :lastname, :username, :password, :email])
+    |> cast(attrs, [:firstname, :lastname, :username, :password, :email, :api_id, :api_key])
     |> validate_required(:firstname, [message: "Firstname cannot be empty."])
     |> validate_required(:lastname, [message: "Lastname cannot be empty."])
     |> validate_required(:password, [message: "Password cannot be empty."])
     |> validate_required(:email, [message: "Email cannot be empty."])
     |> validate_required(:username)
-    |> unique_constraint(:username, [message: "Username has already been taken."])
-    |> unique_constraint(:email, [message: "Email has already been taken."])
+    |> unique_constraint(:username, [name: :user_username_unique_index, message: "Username has already been taken."])
+    |> unique_constraint(:email, [name: :user_email_unique_index, message: "Email has already been taken."])
     |> validate_confirmation(:password, [message: "Passwords do not match"])
     |> encrypt_password
     |> update_last_signed_in

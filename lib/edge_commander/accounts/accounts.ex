@@ -16,6 +16,22 @@ defmodule EdgeCommander.Accounts do
     end
   end
 
+  def by_api_keys(api_id, api_key) do
+    User
+    |> where(api_id: ^api_id)
+    |> where(api_key: ^api_key)
+    |> Repo.one
+  end
+
+  def get_by_api_keys("", ""), do: nil
+  def get_by_api_keys(nil, _api_key), do: nil
+  def get_by_api_keys(_api_id, nil), do: nil
+  def get_by_api_keys(api_id, api_key) do
+    ConCache.dirty_get_or_store(:users, "#{api_id}_#{api_key}", fn() ->
+      by_api_keys(api_id, api_key)
+    end)
+  end
+
   defp authenticate(user, password) do
     case user do
       nil -> false

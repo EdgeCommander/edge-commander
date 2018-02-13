@@ -9,50 +9,60 @@ defmodule EdgeCommanderWeb.SimsController do
   use PhoenixSwagger
 
   swagger_path :get_sim_logs do
-    get "/v1/sim/data"
-    description "Returns data of all SIMs"
-    summary "Returns all SIMs data"
+    get "/v1/sims"
+    summary "Returns all sims data"
+    parameters do
+      api_key :query, :string, "", required: true
+      api_id :query, :string, "", required: true
+    end
     response 200, "Success"
   end
 
   swagger_path :get_single_sim_data do
-    get "/v1/sim/data/{sim_number}"
+    get "/v1/sims/{sim_number}"
     description "Returns list of data for single sim"
     summary "Find data by sim number"
     parameters do
-      sim_number :path, :string, "Sim Number (08xxxxxxxx)", required: true
+      sim_number :path, :string, "Sim number in given format (08xxxxxxxx)", required: true
+      api_key :query, :string, "", required: true
+      api_id :query, :string, "", required: true
     end
     response 200, "Success"
   end
 
   swagger_path :get_single_sim_sms do
-    get "/v1/sim/sms/{sim_number}"
+    get "/v1/sims/{sim_number}/sms"
     description "Returns latest 10 sms for single sim"
     summary "Find sms by sim number"
     parameters do
-      sim_number :path, :string, "Sim Number (08xxxxxxxx)", required: true
+      sim_number :path, :string, "Sim number in given format (08xxxxxxxx)", required: true
+      api_key :query, :string, "", required: true
+      api_id :query, :string, "", required: true
     end
     response 200, "Success"
   end
 
   swagger_path :create_chartjs_line_data do
-    get "/v1/chartjs/data"
+    get "/v1/sims/{sim_number}/usage"
     description "Returns data usage in % for single sim"
     summary "Find data usage in % by sim number"
     parameters do
-      sim_number :query, :string, "Sim Number (08xxxxxxxx)", required: true
+      sim_number :path, :string, "Sim number in given format (08xxxxxxxx)", required: true
+      api_key :query, :string, "", required: true
+      api_id :query, :string, "", required: true
     end
     response 200, "Success"
   end
 
   swagger_path :send_sms do
-    post "/v1/send_sms"
-    description "Enter SMS Details"
-    summary "Send SMS to sim"
+    post "/v1/sims/{sim_number}/sms"
+    description "Enter sms details"
+    summary "Send sms to sim"
     parameters do
-      to_number :query, :string, "To Number (08xxxxxxxx)", required: true
-      sms_message :query, :string, "Message", required: true
-      user_id :query, :integer, "User ID", default: 1
+      sim_number :path, :string, "Sim number in given format (08xxxxxxxx)", required: true
+      sms_message :query, :string, "", required: true
+      api_key :query, :string, "", required: true
+      api_id :query, :string, "", required: true
     end
     response 200, "Success"
   end
@@ -127,7 +137,11 @@ defmodule EdgeCommanderWeb.SimsController do
     })
   end
 
-  def send_sms(conn,  %{"sms_message" => sms_message, "to_number" => to_number, "user_id" => user_id} = _params) do
+  def send_sms(conn, params) do
+    sms_message = params["sms_message"]
+    to_number = params["sim_number"]
+    user_id = params["user_id"]
+    current_user = ensure_user_id(conn, user_id)
     url = "https://rest.nexmo.com/sms/json"
     body = Poison.encode!(%{
       "api_key": System.get_env("NEXMO_API_KEY"),
@@ -149,7 +163,7 @@ defmodule EdgeCommanderWeb.SimsController do
           |> List.first
 
         status_code = results |> Map.get("status")
-        status_code |> save_send_sms(results, sms_message, user_id)
+        status_code |> save_send_sms(results, sms_message, current_user)
 
         error_text = results |> Map.get("error-text")
         conn
@@ -224,6 +238,9 @@ defmodule EdgeCommanderWeb.SimsController do
     |> put_status(200)
     |> json(single_sim_sms)
   end
+
+  defp ensure_user_id(conn, nil), do: conn.assigns[:current_user] |> Map.get(:id)
+  defp ensure_user_id(_conn, user_id), do: user_id
 
   defp ensure_message(nil, _params), do: Logger.info "Message didn't send from EC."
   defp ensure_message(message_id, params) do

@@ -11,16 +11,23 @@ defmodule EdgeCommanderWeb.CommandsController do
     get "/v1/rules"
     description "Returns rules list"
     summary "Returns all rules"
+    parameters do
+      api_key :query, :string, "", required: true
+      api_id :query, :string, "", required: true
+    end
+    tag "Rules"
     response 200, "Success"
   end
 
   swagger_path :delete do
-    delete "/v1/rules/{rule_id}"
-    description "Enter Rule ID"
-    summary "Delete Rule by ID"
+    delete "/v1/rules/{id}"
+    summary "Delete rule by ID"
     parameters do
-      rule_id :path, :string, "Rule ID", required: true
+      id :path, :string, "Rule id to delete Rule", required: true
+      api_key :query, :string, "", required: true
+      api_id :query, :string, "", required: true
     end
+    tag "Rules"
     response 200, "Success"
   end
 
@@ -98,7 +105,7 @@ defmodule EdgeCommanderWeb.CommandsController do
     end
   end
 
-  def delete(conn, %{"rule_id" => id} = _params) do
+  def delete(conn, %{"id" => id} = _params) do
     get_rule!(id)
     |> Repo.delete
     |> case do

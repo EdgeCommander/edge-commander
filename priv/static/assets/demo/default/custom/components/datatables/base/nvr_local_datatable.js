@@ -4,7 +4,7 @@ var DatatableDataNVR = function() {
   nvrDataTable = $(".m_nvr_datatable").mDatatable({
     data: {
       type: "remote",
-      source: "/v1/nvrs",
+      source: "/nvrs",
       pageSize: 50,
       serverPaging: false,
       serverFiltering: false,
@@ -238,7 +238,7 @@ var saveModal = function() {
       success: onSuccess,
       contentType: "application/x-www-form-urlencoded",
       type: "POST",
-      url: "/v1/nvrs"
+      url: "/nvrs"
     };
 
     sendAJAXRequest(settings);
@@ -315,7 +315,7 @@ deleteNVR = function() {
       contentType: "application/x-www-form-urlencoded",
       context: {nvrRow: nvrRow},
       type: "DELETE",
-      url: "/v1/nvrs/" + nvrID
+      url: "/nvrs/" + nvrID
     };
 
     sendAJAXRequest(settings);
@@ -412,7 +412,7 @@ updateNVRdo = function(){
       success: onEditSuccess,
       contentType: "application/x-www-form-urlencoded",
       type: "PATCH",
-      url: "/v1/nvrs/" + nvrID
+      url: "/nvrs/" + nvrID
     };
 
     sendAJAXRequest(settings);

@@ -72,7 +72,10 @@ defmodule EdgeCommanderWeb.UsersController do
   end
 
   defp changeset_is_fine(params) do
-    case changeset = User.changeset(%User{}, params) do
+    api_id = UUID.uuid4(:hex) |> String.slice(0..7)
+    api_key = UUID.uuid4(:hex)
+    updated_params = Map.merge(params, %{"api_key" => api_key, "api_id" => api_id})
+    case changeset = User.changeset(%User{}, updated_params) do
       %Ecto.Changeset{valid?: true} ->
         {:ok, changeset}
       %Ecto.Changeset{valid?: false} ->
