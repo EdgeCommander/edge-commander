@@ -11,7 +11,7 @@ var DatatableDataSms = function() {
     data: {
       type: "remote",
       speedLoad: true,
-      source: "/v1/get_all_sms/" + from_date + "/" + to_date,
+      source: "/get_all_sms/" + from_date + "/" + to_date,
       pageSize: 50,
       serverPaging: false,
       serverFiltering: false,
@@ -150,7 +150,7 @@ function sendSMS() {
 
     var data = {};
     data.sms_message = sms_message;
-    data.to_number = to_number;
+    data.sim_number = to_number;
     data.user_id = user_id;
 
     var settings;
@@ -163,7 +163,7 @@ function sendSMS() {
       success: onSMSSuccess,
       contentType: "application/x-www-form-urlencoded",
       type: "POST",
-      url: "/v1/send_sms"
+      url: "/send_sms"
     };
     sendAJAXRequest(settings);
   });
@@ -258,7 +258,7 @@ var DateFilterInitialize = function() {
     var from_date = $("#m_sms_datepicker_from").val(),
         to_date = $("#m_sms_datepicker_to").val();
     var loadSMS = smsDataTable;
-    loadSMS.data().options.data.source = "/v1/get_all_sms/" + from_date + "/" + to_date;
+    loadSMS.data().options.data.source = "/get_all_sms/" + from_date + "/" + to_date;
     loadSMS.load();
     mApp.block(".sms_messages_datatable", {
       overlayColor: "#000000",

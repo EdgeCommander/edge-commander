@@ -12,6 +12,10 @@ defmodule EdgeCommanderWeb.Router do
     plug :protect_from_forgery
   end
 
+  pipeline :auth do
+    plug EdgeCommanderWeb.AuthenticationPlug
+  end
+
   pipeline :api do
     plug :accepts, ["json"]
   end
@@ -22,7 +26,12 @@ defmodule EdgeCommanderWeb.Router do
         version: "1.0",
         title: "Edge Commander"
       },
-      host: "localhost:4000"
+      host: "app.edgecommander.com",
+      security: [
+        %{
+          basic_auth: []
+        }
+      ]
     }
   end
 
@@ -37,14 +46,39 @@ defmodule EdgeCommanderWeb.Router do
     pipe_through :browser # Use the default browser stack
 
     get "/", RooterController, :sim_logs
-    get "/nvrs", RooterController, :nvrs
-    get "/routers", RooterController, :routers
+    get "/nvrs_list", RooterController, :nvrs
+    get "/routers_list", RooterController, :routers
     get "/commands", RooterController, :commands
     get "/sims/:sim_number", RooterController, :sim_graph_and_details
     get "/my_profile", RooterController, :my_profile
-    get "/sites", RooterController, :sites
+    get "/sites_list", RooterController, :sites
     get "/sms_messages", RooterController, :sms_messages
     get "/status_report", RooterController, :status_report
+
+    get "/sims", SimsController, :get_sim_logs
+    get "/sims/data/:sim_number", SimsController, :get_single_sim_data
+    get "/chartjs/data/:sim_number", SimsController, :create_chartjs_line_data
+    get "/sims/sms/:sim_number", SimsController, :get_single_sim_sms
+
+    get "/routers", RoutersController, :get_all_routers
+    post "/routers", RoutersController, :create
+    patch "/routers/:id", RoutersController, :update
+    delete "/routers/:id", RoutersController, :delete
+
+    get "/nvrs", NvrsController, :get_all_nvrs
+    post "/nvrs", NvrsController, :create
+    delete "/nvrs/:id", NvrsController, :delete
+    patch "/nvrs/:id", NvrsController, :update
+
+    get "/rules", CommandsController, :get_all_rules
+    post "/rules/new", CommandsController, :create
+    patch "/rules/update", CommandsController, :update
+    delete "/rules/:id", CommandsController, :delete
+
+    get "/sites", SitesController, :get_all_sites
+    post "/sites/new", SitesController, :create
+    patch "/sites/update", SitesController, :update
+    delete "/sites/:id", SitesController, :delete
 
     get "/update_status_report", NvrsController, :update_status_report
 
@@ -57,47 +91,51 @@ defmodule EdgeCommanderWeb.Router do
     post "/users/session", SessionController, :create
     get "/users/session", SessionController, :delete
 
+    post "/send_sms", SimsController, :send_sms
     post "/receive_sms", SimsController, :receive_sms
     get "/delivery_receipt", SimsController, :delivery_receipt
-
+    get "/get_all_sms/:from_date/:to_date", SmsController, :get_all_sms
   end
 
   # Other scopes may use custom stacks.
   scope "/v1", EdgeCommanderWeb do
     pipe_through :api
 
-    get "/sims/data", SimsController, :get_sim_logs
-    get "/sims/data/:sim_number", SimsController, :get_single_sim_data
-    get "/chartjs/data", SimsController, :create_chartjs_line_data
-    get "/sims/sms/:sim_number", SimsController, :get_single_sim_sms
+    scope "/" do
+      pipe_through :auth
 
-    get "/routers", RoutersController, :get_all_routers
-    post "/routers", RoutersController, :create
-    patch "/routers/:router_id", RoutersController, :update
-    delete "/routers/:router_id", RoutersController, :delete
+      get "/sims", SimsController, :get_sim_logs
+      get "/sims/:sim_number/usage", SimsController, :create_chartjs_line_data
+      get "/sims/:sim_number", SimsController, :get_single_sim_data
+      get "/sims/:sim_number/sms", SimsController, :get_single_sim_sms
 
-    get "/nvrs", NvrsController, :get_all_nvrs
-    post "/nvrs", NvrsController, :create
-    delete "/nvrs/:nvr_id", NvrsController, :delete
-    patch "/nvrs/:nvr_id", NvrsController, :update
+      get "/routers", RoutersController, :get_all_routers
+      post "/routers", RoutersController, :create
+      patch "/routers/:id", RoutersController, :update
+      delete "/routers/:id", RoutersController, :delete
 
-    get "/sites", SitesController, :get_all_sites
-    post "/sites/new", SitesController, :create
-    patch "/sites/update", SitesController, :update
-    delete "/sites/:site_id", SitesController, :delete
+      get "/nvrs", NvrsController, :get_all_nvrs
+      post "/nvrs", NvrsController, :create
+      delete "/nvrs/:id", NvrsController, :delete
+      patch "/nvrs/:id", NvrsController, :update
 
-    get "/rules", CommandsController, :get_all_rules
-    post "/rules/new", CommandsController, :create
-    patch "/rules/update", CommandsController, :update
-    delete "/rules/:rule_id", CommandsController, :delete
+      get "/rules", CommandsController, :get_all_rules
+      post "/rules/new", CommandsController, :create
+      patch "/rules/update", CommandsController, :update
+      delete "/rules/:id", CommandsController, :delete
 
-    patch "/update_profile", UsersController, :update_profile
+      get "/sites", SitesController, :get_all_sites
+      post "/sites/new", SitesController, :create
+      patch "/sites/update", SitesController, :update
+      delete "/sites/:id", SitesController, :delete
 
-    post "/send_sms", SimsController, :send_sms
-    post "/receive_sms", SimsController, :receive_sms
-    get "/delivery_receipt", SimsController, :delivery_receipt
+      patch "/update_profile", UsersController, :update_profile
 
-    get "/get_all_sms/:from_date/:to_date", SmsController, :get_all_sms
+      post "/sims/:sim_number/sms", SimsController, :send_sms
+      post "/receive_sms", SimsController, :receive_sms
+      get "/delivery_receipt", SimsController, :delivery_receipt
 
+      get "/get_all_sms/:from_date/:to_date", SmsController, :get_all_sms
+    end
   end
 end

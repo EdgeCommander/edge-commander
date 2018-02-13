@@ -12,14 +12,20 @@ defmodule EdgeCommanderWeb.SitesController do
     get "/v1/sites"
     description "Returns sites list"
     summary "Returns all sites"
+    parameters do
+      api_key :query, :string, "", required: true
+      api_id :query, :string, "", required: true
+    end
     response 200, "Success"
   end
 
   swagger_path :delete do
-    delete "/v1/sites/{site_id}"
+    delete "/v1/sites/{id}"
     summary "Delete site by ID"
     parameters do
-      site_id :path, :string, "Site ID", required: true
+      id :path, :string, "Site id to delete", required: true
+      api_key :query, :string, "", required: true
+      api_id :query, :string, "", required: true
     end
     response 200, "Success"
   end
@@ -128,7 +134,7 @@ defmodule EdgeCommanderWeb.SitesController do
     end
   end
 
-  def delete(conn, %{"site_id" => id} = _params) do
+  def delete(conn, %{"id" => id} = _params) do
     get_records!(id)
     |> Repo.delete
     |> case do

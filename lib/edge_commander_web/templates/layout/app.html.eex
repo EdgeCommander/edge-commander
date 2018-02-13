@@ -28,7 +28,7 @@
 
     <!--begin::Base Scripts -->
     <script src="<%= static_path(@conn, "/js/jquery.min.js") %>"></script>
-    <%= if @conn.request_path == "/" or @conn.request_path == "/nvrs" or @conn.request_path == "/status_report" or @conn.request_path == "/routers" or @conn.request_path == "/commands" or @conn.request_path == "/my_profile" or @conn.request_path == "/sites"  or @conn.request_path == "/sms_messages" or String.starts_with?(@conn.request_path, "/sims/") do %>
+    <%= if @conn.request_path == "/" or @conn.request_path == "/nvrs_list" or @conn.request_path == "/status_report" or @conn.request_path == "/routers_list" or @conn.request_path == "/commands" or @conn.request_path == "/my_profile" or @conn.request_path == "/sites_list"  or @conn.request_path == "/sms_messages" or String.starts_with?(@conn.request_path, "/sims/") do %>
 
         <script src="<%= static_path(@conn, "/assets/vendors/base/vendors.bundle.js") %>" type="text/javascript"></script>
         <script src="<%= static_path(@conn, "/assets/demo/default/base/scripts.bundle.js") %>" type="text/javascript"></script>
@@ -51,7 +51,7 @@
       </script>
     <% end %>
 
-    <%= if @conn.request_path == "/nvrs" do %>
+    <%= if @conn.request_path == "/nvrs_list" do %>
       <link href="<%= static_path(@conn, "/css/for_nvr.css") %>" rel="stylesheet" type="text/css" />
       <script src="<%= static_path(@conn, "/assets/demo/default/custom/components/datatables/base/nvr_local_datatable.js") %>"> type="text/javascript"></script>
       <script src="<%= static_path(@conn, "/js/notify.min.js") %>"> type="text/javascript"></script>
@@ -60,7 +60,7 @@
       </script>
     <%  end %>
 
-    <%= if @conn.request_path == "/routers" do %>
+    <%= if @conn.request_path == "/routers_list" do %>
       <script src="<%= static_path(@conn, "/assets/demo/default/custom/components/datatables/base/routers_local_datatable.js") %>"> type="text/javascript"></script>
       <script src="<%= static_path(@conn, "/js/notify.min.js") %>"> type="text/javascript"></script>
       <script type="text/javascript">
@@ -84,7 +84,7 @@
       </script>
     <%  end %>
 
-     <%= if @conn.request_path == "/sites" do %>
+     <%= if @conn.request_path == "/sites_list" do %>
       <script src="<%= static_path(@conn, "/assets/demo/default/custom/components/datatables/base/sites_local_datatable.js") %>"> type="text/javascript"></script>
       <script src="<%= static_path(@conn, "/js/notify.min.js") %>"> type="text/javascript"></script>
       <link href="<%= static_path(@conn, "/css/jquery-ui.css") %>" rel="stylesheet" type="text/css" />

@@ -111,7 +111,7 @@ onEditSuccess = function(result, status, jqXHR) {
 initializeDataTable = function() {
   NVRtable = $('#example').DataTable({
     ajax: {
-      url: "/v1/nvrs",
+      url: "/nvrs",
       dataSrc: function(data) {
         return data.nvrs;
       },
@@ -239,7 +239,7 @@ deleteNVR = function() {
       contentType: "application/x-www-form-urlencoded",
       context: {nvrRow: nvrRow},
       type: "DELETE",
-      url: "/v1/nvrs/" + nvrID
+      url: "/nvrs/" + nvrID
     };
 
     sendAJAXRequest(settings);
@@ -439,7 +439,7 @@ updateNVRdo = function(){
       success: onEditSuccess,
       contentType: "application/x-www-form-urlencoded",
       type: "PATCH",
-      url: "/v1/nvrs/" + nvrID
+      url: "/nvrs/" + nvrID
     };
 
     sendAJAXRequest(settings);
@@ -534,7 +534,7 @@ saveModal = function() {
       success: onSuccess,
       contentType: "application/x-www-form-urlencoded",
       type: "POST",
-      url: "/v1/nvrs"
+      url: "/nvrs"
     };
 
     sendAJAXRequest(settings);

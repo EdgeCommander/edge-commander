@@ -4,7 +4,7 @@ var DatatableDataLocalDemo = function() {
             a = $(".m_datatable").mDatatable({
                 data: {
                   type: "remote",
-                  source: "/v1/sims/data",
+                  source: "/sims",
                   pageSize: 50,
                   serverPaging: false,
                   serverFiltering: false,
@@ -101,15 +101,16 @@ var startMORRISChartJS = function () {
   $("#child_data_local").on("click", "#show-morris-graph", function(){
     $("#api-wait").removeClass("hide_me");
     var settingsForMorris;
+    var id = $(this).data("id");
     settingsForMorris = {
       cache: false,
-      data: {sim_number: $(this).data("id")},
+      data: {sim_number: id},
       dataType: 'json',
       error: onMorrisError,
       success: onMorrisSuccess,
       contentType: "application/x-www-form-urlencoded",
       type: "GET",
-      url: "/v1/chartjs/data"
+      url: "/chartjs/data/" + id
     };
 
     $.ajax(settingsForMorris);

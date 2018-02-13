@@ -1,15 +1,16 @@
 var startMORRISChartJS = function () {
 
     var settingsForMorris;
+    var id = window.location.href.substring(window.location.href.lastIndexOf('/') + 1);
     settingsForMorris = {
       cache: false,
-      data: {sim_number: window.location.href.substring(window.location.href.lastIndexOf('/') + 1) },
+      data: {sim_number: id},
       dataType: 'json',
       error: onMorrisError,
       success: onMorrisSuccess,
       contentType: "application/x-www-form-urlencoded",
       type: "GET",
-      url: "/v1/chartjs/data"
+      url: "/chartjs/data/" + id
     };
 
     $.ajax(settingsForMorris);
@@ -116,7 +117,7 @@ var dataTableSIMTAB = function() {
             a = $(".m_datatable").mDatatable({
                 data: {
                   type: "remote",
-                  source: "/v1/sims/data/" + window.location.href.substring(window.location.href.lastIndexOf('/') + 1) + "",
+                  source: "/sims/data/" + window.location.href.substring(window.location.href.lastIndexOf('/') + 1) + "",
                   pageSize: 50,
                   serverPaging: false,
                   serverFiltering: false,
@@ -207,7 +208,7 @@ function sendSMS() {
 
     var data = {};
     data.sms_message = sms_message;
-    data.to_number = to_number;
+    data.sim_number = to_number;
     data.user_id = user_id;
 
     var settings;
@@ -220,7 +221,7 @@ function sendSMS() {
       success: onSMSSuccess,
       contentType: "application/x-www-form-urlencoded",
       type: "POST",
-      url: "/v1/send_sms"
+      url: "/send_sms"
     };
 
     sendAJAXRequest(settings);
@@ -277,7 +278,7 @@ var smsDataTable = function() {
       data: {
         type: "remote",
         speedLoad: true,
-        source: "/v1/sims/sms/" + window.location.href.substring(window.location.href.lastIndexOf('/') + 1) + "",
+        source: "/sims/sms/" + window.location.href.substring(window.location.href.lastIndexOf('/') + 1) + "",
         pageSize: 50,
         serverPaging: false,
         serverFiltering: false,

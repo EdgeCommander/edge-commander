@@ -5,7 +5,7 @@ var DatatableDataCOMMAND = function() {
     data: {
       type: "remote",
       speedLoad: true,
-      source: "/v1/rules",
+      source: "/rules",
       pageSize: 50,
       serverPaging: false,
       serverFiltering: false,
@@ -149,7 +149,7 @@ var saveModal = function() {
       success: onSuccess,
       contentType: "application/x-www-form-urlencoded",
       type: "POST",
-      url: "/v1/rules/new"
+      url: "/rules/new"
     };
 
     sendAJAXRequest(settings);
@@ -226,7 +226,7 @@ deleteRULE = function() {
       contentType: "application/x-www-form-urlencoded",
       context: {ruleRow: ruleRow},
       type: "DELETE",
-      url: "/v1/rules/" + ruleID
+      url: "/rules/" + ruleID
     };
 
     sendAJAXRequest(settings);
@@ -312,7 +312,7 @@ updateROUTERdo = function(){
       success: onEditSuccess,
       contentType: "application/x-www-form-urlencoded",
       type: "PATCH",
-      url: "/v1/rules/update"
+      url: "/rules/update"
     };
 
     sendAJAXRequest(settings);

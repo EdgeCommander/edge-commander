@@ -13,6 +13,10 @@ defmodule EdgeCommanderWeb.NvrsController do
     get "/v1/nvrs"
     description "Returns nvrs list"
     summary "Returns all nvrs"
+    parameters do
+      api_key :query, :string, "", required: true
+      api_id :query, :string, "", required: true
+    end
     response 200, "Success"
   end
 
@@ -20,33 +24,37 @@ defmodule EdgeCommanderWeb.NvrsController do
     post "/v1/nvrs"
     summary "Add a new nvr"
     parameters do
-      name :query, :string, "Name", required: true
-      username :query, :string, "Username", required: true
-      password :query, :string, "Password", required: true
-      ip :query, :string, "Ip", required: true
-      port :query, :integer, "Http port", required: true
-      vh_port :query, :integer, "Vh port", required: true
-      rtsp_port :query, :integer, "Rtsp port", required: true
-      sdk_port :query, :integer, "Sdk port", required: true
-      is_monitoring :query, :boolean, "Is monitoring", default: false
+      name :query, :string, "", required: true
+      username :query, :string, "", required: true
+      password :query, :string, "", required: true
+      ip :query, :string, "", required: true
+      port :query, :integer, "", required: true
+      vh_port :query, :integer, "", required: true
+      rtsp_port :query, :integer, "", required: true
+      sdk_port :query, :integer, "", required: true
+      is_monitoring :query, :boolean, "", default: false
+      api_key :query, :string, "", required: true
+      api_id :query, :string, "", required: true
     end
     response 201, "Success"
   end
 
   swagger_path :delete do
-    delete "/v1/nvrs/{nvr_id}"
+    delete "/v1/nvrs/{id}"
     summary "Delete nvr by ID"
     parameters do
-      nvr_id :path, :string, "Nvr ID", required: true
+      id :path, :string, "Nvr id to delete", required: true
+      api_key :query, :string, "", required: true
+      api_id :query, :string, "", required: true
     end
     response 200, "Success"
   end
 
   swagger_path :update do
-    patch "/v1/nvrs/{nvr_id}"
+    patch "/v1/nvrs/{id}"
     summary "Update nvr by ID"
     parameters do
-      nvr_id :path, :string, "ID of nvr that needs to be updated", required: true
+      id :path, :string, "ID of nvr that needs to be updated", required: true
       name :query, :string, "Updated name of the nvr"
       username :query, :string, "Updated username of the nvr"
       password :query, :string, "Updated password of the nvr"
@@ -55,7 +63,9 @@ defmodule EdgeCommanderWeb.NvrsController do
       vh_port :query, :integer, "Updated vh port of the nvr"
       rtsp_port :query, :integer, "Updated rtsp port of the nvr"
       sdk_port :query, :integer, "Updated sdk port of the nvr"
-      is_monitoring :query, :boolean, "Is monitoring"
+      is_monitoring :query, :boolean, ""
+      api_key :query, :string, "", required: true
+      api_id :query, :string, "", required: true
     end
     response 201, "Success"
   end
@@ -143,7 +153,7 @@ defmodule EdgeCommanderWeb.NvrsController do
   defp get_extra_value(nil, _, _), do: ""
   defp get_extra_value(_, nvr, extra_field),  do: nvr.extra |> Map.get(extra_field)
 
-  def delete(conn, %{"nvr_id" => id} = _params) do
+  def delete(conn, %{"id" => id} = _params) do
     get_nvr!(id)
     |> Repo.delete
     |> case do
@@ -162,7 +172,7 @@ defmodule EdgeCommanderWeb.NvrsController do
     end
   end
 
-  def update(conn, %{"nvr_id" => id} = params) do
+  def update(conn, %{"id" => id} = params) do
     get_nvr!(id)
     |> Nvr.changeset(params)
     |> Repo.update

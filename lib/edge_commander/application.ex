@@ -9,6 +9,7 @@ defmodule EdgeCommander.Application do
     # Define workers and child supervisors to be supervised
     children = [
       supervisor(ConCache, [[], [name: :current_nvr_status]], id: :current_nvr_status),
+      worker(ConCache, [[ttl_check: :timer.seconds(1), ttl: :timer.hours(1)], [name: :users]], id: :users),
       # Start the Ecto repository
       supervisor(EdgeCommander.Repo, []),
       # Start the endpoint when the application starts

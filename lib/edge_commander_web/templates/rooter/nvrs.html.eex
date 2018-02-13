@@ -85,7 +85,7 @@
                                 </a>
                             </li>
                             <li class="m-menu__item m-menu__item--active" aria-haspopup="true" >
-                                <a  href="/nvrs" class="m-menu__link ">
+                                <a  href="/nvrs_list" class="m-menu__link ">
                                     <i class="m-menu__link-icon la  la-building"></i>
                                     <span class="m-menu__link-title">
                                         <span class="m-menu__link-wrap">
@@ -109,7 +109,7 @@
                                 </a>
                             </li>
                             <li class="m-menu__item" aria-haspopup="true" >
-                                <a  href="/routers" class="m-menu__link ">
+                                <a  href="/routers_list" class="m-menu__link ">
                                     <i class="m-menu__link-icon fa fa-registered"></i>
                                     <span class="m-menu__link-title">
                                         <span class="m-menu__link-wrap">
@@ -121,7 +121,7 @@
                                 </a>
                             </li>
                             <li class="m-menu__item" aria-haspopup="true" >
-                                <a  href="/sites" class="m-menu__link ">
+                                <a  href="/sites_list" class="m-menu__link ">
                                     <i class="m-menu__link-icon fa  fa-leanpub"></i>
                                     <span class="m-menu__link-title">
                                         <span class="m-menu__link-wrap">
@@ -159,6 +159,18 @@
                             <li class="m-menu__section">
                                 <h4 class="m-menu__section-text"></h4>
                                 <i class="m-menu__section-icon flaticon-more-v3"></i>
+                            </li>
+                            <li class="m-menu__item bottom_link" aria-haspopup="true" >
+                                <a  href="/swagger" class="m-menu__link " target="blank">
+                                    <i class="m-menu__link-icon fa fa-paperclip"></i>
+                                    <span class="m-menu__link-title">
+                                        <span class="m-menu__link-wrap">
+                                            <span class="m-menu__link-text">
+                                                Swagger
+                                            </span>>
+                                        </span>
+                                    </span>
+                                </a>
                             </li>
                             <li class="m-menu__item bottom_link" aria-haspopup="true" >
                                 <a  href="/my_profile" class="m-menu__link ">
