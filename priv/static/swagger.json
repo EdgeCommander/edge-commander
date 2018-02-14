@@ -1,4 +1,26 @@
 {
+  "tags": [
+    {
+      "name": "sims",
+      "description": "Everything about sims"
+    },
+    {
+      "name": "nvrs",
+      "description": "Operations related to nvrs"
+    },
+    {
+      "name": "sites",
+      "description": "Operations related to sites"
+    },
+    {
+      "name": "rules",
+      "description": "Operations related to rules"
+    },
+    {
+      "name": "routers",
+      "description": "Operations related to routers"
+    }
+  ],
   "swagger": "2.0",
   "security": [
     {
@@ -9,7 +31,7 @@
     "/v1/sites/{id}": {
       "delete": {
         "tags": [
-          "Sites"
+          "sites"
         ],
         "summary": "Delete site by ID",
         "responses": {
@@ -30,14 +52,16 @@
             "required": true,
             "name": "api_key",
             "in": "query",
-            "description": ""
+            "description": "",
+            "default": "ea3f489a45c98eab5cc22e38db1071e8"
           },
           {
             "type": "string",
             "required": true,
             "name": "api_id",
             "in": "query",
-            "description": ""
+            "description": "",
+            "default": "2091d756"
           }
         ],
         "operationId": "EdgeCommanderWeb.SitesController.delete",
@@ -47,7 +71,7 @@
     "/v1/sites": {
       "get": {
         "tags": [
-          "Sites"
+          "sites"
         ],
         "summary": "Returns all sites",
         "responses": {
@@ -61,14 +85,16 @@
             "required": true,
             "name": "api_key",
             "in": "query",
-            "description": ""
+            "description": "",
+            "default": "ea3f489a45c98eab5cc22e38db1071e8"
           },
           {
             "type": "string",
             "required": true,
             "name": "api_id",
             "in": "query",
-            "description": ""
+            "description": "",
+            "default": "2091d756"
           }
         ],
         "operationId": "EdgeCommanderWeb.SitesController.get_all_sites",
@@ -78,7 +104,7 @@
     "/v1/sims/{sim_number}/usage": {
       "get": {
         "tags": [
-          "Sims"
+          "sims"
         ],
         "summary": "Find data usage in % by sim number",
         "responses": {
@@ -99,14 +125,16 @@
             "required": true,
             "name": "api_key",
             "in": "query",
-            "description": ""
+            "description": "",
+            "default": "ea3f489a45c98eab5cc22e38db1071e8"
           },
           {
             "type": "string",
             "required": true,
             "name": "api_id",
             "in": "query",
-            "description": ""
+            "description": "",
+            "default": "2091d756"
           }
         ],
         "operationId": "EdgeCommanderWeb.SimsController.create_chartjs_line_data",
@@ -116,7 +144,7 @@
     "/v1/sims/{sim_number}/sms": {
       "post": {
         "tags": [
-          "Sims"
+          "sims"
         ],
         "summary": "Send sms to sim",
         "responses": {
@@ -144,22 +172,24 @@
             "required": true,
             "name": "api_key",
             "in": "query",
-            "description": ""
+            "description": "",
+            "default": "ea3f489a45c98eab5cc22e38db1071e8"
           },
           {
             "type": "string",
             "required": true,
             "name": "api_id",
             "in": "query",
-            "description": ""
+            "description": "",
+            "default": "2091d756"
           }
         ],
         "operationId": "EdgeCommanderWeb.SimsController.send_sms",
-        "description": "Enter sms details"
+        "description": ""
       },
       "get": {
         "tags": [
-          "Sims"
+          "sims"
         ],
         "summary": "Find sms by sim number",
         "responses": {
@@ -180,14 +210,16 @@
             "required": true,
             "name": "api_key",
             "in": "query",
-            "description": ""
+            "description": "",
+            "default": "ea3f489a45c98eab5cc22e38db1071e8"
           },
           {
             "type": "string",
             "required": true,
             "name": "api_id",
             "in": "query",
-            "description": ""
+            "description": "",
+            "default": "2091d756"
           }
         ],
         "operationId": "EdgeCommanderWeb.SimsController.get_single_sim_sms",
@@ -197,7 +229,7 @@
     "/v1/sims/{sim_number}": {
       "get": {
         "tags": [
-          "Sims"
+          "sims"
         ],
         "summary": "Find data by sim number",
         "responses": {
@@ -218,14 +250,16 @@
             "required": true,
             "name": "api_key",
             "in": "query",
-            "description": ""
+            "description": "",
+            "default": "ea3f489a45c98eab5cc22e38db1071e8"
           },
           {
             "type": "string",
             "required": true,
             "name": "api_id",
             "in": "query",
-            "description": ""
+            "description": "",
+            "default": "2091d756"
           }
         ],
         "operationId": "EdgeCommanderWeb.SimsController.get_single_sim_data",
@@ -235,7 +269,7 @@
     "/v1/sims": {
       "get": {
         "tags": [
-          "Sims"
+          "sims"
         ],
         "summary": "Returns all sims data",
         "responses": {
@@ -249,14 +283,16 @@
             "required": true,
             "name": "api_key",
             "in": "query",
-            "description": ""
+            "description": "",
+            "default": "ea3f489a45c98eab5cc22e38db1071e8"
           },
           {
             "type": "string",
             "required": true,
             "name": "api_id",
             "in": "query",
-            "description": ""
+            "description": "",
+            "default": "2091d756"
           }
         ],
         "operationId": "EdgeCommanderWeb.SimsController.get_sim_logs",
@@ -266,7 +302,7 @@
     "/v1/rules/{id}": {
       "delete": {
         "tags": [
-          "Rules"
+          "rules"
         ],
         "summary": "Delete rule by ID",
         "responses": {
@@ -280,21 +316,23 @@
             "required": true,
             "name": "id",
             "in": "path",
-            "description": "Rule id to delete Rule"
+            "description": "Rule id to delete"
           },
           {
             "type": "string",
             "required": true,
             "name": "api_key",
             "in": "query",
-            "description": ""
+            "description": "",
+            "default": "ea3f489a45c98eab5cc22e38db1071e8"
           },
           {
             "type": "string",
             "required": true,
             "name": "api_id",
             "in": "query",
-            "description": ""
+            "description": "",
+            "default": "2091d756"
           }
         ],
         "operationId": "EdgeCommanderWeb.CommandsController.delete",
@@ -304,7 +342,7 @@
     "/v1/rules": {
       "get": {
         "tags": [
-          "Rules"
+          "rules"
         ],
         "summary": "Returns all rules",
         "responses": {
@@ -318,14 +356,16 @@
             "required": true,
             "name": "api_key",
             "in": "query",
-            "description": ""
+            "description": "",
+            "default": "ea3f489a45c98eab5cc22e38db1071e8"
           },
           {
             "type": "string",
             "required": true,
             "name": "api_id",
             "in": "query",
-            "description": ""
+            "description": "",
+            "default": "2091d756"
           }
         ],
         "operationId": "EdgeCommanderWeb.CommandsController.get_all_rules",
@@ -335,7 +375,7 @@
     "/v1/routers/{id}": {
       "patch": {
         "tags": [
-          "Routers"
+          "routers"
         ],
         "summary": "Updates a router by ID",
         "responses": {
@@ -398,14 +438,16 @@
             "required": true,
             "name": "api_key",
             "in": "query",
-            "description": ""
+            "description": "",
+            "default": "ea3f489a45c98eab5cc22e38db1071e8"
           },
           {
             "type": "string",
             "required": true,
             "name": "api_id",
             "in": "query",
-            "description": ""
+            "description": "",
+            "default": "2091d756"
           }
         ],
         "operationId": "EdgeCommanderWeb.RoutersController.update",
@@ -413,7 +455,7 @@
       },
       "delete": {
         "tags": [
-          "Routers"
+          "routers"
         ],
         "summary": "Delete router by ID",
         "responses": {
@@ -434,14 +476,16 @@
             "required": true,
             "name": "api_key",
             "in": "query",
-            "description": ""
+            "description": "",
+            "default": "ea3f489a45c98eab5cc22e38db1071e8"
           },
           {
             "type": "string",
             "required": true,
             "name": "api_id",
             "in": "query",
-            "description": ""
+            "description": "",
+            "default": "2091d756"
           }
         ],
         "operationId": "EdgeCommanderWeb.RoutersController.delete",
@@ -451,7 +495,7 @@
     "/v1/routers": {
       "post": {
         "tags": [
-          "Routers"
+          "routers"
         ],
         "summary": "Add a new router",
         "responses": {
@@ -508,14 +552,16 @@
             "required": true,
             "name": "api_key",
             "in": "query",
-            "description": ""
+            "description": "",
+            "default": "ea3f489a45c98eab5cc22e38db1071e8"
           },
           {
             "type": "string",
             "required": true,
             "name": "api_id",
             "in": "query",
-            "description": ""
+            "description": "",
+            "default": "2091d756"
           }
         ],
         "operationId": "EdgeCommanderWeb.RoutersController.create",
@@ -523,7 +569,7 @@
       },
       "get": {
         "tags": [
-          "Routers"
+          "routers"
         ],
         "summary": "Returns all routers",
         "responses": {
@@ -537,14 +583,16 @@
             "required": true,
             "name": "api_key",
             "in": "query",
-            "description": ""
+            "description": "",
+            "default": "ea3f489a45c98eab5cc22e38db1071e8"
           },
           {
             "type": "string",
             "required": true,
             "name": "api_id",
             "in": "query",
-            "description": ""
+            "description": "",
+            "default": "2091d756"
           }
         ],
         "operationId": "EdgeCommanderWeb.RoutersController.get_all_routers",
@@ -554,7 +602,7 @@
     "/v1/nvrs/{id}": {
       "patch": {
         "tags": [
-          "Nvrs"
+          "nvrs"
         ],
         "summary": "Update nvr by ID",
         "responses": {
@@ -638,14 +686,16 @@
             "required": true,
             "name": "api_key",
             "in": "query",
-            "description": ""
+            "description": "",
+            "default": "9c7f4109247d4e6c85ee3971a45d7527"
           },
           {
             "type": "string",
             "required": true,
             "name": "api_id",
             "in": "query",
-            "description": ""
+            "description": "",
+            "default": "6dd607f8"
           }
         ],
         "operationId": "EdgeCommanderWeb.NvrsController.update",
@@ -653,7 +703,7 @@
       },
       "delete": {
         "tags": [
-          "Nvrs"
+          "nvrs"
         ],
         "summary": "Delete nvr by ID",
         "responses": {
@@ -674,14 +724,16 @@
             "required": true,
             "name": "api_key",
             "in": "query",
-            "description": ""
+            "description": "",
+            "default": "9c7f4109247d4e6c85ee3971a45d7527"
           },
           {
             "type": "string",
             "required": true,
             "name": "api_id",
             "in": "query",
-            "description": ""
+            "description": "",
+            "default": "6dd607f8"
           }
         ],
         "operationId": "EdgeCommanderWeb.NvrsController.delete",
@@ -691,7 +743,7 @@
     "/v1/nvrs": {
       "post": {
         "tags": [
-          "Nvrs"
+          "nvrs"
         ],
         "summary": "Add a new nvr",
         "responses": {
@@ -769,14 +821,16 @@
             "required": true,
             "name": "api_key",
             "in": "query",
-            "description": ""
+            "description": "",
+            "default": "ea3f489a45c98eab5cc22e38db1071e8"
           },
           {
             "type": "string",
             "required": true,
             "name": "api_id",
             "in": "query",
-            "description": ""
+            "description": "",
+            "default": "2091d756"
           }
         ],
         "operationId": "EdgeCommanderWeb.NvrsController.create",
@@ -784,7 +838,7 @@
       },
       "get": {
         "tags": [
-          "Nvrs"
+          "nvrs"
         ],
         "summary": "Returns all nvrs",
         "responses": {
@@ -798,14 +852,16 @@
             "required": true,
             "name": "api_key",
             "in": "query",
-            "description": ""
+            "description": "",
+            "default": "ea3f489a45c98eab5cc22e38db1071e8"
           },
           {
             "type": "string",
             "required": true,
             "name": "api_id",
             "in": "query",
-            "description": ""
+            "description": "",
+            "default": "2091d756"
           }
         ],
         "operationId": "EdgeCommanderWeb.NvrsController.get_all_nvrs",

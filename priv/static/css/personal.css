@@ -285,6 +285,34 @@ a:hover {
   color: #5f6060;
 }
 
+.response-col_description{
+  width: 80% !important;
+}
+
+.response-col_status{
+  width: 20% !important;
+}
+
+.parameters-col_description{
+  width: 60% !important;
+}
+
+.parameters-col_name{
+  width: 40% !important;
+}
+
+.swagger-ui .wrapper{
+  padding: 0 !important;
+}
+
+.swagger-ui a.nostyle, .swagger-ui a.nostyle:visited {
+  font-weight: bold;
+}
+
+.m-scroll-top--skin-top{
+  z-index: 10000;
+}
+
 @media (min-width: 993px){
   .m-aside-left--minimize .m-aside-menu.m-aside-menu--skin-dark .m-menu__nav>.m-menu__item>.m-menu__link>.m-menu__link-icon {
     color: #9c9c9c !important;

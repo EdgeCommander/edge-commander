@@ -12,9 +12,10 @@ defmodule EdgeCommanderWeb.RoutersController do
     description "Returns routers list"
     summary "Returns all routers"
     parameters do
-      api_key :query, :string, "", required: true
-      api_id :query, :string, "", required: true
+      api_key :query, :string, "", required: true, default: "ea3f489a45c98eab5cc22e38db1071e8"
+      api_id :query, :string, "", required: true, default: "2091d756"
     end
+    tag "routers"
     response 200, "Success"
   end
 
@@ -28,9 +29,10 @@ defmodule EdgeCommanderWeb.RoutersController do
       ip :query, :string, "", required: true
       port :query, :integer, "", required: true
       is_monitoring :query, :boolean, "", default: false
-      api_key :query, :string, "", required: true
-      api_id :query, :string, "", required: true
+      api_key :query, :string, "", required: true, default: "ea3f489a45c98eab5cc22e38db1071e8"
+      api_id :query, :string, "", required: true, default: "2091d756"
     end
+    tag "routers"
     response 201, "Success"
   end
 
@@ -45,9 +47,10 @@ defmodule EdgeCommanderWeb.RoutersController do
       ip :query, :string, "Updated ip of the router"
       port :query, :integer, "Updated port of the router"
       is_monitoring :query, :boolean, ""
-      api_key :query, :string, "", required: true
-      api_id :query, :string, "", required: true
+      api_key :query, :string, "", required: true, default: "ea3f489a45c98eab5cc22e38db1071e8"
+      api_id :query, :string, "", required: true, default: "2091d756"
     end
+    tag "routers"
     response 201, "Success"
   end
 
@@ -56,9 +59,10 @@ defmodule EdgeCommanderWeb.RoutersController do
     summary "Delete router by ID"
     parameters do
       id :path, :string, "Router id to delete", required: true
-      api_key :query, :string, "", required: true
-      api_id :query, :string, "", required: true
+      api_key :query, :string, "", required: true, default: "ea3f489a45c98eab5cc22e38db1071e8"
+      api_id :query, :string, "", required: true, default: "2091d756"
     end
+    tag "routers"
     response 201, "Success"
   end
 
