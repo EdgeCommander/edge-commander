@@ -309,6 +309,10 @@ a:hover {
   font-weight: bold;
 }
 
+.swagger-ui .info, .swagger-ui .topbar {
+  display: none;
+}
+
 .m-scroll-top--skin-top{
   z-index: 10000;
 }
