@@ -67,8 +67,8 @@ defmodule EdgeCommanderWeb.NvrsController do
       rtsp_port :query, :integer, "Updated rtsp port of the nvr"
       sdk_port :query, :integer, "Updated sdk port of the nvr"
       is_monitoring :query, :boolean, ""
-      api_key :query, :string, "", required: true, default: "9c7f4109247d4e6c85ee3971a45d7527"
-      api_id :query, :string, "", required: true, default: "6dd607f8"
+      api_key :query, :string, "", required: true, default: "ea3f489a45c98eab5cc22e38db1071e8"
+      api_id :query, :string, "", required: true, default: "2091d756"
     end
     tag "nvrs"
     response 201, "Success"

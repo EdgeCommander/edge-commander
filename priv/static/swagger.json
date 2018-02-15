@@ -687,7 +687,7 @@
             "name": "api_key",
             "in": "query",
             "description": "",
-            "default": "9c7f4109247d4e6c85ee3971a45d7527"
+            "default": "ea3f489a45c98eab5cc22e38db1071e8"
           },
           {
             "type": "string",
@@ -695,7 +695,7 @@
             "name": "api_id",
             "in": "query",
             "description": "",
-            "default": "6dd607f8"
+            "default": "2091d756"
           }
         ],
         "operationId": "EdgeCommanderWeb.NvrsController.update",
@@ -725,7 +725,7 @@
             "name": "api_key",
             "in": "query",
             "description": "",
-            "default": "9c7f4109247d4e6c85ee3971a45d7527"
+            "default": "ea3f489a45c98eab5cc22e38db1071e8"
           },
           {
             "type": "string",
@@ -733,7 +733,7 @@
             "name": "api_id",
             "in": "query",
             "description": "",
-            "default": "6dd607f8"
+            "default": "2091d756"
           }
         ],
         "operationId": "EdgeCommanderWeb.NvrsController.delete",
