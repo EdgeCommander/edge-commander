@@ -866,6 +866,9 @@
           <div class="column-checkbox">
             <label class="m-checkbox m-checkbox--single m-checkbox--solid m-checkbox--brand" style="width: auto;"><input class="sims-column" type="checkbox" data-field="remaining_days" checked><span></span> Remaining Days</label>
           </div>
+          <div class="column-checkbox">
+            <label class="m-checkbox m-checkbox--single m-checkbox--solid m-checkbox--brand" style="width: auto;"><input class="sims-column" type="checkbox" data-field="date_of_use" checked><span></span> Last Reading</label>
+          </div>
         </div>
       </div>
       <div class="modal-footer" style="padding: 11px;">

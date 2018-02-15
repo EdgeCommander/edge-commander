@@ -63,10 +63,20 @@ var DatatableDataLocalDemo = function() {
                 {
                   field: "remaining_days",
                   title: "Remaning Days",
+                  width: 115,
                   textAlign: "center",
                   template: function(t) {
                     var days_left = (t.allowance_in_number - t.current_in_number) / (t.current_in_number - t.yesterday_in_number)
                     return Math.round(days_left * 100) / 100;
+                  }
+                },
+                {
+                  field: "date_of_use",
+                  title: "Last Reading",
+                  textAlign: "center",
+                  width: 195,
+                  template: function(t) {
+                    return "" + moment(t.date_of_use).format('MMMM Do YYYY, H:mm:ss') +"";
                   }
                 }
               ]
