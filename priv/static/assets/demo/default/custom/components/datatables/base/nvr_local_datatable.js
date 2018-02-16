@@ -29,7 +29,7 @@ var DatatableDataNVR = function() {
       locked: {left: 'xl'},
       sortable: false,
       template: function(t) {
-        return "<div class='editNVR cursor_to_pointer fa fa-edit' data-id='"+ t.id +"'></div> <div class='deleteNVR cursor_to_pointer fa fa-trash' data-id='"+ t.id +"'></div>";
+        return "<div class='editNVR cursor_to_pointer fa fa-edit' data-id='"+ t.id +"' title='Edit'></div> <div class='rebootNVR cursor_to_pointer fa fa-refresh' data-id='"+ t.id +"' title='Reboot'></div> <div class='deleteNVR cursor_to_pointer fa fa-trash' data-id='"+ t.id +"' title='Delete'></div>";
       }
     },
     {
@@ -343,6 +343,59 @@ onNVRDeleteSuccess = function(result, status, jqXHR) {
   return true;
 };
 
+var rebootNVR;
+
+rebootNVR = function() {
+  $(document).on("click", ".rebootNVR", function() {
+    var nvrRow, result;
+    result = confirm("Are you sure to reboot this NVR?");
+    if (result === false) {
+      return;
+    }
+    nvrRow = $(this).parents('tr');
+    nvrID = $(this).attr('data-id');
+
+    var data = {};
+    data.id = nvrID;
+    var settings;
+
+    settings = {
+      cache: false,
+      data: data,
+      dataType: 'json',
+      error: onNVRRebootError,
+      success: onNVRRebootSuccess,
+      contentType: "application/x-www-form-urlencoded",
+      context: {nvrRow: nvrRow},
+      type: "GET",
+      url: "/nvrs/" + nvrID
+    };
+
+    sendAJAXRequest(settings);
+  });
+};
+
+var onNVRRebootError, onNVRRebootSuccess;
+
+onNVRRebootError = function(jqXHR, status, error) {
+  console.log(jqXHR.responseJSON);
+  return false;
+};
+
+onNVRRebootSuccess = function(result, status, jqXHR) {
+  this.nvrRow.remove();
+  $.notify({
+    // options
+    message: 'NVR has been reboot successfully'
+  },{
+    // settings
+    type: 'info'
+  });
+  console.log(result);
+  nvrDataTable.load();
+  return true;
+};
+
 var onNVREditButton;
 
 onNVREditButton = function() {
@@ -489,6 +542,7 @@ window.initializeNVR = function() {
   discardModal();
   saveModal();
   deleteNVR();
+  rebootNVR();
   onNVREditButton();
   updateNVRdo();
   showHideColumns();

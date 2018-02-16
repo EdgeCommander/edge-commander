@@ -218,6 +218,34 @@ defmodule EdgeCommanderWeb.NvrsController do
     end
   end
 
+  def reboot(conn, %{"id" => id} = _params) do
+    records = get_nvr!(id)
+    ip = records.ip
+    sdk_port = records.sdk_port
+    username = records.username
+    password = records.password
+
+    SSHEx.connect(ip: System.get_env("SERVER_IP"), user: System.get_env("SERVER_USERNAME") , password: System.get_env("SERVER_PASSWORD"))
+    |> SSHEx.run("./reboot #{ip} #{sdk_port} #{username} #{password}")
+    |> case do
+      {:ok, res, _} ->
+        case res do
+          "0reboot success" ->
+            conn
+            |> put_status(200)
+            |> json(%{"reboot": true})
+          _ ->
+            conn
+            |> put_status(400)
+            |> json(%{"reboot": false})
+        end
+      _ ->
+        conn
+        |> put_status(400)
+        |> json(%{"reboot": false})
+    end
+  end
+
   def update_status_report(conn, params) do
     days = get_history_days(params["history_days"])
     current_user = current_user(conn)
