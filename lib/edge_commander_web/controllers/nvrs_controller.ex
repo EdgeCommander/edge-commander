@@ -224,25 +224,32 @@ defmodule EdgeCommanderWeb.NvrsController do
     sdk_port = records.sdk_port
     username = records.username
     password = records.password
+    url = "https://#{System.get_env("SERVER_HOST")}/v1/sdk/nvr/reboot"
+    body = Poison.encode!(%{
+      "api_id": System.get_env("SERVER_API_ID"),
+      "api_key": System.get_env("SERVER_API_KEY"),
+      "ip": ip,
+      "port": sdk_port,
+      "user": username,
+      "password": password
+    })
+    headers = [{"Content-type", "application/json"}]
+    case HTTPoison.post(url, body, headers, []) do
+      {:ok, %HTTPoison.Response{body: body, status_code: status_code}} ->
+       message =
+          body
+          |> Poison.decode
+          |> elem(1)
+          |> Map.get("message")
 
-    SSHEx.connect(ip: System.get_env("SERVER_IP"), user: System.get_env("SERVER_USERNAME") , password: System.get_env("SERVER_PASSWORD"))
-    |> SSHEx.run("./reboot #{ip} #{sdk_port} #{username} #{password}")
-    |> case do
-      {:ok, res, _} ->
-        case res do
-          "0reboot success" ->
-            conn
-            |> put_status(200)
-            |> json(%{"reboot": true})
-          _ ->
-            conn
-            |> put_status(400)
-            |> json(%{"reboot": false})
-        end
-      _ ->
+        conn
+        |> put_status(status_code)
+        |> json(%{status: status_code, message: message})
+
+      {:error, %HTTPoison.Error{reason: reason}} ->
         conn
         |> put_status(400)
-        |> json(%{"reboot": false})
+        |> json(%{message: reason})
     end
   end
 

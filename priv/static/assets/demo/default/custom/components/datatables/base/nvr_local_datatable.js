@@ -343,6 +343,8 @@ onNVRDeleteSuccess = function(result, status, jqXHR) {
   return true;
 };
 
+
+
 var rebootNVR;
 
 rebootNVR = function() {
@@ -352,8 +354,9 @@ rebootNVR = function() {
     if (result === false) {
       return;
     }
-    nvrRow = $(this).parents('tr');
+    nvrIcon = $(this);
     nvrID = $(this).attr('data-id');
+    $(this).addClass("fa-spin")
 
     var data = {};
     data.id = nvrID;
@@ -366,33 +369,44 @@ rebootNVR = function() {
       error: onNVRRebootError,
       success: onNVRRebootSuccess,
       contentType: "application/x-www-form-urlencoded",
-      context: {nvrRow: nvrRow},
+      context: {nvrIcon: nvrIcon},
       type: "GET",
       url: "/nvrs/" + nvrID
     };
 
     sendAJAXRequest(settings);
-  });
+  })
+
 };
 
 var onNVRRebootError, onNVRRebootSuccess;
 
 onNVRRebootError = function(jqXHR, status, error) {
-  console.log(jqXHR.responseJSON);
+  this.nvrIcon.removeClass("fa-spin")
+   $.notify({
+      message: jqXHR.responseJSON.message
+    },{
+      type: 'danger'
+    });
   return false;
 };
 
 onNVRRebootSuccess = function(result, status, jqXHR) {
-  this.nvrRow.remove();
-  $.notify({
-    // options
-    message: 'NVR has been reboot successfully'
-  },{
-    // settings
-    type: 'info'
-  });
-  console.log(result);
-  nvrDataTable.load();
+this.nvrIcon.removeClass("fa-spin")
+if (result.status != 201) {
+    $.notify({
+      message: result.message
+    },{
+      type: 'danger'
+    });
+  } else
+  {
+    $.notify({
+      message: "Nvr has been reboot successfully."
+    },{
+      type: 'info'
+    });
+  }
   return true;
 };
 
