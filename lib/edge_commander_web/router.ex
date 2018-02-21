@@ -87,6 +87,7 @@ defmodule EdgeCommanderWeb.Router do
     post "/nvrs", NvrsController, :create
     delete "/nvrs/:id", NvrsController, :delete
     patch "/nvrs/:id", NvrsController, :update
+    get "/nvrs/:id", NvrsController, :reboot
 
     get "/rules", CommandsController, :get_all_rules
     post "/rules/new", CommandsController, :create

@@ -218,6 +218,41 @@ defmodule EdgeCommanderWeb.NvrsController do
     end
   end
 
+  def reboot(conn, %{"id" => id} = _params) do
+    records = get_nvr!(id)
+    ip = records.ip
+    sdk_port = records.sdk_port
+    username = records.username
+    password = records.password
+    url = "https://#{System.get_env("SERVER_HOST")}/v1/sdk/nvr/reboot"
+    body = Poison.encode!(%{
+      "api_id": System.get_env("SERVER_API_ID"),
+      "api_key": System.get_env("SERVER_API_KEY"),
+      "ip": ip,
+      "port": sdk_port,
+      "user": username,
+      "password": password
+    })
+    headers = [{"Content-type", "application/json"}]
+    case HTTPoison.post(url, body, headers, []) do
+      {:ok, %HTTPoison.Response{body: body, status_code: status_code}} ->
+       message =
+          body
+          |> Poison.decode
+          |> elem(1)
+          |> Map.get("message")
+
+        conn
+        |> put_status(status_code)
+        |> json(%{status: status_code, message: message})
+
+      {:error, %HTTPoison.Error{reason: reason}} ->
+        conn
+        |> put_status(400)
+        |> json(%{message: reason})
+    end
+  end
+
   def update_status_report(conn, params) do
     days = get_history_days(params["history_days"])
     current_user = current_user(conn)

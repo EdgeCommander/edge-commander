@@ -29,7 +29,7 @@ var DatatableDataNVR = function() {
       locked: {left: 'xl'},
       sortable: false,
       template: function(t) {
-        return "<div class='editNVR cursor_to_pointer fa fa-edit' data-id='"+ t.id +"'></div> <div class='deleteNVR cursor_to_pointer fa fa-trash' data-id='"+ t.id +"'></div>";
+        return "<div class='editNVR cursor_to_pointer fa fa-edit' data-id='"+ t.id +"' title='Edit'></div> <div class='rebootNVR cursor_to_pointer fa fa-refresh' data-id='"+ t.id +"' title='Reboot'></div> <div class='deleteNVR cursor_to_pointer fa fa-trash' data-id='"+ t.id +"' title='Delete'></div>";
       }
     },
     {
@@ -343,6 +343,73 @@ onNVRDeleteSuccess = function(result, status, jqXHR) {
   return true;
 };
 
+
+
+var rebootNVR;
+
+rebootNVR = function() {
+  $(document).on("click", ".rebootNVR", function() {
+    var nvrRow, result;
+    result = confirm("Are you sure to reboot this NVR?");
+    if (result === false) {
+      return;
+    }
+    nvrIcon = $(this);
+    nvrID = $(this).attr('data-id');
+    $(this).addClass("fa-spin")
+
+    var data = {};
+    data.id = nvrID;
+    var settings;
+
+    settings = {
+      cache: false,
+      data: data,
+      dataType: 'json',
+      error: onNVRRebootError,
+      success: onNVRRebootSuccess,
+      contentType: "application/x-www-form-urlencoded",
+      context: {nvrIcon: nvrIcon},
+      type: "GET",
+      url: "/nvrs/" + nvrID
+    };
+
+    sendAJAXRequest(settings);
+  })
+
+};
+
+var onNVRRebootError, onNVRRebootSuccess;
+
+onNVRRebootError = function(jqXHR, status, error) {
+  this.nvrIcon.removeClass("fa-spin")
+   $.notify({
+      message: jqXHR.responseJSON.message
+    },{
+      type: 'danger'
+    });
+  return false;
+};
+
+onNVRRebootSuccess = function(result, status, jqXHR) {
+this.nvrIcon.removeClass("fa-spin")
+if (result.status != 201) {
+    $.notify({
+      message: result.message
+    },{
+      type: 'danger'
+    });
+  } else
+  {
+    $.notify({
+      message: "Nvr has been reboot successfully."
+    },{
+      type: 'info'
+    });
+  }
+  return true;
+};
+
 var onNVREditButton;
 
 onNVREditButton = function() {
@@ -489,6 +556,7 @@ window.initializeNVR = function() {
   discardModal();
   saveModal();
   deleteNVR();
+  rebootNVR();
   onNVREditButton();
   updateNVRdo();
   showHideColumns();
