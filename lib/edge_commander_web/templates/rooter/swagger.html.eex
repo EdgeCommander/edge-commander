@@ -161,7 +161,7 @@
                                 <i class="m-menu__section-icon flaticon-more-v3"></i>
                             </li>
                             <li class="m-menu__item m-menu__item--active bottom_link" aria-haspopup="true" >
-                                <a  href="/swagger_ui" class="m-menu__link ">
+                                <a  href="/swagger-ui" class="m-menu__link ">
                                     <i class="m-menu__link-icon fa fa-paperclip"></i>
                                     <span class="m-menu__link-title">
                                         <span class="m-menu__link-wrap">
