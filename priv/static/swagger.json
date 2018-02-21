@@ -22,11 +22,6 @@
     }
   ],
   "swagger": "2.0",
-  "security": [
-    {
-      "basic_auth": []
-    }
-  ],
   "paths": {
     "/v1/sites/{id}": {
       "delete": {
