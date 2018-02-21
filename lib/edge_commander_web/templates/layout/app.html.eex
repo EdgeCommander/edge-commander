@@ -28,7 +28,7 @@
 
     <!--begin::Base Scripts -->
     <script src="<%= static_path(@conn, "/js/jquery.min.js") %>"></script>
-    <%= if @conn.request_path == "/" or @conn.request_path == "/nvrs_list" or @conn.request_path == "/status_report" or @conn.request_path == "/routers_list" or @conn.request_path == "/commands" or @conn.request_path == "/my_profile" or @conn.request_path == "/sites_list" or @conn.request_path == "/swagger"  or @conn.request_path == "/sms_messages" or String.starts_with?(@conn.request_path, "/sims/") do %>
+    <%= if @conn.request_path == "/" or @conn.request_path == "/nvrs_list" or @conn.request_path == "/status_report" or @conn.request_path == "/routers_list" or @conn.request_path == "/commands" or @conn.request_path == "/my_profile" or @conn.request_path == "/sites_list" or @conn.request_path == "/swagger-ui"  or @conn.request_path == "/sms_messages" or String.starts_with?(@conn.request_path, "/sims/") do %>
 
         <script src="<%= static_path(@conn, "/assets/vendors/base/vendors.bundle.js") %>" type="text/javascript"></script>
         <script src="<%= static_path(@conn, "/assets/demo/default/base/scripts.bundle.js") %>" type="text/javascript"></script>
@@ -102,11 +102,11 @@
       </script>
     <%  end %>
 
-    <%= if @conn.request_path == "/swagger" do %>
+    <%= if @conn.request_path == "/swagger-ui" do %>
       <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,700|Source+Code+Pro:300,600|Titillium+Web:400,600,700" rel="stylesheet">
-      <link href="<%= static_path(@conn, "/swagger_ui/swagger-ui.css") %>" rel="stylesheet" type="text/css" />
-      <script src="<%= static_path(@conn, "/swagger_ui/swagger-ui-bundle.js") %>" type="text/javascript"></script>
-      <script src="<%= static_path(@conn, "/swagger_ui/swagger-ui-standalone-preset.js") %>" type="text/javascript"></script>
+      <link href="<%= static_path(@conn, "/swagger/swagger-ui.css") %>" rel="stylesheet" type="text/css" />
+      <script src="<%= static_path(@conn, "/swagger/swagger-ui-bundle.js") %>" type="text/javascript"></script>
+      <script src="<%= static_path(@conn, "/swagger/swagger-ui-standalone-preset.js") %>" type="text/javascript"></script>
       <script>
         window.onload = function() {
           // Build a system
@@ -114,7 +114,7 @@
           swagger_url.pathname = swagger_url.pathname.replace("index.html", "swagger.json");
           swagger_url.hash = "";
           const ui = SwaggerUIBundle({
-            url:  document.location.origin + "/swagger_ui/swagger.json",
+            url:  "http://app.edgecommander.com/swagger/swagger.json",
             dom_id: '#swagger-ui',
             deepLinking: false,
             presets: [

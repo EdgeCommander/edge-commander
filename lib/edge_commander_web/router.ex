@@ -27,11 +27,6 @@ defmodule EdgeCommanderWeb.Router do
         title: "Edge Commander"
       },
       host: "app.edgecommander.com",
-      security: [
-        %{
-          basic_auth: []
-        }
-      ],
       tags: [
         %{
           name: "sims",
@@ -57,7 +52,7 @@ defmodule EdgeCommanderWeb.Router do
     }
   end
 
-  scope "/swagger_ui" do
+  scope "/swagger" do
     forward "/", PhoenixSwagger.Plug.SwaggerUI,
       otp_app: :edge_commander,
       swagger_file: "swagger.json",
@@ -76,7 +71,7 @@ defmodule EdgeCommanderWeb.Router do
     get "/sites_list", RooterController, :sites
     get "/sms_messages", RooterController, :sms_messages
     get "/status_report", RooterController, :status_report
-    get "/swagger", RooterController, :swagger
+    get "/swagger-ui", RooterController, :swagger
 
     get "/sims", SimsController, :get_sim_logs
     get "/sims/data/:sim_number", SimsController, :get_single_sim_data
