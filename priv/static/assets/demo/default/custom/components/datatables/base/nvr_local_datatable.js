@@ -22,6 +22,17 @@ var DatatableDataNVR = function() {
     pagination: false,
     columns: [
     {
+      field: "reboot",
+      width: 60,
+      title: "",
+      textAlign: "center",
+      locked: {left: 'xl'},
+      sortable: false,
+      template: function(t) {
+        return "<button class='btn btn-default rebootNVR cursor_to_pointer' data-id='"+ t.id +"' style='font-size:12px;padding: 5px;'>Reboot</button>";
+      }
+    },
+    {
       field: "actions",
       width: 60,
       title: "Actions",
@@ -29,7 +40,7 @@ var DatatableDataNVR = function() {
       locked: {left: 'xl'},
       sortable: false,
       template: function(t) {
-        return "<div class='editNVR cursor_to_pointer fa fa-edit' data-id='"+ t.id +"' title='Edit'></div> <div class='rebootNVR cursor_to_pointer fa fa-refresh' data-id='"+ t.id +"' title='Reboot'></div> <div class='deleteNVR cursor_to_pointer fa fa-trash' data-id='"+ t.id +"' title='Delete'></div>";
+        return "<div class='editNVR cursor_to_pointer fa fa-edit' data-id='"+ t.id +"' title='Edit'></div> <div class='deleteNVR cursor_to_pointer fa fa-trash' data-id='"+ t.id +"' title='Delete'></div>";
       }
     },
     {
@@ -354,13 +365,19 @@ rebootNVR = function() {
     if (result === false) {
       return;
     }
-    nvrIcon = $(this);
+    nvrRow = $(this).parents('tr');
     nvrID = $(this).attr('data-id');
-    $(this).addClass("fa-spin")
 
     var data = {};
     data.id = nvrID;
     var settings;
+
+    mApp.block(".m_nvr_datatable", {
+      overlayColor: "#000000",
+      type: "loader",
+      state: "primary",
+      message: "Please Wait..."
+    });
 
     settings = {
       cache: false,
@@ -369,20 +386,24 @@ rebootNVR = function() {
       error: onNVRRebootError,
       success: onNVRRebootSuccess,
       contentType: "application/x-www-form-urlencoded",
-      context: {nvrIcon: nvrIcon},
+      context: {nvrRow: nvrRow},
       type: "GET",
       url: "/nvrs/" + nvrID
     };
 
     sendAJAXRequest(settings);
-  })
-
+  });
 };
 
 var onNVRRebootError, onNVRRebootSuccess;
 
 onNVRRebootError = function(jqXHR, status, error) {
-  this.nvrIcon.removeClass("fa-spin")
+    mApp.unblock(".m_nvr_datatable", {
+      overlayColor: "#000000",
+      type: "loader",
+      state: "primary",
+      message: "Please Wait..."
+    });
    $.notify({
       message: jqXHR.responseJSON.message
     },{
@@ -392,7 +413,6 @@ onNVRRebootError = function(jqXHR, status, error) {
 };
 
 onNVRRebootSuccess = function(result, status, jqXHR) {
-this.nvrIcon.removeClass("fa-spin")
 if (result.status != 201) {
     $.notify({
       message: result.message
