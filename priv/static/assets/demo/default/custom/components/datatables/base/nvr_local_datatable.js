@@ -413,7 +413,13 @@ onNVRRebootError = function(jqXHR, status, error) {
 };
 
 onNVRRebootSuccess = function(result, status, jqXHR) {
-if (result.status != 201) {
+  mApp.unblock(".m_nvr_datatable", {
+    overlayColor: "#000000",
+    type: "loader",
+    state: "primary",
+    message: "Please Wait..."
+  });
+  if (result.status != 201) {
     $.notify({
       message: result.message
     },{
