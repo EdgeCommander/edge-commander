@@ -77,6 +77,7 @@ defmodule EdgeCommanderWeb.Router do
     get "/sims/data/:sim_number", SimsController, :get_single_sim_data
     get "/chartjs/data/:sim_number", SimsController, :create_chartjs_line_data
     get "/sims/sms/:sim_number", SimsController, :get_single_sim_sms
+    post "/sims", SimsController, :create
 
     get "/routers", RoutersController, :get_all_routers
     post "/routers", RoutersController, :create
@@ -127,6 +128,7 @@ defmodule EdgeCommanderWeb.Router do
       get "/sims/:sim_number/usage", SimsController, :create_chartjs_line_data
       get "/sims/:sim_number", SimsController, :get_single_sim_data
       get "/sims/:sim_number/sms", SimsController, :get_single_sim_sms
+      post "/sims", SimsController, :create
 
       get "/routers", RoutersController, :get_all_routers
       post "/routers", RoutersController, :create

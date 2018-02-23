@@ -231,6 +231,14 @@
                                 </div>
                               </div>
                               <div class="col-xl-4 order-1 order-xl-2 m--align-right">
+                                <a href="#" id="addSIM" class="btn btn-primary m-btn m-btn--icon">
+                                      <span>
+                                          <i class="fa fa-plus-square"></i>
+                                          <span>
+                                              Add SIM
+                                          </span>
+                                      </span>
+                                  </a>
                                   <div href="#" class="btn btn-default grey" data-toggle="modal" data-target="#toggle-datatable-columns">
                                     <i class="fa fa-columns"></i>
                                   </div>
@@ -879,25 +887,90 @@
     </div>
   </div>
 </div>
- <!--begin::Modal-->
-            <div class="modal fade" id="m_modal_4" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" data-backdrop="static" data-keyboard="false">
-              <div class="modal-dialog modal-lg" role="document">
-                <div class="modal-content">
-                    <img src="/images/loading.gif" id="api-wait" class="hide_me">
-                  <div class="modal-body">
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close" id="clear_chartsjs">
-                        <span aria-hidden="true">
-                            &times;
-                        </span>
-                    </button>
-                    <div style="width:100%;" id="iam_canvas">
-                      <canvas id="canvas"></canvas>
-                    </div>
-                  </div>
+        <!--begin::Modal-->
+        <div class="modal fade" id="m_modal_4" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" data-backdrop="static" data-keyboard="false">
+          <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <img src="/images/loading.gif" id="api-wait" class="hide_me">
+              <div class="modal-body">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close" id="clear_chartsjs">
+                    <span aria-hidden="true">
+                        &times;
+                    </span>
+                </button>
+                <div style="width:100%;" id="iam_canvas">
+                  <canvas id="canvas"></canvas>
                 </div>
               </div>
             </div>
-            <!--end::Modal-->
+          </div>
+        </div>
+        <!--end::Modal-->
+         <!--begin::Modal-->
+          <div class="modal fade add_sim_to_db" style="padding: 0px;" id="m_modal_1" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" data-backdrop="static" data-keyboard="false">
+              <div class="modal-dialog" role="document">
+                  <div class="modal-content" style="padding: 0px;">
+                      <div class="modal-header">
+                          <h5 class="modal-title" id="exampleModalLabel">
+                              Add SIM
+                          </h5>
+                          <div class="cancel">
+                            <a href="#" id="discardModal" data-dismiss="modal">X</a>
+                          </div>
+                      </div>
+                      <div class="modal-body" id="body-sim-dis">
+                          <img src="/images/loading.gif" id="api-wait" class="hide_me">
+                          <div id="simErrorDetails" class="hide_me">
+                              <div class="form-group m-form__group m--margin-top-10">
+                                  <div class="alert m-alert m-alert--default" role="alert">
+                                      <ul id="errorOnSIM" style="margin:0px"></ul>
+                                  </div>
+                              </div>
+                          </div>
+                           <div class="m-form m-form--fit m-form--label-align-left">
+                              <input type="hidden" id="user_id" value="<%= @user.id %>">
+                                <div class="form-group m-form__group row">
+                                    <label class="col-3 col-form-label">
+                                        SIM Provider
+                                    </label>
+                                    <div class="col-9">
+                                        <select class="form-control m-input" id="sim_provider">
+                                            <option value="Lyca Mobile (Ireland)">Lyca Mobile (Ireland)</option>
+                                            <option value="Vodafone (Ireland)">Vodafone (Ireland)</option>
+                                            <option value="Vodafone (UK)">Vodafone (UK)</option>
+                                            <option value="Three (UK)">Three (UK)</option>
+                                            <option value="O2 (UK)">O2 (UK)</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="form-group m-form__group row">
+                                    <label class="col-3 col-form-label">
+                                        Number
+                                    </label>
+                                    <div class="col-9">
+                                        <input type="number" class="form-control m-input m-input--solid"  id="number" placeholder="i.e 08xxxxxxx">
+                                    </div>
+                                </div>
+                                <div class="form-group m-form__group row">
+                                    <label class="col-3 col-form-label">
+                                        Name
+                                    </label>
+                                    <div class="col-9">
+                                        <input type="text" class="form-control m-input m-input--solid" id="name" placeholder="i.e IIA Airport">
+                                    </div>
+                                </div>
+                           </div>
+                          <!--end::Form-->
+                      </div>
+                      <div class="modal-footer">
+                          <button id="saveModal" type="button" class="btn btn-default">
+                              Save changes
+                          </button>
+                      </div>
+                  </div>
+              </div>
+          </div>
+        <!--end::Modal-->
         <!-- begin::Scroll Top -->
         <div class="m-scroll-top m-scroll-top--skin-top" data-toggle="m-scroll-top" data-scroll-offset="500" data-scroll-speed="300">
             <i class="la la-arrow-up"></i>

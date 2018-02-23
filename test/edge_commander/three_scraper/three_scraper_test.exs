@@ -6,9 +6,9 @@ defmodule EdgeCommander.ThreeScraperTest do
   describe "sim_logs" do
     alias EdgeCommander.ThreeScraper.SimLogs
 
-    @valid_attrs %{addon: "some addon", allowance: "some allowance", datetime: ~N[2010-04-17 14:00:00.000000], name: "some name", number: "some number", volume_used: "some volume_used"}
-    @update_attrs %{addon: "some updated addon", allowance: "some updated allowance", datetime: ~N[2011-05-18 15:01:01.000000], name: "some updated name", number: "some updated number", volume_used: "some updated volume_used"}
-    @invalid_attrs %{addon: nil, allowance: nil, datetime: nil, name: nil, number: nil, volume_used: nil}
+    @valid_attrs %{addon: "some addon", allowance: "some allowance", datetime: ~N[2010-04-17 14:00:00.000000], name: "some name", number: "some number", volume_used: "some volume_used", sim_provider: "some sim_provider"}
+    @update_attrs %{addon: "some updated addon", allowance: "some updated allowance", datetime: ~N[2011-05-18 15:01:01.000000], name: "some updated name", number: "some updated number", volume_used: "some updated volume_used", sim_provider: "some updated sim_provider"}
+    @invalid_attrs %{addon: nil, allowance: nil, datetime: nil, name: nil, number: nil, volume_used: nil, sim_provider: nil}
 
     def sim_logs_fixture(attrs \\ %{}) do
       {:ok, sim_logs} =
@@ -37,6 +37,7 @@ defmodule EdgeCommander.ThreeScraperTest do
       assert sim_logs.name == "some name"
       assert sim_logs.number == "some number"
       assert sim_logs.volume_used == "some volume_used"
+      assert sim_logs.sim_provider == "some sim_provider"
     end
 
     test "create_sim_logs/1 with invalid data returns error changeset" do
@@ -53,6 +54,7 @@ defmodule EdgeCommander.ThreeScraperTest do
       assert sim_logs.name == "some updated name"
       assert sim_logs.number == "some updated number"
       assert sim_logs.volume_used == "some updated volume_used"
+      assert sim_logs.sim_provider == "some updated sim_provider"
     end
 
     test "update_sim_logs/2 with invalid data returns error changeset" do

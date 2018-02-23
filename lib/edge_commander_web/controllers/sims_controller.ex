@@ -3,6 +3,7 @@ defmodule EdgeCommanderWeb.SimsController do
   import EdgeCommander.ThreeScraper, only: [all_sim_numbers: 0, get_last_two_days: 1, get_all_records_for_sim: 1, get_single_sim: 1]
   import EdgeCommander.Nexmo, only: [get_message: 1, get_single_sim_messages: 1]
   alias EdgeCommander.Nexmo.SimMessages
+  alias EdgeCommander.ThreeScraper.SimLogs
   alias EdgeCommander.Repo
   alias EdgeCommander.Util
   require Logger
@@ -71,6 +72,41 @@ defmodule EdgeCommanderWeb.SimsController do
     response 200, "Success"
   end
 
+  def create(conn, params) do
+    params = Map.merge(params, %{"datetime" => NaiveDateTime.utc_now})
+    changeset = SimLogs.changeset(%SimLogs{}, params)
+    case Repo.insert(changeset) do
+      {:ok, site} ->
+        %EdgeCommander.ThreeScraper.SimLogs{
+          sim_provider: sim_provider,
+          number: number,
+          name: name,
+          addon: addon,
+          allowance: allowance,
+          volume_used: volume_used,
+          datetime: datetime
+        } = site
+
+        conn
+        |> put_status(:created)
+        |> json(%{
+          "sim_provider" => sim_provider,
+          "number" => number,
+          "name" => name,
+          "addon" => addon,
+          "allowance" => allowance,
+          "volume_used" => volume_used,
+          "datetime" => datetime
+        })
+      {:error, changeset} ->
+        errors = Util.parse_changeset(changeset)
+        traversed_errors = for {_key, values} <- errors, value <- values, do: "#{value}"
+        conn
+        |> put_status(400)
+        |> json(%{errors: traversed_errors})
+    end
+  end
+
   def get_single_sim_data(conn, %{"sim_number" => sim_number } = _params) do
     logs =
       get_single_sim(sim_number)
@@ -108,7 +144,7 @@ defmodule EdgeCommanderWeb.SimsController do
           "allowance" => entries |> List.first |> get_allowance(),
           "volume_used_today" => entries |> List.first |> get_volume_used(),
           "volume_used_yesterday" => entries |> List.last |> get_volume_used(),
-          "percentage_used" => (current_in_number / allowance_in_number * 100) |> Float.round(3),
+          "percentage_used" => get_percentage_used(current_in_number , allowance_in_number),
           "current_in_number" => current_in_number,
           "yesterday_in_number" => yesterday_in_number,
           "allowance_in_number" => allowance_in_number,
@@ -119,6 +155,11 @@ defmodule EdgeCommanderWeb.SimsController do
     |> put_status(200)
     |> json(logs)
   end
+
+  defp get_percentage_used(current_in_number, allowance_in_number) when allowance_in_number > 0  do
+    (current_in_number / allowance_in_number * 100) |> Float.round(3)
+  end
+  defp get_percentage_used(_current_in_number, _allowance_in_number), do: 0
 
   def create_chartjs_line_data(conn, %{"sim_number" => sim_number } = _params) do
     chartjs_data =

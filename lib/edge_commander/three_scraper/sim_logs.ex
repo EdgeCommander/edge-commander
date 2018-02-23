@@ -11,13 +11,20 @@ defmodule EdgeCommander.ThreeScraper.SimLogs do
     field :name, :string
     field :number, :string
     field :volume_used, :string
+    field :sim_provider, :string
 
   end
 
   @doc false
   def changeset(%SimLogs{} = sim_logs, attrs) do
     sim_logs
-    |> cast(attrs, [:number, :name, :addon, :allowance, :volume_used, :datetime])
-    |> validate_required([:number, :name, :addon, :allowance, :volume_used, :datetime])
+    |> cast(attrs, [:number, :name, :addon, :allowance, :volume_used, :datetime, :sim_provider])
+    |> validate_required(:number, [message: "Number cannot be empty."])
+    |> validate_required(:name, [message: "Name cannot be empty."])
+    |> validate_required(:addon, [message: "Addon cannot be empty."])
+    |> validate_required(:allowance, [message: "Allowance cannot be empty."])
+    |> validate_required(:volume_used, [message: "Volume used cannot be empty."])
+    |> validate_required(:sim_provider, [message: "Sim provider cannot be empty."])
+    |> validate_required(:datetime, [message: "Datetime cannot be empty."])
   end
 end

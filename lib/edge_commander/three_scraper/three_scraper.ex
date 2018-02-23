@@ -57,7 +57,8 @@ defmodule EdgeCommander.ThreeScraper do
           addon: addon,
           allowance: allowance,
           volume_used: volume_used,
-          datetime: datetime
+          datetime: datetime,
+          sim_provider: "Three Ireland"
         }
         changeset = SimLogs.changeset(%SimLogs{}, sims_logs)
         case Repo.insert(changeset) do

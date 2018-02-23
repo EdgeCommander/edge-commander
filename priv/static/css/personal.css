@@ -317,6 +317,10 @@ a:hover {
   z-index: 10000;
 }
 
+select.form-control:not([size]):not([multiple]) {
+  height: 42px !important;
+}
+
 @media (min-width: 993px){
   .m-aside-left--minimize .m-aside-menu.m-aside-menu--skin-dark .m-menu__nav>.m-menu__item>.m-menu__link>.m-menu__link-icon {
     color: #9c9c9c !important;
