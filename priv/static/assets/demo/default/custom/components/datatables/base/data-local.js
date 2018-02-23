@@ -106,7 +106,6 @@ var clearCHARThtml = function() {
   });  
 }
 
-
 var startMORRISChartJS = function () {
   $("#child_data_local").on("click", "#show-morris-graph", function(){
     $("#api-wait").removeClass("hide_me");
@@ -131,7 +130,6 @@ var startMORRISChartJS = function () {
 var onMorrisError, onMorrisSuccess;
 
 onMorrisSuccess = function (result, status, jqXHR) {
-
   var labelsZchartjs = [], dataZChartsJS = [];
   $.each(result.chartjs_data, function( index, element ) {
     labelsZchartjs.push(element.datetime);
@@ -235,9 +233,105 @@ showHideColumns = function() {
   });
 };
 
+var onSIMButton = function() {
+  $("#addSIM").on("click", function(){
+    $('.add_sim_to_db').modal('show');
+    clearForm();
+  });
+};
+
+var clearForm = function() {
+  $("#number").val("");
+  $("#name").val("");
+  $('ul#errorOnSIM').html("");
+  $("#body-sim-dis *").prop('disabled', false);
+  $("#simErrorDetails").addClass("hide_me");
+};
+
+var saveModal = function() {
+  $("#saveModal").on("click", function() {
+    $('ul#errorOnSIM').html("");
+    $("#api-wait").removeClass("hide_me");
+    $("#body-sim-dis *").prop('disabled',true);
+    $("#simErrorDetails").addClass("hide_me");
+
+    var sim_provider  = $('#sim_provider').find(":selected").val(),
+        number        = $("#number").val(),
+        name          = $("#name").val()
+
+    var data = {};
+        data.sim_provider = sim_provider;
+        data.number = number;
+        data.name = name;
+        data.addon = "Unknown";
+        data.allowance = "0";
+        data.volume_used = "0";
+
+    var settings;
+
+    settings = {
+      cache: false,
+      data: data,
+      dataType: 'json',
+      error: onError,
+      success: onSuccess,
+      contentType: "application/x-www-form-urlencoded",
+      type: "POST",
+      url: "/sims/new"
+    };
+
+    sendAJAXRequest(settings);
+  });
+};
+
+var onError, onSuccess;
+
+onError = function(jqXHR, status, error) {
+  var cList = $('ul#errorOnSIM')
+  $.each(jqXHR.responseJSON.errors, function(index, value) {
+    var li = $('<li/>')
+        .text(value)
+        .appendTo(cList);
+  });
+  $("#simErrorDetails").removeClass("hide_me");
+  $("#api-wait").addClass("hide_me");
+  $("#body-sim-dis *").prop('disabled', false);
+  return false;
+};
+
+onSuccess = function(result, status, jqXHR) {
+  $.notify({
+    // options
+    message: 'SIM has been added.'
+  },{
+    // settings
+    type: 'info'
+  });
+  $(".modal-backdrop").remove();
+  $("#m_modal_1").modal("hide");
+  $("#api-wait").addClass("hide_me");
+  a.load();
+  clearForm();
+  return true;
+};
+
+var sendAJAXRequest = function(settings) {
+  var headers, token, xhrRequestChangeMonth;
+  token = $('meta[name="csrf-token"]');
+  if (token.length > 0) {
+    headers = {
+      "X-CSRF-Token": token.attr("content")
+    };
+    settings.headers = headers;
+  }
+  return xhrRequestChangeMonth = jQuery.ajax(settings);
+};
+
 window.initializeSIMs = function() {
   startSIMDatatable();
   startMORRISChartJS();
   clearCHARThtml();
   showHideColumns();
+  onSIMButton();
+  saveModal();
 };
