@@ -24,7 +24,7 @@ defmodule EdgeCommander.ThreeScraper.SimLogs do
     |> validate_required(:addon, [message: "Addon cannot be empty."])
     |> validate_required(:allowance, [message: "Allowance cannot be empty."])
     |> validate_required(:volume_used, [message: "Volume used cannot be empty."])
-    |> validate_required(:sim_provider, [message: "Sim provider used cannot be empty."])
+    |> validate_required(:sim_provider, [message: "Sim provider cannot be empty."])
     |> validate_required(:datetime, [message: "Datetime cannot be empty."])
   end
 end

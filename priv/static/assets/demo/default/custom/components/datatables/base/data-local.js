@@ -277,7 +277,7 @@ var saveModal = function() {
       success: onSuccess,
       contentType: "application/x-www-form-urlencoded",
       type: "POST",
-      url: "/sims/new"
+      url: "/sims"
     };
 
     sendAJAXRequest(settings);
