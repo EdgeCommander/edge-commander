@@ -869,5 +869,222 @@
     "title": "Edge Commander"
   },
   "host": "app.edgecommander.com",
-  "definitions": {}
+  "definitions": {
+    "Site": {
+      "type": "object",
+      "title": "Site",
+      "required": [
+        "lat",
+        "lng",
+        "location",
+        "nvr_name",
+        "router_name",
+        "sim_number"
+      ],
+      "properties": {
+        "sim_number": {
+          "type": "string",
+          "description": ""
+        },
+        "router_name": {
+          "type": "string",
+          "description": ""
+        },
+        "nvr_name": {
+          "type": "string",
+          "description": ""
+        },
+        "notes": {
+          "type": "string",
+          "description": ""
+        },
+        "location": {
+          "type": "string",
+          "description": ""
+        },
+        "lng": {
+          "type": "string",
+          "description": "Longitude of the location"
+        },
+        "lat": {
+          "type": "string",
+          "description": "Latitude of the location"
+        },
+        "id": {
+          "type": "integer",
+          "description": ""
+        }
+      },
+      "description": "A site of the application"
+    },
+    "Rule": {
+      "type": "object",
+      "title": "Rule",
+      "required": [
+        "active",
+        "category",
+        "recipients",
+        "rule_name"
+      ],
+      "properties": {
+        "rule_name": {
+          "type": "string",
+          "description": ""
+        },
+        "recipients": {
+          "type": "string",
+          "example": "test@user.com,who@am.io",
+          "description": ""
+        },
+        "id": {
+          "type": "integer",
+          "description": ""
+        },
+        "category": {
+          "type": "string",
+          "enum": [
+            "usage_command"
+          ],
+          "description": ""
+        },
+        "active": {
+          "type": "bolean",
+          "description": "",
+          "default": false
+        }
+      },
+      "description": "A rule of the application"
+    },
+    "Router": {
+      "type": "object",
+      "title": "Router",
+      "properties": {
+        "username": {
+          "type": "string",
+          "description": ""
+        },
+        "port": {
+          "type": "integer",
+          "description": ""
+        },
+        "password": {
+          "type": "string",
+          "description": ""
+        },
+        "name": {
+          "type": "string",
+          "description": ""
+        },
+        "is_monitoring": {
+          "type": "boolean",
+          "description": "",
+          "default": false
+        },
+        "ip": {
+          "type": "integer",
+          "description": ""
+        },
+        "id": {
+          "type": "integer",
+          "description": ""
+        }
+      },
+      "description": "A router of the application"
+    },
+    "Nvr": {
+      "type": "object",
+      "title": "Nvr",
+      "required": [
+        "is_monitoring",
+        "sdk_port",
+        "rtsp_port",
+        "vh_port",
+        "port",
+        "ip",
+        "password",
+        "username",
+        "name"
+      ],
+      "properties": {
+        "vh_port": {
+          "type": "integer",
+          "description": ""
+        },
+        "username": {
+          "type": "string",
+          "description": ""
+        },
+        "serial_number": {
+          "type": "string",
+          "description": ""
+        },
+        "sdk_port": {
+          "type": "integer",
+          "description": ""
+        },
+        "rtsp_port": {
+          "type": "integer",
+          "description": ""
+        },
+        "reason": {
+          "type": "string",
+          "description": "Offline reason"
+        },
+        "port": {
+          "type": "integer",
+          "description": ""
+        },
+        "password": {
+          "type": "string",
+          "description": ""
+        },
+        "nvr_status": {
+          "type": "boolean",
+          "description": ""
+        },
+        "name": {
+          "type": "string",
+          "description": ""
+        },
+        "model": {
+          "type": "string",
+          "description": ""
+        },
+        "mac_address": {
+          "type": "string",
+          "description": ""
+        },
+        "is_monitoring": {
+          "type": "boolean",
+          "description": "",
+          "default": false
+        },
+        "ip": {
+          "type": "integer",
+          "description": ""
+        },
+        "id": {
+          "type": "integer",
+          "description": ""
+        },
+        "firmware_version": {
+          "type": "string",
+          "description": ""
+        },
+        "firmware_released_date": {
+          "type": "string",
+          "description": ""
+        },
+        "encoder_version": {
+          "type": "string",
+          "description": ""
+        },
+        "encoder_released_date": {
+          "type": "string",
+          "description": ""
+        }
+      },
+      "description": "A nvr of the application"
+    }
+  }
 }

@@ -8,6 +8,25 @@ defmodule EdgeCommanderWeb.SitesController do
   import EdgeCommander.Devices, only: [get_router!: 1, get_nvr!: 1]
   use PhoenixSwagger
 
+  def swagger_definitions do
+    %{
+      Site: swagger_schema do
+        title "Site"
+        description "A site of the application"
+        properties do
+          id :integer, ""
+          sim_number :string, "", required: true
+          router_name :string, "", required: true
+          nvr_name :string, "", required: true
+          notes :string, ""
+          location :string, "", required: true
+          lng :string, "Longitude of the location", required: true
+          lat :string, "Latitude of the location", required: true
+        end
+      end
+    }
+  end
+
   swagger_path :get_all_sites do
     get "/v1/sites"
     description "Returns sites list"
