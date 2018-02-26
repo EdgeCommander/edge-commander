@@ -148,7 +148,8 @@ defmodule EdgeCommanderWeb.SimsController do
           "current_in_number" => current_in_number,
           "yesterday_in_number" => yesterday_in_number,
           "allowance_in_number" => allowance_in_number,
-          "date_of_use" => entries |> List.first |> Map.get(:datetime)
+          "date_of_use" => entries |> List.first |> Map.get(:datetime),
+          "sim_provider" => entries |> List.first |> Map.get(:sim_provider)
         }
       end) |> Enum.sort(& (&1["percentage_used"] >= &2["percentage_used"]))
     conn

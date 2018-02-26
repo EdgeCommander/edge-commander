@@ -71,6 +71,12 @@ var DatatableDataLocalDemo = function() {
                   }
                 },
                 {
+                  field: "sim_provider",
+                  title: "Sim Provider",
+                  width: 210,
+                  textAlign: "center",
+                },
+                {
                   field: "date_of_use",
                   title: "Last Reading",
                   textAlign: "center",
