@@ -7,6 +7,24 @@ defmodule EdgeCommanderWeb.RoutersController do
   import EdgeCommander.Devices, only: [list_routers: 0, get_router!: 1]
   use PhoenixSwagger
 
+  def swagger_definitions do
+    %{
+      Router: swagger_schema do
+        title "Router"
+        description "A router of the application"
+        properties do
+          id :integer, ""
+          name :string, ""
+          username :string, ""
+          password :string, ""
+          ip :integer, ""
+          port :integer, ""
+          is_monitoring :boolean, "", default: false
+        end
+      end
+    }
+  end
+
   swagger_path :get_all_routers do
     get "/v1/routers"
     description "Returns routers list"

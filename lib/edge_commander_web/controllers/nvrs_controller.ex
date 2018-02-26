@@ -9,6 +9,36 @@ defmodule EdgeCommanderWeb.NvrsController do
   import EdgeCommander.Devices, only: [update_nvr_ISAPI: 1, list_nvrs: 0, get_nvr!: 1]
   use PhoenixSwagger
 
+  def swagger_definitions do
+    %{
+      Nvr: swagger_schema do
+        title "Nvr"
+        description "A nvr of the application"
+        properties do
+          id :integer, ""
+          name :string, "", required: true
+          username :string, "", required: true
+          password :string, "", required: true
+          ip :integer, "", required: true
+          port :integer, "", required: true
+          vh_port :integer, "", required: true
+          rtsp_port :integer, "", required: true
+          sdk_port :integer, "", required: true
+          is_monitoring :boolean, "", default: false, required: true
+          nvr_status :boolean, ""
+          model :string, ""
+          mac_address :string, ""
+          firmware_version :string, ""
+          firmware_released_date :string, ""
+          encoder_version :string, ""
+          encoder_released_date :string, ""
+          serial_number :string, ""
+          reason :string, "Offline reason"
+        end
+      end
+    }
+  end
+
   swagger_path :get_all_nvrs do
     get "/v1/nvrs"
     description "Returns nvrs list"

@@ -7,6 +7,22 @@ defmodule EdgeCommanderWeb.CommandsController do
   import EdgeCommander.Commands, only: [list_rules: 0, get_rule!: 1]
   use PhoenixSwagger
 
+  def swagger_definitions do
+    %{
+      Rule: swagger_schema do
+        title "Rule"
+        description "A rule of the application"
+        properties do
+          id :integer, ""
+          rule_name :string, "", required: true
+          recipients :string, "", required: true, example: "test@user.com,who@am.io"
+          category :string, "", required: true, enum: ["usage_command"]
+          active :bolean, "", required: true, default: false
+        end
+      end
+    }
+  end
+
   swagger_path :get_all_rules do
     get "/v1/rules"
     description "Returns rules list"
