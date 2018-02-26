@@ -59,25 +59,37 @@ var DatatableDataNVR = function() {
         field: "port",
         title: "HTTP Port",
         textAlign: "center",
-        width: 150
+        width: 150,
+        responsive: {
+          hidden: 'lg'
+        }
     },
     {
         field: "vh_port",
         title: "VH Port",
         textAlign: "center",
-        width: 150
+        width: 150,
+        responsive: {
+          hidden: 'lg'
+        }
     },
     {
         field: "sdk_port",
         title: "SDK Port",
         textAlign: "center",
-        width: 150
+        width: 150,
+        responsive: {
+          hidden: 'lg'
+        }
     },
     {
         field: "rtsp_port",
         title: "RTSP Port",
         textAlign: "center",
-        width: 150
+        width: 150,
+        responsive: {
+          hidden: 'lg'
+        }
     },
     {
         field: "username",
@@ -85,13 +97,16 @@ var DatatableDataNVR = function() {
         textAlign: "center",
         width: 100,
         responsive: {
-            visible: "lg"
+            hidden: "lg"
         }
     }, {
         field: "password",
         title: "Password",
         textAlign: "center",
-        width: 150
+        width: 150,
+        responsive: {
+          hidden: 'lg'
+        }
     }, {
         field: "model",
         title: "Model",
@@ -106,27 +121,42 @@ var DatatableDataNVR = function() {
         field: "encoder_released_date",
         title: "Encoder Released Date",
         textAlign: "center",
-        width: 180
+        width: 180,
+        responsive: {
+          hidden: 'lg'
+        }
     }, {
         field: "encoder_version",
         title: "Encoder Version",
         textAlign: "center",
-        width: 150
+        width: 150,
+        responsive: {
+          hidden: 'lg'
+        }
     }, {
         field: "firmware_released_date",
         title: "Firmware Released Date",
         textAlign: "center",
-        width: 180
+        width: 180,
+        responsive: {
+          hidden: 'lg'
+        }
     }, {
         field: "serial_number",
         title: "Serial Number",
         textAlign: "left",
-        width: 400
+        width: 400,
+        responsive: {
+          hidden: 'lg'
+        }
     }, {
         field: "mac_address",
         title: "Mac Address",
         textAlign: "center",
-        width: 150
+        width: 150,
+        responsive: {
+          hidden: 'lg'
+        }
     }, {
         field: "nvr_status",
         title: "Status",
@@ -147,6 +177,9 @@ var DatatableDataNVR = function() {
         field: "is_monitoring",
         title: "Monitoring",
         textAlign: "center",
+        responsive: {
+          hidden: 'lg'
+        },
         width: 100,
         template: function(t) {
           if (t.is_monitoring) {
@@ -159,6 +192,9 @@ var DatatableDataNVR = function() {
         field: "created_at",
         title: "Created At",
         textAlign: "center",
+        responsive: {
+          hidden: 'lg'
+        },
         template: function(t) {
           return "" + moment(t.created_at).format('MMMM Do YYYY, H:mm:ss') +"";
         },

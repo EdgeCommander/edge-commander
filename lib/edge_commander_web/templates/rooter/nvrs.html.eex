@@ -861,22 +861,22 @@
                     <label class="m-checkbox m-checkbox--single m-checkbox--solid m-checkbox--brand" style="width: auto;"><input class="nvr-column" type="checkbox" data-field="ip" checked><span></span> IP</label>
                   </div>
                   <div class="column-checkbox">
-                    <label class="m-checkbox m-checkbox--single m-checkbox--solid m-checkbox--brand" style="width: auto;"><input class="nvr-column" type="checkbox" data-field="port" checked><span></span> HTTP Port</label>
+                    <label class="m-checkbox m-checkbox--single m-checkbox--solid m-checkbox--brand" style="width: auto;"><input class="nvr-column" type="checkbox" data-field="port"><span></span> HTTP Port</label>
                   </div>
                   <div class="column-checkbox">
-                    <label class="m-checkbox m-checkbox--single m-checkbox--solid m-checkbox--brand" style="width: auto;"><input class="nvr-column" type="checkbox" data-field="vh_port" checked><span></span> VH Port</label>
+                    <label class="m-checkbox m-checkbox--single m-checkbox--solid m-checkbox--brand" style="width: auto;"><input class="nvr-column" type="checkbox" data-field="vh_port"><span></span> VH Port</label>
                   </div>
                   <div class="column-checkbox">
-                    <label class="m-checkbox m-checkbox--single m-checkbox--solid m-checkbox--brand" style="width: auto;"><input class="nvr-column" type="checkbox" data-field="sdk_port" checked><span></span> SDK Port</label>
+                    <label class="m-checkbox m-checkbox--single m-checkbox--solid m-checkbox--brand" style="width: auto;"><input class="nvr-column" type="checkbox" data-field="sdk_port"><span></span> SDK Port</label>
                   </div>
                   <div class="column-checkbox">
-                    <label class="m-checkbox m-checkbox--single m-checkbox--solid m-checkbox--brand" style="width: auto;"><input class="nvr-column" type="checkbox" data-field="rtsp_port" checked><span></span> RTSP Port</label>
+                    <label class="m-checkbox m-checkbox--single m-checkbox--solid m-checkbox--brand" style="width: auto;"><input class="nvr-column" type="checkbox" data-field="rtsp_port"><span></span> RTSP Port</label>
                   </div>
                   <div class="column-checkbox">
-                    <label class="m-checkbox m-checkbox--single m-checkbox--solid m-checkbox--brand" style="width: auto;"><input class="nvr-column" type="checkbox" data-field="username" checked><span></span> Username</label>
+                    <label class="m-checkbox m-checkbox--single m-checkbox--solid m-checkbox--brand" style="width: auto;"><input class="nvr-column" type="checkbox" data-field="username"><span></span> Username</label>
                   </div>
                   <div class="column-checkbox">
-                    <label class="m-checkbox m-checkbox--single m-checkbox--solid m-checkbox--brand" style="width: auto;"><input class="nvr-column" type="checkbox" data-field="password" checked><span></span> Password</label>
+                    <label class="m-checkbox m-checkbox--single m-checkbox--solid m-checkbox--brand" style="width: auto;"><input class="nvr-column" type="checkbox" data-field="password"><span></span> Password</label>
                   </div>
                   <div class="column-checkbox">
                     <label class="m-checkbox m-checkbox--single m-checkbox--solid m-checkbox--brand" style="width: auto;"><input class="nvr-column" type="checkbox" data-field="model" checked><span></span> Model</label>
@@ -885,28 +885,28 @@
                     <label class="m-checkbox m-checkbox--single m-checkbox--solid m-checkbox--brand" style="width: auto;"><input class="nvr-column" type="checkbox" data-field="firmware_version" checked><span></span> Firmware Version</label>
                   </div>
                   <div class="column-checkbox">
-                    <label class="m-checkbox m-checkbox--single m-checkbox--solid m-checkbox--brand" style="width: auto;"><input class="nvr-column" type="checkbox" data-field="encoder_released_date" checked><span></span> Encoder Released Date</label>
+                    <label class="m-checkbox m-checkbox--single m-checkbox--solid m-checkbox--brand" style="width: auto;"><input class="nvr-column" type="checkbox" data-field="encoder_released_date"><span></span> Encoder Released Date</label>
                   </div>
                   <div class="column-checkbox">
-                    <label class="m-checkbox m-checkbox--single m-checkbox--solid m-checkbox--brand" style="width: auto;"><input class="nvr-column" type="checkbox" data-field="encoder_version" checked><span></span> Encoder Version</label>
+                    <label class="m-checkbox m-checkbox--single m-checkbox--solid m-checkbox--brand" style="width: auto;"><input class="nvr-column" type="checkbox" data-field="encoder_version"><span></span> Encoder Version</label>
                   </div>
                   <div class="column-checkbox">
-                    <label class="m-checkbox m-checkbox--single m-checkbox--solid m-checkbox--brand" style="width: auto;"><input class="nvr-column" type="checkbox" data-field="firmware_released_date" checked><span></span> Firmware Released Date</label>
+                    <label class="m-checkbox m-checkbox--single m-checkbox--solid m-checkbox--brand" style="width: auto;"><input class="nvr-column" type="checkbox" data-field="firmware_released_date"><span></span> Firmware Released Date</label>
                   </div>
                   <div class="column-checkbox">
-                    <label class="m-checkbox m-checkbox--single m-checkbox--solid m-checkbox--brand" style="width: auto;"><input class="nvr-column" type="checkbox" data-field="serial_number" checked><span></span> Serial Number</label>
+                    <label class="m-checkbox m-checkbox--single m-checkbox--solid m-checkbox--brand" style="width: auto;"><input class="nvr-column" type="checkbox" data-field="serial_number"><span></span> Serial Number</label>
                   </div>
                   <div class="column-checkbox">
-                    <label class="m-checkbox m-checkbox--single m-checkbox--solid m-checkbox--brand" style="width: auto;"><input class="nvr-column" type="checkbox" data-field="mac_address" checked><span></span> Mac Address</label>
+                    <label class="m-checkbox m-checkbox--single m-checkbox--solid m-checkbox--brand" style="width: auto;"><input class="nvr-column" type="checkbox" data-field="mac_address"><span></span> Mac Address</label>
                   </div>
                   <div class="column-checkbox">
                     <label class="m-checkbox m-checkbox--single m-checkbox--solid m-checkbox--brand" style="width: auto;"><input class="nvr-column" type="checkbox" data-field="nvr_status" checked><span></span> Status</label>
                   </div>
                   <div class="column-checkbox">
-                    <label class="m-checkbox m-checkbox--single m-checkbox--solid m-checkbox--brand" style="width: auto;"><input class="nvr-column" type="checkbox" data-field="is_monitoring" checked><span></span> Monitoring</label>
+                    <label class="m-checkbox m-checkbox--single m-checkbox--solid m-checkbox--brand" style="width: auto;"><input class="nvr-column" type="checkbox" data-field="is_monitoring"><span></span> Monitoring</label>
                   </div>
                   <div class="column-checkbox">
-                    <label class="m-checkbox m-checkbox--single m-checkbox--solid m-checkbox--brand" style="width: auto;"><input class="nvr-column" type="checkbox" data-field="created_at" checked><span></span> Created At</label>
+                    <label class="m-checkbox m-checkbox--single m-checkbox--solid m-checkbox--brand" style="width: auto;"><input class="nvr-column" type="checkbox" data-field="created_at"><span></span> Created At</label>
                   </div>
                 </div>
               </div>
