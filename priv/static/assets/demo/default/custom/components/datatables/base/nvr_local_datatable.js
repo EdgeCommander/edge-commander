@@ -49,6 +49,10 @@ var DatatableDataNVR = function() {
         width: 230,
         sortable: !1,
         selector: !1,
+        template: function(t) {
+          url = t.ip + ":" + t.port
+          return "<span style='float:left'>"+t.name+"</span><a href='"+url+"' target='_blanck'><span class='fa fa-external-link' style='float:right'></span></a>"
+        }
     },
     {
         field: "ip",

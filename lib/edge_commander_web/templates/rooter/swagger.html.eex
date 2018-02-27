@@ -156,17 +156,15 @@
                                     </span>
                                 </a>
                             </li>
-                            <li class="m-menu__section">
-                                <h4 class="m-menu__section-text"></h4>
-                                <i class="m-menu__section-icon flaticon-more-v3"></i>
-                            </li>
-                            <li class="m-menu__item m-menu__item--active bottom_link" aria-haspopup="true" >
-                                <a  href="/swagger-ui" class="m-menu__link ">
+                        </ul>
+                        <ul class="m-menu__nav  m-menu__nav--dropdown-submenu-arrow bottom_links">
+                            <li class="m-menu__item bottom_link m-menu__item--active bottom_link" aria-haspopup="true" >
+                                <a  href="/api" class="m-menu__link ">
                                     <i class="m-menu__link-icon fa fa-paperclip"></i>
                                     <span class="m-menu__link-title">
                                         <span class="m-menu__link-wrap">
                                             <span class="m-menu__link-text">
-                                                Swagger
+                                                API
                                             </span>>
                                         </span>
                                     </span>
@@ -184,7 +182,7 @@
                                     </span>
                                 </a>
                             </li>
-                               <li class="m-menu__item bottom_link" aria-haspopup="true" >
+                            <li class="m-menu__item bottom_link" aria-haspopup="true" style="border-top: solid 1px #333333;">
                                 <a  href="/users/session" class="m-menu__link ">
                                     <i class="m-menu__link-icon fa fa-power-off"></i>
                                     <span class="m-menu__link-title">
