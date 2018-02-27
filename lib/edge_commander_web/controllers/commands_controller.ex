@@ -15,9 +15,9 @@ defmodule EdgeCommanderWeb.CommandsController do
         properties do
           id :integer, ""
           rule_name :string, "", required: true
-          recipients :string, "", required: true, example: "test@user.com,who@am.io"
+          recipients :string, "", required: true, example: "test@user.com, who@am.io"
           category :string, "", required: true, enum: ["usage_command"]
-          active :bolean, "", required: true, default: false
+          active :boolean, "", required: true, default: false
         end
       end
     }

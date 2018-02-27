@@ -13,7 +13,7 @@ defmodule EdgeCommanderWeb.NvrsController do
     %{
       Nvr: swagger_schema do
         title "Nvr"
-        description "A nvr of the application"
+        description "A network video recorder of the application"
         properties do
           id :integer, ""
           name :string, "", required: true
