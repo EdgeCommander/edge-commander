@@ -321,7 +321,9 @@ select.form-control:not([size]):not([multiple]) {
   height: 42px !important;
 }
 
-
+.m-datatable__cell a {
+  color: #5b5d5e !important;
+}
 
 @media (min-width: 993px){
   .m-aside-left--minimize .m-aside-menu.m-aside-menu--skin-dark .m-menu__nav>.m-menu__item>.m-menu__link>.m-menu__link-icon {
