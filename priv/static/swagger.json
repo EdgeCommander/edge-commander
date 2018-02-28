@@ -903,11 +903,11 @@
           "description": ""
         },
         "lng": {
-          "type": "float",
+          "type": "string",
           "description": "Longitude of the location"
         },
         "lat": {
-          "type": "float",
+          "type": "string",
           "description": "Latitude of the location"
         },
         "id": {

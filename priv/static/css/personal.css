@@ -325,19 +325,30 @@ select.form-control:not([size]):not([multiple]) {
   color: #5b5d5e !important;
 }
 
+.m-aside-menu{
+  width: inherit !important;
+}
+
+.inner_menu{
+  height:90vh;
+  position:absolute;
+  width: inherit;
+}
+
+#page_content_main{
+  height:100vh;
+}
+
 @media (min-width: 993px){
   .m-aside-left--minimize .m-aside-menu.m-aside-menu--skin-dark .m-menu__nav>.m-menu__item>.m-menu__link>.m-menu__link-icon {
     color: #9c9c9c !important;
   }
-  .m-grid.m-grid--ver-desktop.m-grid--desktop>.m-grid__item {
-    flex: 0 0 auto;
-    position: relative;
-  }
 
   .bottom_links{
-    position: absolute;
+    position: fixed;
     padding: 0 !important;
     bottom: 0;
+    width: inherit;
   }
 }
 
