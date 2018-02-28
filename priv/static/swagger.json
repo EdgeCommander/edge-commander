@@ -903,11 +903,11 @@
           "description": ""
         },
         "lng": {
-          "type": "string",
+          "type": "float",
           "description": "Longitude of the location"
         },
         "lat": {
-          "type": "string",
+          "type": "float",
           "description": "Latitude of the location"
         },
         "id": {
@@ -933,7 +933,7 @@
         },
         "recipients": {
           "type": "string",
-          "example": "test@user.com,who@am.io",
+          "example": "test@user.com, who@am.io",
           "description": ""
         },
         "id": {
@@ -948,7 +948,7 @@
           "description": ""
         },
         "active": {
-          "type": "bolean",
+          "type": "boolean",
           "description": "",
           "default": false
         }
@@ -1084,7 +1084,7 @@
           "description": ""
         }
       },
-      "description": "A nvr of the application"
+      "description": "A network video recorder of the application"
     }
   }
 }
