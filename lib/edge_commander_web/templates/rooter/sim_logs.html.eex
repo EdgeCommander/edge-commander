@@ -71,6 +71,7 @@
         data-menu-vertical="true"
          data-menu-scrollable="false" data-menu-dropdown-timeout="500"  
         >
+        <div class="inner_menu">
                         <ul class="m-menu__nav  m-menu__nav--dropdown-submenu-arrow ">
                             <li class="m-menu__item m-menu__item--active" aria-haspopup="true" >
                                 <a  href="/" class="m-menu__link ">
@@ -195,6 +196,7 @@
                                 </a>
                             </li>
                         </ul>
+                        </div>
                     </div>
                     <!-- END: Aside Menu -->
                 </div>

@@ -20,8 +20,8 @@ defmodule EdgeCommanderWeb.SitesController do
           nvr_name :string, "", required: true
           notes :string, ""
           location :string, "", required: true
-          lng :float, "Longitude of the location", required: true
-          lat :float, "Latitude of the location", required: true
+          lng :string, "Longitude of the location", required: true
+          lat :string, "Latitude of the location", required: true
         end
       end
     }
