@@ -680,6 +680,14 @@
         $(table).find('tr').addClass('m-datatable__row');
         $(table).find('tr > th, tr > td').addClass('m-datatable__cell');
         $(table).find('tr > th, tr > td').each(function (i, td) {
+
+        $(".column-checkbox").find("input[type='checkbox']").each(function(){
+          if ($(this).prop('checked')==false){
+            var ColToHide = $(this).attr("data-field");
+            $("td[data-field='" + ColToHide + "']").hide();
+          }
+        });
+
           if ($(td).find('span').length === 0) {
             $(td).wrapInner($('<span/>').width(dt.offset));
           }
