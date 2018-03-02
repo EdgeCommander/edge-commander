@@ -265,6 +265,9 @@
                           <!--end: Search Form -->
                           <!--begin: Datatable -->
                           <font class="reload"></font>
+                          <div class="tableScroll">
+                            <div class="topScroll"></div>
+                          </div>
                           <div class="sms_messages_datatable" id="child_data_local"></div>
                           <!--end: Datatable -->
                         </div>

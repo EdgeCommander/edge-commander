@@ -603,7 +603,6 @@ var showHideColumns;
 
 showHideColumns = function() {
   $(".nvr-column").on("click", function(){
-    console.log($(this).attr("data-field"));
     var ColToHide = $(this).attr("data-field");
     if(this.checked){
       $("th[data-field='" + ColToHide + "']").show();
@@ -612,6 +611,8 @@ showHideColumns = function() {
       $("th[data-field='" + ColToHide + "']").hide();
       $("td[data-field='" + ColToHide + "']").hide();
     }
+      var selected_table = nvrDataTable.table;
+      $(".topScroll").width(selected_table[0].scrollWidth);
   });
 };
 
