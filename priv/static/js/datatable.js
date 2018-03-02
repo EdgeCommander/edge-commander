@@ -725,6 +725,7 @@
               $(datatable).addClass('m-datatable--scroll');
 
               var scrollable = $(datatable.tableBody).find('.m-datatable__lock--scroll');
+
               if ($(scrollable).length > 0) {
                 scroll.scrollHead = $(datatable.tableHead).find('> .m-datatable__lock--scroll > .m-datatable__row');
                 scroll.scrollFoot = $(datatable.tableFoot).find('> .m-datatable__lock--scroll > .m-datatable__row');
@@ -745,6 +746,17 @@
               }
             } else {
               $(datatable.table).css('height', 'auto').css('overflow-x', 'auto');
+              /*--------------------table top scroll---------------------*/
+              var current_table = datatable.table;
+              var bottomScrollWidth = current_table[0].scrollWidth;
+              $(".topScroll").width(bottomScrollWidth);
+
+              $(".tableScroll").scroll(function(){
+                current_table.scrollLeft($(".tableScroll").scrollLeft());
+              });
+              current_table.scroll(function(){
+                $(".tableScroll").scrollLeft(current_table.scrollLeft());
+              });
             }
           },
           defaultScrollbar: function (scrollable) {

@@ -247,6 +247,9 @@
                           </div>
                           <!--end: Search Form -->
                           <!--begin: Datatable -->
+                          <div class="tableScroll">
+                            <div class="topScroll"></div>
+                          </div>
                           <div class="m_datatable" id="child_data_local"></div>
                           <!--end: Datatable -->
                         </div>

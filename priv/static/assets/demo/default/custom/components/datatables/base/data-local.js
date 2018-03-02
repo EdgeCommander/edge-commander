@@ -236,6 +236,8 @@ showHideColumns = function() {
       $("th[data-field='" + ColToHide + "']").hide();
       $("td[data-field='" + ColToHide + "']").hide();
     }
+    var selected_table = a.table;
+    $(".topScroll").width(selected_table[0].scrollWidth);
   });
 };
 
