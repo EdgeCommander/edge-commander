@@ -306,6 +306,7 @@ defmodule EdgeCommanderWeb.SimsController do
   defp number_without_code("353" <> number), do: "0#{number}"
 
   defp number_without_plus_code("+353" <> number), do: "0#{number}"
+  defp number_without_plus_code("+44" <> number), do: "0#{number}"
 
   defp shift_datetime(datetime) do
     datetime
