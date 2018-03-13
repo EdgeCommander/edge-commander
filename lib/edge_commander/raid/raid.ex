@@ -9,7 +9,9 @@ defmodule EdgeCommander.Raid do
 
   alias EdgeCommander.Raid.Server
 
-  @failed_drive_command "/opt/MegaRAID/MegaCli/MegaCli64 -AdpAllInfo -aALL | grep 'Failed'"
+  @failed_drive_command_raid "/opt/MegaRAID/MegaCli/MegaCli64 -AdpAllInfo -aALL | grep 'Failed'"
+  @check_which_raid "lspci | grep -i raid"
+  @failed_drive_command_adaptec "/tmp/arcconf getconfig 1 | grep 'Degraded'"
 
   def check_failed_drives do
     list_servers()
@@ -20,19 +22,24 @@ defmodule EdgeCommander.Raid do
 
   defp get_conn_for_server({:error, :timeout}, server), do: go_through_and_email(server)
   defp get_conn_for_server({:ok, conn}, server) do
-    run_command_on_server(conn)
+    run_command_on_server(@check_which_raid, conn)
+    |> select_command_for_raid()
+    |> run_command_on_server(conn)
     |> command_results(server)
+  end
+
+  defp select_command_for_raid({:error, _reason}), do: :noop
+  defp select_command_for_raid({:ok, res, 0}) do
+    case String.match?(res, ~r/MegaRAID/) do
+      true -> @failed_drive_command_raid
+      _ -> @failed_drive_command_adaptec
+    end
   end
 
   defp command_results({:error, reason}, _server), do: Logger.info reason
   defp command_results({:ok, res, 0}, server) do
-    String.match?(res, ~r/1/)
-    |> is_that_a_failure(res, server)
-  end
-
-  defp is_that_a_failure(false, _res, server), do: Logger.info "RAID is fine on #{server.ip}."
-  defp is_that_a_failure(true, res, server), do:
     EdgeCommander.EcMailer.send_email_for_raid(res, server)
+  end
 
   defp go_through_and_email(server) do
     connect_to_server(server)
@@ -42,7 +49,7 @@ defmodule EdgeCommander.Raid do
   defp connect_to_server(server), do:
     SSHEx.connect(ip: server.ip, user: server.username, password: server.password)
 
-  defp run_command_on_server(conn, command \\ @failed_drive_command), do:
+  defp run_command_on_server(command, conn), do:
     SSHEx.run(conn, command)
 
   @doc """
