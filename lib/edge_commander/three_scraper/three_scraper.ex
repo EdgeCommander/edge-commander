@@ -52,7 +52,7 @@ defmodule EdgeCommander.ThreeScraper do
 
       if (old_record_list == new_record_list) == false do
         sims_logs = %{
-          number: number,
+          number: number |> number_with_code,
           name: name,
           addon: addon,
           allowance: allowance,
@@ -161,4 +161,6 @@ defmodule EdgeCommander.ThreeScraper do
   def change_sim_logs(%SimLogs{} = sim_logs) do
     SimLogs.changeset(sim_logs, %{})
   end
+
+  defp number_with_code("0" <> number), do: "+353#{number}"
 end

@@ -263,7 +263,12 @@ var saveModal = function() {
     $("#body-sim-dis *").prop('disabled',true);
     $("#simErrorDetails").addClass("hide_me");
 
-    var sim_provider  = $('#sim_provider').find(":selected").val(),
+    var sim_provider = $('#sim_provider').find(":selected").val();
+    if(sim_provider == 'other'){
+      sim_provider = $("#other_sim_provider").val();
+    }
+
+    var sim_provider  = sim_provider,
         number        = $("#number").val(),
         name          = $("#name").val()
 
@@ -335,6 +340,21 @@ var sendAJAXRequest = function(settings) {
   return xhrRequestChangeMonth = jQuery.ajax(settings);
 };
 
+var initializeInput = function() {
+  $("#number").intlTelInput({
+    nationalMode: false,
+    initialCountry: "ie"
+  });
+
+  $('.other_input').css("display","none");
+  $('#sim_provider').change(function(){
+   if($(this).val() == "other"){
+    $('.other_input').css("display","block");
+   }else{
+    $('.other_input').css("display","none");
+   }
+  })
+};
 window.initializeSIMs = function() {
   startSIMDatatable();
   startMORRISChartJS();
@@ -342,4 +362,5 @@ window.initializeSIMs = function() {
   showHideColumns();
   onSIMButton();
   saveModal();
+  initializeInput();
 };

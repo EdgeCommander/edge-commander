@@ -31,7 +31,7 @@ var DatatableDataSms = function() {
     {
       field: "from",
       title: "From",
-      width: 95,
+      width: 115,
       textAlign: "left",
       sortable: !1,
       selector: !1,
@@ -40,7 +40,7 @@ var DatatableDataSms = function() {
       field: "to",
       title: "To",
       textAlign: "left",
-      width: 95
+      width: 115
     },
     {
       field: "message_id",

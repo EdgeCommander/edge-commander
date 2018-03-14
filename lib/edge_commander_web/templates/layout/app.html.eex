@@ -39,6 +39,8 @@
     <%= if @conn.request_path == "/" do %>
       <script src="<%= static_path(@conn, "/js/Chart.js") %>"> type="text/javascript"></script>
       <script src="<%= static_path(@conn, "/assets/demo/default/custom/components/datatables/base/data-local.js") %>"> type="text/javascript"></script>
+      <link href="<%= static_path(@conn, "/css/intlTelInput.css") %>" rel="stylesheet" type="text/css" />
+      <script src="<%= static_path(@conn, "/js/intlTelInput.js") %>" type="text/javascript"></script>
       <script type="text/javascript">
         window.initializeSIMs();
       </script>
