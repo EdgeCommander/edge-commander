@@ -113,11 +113,10 @@ defmodule EdgeCommanderWeb.SimsController do
       |> Enum.map(fn(number) ->
         {current_in_number, _} = number |> get_volume_used() |> String.replace(",", "") |> Float.parse()
         {allowance_in_number, _} = number |> get_allowance() |> String.replace(",", "") |> Float.parse()
-
         %{
           "allowance" => number |> get_allowance(),
           "volume_used_today" => number |> get_volume_used(),
-          "percentage_used" => (current_in_number / allowance_in_number * 100) |> Float.round(3),
+          "percentage_used" =>  ensure_allowance_value(allowance_in_number, current_in_number),
           "current_in_number" => current_in_number,
           "allowance_in_number" => allowance_in_number,
           "date_of_use" => number |> Map.get(:datetime)
@@ -172,7 +171,7 @@ defmodule EdgeCommanderWeb.SimsController do
 
         %{
           datetime: "#{shift_datetime(one_record.datetime)}",
-          percentage_used: (current_in_number / allowance_in_number * 100) |> Float.round(3)
+          percentage_used: ensure_allowance_value(allowance_in_number, current_in_number)
         }
       end)
 
@@ -192,7 +191,7 @@ defmodule EdgeCommanderWeb.SimsController do
     body = Poison.encode!(%{
       "api_key": System.get_env("NEXMO_API_KEY"),
       "api_secret": System.get_env("NEXMO_API_SECRET"),
-      "to": to_number |> number_with_code,
+      "to": to_number |> number_without_plus_code,
       "from": System.get_env("NEXMO_API_NUMBER"),
       "text": sms_message
     })
@@ -225,8 +224,8 @@ defmodule EdgeCommanderWeb.SimsController do
 
   defp save_send_sms("0", results, sms_message, user_id) do
     params = %{
-      to: results |> Map.get("to") |> number_without_code,
-      from: System.get_env("NEXMO_API_NUMBER") |> number_without_code,
+      to: results |> Map.get("to") |> number_with_plus_code,
+      from: System.get_env("NEXMO_API_NUMBER") |> number_with_plus_code,
       message_id: results |> Map.get("message-id"),
       status: "Pending",
       text: sms_message,
@@ -244,8 +243,8 @@ defmodule EdgeCommanderWeb.SimsController do
 
   def receive_sms(conn, params) do
     params = %{
-      to: params["to_number"] |> number_without_code,
-      from: params["from_number"] |> number_without_plus_code,
+      to: params["to_number"] |> number_with_plus_code,
+      from: params["from_number"],
       message_id: params["external_id"],
       status: "Received",
       text: params["content"],
@@ -301,12 +300,13 @@ defmodule EdgeCommanderWeb.SimsController do
     end
   end
 
-  defp number_with_code("0" <> number), do: "353#{number}"
+  defp number_with_plus_code(number), do: "+#{number}"
+  defp number_without_plus_code("+" <> number), do: "#{number}"
 
-  defp number_without_code("353" <> number), do: "0#{number}"
-
-  defp number_without_plus_code("+353" <> number), do: "0#{number}"
-  defp number_without_plus_code("+44" <> number), do: "0#{number}"
+  defp ensure_allowance_value(0.0, _current_in_number), do: 0
+  defp ensure_allowance_value(allowance_in_number, current_in_number) do
+    (current_in_number / allowance_in_number * 100) |> Float.round(3)
+  end
 
   defp shift_datetime(datetime) do
     datetime
