@@ -350,6 +350,12 @@ select.form-control:not([size]):not([multiple]) {
 .intl-tel-input {
   width: 100%;
 }
+.blockElement{
+  width: 100% !important;
+}
+.m-blockui {
+  display:inline-block !important;
+}
 
 @media (min-width: 993px){
   .m-aside-left--minimize .m-aside-menu.m-aside-menu--skin-dark .m-menu__nav>.m-menu__item>.m-menu__link>.m-menu__link-icon {
