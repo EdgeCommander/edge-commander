@@ -28,15 +28,28 @@ defmodule ThreeScraper.SIM do
       API.post("/NASApp/MyAccount/PostpaidManageDataUsageServlet.htm", {:form, post_form})
     end, 10)
 
-    [_header, internet_usage_row | _rest] =
+    [_header | internet_usage_row] =
       body
       |> Floki.parse()
       |> Floki.find(".standardMyAccTable")
       |> Floki.find("tr")
       |> ensure_three_trs
 
+    internet_usage = Enum.at(internet_usage_row, -1)
+
     [{"td", _, [addon]}, {"td", _, [allowance]}, {"td", _, [volume_used]}] =
-      Floki.find(internet_usage_row, "td")
+      Floki.find(internet_usage, "td")
+
+    addon = addon |> set_addon_value
+    allowance =
+      allowance
+      |> String.replace("\n", "") |> String.replace("\t", "")
+      |> set_allowance_value
+
+    volume_used =
+      volume_used
+      |> String.replace("\n", "") |> String.replace("\t", "")
+      |> set_used_value
 
     %{sim | addon: addon,
             allowance: allowance,
@@ -49,12 +62,12 @@ defmodule ThreeScraper.SIM do
     |> assert_trs(trs)
   end
 
+  def assert_trs(4, trs), do: trs
   def assert_trs(3, trs), do: trs
   def assert_trs(2, trs), do: trs
   def assert_trs(1, trs) do
     new_trs = trs ++ [{"tr", [], [{"td", [], ["NIL"]}, {"td", [], ["NIL"]}, {"td", [], ["NIL"]}]}]
-    final_trs = new_trs ++ [{"tr", [], [{"td", [], ["NIL"]}, {"td", [], ["NIL"]}, {"td", [], ["NIL"]}]}]
-    final_trs
+    new_trs
   end
 
   def extract_sims(body) do
@@ -91,5 +104,20 @@ defmodule ThreeScraper.SIM do
         retry(fun, attempts_left - 1)
     end
   end
-end
 
+  defp set_addon_value("NIL"), do: "NIL"
+  defp set_addon_value(addon) do
+    if is_binary(addon) == true  do
+        addon_value = addon
+      else
+        {"b", _, [addon_value]}  =  addon
+    end
+    addon_value
+  end
+  defp set_allowance_value("Unlimited"), do: -1
+  defp set_allowance_value(allowance), do: allowance
+
+  defp set_used_value("NIL"), do: "NIL"
+  defp set_used_value(volume_used), do: volume_used
+
+end
