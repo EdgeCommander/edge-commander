@@ -144,17 +144,40 @@ var dataTableSIMTAB = function() {
                     field: "allowance_in_number",
                     title: "MB Allowance",
                     textAlign: "center",
-                    width: 100
+                    width: 100,
+                    template: function(t) {
+                      allowance_value = t.allowance_in_number
+                      if (allowance_value == -1.0) {
+                        allowance_value = "Unlimited";
+                      }
+                      return allowance_value;
+                    }
                 }, {
                     field: "current_in_number",
                     title: "MB Used (Today)",
                     textAlign: "center",
-                    width: 120
+                    width: 120,
+                    template: function(t) {
+                      allowance_value = t.allowance_in_number
+                      current_in_number = t.current_in_number
+                      if (allowance_value == -1.0) {
+                        current_in_number = "-";
+                      }
+                      return current_in_number;
+                    }
                 }, {
                     field: "percentage_used",
                     title: "% Used",
                     textAlign: "center",
-                    width: 80
+                    width: 80,
+                    template: function(t) {
+                      allowance_value = t.allowance_in_number
+                      percentage_used = t.percentage_used
+                      if (allowance_value == -1.0) {
+                        percentage_used = "-";
+                      }
+                      return percentage_used;
+                    }
                 }
               ]
             }),

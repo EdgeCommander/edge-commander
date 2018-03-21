@@ -40,12 +40,27 @@ var DatatableDataLocalDemo = function() {
                     textAlign: "center",
                     responsive: {
                         visible: "lg"
+                    },
+                    template: function(t) {
+                      allowance_value = t.allowance_in_number
+                      if (allowance_value == -1.0) {
+                        allowance_value = "Unlimited";
+                      }
+                      return allowance_value;
                     }
                 }, {
                     field: "current_in_number",
                     title: " MB Used (Today)",
                     textAlign: "center",
-                    width: 150
+                    width: 150,
+                    template: function(t) {
+                      allowance_value = t.allowance_in_number
+                      current_in_number = t.current_in_number
+                      if (allowance_value == -1.0) {
+                        current_in_number = "-";
+                      }
+                      return current_in_number;
+                    }
                 }, {
                     field: "yesterday_in_number",
                     title: "MB Used (Yest.)",
@@ -53,12 +68,28 @@ var DatatableDataLocalDemo = function() {
                     width: 150,
                     responsive: {
                         visible: "lg"
+                    },
+                    template: function(t) {
+                      allowance_value = t.allowance_in_number
+                      yesterday_in_number = t.yesterday_in_number
+                      if (allowance_value == -1.0) {
+                        yesterday_in_number = "-";
+                      }
+                      return yesterday_in_number;
                     }
                 },
                 {
                   field: "percentage_used",
                   title: "% Used",
-                  textAlign: "center"
+                  textAlign: "center",
+                  template: function(t) {
+                    allowance_value = t.allowance_in_number
+                    percentage_used = t.percentage_used
+                    if (allowance_value == -1.0) {
+                      percentage_used = "-";
+                    }
+                    return percentage_used;
+                  }
                 },
                 {
                   field: "remaining_days",

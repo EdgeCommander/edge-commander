@@ -18,7 +18,6 @@ defmodule EdgeCommander.ThreeScraper do
     GenServer.start_link(__MODULE__, args, name: __MODULE__)
   end
 
-
   def init(_args) do
     Process.send_after(self(), :work, 10 * 1000) # ten seconds
     {:ok, nil}
@@ -39,32 +38,31 @@ defmodule EdgeCommander.ThreeScraper do
       datetime = log.datetime
       volume_used = log.volume_used
 
-      {new_addon, _} = addon |> String.replace(",", "") |> Float.parse()
-      {new_allowance, _} = allowance  |> String.replace(",", "") |> Float.parse()
-      {new_volume_used, _} = volume_used  |> String.replace(",", "") |> Float.parse()
+      new_addon = addon |> ensure_addon_value
+      new_allowance = allowance  |> ensure_allowance_value
+      new_volume_used = volume_used  |> ensure_used_value
       new_record_list = [new_addon, new_allowance, new_volume_used]
 
-      old_data = number |> get_last_record_for_number()
-      {old_addon, _} = old_data.addon  |> String.replace(",", "") |> Float.parse()
-      {old_allowance, _} = old_data.allowance  |> String.replace(",", "") |> Float.parse()
-      {old_volume_used, _} = old_data.volume_used  |> String.replace(",", "") |> Float.parse()
-      old_record_list = [old_addon, old_allowance, old_volume_used]
+      old_data = number |> number_with_code |> get_last_record_for_number()
+
+      old_record_list = old_data |> ensure_old_record
 
       if (old_record_list == new_record_list) == false do
         sims_logs = %{
           number: number |> number_with_code,
           name: name,
-          addon: addon,
-          allowance: allowance,
-          volume_used: volume_used,
+          addon: new_addon,
+          allowance: new_allowance |> Float.to_string ,
+          volume_used: new_volume_used  |> Float.to_string,
           datetime: datetime,
           sim_provider: "Three Ireland"
         }
-        changeset = SimLogs.changeset(%SimLogs{}, sims_logs)
-        case Repo.insert(changeset) do
-        {:ok, _logs} ->
+
+      changeset = SimLogs.changeset(%SimLogs{}, sims_logs)
+      case Repo.insert(changeset) do
+       {:ok, _logs} ->
           Logger.info "Inserting SIM data for #{number}"
-        {:error, _changeset} ->
+        {:error, changeset} ->
           Logger.error "Inserting SIM data failed for #{number}"
         end
       else
@@ -163,4 +161,33 @@ defmodule EdgeCommander.ThreeScraper do
   end
 
   defp number_with_code("0" <> number), do: "+353#{number}"
+
+  defp ensure_allowance_value(-1), do: -1.0
+  defp ensure_allowance_value(allowance) do
+    {new_allowance, _} = allowance  |> String.replace(",", "") |> Float.parse()
+     new_allowance
+  end
+
+  defp ensure_used_value("-"), do: 0.0
+  defp ensure_used_value(volume_used) do
+    {new_volume_used, _} = volume_used  |> String.replace(",", "") |> Float.parse()
+    new_volume_used
+  end
+
+  defp ensure_addon_value(addon) do
+    if is_binary(addon) == true  do
+        new_addon = addon
+      else
+        {new_addon, _} = addon |> String.replace(",", "") |> Float.parse()
+    end
+    new_addon
+  end
+
+  defp ensure_old_record(nil), do: [nil, nil, nil]
+  defp ensure_old_record(old_data) do
+    old_addon = old_data.addon  |> ensure_addon_value
+    old_allowance = old_data.allowance  |> ensure_allowance_value
+    old_volume_used = old_data.volume_used  |> ensure_used_value
+    [old_addon, old_allowance, old_volume_used]
+  end
 end
