@@ -18,7 +18,6 @@ defmodule EdgeCommander.ThreeScraper do
     GenServer.start_link(__MODULE__, args, name: __MODULE__)
   end
 
-
   def init(_args) do
     Process.send_after(self(), :work, 10 * 1000) # ten seconds
     {:ok, nil}
@@ -191,5 +190,4 @@ defmodule EdgeCommander.ThreeScraper do
     old_volume_used = old_data.volume_used  |> ensure_used_value
     [old_addon, old_allowance, old_volume_used]
   end
-
 end
