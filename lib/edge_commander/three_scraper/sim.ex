@@ -49,7 +49,6 @@ defmodule ThreeScraper.SIM do
     volume_used =
       volume_used
       |> String.replace("\n", "") |> String.replace("\t", "")
-      |> set_used_value
 
     %{sim | addon: addon,
             allowance: allowance,
@@ -66,7 +65,7 @@ defmodule ThreeScraper.SIM do
   def assert_trs(3, trs), do: trs
   def assert_trs(2, trs), do: trs
   def assert_trs(1, trs) do
-    new_trs = trs ++ [{"tr", [], [{"td", [], ["NIL"]}, {"td", [], ["NIL"]}, {"td", [], ["NIL"]}]}]
+    new_trs = trs ++ [{"tr", [], [{"td", [], ["AYCE"]}, {"td", [], ["Unlimited"]}, {"td", [], ["-"]}]}]
     new_trs
   end
 
@@ -105,7 +104,6 @@ defmodule ThreeScraper.SIM do
     end
   end
 
-  defp set_addon_value("NIL"), do: "NIL"
   defp set_addon_value(addon) do
     if is_binary(addon) == true  do
         addon_value = addon
@@ -116,8 +114,5 @@ defmodule ThreeScraper.SIM do
   end
   defp set_allowance_value("Unlimited"), do: -1
   defp set_allowance_value(allowance), do: allowance
-
-  defp set_used_value("NIL"), do: "NIL"
-  defp set_used_value(volume_used), do: volume_used
 
 end
