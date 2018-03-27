@@ -98,7 +98,11 @@ var DatatableDataLocalDemo = function() {
                   textAlign: "center",
                   template: function(t) {
                     var days_left = (t.allowance_in_number - t.current_in_number) / (t.current_in_number - t.yesterday_in_number)
-                    return Math.round(days_left * 100) / 100;
+                    value =  Math.round(days_left * 100) / 100;
+                    if (t.current_in_number == 0){
+                      value = "Infinity";
+                    }
+                      return value;
                   }
                 },
                 {
