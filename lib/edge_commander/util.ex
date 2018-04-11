@@ -34,4 +34,12 @@ defmodule EdgeCommander.Util do
         false
     end
   end
+
+  def shift_zone(timestamp, timezone \\ "Europe/Dublin") do
+    timezone_value = Timex.Timezone.get(timezone, Timex.now())
+    date_time =
+      timestamp
+      |> Timex.Timezone.convert(timezone_value)
+      |> DateTime.to_naive
+  end
 end

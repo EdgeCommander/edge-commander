@@ -158,7 +158,7 @@ defmodule EdgeCommanderWeb.NvrsController do
           ip: nvr.ip,
           port: nvr.port,
           is_monitoring: nvr.is_monitoring,
-          created_at: nvr.inserted_at,
+          created_at: nvr.inserted_at |> Util.shift_zone(),
           firmware_version: nvr.firmware_version,
           model: nvr.model,
           extra: nvr.extra,

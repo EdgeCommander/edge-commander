@@ -2,6 +2,7 @@ defmodule EdgeCommanderWeb.SmsController do
   use EdgeCommanderWeb, :controller
   import Ecto.Query, warn: false
   import EdgeCommander.Nexmo, only: [list_sms_messages: 2]
+  alias EdgeCommander.Util
 
   def get_all_sms(conn, params)  do
     from_date = params["from_date"]
@@ -17,7 +18,7 @@ defmodule EdgeCommanderWeb.SmsController do
           status: sms.status,
           text: sms.text,
           type: sms.type,
-          inserted_at: sms.inserted_at
+          inserted_at: sms.inserted_at |> Util.shift_zone()
         }
       end)
     conn

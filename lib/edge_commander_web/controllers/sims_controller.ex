@@ -119,7 +119,7 @@ defmodule EdgeCommanderWeb.SimsController do
           "percentage_used" =>  ensure_allowance_value(allowance_in_number, current_in_number),
           "current_in_number" => current_in_number,
           "allowance_in_number" => allowance_in_number,
-          "date_of_use" => number |> Map.get(:datetime)
+          "date_of_use" => number |> Map.get(:datetime) |> Util.shift_zone()
         }
       end) |> Enum.sort(& (&1["percentage_used"] >= &2["percentage_used"]))
     conn
@@ -147,7 +147,7 @@ defmodule EdgeCommanderWeb.SimsController do
           "current_in_number" => current_in_number,
           "yesterday_in_number" => yesterday_in_number,
           "allowance_in_number" => allowance_in_number,
-          "date_of_use" => entries |> List.first |> Map.get(:datetime),
+          "date_of_use" => entries |> List.first |> Map.get(:datetime) |> Util.shift_zone(),
           "sim_provider" => entries |> List.first |> Map.get(:sim_provider)
         }
       end) |> Enum.sort(& (&1["percentage_used"] >= &2["percentage_used"]))
@@ -273,7 +273,7 @@ defmodule EdgeCommanderWeb.SimsController do
       get_single_sim_messages(sim_number)
       |> Enum.map(fn(sms) ->
         %{
-          inserted_at: sms.inserted_at,
+          inserted_at: sms.inserted_at |> Util.shift_zone(),
           type: sms.type,
           status: sms.status,
           text: sms.text
