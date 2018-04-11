@@ -41,7 +41,7 @@ defmodule EdgeCommander.ThreeScraper do
       new_addon = addon |> ensure_addon_value
       new_allowance = allowance  |> ensure_allowance_value
       new_volume_used = volume_used  |> ensure_used_value
-      new_record_list = [new_addon, new_allowance, new_volume_used]
+      new_record_list = [new_addon, new_allowance, new_volume_used, name]
 
       old_data = number |> number_with_code |> get_last_record_for_number()
 
@@ -188,6 +188,7 @@ defmodule EdgeCommander.ThreeScraper do
     old_addon = old_data.addon  |> ensure_addon_value
     old_allowance = old_data.allowance  |> ensure_allowance_value
     old_volume_used = old_data.volume_used  |> ensure_used_value
-    [old_addon, old_allowance, old_volume_used]
+    old_name = old_data.name
+    [old_addon, old_allowance, old_volume_used, old_name]
   end
 end
