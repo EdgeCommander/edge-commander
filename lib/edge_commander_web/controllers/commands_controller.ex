@@ -87,7 +87,7 @@ defmodule EdgeCommanderWeb.CommandsController do
           active: rule.active,
           category: rule.category,
           recipients: rule.recipients,
-          created_at: rule.inserted_at
+          created_at: rule.inserted_at |> Util.shift_zone()
         }
       end)
     conn

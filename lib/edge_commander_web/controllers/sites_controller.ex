@@ -105,7 +105,7 @@ defmodule EdgeCommanderWeb.SitesController do
           nvr_name: site.nvr_id |> get_nvr_name,
           nvr_id: site.nvr_id,
           notes: site.notes,
-          created_at: site.inserted_at
+          created_at: site.inserted_at |> Util.shift_zone()
         }
       end)
     conn

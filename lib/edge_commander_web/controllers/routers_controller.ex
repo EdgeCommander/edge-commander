@@ -130,7 +130,7 @@ defmodule EdgeCommanderWeb.RoutersController do
           ip: router.ip,
           port: router.port,
           is_monitoring: router.is_monitoring,
-          created_at: router.inserted_at,
+          created_at: router.inserted_at |> Util.shift_zone(),
           extra: router.extra
         }
       end)
