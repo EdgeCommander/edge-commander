@@ -92,7 +92,9 @@ defmodule EdgeCommanderWeb.CommandsController do
       end)
     conn
     |> put_status(200)
-    |> json(rules)
+    |> json(%{
+        "rules": rules
+      })
   end
 
   def update(conn, %{"id" => id} = params) do
