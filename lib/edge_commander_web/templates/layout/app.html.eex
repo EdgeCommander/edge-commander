@@ -7,11 +7,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <%= Phoenix.HTML.Tag.csrf_meta_tag() %>
     <!--begin::Base Styles -->
+    <link href="<%= static_path(@conn, "/css/semantic.min.css") %>" rel="stylesheet" type="text/css" />
     <link href="<%= static_path(@conn, "/assets/vendors/base/vendors.bundle.css") %>" rel="stylesheet" type="text/css" />
+    <link href="<%= static_path(@conn, "/css/dataTables.semanticui.min.css") %>" rel="stylesheet" type="text/css" />
     <link href="<%= static_path(@conn, "/assets/demo/default/base/style.bundle.css") %>" rel="stylesheet" type="text/css" />
-
     <link href="<%= static_path(@conn, "/css/visavail.css") %>" rel="stylesheet" type="text/css" />
-
     <link href="<%= static_path(@conn, "/css/personal.css") %>" rel="stylesheet" type="text/css" />
     <!--end::Base Styles -->
     <link rel="shortcut icon" href="<%= static_path(@conn, "/assets/demo/default/media/img/logo/favicon.ico") %>" />
@@ -29,11 +29,12 @@
     <!--begin::Base Scripts -->
     <script src="<%= static_path(@conn, "/js/jquery.min.js") %>"></script>
     <%= if @conn.request_path == "/" or @conn.request_path == "/nvrs_list" or @conn.request_path == "/status_report" or @conn.request_path == "/routers_list" or @conn.request_path == "/commands" or @conn.request_path == "/my_profile" or @conn.request_path == "/sites_list" or @conn.request_path == "/api"  or @conn.request_path == "/sms_messages" or String.starts_with?(@conn.request_path, "/sims/") do %>
-
         <script src="<%= static_path(@conn, "/assets/vendors/base/vendors.bundle.js") %>" type="text/javascript"></script>
         <script src="<%= static_path(@conn, "/assets/demo/default/base/scripts.bundle.js") %>" type="text/javascript"></script>
         <script src="<%= static_path(@conn, "/assets/app/js/dashboard.js") %>" type="text/javascript"></script>
         <script src="<%= static_path(@conn, "/js/datatable.js") %>" type="text/javascript"></script>
+        <script src="<%= static_path(@conn, "/js/jquery.dataTables.min.js") %>"></script>
+        <script src="<%= static_path(@conn, "/js/vue.js") %>"></script>
     <%  end %>
 
     <%= if @conn.request_path == "/" do %>
@@ -74,7 +75,6 @@
       <script src="<%= static_path(@conn, "/assets/demo/default/custom/components/datatables/base/commands_local_datatable.js") %>"> type="text/javascript"></script>
       <script src="<%= static_path(@conn, "/js/notify.min.js") %>"> type="text/javascript"></script>
       <script type="text/javascript">
-        window.initializeCommands();
       </script>
     <%  end %>
 
