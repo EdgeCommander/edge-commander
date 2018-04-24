@@ -51,8 +51,10 @@ defmodule EdgeCommander.Commands do
     EdgeCommander.EcMailer.usage_monitoring(senders, usage, number, volume_used, allowance, name, addon)
   end
 
-  def list_rules do
-    Repo.all(Rule)
+  def list_rules(user_id) do
+    Rule
+      |> where(user_id: ^user_id)
+      |> Repo.all
   end
 
   def get_rule!(id), do: Repo.get!(Rule, id)
