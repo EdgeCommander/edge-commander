@@ -163,8 +163,9 @@ defmodule EdgeCommander.Devices do
       [%Router{}, ...]
 
   """
-  def list_routers do
+  def list_routers(user_id) do
     Router
+    |> where(user_id: ^user_id)
     |> order_by(:name)
     |> Repo.all
   end
