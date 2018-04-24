@@ -6,7 +6,7 @@ defmodule EdgeCommanderWeb.NvrsController do
   import Ecto.Query, warn: false
   import EdgeCommander.Accounts, only: [current_user: 1]
   import EdgeCommander.Monitors
-  import EdgeCommander.Devices, only: [update_nvr_ISAPI: 1, list_nvrs: 0, get_nvr!: 1]
+  import EdgeCommander.Devices, only: [update_nvr_ISAPI: 1, list_nvrs: 1, get_nvr!: 1]
   use PhoenixSwagger
 
   def swagger_definitions do
@@ -147,8 +147,10 @@ defmodule EdgeCommanderWeb.NvrsController do
   end
 
   def get_all_nvrs(conn, _params)  do
+    current_user = current_user(conn)
+    current_user_id = current_user.id
     nvrs = 
-      list_nvrs()
+      list_nvrs(current_user_id)
       |> Enum.map(fn(nvr) ->
         %{
           id: nvr.id,

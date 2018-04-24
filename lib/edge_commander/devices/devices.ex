@@ -64,8 +64,9 @@ defmodule EdgeCommander.Devices do
       [%Nvr{}, ...]
 
   """
-  def list_nvrs do
+  def list_nvrs(user_id) do
     Nvr
+    |> where(user_id: ^user_id)
     |> order_by(:name)
     |> Repo.all
   end
