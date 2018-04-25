@@ -4,7 +4,8 @@ defmodule EdgeCommanderWeb.RoutersController do
   alias EdgeCommander.Repo
   alias EdgeCommander.Util
   import Ecto.Query, warn: false
-  import EdgeCommander.Devices, only: [list_routers: 0, get_router!: 1]
+  import EdgeCommander.Devices, only: [list_routers: 1, get_router!: 1]
+  import EdgeCommander.Accounts, only: [current_user: 1]
   use PhoenixSwagger
 
   def swagger_definitions do
@@ -119,8 +120,10 @@ defmodule EdgeCommanderWeb.RoutersController do
   end
 
   def get_all_routers(conn, _params)  do
+    current_user = current_user(conn)
+    current_user_id = current_user.id
     routers = 
-      list_routers()
+      list_routers(current_user_id)
       |> Enum.map(fn(router) ->
         %{
           id: router.id,

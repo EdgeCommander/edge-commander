@@ -15,13 +15,7 @@ defmodule EdgeCommander.SitesTest do
         attrs
         |> Enum.into(@valid_attrs)
         |> Sites.create_records()
-
       records
-    end
-
-    test "list_sites/0 returns all sites" do
-      records = records_fixture()
-      assert Sites.list_sites() == [records]
     end
 
     test "get_records!/1 returns the records with given id" do

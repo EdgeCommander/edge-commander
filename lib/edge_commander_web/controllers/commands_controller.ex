@@ -4,7 +4,8 @@ defmodule EdgeCommanderWeb.CommandsController do
   alias EdgeCommander.Repo
   alias EdgeCommander.Util
   import Ecto.Query, warn: false
-  import EdgeCommander.Commands, only: [list_rules: 0, get_rule!: 1]
+  import EdgeCommander.Commands, only: [list_rules: 1, get_rule!: 1]
+  import EdgeCommander.Accounts, only: [current_user: 1]
   use PhoenixSwagger
 
   def swagger_definitions do
@@ -78,8 +79,10 @@ defmodule EdgeCommanderWeb.CommandsController do
   end
 
   def get_all_rules(conn, _params)  do
+    current_user = current_user(conn)
+    current_user_id = current_user.id
     rules = 
-      list_rules()
+      list_rules(current_user_id)
       |> Enum.map(fn(rule) ->
         %{
           id: rule.id,

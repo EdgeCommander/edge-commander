@@ -17,8 +17,10 @@ defmodule EdgeCommander.Sites do
       [%Records{}, ...]
 
   """
-  def list_sites do
-    Repo.all(Records)
+  def list_sites(user_id) do
+    Records
+    |> where(user_id: ^user_id)
+    |> Repo.all
   end
 
   @doc """

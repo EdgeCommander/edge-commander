@@ -15,13 +15,7 @@ defmodule EdgeCommander.DevicesTest do
         attrs
         |> Enum.into(@valid_attrs)
         |> Devices.create_nvr()
-
       nvr
-    end
-
-    test "list_nvrs/0 returns all nvrs" do
-      nvr = nvr_fixture()
-      assert Devices.list_nvrs() == [nvr]
     end
 
     test "get_nvr!/1 returns the nvr with given id" do
@@ -91,13 +85,7 @@ defmodule EdgeCommander.DevicesTest do
         attrs
         |> Enum.into(@valid_attrs)
         |> Devices.create_router()
-
       router
-    end
-
-    test "list_routers/0 returns all routers" do
-      router = router_fixture()
-      assert Devices.list_routers() == [router]
     end
 
     test "get_router!/1 returns the router with given id" do
