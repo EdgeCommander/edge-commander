@@ -15,13 +15,7 @@ defmodule EdgeCommander.CommandsTest do
         attrs
         |> Enum.into(@valid_attrs)
         |> Commands.create_rule()
-
       rule
-    end
-
-    test "list_rules/0 returns all rules" do
-      rule = rule_fixture()
-      assert Commands.list_rules() == [rule]
     end
 
     test "get_rule!/1 returns the rule with given id" do
