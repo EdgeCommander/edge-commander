@@ -109,7 +109,7 @@ var vm = new Vue({
     initializeTable: function(){
       commandsDataTable = $('#three-datatable').DataTable({
       ajax: {
-      url: "/three_users",
+      url: "/three_accounts",
         dataSrc: function(data) {
           return data.users;
         },
@@ -194,7 +194,7 @@ var vm = new Vue({
       success: this.onSaveSuccess,
       contentType: "application/x-www-form-urlencoded",
       type: "POST",
-      url: "/three_users"
+      url: "/three_accounts"
     };
     this.sendAJAXRequest(settings);
    },
@@ -265,7 +265,7 @@ var vm = new Vue({
       success: this.onEditSuccess,
       contentType: "application/x-www-form-urlencoded",
       type: "PATCH",
-      url: "/three_users"
+      url: "/three_accounts"
     };
 
     this.sendAJAXRequest(settings);
@@ -325,7 +325,7 @@ var vm = new Vue({
         contentType: "application/x-www-form-urlencoded",
         context: {threeRow: threeRow},
         type: "DELETE",
-        url: "/three_users/" + threeID
+        url: "/three_accounts/" + threeID
       };
 
       var headers, token, xhrRequestChangeMonth;

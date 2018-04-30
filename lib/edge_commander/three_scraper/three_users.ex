@@ -13,13 +13,18 @@ defmodule EdgeCommander.ThreeScraper.ThreeUsers do
     timestamps()
   end
 
-  def list_three_users(user_id) do
+   def list_three_users do
+    ThreeUsers
+    |> Repo.all
+  end
+
+  def list_three_accounts(user_id) do
     ThreeUsers
     |> where(user_id: ^user_id)
     |> Repo.all
   end
 
-  def get_three_user!(id), do: Repo.get!(ThreeUsers, id)
+  def get_three_account!(id), do: Repo.get!(ThreeUsers, id)
 
   @doc false
   def changeset(%ThreeUsers{} = three_users, attrs) do

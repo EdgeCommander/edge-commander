@@ -36,7 +36,7 @@ defmodule EdgeCommanderWeb.ThreeController do
     current_user = current_user(conn)
     current_user_id = current_user.id
     users = 
-      ThreeUsers.list_three_users(current_user_id)
+      ThreeUsers.list_three_accounts(current_user_id)
       |> Enum.map(fn(user) ->
         %{
           id: user.id,
@@ -54,7 +54,7 @@ defmodule EdgeCommanderWeb.ThreeController do
   end
 
   def update(conn, %{"id" => id} = params) do
-    ThreeUsers.get_three_user!(id)
+    ThreeUsers.get_three_account!(id)
     |> ThreeUsers.changeset(params)
     |> Repo.update
     |> case do
@@ -82,7 +82,7 @@ defmodule EdgeCommanderWeb.ThreeController do
   end
 
   def delete(conn, %{"id" => id} = _params) do
-    ThreeUsers.get_three_user!(id)
+    ThreeUsers.get_three_accounts!(id)
     |> Repo.delete
     |> case do
       {:ok, %EdgeCommander.ThreeScraper.ThreeUsers{}} ->

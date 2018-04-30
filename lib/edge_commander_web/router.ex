@@ -116,10 +116,10 @@ defmodule EdgeCommanderWeb.Router do
     get "/delivery_receipt", SimsController, :delivery_receipt
     get "/get_all_sms/:from_date/:to_date", SmsController, :get_all_sms
 
-    get "/three_users", ThreeController, :get_all_three_accounts
-    post "/three_users", ThreeController, :create
-    patch "/three_users", ThreeController, :update
-    delete "/three_users/:id", ThreeController, :delete
+    get "/three_accounts", ThreeController, :get_all_three_accounts
+    post "/three_accounts", ThreeController, :create
+    patch "/three_accounts", ThreeController, :update
+    delete "/three_accounts/:id", ThreeController, :delete
 
   end
 
