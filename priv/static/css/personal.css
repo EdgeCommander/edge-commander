@@ -370,9 +370,26 @@ select.form-control:not([size]):not([multiple]) {
   padding: 0 10px 10px 10px;
 }
 
-.datatable{
-  margin-top: 5px !important;
+.width-10{
+  min-width: 10px;
 }
+
+.width-80{
+  min-width: 80px;
+}
+
+.width-180{
+  min-width: 180px;
+}
+
+.width-150{
+  min-width: 150px;
+}
+
+#commands-datatable_filter{
+  display:none;
+}
+
 
 .table-bordered td, .table-bordered th {
   border: 1px solid #e9ecef !important;
