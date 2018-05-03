@@ -209,18 +209,22 @@
                           <!--begin: Search Form -->
                           <div class="m-form m-form--label-align-right m--margin-bottom-10">
                             <div class="row align-items-center">
-                              <div class="col-xl-8 order-2 order-xl-1">
+                              <div class="col-md-8 order-2 order-md-1">
                                 <div class="form-group m-form__group row align-items-center">
-                                  <div class="col-md-4"></div>
+                                  <div class="col-md-5">
+                                    <div class="m-input-icon m-input-icon--left" style="margin-top: 10px">
+                                      <input type="text" class="form-control m-input m-input--solid" placeholder="Search..." id="m_form_search" v-model="m_form_search" v-on:keyup="search()">
+                                      <span class="m-input-icon__icon m-input-icon__icon--left">
+                                        <span>
+                                          <i class="la la-search"></i>
+                                        </span>
+                                      </span>
+                                    </div>
+                                  </div>
                                 </div>
                               </div>
-                              <div class="col-xl-4 order-1 order-xl-2 m--align-right">
-                              </div>
-                            </div>
-                          </div>
-
-                          <div class="pull-right">
-                             <a href="#" id="addRULE" class="btn btn-primary m-btn m-btn--icon" v-on:click="onRuleButton">
+                              <div class="col-md-4 order-1 order-md-2 m--align-right">
+                                 <a href="#" id="addRULE" class="btn btn-primary m-btn m-btn--icon" v-on:click="onRuleButton">
                                       <span>
                                           <i class="fa fa-plus-square"></i>
                                           <span>
@@ -228,25 +232,27 @@
                                           </span>
                                       </span>
                                   </a>
-                                  <div class="m-separator m-separator--dashed d-xl-none"></div>
                                   <div href="#" class="btn btn-default grey" data-toggle="modal" data-target="#toggle-datatable-columns">
                                     <i class="fa fa-columns"></i>
                                   </div>
+                              </div>
+                            </div>
                           </div>
                           <!--end: Search Form -->
-                          <table id="commands-datatable" class="table table-striped  table-hover table-bordered datatable" cellspacing="0" >
-                            <thead>
-                                <tr>
-                                    <th v-for="(item, index) in headings" class="{{item}}">{{item.column}}</th>
-                                </tr>
-                            </thead>
-                          </table>
-
+                          <div>
+                          </div>
+                            <div id="double-scroll">
+                            <!-- Content Here -->
+                                <table id="commands-datatable" class="table table-striped  table-hover table-bordered datatable" cellspacing="0" style="overflow-x: scroll; width:100%">
+                                    <thead>
+                                        <tr>
+                                            <th v-for="(item, index) in headings" ng-bind:class="item.class">{{item.column}}</th>
+                                        </tr>
+                                    </thead>
+                                </table>
+                            </div>
                           <!--begin: Datatable -->
                           <font class="reload"></font>
-                          <div class="tableScroll">
-                            <div class="topScroll"></div>
-                          </div>
                           <div class="m_commands_datatable" id="child_data_local"></div>
                           <!--end: Datatable -->
                         </div>

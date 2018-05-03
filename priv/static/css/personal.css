@@ -357,21 +357,36 @@ select.form-control:not([size]):not([multiple]) {
   display:inline-block !important;
 }
 
-#commands-datatable_filter input[type="search"]{
-  background-color: #f4f5f8;
-  border-color: #f4f5f8;
-  color: #575962;
-  border: 1px solid rgba(0,0,0,.15);
-  border-radius: .25rem;
-  padding: 6px 12px
-}
-
 .m-portlet__body{
   padding: 0 10px 10px 10px;
 }
 
-.datatable{
-  margin-top: 5px !important;
+.width-10{
+  min-width: 10px;
+}
+
+.width-80{
+  min-width: 80px;
+}
+
+.width-180{
+  min-width: 180px;
+}
+
+.width-150{
+  min-width: 150px;
+}
+
+.width-400{
+  min-width: 400px;
+}
+
+.width-230{
+  min-width: 230px;
+}
+
+.dataTables_filter{
+  display:none;
 }
 
 .table-bordered td, .table-bordered th {

@@ -3,6 +3,7 @@ var vm = new Vue({
   data(){
     return{
        dataTable: null,
+       m_form_search: "",
        headings: [
         {column: "Actions", class: "text-center"},
         {column: "Rule Name"},
@@ -43,35 +44,37 @@ var vm = new Vue({
       },
       columns: [
       {
-        class: "text-center",
+        class: "text-center width-80",
         data: function(row, type, set, meta) {
           return '<div class="editRULE cursor_to_pointer fa fa-edit" data-id="'+ row.id +'"></div> <div class="deleteRULE cursor_to_pointer fa fa-trash" data-id="'+ row.id +'"></div>';
         }
       },
       {
+        class: "width-180",
         data: function(row, type, set, meta) {
           return row.rule_name;
         }
       },
       {
-        class: "text-center",
+        class: "text-center width-10",
         data: function(row, type, set, meta) {
           return row.active;
         }
       },
       {
-        class: "text-center",
+        class: "text-center width-180",
         data: function(row, type, set, meta) {
           return row.category;
         }
       },
       {
+        class: "width-180",
         data: function(row, type, set, meta) {
           return row.recipients;
         }
       },
       {
-        class: "text-center",
+        class: "text-center width-150",
         data: function(row, type, set, meta) {
           return moment(row.created_at).format('MMMM Do YYYY, H:mm:ss');
         },
@@ -81,12 +84,15 @@ var vm = new Vue({
       info: false,
       bPaginate: false,
       lengthChange: false,
-      // stateSave:  true
+      // stateSave:  true,
     });
       this.dataTable = commandsDataTable;
       this.onRuleEditButton();
       this.deleteRULE();
    },
+    search: function(){
+      this.dataTable.search(this.m_form_search).draw();
+    },
     onRuleEditButton: function(){
     $(document).on("click", ".editRULE", function(){
       var tr = $(this).closest('tr');
@@ -109,6 +115,7 @@ var vm = new Vue({
    showHideColumns: function(column){
     var column = this.dataTable.column(column);
     column.visible( ! column.visible() );
+    this.resizeScreen();
    },
    onRuleButton: function(){
     $('.add_rule_to_db').modal('show');
@@ -307,8 +314,16 @@ var vm = new Vue({
     $('ul#errorOnEditRULE').html("");
     $("#body-rule-edit-dis *").prop('disabled', false);
     $("#ruleEditErrorDetails").addClass("hide_me");
+   },
+   resizeScreen: function(){
+    $('#double-scroll').doubleScroll();
+    var table_width = $("#commands-datatable").width();
+    $(".doubleScroll-scroll").width(table_width);
    }
-  } // end of methods
+  }, // end of methods
+   mounted(){
+    this.initializeTable()
+    this.resizeScreen()
+    window.addEventListener('resize', this.resizeScreen);
+   }
 });
-
-vm.initializeTable();
