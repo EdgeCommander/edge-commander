@@ -178,7 +178,9 @@ defmodule EdgeCommanderWeb.NvrsController do
       end)
     conn
     |> put_status(200)
-    |> json(nvrs)
+    |> json(%{
+        "nvrs": nvrs
+      })
   end
   
   defp get_extra_data(nvr,extra_field) do
