@@ -531,6 +531,7 @@ var vm = new Vue({
         .appendTo(cList);
       });
       $("#nvrEditErrorDetails").removeClass("hide_me");
+      $("#api-wait").addClass("hide_me");
       return false;
     },
     onEditSuccess: function(result, status, jqXHR) {
