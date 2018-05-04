@@ -885,7 +885,7 @@
                               {{form_labels.edit_title}}
                           </h5>
                           <div class="cancel">
-                            <a href="#" id="discardEditModal" data-dismiss="modal">X</a>
+                            <a href="#" id="discardEditModal" data-dismiss="modal" v-on:click="editClearFrom">X</a>
                           </div>
                       </div>
                       <div class="modal-body" id="body-nvr-edit-dis">

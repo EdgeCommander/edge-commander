@@ -139,7 +139,9 @@ defmodule EdgeCommanderWeb.RoutersController do
       end)
     conn
     |> put_status(200)
-    |> json(routers)
+    |> json(%{
+        "routers": routers
+      })
   end
 
   def update(conn, %{"id" => id} = params) do
