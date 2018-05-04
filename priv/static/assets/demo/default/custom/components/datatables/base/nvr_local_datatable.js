@@ -65,7 +65,7 @@ var vm = new Vue({
       {
         class: "text-center width-10",
         data: function(row, type, set, meta) {
-          return '<button class="btn btn-default rebootNVR cursor_to_pointer" data-id="'+ row.id +'" style="font-size:12px;padding: 5px;">Reboot</button>';
+          return '<button class="btn btn-default rebootNVR cursor_to_pointer" data-id="'+ row.id +'" style="font-size:10px;padding: 5px;">Reboot</button>';
         }
       },
       {
@@ -75,21 +75,21 @@ var vm = new Vue({
         }
       },
       {
-        class: "width-180",
+        class: "width-250",
         data: function(row, type, set, meta) {
           url = row.ip + ":" + row.port
           return "<span style='float:left'>"+row.name+"</span><a href='http://"+url+"' target='_blank'><span class='fa fa-external-link' style='float:right'></span></a>"
         }
       },
       {
-        class: "text-left width-230",
+        class: "text-left width-250",
         data: function(row, type, set, meta) {
           return row.ip;
         }
       },
       {
         visible: false,
-        class: "text-center width-80",
+        class: "text-center width-150",
         data: function(row, type, set, meta) {
           return row.port;
         }
@@ -130,7 +130,7 @@ var vm = new Vue({
         }
       },
       {
-        class: "text-center width-180",
+        class: "text-center width-250",
         data: function(row, type, set, meta) {
           return row.model;
         }
@@ -177,7 +177,7 @@ var vm = new Vue({
         }
       },
       {
-        class: "text-center width-80",
+        class: "text-center width-200",
         data: function(row, type, set, meta) {
           if(row.nvr_status == false){
             reason  = row.reason;
@@ -203,7 +203,7 @@ var vm = new Vue({
       },
       {
         visible: false,
-        class: "text-center width-150",
+        class: "text-center width-250",
         data: function(row, type, set, meta) {
           return moment(row.created_at).format('MMMM Do YYYY, H:mm:ss');
         }

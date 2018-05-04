@@ -44,37 +44,37 @@ var vm = new Vue({
       },
       columns: [
       {
-        class: "text-center width-80",
+        class: "text-center width-60",
         data: function(row, type, set, meta) {
           return '<div class="editRULE cursor_to_pointer fa fa-edit" data-id="'+ row.id +'"></div> <div class="deleteRULE cursor_to_pointer fa fa-trash" data-id="'+ row.id +'"></div>';
         }
       },
       {
-        class: "width-180",
+        class: "width-200",
         data: function(row, type, set, meta) {
           return row.rule_name;
         }
       },
       {
-        class: "text-center width-10",
+        class: "text-center",
         data: function(row, type, set, meta) {
           return row.active;
         }
       },
       {
-        class: "text-center width-180",
+        class: "text-center width-150",
         data: function(row, type, set, meta) {
           return row.category;
         }
       },
       {
-        class: "width-180",
+        class: "width-200",
         data: function(row, type, set, meta) {
           return row.recipients;
         }
       },
       {
-        class: "text-center width-150",
+        class: "text-center width-200",
         data: function(row, type, set, meta) {
           return moment(row.created_at).format('MMMM Do YYYY, H:mm:ss');
         },
