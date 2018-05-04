@@ -369,6 +369,10 @@ select.form-control:not([size]):not([multiple]) {
   min-width: 80px;
 }
 
+.width-60{
+  min-width: 60px;
+}
+
 .width-180{
   min-width: 180px;
 }
@@ -381,8 +385,12 @@ select.form-control:not([size]):not([multiple]) {
   min-width: 400px;
 }
 
-.width-230{
-  min-width: 230px;
+.width-250{
+  min-width: 250px;
+}
+
+.width-200{
+  min-width: 200px;
 }
 
 .dataTables_filter{
@@ -391,6 +399,10 @@ select.form-control:not([size]):not([multiple]) {
 
 .table-bordered td, .table-bordered th {
   border: 1px solid #e9ecef !important;
+}
+
+.table td, .table th{
+  padding-bottom: 5px;
 }
 
 @media (min-width: 993px){
