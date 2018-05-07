@@ -113,7 +113,9 @@ defmodule EdgeCommanderWeb.SitesController do
       end)
     conn
     |> put_status(200)
-    |> json(sites)
+    |> json(%{
+        "sites": sites
+      })
   end
 
   def update(conn, %{"id" => id} = params) do
