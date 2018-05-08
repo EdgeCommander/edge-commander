@@ -85,16 +85,10 @@
       <link href="<%= static_path(@conn, "/css/jquery-ui.css") %>" rel="stylesheet" type="text/css" />
       <script src="<%= static_path(@conn, "/js/jquery-ui.min.js") %>"> type="text/javascript"></script>
       <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBfX46k9qCXNL6WR8wu8Jmb8yF4WxrpuUM&libraries=places"></script>
-      <script type="text/javascript">
-        window.initializeSites();
-      </script>
     <%  end %>
 
     <%= if @conn.request_path == "/sms_messages" do %>
       <script src="<%= static_path(@conn, "/assets/demo/default/custom/components/datatables/base/sms_messages_local_datatable.js") %>"> type="text/javascript"></script>
-      <script type="text/javascript">
-        window.initializeSmsMessages();
-      </script>
     <%  end %>
 
     <%= if @conn.request_path == "/api" do %>
@@ -132,7 +126,7 @@
       <script src="<%= static_path(@conn, "/js/statusreport.js") %>"> type="text/javascript"></script>
       <script type="text/javascript">
         $( document ).ready(function() {
-          $(".range_inputs").css( "display", "none" );
+          $(".range_inputs").css("display", "none");
           $('.ranges > ul > li:last-child').remove();
           $('.ranges > ul > li:last-child').remove();
           $('.ranges > ul > li:last-child').remove();
