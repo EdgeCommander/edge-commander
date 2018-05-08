@@ -393,6 +393,10 @@ select.form-control:not([size]):not([multiple]) {
   min-width: 200px;
 }
 
+.width-300{
+  min-width: 300px;
+}
+
 .dataTables_filter{
   display:none;
 }
