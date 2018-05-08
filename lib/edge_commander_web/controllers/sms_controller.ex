@@ -23,6 +23,8 @@ defmodule EdgeCommanderWeb.SmsController do
       end)
     conn
     |> put_status(200)
-    |> json(sms_messages)
+    |> json(%{
+        "sms_messages": sms_messages
+      })
   end
 end
