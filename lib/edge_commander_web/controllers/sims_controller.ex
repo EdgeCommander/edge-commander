@@ -124,7 +124,9 @@ defmodule EdgeCommanderWeb.SimsController do
       end) |> Enum.sort(& (&1["percentage_used"] >= &2["percentage_used"]))
     conn
     |> put_status(200)
-    |> json(logs)
+    |> json(%{
+        "logs": logs
+      })
   end
 
   def get_sim_logs(conn, _params)  do
@@ -153,7 +155,9 @@ defmodule EdgeCommanderWeb.SimsController do
       end) |> Enum.sort(& (&1["percentage_used"] >= &2["percentage_used"]))
     conn
     |> put_status(200)
-    |> json(logs)
+    |> json(%{
+        "logs": logs
+      })
   end
 
   defp get_percentage_used(current_in_number, allowance_in_number) when allowance_in_number > 0  do
@@ -281,7 +285,9 @@ defmodule EdgeCommanderWeb.SimsController do
       end)
     conn
     |> put_status(200)
-    |> json(single_sim_sms)
+    |> json(%{
+        "single_sim_sms": single_sim_sms
+      })
   end
 
   defp ensure_user_id(conn, nil), do: conn.assigns[:current_user] |> Map.get(:id)

@@ -1,298 +1,161 @@
-
-var DatatableDataLocalDemo = function() {
-    var e = function() {
-            a = $(".m_datatable").mDatatable({
-                data: {
-                  type: "remote",
-                  source: "/sims",
-                  pageSize: 50,
-                  serverPaging: false,
-                  serverFiltering: false,
-                  serverSorting: false
-                },
-                layout: {
-                    theme: "default",
-                    class: "",
-                    scroll: !1,
-                    height: 950,
-                    footer: !1
-                },
-                sortable: !0,
-                filterable: !1,
-                pagination: false,
-                columns: [
-                {
-                    field: "number",
-                    title: "Number",
-                    width: 150,
-                    sortable: "desc",
-                    selector: !1,
-                    template: function(t) {
-                      return '<a style="color: blue;text-decoration: underline;cursor: pointer;" href="/sims/' + t.number + '" id="show-morris-graph" data-id="' + t.number + '">' + t.number  + '</a>'
-                    }
-                }, {
-                    field: "name",
-                    title: "Name",
-                    width: 250
-                }, {
-                    field: "allowance_in_number",
-                    title: "MB Allowance",
-                    textAlign: "center",
-                    responsive: {
-                        visible: "lg"
-                    },
-                    template: function(t) {
-                      allowance_value = t.allowance_in_number
-                      if (allowance_value == -1.0) {
-                        allowance_value = "Unlimited";
-                      }
-                      return allowance_value;
-                    }
-                }, {
-                    field: "current_in_number",
-                    title: " MB Used (Today)",
-                    textAlign: "center",
-                    width: 150,
-                    template: function(t) {
-                      allowance_value = t.allowance_in_number
-                      current_in_number = t.current_in_number
-                      if (allowance_value == -1.0) {
-                        current_in_number = "-";
-                      }
-                      return current_in_number;
-                    }
-                }, {
-                    field: "yesterday_in_number",
-                    title: "MB Used (Yest.)",
-                    textAlign: "center",
-                    width: 150,
-                    responsive: {
-                        visible: "lg"
-                    },
-                    template: function(t) {
-                      allowance_value = t.allowance_in_number
-                      yesterday_in_number = t.yesterday_in_number
-                      if (allowance_value == -1.0) {
-                        yesterday_in_number = "-";
-                      }
-                      return yesterday_in_number;
-                    }
-                },
-                {
-                  field: "percentage_used",
-                  title: "% Used",
-                  textAlign: "center",
-                  template: function(t) {
-                    allowance_value = t.allowance_in_number
-                    percentage_used = t.percentage_used
-                    if (allowance_value == -1.0) {
-                      percentage_used = "-";
-                    }
-                    return percentage_used;
-                  }
-                },
-                {
-                  field: "remaining_days",
-                  title: "Remaning Days",
-                  width: 115,
-                  textAlign: "center",
-                  template: function(t) {
-                    var days_left = (t.allowance_in_number - t.current_in_number) / (t.current_in_number - t.yesterday_in_number)
-                    value =  Math.round(days_left * 100) / 100;
-                    if (t.current_in_number == 0){
-                      value = "Infinity";
-                    }
-                      return value;
-                  }
-                },
-                {
-                  field: "sim_provider",
-                  title: "Sim Provider",
-                  width: 210,
-                  textAlign: "center",
-                },
-                {
-                  field: "date_of_use",
-                  title: "Last Reading",
-                  textAlign: "center",
-                  width: 195,
-                  template: function(t) {
-                    return "" + moment(t.date_of_use).format('MMMM Do YYYY, H:mm:ss') +"";
-                  }
-                }
-              ]
-            }),
-            i = a.getDataSourceQuery(),
-            a.setDataSourceParam('sort', {field: "percentage_used", sort: "desc"});
-        $("#m_form_search").on("keyup", function(e) {
-            a.search($(this).val().toLowerCase())
-        }).val(i.generalSearch)
-    };
-    return {
-        init: function() {
-            e()
-        }
-    }
-}();
-
-
-var startSIMDatatable = function() {
-  DatatableDataLocalDemo.init();
-};
-
-var clearCHARThtml = function() {
-  $("#clear_chartsjs").on("click", function () {
-    $("#iam_canvas").html("");
-    $("#iam_canvas").html("<canvas id='canvas'></canvas>");
-  });  
-}
-
-var startMORRISChartJS = function () {
-  $("#child_data_local").on("click", "#show-morris-graph", function(){
-    $("#api-wait").removeClass("hide_me");
-    var settingsForMorris;
-    var id = $(this).data("id");
-    settingsForMorris = {
-      cache: false,
-      data: {sim_number: id},
-      dataType: 'json',
-      error: onMorrisError,
-      success: onMorrisSuccess,
-      contentType: "application/x-www-form-urlencoded",
-      type: "GET",
-      url: "/chartjs/data/" + id
-    };
-
-    $.ajax(settingsForMorris);
-
-  });  
-};
-
-var onMorrisError, onMorrisSuccess;
-
-onMorrisSuccess = function (result, status, jqXHR) {
-  var labelsZchartjs = [], dataZChartsJS = [];
-  $.each(result.chartjs_data, function( index, element ) {
-    labelsZchartjs.push(element.datetime);
-    dataZChartsJS.push(element.percentage_used);
-    // element == this
-  });
-
-  var chartColors = {
-    red: 'rgb(255, 99, 132)',
-    orange: 'rgb(255, 159, 64)',
-    yellow: 'rgb(255, 205, 86)',
-    green: 'rgb(75, 192, 192)',
-    blue: 'rgb(54, 162, 235)',
-    purple: 'rgb(153, 102, 255)',
-    grey: 'rgb(231,233,237)'
-  };
-
-  var randomScalingFactor = function() {
-    return (Math.random() > 0.5 ? 1.0 : -1.0) * Math.round(Math.random() * 100);
-  }
-  var config = {
-    type: 'line',
-    data: {
-      labels: labelsZchartjs,
-      datasets: [{
-        label: " % Allowance Used",
-        fill: false,
-        backgroundColor: chartColors.blue,
-        borderColor: chartColors.blue,
-        data: dataZChartsJS,
-      }]
-    },
-    options: {
-      legend: {
-        labels: {
-          boxWidth: 0,
-          fontStyle: "bold",
-          fontSize: 20
-        }
-      },
-      responsive: true,
-      tooltips: {
-        bodyFontStyle: "bold",
-        mode: 'label',
-      },
-      hover: {
-        mode: 'nearest',
-        intersect: true
-      },
-      scales: {
-        xAxes: [{
-          ticks: {
-              autoSkip : true,
-              callback: function(value, index, values) {
-                return new moment(value).format('YYYY-MM-DD');
-              }
-          },
-          display: true,
-          fontStyle: "bold",
-          scaleLabel: {
-            fontStyle: "bold",
-            display: false,
-            labelString: 'Date & Time'
-          }
-        }],
-        yAxes: [{
-          ticks: {
-              min: 0,
-              max: 100,
-              stepSize: 10
-          },
-          display: true,
-          fontStyle: "bold",
-          scaleLabel: {
-            fontStyle: "bold",
-            display: true,
-            labelString: '% Allowance Used'
-          }
-        }]
+var vm = new Vue({
+  el: '#sims_main',
+  data(){
+    return{
+      dataTable: null,
+      m_form_search: "",
+      headings: [
+        {column: "Number"},
+        {column: "Name"},
+        {column: "MB Allowance"},
+        {column: "MB Used (Today)"},
+        {column: "MB Used (Yest.)"},
+        {column: "% Used"},
+        {column: "Remaning Days"},
+        {column: "Sim Provider"},
+        {column: "Last Reading"},
+      ],
+      form_labels: {
+        name: "Name",
+        number: "Number",
+        sim_provider: "SIM Provider",
+        add_title: "Add SIM",
+        hide_show_title: "Show/Hide Columns",
+        add_sim_button: "Add SIM",
+        hide_show_button: "OK",
+        submit_button: "Save changes"
       }
     }
-  };
-
-  $("#api-wait").addClass("hide_me");
-  var ctx = document.getElementById("canvas").getContext("2d");
-  window.myLine = new Chart(ctx, config);
-};
-
-var showHideColumns;
-
-showHideColumns = function() {
-  $(".sims-column").on("click", function(){
-    var ColToHide = $(this).attr("data-field");
-    if(this.checked){
-      $("th[data-field='" + ColToHide + "']").show();
-      $("td[data-field='" + ColToHide + "']").show();
-    }else{
-      $("th[data-field='" + ColToHide + "']").hide();
-      $("td[data-field='" + ColToHide + "']").hide();
+  },
+  methods: {
+    initializeTable: function(){
+      simsDataTable = $('#sims-datatable').DataTable({
+      ajax: {
+      url: "/sims",
+        dataSrc: function(data) {
+          return data.logs;
+        },
+        error: function(xhr, error, thrown) {
+          if (xhr.responseJSON) {
+            console.log(xhr.responseJSON.message);
+          } else {
+            console.log("Something went wrong, Please try again.");
+          }
+        }
+      },
+      columns: [
+      {
+        class: "text-left width-150",
+        data: function(row, type, set, meta) {
+          return '<a style="color: blue;text-decoration: underline;cursor: pointer;" href="/sims/' + row.number + '" id="show-morris-graph" data-id="' + row.number + '">' + row.number  + '</a>'
+        }
+      },
+      {
+        class: "text-left width-250",
+        data: function(row, type, set, meta) {
+          return row.name;
+        }
+      },
+      {
+        class: "text-center width-150",
+        data: function(row, type, set, meta) {
+          allowance_value = row.allowance_in_number
+          if (allowance_value == -1.0) {
+            allowance_value = "Unlimited";
+          }
+          return allowance_value;
+        }
+      },
+      {
+        class: "text-center width-150",
+        data: function(row, type, set, meta) {
+          allowance_value = row.allowance_in_number
+          current_in_number = row.current_in_number
+          if (allowance_value == -1.0) {
+            current_in_number = "-";
+          }
+          return current_in_number;
+        }
+      },
+      {
+        class: "text-center width-150",
+        data: function(row, type, set, meta) {
+         allowance_value = row.allowance_in_number
+          yesterday_in_number = row.yesterday_in_number
+          if (allowance_value == -1.0) {
+            yesterday_in_number = "-";
+          }
+          return yesterday_in_number;
+        }
+      },
+      {
+        class: "text-center width-150",
+        data: function(row, type, set, meta) {
+          allowance_value = row.allowance_in_number
+          percentage_used = row.percentage_used
+          if (allowance_value == -1.0) {
+            percentage_used = "-";
+          }
+          return percentage_used;
+        }
+      },
+      {
+        class: "text-center width-150",
+        data: function(row, type, set, meta) {
+          var days_left = (row.allowance_in_number - row.current_in_number) / (row.current_in_number - row.yesterday_in_number)
+          value =  Math.round(days_left * 100) / 100;
+          if (row.current_in_number == 0){
+            value = "Infinity";
+          }
+          return value;
+        }
+      },
+      {
+        class: "text-center width-150",
+        data: function(row, type, set, meta) {
+          return row.sim_provider;
+        }
+      },
+      {
+        class: "text-center width-250",
+        data: function(row, type, set, meta) {
+          return moment(row.date_of_use).format('MMMM Do YYYY, H:mm:ss');
+        }
+      },
+      ],
+      autoWidth: false,
+      info: false,
+      bPaginate: false,
+      lengthChange: false,
+      order: [[ 5, "desc" ]],
+      // stateSave:  true,
+    });
+      this.dataTable = simsDataTable;
+   },
+   search: function(){
+    this.dataTable.search(this.m_form_search).draw();
+   },
+   showHideColumns: function(column){
+    var column = this.dataTable.column(column);
+    column.visible( ! column.visible() );
+    this.resizeScreen();
+   },
+   sendAJAXRequest: function(settings) {
+    var headers, token, xhrRequestChangeMonth;
+    token = $('meta[name="csrf-token"]');
+    if (token.length > 0) {
+      headers = {
+      "X-CSRF-Token": token.attr("content")
+      };
+      settings.headers = headers;
     }
-    var selected_table = a.table;
-    $(".topScroll").width(selected_table[0].scrollWidth);
-  });
-};
-
-var onSIMButton = function() {
-  $("#addSIM").on("click", function(){
-    $('.add_sim_to_db').modal('show');
-    clearForm();
-  });
-};
-
-var clearForm = function() {
-  $("#number").val("");
-  $("#name").val("");
-  $('ul#errorOnSIM').html("");
-  $("#body-sim-dis *").prop('disabled', false);
-  $("#simErrorDetails").addClass("hide_me");
-};
-
-var saveModal = function() {
-  $("#saveModal").on("click", function() {
+    return xhrRequestChangeMonth = jQuery.ajax(settings);
+   },
+    onSIMButton: function() {
+      this.initializeInput();
+      $('.add_sim_to_db').modal('show');
+    },
+   saveModal: function() {
     $('ul#errorOnSIM').html("");
     $("#api-wait").removeClass("hide_me");
     $("#body-sim-dis *").prop('disabled',true);
@@ -321,81 +184,71 @@ var saveModal = function() {
       cache: false,
       data: data,
       dataType: 'json',
-      error: onError,
-      success: onSuccess,
+      error: this.onError,
+      success: this.onSuccess,
       contentType: "application/x-www-form-urlencoded",
       type: "POST",
       url: "/sims"
     };
 
-    sendAJAXRequest(settings);
-  });
-};
+    this.sendAJAXRequest(settings);
+   },
+    onError: function(jqXHR, status, error) {
+      var cList = $('ul#errorOnSIM')
+      $.each(jqXHR.responseJSON.errors, function(index, value) {
+      var li = $('<li/>')
+          .text(value)
+          .appendTo(cList);
+      });
+      $("#simErrorDetails").removeClass("hide_me");
+      $("#api-wait").addClass("hide_me");
+      $("#body-sim-dis *").prop('disabled', false);
+      return false;
+    },
+    onSuccess: function(result, status, jqXHR) {
+      $.notify({
+        message: 'SIM has been added.'
+      },{
+        type: 'info'
+      });
+      $(".modal-backdrop").remove();
+      $("#m_modal_1").modal("hide");
+      $("#api-wait").addClass("hide_me");
+      this.dataTable.ajax.reload();
+      this.clearForm();
+      return true;
+    },
+    clearForm: function() {
+      $("#number").val("");
+      $("#name").val("");
+      $('ul#errorOnSIM').html("");
+      $("#body-sim-dis *").prop('disabled', false);
+      $("#simErrorDetails").addClass("hide_me");
+    },
+    initializeInput: function() {
+      $("#number").intlTelInput({
+          nationalMode: false,
+          initialCountry: "ie"
+        });
 
-var onError, onSuccess;
-
-onError = function(jqXHR, status, error) {
-  var cList = $('ul#errorOnSIM')
-  $.each(jqXHR.responseJSON.errors, function(index, value) {
-    var li = $('<li/>')
-        .text(value)
-        .appendTo(cList);
-  });
-  $("#simErrorDetails").removeClass("hide_me");
-  $("#api-wait").addClass("hide_me");
-  $("#body-sim-dis *").prop('disabled', false);
-  return false;
-};
-
-onSuccess = function(result, status, jqXHR) {
-  $.notify({
-    // options
-    message: 'SIM has been added.'
-  },{
-    // settings
-    type: 'info'
-  });
-  $(".modal-backdrop").remove();
-  $("#m_modal_1").modal("hide");
-  $("#api-wait").addClass("hide_me");
-  a.load();
-  clearForm();
-  return true;
-};
-
-var sendAJAXRequest = function(settings) {
-  var headers, token, xhrRequestChangeMonth;
-  token = $('meta[name="csrf-token"]');
-  if (token.length > 0) {
-    headers = {
-      "X-CSRF-Token": token.attr("content")
-    };
-    settings.headers = headers;
-  }
-  return xhrRequestChangeMonth = jQuery.ajax(settings);
-};
-
-var initializeInput = function() {
-  $("#number").intlTelInput({
-    nationalMode: false,
-    initialCountry: "ie"
-  });
-
-  $('.other_input').css("display","none");
-  $('#sim_provider').change(function(){
-   if($(this).val() == "other"){
-    $('.other_input').css("display","block");
-   }else{
-    $('.other_input').css("display","none");
+        $('.other_input').css("display","none");
+        $('#sim_provider').change(function(){
+        if($(this).val() == "other"){
+          $('.other_input').css("display","block");
+        }else{
+          $('.other_input').css("display","none");
+        }
+      })
+    },
+   resizeScreen: function(){
+    $('#double-scroll').doubleScroll();
+    var table_width = $("#sims-datatable").width();
+    $(".doubleScroll-scroll").width(table_width);
    }
-  })
-};
-window.initializeSIMs = function() {
-  startSIMDatatable();
-  startMORRISChartJS();
-  clearCHARThtml();
-  showHideColumns();
-  onSIMButton();
-  saveModal();
-  initializeInput();
-};
+  }, // end of methods
+  mounted(){
+    this.initializeTable();
+    this.resizeScreen();
+    window.addEventListener('resize', this.resizeScreen);
+  }
+});

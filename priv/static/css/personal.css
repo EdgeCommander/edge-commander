@@ -373,6 +373,14 @@ select.form-control:not([size]):not([multiple]) {
   min-width: 60px;
 }
 
+.width-100{
+  min-width: 100px;
+}
+
+.width-120{
+  min-width: 120px;
+}
+
 .width-120{
   min-width: 120px;
 }
@@ -385,16 +393,20 @@ select.form-control:not([size]):not([multiple]) {
   min-width: 150px;
 }
 
-.width-400{
-  min-width: 400px;
+.width-200{
+  min-width: 200px;
 }
 
 .width-250{
   min-width: 250px;
 }
 
-.width-200{
-  min-width: 200px;
+.width-400{
+  min-width: 400px;
+}
+
+.width-530{
+  min-width: 530px;
 }
 
 .width-1060{
