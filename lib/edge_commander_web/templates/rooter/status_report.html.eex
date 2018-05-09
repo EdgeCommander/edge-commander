@@ -10,7 +10,8 @@
 </script>
 <!--end::Web font -->
     <!-- end::Body -->
-    <body class="m-page--fluid m--skin- m-content--skin-light2 m-header--fixed m-header--fixed-mobile m-aside-left--enabled m-aside-left--skin-dark m-aside-left--offcanvas m-footer--push m-aside--offcanvas-default"  >
+    <body class="m-page--fluid m--skin- m-content--skin-light2 m-header--fixed m-header--fixed-mobile m-aside-left--enabled m-aside-left--skin-dark m-aside-left--offcanvas m-footer--push m-aside--offcanvas-default">
+        <div id="status_rpt_main">
         <!-- begin:: Page -->
         <div class="m-grid m-grid--hor m-grid--root m-page" id="page_content_main">
             <!-- BEGIN: Header -->
@@ -828,4 +829,5 @@
         </div>
         <!-- end::Scroll Top -->
         <!-- begin::Quick Nav -->
+         </div> <!-- end::main div -->
     </body>
