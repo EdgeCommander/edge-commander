@@ -11,6 +11,7 @@
 <!--end::Web font -->
     <!-- end::Body -->
     <body class="m-page--fluid m--skin- m-content--skin-light2 m-header--fixed m-header--fixed-mobile m-aside-left--enabled m-aside-left--skin-dark m-aside-left--offcanvas m-footer--push m-aside--offcanvas-default"  >
+        <div id="profile_main">
         <!-- begin:: Page -->
         <div class="m-grid m-grid--hor m-grid--root m-page" id="page_content_main">
             <!-- BEGIN: Header -->
@@ -240,7 +241,7 @@
                                                 <input type="hidden" id="id"  value="<%= @user.id %>">
                                                 <div class="form-group m-form__group row">
                                                     <label class="col-3 col-form-label">
-                                                        First Name
+                                                        {{form_labels.fname}}
                                                     </label>
                                                     <div class="col-9">
                                                         <input type="text" class="form-control m-input" id="firstname" value="<%= @user.firstname %>">
@@ -248,7 +249,7 @@
                                                 </div>
                                                 <div class="form-group m-form__group row">
                                                     <label class="col-3 col-form-label">
-                                                        Last Name
+                                                        {{form_labels.lname}}
                                                     </label>
                                                     <div class="col-9">
                                                         <input type="text" class="form-control m-input" id="lastname" value="<%= @user.lastname %>">
@@ -256,7 +257,7 @@
                                                 </div>
                                                 <div class="form-group m-form__group row">
                                                     <label class="col-3 col-form-label">
-                                                        Email
+                                                        {{form_labels.email}}
                                                     </label>
                                                     <div class="col-9">
                                                         <input type="email" class="form-control m-input" id="email" value="<%= @user.email %>">
@@ -264,7 +265,7 @@
                                                 </div>
                                                 <div class="form-group m-form__group row">
                                                     <label class="col-3 col-form-label">
-                                                        Password
+                                                        {{form_labels.password}}
                                                     </label>
                                                     <div class="col-9">
                                                         <input type="password" class="form-control m-input" id="password" value="" >
@@ -272,7 +273,7 @@
                                                 </div>
                                                 <div class="form-group m-form__group row">
                                                     <label class="col-3 col-form-label">
-                                                        Api Key
+                                                        {{form_labels.api_key}}
                                                     </label>
                                                     <div class="col-9" style="padding:10px 15px">
                                                         <%= @user.api_key %>
@@ -280,7 +281,7 @@
                                                 </div>
                                                 <div class="form-group m-form__group row" style="padding-top:0">
                                                     <label class="col-3 col-form-label">
-                                                        Api Id
+                                                        {{form_labels.api_id}}
                                                     </label>
                                                     <div class="col-9" style="padding:10px 15px">
                                                         <%= @user.api_id %>
@@ -290,8 +291,8 @@
                                                     <label class="col-3 col-form-label">
                                                     </label>
                                                     <div class="col-9">
-                                                      <button type="button" class="btn btn-default" id="updateMyProfile">
-                                                        Save Changes
+                                                      <button type="button" class="btn btn-default" id="updateMyProfile" v-on:click="updateMyProfile">
+                                                        {{form_labels.submit_button}}
                                                       </button>
                                                     </div>
                                                 </div>
@@ -900,4 +901,5 @@
         </div>
         <!-- end::Scroll Top -->
         <!-- begin::Quick Nav -->
+        </div>
     </body>
