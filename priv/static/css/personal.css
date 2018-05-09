@@ -401,6 +401,10 @@ select.form-control:not([size]):not([multiple]) {
   min-width: 250px;
 }
 
+.width-300{
+  min-width: 300px;
+}
+
 .width-400{
   min-width: 400px;
 }

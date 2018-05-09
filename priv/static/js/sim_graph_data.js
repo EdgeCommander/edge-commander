@@ -175,7 +175,7 @@ var vm = new Vue({
         data: data,
         dataType: 'json',
         error: this.onSMSError,
-        success: this.onSMSError,
+        success: this.onSMSSuccess,
         contentType: "application/x-www-form-urlencoded",
         type: "POST",
         url: "/send_sms"
