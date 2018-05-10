@@ -306,7 +306,7 @@ var vm = new Vue({
         url: "/nvrs"
       };
 
-      this.sendAJAXRequest(settings);
+      vm.sendAJAXRequest(settings);
    },
    onError: function(jqXHR, status, error) {
       var cList = $('ul#errorOnNVR')
@@ -382,15 +382,7 @@ var vm = new Vue({
           url: "/nvrs/" + nvrID
         };
 
-        var headers, token, xhrRequestChangeMonth;
-        token = $('meta[name="csrf-token"]');
-        if (token.length > 0) {
-          headers = {
-            "X-CSRF-Token": token.attr("content")
-          };
-          settings.headers = headers;
-        }
-        jQuery.ajax(settings);
+        vm.sendAJAXRequest(settings)
 
       });
    },
@@ -488,7 +480,7 @@ var vm = new Vue({
       this.edit_nvr_name = data.name
       this.edit_nvr_username = data.username
       this.edit_nvr_password = data.password
-      this.edit_http_nvr_port = data.vh_port
+      this.edit_http_nvr_port = data.port
       this.edit_vh_nvr_port = data.vh_port
       this.edit_sdk_nvr_port = data.sdk_port
       this.edit_rtsp_nvr_port = data.rtsp_port
@@ -541,7 +533,7 @@ var vm = new Vue({
         url: "/nvrs/" + nvrID
       };
 
-      this.sendAJAXRequest(settings);
+      vm.sendAJAXRequest(settings);
     },
     onEditError: function(jqXHR, status, error) {
       $("#body-nvr-edit-dis *").prop('disabled', false);

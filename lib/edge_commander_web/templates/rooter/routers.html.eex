@@ -888,8 +888,8 @@
                                         </div>
                                     </div>
                                     <div class="modal-body" id="body-router-dis">
-                                        <img src="/images/loading.gif" id="api-wait" class="hide_me">
-                                        <div id="routerErrorDetails" class="hide_me">
+                                        <img src="/images/loading.gif" id="api-wait" v-if="show_loading">
+                                        <div id="routerErrorDetails" v-if="show_errors">
                                             <div class="form-group m-form__group m--margin-top-10">
                                                 <div class="alert m-alert m-alert--default" role="alert">
                                                     <ul id="errorOnROUTER" style="margin:0px"></ul>
@@ -904,7 +904,7 @@
                                                     {{form_labels.name}}
                                                 </label>
                                                 <div class="col-9">
-                                                   <input type="text" class="form-control m-input m-input--solid" id="router_name" aria-describedby="emailHelp" placeholder="Galway route.">
+                                                   <input type="text" class="form-control m-input m-input--solid" id="router_name" v-model="router_name" aria-describedby="emailHelp" placeholder="Galway route.">
                                                 </div>
                                             </div>
                                             <div class="form-group m-form__group row">
@@ -912,7 +912,7 @@
                                                     {{form_labels.ip}}
                                                 </label>
                                                 <div class="col-9">
-                                                    <input type="text" class="form-control m-input m-input--solid" id="router_ip" placeholder="https://youripmaybe">
+                                                    <input type="text" class="form-control m-input m-input--solid" id="router_ip" v-model="router_ip" placeholder="https://youripmaybe">
                                                 </div>
                                             </div>
                                             <div class="form-group m-form__group row">
@@ -920,7 +920,7 @@
                                                     {{form_labels.username}}
                                                 </label>
                                                 <div class="col-9">
-                                                    <input type="text" class="form-control m-input m-input--solid" id="router_username" placeholder="i.e admin">
+                                                    <input type="text" class="form-control m-input m-input--solid" id="router_username" v-model="router_username" placeholder="i.e admin">
                                                 </div>
                                             </div>
                                             <div class="form-group m-form__group row">
@@ -928,7 +928,7 @@
                                                     {{form_labels.password}}
                                                 </label>
                                                 <div class="col-9">
-                                                    <input type="text" class="form-control m-input m-input--solid" id="router_password" placeholder="Super Secret">
+                                                    <input type="text" class="form-control m-input m-input--solid" id="router_password" v-model="router_password" placeholder="Super Secret">
                                                 </div>
                                             </div>
                                             <div class="form-group m-form__group row">
@@ -936,7 +936,7 @@
                                                     {{form_labels.http_port}}
                                                 </label>
                                                 <div class="col-9">
-                                                    <input type="number" class="form-control m-input m-input--solid" id="http_router_port" placeholder="i.e 80">
+                                                    <input type="number" class="form-control m-input m-input--solid" id="http_router_port" v-model="http_router_port" placeholder="i.e 80">
                                                 </div>
                                             </div>
                                             <div class="form-group m-form__group row">
@@ -944,7 +944,7 @@
                                                 </label>
                                                 <div class="col-9">
                                                     <label class="m-checkbox">
-                                                        <input type="checkbox" id="router_is_monitoring">
+                                                        <input type="checkbox" id="router_is_monitoring" v-model="router_is_monitoring">
                                                         {{form_labels.status}}
                                                         <span></span>
                                                     </label>
@@ -975,8 +975,8 @@
                                         </div>
                                     </div>
                                     <div class="modal-body" id="body-router-edit-dis">
-                                        <img src="/images/loading.gif" id="api-wait" class="hide_me">
-                                         <div id="routerEditErrorDetails" class="hide_me">
+                                        <img src="/images/loading.gif" id="api-wait" v-if="show_loading">
+                                         <div id="routerEditErrorDetails" v-if="show_edit_errors">
                                             <div class="form-group m-form__group m--margin-top-10">
                                                 <div class="alert m-alert m-alert--default" role="alert">
                                                     <ul id="errorOnEditROUTER" style="margin:0px"></ul>
@@ -985,13 +985,13 @@
                                         </div>
                                         <div class="m-form m-form--fit m-form--label-align-left">
                                             <input type="hidden" id="user_id" value="<%= @user.id %>">
-                                            <input type="hidden" id="edit_router_id">
+                                            <input type="hidden" id="edit_router_id"  v-model="edit_router_id">
                                             <div class="form-group m-form__group row">
                                                 <label class="col-3 col-form-label">
                                                     {{form_labels.name}}
                                                 </label>
                                                 <div class="col-9">
-                                                   <input type="text" class="form-control m-input m-input--solid" id="edit_router_name" aria-describedby="emailHelp" placeholder="Galway route.">
+                                                   <input type="text" class="form-control m-input m-input--solid" id="edit_router_name" v-model="edit_router_name" aria-describedby="emailHelp" placeholder="Galway route.">
                                                 </div>
                                             </div>
                                             <div class="form-group m-form__group row">
@@ -999,7 +999,7 @@
                                                     {{form_labels.ip}}
                                                 </label>
                                                 <div class="col-9">
-                                                    <input type="text" class="form-control m-input m-input--solid" id="edit_router_ip" placeholder="https://youripmaybe">
+                                                    <input type="text" class="form-control m-input m-input--solid" id="edit_router_ip" v-model="edit_router_ip" placeholder="https://youripmaybe">
                                                 </div>
                                             </div>
                                             <div class="form-group m-form__group row">
@@ -1007,7 +1007,7 @@
                                                     {{form_labels.username}}
                                                 </label>
                                                 <div class="col-9">
-                                                    <input type="text" class="form-control m-input m-input--solid" id="edit_router_username" placeholder="i.e admin">
+                                                    <input type="text" class="form-control m-input m-input--solid" id="edit_router_username" v-model="edit_router_username" placeholder="i.e admin">
                                                 </div>
                                             </div>
                                             <div class="form-group m-form__group row">
@@ -1015,7 +1015,7 @@
                                                     {{form_labels.password}}
                                                 </label>
                                                 <div class="col-9">
-                                                    <input type="text" class="form-control m-input m-input--solid" id="edit_router_password" placeholder="Super Secret">
+                                                    <input type="text" class="form-control m-input m-input--solid" id="edit_router_password" v-model="edit_router_password" placeholder="Super Secret">
                                                 </div>
                                             </div>
                                             <div class="form-group m-form__group row">
@@ -1023,7 +1023,7 @@
                                                     {{form_labels.http_port}}
                                                 </label>
                                                 <div class="col-9">
-                                                    <input type="number" class="form-control m-input m-input--solid" id="edit_http_router_port" placeholder="i.e 80">
+                                                    <input type="number" class="form-control m-input m-input--solid" id="edit_http_router_port" v-model="edit_http_router_port" placeholder="i.e 80">
                                                 </div>
                                             </div>
                                             <div class="form-group m-form__group row">
@@ -1031,7 +1031,7 @@
                                                 </label>
                                                 <div class="col-9">
                                                     <label class="m-checkbox">
-                                                        <input type="checkbox" id="edit_router_is_monitoring">
+                                                        <input type="checkbox" id="edit_router_is_monitoring" v-model="edit_router_is_monitoring">
                                                         {{form_labels.status}}
                                                         <span></span>
                                                     </label>
