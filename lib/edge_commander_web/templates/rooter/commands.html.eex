@@ -886,8 +886,8 @@
                                         </div>
                                     </div>
                                     <div class="modal-body" id="body-rule-dis">
-                                        <img src="/images/loading.gif" id="api-wait" class="hide_me">
-                                        <div id="ruleErrorDetails" class="hide_me">
+                                        <img src="/images/loading.gif" id="api-wait" v-if="show_loading">
+                                        <div id="ruleErrorDetails"  v-if="show_errors">
                                             <div class="form-group m-form__group m--margin-top-10">
                                                 <div class="alert m-alert m-alert--default" role="alert">
                                                     <ul id="errorOnRULE" style="margin:0px"></ul>
@@ -901,7 +901,7 @@
                                                     {{form_labels.name}}
                                                 </label>
                                                 <div class="col-9">
-                                                    <input type="text" class="form-control m-input m-input--solid" id="rule_name" aria-describedby="emailHelp" placeholder="Test Usage.">
+                                                    <input type="text" class="form-control m-input m-input--solid" id="rule_name" aria-describedby="emailHelp" placeholder="Test Usage." v-model="rule_name">
                                                 </div>
                                             </div>
                                             <div class="form-group m-form__group row">
@@ -909,7 +909,7 @@
                                                     {{form_labels.category}}
                                                 </label>
                                                 <div class="col-9">
-                                                    <select class="form-control m-input" id="rule_category">
+                                                    <select class="form-control m-input" id="rule_category" v-model="rule_category">
                                                         <option value="usage_command">Usage > 90%</option>
                                                     </select>
                                                 </div>
@@ -919,7 +919,7 @@
                                                     {{form_labels.recipients}}
                                                 </label>
                                                 <div class="col-9">
-                                                    <input type="text" class="form-control m-input m-input--solid" id="rule_recipients" aria-describedby="emailHelp" placeholder="test@user.com,who@am.io">
+                                                    <input type="text" class="form-control m-input m-input--solid" id="rule_recipients" aria-describedby="emailHelp" placeholder="test@user.com,who@am.io" v-model="rule_recipients">
                                                 </div>
                                             </div>
                                             <div class="form-group m-form__group row">
@@ -927,7 +927,7 @@
                                                 </label>
                                                 <div class="col-9">
                                                     <label class="m-checkbox">
-                                                        <input type="checkbox" id="rule_is_active">
+                                                        <input type="checkbox" id="rule_is_active" v-model="rule_is_active">
                                                             {{form_labels.status}}
                                                         <span></span>
                                                     </label>
@@ -954,12 +954,12 @@
                                             {{form_labels.edit_title}}
                                         </h5>
                                         <div class="cancel">
-                                            <a href="#" id="discardEditModal" data-dismiss="modal">X</a>
+                                            <a href="#" id="discardEditModal" data-dismiss="modal" v-on:click="editClearFrom">X</a>
                                         </div>
                                     </div>
                                     <div class="modal-body" id="body-rule-edit-dis">
-                                        <img src="/images/loading.gif" id="api-wait" class="hide_me">
-                                        <div id="ruleEditErrorDetails" class="hide_me">
+                                        <img src="/images/loading.gif" id="api-wait"  v-if="show_loading">
+                                        <div id="ruleEditErrorDetails"  v-if="show_edit_errors">
                                             <div class="form-group m-form__group m--margin-top-10">
                                                 <div class="alert m-alert m-alert--default" role="alert">
                                                     <ul id="errorOnEditRULE" style="margin:0px"></ul>
@@ -968,13 +968,13 @@
                                         </div>
                                         <div class="m-form m-form--fit m-form--label-align-left">
                                             <input type="hidden" id="user_id" value="<%= @user.id %>">
-                                            <input type="hidden" id="edit_rule_id">
+                                            <input type="hidden" id="edit_rule_id" v-model="edit_rule_id">
                                             <div class="form-group m-form__group row">
                                                 <label class="col-3 col-form-label">
                                                     {{form_labels.name}}
                                                 </label>
                                                 <div class="col-9">
-                                                    <input type="text" class="form-control m-input m-input--solid" id="edit_rule_name" aria-describedby="emailHelp" placeholder="Test Usage.">
+                                                    <input type="text" class="form-control m-input m-input--solid" id="edit_rule_name" aria-describedby="emailHelp" placeholder="Test Usage." v-model="edit_rule_name">
                                                 </div>
                                             </div>
                                             <div class="form-group m-form__group row">
@@ -982,7 +982,7 @@
                                                     {{form_labels.category}}
                                                 </label>
                                                 <div class="col-9">
-                                                    <select class="form-control m-input" id="edit_rule_category">
+                                                    <select class="form-control m-input" id="edit_rule_category" v-model="edit_rule_category">
                                                         <option value="usage_command">Usage > 90%</option>
                                                     </select>
                                                 </div>
@@ -992,7 +992,7 @@
                                                     {{form_labels.recipients}}
                                                 </label>
                                                 <div class="col-9">
-                                                    <input type="text" class="form-control m-input m-input--solid" id="edit_rule_recipients" aria-describedby="emailHelp" placeholder="test@user.com,who@am.io">
+                                                    <input type="text" class="form-control m-input m-input--solid" id="edit_rule_recipients" v-model="edit_rule_recipients" aria-describedby="emailHelp" placeholder="test@user.com,who@am.io">
                                                 </div>
                                             </div>
                                             <div class="form-group m-form__group row">
@@ -1000,7 +1000,7 @@
                                                 </label>
                                                 <div class="col-9">
                                                     <label class="m-checkbox">
-                                                        <input type="checkbox" id="edit_rule_is_active">
+                                                        <input type="checkbox" id="edit_rule_is_active" v-model="edit_rule_is_active">
                                                         {{form_labels.status}}
                                                         <span></span>
                                                     </label>

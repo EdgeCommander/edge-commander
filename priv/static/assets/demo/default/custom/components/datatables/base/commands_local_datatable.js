@@ -4,6 +4,9 @@ var vm = new Vue({
     return{
        dataTable: null,
        m_form_search: "",
+       show_loading: false,
+       show_errors: false,
+       show_edit_errors: false,
        headings: [
         {column: "Actions", class: "text-center"},
         {column: "Rule Name"},
@@ -23,7 +26,16 @@ var vm = new Vue({
         hide_show_title: "Show/Hide Columns",
         add_rule_button: "Add Rule",
         hide_show_button: "OK"
-       }
+       },
+       edit_rule_name: "",
+       edit_rule_id: "",
+       edit_rule_category: "",
+       edit_rule_recipients: "",
+       edit_rule_is_active: false,
+       rule_name: "",
+       rule_category: "",
+       rule_recipients: "",
+       rule_is_active: false,
     }
   },
   methods: {
@@ -46,7 +58,7 @@ var vm = new Vue({
       {
         class: "text-center width-60",
         data: function(row, type, set, meta) {
-          return '<div class="editRULE cursor_to_pointer fa fa-edit" data-id="'+ row.id +'"></div> <div class="deleteRULE cursor_to_pointer fa fa-trash" data-id="'+ row.id +'"></div>';
+          return '<div class="editRULE cursor_to_pointer fa fa-edit" data-id="'+ row.id +'"></div> <div class="deleteRule cursor_to_pointer fa fa-trash" data-id="'+ row.id +'"></div>';
         }
       },
       {
@@ -87,45 +99,45 @@ var vm = new Vue({
       // stateSave:  true,
     });
       this.dataTable = commandsDataTable;
-      this.onRuleEditButton();
-      this.deleteRULE();
    },
     search: function(){
       this.dataTable.search(this.m_form_search).draw();
     },
-    onRuleEditButton: function(){
-    $(document).on("click", ".editRULE", function(){
-      var tr = $(this).closest('tr');
-      var row = commandsDataTable.row(tr);
-      var data = row.data();
-
-      rule_id = $(this).data("id");
-
-      $("#saveEditModal").attr('data-id', rule_id);
-      $("#edit_rule_id").val(rule_id);
-      $("#edit_rule_name").val(data.rule_name);
-      $("#edit_rule_category").val(data.category);
-      $("#edit_rule_recipients").val(data.recipients);
+    getUniqueIdentifier: function(){
+      $(document).on("click", ".editRULE", function(){
+        var tr = $(this).closest('tr');
+        var row = commandsDataTable.row(tr);
+        var data = row.data();
+        rule_id = $(this).data("id");
+        vm.onRuleEditButton(rule_id, data);
+      });
+    },
+    onRuleEditButton: function(rule_id, data){
+      this.edit_rule_name = data.rule_name
+      this.edit_rule_id = rule_id
+      this.edit_rule_category = data.category
+      this.edit_rule_recipients = data.recipients
       if (data.active) {
-        $('#edit_rule_is_active').prop('checked', true);
+        this.edit_rule_is_active = true;
       }
       $('#edit_rule_to_db').modal('show');
-    });
    },
    showHideColumns: function(column){
     var column = this.dataTable.column(column);
     column.visible( ! column.visible() );
-    this.resizeScreen();
+    vm.resizeScreen();
    },
    onRuleButton: function(){
     $('.add_rule_to_db').modal('show');
    },
    clearForm: function(){
-    $("#rule_name").val("");
-    $("#rule_recipients").val("");
+    this.rule_name = "";
+    this.rule_category = "";
+    this.rule_recipients = "";
+    this.rule_is_active = false;
     $('ul#errorOnRULE').html("");
     $("#body-rule-dis *").prop('disabled', false);
-    $("#ruleErrorDetails").addClass("hide_me");
+    this.show_errors = false;
    },
    sendAJAXRequest: function(settings){
     var headers, token, xhrRequestChangeMonth;
@@ -136,19 +148,19 @@ var vm = new Vue({
     };
     settings.headers = headers;
     }
-    return xhrRequestChangeMonth = jQuery.ajax(settings);
+    return xhrRequestChangeMonth = $.ajax(settings);
    },
    saveModal: function(){
     $('ul#errorOnRULE').html("");
-    $("#api-wait").removeClass("hide_me");
+    this.show_loading = true;
     $("#body-rule-dis *").prop('disabled',true);
-    $("#ruleErrorDetails").addClass("hide_me");
+    this.show_errors = true;
 
-    var rule_name     = $("#rule_name").val(),
+    var rule_name     = this.rule_name,
         user_id       = $("#user_id").val(),
-        category      = $('#rule_category').find(":selected").val(),
-        recipients    = $("#rule_recipients").val(),
-        is_active = $('input[id=rule_is_active]:checked').length > 0;
+        category      = this.rule_category,
+        recipients    = this.rule_recipients,
+        is_active     = this.rule_is_active;
 
     var data = {};
     if (recipients != "") {
@@ -174,7 +186,7 @@ var vm = new Vue({
       type: "POST",
       url: "/rules/new"
     };
-    this.sendAJAXRequest(settings);
+    vm.sendAJAXRequest(settings);
    },
    onSaveError: function(jqXHR, status, error) {
       var cList = $('ul#errorOnRULE')
@@ -183,8 +195,7 @@ var vm = new Vue({
         .text(value)
         .appendTo(cList);
       });
-      $("#ruleErrorDetails").removeClass("hide_me");
-      $("#api-wait").addClass("hide_me");
+      this.show_loading = false;
       $("#body-rule-dis *").prop('disabled', false);
       return false;
    },
@@ -196,13 +207,13 @@ var vm = new Vue({
     });
     $(".modal-backdrop").remove();
     $("#m_modal_1").modal("hide");
-    $("#api-wait").addClass("hide_me");
+    this.show_loading = false;
     this.dataTable.ajax.reload();
     this.clearForm();
     return true;
    },
-   deleteRULE: function(){
-    $(document).on("click", ".deleteRULE", function() {
+   deleteRule: function(){
+    $(document).on("click", ".deleteRule", function() {
       var ruleRow, result;
       result = confirm("Are you sure to delete this Rule?");
       if (result === false) {
@@ -235,29 +246,21 @@ var vm = new Vue({
         url: "/rules/" + ruleID
       };
 
-      var headers, token, xhrRequestChangeMonth;
-      token = $('meta[name="csrf-token"]');
-      if (token.length > 0) {
-        headers = {
-          "X-CSRF-Token": token.attr("content")
-        };
-        settings.headers = headers;
-      }
-      jQuery.ajax(settings);
+      vm.sendAJAXRequest(settings);
     });
    },
    updateRule: function(){
     $("#body-rule-edit-dis *").prop('disabled', true);
     $('ul#errorOnEditRULE').html("");
-    $("#api-wait").removeClass("hide_me");
-    $("#ruleEditErrorDetails").addClass("hide_me");
+    this.show_loading = true;
+    this.show_edit_errors = true;
 
-    var ruleID = $("#edit_rule_id").val();
+    var ruleID = this.edit_rule_id;
 
-    var rule_name = $("#edit_rule_name").val(),
-    category      = $('#edit_rule_category').find(":selected").val(),
+    var rule_name = this.edit_rule_name,
+    category      = this.edit_rule_category,
     recipients    = $("#edit_rule_recipients").val(),
-    is_active = $('input[id=edit_rule_is_active]:checked').length > 0;
+    is_active     = this.edit_rule_is_active;
 
     var data = {};
     if (recipients != "") {
@@ -283,10 +286,10 @@ var vm = new Vue({
       url: "/rules/update"
     };
 
-    this.sendAJAXRequest(settings);
+    vm.sendAJAXRequest(settings);
    },
    onEditError: function(jqXHR, status, error) {
-    $("#api-wait").addClass("hide_me");
+    this.show_loading = false;
     $("#body-rule-edit-dis *").prop('disabled', false);
     var cList = $('ul#errorOnEditRULE')
     $.each(jqXHR.responseJSON.errors, function(index, value) {
@@ -294,7 +297,6 @@ var vm = new Vue({
       .text(value)
       .appendTo(cList);
     });
-    $("#ruleEditErrorDetails").removeClass("hide_me");
     return false;
    },
    onEditSuccess: function(result, status, jqXHR) {
@@ -303,17 +305,19 @@ var vm = new Vue({
     },{
       type: 'info'
     });
-    $("#api-wait").addClass("hide_me");
+    this.show_loading = false;
     this.editClearFrom();
     $("#edit_rule_to_db").modal("hide");
     this.dataTable.ajax.reload();
     return true;
    },
    editClearFrom: function() {
-    $("#edit_rule_name").val("");
     $('ul#errorOnEditRULE').html("");
     $("#body-rule-edit-dis *").prop('disabled', false);
-    $("#ruleEditErrorDetails").addClass("hide_me");
+    this.show_edit_errors = false;
+    this.edit_rule_name = ""
+    this.edit_rule_recipients = ""
+    this.edit_rule_is_active = false
    },
    resizeScreen: function(){
     $('#double-scroll').doubleScroll();
@@ -322,8 +326,10 @@ var vm = new Vue({
    }
   }, // end of methods
    mounted(){
-    this.initializeTable()
-    this.resizeScreen()
+    this.initializeTable();
+    this.resizeScreen();
+    this.getUniqueIdentifier();
+    this.deleteRule();
     window.addEventListener('resize', this.resizeScreen);
    }
 });
