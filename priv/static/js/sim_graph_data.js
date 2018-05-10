@@ -137,7 +137,7 @@ var vm = new Vue({
       info: false,
       bPaginate: false,
       lengthChange: false,
-      order: [[ 0, "desc" ]],
+      ordering: false,
       // stateSave:  true,
     });
       this.dataTable = simsDataTable;
