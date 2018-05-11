@@ -4,6 +4,7 @@ var vm = new Vue({
     return{
       dataTable: null,
       m_form_search: "",
+      show_loading: false,
       headings: [
         {column: "From"},
         {column: "To"},
@@ -21,7 +22,10 @@ var vm = new Vue({
         hide_show_title: "Show/Hide Columns",
         add_sms_button: "Send SMS",
         hide_show_button: "OK"
-      }
+      },
+      smsMessage: "",
+      toNumber: "",
+      user_id: ""
     }
   },
   methods: {
@@ -130,14 +134,16 @@ var vm = new Vue({
       }
       return xhrRequestChangeMonth = jQuery.ajax(settings);
     },
+    setUserId: function(id){
+      this.user_id = id;
+    },
     sendSMS: function(){
       $('ul#errorOnSms').html("");
-      $("#api-wait").removeClass("hide_me");
-      $("#smsErrorDetails").addClass("hide_me");
+      this.show_loading = true;
 
-      var sms_message  = $("#smsMessage").val(),
-      to_number        = $("#toNumber").val(),
-      user_id          = $("#user_id").val()
+      var sms_message  = this.smsMessage,
+      to_number        = this.toNumber,
+      user_id          = this.user_id
 
       var data = {};
       data.sms_message = sms_message;
@@ -164,10 +170,8 @@ var vm = new Vue({
       },{
         type: 'danger'
       });
-      $("#smsErrorDetails").removeClass("hide_me");
-      $("#api-wait").addClass("hide_me");
+      this.show_loading = false;
       $("#body-sms-dis *").prop('disabled', false);
-      $("#set_to_load").removeClass("loading");
       return false;
     },
     onSMSSuccess: function(result, status, jqXHR) {
@@ -187,16 +191,15 @@ var vm = new Vue({
       $(".modal-backdrop").remove();
       $(".add_sms_to_db").modal("hide");
       this.dataTable.ajax.reload();
-      $("#api-wait").addClass("hide_me");
+      this.show_loading = false;
       this.clearForm();
       return true;
     },
     clearForm: function() {
-      $("#smsMessage").val("");
+      this.smsMessage = "";
+      this.toNumber = "";
       $('ul#errorOnSite').html("");
-      $("#set_to_load").removeClass("loading");
       $("#body-sms-dis *").prop('disabled', false);
-      $("#smsErrorDetails").addClass("hide_me");
     },
     resizeScreen: function(){
       $('#double-scroll').doubleScroll();
