@@ -1,31 +1,29 @@
 var vm = new Vue({
   el: '#sims_details_main',
-  data(){
-    return{
-      dataTable: null,
-      m_form_search: "",
-      show_loading: false,
-      SimHeadings: [
-        {column: "DateTime"},
-        {column: "MB Allowance"},
-        {column: "MB Used (Today)"},
-        {column: "% Used"},
-      ],
-      SmsHeadings: [
-        {column: "Date"},
-        {column: "Type"},
-        {column: "Status"},
-        {column: "Message"},
-      ],
-      form_labels: {
-        message: "Message",
-        send_title: "SMS To",
-        send_button: "Send"
-      },
-      smsMessage: "",
-      toNumber: "",
-      user_id: ""
-    }
+  data: {
+    dataTable: null,
+    m_form_search: "",
+    show_loading: false,
+    SimHeadings: [
+      {column: "DateTime"},
+      {column: "MB Allowance"},
+      {column: "MB Used (Today)"},
+      {column: "% Used"},
+    ],
+    SmsHeadings: [
+      {column: "Date"},
+      {column: "Type"},
+      {column: "Status"},
+      {column: "Message"},
+    ],
+    form_labels: {
+      message: "Message",
+      send_title: "SMS To",
+      send_button: "Send"
+    },
+    smsMessage: "",
+    toNumber: "",
+    user_id: ""
   },
   methods: {
     initializeSimsTable: function(){
@@ -158,10 +156,10 @@ var vm = new Vue({
       return xhrRequestChangeMonth = jQuery.ajax(settings);
     },
     setSimNumber: function(num){
-        this.toNumber = num;
+      this.toNumber = num;
     },
     setUserId: function(id){
-        this.user_id = id;
+      this.user_id = id;
     },
     sendSMS: function() {
       this.show_loading = true;

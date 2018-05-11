@@ -148,6 +148,9 @@ var vm = new Vue({
     }
     return xhrRequestChangeMonth = $.ajax(settings);
    },
+   setUserId: function(id){
+    this.user_id = id;
+   },
    saveModal: function(){
     $('ul#errorOnRULE').html("");
     this.show_loading = true;
@@ -155,7 +158,7 @@ var vm = new Vue({
     this.show_errors = true;
 
     var rule_name     = this.rule_name,
-        user_id       = $("#user_id").val(),
+        user_id       = this.user_id,
         category      = this.rule_category,
         recipients    = this.rule_recipients,
         is_active     = this.rule_is_active;

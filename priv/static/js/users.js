@@ -1,18 +1,22 @@
 var vm = new Vue({
   el: '#profile_main',
-  data(){
-    return{
-      form_labels: {
-        fname: "First Name",
-        lname: "Last Name",
-        email: "Email",
-        password: "Password",
-        api_key: "Api Key",
-        api_id: "Api Id",
-        title: "My Profile",
-        submit_button: "Save changes",
-      }
-    }
+  data: {
+    form_labels: {
+      fname: "First Name",
+      lname: "Last Name",
+      email: "Email",
+      password: "Password",
+      api_key: "Api Key",
+      api_id: "Api Id",
+      title: "My Profile",
+      submit_button: "Save changes",
+    },
+    firstname: "",
+    lastname: "",
+    email: "",
+    password: "",
+    id: ""
+
   },
   methods: {
     sendAJAXRequest: function(settings){
@@ -26,16 +30,22 @@ var vm = new Vue({
       }
       return xhrRequestChangeMonth = jQuery.ajax(settings);
     },
+    setValue: function(user_id, fname, lname, email, password){
+      this.id = user_id;
+      this.firstname = fname;
+      this.lastname = lname;
+      this.email = email;
+    },
     updateMyProfile: function() {
       $('ul#errorOnUpdate').html("");
       $("#api-wait").removeClass("hide_me");
       $("#myProfileErrorDetail").addClass("hide_me");
 
-      var firstname      = $("#firstname").val(),
-          lastname       = $("#lastname").val(),
-          email          = $("#email").val(),
-          password       = $("#password").val(),
-          id             = $("#id").val()
+      var firstname      = this.firstname,
+          lastname       = this.lastname,
+          email          = this.email,
+          password       = this.password,
+          id             = this.id
 
       var data = {};
           data.firstname = firstname;

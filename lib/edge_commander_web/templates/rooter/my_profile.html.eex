@@ -238,13 +238,14 @@
                                             </div>
                                             <div class="clearfix"></div>
                                             <div class="m-form m-form--fit m-form--label-align-left" style="margin-left:10px">
-                                                <input type="hidden" id="id"  value="<%= @user.id %>">
+                                                {{setValue('<%= @user.id %>','<%= @user.firstname %>','<%= @user.lastname %>','<%= @user.email %>','<%= @user.password %>')}}
+                                                <input type="hidden" id="id"  value="<%= @user.id %>" v-model="id">
                                                 <div class="form-group m-form__group row">
                                                     <label class="col-3 col-form-label">
                                                         {{form_labels.fname}}
                                                     </label>
                                                     <div class="col-9">
-                                                        <input type="text" class="form-control m-input" id="firstname" value="<%= @user.firstname %>">
+                                                        <input type="text" class="form-control m-input" id="firstname" value="<%= @user.firstname %>" v-model="firstname">
                                                     </div>
                                                 </div>
                                                 <div class="form-group m-form__group row">
@@ -252,7 +253,7 @@
                                                         {{form_labels.lname}}
                                                     </label>
                                                     <div class="col-9">
-                                                        <input type="text" class="form-control m-input" id="lastname" value="<%= @user.lastname %>">
+                                                        <input type="text" class="form-control m-input" id="lastname" value="<%= @user.lastname %>" v-model="lastname">
                                                     </div>
                                                 </div>
                                                 <div class="form-group m-form__group row">
@@ -260,7 +261,7 @@
                                                         {{form_labels.email}}
                                                     </label>
                                                     <div class="col-9">
-                                                        <input type="email" class="form-control m-input" id="email" value="<%= @user.email %>">
+                                                        <input type="email" class="form-control m-input" id="email" value="<%= @user.email %>" v-model="email">
                                                     </div>
                                                 </div>
                                                 <div class="form-group m-form__group row">
@@ -268,7 +269,7 @@
                                                         {{form_labels.password}}
                                                     </label>
                                                     <div class="col-9">
-                                                        <input type="password" class="form-control m-input" id="password" value="" >
+                                                        <input type="password" class="form-control m-input" id="password" value="" v-model="password">
                                                     </div>
                                                 </div>
                                                 <div class="form-group m-form__group row">

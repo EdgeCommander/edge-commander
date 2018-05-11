@@ -895,7 +895,7 @@
                            </div>
 
                           <div class="m-form m-form--fit m-form--label-align-left">
-                              <input type="hidden" id="user_id" value="<%= @user.id %>">
+                              <input type="hidden" id="user_id" value="<%= @user.id %>" v-model="user_id">
                               <input type="hidden" id="edit_nvr_id" v-model="edit_nvr_id">
                                 <div class="form-group m-form__group row">
                                     <label class="col-3 col-form-label">
@@ -1006,7 +1006,8 @@
                               </div>
                           </div>
                            <div class="m-form m-form--fit m-form--label-align-left">
-                              <input type="hidden" id="user_id" value="<%= @user.id %>">
+                            {{setUserId('<%= @user.id %>')}}
+                              <input type="hidden" id="user_id" value="<%= @user.id %>" v-model="user_id">
                                 <div class="form-group m-form__group row">
                                     <label class="col-3 col-form-label">
                                          {{form_labels.name}}

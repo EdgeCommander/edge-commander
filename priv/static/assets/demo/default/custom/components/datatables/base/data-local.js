@@ -1,37 +1,35 @@
 var vm = new Vue({
   el: '#sims_main',
-  data(){
-    return{
-      dataTable: null,
-      m_form_search: "",
-      show_loading: false,
-      show_errors: false,
-      headings: [
-        {column: "Number"},
-        {column: "Name"},
-        {column: "MB Allowance"},
-        {column: "MB Used (Today)"},
-        {column: "MB Used (Yest.)"},
-        {column: "% Used"},
-        {column: "Remaning Days"},
-        {column: "Sim Provider"},
-        {column: "Last Reading"},
-      ],
-      form_labels: {
-        name: "Name",
-        number: "Number",
-        sim_provider: "SIM Provider",
-        add_title: "Add SIM",
-        hide_show_title: "Show/Hide Columns",
-        add_sim_button: "Add SIM",
-        hide_show_button: "OK",
-        submit_button: "Save changes"
-      },
-      name: "",
-      number: "",
-      sim_provider: "",
-      other_sim_provider: ""
-    }
+  data: {
+    dataTable: null,
+    m_form_search: "",
+    show_loading: false,
+    show_errors: false,
+    headings: [
+      {column: "Number"},
+      {column: "Name"},
+      {column: "MB Allowance"},
+      {column: "MB Used (Today)"},
+      {column: "MB Used (Yest.)"},
+      {column: "% Used"},
+      {column: "Remaning Days"},
+      {column: "Sim Provider"},
+      {column: "Last Reading"},
+    ],
+    form_labels: {
+      name: "Name",
+      number: "Number",
+      sim_provider: "SIM Provider",
+      add_title: "Add SIM",
+      hide_show_title: "Show/Hide Columns",
+      add_sim_button: "Add SIM",
+      hide_show_button: "OK",
+      submit_button: "Save changes"
+    },
+    name: "",
+    number: "",
+    sim_provider: "",
+    other_sim_provider: ""
   },
   methods: {
     initializeTable: function(){

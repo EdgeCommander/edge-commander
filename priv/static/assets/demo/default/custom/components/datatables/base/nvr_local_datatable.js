@@ -264,6 +264,9 @@ var vm = new Vue({
     }
     return xhrRequestChangeMonth = jQuery.ajax(settings);
    },
+   setUserId: function(id){
+    this.user_id = id;
+   },
    saveModal: function() {
       $('ul#errorOnNVR').html("");
       this.show_loading = true;
@@ -278,7 +281,7 @@ var vm = new Vue({
           sdk_nvr_port  = this.sdk_nvr_port,
           vh_nvr_port   = this.vh_nvr_port,
           rtsp_nvr_port = this.rtsp_nvr_port,
-          user_id       = $("#user_id").val(),
+          user_id       = this.user_id,
           is_monitoring = this.nvr_is_monitoring;
 
       var data = {};

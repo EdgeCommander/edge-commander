@@ -1,50 +1,49 @@
 var vm = new Vue({
   el: '#router_main',
-  data(){
-    return{
-      dataTable: null,
-      m_form_search: "",
-      show_loading: false,
-      show_errors: false,
-      show_edit_errors: false,
-      headings: [
-        {column: "Actions"},
-        {column: "Name"},
-        {column: "IP"},
-        {column: "HTTP Port"},
-        {column: "Username"},
-        {column: "Password"},
-        {column: "Monitoring"},
-        {column: "Created At"},
-      ],
-      form_labels: {
-        name: "Name",
-        ip: "IP",
-        username: "Username",
-        password: "Password",
-        http_port: "HTTP Port",
-        status: "Monitoring",
-        add_title: "Add Router",
-        edit_title: "Edit Router",
-        hide_show_title: "Show/Hide Columns",
-        add_router_button: "Add Router",
-        hide_show_button: "OK",
-        submit_button: "Save changes"
-      },
-      router_name: "",
-      router_ip: "",
-      router_username: "",
-      router_password: "",
-      http_router_port: "",
-      router_is_monitoring: false,
-      edit_router_id: "",
-      edit_router_name: "",
-      edit_router_ip: "",
-      edit_router_username: "",
-      edit_router_password: "",
-      edit_http_router_port: "",
-      edit_router_is_monitoring:  false
-    }
+  data: {
+    dataTable: null,
+    m_form_search: "",
+    show_loading: false,
+    show_errors: false,
+    show_edit_errors: false,
+    headings: [
+      {column: "Actions"},
+      {column: "Name"},
+      {column: "IP"},
+      {column: "HTTP Port"},
+      {column: "Username"},
+      {column: "Password"},
+      {column: "Monitoring"},
+      {column: "Created At"},
+    ],
+    form_labels: {
+      name: "Name",
+      ip: "IP",
+      username: "Username",
+      password: "Password",
+      http_port: "HTTP Port",
+      status: "Monitoring",
+      add_title: "Add Router",
+      edit_title: "Edit Router",
+      hide_show_title: "Show/Hide Columns",
+      add_router_button: "Add Router",
+      hide_show_button: "OK",
+      submit_button: "Save changes"
+    },
+    router_name: "",
+    router_ip: "",
+    router_username: "",
+    router_password: "",
+    http_router_port: "",
+    router_is_monitoring: false,
+    edit_router_id: "",
+    edit_router_name: "",
+    edit_router_ip: "",
+    edit_router_username: "",
+    edit_router_password: "",
+    edit_http_router_port: "",
+    edit_router_is_monitoring:  false,
+    user_id: ""
   },
   methods: {
     initializeTable: function(){
@@ -142,6 +141,9 @@ var vm = new Vue({
     onROUTERButton: function() {
       $('.add_router_to_db').modal('show');
     },
+    setUserId: function(id){
+      this.user_id = id;
+    },
     saveModal: function() {
       $('ul#errorOnROUTER').html("");
       this.show_loading = true;
@@ -153,7 +155,7 @@ var vm = new Vue({
           username         = this.router_username,
           password         = this.router_password,
           http_router_port = this.http_router_port,
-          user_id          = $("#user_id").val(),
+          user_id          = this.user_id,
           is_monitoring    = this.router_is_monitoring;
 
       var data = {};

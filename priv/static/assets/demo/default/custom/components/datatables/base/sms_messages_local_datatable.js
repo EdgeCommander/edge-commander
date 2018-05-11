@@ -1,32 +1,30 @@
 var vm = new Vue({
   el: '#sms_main',
-   data(){
-    return{
-      dataTable: null,
-      m_form_search: "",
-      show_loading: false,
-      headings: [
-        {column: "From"},
-        {column: "To"},
-        {column: "Message ID"},
-        {column: "Type"},
-        {column: "Text Message"},
-        {column: "Status"},
-        {column: "Message Date"}
-      ],
-      form_labels: {
-        sim: "SIM",
-        message: "Message",
-        submit_button: "Send",
-        add_title: "Send SMS",
-        hide_show_title: "Show/Hide Columns",
-        add_sms_button: "Send SMS",
-        hide_show_button: "OK"
-      },
-      smsMessage: "",
-      toNumber: "",
-      user_id: ""
-    }
+   data: {
+    dataTable: null,
+    m_form_search: "",
+    show_loading: false,
+    headings: [
+      {column: "From"},
+      {column: "To"},
+      {column: "Message ID"},
+      {column: "Type"},
+      {column: "Text Message"},
+      {column: "Status"},
+      {column: "Message Date"}
+    ],
+    form_labels: {
+      sim: "SIM",
+      message: "Message",
+      submit_button: "Send",
+      add_title: "Send SMS",
+      hide_show_title: "Show/Hide Columns",
+      add_sms_button: "Send SMS",
+      hide_show_button: "OK"
+    },
+    smsMessage: "",
+    toNumber: "",
+    user_id: ""
   },
   methods: {
     initializeTable: function(){
