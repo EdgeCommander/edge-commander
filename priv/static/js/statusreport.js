@@ -1,5 +1,6 @@
 var vm = new Vue({
   el: '#status_rpt_main',
+  show_loading: false,
   data(){
     return{}
   },
@@ -19,7 +20,7 @@ var vm = new Vue({
       return false;
     },
     onSuccessR: function(result, status, jqXHR) {
-      $("#api-waiting").addClass("hide_me");
+      this.show_loading = false;
       this.startReport(result.data)
       return true;
     },
@@ -54,7 +55,7 @@ var vm = new Vue({
     initializeDate: function(){
       $( document ).ready(function() {
         $(".ranges ul li").on("click", function() {
-          $("#api-waiting").removeClass("hide_me");
+          this.show_loading = true;
           clickedValues = $(this).data("range-key");
 
           var history_days;

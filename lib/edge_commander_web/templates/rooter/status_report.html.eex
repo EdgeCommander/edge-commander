@@ -222,7 +222,7 @@
                       <div class="m-portlet m-portlet--mobile" style="margin-bottom: 0">
                         <div class="m-portlet__body">
                             <div style="margin: 0 auto; width: 100%;padding: 10px" id="visavail_container">
-                              <img src="/images/loading.gif" id="api-waiting" class="hide_me">
+                              <img src="/images/loading.gif" id="api-waiting" v-if="show_loading">
                               <p id="draw_report" class="margin-top-5"></p>
                             </div>
 <%#                           <img src="assets/app/media/img//users/Selection_181.png" style="width: 100%" alt=""/> %>
