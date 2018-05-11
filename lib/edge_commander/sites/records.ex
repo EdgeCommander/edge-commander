@@ -21,5 +21,8 @@ defmodule EdgeCommander.Sites.Records do
     records
     |> cast(attrs, [:name, :location, :sim_number, :router_id, :nvr_id, :notes, :user_id])
     |> validate_required(:name, [message: "Name cannot be empty."])
+    |> validate_required(:sim_number, [message: "Sim number cannot be empty."])
+    |> validate_required(:router_id, [message: "Router cannot be empty."])
+    |> validate_required(:nvr_id, [message: "NVR cannot be empty."])
   end
 end

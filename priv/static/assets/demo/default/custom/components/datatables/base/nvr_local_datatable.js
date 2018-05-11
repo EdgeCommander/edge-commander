@@ -469,14 +469,14 @@ var vm = new Vue({
     });
    },
    getUniqueIdentifier: function(){
-      $(document).on("click", ".editNVR", function(){
-        var tr = $(this).closest('tr');
-        var row = nvrDataTable.row(tr);
-        var data = row.data();
-        nvr_id = $(this).data("id");
-        vm.onNVREditButton(nvr_id, data);
-      });
-    },
+    $(document).on("click", ".editNVR", function(){
+      var tr = $(this).closest('tr');
+      var row = nvrDataTable.row(tr);
+      var data = row.data();
+      nvr_id = $(this).data("id");
+      vm.onNVREditButton(nvr_id, data);
+    });
+  },
    onNVREditButton: function(nvr_id, data) {
       this.edit_nvr_id = nvr_id
       this.edit_nvr_ip = data.ip
