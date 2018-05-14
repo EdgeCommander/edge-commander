@@ -1,49 +1,69 @@
 var vm = new Vue({
   el: '#nvr_main',
-  data(){
-    return{
-      dataTable: null,
-      m_form_search: "",
-      headings: [
-        {column: "Reboot", visible: "checked"},
-        {column: "Actions", visible: "checked"},
-        {column: "Name", visible: "checked"},
-        {column: "IP", visible: "checked"},
-        {column: "HTTP Port"},
-        {column: "VH Port"},
-        {column: "SDK Port"},
-        {column: "RTSP Port"},
-        {column: "Username"},
-        {column: "Password"},
-        {column: "Model", visible: "checked"},
-        {column: "Firmware Version", visible: "checked"},
-        {column: "Encoder Released Date"},
-        {column: "Encoder Version"},
-        {column: "Firmware Released Date"},
-        {column: "Serial Number"},
-        {column: "Mac Address"},
-        {column: "Status", visible: "checked"},
-        {column: "Monitoring"},
-        {column: "Created At"},
-       ],
-       form_labels: {
-        name: "Name",
-        ip: "IP",
-        username: "Username",
-        password: "Password",
-        http_port: "HTTP Port",
-        rtsp_port: "RTSP Port",
-        sdk_port: "SDK Port",
-        vh_port: "VH Port",
-        status: "Monitoring",
-        add_title: "Add NVR",
-        edit_title: "Edit NVR",
-        hide_show_title: "Show/Hide Columns",
-        add_nvr_button: "Add NVR",
-        hide_show_button: "OK",
-        submit_button: "Save changes"
-       }
-    }
+  data: {
+    dataTable: null,
+    m_form_search: "",
+    show_loading: false,
+    show_errors: false,
+    show_edit_errors: false,
+    headings: [
+      {column: "Reboot", visible: "checked"},
+      {column: "Actions", visible: "checked"},
+      {column: "Name", visible: "checked"},
+      {column: "IP", visible: "checked"},
+      {column: "HTTP Port"},
+      {column: "VH Port"},
+      {column: "SDK Port"},
+      {column: "RTSP Port"},
+      {column: "Username"},
+      {column: "Password"},
+      {column: "Model", visible: "checked"},
+      {column: "Firmware Version", visible: "checked"},
+      {column: "Encoder Released Date"},
+      {column: "Encoder Version"},
+      {column: "Firmware Released Date"},
+      {column: "Serial Number"},
+      {column: "Mac Address"},
+      {column: "Status", visible: "checked"},
+      {column: "Monitoring"},
+      {column: "Created At"},
+     ],
+     form_labels: {
+      name: "Name",
+      ip: "IP",
+      username: "Username",
+      password: "Password",
+      http_port: "HTTP Port",
+      rtsp_port: "RTSP Port",
+      sdk_port: "SDK Port",
+      vh_port: "VH Port",
+      status: "Monitoring",
+      add_title: "Add NVR",
+      edit_title: "Edit NVR",
+      hide_show_title: "Show/Hide Columns",
+      add_nvr_button: "Add NVR",
+      hide_show_button: "OK",
+      submit_button: "Save changes"
+     },
+     nvr_name: "",
+     nvr_ip: "",
+     nvr_username: "",
+     nvr_password: "",
+     http_nvr_port: "",
+     sdk_nvr_port: "",
+     vh_nvr_port: "",
+     rtsp_nvr_port: "",
+     user_id: "",
+     nvr_is_monitoring: "",
+     edit_nvr_id: "",
+     edit_nvr_name: "",
+     edit_nvr_ip: "",
+     edit_nvr_username: "",
+     edit_nvr_password: "",
+     edit_http_nvr_port: "",
+     edit_sdk_nvr_port: "",
+     edit_vh_nvr_port: "",
+     edit_nvr_is_monitoring: ""
   },
   methods: {
     initializeTable: function(){
@@ -244,21 +264,25 @@ var vm = new Vue({
     }
     return xhrRequestChangeMonth = jQuery.ajax(settings);
    },
+   setUserId: function(id){
+    this.user_id = id;
+   },
    saveModal: function() {
       $('ul#errorOnNVR').html("");
+      this.show_loading = true;
       $("#body-nvr-dis *").prop('disabled',true);
-      $("#nvrErrorDetails").addClass("hide_me");
+      this.show_errors = true;
 
-      var name          = $("#nvr_name").val(),
-          IP            = $("#nvr_ip").val(),
-          username      = $("#nvr_username").val(),
-          password      = $("#nvr_password").val(),
-          http_nvr_port = $("#http_nvr_port").val(),
-          sdk_nvr_port  = $("#sdk_nvr_port").val(),
-          vh_nvr_port   = $("#vh_nvr_port").val(),
-          rtsp_nvr_port = $("#rtsp_nvr_port").val(),
-          user_id       = $("#user_id").val(),
-          is_monitoring = $('input[id=nvr_is_monitoring]:checked').length > 0;
+      var name          = this.nvr_name,
+          IP            = this.nvr_ip,
+          username      = this.nvr_username,
+          password      = this.nvr_password,
+          http_nvr_port = this.http_nvr_port,
+          sdk_nvr_port  = this.sdk_nvr_port,
+          vh_nvr_port   = this.vh_nvr_port,
+          rtsp_nvr_port = this.rtsp_nvr_port,
+          user_id       = this.user_id,
+          is_monitoring = this.nvr_is_monitoring;
 
       var data = {};
           data.name = name;
@@ -285,7 +309,7 @@ var vm = new Vue({
         url: "/nvrs"
       };
 
-      this.sendAJAXRequest(settings);
+      vm.sendAJAXRequest(settings);
    },
    onError: function(jqXHR, status, error) {
       var cList = $('ul#errorOnNVR')
@@ -294,8 +318,8 @@ var vm = new Vue({
         .text(value)
         .appendTo(cList);
       });
-      $("#nvrErrorDetails").removeClass("hide_me");
-      $("#api-wait").addClass("hide_me");
+      this.show_errors = true;
+      this.show_loading = false;
       $("#body-nvr-dis *").prop('disabled', false);
       $("#set_to_load").removeClass("loading");
       return false;
@@ -308,23 +332,24 @@ var vm = new Vue({
       });
       $(".modal-backdrop").remove();
       $("#m_modal_1").modal("hide");
-      $("#api-wait").addClass("hide_me");
+      this.show_loading = false;
       this.dataTable.ajax.reload();
       this.clearForm();
       return true;
    },
    clearForm: function() {
-      $("#nvr_name").val("");
-      $("#nvr_ip").val("");
-      $("#nvr_username").val("");
-      $("#nvr_password").val("");
-      $("#http_nvr_port").val("");
-      $("#sdk_nvr_port").val("");
-      $("#vh_nvr_port").val("");
-      $("#rtsp_nvr_port").val("");
+      this.nvr_name = "";
+      this.nvr_ip = "";
+      this.nvr_username = "";
+      this.nvr_password = "";
+      this.http_nvr_port = "";
+      this.sdk_nvr_port = "";
+      this.vh_nvr_port = "";
+      this.rtsp_nvr_port = "";
+      this.nvr_is_monitoring = false;
       $('ul#errorOnNVR').html("");
       $("#body-nvr-dis *").prop('disabled', false);
-      $("#nvrErrorDetails").addClass("hide_me");
+      this.show_errors = false;
    },
    deleteNVR: function() {
       $(document).on("click", ".deleteNVR", function() {
@@ -360,15 +385,7 @@ var vm = new Vue({
           url: "/nvrs/" + nvrID
         };
 
-        var headers, token, xhrRequestChangeMonth;
-        token = $('meta[name="csrf-token"]');
-        if (token.length > 0) {
-          headers = {
-            "X-CSRF-Token": token.attr("content")
-          };
-          settings.headers = headers;
-        }
-        jQuery.ajax(settings);
+        vm.sendAJAXRequest(settings)
 
       });
    },
@@ -451,49 +468,48 @@ var vm = new Vue({
       jQuery.ajax(settings);
     });
    },
-   onNVREditButton: function() {
-      $(document).on("click", ".editNVR", function(){
+   getUniqueIdentifier: function(){
+    $(document).on("click", ".editNVR", function(){
+      var tr = $(this).closest('tr');
+      var row = nvrDataTable.row(tr);
+      var data = row.data();
+      nvr_id = $(this).data("id");
+      vm.onNVREditButton(nvr_id, data);
+    });
+  },
+   onNVREditButton: function(nvr_id, data) {
+      this.edit_nvr_id = nvr_id
+      this.edit_nvr_ip = data.ip
+      this.edit_nvr_name = data.name
+      this.edit_nvr_username = data.username
+      this.edit_nvr_password = data.password
+      this.edit_http_nvr_port = data.port
+      this.edit_vh_nvr_port = data.vh_port
+      this.edit_sdk_nvr_port = data.sdk_port
+      this.edit_rtsp_nvr_port = data.rtsp_port
 
-        var tr = $(this).closest('tr');
-        var row = nvrDataTable.row(tr);
-        var data = row.data();
-
-        nvr_id = $(this).data("id");
-
-        $("#saveEditModal").attr('data-id', nvr_id);
-        $("#edit_nvr_id").val(nvr_id);
-        $("#edit_nvr_name").val(data.name);
-        $("#edit_nvr_ip").val(data.ip);
-        $("#edit_nvr_username").val(data.username);
-        $("#edit_nvr_password").val(data.password);
-        $("#edit_http_nvr_port").val(data.port);
-        $("#edit_vh_nvr_port").val(data.vh_port);
-        $("#edit_sdk_nvr_port").val(data.sdk_port);
-        $("#edit_rtsp_nvr_port").val(data.rtsp_port);
-
-        if (data.is_monitoring) {
-          $('#edit_nvr_is_monitoring').prop('checked', true);
-        }
-        $('#edit_nvr_to_db').modal('show');
-      });
+      if (data.is_monitoring) {
+        this.edit_nvr_is_monitoring = true;
+      }
+      $('#edit_nvr_to_db').modal('show');
     },
     updateNVRdo: function(){
       $("#body-nvr-edit-dis *").prop('disabled', true);
       $('ul#errorOnEditNVR').html("");
-      $("#api-wait").removeClass("hide_me");
-      $("#nvrEditErrorDetails").addClass("hide_me");
+      this.show_loading = true;
+      this.show_edit_errors = true;
 
-      var nvrID = $("#edit_nvr_id").val();
+      var nvrID = this.edit_nvr_id;
 
-      var name          = $("#edit_nvr_name").val(),
-          IP            = $("#edit_nvr_ip").val(),
-          username      = $("#edit_nvr_username").val(),
-          password      = $("#edit_nvr_password").val(),
-          http_nvr_port = $("#edit_http_nvr_port").val(),
-          sdk_nvr_port  = $("#edit_sdk_nvr_port").val(),
-          vh_nvr_port   = $("#edit_vh_nvr_port").val(),
-          rtsp_nvr_port = $("#edit_rtsp_nvr_port").val(),
-          is_monitoring = $('input[id=edit_nvr_is_monitoring]:checked').length > 0;
+      var name          = this.edit_nvr_name,
+          IP            = this.edit_nvr_ip,
+          username      = this.edit_nvr_username,
+          password      = this.edit_nvr_password,
+          http_nvr_port = this.edit_http_nvr_port,
+          sdk_nvr_port  = this.edit_sdk_nvr_port,
+          vh_nvr_port   = this.edit_vh_nvr_port,
+          rtsp_nvr_port = this.edit_rtsp_nvr_port,
+          is_monitoring = this.edit_nvr_is_monitoring;
 
       var data = {};
           data.name = name;
@@ -520,7 +536,7 @@ var vm = new Vue({
         url: "/nvrs/" + nvrID
       };
 
-      this.sendAJAXRequest(settings);
+      vm.sendAJAXRequest(settings);
     },
     onEditError: function(jqXHR, status, error) {
       $("#body-nvr-edit-dis *").prop('disabled', false);
@@ -531,7 +547,7 @@ var vm = new Vue({
         .appendTo(cList);
       });
       $("#nvrEditErrorDetails").removeClass("hide_me");
-      $("#api-wait").addClass("hide_me");
+      this.show_loading = false;
       return false;
     },
     onEditSuccess: function(result, status, jqXHR) {
@@ -542,22 +558,26 @@ var vm = new Vue({
       });
       this.editClearFrom();
       $("#edit_nvr_to_db").modal("hide");
+      this.show_loading = false;
       this.dataTable.ajax.reload();
       return true;
     },
     editClearFrom: function() {
-      $("#edit_nvr_name").val("");
-      $("#edit_nvr_ip").val("");
-      $("#edit_nvr_username").val("");
-      $("#edit_nvr_password").val("");
-      $("#edit_http_nvr_port").val("");
-      $("#edit_sdk_nvr_port").val("");
-      $("#edit_vh_nvr_port").val("");
-      $("#edit_rtsp_nvr_port").val("");
-      $('ul#errorOnEditNVR').html("");
+
+      this.edit_nvr_id = "";
+      this.edit_nvr_name = "";
+      this.edit_nvr_ip = "";
+      this.edit_nvr_username = "";
+      this.edit_nvr_password = ""
+      this.edit_http_nvr_port = "";
+      this.edit_vh_nvr_port = "";
+      this.edit_sdk_nvr_port = "";
+      this.edit_rtsp_nvr_port = "";
+      this.edit_nvr_is_monitoring = false;
+       
       $("#body-nvr-edit-dis *").prop('disabled', false);
-      $("#api-wait").addClass("hide_me");
-      $("#nvrEditErrorDetails").addClass("hide_me");
+      this.show_loading = false;
+      this.show_edit_errors = false;
     }
 
   }, // end of methods
@@ -566,7 +586,7 @@ var vm = new Vue({
     this.resizeScreen();
     this.deleteNVR();
     this.rebootNVR();
-    this.onNVREditButton();
+    this.getUniqueIdentifier();
     window.addEventListener('resize', this.resizeScreen);
   }
 

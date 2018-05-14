@@ -878,7 +878,7 @@
         <div class="modal fade" id="m_modal_4" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" data-backdrop="static" data-keyboard="false">
           <div class="modal-dialog modal-lg" role="document">
             <div class="modal-content">
-                <img src="/images/loading.gif" id="api-wait" class="hide_me">
+                <img src="/images/loading.gif" id="api-wait" v-if="show_loading">
               <div class="modal-body">
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close" id="clear_chartsjs">
                     <span aria-hidden="true">
@@ -906,8 +906,8 @@
                           </div>
                       </div>
                       <div class="modal-body" id="body-sim-dis">
-                          <img src="/images/loading.gif" id="api-wait" class="hide_me">
-                          <div id="simErrorDetails" class="hide_me">
+                          <img src="/images/loading.gif" id="api-wait" v-if="show_loading">
+                          <div id="simErrorDetails" v-if="show_errors">
                               <div class="form-group m-form__group m--margin-top-10">
                                   <div class="alert m-alert m-alert--default" role="alert">
                                       <ul id="errorOnSIM" style="margin:0px"></ul>
@@ -921,7 +921,7 @@
                                         {{form_labels.name}}
                                     </label>
                                     <div class="col-9">
-                                        <input type="text" class="form-control m-input m-input--solid" id="name" placeholder="i.e IIA Airport">
+                                        <input type="text" class="form-control m-input m-input--solid" id="name" placeholder="i.e IIA Airport" v-model="name">
                                     </div>
                                 </div>
                                 <div class="form-group m-form__group row">
@@ -929,7 +929,7 @@
                                         {{form_labels.number}}
                                     </label>
                                     <div class="col-9">
-                                        <input type="text" class="form-control m-input m-input--solid"  id="number" placeholder="i.e +353xxxxxx">
+                                        <input type="text" class="form-control m-input m-input--solid"  id="number"  v-model="number" placeholder="i.e +353xxxxxx">
                                     </div>
                                 </div>
                                 <div class="form-group m-form__group row">
@@ -937,7 +937,7 @@
                                         {{form_labels.sim_provider}}
                                     </label>
                                     <div class="col-9">
-                                        <select class="form-control m-input" id="sim_provider">
+                                        <select class="form-control m-input" id="sim_provider" v-model="sim_provider">
                                             <option value="Lyca Mobile (Ireland)">Lyca Mobile (Ireland)</option>
                                             <option value="Vodafone (Ireland)">Vodafone (Ireland)</option>
                                             <option value="Vodafone (UK)">Vodafone (UK)</option>
@@ -953,7 +953,7 @@
                                         &nbsp;
                                     </label>
                                     <div class="col-9">
-                                        <input type="text" class="form-control m-input m-input--solid other_input" id="other_sim_provider" placeholder="Please enter the sim provider name" />
+                                        <input type="text" class="form-control m-input m-input--solid other_input" id="other_sim_provider" v-model="other_sim_provider" placeholder="Please enter the sim provider name" />
                                     </div>
 
                                 </div>

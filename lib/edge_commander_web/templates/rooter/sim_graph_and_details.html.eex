@@ -234,7 +234,7 @@
                     <div class="modal fade" id="m_modal_4" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" data-backdrop="static" data-keyboard="false">
                         <div class="modal-dialog modal-lg" role="document">
                             <div class="modal-content">
-                                <img src="/images/loading.gif" id="api-wait" class="hide_me">
+                                <img src="/images/loading.gif" id="api-wait" v-if="show_loading">
                                 <div class="modal-body">
                                     <button type="button" class="close" data-dismiss="modal" aria-label="Close" id="clear_chartsjs">
                               <span aria-hidden="true">
@@ -301,23 +301,18 @@
                 </div>
             </div>
             <div class="modal-body" id="body-sms-dis">
-                <img src="/images/loading.gif" id="api-wait" class="hide_me">
-                <div id="smsErrorDetails" class="hide_me">
-                    <div class="form-group m-form__group m--margin-top-10">
-                        <div class="alert m-alert m-alert--default" role="alert">
-                            <ul id="errorOnNVR" style="margin:0px"></ul>
-                        </div>
-                    </div>
-                </div>
+                <img src="/images/loading.gif" id="api-wait" v-if="show_loading">
                 <div class="m-form m-form--fit m-form--label-align-left">
-                  <input type="hidden" id="toNumber" value="<%= @sim_number %>">
+                  {{setSimNumber("<%= @sim_number %>")}}
+                  {{setUserId("<%= @user.id %>")}}
+                  <input type="hidden" id="toNumber" value="<%= @sim_number %>" v-model="toNumber">
                   <div class="form-group m-form__group row">
                     <label class="col-3 col-form-label">
                         {{form_labels.message}}
                     </label>
                     <div class="col-9">
-                      <input type="hidden" id="user_id" value="<%= @user.id %>">
-                      <input type="text" class="form-control m-input m-input--solid" id="smsMessage">
+                      <input type="hidden" id="user_id" value="<%= @user.id %>" v-model="user_id">
+                      <input type="text" class="form-control m-input m-input--solid" id="smsMessage" v-model="smsMessage">
                     </div>
                   </div>
                 </div>

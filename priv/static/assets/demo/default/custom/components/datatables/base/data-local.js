@@ -1,31 +1,35 @@
 var vm = new Vue({
   el: '#sims_main',
-  data(){
-    return{
-      dataTable: null,
-      m_form_search: "",
-      headings: [
-        {column: "Number"},
-        {column: "Name"},
-        {column: "MB Allowance"},
-        {column: "MB Used (Today)"},
-        {column: "MB Used (Yest.)"},
-        {column: "% Used"},
-        {column: "Remaning Days"},
-        {column: "Sim Provider"},
-        {column: "Last Reading"},
-      ],
-      form_labels: {
-        name: "Name",
-        number: "Number",
-        sim_provider: "SIM Provider",
-        add_title: "Add SIM",
-        hide_show_title: "Show/Hide Columns",
-        add_sim_button: "Add SIM",
-        hide_show_button: "OK",
-        submit_button: "Save changes"
-      }
-    }
+  data: {
+    dataTable: null,
+    m_form_search: "",
+    show_loading: false,
+    show_errors: false,
+    headings: [
+      {column: "Number"},
+      {column: "Name"},
+      {column: "MB Allowance"},
+      {column: "MB Used (Today)"},
+      {column: "MB Used (Yest.)"},
+      {column: "% Used"},
+      {column: "Remaning Days"},
+      {column: "Sim Provider"},
+      {column: "Last Reading"},
+    ],
+    form_labels: {
+      name: "Name",
+      number: "Number",
+      sim_provider: "SIM Provider",
+      add_title: "Add SIM",
+      hide_show_title: "Show/Hide Columns",
+      add_sim_button: "Add SIM",
+      hide_show_button: "OK",
+      submit_button: "Save changes"
+    },
+    name: "",
+    number: "",
+    sim_provider: "",
+    other_sim_provider: ""
   },
   methods: {
     initializeTable: function(){
@@ -157,18 +161,18 @@ var vm = new Vue({
     },
    saveModal: function() {
     $('ul#errorOnSIM').html("");
-    $("#api-wait").removeClass("hide_me");
+    this.show_loading = true;
+    this.show_errors = true;
     $("#body-sim-dis *").prop('disabled',true);
-    $("#simErrorDetails").addClass("hide_me");
 
-    var sim_provider = $('#sim_provider').find(":selected").val();
+    var sim_provider = this.sim_provider;
     if(sim_provider == 'other'){
-      sim_provider = $("#other_sim_provider").val();
+      sim_provider = this.other_sim_provider;
     }
 
     var sim_provider  = sim_provider,
-        number        = $("#number").val(),
-        name          = $("#name").val()
+        number        = this.number,
+        name          = this.name
 
     var data = {};
         data.sim_provider = sim_provider;
@@ -191,7 +195,7 @@ var vm = new Vue({
       url: "/sims"
     };
 
-    this.sendAJAXRequest(settings);
+    vm.sendAJAXRequest(settings);
    },
     onError: function(jqXHR, status, error) {
       var cList = $('ul#errorOnSIM')
@@ -200,8 +204,8 @@ var vm = new Vue({
           .text(value)
           .appendTo(cList);
       });
-      $("#simErrorDetails").removeClass("hide_me");
-      $("#api-wait").addClass("hide_me");
+      this.show_errors = true;
+      this.show_loading = false;
       $("#body-sim-dis *").prop('disabled', false);
       return false;
     },
@@ -213,17 +217,19 @@ var vm = new Vue({
       });
       $(".modal-backdrop").remove();
       $("#m_modal_1").modal("hide");
-      $("#api-wait").addClass("hide_me");
+      this.show_loading = false;
       this.dataTable.ajax.reload();
       this.clearForm();
       return true;
     },
     clearForm: function() {
-      $("#number").val("");
-      $("#name").val("");
+      this.number = "";
+      this.name = "";
+      this.sim_provider = "";
+      this.other_sim_provider = "";
       $('ul#errorOnSIM').html("");
       $("#body-sim-dis *").prop('disabled', false);
-      $("#simErrorDetails").addClass("hide_me");
+      this.show_errors = false;
     },
     initializeInput: function() {
       $("#number").intlTelInput({

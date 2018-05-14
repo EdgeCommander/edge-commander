@@ -885,8 +885,8 @@
                           </div>
                       </div>
                       <div class="modal-body" id="body-nvr-edit-dis">
-                          <img src="/images/loading.gif" id="api-wait" class="hide_me">
-                           <div id="nvrEditErrorDetails" class="hide_me">
+                          <img src="/images/loading.gif" id="api-wait" v-if="show_loading">
+                           <div id="nvrEditErrorDetails" v-if="show_edit_errors">
                               <div class="form-group m-form__group m--margin-top-10">
                                   <div class="alert m-alert m-alert--default" role="alert">
                                       <ul id="errorOnEditNVR" style="margin:0px"></ul>
@@ -895,14 +895,14 @@
                            </div>
 
                           <div class="m-form m-form--fit m-form--label-align-left">
-                              <input type="hidden" id="user_id" value="<%= @user.id %>">
-                              <input type="hidden" id="edit_nvr_id">
+                              <input type="hidden" id="user_id" value="<%= @user.id %>" v-model="user_id">
+                              <input type="hidden" id="edit_nvr_id" v-model="edit_nvr_id">
                                 <div class="form-group m-form__group row">
                                     <label class="col-3 col-form-label">
                                         {{form_labels.name}}
                                     </label>
                                     <div class="col-9">
-                                       <input type="text" class="form-control m-input m-input--solid" id="edit_nvr_name" aria-describedby="emailHelp" placeholder="Galway route.">
+                                       <input type="text" class="form-control m-input m-input--solid" id="edit_nvr_name" v-model="edit_nvr_name" aria-describedby="emailHelp" placeholder="Galway route.">
                                     </div>
                                 </div>
                                 <div class="form-group m-form__group row">
@@ -910,7 +910,7 @@
                                         {{form_labels.ip}}
                                     </label>
                                     <div class="col-9">
-                                       <input type="text" class="form-control m-input m-input--solid" id="edit_nvr_ip" placeholder="https://youripmaybe">
+                                       <input type="text" class="form-control m-input m-input--solid" id="edit_nvr_ip" v-model="edit_nvr_ip" placeholder="https://youripmaybe">
                                     </div>
                                 </div>
                                 <div class="form-group m-form__group row">
@@ -918,7 +918,7 @@
                                         {{form_labels.username}}
                                     </label>
                                     <div class="col-9">
-                                        <input type="text" class="form-control m-input m-input--solid" id="edit_nvr_username" placeholder="i.e admin">
+                                        <input type="text" class="form-control m-input m-input--solid" id="edit_nvr_username" v-model="edit_nvr_username" placeholder="i.e admin">
                                     </div>
                                 </div>
                                 <div class="form-group m-form__group row">
@@ -926,7 +926,7 @@
                                         {{form_labels.password}}
                                     </label>
                                     <div class="col-9">
-                                        <input type="text" class="form-control m-input m-input--solid" id="edit_nvr_password" placeholder="Super Secret">
+                                        <input type="text" class="form-control m-input m-input--solid" id="edit_nvr_password" v-model="edit_nvr_password" placeholder="Super Secret">
                                     </div>
                                 </div>
                                 <div class="form-group m-form__group row">
@@ -934,7 +934,7 @@
                                         {{form_labels.http_port}}
                                     </label>
                                     <div class="col-9">
-                                        <input type="number" class="form-control m-input m-input--solid" id="edit_http_nvr_port" placeholder="i.e 80">
+                                        <input type="number" class="form-control m-input m-input--solid" id="edit_http_nvr_port" v-model="edit_http_nvr_port" placeholder="i.e 80">
                                     </div>
                                 </div>
                                 <div class="form-group m-form__group row">
@@ -942,7 +942,7 @@
                                         {{form_labels.rtsp_port}}
                                     </label>
                                     <div class="col-9">
-                                        <input type="number" class="form-control m-input m-input--solid" id="edit_rtsp_nvr_port" placeholder="i.e 880">
+                                        <input type="number" class="form-control m-input m-input--solid" id="edit_rtsp_nvr_port" v-model="edit_rtsp_nvr_port" placeholder="i.e 880">
                                     </div>
                                 </div>
                                 <div class="form-group m-form__group row">
@@ -950,7 +950,7 @@
                                         {{form_labels.sdk_port}}
                                     </label>
                                     <div class="col-9">
-                                        <input type="number" class="form-control m-input m-input--solid" id="edit_sdk_nvr_port" placeholder="i.e 840">
+                                        <input type="number" class="form-control m-input m-input--solid" id="edit_sdk_nvr_port" v-model="edit_sdk_nvr_port" placeholder="i.e 840">
                                     </div>
                                 </div>
                                 <div class="form-group m-form__group row">
@@ -958,7 +958,7 @@
                                         {{form_labels.vh_port}}
                                     </label>
                                     <div class="col-9">
-                                        <input type="number" class="form-control m-input m-input--solid" id="edit_vh_nvr_port" placeholder="i.e 890">
+                                        <input type="number" class="form-control m-input m-input--solid" id="edit_vh_nvr_port" v-model="edit_vh_nvr_port" placeholder="i.e 890">
                                     </div>
                                 </div>
                                 <div class="form-group m-form__group row">
@@ -966,7 +966,7 @@
                                     </label>
                                     <div class="col-9">
                                         <label class="m-checkbox">
-                                          <input type="checkbox" id="edit_nvr_is_monitoring">
+                                          <input type="checkbox" id="edit_nvr_is_monitoring" v-model="edit_nvr_is_monitoring">
                                             {{form_labels.status}}
                                           <span></span>
                                       </label>
@@ -997,8 +997,8 @@
                           </div>
                       </div>
                       <div class="modal-body" id="body-nvr-dis">
-                          <img src="/images/loading.gif" id="api-wait" class="hide_me">
-                          <div id="nvrErrorDetails" class="hide_me">
+                          <img src="/images/loading.gif" id="api-wait" v-if="show_loading">
+                          <div id="nvrErrorDetails" v-if="show_errors">
                               <div class="form-group m-form__group m--margin-top-10">
                                   <div class="alert m-alert m-alert--default" role="alert">
                                       <ul id="errorOnNVR" style="margin:0px"></ul>
@@ -1006,13 +1006,14 @@
                               </div>
                           </div>
                            <div class="m-form m-form--fit m-form--label-align-left">
-                              <input type="hidden" id="user_id" value="<%= @user.id %>">
+                            {{setUserId('<%= @user.id %>')}}
+                              <input type="hidden" id="user_id" value="<%= @user.id %>" v-model="user_id">
                                 <div class="form-group m-form__group row">
                                     <label class="col-3 col-form-label">
                                          {{form_labels.name}}
                                     </label>
                                     <div class="col-9">
-                                        <input type="text" class="form-control m-input m-input--solid"  id="nvr_name" aria-describedby="emailHelp" placeholder="Galway route.">
+                                        <input type="text" class="form-control m-input m-input--solid"  id="nvr_name" aria-describedby="emailHelp" v-model="nvr_name" placeholder="Galway route.">
                                     </div>
                                 </div>
                                 <div class="form-group m-form__group row">
@@ -1020,7 +1021,7 @@
                                         {{form_labels.ip}}
                                     </label>
                                     <div class="col-9">
-                                        <input type="text" class="form-control m-input m-input--solid" id="nvr_ip" placeholder="https://youripmaybe">
+                                        <input type="text" class="form-control m-input m-input--solid" id="nvr_ip" v-model="nvr_ip" placeholder="https://youripmaybe">
                                     </div>
                                 </div>
                                 <div class="form-group m-form__group row">
@@ -1028,7 +1029,7 @@
                                         {{form_labels.username}}
                                     </label>
                                     <div class="col-9">
-                                        <input type="text" class="form-control m-input m-input--solid" id="nvr_username" placeholder="i.e admin">
+                                        <input type="text" class="form-control m-input m-input--solid" id="nvr_username" v-model="nvr_username" placeholder="i.e admin">
                                     </div>
                                 </div>
                                 <div class="form-group m-form__group row">
@@ -1036,7 +1037,7 @@
                                         {{form_labels.password}}
                                     </label>
                                     <div class="col-9">
-                                        <input type="text" class="form-control m-input m-input--solid" id="nvr_password" placeholder="Super Secret">
+                                        <input type="text" class="form-control m-input m-input--solid" id="nvr_password" v-model="nvr_password" placeholder="Super Secret">
                                     </div>
                                 </div>
                                 <div class="form-group m-form__group row">
@@ -1044,7 +1045,7 @@
                                         {{form_labels.http_port}}
                                     </label>
                                     <div class="col-9">
-                                        <input type="number" class="form-control m-input m-input--solid" id="http_nvr_port" placeholder="i.e 80">
+                                        <input type="number" class="form-control m-input m-input--solid" id="http_nvr_port" v-model="http_nvr_port" placeholder="i.e 80">
                                     </div>
                                 </div>
                                 <div class="form-group m-form__group row">
@@ -1052,7 +1053,7 @@
                                         {{form_labels.rtsp_port}}
                                     </label>
                                     <div class="col-9">
-                                        <input type="number" class="form-control m-input m-input--solid" id="rtsp_nvr_port" placeholder="i.e 880">
+                                        <input type="number" class="form-control m-input m-input--solid" id="rtsp_nvr_port" v-model="rtsp_nvr_port" placeholder="i.e 880">
                                     </div>
                                 </div>
                                 <div class="form-group m-form__group row">
@@ -1060,7 +1061,7 @@
                                         {{form_labels.sdk_port}}
                                     </label>
                                     <div class="col-9">
-                                        <input type="number" class="form-control m-input m-input--solid" id="sdk_nvr_port" placeholder="i.e 840">
+                                        <input type="number" class="form-control m-input m-input--solid" id="sdk_nvr_port" v-model="sdk_nvr_port" placeholder="i.e 840">
                                     </div>
                                 </div>
                                 <div class="form-group m-form__group row">
@@ -1068,7 +1069,7 @@
                                         {{form_labels.vh_port}}
                                     </label>
                                     <div class="col-9">
-                                        <input type="number" class="form-control m-input m-input--solid" id="vh_nvr_port" placeholder="i.e 890">
+                                        <input type="number" class="form-control m-input m-input--solid" id="vh_nvr_port" v-model="vh_nvr_port" placeholder="i.e 890">
                                     </div>
                                 </div>
                                 <div class="form-group m-form__group row">
@@ -1076,7 +1077,7 @@
                                     </label>
                                     <div class="col-9">
                                         <label class="m-checkbox">
-                                          <input type="checkbox" id="nvr_is_monitoring">
+                                          <input type="checkbox" id="nvr_is_monitoring"  v-model="nvr_is_monitoring">
                                           {{form_labels.status}}
                                           <span></span>
                                       </label>

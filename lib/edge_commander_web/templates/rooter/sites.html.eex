@@ -881,15 +881,15 @@
                                 <div class="modal-content" style="padding: 0px;">
                                     <div class="modal-header">
                                         <h5 class="modal-title" id="exampleModalLabel">
-                                            Add Site
+                                            {{form_labels.add_title}}
                                         </h5>
                                         <div class="cancel">
                                             <a href="#" id="discardModal" data-dismiss="modal" v-on:click="clearForm">X</a>
                                         </div>
                                     </div>
                                     <div class="modal-body" id="body-site-dis">
-                                        <img src="/images/loading.gif" id="api-wait" class="hide_me">
-                                        <div id="siteErrorDetails" class="hide_me">
+                                        <img src="/images/loading.gif" id="api-wait" v-if="show_loading">
+                                        <div id="siteErrorDetails" v-if="show_errors">
                                             <div class="form-group m-form__group m--margin-top-10">
                                                 <div class="alert m-alert m-alert--default" role="alert">
                                                     <ul id="errorOnSite" style="margin:0px"></ul>
@@ -897,24 +897,25 @@
                                             </div>
                                         </div>
                                         <div class="m-form m-form--fit m-form--label-align-left">
-                                            <input type="hidden" id="user_id" value="<%= @user.id %>">
+                                            {{setUserId('<%= @user.id %>')}}
+                                            <input type="hidden" id="user_id" value="<%= @user.id %>" v-model="user_id">
                                             <div class="row">
                                                     <div class="col-lg-6">
                                                         <div class="form-group m-form__group row">
                                                             <label class="col-3 col-form-label">
-                                                                Name
+                                                                {{form_labels.name}}
                                                             </label>
                                                             <div class="col-9">
-                                                                <input type="text" class="form-control m-input m-input--solid" id="name" aria-describedby="emailHelp" placeholder="Site Name">
+                                                                <input type="text" class="form-control m-input m-input--solid" id="name" v-model="name" aria-describedby="emailHelp" placeholder="Site Name">
                                                             </div>
                                                         </div>
                                                     
                                                         <div class="form-group m-form__group row">
                                                         <label class="col-3 col-form-label">
-                                                            SIM
+                                                            {{form_labels.sim}}
                                                         </label>
                                                         <div class="col-9">
-                                                            <select class="form-control m-input" id="sim_number">
+                                                            <select class="form-control m-input" id="sim_number" v-model="sim_number">
                                                                 <%= for sim <- @all_sims do %>
                                                                     <option value="<%= sim.number %>"><%= sim.number %> &nbsp;<%= sim.name %></option>
                                                                 <% end %>
@@ -923,10 +924,10 @@
                                                         </div>
                                                         <div class="form-group m-form__group row">
                                                             <label class="col-3 col-form-label">
-                                                                Router
+                                                                {{form_labels.router}}
                                                             </label>
                                                             <div class="col-9">
-                                                                <select class="form-control m-input drop-input" id="router_id">
+                                                                <select class="form-control m-input drop-input" id="router_id" v-model="router_id">
                                                                     <%= for router <- @list_routers do %>
                                                                         <option value="<%= router.id %>"><%= router.name %></option>
                                                                     <% end %>
@@ -935,10 +936,10 @@
                                                         </div>
                                                         <div class="form-group m-form__group row">
                                                             <label class="col-3 col-form-label">
-                                                                NVR
+                                                                {{form_labels.nvr}}
                                                             </label>
                                                             <div class="col-9">
-                                                                <select class="form-control m-input drop-input" id="nvr_id">
+                                                                <select class="form-control m-input drop-input" id="nvr_id" v-model="nvr_id">
                                                                     <%= for nvr <- @list_nvrs do %>
                                                                         <option value="<%= nvr.id %>"><%= nvr.name %></option>
                                                                     <% end %>
@@ -947,15 +948,15 @@
                                                         </div>
                                                         <div class="form-group m-form__group row">
                                                             <label class="col-3 col-form-label">
-                                                                Note
+                                                                {{form_labels.notes}}
                                                             </label>
                                                             <div class="col-9">
-                                                                <input type="text" class="form-control m-input m-input--solid" id="notes" aria-describedby="emailHelp" placeholder="Short Note.">
+                                                                <input type="text" class="form-control m-input m-input--solid" id="notes" v-model="notes" aria-describedby="emailHelp" placeholder="Short Note.">
                                                             </div>
                                                         </div>
                                                     <div class="form-group m-form__group row">
                                                         <label class="col-3 col-form-label">
-                                                            Latitude
+                                                            {{form_labels.latitude}}
                                                         </label>
                                                         <div class="col-9">
                                                             <input name="lat" type="text" class="form-control m-input m-input--solid readonly" id="latitude" readonly>
@@ -963,7 +964,7 @@
                                                     </div>
                                                     <div class="form-group m-form__group row">
                                                         <label class="col-3 col-form-label">
-                                                            Longitude
+                                                            {{form_labels.latitude}}
                                                         </label>
                                                         <div class="col-9">
                                                             <input name="lng" type="text" class="form-control m-input m-input--solid readonly" id="longitude" readonly>
@@ -973,10 +974,10 @@
                                                 <div class="col-lg-6">
                                                     <div class="form-group m-form__group row">
                                                         <label class="col-3 col-form-label">
-                                                            Location
+                                                            {{form_labels.location}}
                                                         </label>
                                                         <div class="col-9">
-                                                           <input type="text" class="form-control m-input m-input--solid" id="map_area" aria-describedby="emailHelp" placeholder="Search Location">
+                                                           <input type="text" class="form-control m-input m-input--solid" id="map_area" v-model="map_area" aria-describedby="emailHelp" placeholder="Search Location">
                                                         </div>
                                                     </div>
                                                     <div class="form-group m-form__group row">
@@ -991,7 +992,7 @@
                                     </div>
                                     <div class="modal-footer" style="padding: 11px;">
                                         <button type="button" class="btn btn-default" v-on:click="saveModal">
-                                            Save changes
+                                            {{form_labels.submit_button}}
                                         </button>
                                     </div>
                                 </div>
@@ -1011,8 +1012,8 @@
                                         </div>
                                     </div>
                                     <div class="modal-body" id="body-site-edit-dis">
-                                         <img src="/images/loading.gif" id="api-wait" class="hide_me">
-                                        <div id="siteEditErrorDetails" class="hide_me">
+                                         <img src="/images/loading.gif" id="api-wait" v-if="show_loading">
+                                        <div id="siteEditErrorDetails" v-if="show_edit_errors">
                                             <div class="form-group m-form__group m--margin-top-10">
                                                 <div class="alert m-alert m-alert--default" role="alert">
                                                     <ul id="errorOnEditSite" style="margin:0px"></ul>
@@ -1020,8 +1021,8 @@
                                             </div>
                                         </div>
                                         <div class="m-form m-form--fit m-form--label-align-left">
-                                            <input type="hidden" id="user_id" value="<%= @user.id %>">
-                                            <input type="hidden" id="edit_id">
+                                            <input type="hidden" id="user_id" value="<%= @user.id %>" v-model="user_id">
+                                            <input type="hidden" id="edit_id" v-model="edit_id">
                                             <div class="row">
                                                 <div class="col-lg-6">
                                                      <div class="form-group m-form__group row">
@@ -1029,7 +1030,7 @@
                                                             {{form_labels.name}}
                                                         </label>
                                                         <div class="col-9">
-                                                            <input type="text" class="form-control m-input m-input--solid" id="edit_name" aria-describedby="emailHelp" placeholder="Site Name">
+                                                            <input type="text" class="form-control m-input m-input--solid" id="edit_name" v-model="edit_name" aria-describedby="emailHelp" placeholder="Site Name">
                                                         </div>
                                                     </div>
                                                     <div class="form-group m-form__group row">
@@ -1037,7 +1038,7 @@
                                                             {{form_labels.sim}}
                                                         </label>
                                                         <div class="col-9">
-                                                            <select class="form-control m-input" id="edit_sim_number">
+                                                            <select class="form-control m-input" id="edit_sim_number" v-model="edit_sim_number">
                                                                 <%= for sim <- @all_sims do %>
                                                                     <option value="<%= sim.number %>"><%= sim.number %> &nbsp;<%= sim.name %></option>
                                                                 <% end %>
@@ -1049,7 +1050,7 @@
                                                             {{form_labels.router}}
                                                         </label>
                                                         <div class="col-9">
-                                                            <select class="form-control m-input drop-input" id="edit_router_id">
+                                                            <select class="form-control m-input drop-input" id="edit_router_id" v-model="edit_router_id">
                                                                 <%= for router <- @list_routers do %>
                                                                     <option value="<%= router.id %>"><%= router.name %></option>
                                                                 <% end %>
@@ -1061,7 +1062,7 @@
                                                             {{form_labels.nvr}}
                                                         </label>
                                                         <div class="col-9">
-                                                            <select class="form-control m-input drop-input" id="edit_nvr_id">
+                                                            <select class="form-control m-input drop-input" id="edit_nvr_id" v-model="edit_nvr_id">
                                                                 <%= for nvr <- @list_nvrs do %>
                                                                     <option value="<%= nvr.id %>"><%= nvr.name %></option>
                                                                 <% end %>
@@ -1073,7 +1074,7 @@
                                                             {{form_labels.notes}}
                                                         </label>
                                                         <div class="col-9">
-                                                            <input type="text" class="form-control m-input m-input--solid" id="edit_notes" aria-describedby="emailHelp" placeholder="Short Note.">
+                                                            <input type="text" class="form-control m-input m-input--solid" id="edit_notes" v-model="edit_notes" aria-describedby="emailHelp" placeholder="Short Note.">
                                                         </div>
                                                     </div>
                                                     <div class="form-group m-form__group row">
@@ -1099,7 +1100,7 @@
                                                             {{form_labels.location}}
                                                         </label>
                                                         <div class="col-9">
-                                                           <input type="text" class="form-control m-input m-input--solid" id="edit_map_area" aria-describedby="emailHelp" placeholder="Search Location">
+                                                           <input type="text" class="form-control m-input m-input--solid" id="edit_map_area" v-model="edit_map_area" aria-describedby="emailHelp" placeholder="Search Location">
                                                         </div>
                                                     </div>
                                                     <div class="form-group m-form__group row">

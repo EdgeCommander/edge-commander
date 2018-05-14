@@ -1,37 +1,51 @@
 var vm = new Vue({
  el: '#sites_main',
-  data(){
-    return{
-      dataTable: null,
-      m_form_search: "",
-      mapEditView: "",
-      headings: [
-        {column: "Actions"},
-        {column: "Name"},
-        {column: "Location"},
-        {column: "Sim Number"},
-        {column: "Router Name"},
-        {column: "NVR Name"},
-        {column: "Notes"},
-        {column: "Created At"},
-      ],
-      form_labels: {
-        name: "Name",
-        location: "Location",
-        sim: "SIM",
-        router: "Router",
-        nvr: "NVR",
-        notes: "Notes",
-        latitude: "Latitude",
-        longitude: "Longitude",
-        add_title: "Add Site",
-        edit_title: "Edit Site",
-        hide_show_title: "Show/Hide Columns",
-        add_site_button: "Add Site",
-        hide_show_button: "OK",
-        submit_button: "Save changes"
-      }
-    }
+  data: {
+    dataTable: null,
+    m_form_search: "",
+    mapEditView: "",
+    show_loading: false,
+    show_errors: false,
+    show_edit_errors: false,
+    headings: [
+      {column: "Actions"},
+      {column: "Name"},
+      {column: "Location"},
+      {column: "Sim Number"},
+      {column: "Router Name"},
+      {column: "NVR Name"},
+      {column: "Notes"},
+      {column: "Created At"},
+    ],
+    form_labels: {
+      name: "Name",
+      location: "Location",
+      sim: "SIM",
+      router: "Router",
+      nvr: "NVR",
+      notes: "Notes",
+      latitude: "Latitude",
+      longitude: "Longitude",
+      add_title: "Add Site",
+      edit_title: "Edit Site",
+      hide_show_title: "Show/Hide Columns",
+      add_site_button: "Add Site",
+      hide_show_button: "OK",
+      submit_button: "Save changes"
+    },
+    name: "",
+    sim_number: "",
+    router_id: "",
+    nvr_id: "",
+    notes: "",
+    map_area: "Dublin, Ireland",
+    user_id: "",
+    edit_id: "",
+    edit_name: "",
+    edit_sim_number: "",
+    edit_router_id: "",
+    edit_nvr_id: "",
+    edit_notes: ""
   },
   methods: {
       initializeTable: function(){
@@ -191,50 +205,48 @@ var vm = new Vue({
       onSiteButton: function() {
         $('.add_site_to_db').modal('show');
         $('.add_site_to_db').on('shown.bs.modal', function () {
-          $("#map_area").val("Dublin, Ireland");
+          this.map_area = "Dublin, Ireland"
           $("#latitude").val("53.349805");
           $("#longitude").val("-6.2603010");
         })
         this.addMap();
       },
       clearForm: function() {
-        $("#name").val("");
-        $("#notes").val("");
+        this.name = "";
+        this.sim_number = "";
+        this.router_id = "";
+        this.nvr_id = "";
+        this.notes = "";
+        this.map_area = "Dublin, Ireland";
         $('ul#errorOnSite').html("");
-        $("#set_to_load").removeClass("loading");
         $("#body-site-dis *").prop('disabled', false);
         $("#siteErrorDetails").addClass("hide_me");
-        $("#map_area").val("Dublin, Ireland");
+        this.map_area = "Dublin, Ireland";
         $("#latitude").val("53.349805");
         $("#longitude").val("-6.2603010");
         this.addMap();
+        this.show_errors = false;
       },
-      sendAJAXRequest: function(settings) {
-        var headers, token, xhrRequestChangeMonth;
-        token = $('meta[name="csrf-token"]');
-        if (token.length > 0) {
-          headers = {
-          "X-CSRF-Token": token.attr("content")
-          };
-          settings.headers = headers;
-        }
-        return xhrRequestChangeMonth = jQuery.ajax(settings);
+      setUserId: function(id){
+        this.user_id = id;
       },
       saveModal: function() {
         $('ul#errorOnSite').html("");
-        $("#api-wait").removeClass("hide_me");
+        this.show_loading = true;
+        this.show_errors = true;
         $("#body-site-dis *").prop('disabled',true);
-        $("#siteErrorDetails").addClass("hide_me");
 
-        var name        = $("#name").val(),
-            map_area    = $("#map_area").val(),
-            sim_number  = $('#sim_number').find(":selected").val(),
-            router_id   = $('#router_id').find(":selected").val(),
-            nvr_id      = $('#nvr_id').find(":selected").val(),
-            notes       = $("#notes").val(),
+        // alert(this.sim_number)
+
+        var name        = this.name,
+            map_area    = this.map_area,
+            sim_number  = this.sim_number,
+            router_id   = this.router_id,
+            nvr_id      = this.nvr_id,
+            notes       = this.notes,
             latitude    = $("#latitude").val(),
             longitude   = $("#longitude").val(),
-            user_id     = $("#user_id").val();
+            user_id     = this.user_id;
 
 
         var data = {};
@@ -262,7 +274,7 @@ var vm = new Vue({
           type: "POST",
           url: "/sites/new"
         };
-        this.sendAJAXRequest(settings);
+        vm.sendAJAXRequest(settings);
       },
       onError: function(jqXHR, status, error) {
         var cList = $('ul#errorOnSite')
@@ -271,10 +283,9 @@ var vm = new Vue({
           .text(value)
           .appendTo(cList);
         });
-        $("#siteErrorDetails").removeClass("hide_me");
-        $("#api-wait").addClass("hide_me");
+        this.show_errors = true;
+        this.show_loading = false;
         $("#body-site-dis *").prop('disabled', false);
-        $("#set_to_load").removeClass("loading");
         return false;
       },
       onSuccess: function(result, status, jqXHR) {
@@ -285,7 +296,7 @@ var vm = new Vue({
         });
         $(".modal-backdrop").remove();
         $("#m_modal_1").modal("hide");
-        $("#api-wait").addClass("hide_me");
+        this.show_loading = false;
         this.dataTable.ajax.reload();
         this.clearForm();
         return true;
@@ -324,38 +335,32 @@ var vm = new Vue({
             url: "/sites/" + siteID
           };
 
-          var headers, token, xhrRequestChangeMonth;
-          token = $('meta[name="csrf-token"]');
-          if (token.length > 0) {
-            headers = {
-            "X-CSRF-Token": token.attr("content")
-            };
-            settings.headers = headers;
-          }
-          jQuery.ajax(settings);
+          vm.sendAJAXRequest(settings);
       });
     },
-    onSiteEditButton: function() {
+    getUniqueIdentifier: function(){
       $(document).on("click", ".editSite", function(){
-         var tr = $(this).closest('tr');
+        var tr = $(this).closest('tr');
         var row = sitesDataTable.row(tr);
         var data = row.data();
-
         site_id = $(this).data("id");
-
+        vm.onSiteEditButton(site_id, data);
+      });
+    },
+    onSiteEditButton: function(site_id, data) {
        
-        $("#saveEditModal").attr('data-id', site_id);
         var lng = data.location.lng
         var lat = data.location.lat
         var map_area = data.location.map_area
 
-        $("#edit_id").val(site_id);
-        $("#edit_name").val(data.name);
-        $("#edit_map_area").val(map_area);
-        $("#edit_sim_number").val(data.sim_number);
-        $("#edit_router_id").val(data.router_id);
-        $("#edit_nvr_id").val(data.nvr_id);
-        $("#edit_notes").val(data.notes);
+        this.edit_id = site_id;
+        this.edit_name = data.name;
+        this.edit_sim_number = data.sim_number;
+        this.edit_router_id = data.router_id;
+        this.edit_nvr_id = data.nvr_id;
+        this.edit_notes = data.notes;
+        this.edit_map_area = map_area;
+
         $("#edit_longitude").val(lng);
         $("#edit_latitude").val(lat);
         $('#edit_site_to_db').modal('show');
@@ -423,24 +428,23 @@ var vm = new Vue({
             }
           });
         })
-      });
     },
     updateSitedo: function(){
         $("#body-site-edit-dis *").prop('disabled', true);
         $('ul#errorOnEditSite').html("");
-        $("#api-wait").removeClass("hide_me");
-        $("#siteEditErrorDetails").addClass("hide_me");
+        this.show_loading = true;
+        this.show_edit_errors = true;
 
         var siteID = $("#edit_id").val();
 
-        var name        = $("#edit_name").val(),
-            map_area    = $("#edit_map_area").val(),
-            sim_number  = $('#edit_sim_number').find(":selected").val(),
-            router_id   = $('#edit_router_id').find(":selected").val(),
-            nvr_id      = $('#edit_nvr_id').find(":selected").val(),
+        var name        = this.edit_name,
+            map_area    = this.edit_map_area,
+            sim_number  = this.edit_sim_number,
+            router_id   = this.edit_router_id,
+            nvr_id      = this.edit_nvr_id,
             latitude    = $("#edit_latitude").val(),
             longitude   = $("#edit_longitude").val(),
-            notes       = $("#edit_notes").val()
+            notes       = this.edit_notes
 
         var data = {};
             data.name = name;
@@ -467,10 +471,10 @@ var vm = new Vue({
           type: "PATCH",
           url: "/sites/update"
         };
-        this.sendAJAXRequest(settings);
+        vm.sendAJAXRequest(settings);
     },
     onEditError: function(jqXHR, status, error) {
-      $("#api-wait").addClass("hide_me");
+      this.show_loading = false;
       $("#body-site-edit-dis *").prop('disabled', false);
       var cList = $('ul#errorOnEditSite')
       $.each(jqXHR.responseJSON.errors, function(index, value) {
@@ -478,7 +482,6 @@ var vm = new Vue({
         .text(value)
         .appendTo(cList);
       });
-      $("#siteEditErrorDetails").removeClass("hide_me");
       return false;
     },
     onEditSuccess: function(result, status, jqXHR) {
@@ -487,18 +490,22 @@ var vm = new Vue({
     },{
       type: 'info'
     });
-    $("#api-wait").addClass("hide_me");
+    this.show_loading = false;
     this.editClearFrom();
     $("#edit_site_to_db").modal("hide");
     this.dataTable.ajax.reload();
     return true;
     },
     editClearFrom: function() {
-      $("#edit_rule_name").val("");
-      $("#edit_notes").val("");
+      this.edit_name = ""
+      this.edit_map_area = ""
+      this.edit_sim_number = ""
+      this.edit_router_id = ""
+      this.edit_nvr_id = ""
       $('ul#errorOnEditSite').html("");
       $("#body-site-edit-dis *").prop('disabled', false);
-      $("#siteEditErrorDetails").addClass("hide_me");
+      this.show_loading = false;
+      this.show_edit_errors = false;
     },
     resizeScreen: function(){
       $('#double-scroll').doubleScroll();
@@ -510,7 +517,7 @@ var vm = new Vue({
     this.initializeTable();
     this.resizeScreen();
     this.deleteSite();
-    this.onSiteEditButton();
+    this.getUniqueIdentifier();
     window.addEventListener('resize', this.resizeScreen);
    }
 });

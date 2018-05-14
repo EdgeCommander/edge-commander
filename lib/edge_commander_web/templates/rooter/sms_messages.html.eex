@@ -912,21 +912,15 @@
                                     </div>
                                     <div class="modal-body" id="body-sms-dis">
                                         <img src="/images/loading.gif" id="api-wait" class="hide_me">
-                                        <div id="smsErrorDetails" class="hide_me">
-                                            <div class="form-group m-form__group m--margin-top-10">
-                                                <div class="alert m-alert m-alert--default" role="alert">
-                                                    <ul id="errorOnSms" style="margin:0px"></ul>
-                                                </div>
-                                            </div>
-                                        </div>
                                         <div class="m-form m-form--fit m-form--label-align-left">
-                                            <input type="hidden" id="user_id" value="<%= @user.id %>">
+                                            {{setUserId('<%= @user.id %>')}}
+                                            <input type="hidden" id="user_id" value="<%= @user.id %>" v-model="user_id">
                                             <div class="form-group m-form__group row">
                                                 <label class="col-3 col-form-label">
                                                     {{form_labels.sim}}
                                                 </label>
                                                 <div class="col-9">
-                                                    <select class="form-control m-input" id="toNumber">
+                                                    <select class="form-control m-input" id="toNumber" v-model="toNumber" >
                                                         <%= for sim <- @all_sims do %>
                                                             <option value="<%= sim.number %>"><%= sim.number %> &nbsp;<%= sim.name %></option>
                                                         <% end %>
@@ -938,14 +932,14 @@
                                                     {{form_labels.message}}
                                                 </label>
                                                 <div class="col-9">
-                                                    <input type="text" class="form-control m-input m-input--solid" id="smsMessage" aria-describedby="emailHelp">
+                                                    <input type="text" class="form-control m-input m-input--solid" id="smsMessage" v-model="smsMessage" aria-describedby="emailHelp">
                                                 </div>
                                             </div>
                                         </div>
                                         <!--end::Form-->
                                     </div>
                                     <div class="modal-footer" style="padding: 11px;">
-                                        <button id="send-sms-nexmo" type="button" class="btn btn-default" v-on:click="sendSMS">
+                                        <button id="send-sms-nexmo" type="button" class="btn btn-default" data-dismiss="modal" v-on:click="sendSMS">
                                             {{form_labels.submit_button}}
                                         </button>
                                     </div>
