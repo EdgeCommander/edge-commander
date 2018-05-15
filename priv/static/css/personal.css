@@ -510,6 +510,15 @@ select.form-control:not([size]):not([multiple]) {
   }
 }
 
+@media (max-width: 575px){
+  .sim_log_datatable{
+    padding-left: 15px;
+  }
+  .sim_graph_panel{
+  padding-right: 15px;
+}
+}
+
 @media (max-width: 992px) {
   .content_right_panel{
     margin-top: -2px ;

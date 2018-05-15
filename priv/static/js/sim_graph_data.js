@@ -43,7 +43,7 @@ var vm = new Vue({
       },
       columns: [
         {
-          class: "text-left",
+          class: "text-left width-180",
           data: function(row, type, set, meta) {
             return "" + moment(row.date_of_use).format('MMMM Do YYYY, H:mm:ss') +"";
           }
@@ -335,16 +335,24 @@ var vm = new Vue({
       this.resizeTableDiv();
     },
     resizeTableDiv: function() {
+      var window_width = $(window).width();
       var objDiv = document.getElementById("iam_canvas");
       var convasHeight = objDiv.scrollHeight + 22;
       $("#sm_datatable_inner").css("min-height", convasHeight).css("max-height", convasHeight).css("overflow-y", "auto");
-    }
+    },
+    resizeSMSTable: function(){
+    $('#double-scroll').doubleScroll();
+    var table_width = $("#sms-datatable").width();
+    $(".doubleScroll-scroll").width(table_width);
+   }
   }, // end of methods
   mounted(){
     this.initializeSimsTable();
     this.initializeSmsTable();
     this.onSendSMSFocus();
     this.startMORRISChartJS();
+    this.resizeSMSTable();
     window.addEventListener('resize', this.startMORRISChartJS);
+    window.addEventListener('resize', this.resizeSMSTable);
   }
 });

@@ -5,13 +5,13 @@ var vm = new Vue({
     m_form_search: "",
     show_loading: false,
     headings: [
-      {column: "From"},
-      {column: "To"},
+      {column: "From", visible: "checked"},
+      {column: "To", visible: "checked"},
       {column: "Message ID"},
-      {column: "Type"},
-      {column: "Text Message"},
-      {column: "Status"},
-      {column: "Message Date"}
+      {column: "Type", visible: "checked"},
+      {column: "Text Message", visible: "checked"},
+      {column: "Status", visible: "checked"},
+      {column: "Message Date", visible: "checked"}
     ],
     form_labels: {
       sim: "SIM",
