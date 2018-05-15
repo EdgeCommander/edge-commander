@@ -429,6 +429,25 @@ select.form-control:not([size]):not([multiple]) {
   padding-bottom: 5px;
 }
 
+#swagger-ui{
+    min-width: 992px;
+    overflow: auto;
+    overflow-y: hidden;
+    margin: 0 auto;
+    white-space: nowrap
+}
+
+
+[v-cloak] {
+  display:none;
+}
+
+@media (max-width: 767px){
+  #m_form_search{
+    margin-top:10px;
+  }
+}
+
 @media (min-width: 993px){
   .m-aside-left--minimize .m-aside-menu.m-aside-menu--skin-dark .m-menu__nav>.m-menu__item>.m-menu__link>.m-menu__link-icon {
     color: #9c9c9c !important;

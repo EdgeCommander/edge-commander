@@ -11,7 +11,7 @@
 <!--end::Web font -->
     <!-- end::Body -->
     <body class="m-page--fluid m--skin- m-content--skin-light2 m-header--fixed m-header--fixed-mobile m-aside-left--enabled m-aside-left--skin-dark m-aside-left--offcanvas m-footer--push m-aside--offcanvas-default">
-        <div id="commands_main">
+        <div id="commands_main" v-cloak>
         <!-- begin:: Page -->
         <div class="m-grid m-grid--hor m-grid--root m-page" id="page_content_main">
            <!-- BEGIN: Header -->
@@ -212,7 +212,7 @@
                               <div class="col-md-8 order-2 order-md-1">
                                 <div class="form-group m-form__group row align-items-center">
                                   <div class="col-md-5">
-                                    <div class="m-input-icon m-input-icon--left" style="margin-top: 10px">
+                                    <div class="m-input-icon m-input-icon--left">
                                       <input type="text" class="form-control m-input m-input--solid" placeholder="Search..." id="m_form_search" v-model="m_form_search" v-on:keyup="search()">
                                       <span class="m-input-icon__icon m-input-icon__icon--left">
                                         <span>
@@ -232,7 +232,7 @@
                                           </span>
                                       </span>
                                   </a>
-                                  <div href="#" class="btn btn-default grey" data-toggle="modal" data-target="#toggle-datatable-columns">
+                                  <div href="#" class="btn btn-default grey" data-toggle="modal" data-target=".toggle-datatable-columns">
                                     <i class="fa fa-columns"></i>
                                   </div>
                               </div>
@@ -849,30 +849,30 @@
         </div>
         <!-- end::Quick Sidebar -->
         <%# show and hide columns modal %>
-                        <div id="toggle-datatable-columns" class="modal fade" style="padding: 0px;">
-                          <div class="modal-dialog" style="width:300px;">
-                            <div class="modal-content" style="padding: 0px;">
-                              <div class="modal-header">
-                                <div class="caption"><strong>{{form_labels.hide_show_title}}</strong></div>
-                                <div class="cancel">
-                                  <a class="cancel_link" href="#" data-dismiss="modal">X</a>
-                                </div>
-                              </div>
-                              <div class="modal-body" style="padding: 15px;padding-bottom: 0px;">
-                                <div class="form-group" >
-                                   <div class="column-checkbox" v-for="(item, index) in headings">
-                                    <label class="m-checkbox m-checkbox--single m-checkbox--solid m-checkbox--brand" style="width: auto;"><input type="checkbox" class="rule-column" checked v-on:change="showHideColumns(index)"><span></span> {{item.column}}</label>
-                                  </div>
-                                </div>
-                              </div>
-                              <div class="modal-footer" style="padding: 11px;">
-                                <div class="pull-right">
-                                  <button type="button" class="btn btn-default" data-dismiss="modal">{{form_labels.hide_show_button}}</button>
-                                </div>
-                              </div>
-                            </div>
-                          </div>
+        <div class="modal fade toggle-datatable-columns" style="padding: 0px;" id="m_modal_1" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" data-backdrop="static" data-keyboard="false">
+          <div class="modal-dialog modal-sm" role="document">
+              <div class="modal-content" style="padding: 0px;">
+                  <div class="modal-header">
+                      <h5 class="modal-title" id="exampleModalLabel">
+                          {{form_labels.hide_show_title}}
+                      </h5>
+                      <div class="cancel">
+                        <a href="#" id="discardModal" data-dismiss="modal" v-on:click="clearForm">X</a>
+                      </div>
+                  </div>
+                  <div class="modal-body" id="body-sim-dis">
+                      <div class="form-group">
+                        <div class="column-checkbox" v-for="(item, index) in headings">
+                            <label class="m-checkbox m-checkbox--single m-checkbox--solid m-checkbox--brand" style="width: auto;"><input type="checkbox" class="rule-column" checked v-on:change="showHideColumns(index)"><span></span> {{item.column}}</label>
                         </div>
+                      </div>
+                  </div>
+                  <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">{{form_labels.hide_show_button}}</button>
+                  </div>
+              </div>
+          </div>
+        </div>
                          <!--begin::Modal-->
                         <div class="modal fade add_rule_to_db" style="padding: 0px;" id="m_modal_1" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" data-backdrop="static" data-keyboard="false">
                             <div class="modal-dialog" role="document">
