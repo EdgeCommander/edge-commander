@@ -88,26 +88,43 @@
       <script src="<%= static_path(@conn, "/swagger/swagger-ui-bundle.js") %>" type="text/javascript"></script>
       <script src="<%= static_path(@conn, "/swagger/swagger-ui-standalone-preset.js") %>" type="text/javascript"></script>
       <script>
-        window.onload = function() {
-          // Build a system
-          const swagger_url = new URL(window.location);
-          swagger_url.pathname = swagger_url.pathname.replace("index.html", "swagger.json");
-          swagger_url.hash = "";
-          const ui = SwaggerUIBundle({
-            url:  "http://app.edgecommander.com/swagger/swagger.json",
-            dom_id: '#swagger-ui',
-            deepLinking: false,
-            presets: [
-              SwaggerUIBundle.presets.apis,
-              SwaggerUIStandalonePreset
-            ],
-            plugins: [
-              SwaggerUIBundle.plugins.DownloadUrl
-            ],
-            layout: "StandaloneLayout"
-          })
-          window.ui = ui
-        }
+        var vm = new Vue({
+          el: '#commands_main',
+          data: {},
+          methods: {
+            swagger_api: function(){
+              const swagger_url = new URL(window.location);
+              swagger_url.pathname = swagger_url.pathname.replace("index.html", "swagger.json");
+              swagger_url.hash = "";
+              const ui = SwaggerUIBundle({
+                url:  "https://app.edgecommander.com/swagger/swagger.json",
+                dom_id: '#swagger-ui',
+                deepLinking: false,
+                presets: [
+                  SwaggerUIBundle.presets.apis,
+                  SwaggerUIStandalonePreset
+                ],
+                plugins: [
+                  SwaggerUIBundle.plugins.DownloadUrl
+                ],
+                layout: "StandaloneLayout"
+              })
+              window.ui = ui
+            },
+            resizeScreen: function(){
+              $('#double-scroll').doubleScroll();
+              var table_width = $("#swagger-ui").width();
+              $(".doubleScroll-scroll").width(table_width);
+            }
+          }, // end of methods
+          mounted(){
+            this.resizeScreen();
+            window.addEventListener('load', this.swagger_api);
+            window.addEventListener('resize', this.resizeScreen);
+          }
+        });
+       
+        
       </script>
     <%  end %>
 
