@@ -38,6 +38,10 @@
         <script src="<%= static_path(@conn, "/js/jquery.doubleScroll.js") %>"></script>
     <%  end %>
 
+    <%= if @conn.request_path == "/users/sign_in" or @conn.request_path == "/users/sign_up" do %>
+      <script src="<%= static_path(@conn, "/assets/vendors/base/vendors.bundle.js") %>" type="text/javascript"></script>
+    <%  end %>
+
     <%= if @conn.request_path == "/" do %>
       <script src="<%= static_path(@conn, "/js/Chart.js") %>"> type="text/javascript"></script>
       <script src="<%= static_path(@conn, "/assets/demo/default/custom/components/datatables/base/data-local.js") %>"> type="text/javascript"></script>
@@ -123,8 +127,6 @@
             window.addEventListener('resize', this.resizeScreen);
           }
         });
-       
-        
       </script>
     <%  end %>
 

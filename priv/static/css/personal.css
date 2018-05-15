@@ -437,9 +437,58 @@ select.form-control:not([size]):not([multiple]) {
     white-space: nowrap
 }
 
-
 [v-cloak] {
   display:none;
+}
+
+.m-login.m-login--2 .m-login__wrapper .m-login__container .m-login__form .m-form__group .form-control {
+  border-radius: 0;
+  padding: 15px;
+  margin-top: 1.5rem;
+}
+
+.m-login.m-login--2 .m-login__wrapper .m-login__container .m-login__form .m-login__form-action .m-login__btn {
+  display: inline-block;
+  text-align: center;
+  padding: 15px;
+  border-radius: 0;
+  background-color: #4c4b4b;
+  box-shadow: none;
+  border: 0;
+}
+
+.m-login.m-login--2 .m-login__wrapper .m-login__container .m-login__form .m-login__form-action {
+  text-align: center;
+  margin-top: 0;
+}
+
+.m-login.m-login--2 .m-login__wrapper .m-login__container .m-login__form .m-login__form-sub {
+  padding-left: 7px;
+  padding-right: 7px;
+  margin: 15px auto 0 auto;
+}
+
+.m-checkbox.m-checkbox--focus>span:after {
+  border: solid #9e9e9d;
+}
+
+.m-checkbox.m-checkbox--focus>input:checked~span {
+  border: 1px solid #c2c2c2;
+}
+
+.m-login.m-login--2 .m-login__wrapper .m-login__container .m-login__form {
+  margin-bottom: 40px;
+}
+
+.m-login.m-login--2 .m-login__wrapper .m-login__container .m-login__logo {
+  text-align: center;
+  margin: 0 auto 4rem auto;
+  margin-bottom: 10px;
+}
+
+.m-login.m-login--2.m-login-2--skin-2 .m-login__container .m-login__account .m-login__account-link,
+.m-login.m-login--2.m-login-2--skin-2 .m-login__container .m-login__head .m-login__title {
+  color: #737373;
 }
 
 @media (max-width: 767px){
