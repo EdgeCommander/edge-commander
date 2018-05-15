@@ -216,7 +216,6 @@
                     <div class="col-sm-7 sim_log_datatable" >
                         <div class="m-portlet m-portlet--mobile" id="sm_datatable_inner">
                             <div class="m-portlet__body">
-                              <div id="double-scroll">
                                 <!-- Content Here -->
                                     <table id="sim-datatable" class="table table-striped  table-hover table-bordered datatable" cellspacing="0" style="overflow-x: scroll; width:100%">
                                         <thead>
@@ -227,7 +226,6 @@
                                     </table>
                                 </div>
                                 <div class="m_datatable"></div>
-                            </div>
                         </div>
                     </div>
                     <!--begin::Modal-->

@@ -69,9 +69,16 @@
                   <input class="form-control m-input m-login__form-input--last" type="password" placeholder="Confirm Password" name="password_confirmation" required>
                 </div>
                 <div class="m-login__form-action">
-                  <button id="m_login_signup_submit" class="btn btn-focus m-btn m-btn--pill m-btn--custom m-btn--air  m-login__btn" type="submit">
+                  <button id="m_login_signup_submit" class="btn btn-focus m-btn m-btn--pill m-btn--custom m-btn--air  m-login__btn btn-block" type="submit">
                     Sign Up
                   </button>
+                   <div class="row m-login__form-sub">
+                  <div class="col m--align-left m-login__form-left" style="padding-left:0">
+                   <a href="/users/sign_in" id="m_login_forget_password" class="m-link">
+                     << Go back to login
+                    </a>
+                  </div>
+                </div>
                 </div>
               </form>
             </div>

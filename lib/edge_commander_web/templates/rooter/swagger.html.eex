@@ -204,8 +204,8 @@
                     <!-- END: Subheader -->
                       <div class="m-content">
                         <div class="m-portlet m-portlet--mobile" style="margin-bottom: 0">
-                            <div class="m-portlet__body" style="padding: 10px;">
-                                <div id="swagger-ui"></div>
+                            <div class="m-portlet__body" id="double-scroll" style="padding: 10px; overflow: auto">
+                                    <div id="swagger-ui"></div>
                             </div>
                         </div>
                       </div>
