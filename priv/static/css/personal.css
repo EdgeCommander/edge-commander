@@ -478,6 +478,7 @@ select.form-control:not([size]):not([multiple]) {
 
 .m-login.m-login--2 .m-login__wrapper .m-login__container .m-login__form {
   margin-bottom: 40px;
+  margin-top: 40px;
 }
 
 .m-login.m-login--2 .m-login__wrapper .m-login__container .m-login__logo {
