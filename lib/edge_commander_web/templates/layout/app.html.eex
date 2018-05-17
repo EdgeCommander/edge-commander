@@ -92,8 +92,9 @@
       <script src="<%= static_path(@conn, "/swagger/swagger-ui-bundle.js") %>" type="text/javascript"></script>
       <script src="<%= static_path(@conn, "/swagger/swagger-ui-standalone-preset.js") %>" type="text/javascript"></script>
       <script>
+        var base_url = window.location.href.replace('/api','/swagger/swagger.json');
         var vm = new Vue({
-          el: '#commands_main',
+          el: '#api_main',
           data: {},
           methods: {
             swagger_api: function(){
@@ -101,7 +102,7 @@
               swagger_url.pathname = swagger_url.pathname.replace("index.html", "swagger.json");
               swagger_url.hash = "";
               const ui = SwaggerUIBundle({
-                url:  "https://app.edgecommander.com/swagger/swagger.json",
+                url:  base_url,
                 dom_id: '#swagger-ui',
                 deepLinking: false,
                 presets: [
