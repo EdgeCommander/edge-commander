@@ -35,7 +35,7 @@ var vm = new Vue({
     initializeTable: function(){
       simsDataTable = $('#sims-datatable').DataTable({
       ajax: {
-      url: "/sims",
+      url: "/sims/data/json",
         dataSrc: function(data) {
           return data.logs;
         },

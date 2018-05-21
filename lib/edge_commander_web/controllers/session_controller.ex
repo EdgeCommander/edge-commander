@@ -10,7 +10,7 @@ defmodule EdgeCommanderWeb.SessionController do
         conn
         |> put_session(:current_user, user.id)
         |> put_flash(:info, "You have logged in.")
-        |> redirect(to: "/")
+        |> redirect(to: "/sims")
       :error ->
         conn
         |> put_flash(:error, "Wrong email or password.")

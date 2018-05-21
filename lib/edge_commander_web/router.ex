@@ -62,29 +62,29 @@ defmodule EdgeCommanderWeb.Router do
   scope "/", EdgeCommanderWeb do
     pipe_through :browser # Use the default browser stack
 
-    get "/", RooterController, :sim_logs
-    get "/nvrs_list", RooterController, :nvrs
-    get "/routers_list", RooterController, :routers
+    get "/sims", RooterController, :sim_logs
+    get "/nvrs", RooterController, :nvrs
+    get "/routers", RooterController, :routers
     get "/commands", RooterController, :commands
     get "/sims/:sim_number", RooterController, :sim_graph_and_details
     get "/my_profile", RooterController, :my_profile
-    get "/sites_list", RooterController, :sites
+    get "/sites", RooterController, :sites
     get "/sms_messages", RooterController, :sms_messages
     get "/status_report", RooterController, :status_report
     get "/api", RooterController, :swagger
 
-    get "/sims", SimsController, :get_sim_logs
+    get "/sims/data/json", SimsController, :get_sim_logs
     get "/sims/data/:sim_number", SimsController, :get_single_sim_data
     get "/chartjs/data/:sim_number", SimsController, :create_chartjs_line_data
     get "/sims/sms/:sim_number", SimsController, :get_single_sim_sms
     post "/sims", SimsController, :create
 
-    get "/routers", RoutersController, :get_all_routers
+    get "/routers/data", RoutersController, :get_all_routers
     post "/routers", RoutersController, :create
     patch "/routers/:id", RoutersController, :update
     delete "/routers/:id", RoutersController, :delete
 
-    get "/nvrs", NvrsController, :get_all_nvrs
+    get "/nvrs/data", NvrsController, :get_all_nvrs
     post "/nvrs", NvrsController, :create
     delete "/nvrs/:id", NvrsController, :delete
     patch "/nvrs/:id", NvrsController, :update
@@ -95,7 +95,7 @@ defmodule EdgeCommanderWeb.Router do
     patch "/rules/update", CommandsController, :update
     delete "/rules/:id", CommandsController, :delete
 
-    get "/sites", SitesController, :get_all_sites
+    get "/sites/data", SitesController, :get_all_sites
     post "/sites/new", SitesController, :create
     patch "/sites/update", SitesController, :update
     delete "/sites/:id", SitesController, :delete

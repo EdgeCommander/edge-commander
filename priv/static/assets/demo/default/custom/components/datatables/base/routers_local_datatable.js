@@ -49,7 +49,7 @@ var vm = new Vue({
     initializeTable: function(){
       routersDataTable = $('#routers-datatable').DataTable({
         ajax: {
-        url: "/routers",
+        url: "/routers/data",
           dataSrc: function(data) {
             return data.routers;
           },

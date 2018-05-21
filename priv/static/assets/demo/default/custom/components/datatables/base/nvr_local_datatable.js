@@ -69,7 +69,7 @@ var vm = new Vue({
     initializeTable: function(){
       nvrDataTable = $('#nvr-datatable').DataTable({
       ajax: {
-      url: "/nvrs",
+      url: "/nvrs/data",
         dataSrc: function(data) {
           return data.nvrs;
         },
