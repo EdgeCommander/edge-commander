@@ -68,7 +68,7 @@
                   </button>
                    <div class="row m-login__form-sub">
                   <div class="col m--align-left m-login__form-left" style="padding-left:0">
-                   <a href="/users/sign_in" id="m_login_forget_password" class="m-link">
+                   <a href="/" id="m_login_forget_password" class="m-link">
                      << Go back to login
                     </a>
                   </div>
