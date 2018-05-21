@@ -40,6 +40,7 @@ defmodule EdgeCommander.Accounts do
   end
 
   def current_user(conn) do
+    conn = Plug.Conn.fetch_session(conn)
     id = Plug.Conn.get_session(conn, :current_user)
     if id, do: Repo.get(User, id)
   end

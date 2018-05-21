@@ -51,7 +51,7 @@ var vm = new Vue({
       initializeTable: function(){
         sitesDataTable = $('#sites-datatable').DataTable({
           ajax: {
-          url: "/sites",
+          url: "/sites/data",
             dataSrc: function(data) {
               return data.sites;
             },

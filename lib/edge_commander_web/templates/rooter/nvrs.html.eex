@@ -74,7 +74,7 @@
         >
                         <ul class="m-menu__nav  m-menu__nav--dropdown-submenu-arrow ">
                             <li class="m-menu__item" aria-haspopup="true" >
-                                <a  href="/" class="m-menu__link ">
+                                <a  href="/sims" class="m-menu__link ">
                                     <i class="m-menu__link-icon fa fa-newspaper-o"></i>
                                     <span class="m-menu__link-title">
                                         <span class="m-menu__link-wrap">
@@ -86,7 +86,7 @@
                                 </a>
                             </li>
                             <li class="m-menu__item m-menu__item--active" aria-haspopup="true" >
-                                <a  href="/nvrs_list" class="m-menu__link ">
+                                <a  href="/nvrs" class="m-menu__link ">
                                     <i class="m-menu__link-icon la  la-building"></i>
                                     <span class="m-menu__link-title">
                                         <span class="m-menu__link-wrap">
@@ -110,7 +110,7 @@
                                 </a>
                             </li>
                             <li class="m-menu__item" aria-haspopup="true" >
-                                <a  href="/routers_list" class="m-menu__link ">
+                                <a  href="/routers" class="m-menu__link ">
                                     <i class="m-menu__link-icon fa fa-registered"></i>
                                     <span class="m-menu__link-title">
                                         <span class="m-menu__link-wrap">
@@ -122,7 +122,7 @@
                                 </a>
                             </li>
                             <li class="m-menu__item" aria-haspopup="true" >
-                                <a  href="/sites_list" class="m-menu__link ">
+                                <a  href="/sites" class="m-menu__link ">
                                     <i class="m-menu__link-icon fa  fa-leanpub"></i>
                                     <span class="m-menu__link-title">
                                         <span class="m-menu__link-wrap">
@@ -146,7 +146,7 @@
                                 </a>
                             </li>
                             <li class="m-menu__item" aria-haspopup="true" >
-                                <a  href="/sms_messages" class="m-menu__link ">
+                                <a  href="/sms" class="m-menu__link ">
                                     <i class="m-menu__link-icon fa fa-envelope-open"></i>
                                     <span class="m-menu__link-title">
                                         <span class="m-menu__link-wrap">

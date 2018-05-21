@@ -16,7 +16,7 @@ defmodule EdgeCommanderWeb.UsersController do
           conn
           |> put_flash(:info, "Your account has been created.")
           |> put_session(:current_user, user.id)
-          |> redirect(to: "/")
+          |> redirect(to: "/sims")
         {:error, changeset} ->
           errors = Util.parse_changeset(changeset)
           traverse_errors = for {_key, values} <- errors, value <- values, do: "#{value}"
