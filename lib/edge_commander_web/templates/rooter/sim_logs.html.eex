@@ -147,7 +147,7 @@
                                 </a>
                             </li>
                             <li class="m-menu__item" aria-haspopup="true" >
-                                <a  href="/sms_messages" class="m-menu__link ">
+                                <a  href="/sms" class="m-menu__link ">
                                     <i class="m-menu__link-icon fa fa-envelope-open"></i>
                                     <span class="m-menu__link-title">
                                         <span class="m-menu__link-wrap">
