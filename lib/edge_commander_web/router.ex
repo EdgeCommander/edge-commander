@@ -102,7 +102,7 @@ defmodule EdgeCommanderWeb.Router do
 
     get "/update_status_report", NvrsController, :update_status_report
 
-    get "/users/sign_in", DashboardController, :sign_in
+    get "/", DashboardController, :sign_in
     get "/users/sign_up", DashboardController, :sign_up
 
     post "/users/sign_up", UsersController, :sign_up

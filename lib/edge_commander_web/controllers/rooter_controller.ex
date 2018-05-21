@@ -13,7 +13,7 @@ defmodule EdgeCommanderWeb.RooterController do
     else
       _ ->
         conn
-        |> redirect(to: "/users/sign_in")
+        |> redirect(to: "/")
     end
   end
 
@@ -23,7 +23,7 @@ defmodule EdgeCommanderWeb.RooterController do
     else
       _ ->
         conn
-        |> redirect(to: "/users/sign_in")
+        |> redirect(to: "/")
     end
   end
 
@@ -33,7 +33,7 @@ defmodule EdgeCommanderWeb.RooterController do
     else
       _ ->
         conn
-        |> redirect(to: "/users/sign_in")
+        |> redirect(to: "/")
     end
   end
 
@@ -43,7 +43,7 @@ defmodule EdgeCommanderWeb.RooterController do
     else
       _ ->
         conn
-        |> redirect(to: "/users/sign_in")
+        |> redirect(to: "/")
     end
   end
 
@@ -53,7 +53,7 @@ defmodule EdgeCommanderWeb.RooterController do
     else
       _ ->
         conn
-        |> redirect(to: "/users/sign_in")
+        |> redirect(to: "/")
     end
   end
 
@@ -63,7 +63,7 @@ defmodule EdgeCommanderWeb.RooterController do
     else
       _ ->
         conn
-        |> redirect(to: "/users/sign_in")
+        |> redirect(to: "/")
     end
   end
 
@@ -73,7 +73,7 @@ defmodule EdgeCommanderWeb.RooterController do
     else
       _ ->
         conn
-        |> redirect(to: "/users/sign_in")
+        |> redirect(to: "/")
     end
   end
 
@@ -83,7 +83,7 @@ defmodule EdgeCommanderWeb.RooterController do
     else
       _ ->
         conn
-        |> redirect(to: "/users/sign_in")
+        |> redirect(to: "/")
     end
   end
 
@@ -95,7 +95,7 @@ defmodule EdgeCommanderWeb.RooterController do
     else
       _ ->
         conn
-        |> redirect(to: "/users/sign_in")
+        |> redirect(to: "/")
     end
   end
 
@@ -107,7 +107,7 @@ defmodule EdgeCommanderWeb.RooterController do
     else
       _ ->
         conn
-        |> redirect(to: "/users/sign_in")
+        |> redirect(to: "/")
     end
   end
 
@@ -119,7 +119,7 @@ defmodule EdgeCommanderWeb.RooterController do
     else
       _ ->
         conn
-        |> redirect(to: "/users/sign_in")
+        |> redirect(to: "/")
     end
   end
 end

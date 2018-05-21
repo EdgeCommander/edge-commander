@@ -14,13 +14,13 @@ defmodule EdgeCommanderWeb.SessionController do
       :error ->
         conn
         |> put_flash(:error, "Wrong email or password.")
-        |> redirect(to: "/users/sign_in")
+        |> redirect(to: "/")
     end
   end
 
   def delete(conn, _) do
     conn
     |> delete_session(:current_user)
-    |> redirect(to: "/users/sign_in")
+    |> redirect(to: "/")
   end
 end
