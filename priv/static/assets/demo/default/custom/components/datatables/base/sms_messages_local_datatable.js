@@ -223,6 +223,29 @@ var vm = new Vue({
     },
     onSmsButton: function() {
       $('.add_sms_to_db').modal('show');
+    },
+    autocompleteInput: function(){
+      var availableTags = [
+        "Disconnect",
+        "Connect",
+        "Restart",
+        "Reconnect",
+        "Status",
+        "VPN on",
+        "VPN off",
+        "Upgrade",
+        "Internet on",
+        "Internet off",
+        "WLAN on",
+        "WLAN off",
+        "On",
+        "Off",
+        "#01#",
+        "#02#"
+      ];
+      $( "#smsMessage" ).autocomplete({
+        source: availableTags
+      });
     }
   }, // end of methods
    mounted(){

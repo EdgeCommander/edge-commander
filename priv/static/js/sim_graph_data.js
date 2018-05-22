@@ -344,7 +344,30 @@ var vm = new Vue({
     $('#double-scroll').doubleScroll();
     var table_width = $("#sms-datatable").width();
     $(".doubleScroll-scroll").width(table_width);
-   }
+   },
+   autocompleteInputSms: function(){
+      var availableTags = [
+        "Disconnect",
+        "Connect",
+        "Restart",
+        "Reconnect",
+        "Status",
+        "VPN on",
+        "VPN off",
+        "Upgrade",
+        "Internet on",
+        "Internet off",
+        "WLAN on",
+        "WLAN off",
+        "On",
+        "Off",
+        "#01#",
+        "#02#"
+      ];
+      $("#smsMessage").autocomplete({
+        source: availableTags
+      });
+    }
   }, // end of methods
   mounted(){
     this.initializeSimsTable();
