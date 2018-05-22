@@ -932,7 +932,7 @@
                                                     {{form_labels.message}}
                                                 </label>
                                                 <div class="col-9">
-                                                    <input type="text" class="form-control m-input m-input--solid" id="smsMessage" v-model="smsMessage" aria-describedby="emailHelp">
+                                                    <input type="text" class="form-control m-input m-input--solid" id="smsMessage" v-model="smsMessage">
                                                 </div>
                                             </div>
                                         </div>
