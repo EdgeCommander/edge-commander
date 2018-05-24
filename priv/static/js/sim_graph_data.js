@@ -246,11 +246,50 @@ var vm = new Vue({
 
       this.sendAJAXRequest(settingsForMorris);
     },
+    addZero: function(i) {
+      if (i < 10) {
+        i = "0" + i;
+      }
+      return i;
+    },
+    getActualFullDate: function() {
+      var d = new Date();
+      var day = this.addZero(d.getDate());
+      var month = this.addZero(d.getMonth()+1);
+      var year = this.addZero(d.getFullYear());
+      var h = this.addZero(d.getHours());
+      var m = this.addZero(d.getMinutes());
+      var s = this.addZero(d.getSeconds());
+      return year + "-" + month + "-" + day;
+    },
+    getUsageValue: function(array, obj) {
+      var i = array.length;
+      while (i--) {
+        if (array[i]["datetime"] == obj) {
+          return array[i]["percentage_used"];
+        }
+      }
+      return 0;
+    },
     onMorrisSuccess: function (result, status, jqXHR) {
       var labelsZchartjs = [], dataZChartsJS = [];
-      $.each(result.chartjs_data, function( index, element ) {
-        labelsZchartjs.push(element.datetime);
-        dataZChartsJS.push(element.percentage_used);
+
+      var listDate = [];
+      var startDate = result.chartjs_data[0]["datetime"];
+      var endDate = vm.getActualFullDate();
+      var dateMove = new Date(startDate);
+      var strDate = startDate;
+
+      while (strDate < endDate){
+        var strDate = dateMove.toISOString().slice(0,10);
+        listDate.push(strDate);
+        dateMove.setDate(dateMove.getDate()+1);
+      };
+
+      listDate.forEach(function(element) {
+        labelsZchartjs.push(element);
+        var val = vm.getUsageValue(result.chartjs_data, element)
+        dataZChartsJS.push(val);
       });
 
       var chartColors = {
@@ -283,7 +322,7 @@ var vm = new Vue({
             labels: {
               boxWidth: 0,
               fontStyle: "bold",
-              fontSize: 20
+              fontSize: 18
             }
           },
           responsive: true,
