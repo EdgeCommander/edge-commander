@@ -492,6 +492,43 @@ select.form-control:not([size]):not([multiple]) {
   color: #737373;
 }
 
+#input_container {
+  position:relative;
+  padding:0 0 0 20px;
+}
+
+#smsMessage {
+  padding-right: 30px;
+  width: 97%;
+  height: 40px;
+  margin-left: -5px;
+  background-color:#fff;
+  border: solid 1px #ebedf2;
+}
+
+#input_img {
+  position:absolute;
+  bottom:5px;
+  right:17px;
+  width:15px;
+  height:24px;
+  background: url(../../../images/arrow-down.png) no-repeat;
+}
+
+.ui-autocomplete {
+  max-height: 300px;
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+
+.ui-menu .ui-menu-item-wrapper {
+    position: relative;
+    padding: 0 0 2px 20px !important;
+    font-size: 12px;
+
+}
+
+
 @media (max-width: 767px){
   #m_form_search{
     margin-top:10px;

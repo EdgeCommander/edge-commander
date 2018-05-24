@@ -308,10 +308,12 @@
                     <label class="col-3 col-form-label">
                         {{form_labels.message}}
                     </label>
-                    <div class="col-9" id="form_inputs">
+                    <div class="col-9" id="input_container">
                       <input type="hidden" id="user_id" value="<%= @user.id %>" v-model="user_id">
                       <input type="text" class="form-control m-input m-input--solid" id="smsMessage" v-model="smsMessage">
+                      <div id="input_img"></div>
                     </div>
+                    <input type="hidden" name="" id="smsMessage_text" v-model="smsMessage_text">
                   </div>
                 </div>
             </div>
