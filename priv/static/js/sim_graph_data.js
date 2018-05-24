@@ -23,7 +23,8 @@ var vm = new Vue({
     },
     smsMessage: "",
     toNumber: "",
-    user_id: ""
+    user_id: "",
+    smsMessage_text: ""
   },
   methods: {
     initializeSimsTable: function(){
@@ -165,7 +166,7 @@ var vm = new Vue({
       this.show_loading = true;
       $("#body-sms-dis *").prop('disabled',true);
 
-      var sms_message  = this.smsMessage,
+      var sms_message  = this.smsMessage_text,
       to_number        = this.toNumber,
       user_id          = this.user_id
 
@@ -221,7 +222,8 @@ var vm = new Vue({
       return false;
     },
     clearForm: function() {
-      $("#smsMessage").val("");
+      this.smsMessage = "";
+      this.smsMessage_text = "";
       $("#body-sms-dis *").prop('disabled', false);
     },
     onSendSMSFocus: function() {
@@ -346,26 +348,42 @@ var vm = new Vue({
     $(".doubleScroll-scroll").width(table_width);
    },
    autocompleteInputSms: function(){
-      var availableTags = [
-        "Disconnect",
-        "Connect",
-        "Restart",
-        "Reconnect",
-        "Status",
-        "VPN on",
-        "VPN off",
-        "Upgrade",
-        "Internet on",
-        "Internet off",
-        "WLAN on",
-        "WLAN off",
-        "On",
-        "Off",
-        "#01#",
-        "#02#"
-      ];
-      $("#smsMessage").autocomplete({
-        source: availableTags
+      $(function () {
+        var availableTags = [
+         "Disconnect",
+          "Connect",
+          "Restart",
+          "Reconnect",
+          "Status",
+          "VPN on",
+          "VPN off",
+          "Upgrade",
+          "Internet on",
+          "Internet off",
+          "WLAN on",
+          "WLAN off",
+          "On",
+          "Off",
+          "#01#",
+          "#02#"
+        ];
+        $("#smsMessage").autocomplete({
+          source: availableTags,
+          minLength: 0,
+          change: function(event, ui) {
+            if (ui.item) {
+              vm.smsMessage_text = ui.item.value
+              vm.smsMessage = ui.item.value
+            }
+          }
+        });
+        $('#input_img').on('click', function () {
+          $('#smsMessage').autocomplete('search' , '');
+        });
+        $('#smsMessage').on('keyup', function () {
+          value =  $(this).val();
+          vm.smsMessage_text = value
+        });
       });
     }
   }, // end of methods
