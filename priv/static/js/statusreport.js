@@ -1,8 +1,7 @@
 var vm = new Vue({
   el: '#status_rpt_main',
-  show_loading: false,
-  data(){
-    return{}
+  data: {
+    show_loading: false
   },
   methods: {
     sendAJAXRequest: function(settings) {

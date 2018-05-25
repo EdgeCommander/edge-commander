@@ -45,7 +45,8 @@ var vm = new Vue({
     edit_sim_number: "",
     edit_router_id: "",
     edit_nvr_id: "",
-    edit_notes: ""
+    edit_notes: "",
+    edit_map_area: ""
   },
   methods: {
       initializeTable: function(){
