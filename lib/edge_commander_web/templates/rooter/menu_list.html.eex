@@ -1,22 +1,124 @@
-  <div class="ui left vertical sidebar labeled icon menu visible set_to_lock">
-    <a class="item" href="/">
-      <i class="home icon"></i>
-      NVRs
-    </a>
-    <a class="item" href="/sim_logs_report">
-      <i class="newspaper icon"></i>
-      Sims
-    </a>
-    <a class="item">
-      <i class="block layout icon"></i>
-      Settings
-    </a>
-    <a class="item" href="/status_report">
-      <i class="smile icon"></i>
-      Status Report
-    </a>
-    <a href="/users/session" class="item">
-      <i class="sign out icon"></i>
-      Logout
-    </a>
-  </div>
+ <ul class="m-menu__nav  m-menu__nav--dropdown-submenu-arrow ">
+    <li class="m-menu__item <%=  if (@conn.request_path == "/sims" or String.starts_with?(@conn.request_path, "/sims/")), do: "m-menu__item--active", else: "" %>" aria-haspopup="true" >
+        <a  href="/sims" class="m-menu__link ">
+            <i class="m-menu__link-icon fa fa-newspaper-o"></i>
+            <span class="m-menu__link-title">
+                <span class="m-menu__link-wrap">
+                    <span class="m-menu__link-text">
+                        SIMs
+                    </span>
+                </span>
+            </span>
+        </a>
+    </li>
+    <li class="m-menu__item <%=  if (@conn.request_path == "/nvrs"), do: "m-menu__item--active", else: "" %>" aria-haspopup="true" >
+        <a  href="/nvrs" class="m-menu__link ">
+            <i class="m-menu__link-icon la  la-building"></i>
+            <span class="m-menu__link-title">
+                <span class="m-menu__link-wrap">
+                    <span class="m-menu__link-text">
+                        NVRs
+                    </span>>
+                </span>
+            </span>
+        </a>
+    </li>
+    <li class="m-menu__item <%=  if (@conn.request_path == "/status_report"), do: "m-menu__item--active", else: "" %>" aria-haspopup="true" >
+        <a  href="/status_report" class="m-menu__link ">
+            <i class="m-menu__link-icon fa  fa-barcode"></i>
+            <span class="m-menu__link-title">
+                <span class="m-menu__link-wrap">
+                    <span class="m-menu__link-text">
+                        Status Report
+                    </span>>
+                </span>
+            </span>
+        </a>
+    </li>
+    <li class="m-menu__item <%=  if (@conn.request_path == "/routers"), do: "m-menu__item--active", else: "" %>" aria-haspopup="true" >
+        <a  href="/routers" class="m-menu__link ">
+            <i class="m-menu__link-icon fa fa-registered"></i>
+            <span class="m-menu__link-title">
+                <span class="m-menu__link-wrap">
+                    <span class="m-menu__link-text">
+                        Routers
+                    </span>>
+                </span>
+            </span>
+        </a>
+    </li>
+    <li class="m-menu__item <%=  if (@conn.request_path == "/sites"), do: "m-menu__item--active", else: "" %>" aria-haspopup="true" >
+        <a  href="/sites" class="m-menu__link ">
+            <i class="m-menu__link-icon fa  fa-leanpub"></i>
+            <span class="m-menu__link-title">
+                <span class="m-menu__link-wrap">
+                    <span class="m-menu__link-text">
+                        Sites
+                    </span>>
+                </span>
+            </span>
+        </a>
+    </li>
+    <li class="m-menu__item <%=  if (@conn.request_path == "/commands"), do: "m-menu__item--active", else: "" %>" aria-haspopup="true" >
+        <a  href="/commands" class="m-menu__link ">
+            <i class="m-menu__link-icon fa fa-bullhorn"></i>
+            <span class="m-menu__link-title">
+                <span class="m-menu__link-wrap">
+                    <span class="m-menu__link-text">
+                        Commands
+                    </span>>
+                </span>
+            </span>
+        </a>
+    </li>
+    <li class="m-menu__item <%=  if (@conn.request_path == "/sms"), do: "m-menu__item--active", else: "" %>" aria-haspopup="true" >
+        <a  href="/sms" class="m-menu__link ">
+            <i class="m-menu__link-icon fa fa-envelope-open"></i>
+            <span class="m-menu__link-title">
+                <span class="m-menu__link-wrap">
+                    <span class="m-menu__link-text">
+                        SMS
+                    </span>>
+                </span>
+            </span>
+        </a>
+    </li>
+</ul>
+<ul class="m-menu__nav  m-menu__nav--dropdown-submenu-arrow bottom_links">
+    <li class="m-menu__item bottom_link <%=  if (@conn.request_path == "/api"), do: "m-menu__item--active", else: "" %>" aria-haspopup="true" >
+        <a  href="/api" class="m-menu__link">
+            <i class="m-menu__link-icon fa fa-paperclip"></i>
+            <span class="m-menu__link-title">
+                <span class="m-menu__link-wrap">
+                    <span class="m-menu__link-text">
+                        API
+                    </span>>
+                </span>
+            </span>
+        </a>
+    </li>
+    <li class="m-menu__item bottom_link <%=  if (@conn.request_path == "/my_profile"), do: "m-menu__item--active", else: "" %>" aria-haspopup="true" >
+        <a  href="/my_profile" class="m-menu__link ">
+            <i class="m-menu__link-icon fa fa-user"></i>
+            <span class="m-menu__link-title">
+                <span class="m-menu__link-wrap">
+                    <span class="m-menu__link-text">
+                        My Profile
+                    </span>>
+                </span>
+            </span>
+        </a>
+    </li>
+    <li class="m-menu__item bottom_link" aria-haspopup="true" style="border-top: solid 1px #333333;">
+        <a  href="/users/session" class="m-menu__link ">
+            <i class="m-menu__link-icon fa fa-power-off"></i>
+            <span class="m-menu__link-title">
+                <span class="m-menu__link-wrap">
+                    <span class="m-menu__link-text">
+                        Logout
+                    </span>>
+                </span>
+            </span>
+        </a>
+    </li>
+</ul>
