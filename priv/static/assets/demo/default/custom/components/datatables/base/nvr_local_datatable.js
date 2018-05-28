@@ -63,7 +63,8 @@ var vm = new Vue({
      edit_http_nvr_port: "",
      edit_sdk_nvr_port: "",
      edit_vh_nvr_port: "",
-     edit_nvr_is_monitoring: ""
+     edit_nvr_is_monitoring: "",
+     edit_rtsp_nvr_port: ""
   },
   methods: {
     initializeTable: function(){
