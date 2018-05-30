@@ -13,8 +13,7 @@ defmodule EdgeCommanderWeb.RooterController do
     else
       _ ->
         conn
-        |> put_flash(:error, "You must be logged in to see that page :).")
-        |> redirect(to: "/users/sign_in")
+        |> redirect(to: "/")
     end
   end
 
@@ -24,8 +23,7 @@ defmodule EdgeCommanderWeb.RooterController do
     else
       _ ->
         conn
-        |> put_flash(:error, "You must be logged in to see that page :).")
-        |> redirect(to: "/users/sign_in")
+        |> redirect(to: "/")
     end
   end
 
@@ -35,8 +33,7 @@ defmodule EdgeCommanderWeb.RooterController do
     else
       _ ->
         conn
-        |> put_flash(:error, "You must be logged in to see that page :).")
-        |> redirect(to: "/users/sign_in")
+        |> redirect(to: "/")
     end
   end
 
@@ -46,8 +43,7 @@ defmodule EdgeCommanderWeb.RooterController do
     else
       _ ->
         conn
-        |> put_flash(:error, "You must be logged in to see that page :).")
-        |> redirect(to: "/users/sign_in")
+        |> redirect(to: "/")
     end
   end
 
@@ -57,8 +53,7 @@ defmodule EdgeCommanderWeb.RooterController do
     else
       _ ->
         conn
-        |> put_flash(:error, "You must be logged in to see that page :).")
-        |> redirect(to: "/users/sign_in")
+        |> redirect(to: "/")
     end
   end
 
@@ -68,8 +63,7 @@ defmodule EdgeCommanderWeb.RooterController do
     else
       _ ->
         conn
-        |> put_flash(:error, "You must be logged in to see that page :).")
-        |> redirect(to: "/users/sign_in")
+        |> redirect(to: "/")
     end
   end
 
@@ -79,8 +73,7 @@ defmodule EdgeCommanderWeb.RooterController do
     else
       _ ->
         conn
-        |> put_flash(:error, "You must be logged in to see that page :).")
-        |> redirect(to: "/users/sign_in")
+        |> redirect(to: "/")
     end
   end
 
@@ -90,47 +83,43 @@ defmodule EdgeCommanderWeb.RooterController do
     else
       _ ->
         conn
-        |> put_flash(:error, "You must be logged in to see that page :).")
-        |> redirect(to: "/users/sign_in")
+        |> redirect(to: "/")
     end
   end
 
   def sites(conn, _params) do
     current_user = current_user(conn)
-    current_user_id = current_user.id
     with %User{} <- current_user(conn) do
+      current_user_id = current_user.id
       render(conn, "sites.html", user: current_user, gravatar_url: current_user |> Map.get(:email) |> gravatar_url(secure: true), list_nvrs: list_nvrs(current_user_id), list_routers: list_routers(current_user_id), all_sims: all_sims())
     else
       _ ->
         conn
-        |> put_flash(:error, "You must be logged in to see that page :).")
-        |> redirect(to: "/users/sign_in")
+        |> redirect(to: "/")
     end
   end
 
   def swagger(conn, _params) do
     current_user = current_user(conn)
-    current_user_id = current_user.id
     with %User{} <- current_user(conn) do
+      current_user_id = current_user.id
       render(conn, "swagger.html", user: current_user, gravatar_url: current_user |> Map.get(:email) |> gravatar_url(secure: true), list_nvrs: list_nvrs(current_user_id), list_routers: list_routers(current_user_id), all_sims: all_sims())
     else
       _ ->
         conn
-        |> put_flash(:error, "You must be logged in to see that page :).")
-        |> redirect(to: "/users/sign_in")
+        |> redirect(to: "/")
     end
   end
 
   def sms_messages(conn, _params) do
     current_user = current_user(conn)
-    current_user_id = current_user.id
     with %User{} <- current_user(conn) do
+      current_user_id = current_user.id
       render(conn, "sms_messages.html", user: current_user, gravatar_url: current_user |> Map.get(:email) |> gravatar_url(secure: true), list_nvrs: list_nvrs(current_user_id), list_routers: list_routers(current_user_id), all_sims: all_sims())
     else
       _ ->
         conn
-        |> put_flash(:error, "You must be logged in to see that page :).")
-        |> redirect(to: "/users/sign_in")
+        |> redirect(to: "/")
     end
   end
 end

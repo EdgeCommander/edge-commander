@@ -357,25 +357,182 @@ select.form-control:not([size]):not([multiple]) {
   display:inline-block !important;
 }
 
-#commands-datatable_filter input[type="search"]{
-  background-color: #f4f5f8;
-  border-color: #f4f5f8;
-  color: #575962;
-  border: 1px solid rgba(0,0,0,.15);
-  border-radius: .25rem;
-  padding: 6px 12px
-}
-
 .m-portlet__body{
   padding: 0 10px 10px 10px;
 }
 
-.datatable{
-  margin-top: 5px !important;
+.width-10{
+  min-width: 10px;
+}
+
+.width-80{
+  min-width: 80px;
+}
+
+.width-60{
+  min-width: 60px;
+}
+
+.width-100{
+  min-width: 100px;
+}
+
+.width-120{
+  min-width: 120px;
+}
+
+.width-120{
+  min-width: 120px;
+}
+
+.width-180{
+  min-width: 180px;
+}
+
+.width-150{
+  min-width: 150px;
+}
+
+.width-200{
+  min-width: 200px;
+}
+
+.width-250{
+  min-width: 250px;
+}
+
+.width-300{
+  min-width: 300px;
+}
+
+.width-400{
+  min-width: 400px;
+}
+
+.width-530{
+  min-width: 530px;
+}
+
+.width-1060{
+  min-width: 1060px;
+}
+
+.dataTables_filter{
+  display:none;
 }
 
 .table-bordered td, .table-bordered th {
   border: 1px solid #e9ecef !important;
+}
+
+.table td, .table th{
+  padding-bottom: 5px;
+}
+
+#swagger-ui{
+    min-width: 992px;
+    overflow: auto;
+    overflow-y: hidden;
+    margin: 0 auto;
+    white-space: nowrap
+}
+
+[v-cloak] {
+  display:none;
+}
+
+.m-login.m-login--2 .m-login__wrapper .m-login__container .m-login__form .m-form__group .form-control {
+  border-radius: 0;
+  padding: 15px;
+  margin-top: 1.5rem;
+}
+
+.m-login.m-login--2 .m-login__wrapper .m-login__container .m-login__form .m-login__form-action .m-login__btn {
+  display: inline-block;
+  text-align: center;
+  padding: 15px;
+  border-radius: 0;
+  background-color: #4c4b4b;
+  box-shadow: none;
+  border: 0;
+}
+
+.m-login.m-login--2 .m-login__wrapper .m-login__container .m-login__form .m-login__form-action {
+  text-align: center;
+  margin-top: 0;
+}
+
+.m-login.m-login--2 .m-login__wrapper .m-login__container .m-login__form .m-login__form-sub {
+  padding-left: 7px;
+  padding-right: 7px;
+  margin: 15px auto 0 auto;
+}
+
+.m-checkbox.m-checkbox--focus>span:after {
+  border: solid #9e9e9d;
+}
+
+.m-checkbox.m-checkbox--focus>input:checked~span {
+  border: 1px solid #c2c2c2;
+}
+
+.m-login.m-login--2 .m-login__wrapper .m-login__container .m-login__form {
+  margin-bottom: 40px;
+  margin-top: 40px;
+}
+
+.m-login.m-login--2 .m-login__wrapper .m-login__container .m-login__logo {
+  text-align: center;
+  margin: 0 auto 4rem auto;
+  margin-bottom: 10px;
+}
+
+.m-login.m-login--2.m-login-2--skin-2 .m-login__container .m-login__account .m-login__account-link,
+.m-login.m-login--2.m-login-2--skin-2 .m-login__container .m-login__head .m-login__title {
+  color: #737373;
+}
+
+#input_container {
+  position:relative;
+  padding:0 0 0 20px;
+}
+
+#smsMessage {
+  padding-right: 30px;
+  width: 97%;
+  height: 40px;
+  margin-left: -5px;
+  background-color:#fff;
+  border: solid 1px #ebedf2;
+}
+
+#input_img {
+  position:absolute;
+  bottom:5px;
+  right:17px;
+  width:15px;
+  height:24px;
+  background: url(../../../images/arrow-down.png) no-repeat;
+}
+
+.ui-autocomplete {
+  max-height: 300px;
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+
+.ui-menu .ui-menu-item-wrapper {
+    position: relative;
+    padding: 0 0 2px 20px !important;
+    font-size: 12px;
+
+}
+
+
+@media (max-width: 767px){
+  #m_form_search{
+    margin-top:10px;
+  }
 }
 
 @media (min-width: 993px){
@@ -389,6 +546,15 @@ select.form-control:not([size]):not([multiple]) {
     bottom: 0;
     width: inherit;
   }
+}
+
+@media (max-width: 575px){
+  .sim_log_datatable{
+    padding-left: 15px;
+  }
+  .sim_graph_panel{
+  padding-right: 15px;
+}
 }
 
 @media (max-width: 992px) {

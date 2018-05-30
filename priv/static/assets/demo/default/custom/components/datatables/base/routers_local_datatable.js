@@ -1,406 +1,370 @@
-var routerDataTable = null;
-
-var DatatableDataROUTER = function() {
-  routerDataTable = $(".m_router_datatable").mDatatable({
-    data: {
-      type: "remote",
-      source: "/routers",
-      pageSize: 50,
-      serverPaging: false,
-      serverFiltering: false,
-      serverSorting: false
+var vm = new Vue({
+  el: '#router_main',
+  data: {
+    dataTable: null,
+    m_form_search: "",
+    show_loading: false,
+    show_errors: false,
+    show_edit_errors: false,
+    headings: [
+      {column: "Actions"},
+      {column: "Name"},
+      {column: "IP"},
+      {column: "HTTP Port"},
+      {column: "Username"},
+      {column: "Password"},
+      {column: "Monitoring"},
+      {column: "Created At"},
+    ],
+    form_labels: {
+      name: "Name",
+      ip: "IP",
+      username: "Username",
+      password: "Password",
+      http_port: "HTTP Port",
+      status: "Monitoring",
+      add_title: "Add Router",
+      edit_title: "Edit Router",
+      hide_show_title: "Show/Hide Columns",
+      add_router_button: "Add Router",
+      hide_show_button: "OK",
+      submit_button: "Save changes"
     },
-    layout: {
-      theme: "default",
-      class: "",
-      scroll: !1,
-      height: 950,
-      footer: !1
-    },
-    sortable: !0,
-    filterable: !1,
-    pagination: false,
-    columns: [
-    {
-      field: "actions",
-      width: 60,
-      title: "Actions",
-      locked: {left: 'xl'},
-      sortable: false,
-      template: function(t) {
-        return "<div class='editROUTER cursor_to_pointer fa fa-edit' data-id='"+ t.id +"'></div> <div class='deleteROUTER cursor_to_pointer fa fa-trash' data-id='"+ t.id +"'></div>";
-      },
-    },
-    {
-        field: "name",
-        title: "Name",
-        width: 220,
-        sortable: !1,
-        selector: !1,
-    },
-    {
-        field: "ip",
-        title: "IP",
-        width: 150
-    },
-    {
-        field: "port",
-        title: "HTTP Port",
-        textAlign: "center",
-        width: 150
-    },
-    {
-        field: "username",
-        title: "Username",
-        textAlign: "center",
-        width: 100,
-        responsive: {
-            visible: "lg"
-        }
-    }, {
-        field: "password",
-        title: "Password",
-        textAlign: "center",
-        width: 150
-    }, {
-        field: "is_monitoring",
-        title: "Monitoring",
-        textAlign: "center",
-        width: 100,
-        template: function(t) {
-          if (t.is_monitoring) {
-            return "Yes";
-          } else{
-            return "No";
+    router_name: "",
+    router_ip: "",
+    router_username: "",
+    router_password: "",
+    http_router_port: "",
+    router_is_monitoring: false,
+    edit_router_id: "",
+    edit_router_name: "",
+    edit_router_ip: "",
+    edit_router_username: "",
+    edit_router_password: "",
+    edit_http_router_port: "",
+    edit_router_is_monitoring:  false,
+    user_id: ""
+  },
+  methods: {
+    initializeTable: function(){
+      routersDataTable = $('#routers-datatable').DataTable({
+        ajax: {
+        url: "/routers/data",
+          dataSrc: function(data) {
+            return data.routers;
+          },
+          error: function(xhr, error, thrown) {
+            if (xhr.responseJSON) {
+              console.log(xhr.responseJSON.message);
+            } else {
+              console.log("Something went wrong, Please try again.");
+            }
           }
         },
-    }, {
-        field: "created_at",
-        title: "Created At",
-        textAlign: "center",
-        template: function(t) {
-          return "" + moment(t.created_at).format('MMMM Do YYYY, H:mm:ss') +"";
+        columns: [
+        {
+          class: "text-center width-60",
+          data: function(row, type, set, meta) {
+            return '<div class="editRouter cursor_to_pointer fa fa-edit" data-id="'+ row.id +'"></div> <div class="deleteRouter cursor_to_pointer fa fa-trash" data-id="'+ row.id +'"></div>';
+          }
         },
-        width: 230
+        {
+          class: "width-250",
+          data: function(row, type, set, meta) {
+            return row.name;
+          }
+        },
+        {
+          class: "width-150",
+          data: function(row, type, set, meta) {
+            return row.ip;
+          }
+        },
+        {
+          class: "text-center width-150",
+          data: function(row, type, set, meta) {
+            return row.port;
+          }
+        },
+        {
+          class: "text-center width-150",
+          data: function(row, type, set, meta) {
+            return row.username;
+          }
+        },
+        {
+          class: "width-150",
+          data: function(row, type, set, meta) {
+            return row.password;
+          }
+        },
+        {
+          class: "width-120",
+          data: function(row, type, set, meta) {
+            return row.is_monitoring;
+          }
+        },
+        {
+          class: "text-center width-250",
+          data: function(row, type, set, meta) {
+            return moment(row.created_at).format('MMMM Do YYYY, H:mm:ss');
+          },
+        },
+        ],
+        autoWidth: false,
+        info: false,
+        bPaginate: false,
+        lengthChange: false,
+        // stateSave:  true,
+      });
+      this.dataTable = routersDataTable;
+    },
+    search: function(){
+      this.dataTable.search(this.m_form_search).draw();
+    },
+    showHideColumns: function(column){
+      var column = this.dataTable.column(column);
+      column.visible( ! column.visible() );
+      this.resizeScreen();
+    },
+    sendAJAXRequest: function(settings){
+      var headers, token, xhrRequestChangeMonth;
+      token = $('meta[name="csrf-token"]');
+      if (token.length > 0) {
+      headers = {
+        "X-CSRF-Token": token.attr("content")
+      };
+      settings.headers = headers;
       }
-    ]
-  });
-};
+      return xhrRequestChangeMonth = jQuery.ajax(settings);
+    },
+    onROUTERButton: function() {
+      $('.add_router_to_db').modal('show');
+    },
+    setUserId: function(id){
+      this.user_id = id;
+    },
+    saveModal: function() {
+      $('ul#errorOnROUTER').html("");
+      this.show_loading = true;
+      $("#body-router-dis *").prop('disabled',true);
+      this.show_errors = true;
 
-onSearching = function() {
-  i = routerDataTable.getDataSourceQuery();
-  $("#m_form_search").on("keyup", function(e) {
-      routerDataTable.search($(this).val().toLowerCase())
-  }).val(i.generalSearch)
-}
+      var name             = this.router_name,
+          IP               = this.router_ip,
+          username         = this.router_username,
+          password         = this.router_password,
+          http_router_port = this.http_router_port,
+          user_id          = this.user_id,
+          is_monitoring    = this.router_is_monitoring;
 
-var startROUTERTable = function() {
-  DatatableDataROUTER();
-};
+      var data = {};
+          data.name = name;
+          data.ip = IP;
+          data.username = username;
+          data.password = password;
+          data.port = http_router_port;
+          data.is_monitoring = is_monitoring;
+          data.user_id = user_id;
 
+      var settings;
 
-var onROUTERButton = function() {
-  $("#addROUTER").on("click", function(){
-    $('.add_router_to_db').modal('show');
-  });
-};
+      settings = {
+        cache: false,
+        data: data,
+        dataType: 'json',
+        error: this.onError,
+        success: this.onSuccess,
+        contentType: "application/x-www-form-urlencoded",
+        type: "POST",
+        url: "/routers"
+      };
 
-var discardModal = function() {
-  $("#discardModal").on("click", function() {
-    $('ul#errorOnROUTER').html("")
-    clearForm();
-    $("#routerErrorDetails").addClass("hide_me");
-  });
-};
-
-var clearForm = function() {
-  $("#router_name").val("");
-  $("#router_ip").val("");
-  $("#router_username").val("");
-  $("#router_password").val("");
-  $("#http_router_port").val("");
-  $('ul#errorOnROUTER').html("");
-  $("#set_to_load").removeClass("loading");
-  $("#body-router-dis *").prop('disabled', false);
-  $("#routerErrorDetails").addClass("hide_me");
-};
-
-var saveModal = function() {
-  $("#saveModal").on("click", function() {
-    $('ul#errorOnROUTER').html("");
-    $("#api-wait").removeClass("hide_me");
-    $("#body-router-dis *").prop('disabled',true);
-    $("#routerErrorDetails").addClass("hide_me");
-    // $("#set_to_load").addClass("loading");
-    var name          = $("#router_name").val(),
-        IP            = $("#router_ip").val(),
-        username      = $("#router_username").val(),
-        password      = $("#router_password").val(),
-        http_router_port = $("#http_router_port").val(),
-        user_id       = $("#user_id").val(),
-        is_monitoring = $('input[id=router_is_monitoring]:checked').length > 0;
-
-    var data = {};
-        data.name = name;
-        data.ip = IP;
-        data.username = username;
-        data.password = password;
-        data.port = http_router_port;
-        data.is_monitoring = is_monitoring;
-        data.user_id = user_id;
-
-    var settings;
-
-    settings = {
-      cache: false,
-      data: data,
-      dataType: 'json',
-      error: onError,
-      success: onSuccess,
-      contentType: "application/x-www-form-urlencoded",
-      type: "POST",
-      url: "/routers"
-    };
-
-    sendAJAXRequest(settings);
-  });
-};
-
-var onError, onSuccess;
-
-onError = function(jqXHR, status, error) {
-  var cList = $('ul#errorOnROUTER')
-  $.each(jqXHR.responseJSON.errors, function(index, value) {
-    var li = $('<li/>')
+      vm.sendAJAXRequest(settings);
+    },
+    onError: function(jqXHR, status, error) {
+      var cList = $('ul#errorOnROUTER')
+      $.each(jqXHR.responseJSON.errors, function(index, value) {
+        var li = $('<li/>')
         .text(value)
         .appendTo(cList);
-  });
-  $("#routerErrorDetails").removeClass("hide_me");
-  $("#api-wait").addClass("hide_me");
-  $("#body-router-dis *").prop('disabled', false);
-  $("#set_to_load").removeClass("loading");
-  return false;
-};
+      });
+      this.show_errors = true;
+      this.show_loading = false;
+      $("#body-router-dis *").prop('disabled', false);
+      $("#set_to_load").removeClass("loading");
+      return false;
+    },
+    onSuccess: function(result, status, jqXHR) {
+      $.notify({
+        message: 'Router has been added.'
+      },{
+        type: 'info'
+      });
+      $(".modal-backdrop").remove();
+      $("#m_modal_1").modal("hide");
+      this.show_loading = false;
+      this.dataTable.ajax.reload();
+      this.clearForm();
+      return true;
+    },
+    clearForm: function() {
+      this.router_name = "";
+      this.router_ip = "";
+      this.router_username = "";
+      this.router_password = "";
+      this.http_router_port = "";
+      this.router_is_monitoring = false;
+      $('ul#errorOnROUTER').html("");
+      $("#body-router-dis *").prop('disabled', false);
+      this.show_errors = false;
+    },
+    deleteRouter: function() {
+      $(document).on("click", ".deleteRouter", function() {
+        var routerRow, result;
+        result = confirm("Are you sure to delete this Router?");
+        if (result === false) {
+          return;
+        }
+        routerRow = $(this).parents('tr');
+        routerID = $(this).attr('data-id');
 
-onSuccess = function(result, status, jqXHR) {
-  $.notify({
-    // options
-    message: 'Router has been added.'
-  },{
-    // settings
-    type: 'info'
-  });
-  $(".modal-backdrop").remove();
-  $("#m_modal_1").modal("hide");
-  $("#api-wait").addClass("hide_me");
-  routerDataTable.load();
-  clearForm();
-  console.log(result);
-  return true;
-};
-
-var sendAJAXRequest = function(settings) {
-  var headers, token, xhrRequestChangeMonth;
-  token = $('meta[name="csrf-token"]');
-  if (token.length > 0) {
-    headers = {
-      "X-CSRF-Token": token.attr("content")
-    };
-    settings.headers = headers;
-  }
-  return xhrRequestChangeMonth = jQuery.ajax(settings);
-};
-
-var deleteROUTER;
-
-deleteROUTER = function() {
-  $(document).on("click", ".deleteROUTER", function() {
-    var nvrRow, result;
-    result = confirm("Are you sure to delete this Router?");
-    if (result === false) {
-      return;
-    }
-    routerRow = $(this).parents('tr');
-    routerID = $(this).attr('data-id');
-
-    var data = {};
-    data.id = routerID;
-    var settings;
-
-    settings = {
-      cache: false,
-      data: data,
-      dataType: 'json',
-      error: onROUTERDeleteError,
-      success: onROUTERDeleteSuccess,
-      contentType: "application/x-www-form-urlencoded",
-      context: {routerRow: routerRow},
-      type: "DELETE",
-      url: "/routers/" + routerID
-    };
-
-    sendAJAXRequest(settings);
-  });
-};
-
-var onROUTERDeleteError, onROUTERDeleteSuccess;
-
-onROUTERDeleteError = function(jqXHR, status, error) {
-  console.log(jqXHR.responseJSON);
-  return false;
-};
-
-onROUTERDeleteSuccess = function(result, status, jqXHR) {
-  this.routerRow.remove();
-  $.notify({
-    // options
-    message: 'Router has been deleted.'
-  },{
-    // settings
-    type: 'info'
-  });
-  console.log(result);
-  routerDataTable.load();
-  return true;
-};
-
-var onROUTEREditButton;
-
-onROUTEREditButton = function() {
-  $(document).on("click", ".editROUTER", function(){
-
-    var row = $(this).closest('tr');
-    var data = routerDataTable.jsonData[row.index()];
-    console.log(row.index())
-
-    $("#saveEditModal").attr('data-id', $(this).data("id"));
-    $("#edit_router_name").val(data.name);
-    $("#edit_router_ip").val(data.ip);
-    $("#edit_router_username").val(data.username);
-    $("#edit_router_password").val(data.password);
-    $("#edit_http_router_port").val(data.port);
-
-    if (data.is_monitoring) {
-      $('#edit_router_is_monitoring').prop('checked', true);
-    }
-    $('#edit_router_to_db').modal('show');
-  });
-};
-
-
-var updateROUTERdo;
-
-updateROUTERdo = function(){
-  $("#saveEditModal").on("click", function() {
-    $("#body-router-edit-dis *").prop('disabled', true);
-    $('ul#errorOnEditROUTER').html("");
-    $("#api-wait").removeClass("hide_me");
-    $("#routerEditErrorDetails").addClass("hide_me");
-
-    var routerID = $(this).attr('data-id');
-    var name          = $("#edit_router_name").val(),
-        IP            = $("#edit_router_ip").val(),
-        username      = $("#edit_router_username").val(),
-        password      = $("#edit_router_password").val(),
-        http_router_port = $("#edit_http_router_port").val(),
-        is_monitoring = $('input[id=edit_router_is_monitoring]:checked').length > 0;
-
-    var data = {};
-        data.name = name;
-        data.ip = IP;
-        data.username = username;
-        data.password = password;
-        data.port = http_router_port;
-        data.is_monitoring = is_monitoring;
+        var data = {};
         data.id = routerID;
+        var settings;
 
-    var settings;
+        settings = {
+          cache: false,
+          data: data,
+          dataType: 'json',
+          error: function(){return false},
+          success: function(){
+            this.routerRow.remove();
+            $.notify({
+              message: 'Router has been deleted.'
+            },{
+              type: 'info'
+            });
+            return true;
+          },
+          contentType: "application/x-www-form-urlencoded",
+          context: {routerRow: routerRow},
+          type: "DELETE",
+          url: "/routers/" + routerID
+        };
 
-    settings = {
-      cache: false,
-      data: data,
-      dataType: 'json',
-      error: onEditError,
-      success: onEditSuccess,
-      contentType: "application/x-www-form-urlencoded",
-      type: "PATCH",
-      url: "/routers/" + routerID
-    };
+        vm.sendAJAXRequest(settings);
+      });
+    },
+    getUniqueIdentifier: function(){
+      $(document).on("click", ".editRouter", function(){
+        var tr = $(this).closest('tr');
+        var row = routersDataTable.row(tr);
+        var data = row.data();
+        router_id = $(this).data("id");
+        vm.onRouterEditButton(router_id, data);
+      });
+    },
+    onRouterEditButton: function(router_id, data) {
 
-    sendAJAXRequest(settings);
-  });
-};
+        this.edit_router_id = router_id;
+        this.edit_router_name = data.name;
+        this.edit_router_ip = data.ip;
+        this.edit_router_username = data.username;
+        this.edit_router_password = data.password;
+        this.edit_http_router_port = data.port;
 
-var onEditError, onEditSuccess;
+        if (data.is_monitoring) {
+          this.edit_router_is_monitoring = true;
+        }
+        $('#edit_router_to_db').modal('show');
+    },
+    updateRouterdo: function(){
+        $("#body-router-edit-dis *").prop('disabled', true);
+        $('ul#errorOnEditROUTER').html("");
+        this.show_loading = true;
+        this.show_edit_errors = true;
 
-onEditError = function(jqXHR, status, error) {
-  $("#api-wait").addClass("hide_me");
-  $("#body-router-edit-dis *").prop('disabled', false);
-  var cList = $('ul#errorOnEditROUTER')
-  $.each(jqXHR.responseJSON.errors, function(index, value) {
-    var li = $('<li/>')
+        var routerID         = this.edit_router_id;
+        var name             = this.edit_router_name,
+            IP               = this.edit_router_ip,
+            username         = this.edit_router_username,
+            password         = this.edit_router_password,
+            http_router_port = this.edit_http_router_port,
+            is_monitoring    = this.edit_router_is_monitoring;
+
+        var data = {};
+            data.name = name;
+            data.ip = IP;
+            data.username = username;
+            data.password = password;
+            data.port = http_router_port;
+            data.is_monitoring = is_monitoring;
+            data.id = routerID;
+
+        var settings;
+
+        settings = {
+          cache: false,
+          data: data,
+          dataType: 'json',
+          error: this.onEditError,
+          success: this.onEditSuccess,
+          contentType: "application/x-www-form-urlencoded",
+          type: "PATCH",
+          url: "/routers/" + routerID
+        };
+
+        vm.sendAJAXRequest(settings);
+    },
+    onEditError: function(jqXHR, status, error) {
+      this.show_loading = false;
+      $("#body-router-edit-dis *").prop('disabled', false);
+      var cList = $('ul#errorOnEditROUTER')
+      $.each(jqXHR.responseJSON.errors, function(index, value) {
+        var li = $('<li/>')
         .text(value)
         .appendTo(cList);
-  });
-  $("#routerEditErrorDetails").removeClass("hide_me");
-  return false;
-};
-
-onEditSuccess = function(result, status, jqXHR) {
-  $.notify({
-    // options
-    message: 'Router has been updated.'
-  },{
-    // settings
-    type: 'info'
-  });
-  $("#api-wait").addClass("hide_me");
-  editClearFrom();
-  $("#edit_router_to_db").modal("hide");
-  routerDataTable.load();
-  console.log(result);
-  return true;
-};
-
-var editClearFrom;
-
-editClearFrom = function() {
-  $("#edit_router_name").val("");
-  $("#edit_router_ip").val("");
-  $("#edit_router_username").val("");
-  $("#edit_router_password").val("");
-  $("#edit_http_router_port").val("");
-  $('ul#errorOnEditROUTER').html("");
-  $("#body-router-edit-dis *").prop('disabled', false);
-  $("#routerEditErrorDetails").addClass("hide_me");
-}
-
-var showHideColumns;
-
-showHideColumns = function() {
-  $(".router-column").on("click", function(){
-    console.log($(this).attr("data-field"));
-    var ColToHide = $(this).attr("data-field");
-    if(this.checked){
-      $("th[data-field='" + ColToHide + "']").show();
-      $("td[data-field='" + ColToHide + "']").show();
-    }else{
-      $("th[data-field='" + ColToHide + "']").hide();
-      $("td[data-field='" + ColToHide + "']").hide();
+      });
+      $("#routerEditErrorDetails").removeClass("hide_me");
+      return false;
+    },
+    onEditSuccess: function(result, status, jqXHR) {
+      $.notify({
+        message: 'Router has been updated.'
+      },{
+        type: 'info'
+      });
+      this.show_loading = false;
+      this.editClearFrom();
+      $("#edit_router_to_db").modal("hide");
+      this.dataTable.ajax.reload();
+      return true;
+    },
+    editClearFrom: function() {
+      this.edit_router_id = "";
+      this.edit_router_name = "";
+      this.edit_router_ip = "";
+      this.edit_router_username = "";
+      this.edit_router_password = "";
+      this.edit_http_router_port = "";
+      this.edit_router_is_monitoring = false;
+   
+      $("#body-router-edit-dis *").prop('disabled', false);
+      this.show_loading = false;
+      this.show_edit_errors = false;
+    },
+    resizeScreen: function(){
+      $('#double-scroll').doubleScroll();
+      var table_width = $("#routers-datatable").width();
+      $(".doubleScroll-scroll").width(table_width);
     }
-    var selected_table = routerDataTable.table;
-    $(".topScroll").width(selected_table[0].scrollWidth);
-  });
-};
-
-window.initializeRouters = function() {
-  startROUTERTable();
-  onSearching();
-  onROUTERButton();
-  discardModal();
-  saveModal();
-  deleteROUTER();
-  onROUTEREditButton();
-  updateROUTERdo();
-  showHideColumns();
-};
+  }, // end of methods
+   mounted(){
+    this.initializeTable();
+    this.resizeScreen();
+    this.deleteRouter();
+    this.getUniqueIdentifier();
+    window.addEventListener('resize', this.resizeScreen);
+   }
+});

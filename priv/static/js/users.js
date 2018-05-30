@@ -1,111 +1,106 @@
-var sendAJAXRequest1 = function(settings) {
-  var headers, token, xhrRequestChangeMonth;
-  token = $('meta[name="csrf-token"]');
-  if (token.length > 0) {
-    headers = {
-      "X-CSRF-Token": token.attr("content")
-    };
-    settings.headers = headers;
-  }
-  return xhrRequestChangeMonth = jQuery.ajax(settings);
-};
-
-var updateMyProfile = function() {
-  $("#updateMyProfile").on("click", function() {
-   
-    $('ul#errorOnUpdate').html("");
-    $("#api-wait").removeClass("hide_me");
-    $("#myProfileErrorDetail").addClass("hide_me");
-
-    var firstname      = $("#firstname").val(),
-        lastname       = $("#lastname").val(),
-        email          = $("#email").val(),
-        password       = $("#password").val(),
-        id             = $("#id").val()
-
-    var data = {};
-        data.firstname = firstname;
-        data.lastname = lastname;
-        data.email = email;
-        data.id = id;
-
-    if ($("#password").val() != ""){
-       data.password = password;
-    }       
-
-    var settings;
-
-    settings = {
-      cache: false,
-      data: data,
-      dataType: 'json',
-      error: onError,
-      success: onSuccess,
-      contentType: "application/x-www-form-urlencoded",
-      type: "PATCH",
-      url: "/update_profile"
-    };
-
-    sendAJAXRequest1(settings);
-  });
-};
-
-var onError, onSuccess;
-
-onError = function(jqXHR, status, error) {
-  var cList = $('ul#errorOnUpdate')
-  $.each(jqXHR.responseJSON.errors, function(index, value) {
-    var li = $('<li/>')
-        .text(value)
-        .appendTo(cList);
-  });
-  $("#myProfileErrorDetail").removeClass("hide_me");
-  $("#api-wait").addClass("hide_me");
-  $("#set_to_load").removeClass("loading");
-  return false;
-};
-
-onSuccess = function(result, status, jqXHR) {
-  $.notify({
-    // options
-    message: 'Profile Details has been updated.'
-  },{
-    // settings
-    type: 'info'
-  });
-  $("#api-wait").addClass("hide_me");
-  $("#password").val("");
-  return true;
-};
-
-window.initializeUsers = function() {
-  updateMyProfile();
-};
-
 var vm = new Vue({
-  el: '#my_profile_main',
-  data(){
-    return{
-      dataTable: null,
-      add_button_label: "Add New",
-      headings: [
-        {column: "Actions", class: "text-center"},
-        {column: "Username"},
-        {column: "Password"},
-        {column: "Created At"}
-      ],
-      form_labels: {
-        add_title: "Add new account (three.ie)",
-        username: "Username",
-        password: "Password",
-        submit_button: "Save changes",
-        edit_title: "Edit account details",
-        hide_show_title: "Show/Hide Columns",
-        hide_show_button: "OK"
-      }
-     }
+  el: '#profile_main',
+  data: {
+    dataTable: null,
+    add_button_label: "Add New",
+    headings: [
+      {column: "Actions", class: "text-center"},
+      {column: "Username"},
+      {column: "Password"},
+      {column: "Created At"}
+    ],
+    form_labels: {
+      fname: "First Name",
+      lname: "Last Name",
+      email: "Email",
+      password: "Password",
+      api_key: "Api Key",
+      api_id: "Api Id",
+      title: "My Profile",
+      submit_button: "Save changes",
+      add_title: "Add new account (three.ie)",
+      username: "Username",
+      password: "Password",
+      edit_title: "Edit account details",
+      hide_show_title: "Show/Hide Columns",
+      hide_show_button: "OK"
+    }
   },
   methods: {
+    sendAJAXRequest: function(settings){
+      var headers, token, xhrRequestChangeMonth;
+      token = $('meta[name="csrf-token"]');
+      if (token.length > 0) {
+      headers = {
+      "X-CSRF-Token": token.attr("content")
+      };
+      settings.headers = headers;
+      }
+      return xhrRequestChangeMonth = jQuery.ajax(settings);
+    },
+    setValue: function(user_id, fname, lname, email, password){
+      this.id = user_id;
+      this.firstname = fname;
+      this.lastname = lname;
+      this.email = email;
+    },
+    updateMyProfile: function() {
+      $('ul#errorOnUpdate').html("");
+      $("#api-wait").removeClass("hide_me");
+      $("#myProfileErrorDetail").addClass("hide_me");
+
+      var firstname      = $("#firstname").val(),
+          lastname       = $("#lastname").val(),
+          email          = $("#email").val(),
+          password       = $("#password").val(),
+          id             = $("#id").val()
+
+      var data = {};
+          data.firstname = firstname;
+          data.lastname = lastname;
+          data.email = email;
+          data.id = id;
+
+      if ($("#password").val() != ""){
+         data.password = password;
+      }
+
+      var settings;
+
+      settings = {
+        cache: false,
+        data: data,
+        dataType: 'json',
+        error: this.onError,
+        success: this.onSuccess,
+        contentType: "application/x-www-form-urlencoded",
+        type: "PATCH",
+        url: "/update_profile"
+      };
+      this.sendAJAXRequest(settings);
+    },
+    onError: function(jqXHR, status, error) {
+      var cList = $('ul#errorOnUpdate')
+      $.each(jqXHR.responseJSON.errors, function(index, value) {
+        var li = $('<li/>')
+        .text(value)
+        .appendTo(cList);
+      });
+      $("#myProfileErrorDetail").removeClass("hide_me");
+      $("#api-wait").addClass("hide_me");
+      $("#set_to_load").removeClass("loading");
+      return false;
+    },
+    onSuccess: function(result, status, jqXHR) {
+      $.notify({
+        message: 'Profile Details has been updated.'
+      },{
+        type: 'info'
+      });
+      $("#api-wait").addClass("hide_me");
+      $("#password").val("");
+      return true;
+    },
     initializeTable: function(){
       commandsDataTable = $('#three-datatable').DataTable({
       ajax: {
@@ -156,17 +151,6 @@ var vm = new Vue({
       this.dataTable = commandsDataTable;
       this.onThreeEditButton();
       this.deleteThree();
-   },
-   sendAJAXRequest: function(settings){
-    var headers, token, xhrRequestChangeMonth;
-    token = $('meta[name="csrf-token"]');
-    if (token.length > 0) {
-    headers = {
-      "X-CSRF-Token": token.attr("content")
-    };
-    settings.headers = headers;
-    }
-    return xhrRequestChangeMonth = jQuery.ajax(settings);
    },
    saveThreeModal: function(){
     $('ul#errorOnThree').html("");
@@ -268,7 +252,7 @@ var vm = new Vue({
       url: "/three_accounts"
     };
 
-    this.sendAJAXRequest(settings);
+    vm.sendAJAXRequest(settings);
    },
    onEditError: function(jqXHR, status, error) {
     $("#api-wait").addClass("hide_me");
@@ -328,15 +312,7 @@ var vm = new Vue({
         url: "/three_accounts/" + threeID
       };
 
-      var headers, token, xhrRequestChangeMonth;
-      token = $('meta[name="csrf-token"]');
-      if (token.length > 0) {
-        headers = {
-          "X-CSRF-Token": token.attr("content")
-        };
-        settings.headers = headers;
-      }
-      jQuery.ajax(settings);
+      vm.sendAJAXRequest(settings);
     });
    },
    editClearFrom: function() {
@@ -360,8 +336,6 @@ var vm = new Vue({
    onUserButton: function(){
     $('.add_user_to_db').modal('show');
    }
- }
+  }
 });
-
 vm.initializeTable();
-

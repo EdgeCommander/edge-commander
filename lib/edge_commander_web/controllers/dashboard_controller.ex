@@ -6,8 +6,7 @@ defmodule EdgeCommanderWeb.DashboardController do
   def sign_up(conn, _params) do
   with %User{} <- current_user(conn) do
     conn
-    |> put_flash(:error, "You must be logged out to see that page :).")
-    |> redirect(to: "/")
+    |> redirect(to: "/sims")
     else
       _ ->
         render(conn, "sign_up.html", csrf_token: get_csrf_token())
@@ -17,8 +16,7 @@ defmodule EdgeCommanderWeb.DashboardController do
   def sign_in(conn, _params) do
     with %User{} <- current_user(conn) do
       conn
-      |> put_flash(:error, "You must be logged out to see that page :).")
-      |> redirect(to: "/")
+      |> redirect(to: "/sims")
     else
       _ ->
         render(conn, "sign_in.html", csrf_token: get_csrf_token())

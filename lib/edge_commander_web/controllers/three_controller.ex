@@ -82,7 +82,7 @@ defmodule EdgeCommanderWeb.ThreeController do
   end
 
   def delete(conn, %{"id" => id} = _params) do
-    ThreeUsers.get_three_accounts!(id)
+    ThreeUsers.get_three_account!(id)
     |> Repo.delete
     |> case do
       {:ok, %EdgeCommander.ThreeScraper.ThreeUsers{}} ->
