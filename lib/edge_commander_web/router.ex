@@ -115,6 +115,12 @@ defmodule EdgeCommanderWeb.Router do
     post "/receive_sms", SimsController, :receive_sms
     get "/delivery_receipt", SimsController, :delivery_receipt
     get "/get_all_sms/:from_date/:to_date", SmsController, :get_all_sms
+
+    get "/three_accounts", ThreeController, :get_all_three_accounts
+    post "/three_accounts", ThreeController, :create
+    patch "/three_accounts", ThreeController, :update
+    delete "/three_accounts/:id", ThreeController, :delete
+
   end
 
   # Other scopes may use custom stacks.
