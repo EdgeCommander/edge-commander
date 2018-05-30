@@ -13,7 +13,7 @@ defmodule EdgeCommander.ThreeScraper.ThreeUsers do
     timestamps()
   end
 
-   def list_three_users do
+  def users_list do
     ThreeUsers
     |> Repo.all
   end
