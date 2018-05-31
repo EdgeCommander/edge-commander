@@ -1,6 +1,6 @@
 defmodule ThreeScraper.Scraper do
   import Ecto.Query, warn: false
-  import EdgeCommander.ThreeScraper.ThreeUsers, only: [users_list: 0]
+  import EdgeCommander.ThreeScraper.ThreeUsers, only: [users_list: 0, get_three_account!: 1]
   alias EdgeCommander.Repo
   alias ThreeScraper.Scraper
   alias EdgeCommander.ThreeScraper.SimLogs
@@ -37,15 +37,27 @@ defmodule ThreeScraper.Scraper do
   end
 
   def start_scraper do
-    Logger.info "Scraper is running"
+    Logger.info "Scraper is running for all accounts."
     users = users_list()
     Enum.each(users, fn(user) ->
       username = user.username
       password = user.password
+      user_id = user.user_id
       headers = get_login(username, password)
       cookie = headers |> get_cookies
-      cookie |> insert_into_db
+      cookie |> insert_into_db(user_id)
     end)
+  end
+
+  def single_start_scraper(id) do
+    Logger.info "Scraper is running for single account."
+    user = get_three_account!(id)
+    username = user.username
+    password = user.password
+    user_id = user.user_id
+    headers = get_login(username, password)
+    cookie = headers |> get_cookies
+    cookie |> insert_into_db(user_id)
   end
 
   defp get_login(username, password) do
@@ -67,8 +79,8 @@ defmodule ThreeScraper.Scraper do
     end
   end
 
-  defp insert_into_db(false), do: Logger.error "Login failed."
-  defp insert_into_db(cookie) do
+  defp insert_into_db(false, _user_id), do: Logger.error "Login failed."
+  defp insert_into_db(cookie, user_id) do
     Logger.info "Getting sims data"
     sim_data =
       get_info(cookie)
@@ -100,7 +112,8 @@ defmodule ThreeScraper.Scraper do
         allowance: new_allowance |> Float.to_string ,
         volume_used: new_volume_used  |> Float.to_string,
         datetime: datetime,
-        sim_provider: "Three Ireland"
+        sim_provider: "Three Ireland",
+        user_id: user_id
       }
 
       changeset = SimLogs.changeset(%SimLogs{}, sims_logs)
