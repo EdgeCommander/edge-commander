@@ -6,7 +6,6 @@ defmodule EdgeCommanderWeb.ThreeController do
   import Ecto.Query, warn: false
   import EdgeCommander.Accounts, only: [current_user: 1]
   import ThreeScraper.Scraper, only: [single_start_scraper: 1]
-  require IEx
 
   def create(conn, params) do
     changeset = ThreeUsers.changeset(%ThreeUsers{}, params)

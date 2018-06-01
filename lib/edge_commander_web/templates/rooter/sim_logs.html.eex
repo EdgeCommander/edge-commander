@@ -86,7 +86,7 @@
                 </div>
             </div>
         </div>
-        <div class="modal fade add_sim_to_db" style="padding: 0px;" id="m_modal_1" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" data-backdrop="static" data-keyboard="false">
+        <div class="modal fade add_sim_to_db" style="padding: 0px;" id="m_modal_add" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" data-backdrop="static" data-keyboard="false">
             <div class="modal-dialog" role="document">
                 <div class="modal-content" style="padding: 0px;">
                     <div class="modal-header">
@@ -107,7 +107,8 @@
                             </div>
                         </div>
                         <div class="m-form m-form--fit m-form--label-align-left">
-                            <input type="hidden" id="user_id" value="<%= @user.id %>">
+                            {{setUserId('<%= @user.id %>')}}
+                            <input type="hidden" id="user_id" value="<%= @user.id %>" v-model="user_id">
                             <div class="form-group m-form__group row">
                                 <label class="col-3 col-form-label">
                                     {{form_labels.name}}
