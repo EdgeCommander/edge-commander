@@ -1,6 +1,6 @@
 defmodule EdgeCommanderWeb.SimsController do
   use EdgeCommanderWeb, :controller
-  import EdgeCommander.ThreeScraper, only: [get_sim_numbers: 1, get_last_two_days: 1, get_all_records_for_sim: 1, get_single_sim: 1, get_single_sim_by_user: 2, get_all_records_for_sim_by_user: 2, get_all_users_by_number: 1]
+  import EdgeCommander.ThreeScraper
   import EdgeCommander.Nexmo, only: [get_message: 1, get_single_sim_messages: 2]
   import EdgeCommander.Accounts, only: [current_user: 1]
   alias EdgeCommander.Nexmo.SimMessages
@@ -9,7 +9,6 @@ defmodule EdgeCommanderWeb.SimsController do
   alias EdgeCommander.Util
   require Logger
   use PhoenixSwagger
-  require IEx
 
   swagger_path :get_sim_logs do
     get "/v1/sims"
