@@ -255,12 +255,12 @@ defmodule EdgeCommanderWeb.SimsController do
   defp save_send_sms(_status, _results, _sms_message, _user_id), do: :noop
 
   def receive_sms(conn, params) do
-    to_number = params["to_number"] |> number_with_plus_code
-    users = get_all_users_by_number(to_number)
+    from_number = params["from_number"]
+    users = get_all_users_by_number(from_number)
     Enum.each(users, fn(user_id) ->
       params = %{
-        to: to_number,
-        from: params["from_number"],
+        to: params["to_number"] |> number_with_plus_code,
+        from: from_number,
         message_id: params["external_id"],
         status: "Received",
         text: params["content"],
