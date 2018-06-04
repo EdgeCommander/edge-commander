@@ -49,7 +49,7 @@ defmodule EdgeCommander.Nexmo do
 
   def get_single_sim_messages(number, user_id) do
     SimMessages
-    |> where([c], c.from >= ^number and c.to <= ^number and c.user_id == ^user_id)
+    |> where([c], (c.from == ^number or c.to == ^number) and c.user_id == ^user_id)
     |> order_by(desc: :inserted_at)
     |> limit(10)
     |> Repo.all
