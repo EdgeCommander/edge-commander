@@ -1,7 +1,7 @@
 defmodule EdgeCommanderWeb.SimsController do
   use EdgeCommanderWeb, :controller
-  import EdgeCommander.ThreeScraper, only: [get_sim_numbers: 1, get_last_two_days: 1, get_all_records_for_sim: 1, get_single_sim: 1, get_single_sim_by_user: 2, get_all_records_for_sim_by_user: 2]
-  import EdgeCommander.Nexmo, only: [get_message: 1, get_single_sim_messages: 1]
+  import EdgeCommander.ThreeScraper, only: [get_sim_numbers: 1, get_last_two_days: 1, get_all_records_for_sim: 1, get_single_sim: 1, get_single_sim_by_user: 2, get_all_records_for_sim_by_user: 2, get_all_users_by_number: 1]
+  import EdgeCommander.Nexmo, only: [get_message: 1, get_single_sim_messages: 2]
   import EdgeCommander.Accounts, only: [current_user: 1]
   alias EdgeCommander.Nexmo.SimMessages
   alias EdgeCommander.ThreeScraper.SimLogs
@@ -9,6 +9,7 @@ defmodule EdgeCommanderWeb.SimsController do
   alias EdgeCommander.Util
   require Logger
   use PhoenixSwagger
+  require IEx
 
   swagger_path :get_sim_logs do
     get "/v1/sims"
@@ -255,20 +256,27 @@ defmodule EdgeCommanderWeb.SimsController do
   defp save_send_sms(_status, _results, _sms_message, _user_id), do: :noop
 
   def receive_sms(conn, params) do
-    params = %{
-      to: params["to_number"] |> number_with_plus_code,
-      from: params["from_number"],
-      message_id: params["external_id"],
-      status: "Received",
-      text: params["content"],
-      type: "MO",
-      user_id: 0
-    }
-    changeset = SimMessages.changeset(%SimMessages{}, params)
-    case Repo.insert(changeset) do
-      {:ok, _} -> Logger.info "SMS has been saved"
-      {:error, changeset} -> Logger.info Util.parse_changeset(changeset)
-    end
+        
+
+    to_number = params["to_number"] |> number_with_plus_code
+
+    users = get_all_users_by_number(to_number)
+    Enum.each(users, fn(user_id) ->
+      params = %{
+        to: to_number,
+        from: params["from_number"],
+        message_id: params["external_id"],
+        status: "Received",
+        text: params["content"],
+        type: "MO",
+        user_id: user_id
+      }
+      changeset = SimMessages.changeset(%SimMessages{}, params)
+      case Repo.insert(changeset) do
+        {:ok, _} -> Logger.info "SMS has been saved"
+        {:error, changeset} -> Logger.info Util.parse_changeset(changeset)
+      end
+    end)
     conn
     |> json(%{void: 0})
   end
@@ -282,8 +290,10 @@ defmodule EdgeCommanderWeb.SimsController do
   end
 
   def get_single_sim_sms(conn, %{"sim_number" => sim_number} = _params) do
+    current_user = current_user(conn)
+    current_user_id = current_user.id
     single_sim_sms =
-      get_single_sim_messages(sim_number)
+      get_single_sim_messages(sim_number, current_user_id)
       |> Enum.map(fn(sms) ->
         %{
           inserted_at: sms.inserted_at |> Util.shift_zone(),
