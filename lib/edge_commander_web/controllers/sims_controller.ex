@@ -1,7 +1,8 @@
 defmodule EdgeCommanderWeb.SimsController do
   use EdgeCommanderWeb, :controller
-  import EdgeCommander.ThreeScraper, only: [all_sim_numbers: 0, get_last_two_days: 1, get_all_records_for_sim: 1, get_single_sim: 1]
-  import EdgeCommander.Nexmo, only: [get_message: 1, get_single_sim_messages: 1]
+  import EdgeCommander.ThreeScraper
+  import EdgeCommander.Nexmo, only: [get_message: 1, get_single_sim_messages: 2]
+  import EdgeCommander.Accounts, only: [current_user: 1]
   alias EdgeCommander.Nexmo.SimMessages
   alias EdgeCommander.ThreeScraper.SimLogs
   alias EdgeCommander.Repo
@@ -84,7 +85,8 @@ defmodule EdgeCommanderWeb.SimsController do
           addon: addon,
           allowance: allowance,
           volume_used: volume_used,
-          datetime: datetime
+          datetime: datetime,
+          user_id: user_id
         } = site
 
         conn
@@ -96,7 +98,8 @@ defmodule EdgeCommanderWeb.SimsController do
           "addon" => addon,
           "allowance" => allowance,
           "volume_used" => volume_used,
-          "datetime" => datetime
+          "datetime" => datetime,
+          "user_id" => user_id
         })
       {:error, changeset} ->
         errors = Util.parse_changeset(changeset)
@@ -108,8 +111,10 @@ defmodule EdgeCommanderWeb.SimsController do
   end
 
   def get_single_sim_data(conn, %{"sim_number" => sim_number } = _params) do
+    current_user = current_user(conn)
+    current_user_id = current_user.id
     logs =
-      get_single_sim(sim_number)
+      get_single_sim_by_user(sim_number, current_user_id)
       |> Enum.map(fn(number) ->
         {current_in_number, _} = number |> get_volume_used() |> String.replace(",", "") |> Float.parse()
         {allowance_in_number, _} = number |> get_allowance() |> String.replace(",", "") |> Float.parse()
@@ -130,8 +135,10 @@ defmodule EdgeCommanderWeb.SimsController do
   end
 
   def get_sim_logs(conn, _params)  do
+    current_user = current_user(conn)
+    current_user_id = current_user.id
     logs = 
-      all_sim_numbers()
+      get_sim_numbers(current_user_id)
       |> Enum.map(fn(number) ->
         entries = get_last_two_days(number)
 
@@ -166,9 +173,11 @@ defmodule EdgeCommanderWeb.SimsController do
   defp get_percentage_used(_current_in_number, _allowance_in_number), do: 0
 
   def create_chartjs_line_data(conn, %{"sim_number" => sim_number } = _params) do
+    current_user = current_user(conn)
+    current_user_id = current_user.id
     chartjs_data =
       sim_number
-      |> get_all_records_for_sim()
+      |> get_all_records_for_sim_by_user(current_user_id)
       |> Enum.map(fn(one_record) ->
         {current_in_number, _} = one_record |> get_volume_used() |> String.replace(",", "") |> Float.parse()
         {allowance_in_number, _} = one_record |> get_allowance() |> String.replace(",", "") |> Float.parse()
@@ -246,20 +255,24 @@ defmodule EdgeCommanderWeb.SimsController do
   defp save_send_sms(_status, _results, _sms_message, _user_id), do: :noop
 
   def receive_sms(conn, params) do
-    params = %{
-      to: params["to_number"] |> number_with_plus_code,
-      from: params["from_number"],
-      message_id: params["external_id"],
-      status: "Received",
-      text: params["content"],
-      type: "MO",
-      user_id: 0
-    }
-    changeset = SimMessages.changeset(%SimMessages{}, params)
-    case Repo.insert(changeset) do
-      {:ok, _} -> Logger.info "SMS has been saved"
-      {:error, changeset} -> Logger.info Util.parse_changeset(changeset)
-    end
+    to_number = params["to_number"] |> number_with_plus_code
+    users = get_all_users_by_number(to_number)
+    Enum.each(users, fn(user_id) ->
+      params = %{
+        to: to_number,
+        from: params["from_number"],
+        message_id: params["external_id"],
+        status: "Received",
+        text: params["content"],
+        type: "MO",
+        user_id: user_id
+      }
+      changeset = SimMessages.changeset(%SimMessages{}, params)
+      case Repo.insert(changeset) do
+        {:ok, _} -> Logger.info "SMS has been saved"
+        {:error, changeset} -> Logger.info Util.parse_changeset(changeset)
+      end
+    end)
     conn
     |> json(%{void: 0})
   end
@@ -273,8 +286,10 @@ defmodule EdgeCommanderWeb.SimsController do
   end
 
   def get_single_sim_sms(conn, %{"sim_number" => sim_number} = _params) do
+    current_user = current_user(conn)
+    current_user_id = current_user.id
     single_sim_sms =
-      get_single_sim_messages(sim_number)
+      get_single_sim_messages(sim_number, current_user_id)
       |> Enum.map(fn(sms) ->
         %{
           inserted_at: sms.inserted_at |> Util.shift_zone(),

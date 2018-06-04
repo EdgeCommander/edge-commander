@@ -29,7 +29,8 @@ var vm = new Vue({
     name: "",
     number: "",
     sim_provider: "",
-    other_sim_provider: ""
+    other_sim_provider: "",
+    user_id: ""
   },
   methods: {
     initializeTable: function(){
@@ -159,6 +160,9 @@ var vm = new Vue({
       this.initializeInput();
       $('.add_sim_to_db').modal('show');
     },
+   setUserId: function(id){
+     this.user_id = id;
+   },
    saveModal: function() {
     $('ul#errorOnSIM').html("");
     this.show_loading = true;
@@ -170,9 +174,11 @@ var vm = new Vue({
       sim_provider = this.other_sim_provider;
     }
 
+
     var sim_provider  = sim_provider,
         number        = this.number,
-        name          = this.name
+        name          = this.name,
+        user_id       = this.user_id
 
     var data = {};
         data.sim_provider = sim_provider;
@@ -181,6 +187,7 @@ var vm = new Vue({
         data.addon = "Unknown";
         data.allowance = "0";
         data.volume_used = "0";
+        data.user_id = user_id;
 
     var settings;
 
@@ -215,8 +222,8 @@ var vm = new Vue({
       },{
         type: 'info'
       });
+      $("#m_modal_add").modal("hide");
       $(".modal-backdrop").remove();
-      $("#m_modal_1").modal("hide");
       this.show_loading = false;
       this.dataTable.ajax.reload();
       this.clearForm();

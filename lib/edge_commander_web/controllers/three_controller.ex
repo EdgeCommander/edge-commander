@@ -5,6 +5,7 @@ defmodule EdgeCommanderWeb.ThreeController do
   alias EdgeCommander.Util
   import Ecto.Query, warn: false
   import EdgeCommander.Accounts, only: [current_user: 1]
+  import ThreeScraper.Scraper, only: [single_start_scraper: 1]
 
   def create(conn, params) do
     changeset = ThreeUsers.changeset(%ThreeUsers{}, params)
@@ -15,6 +16,8 @@ defmodule EdgeCommanderWeb.ThreeController do
           password: password,
           user_id: user_id
         } = user
+
+        spawn fn -> single_start_scraper(user.id) end
 
         conn
         |> put_status(:created)
@@ -64,6 +67,8 @@ defmodule EdgeCommanderWeb.ThreeController do
           password: password,
           updated_at: updated_at
         } = user
+
+        spawn fn -> single_start_scraper(user.id) end
 
         conn
         |> put_status(:created)

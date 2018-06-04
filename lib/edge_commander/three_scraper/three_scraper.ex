@@ -92,9 +92,25 @@ defmodule EdgeCommander.ThreeScraper do
     |> Repo.all
   end
 
+  def get_sim_numbers(user_id) do
+    SimLogs
+    |> select([sim], sim.number)
+    |> where(user_id: ^user_id)
+    |> distinct(true)
+    |> Repo.all
+  end
+
   def get_last_record_for_number(number) do
     SimLogs
     |> where(number: ^number)
+    |> order_by(desc: :id)
+    |> limit(1)
+    |> Repo.one
+  end
+
+  def last_record_for_number_by_user(number, user_id) do
+    SimLogs
+    |> where([c], c.number == ^number and c.user_id == ^user_id)
     |> order_by(desc: :id)
     |> limit(1)
     |> Repo.one
@@ -117,6 +133,14 @@ defmodule EdgeCommander.ThreeScraper do
     |> Repo.all
   end
 
+  def get_single_sim_by_user(sim_number, user_id) do
+    SimLogs
+    |> where([c], c.number == ^sim_number and c.user_id == ^user_id)
+    |> distinct([s], [desc: fragment("date_trunc('day', ?)", s.datetime)])
+    |> order_by(desc: :id)
+    |> Repo.all
+  end
+
   def get_sim_name(sim_number) do
     SimLogs
     |> where(number: ^sim_number)
@@ -131,6 +155,22 @@ defmodule EdgeCommander.ThreeScraper do
     |> where(number: ^sim_number)
     |> distinct([s], fragment("date_trunc('day', ?)", s.datetime))
     |> order_by(asc: :datetime)
+    |> Repo.all
+  end
+
+  def get_all_records_for_sim_by_user(sim_number, user_id) do
+    SimLogs
+    |> where([c], c.number == ^sim_number and c.user_id == ^user_id)
+    |> distinct([s], fragment("date_trunc('day', ?)", s.datetime))
+    |> order_by(asc: :datetime)
+    |> Repo.all
+  end
+
+  def get_all_users_by_number(sim_number) do
+    SimLogs
+    |> select([sim], sim.user_id)
+    |> where(number: ^sim_number)
+    |> distinct(true)
     |> Repo.all
   end
 

@@ -17,11 +17,11 @@ defmodule EdgeCommander.Nexmo do
       [%SimMessages{}, ...]
 
   """
-  def list_sms_messages(from_date, to_date) do
+  def list_sms_messages(from_date, to_date, user_id) do
     from = NaiveDateTime.from_iso8601!(from_date <> " 00:00:00")
     to = NaiveDateTime.from_iso8601!(to_date <> " 23:59:59")
     SimMessages
-    |> where([c], c.inserted_at >= ^from and c.inserted_at <= ^to)
+    |> where([c], c.inserted_at >= ^from and c.inserted_at <= ^to and c.user_id == ^user_id)
     |> Repo.all
   end
 
@@ -47,10 +47,9 @@ defmodule EdgeCommander.Nexmo do
     |> Repo.one
   end
 
-  def get_single_sim_messages(number) do
+  def get_single_sim_messages(number, user_id) do
     SimMessages
-    |> where(from: ^number)
-    |> or_where(to: ^number)
+    |> where([c], (c.from == ^number or c.to == ^number) and c.user_id == ^user_id)
     |> order_by(desc: :inserted_at)
     |> limit(10)
     |> Repo.all
