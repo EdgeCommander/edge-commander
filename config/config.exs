@@ -43,4 +43,13 @@ config :edge_commander, :phoenix_swagger,
     ]
   }
 
+config :edge_commander, EdgeCommander.Accounts.Guardian,
+issuer: "edge_commander",
+ttl: {1, :minute},
+secret_key: "svZjRMUUkbxdPoxbgTd7jAjFihOc5B8kHkpzIju1AZF3hbzdvMMpY+hq/6Y2aFPK"
+
+config :edge_commander, EdgeCommander.Accounts.Pipeline,
+  module: EdgeCommander.Accounts.Guardian,
+  error_handler: EdgeCommander.Accounts.ErrorHandler
+
 import_config "#{Mix.env}.exs"

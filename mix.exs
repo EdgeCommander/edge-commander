@@ -53,7 +53,8 @@ defmodule EdgeCommander.Mixfile do
       {:sshex, "2.2.1"},
       {:phoenix_swagger, "~> 0.7.0"},
       {:ex_json_schema, "~> 0.5"}, # optional
-      {:uuid, "~> 1.1"}
+      {:uuid, "~> 1.1"},
+      {:guardian, github: "ueberauth/guardian"}
     ]
   end
 

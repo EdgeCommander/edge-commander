@@ -16,6 +16,13 @@ defmodule EdgeCommanderWeb.Router do
     plug EdgeCommanderWeb.AuthenticationPlug
   end
 
+  pipeline :auth_new do
+    plug EdgeCommander.Accounts.Pipeline
+  end
+  pipeline :ensure_auth do
+    plug Guardian.Plug.EnsureAuthenticated
+  end
+
   pipeline :api do
     plug :accepts, ["json"]
   end
@@ -59,8 +66,19 @@ defmodule EdgeCommanderWeb.Router do
       disable_validator: true
   end
 
+  # Maybe logged in scope
   scope "/", EdgeCommanderWeb do
-    pipe_through :browser # Use the default browser stack
+    pipe_through [:browser]
+    
+    get "/", DashboardController, :sign_in
+    post "/users/session", SessionController, :create
+    get "/users/session", SessionController, :delete
+    get "/users/sign_up", DashboardController, :sign_up
+    post "/users/sign_up", UsersController, :sign_up
+  end
+
+  scope "/", EdgeCommanderWeb do
+    pipe_through [:browser, :auth_new, :ensure_auth]
 
     get "/sims", RooterController, :sim_logs
     get "/nvrs", RooterController, :nvrs
@@ -102,14 +120,7 @@ defmodule EdgeCommanderWeb.Router do
 
     get "/update_status_report", NvrsController, :update_status_report
 
-    get "/", DashboardController, :sign_in
-    get "/users/sign_up", DashboardController, :sign_up
-
-    post "/users/sign_up", UsersController, :sign_up
     patch "/update_profile", UsersController, :update_profile
-
-    post "/users/session", SessionController, :create
-    get "/users/session", SessionController, :delete
 
     post "/send_sms", SimsController, :send_sms
     post "/receive_sms", SimsController, :receive_sms
