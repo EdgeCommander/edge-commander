@@ -78,9 +78,8 @@ defmodule EdgeCommanderWeb.CommandsController do
     end
   end
 
-  def get_all_rules(conn, _params)  do
-    current_user = current_user(conn)
-    current_user_id = current_user.id
+  def get_all_rules(conn, params)  do
+    current_user_id = Util.get_user_id(conn, params)
     rules = 
       list_rules(current_user_id)
       |> Enum.map(fn(rule) ->

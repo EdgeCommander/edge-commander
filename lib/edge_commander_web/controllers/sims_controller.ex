@@ -2,7 +2,7 @@ defmodule EdgeCommanderWeb.SimsController do
   use EdgeCommanderWeb, :controller
   import EdgeCommander.ThreeScraper
   import EdgeCommander.Nexmo, only: [get_message: 1, get_single_sim_messages: 2]
-  import EdgeCommander.Accounts, only: [current_user: 1]
+  import EdgeCommander.Accounts, only: [current_user: 1, by_api_keys: 2]
   alias EdgeCommander.Nexmo.SimMessages
   alias EdgeCommander.ThreeScraper.SimLogs
   alias EdgeCommander.Repo
@@ -110,9 +110,8 @@ defmodule EdgeCommanderWeb.SimsController do
     end
   end
 
-  def get_single_sim_data(conn, %{"sim_number" => sim_number } = _params) do
-    current_user = current_user(conn)
-    current_user_id = current_user.id
+  def get_single_sim_data(conn, %{"sim_number" => sim_number } = params) do
+    current_user_id = Util.get_user_id(conn, params)
     logs =
       get_single_sim_by_user(sim_number, current_user_id)
       |> Enum.map(fn(number) ->
@@ -134,9 +133,8 @@ defmodule EdgeCommanderWeb.SimsController do
       })
   end
 
-  def get_sim_logs(conn, _params)  do
-    current_user = current_user(conn)
-    current_user_id = current_user.id
+  def get_sim_logs(conn, params)  do
+    current_user_id = Util.get_user_id(conn, params)
     logs = 
       get_sim_numbers(current_user_id)
       |> Enum.map(fn(number) ->
@@ -172,9 +170,8 @@ defmodule EdgeCommanderWeb.SimsController do
   end
   defp get_percentage_used(_current_in_number, _allowance_in_number), do: 0
 
-  def create_chartjs_line_data(conn, %{"sim_number" => sim_number } = _params) do
-    current_user = current_user(conn)
-    current_user_id = current_user.id
+  def create_chartjs_line_data(conn, %{"sim_number" => sim_number } = params) do
+    current_user_id = Util.get_user_id(conn, params)
     chartjs_data =
       sim_number
       |> get_all_records_for_sim_by_user(current_user_id)
@@ -285,9 +282,8 @@ defmodule EdgeCommanderWeb.SimsController do
     |> json(%{void: 0})
   end
 
-  def get_single_sim_sms(conn, %{"sim_number" => sim_number} = _params) do
-    current_user = current_user(conn)
-    current_user_id = current_user.id
+  def get_single_sim_sms(conn, %{"sim_number" => sim_number} = params) do
+    current_user_id = Util.get_user_id(conn, params)
     single_sim_sms =
       get_single_sim_messages(sim_number, current_user_id)
       |> Enum.map(fn(sms) ->

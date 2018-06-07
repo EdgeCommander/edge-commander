@@ -146,9 +146,9 @@ defmodule EdgeCommanderWeb.NvrsController do
     end
   end
 
-  def get_all_nvrs(conn, _params)  do
+  def get_all_nvrs(conn, params)  do
     current_user = current_user(conn)
-    current_user_id = current_user.id
+    current_user_id = Util.get_user_id(conn, params)
     nvrs = 
       list_nvrs(current_user_id)
       |> Enum.map(fn(nvr) ->
