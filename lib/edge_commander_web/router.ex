@@ -12,11 +12,11 @@ defmodule EdgeCommanderWeb.Router do
     plug :protect_from_forgery
   end
 
-  pipeline :auth do
+  pipeline :swagger_auth do
     plug EdgeCommanderWeb.AuthenticationPlug
   end
 
-  pipeline :auth_new do
+  pipeline :auth do
     plug EdgeCommander.Accounts.Pipeline
   end
   pipeline :ensure_auth do
@@ -78,7 +78,7 @@ defmodule EdgeCommanderWeb.Router do
   end
 
   scope "/", EdgeCommanderWeb do
-    pipe_through [:browser, :auth_new, :ensure_auth]
+    pipe_through [:browser, :auth, :ensure_auth]
 
     get "/sims", RooterController, :sim_logs
     get "/nvrs", RooterController, :nvrs
@@ -139,7 +139,7 @@ defmodule EdgeCommanderWeb.Router do
     pipe_through :api
 
     scope "/" do
-      pipe_through :auth
+      pipe_through :swagger_auth
 
       get "/sims", SimsController, :get_sim_logs
       get "/sims/:sim_number/usage", SimsController, :create_chartjs_line_data
