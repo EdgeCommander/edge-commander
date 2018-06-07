@@ -68,7 +68,7 @@ defmodule EdgeCommanderWeb.Router do
 
   # Maybe logged in scope
   scope "/", EdgeCommanderWeb do
-    pipe_through [:browser]
+    pipe_through [:browser, :auth]
     
     get "/", DashboardController, :sign_in
     post "/users/session", SessionController, :create
