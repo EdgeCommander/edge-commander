@@ -1,6 +1,7 @@
 defmodule EdgeCommanderWeb.DashboardController do
   use EdgeCommanderWeb, :controller
   alias EdgeCommander.Accounts.User
+  alias EdgeCommander.Accounts.Guardian
   import EdgeCommander.Accounts, only: [current_user: 1]
 
   def sign_up(conn, _params) do
@@ -36,10 +37,21 @@ defmodule EdgeCommanderWeb.DashboardController do
   def reset_password(conn, %{"token" => token} = _params) do
     with %User{} <- current_user(conn) do
     conn
-    |> redirect(to: "/sims")
+    |> sign_out(token)
     else
       _ ->
         render(conn, "reset_password.html", csrf_token: get_csrf_token(), token: token)
     end
   end
+
+  def reset_password_success(conn, _params) do
+    render(conn, "reset_password_success.html", csrf_token: get_csrf_token())
+  end
+
+  def sign_out(conn, token) do
+    conn
+    |> Guardian.Plug.sign_out()
+    |> redirect(to: "/users/reset_password/#{token}")
+  end
+
 end
