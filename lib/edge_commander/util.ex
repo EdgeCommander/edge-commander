@@ -1,5 +1,6 @@
 defmodule EdgeCommander.Util do
   require Record
+  import EdgeCommander.Accounts, only: [current_user: 1, by_api_keys: 2]
   Record.defrecord :xmlElement, Record.extract(:xmlElement, from_lib: "xmerl/include/xmerl.hrl")
   Record.defrecord :xmlText,    Record.extract(:xmlText,    from_lib: "xmerl/include/xmerl.hrl")
 
@@ -43,6 +44,18 @@ defmodule EdgeCommander.Util do
       |> DateTime.to_naive
   end
 
+  def get_user_id(conn, params) do
+    api_key = params["api_key"]
+    api_id = params["api_id"]
+
+    if api_key == nil or api_id == nil do
+      current_user = current_user(conn)
+      current_user_id = current_user.id
+    else
+      users = by_api_keys(api_id, api_key)
+      current_user_id = users.id
+    end
+  end
   @chars "ABCDEFGHIJKLMNOPQRSTUVWXYZ" |> String.split("")
 
   def string_generator(length) do

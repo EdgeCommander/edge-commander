@@ -92,9 +92,8 @@ defmodule EdgeCommanderWeb.SitesController do
     end
   end
 
-  def get_all_sites(conn, _params)  do
-    current_user = current_user(conn)
-    current_user_id = current_user.id
+  def get_all_sites(conn, params)  do
+    current_user_id = Util.get_user_id(conn, params)
     sites = 
       list_sites(current_user_id)
       |> Enum.map(fn(site) ->

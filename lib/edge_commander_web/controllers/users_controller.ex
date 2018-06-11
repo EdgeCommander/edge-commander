@@ -2,6 +2,7 @@ defmodule EdgeCommanderWeb.UsersController do
   use EdgeCommanderWeb, :controller
   alias EdgeCommander.Repo
   alias EdgeCommander.Accounts.User
+  alias EdgeCommanderWeb.SessionController
   alias EdgeCommander.Util
   require Logger
   import EdgeCommander.Accounts, only: [get_user!: 1, email_exist: 1, get_user_by_token: 1]
@@ -15,7 +16,7 @@ defmodule EdgeCommanderWeb.UsersController do
           Logger.info "[POST /create_user] [#{user.email}] [#{user.last_signed_in}]"
           conn
           |> put_flash(:info, "Your account has been created.")
-          |> put_session(:current_user, user.id)
+          |> SessionController.create(params)
           |> redirect(to: "/sims")
         {:error, changeset} ->
           errors = Util.parse_changeset(changeset)

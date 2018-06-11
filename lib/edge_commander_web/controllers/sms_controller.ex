@@ -6,8 +6,7 @@ defmodule EdgeCommanderWeb.SmsController do
   alias EdgeCommander.Util
 
   def get_all_sms(conn, params)  do
-    current_user = current_user(conn)
-    current_user_id = current_user.id
+    current_user_id = Util.get_user_id(conn, params)
     from_date = params["from_date"]
     to_date = params["to_date"]
     sms_messages = 

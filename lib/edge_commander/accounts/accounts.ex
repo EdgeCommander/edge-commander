@@ -6,7 +6,22 @@ defmodule EdgeCommander.Accounts do
   import Ecto.Query, warn: false
   alias EdgeCommander.Repo
   alias EdgeCommander.Accounts.User
+  alias EdgeCommander.Accounts.Guardian
   require Logger
+
+  def authenticate_user(email, plain_text_password) do
+    query = from u in User, where: u.email == ^email
+    Repo.one(query)
+    |> check_password(plain_text_password)
+  end
+
+  defp check_password(nil, _), do: {:error, "Incorrect username or password"}
+  defp check_password(user, plain_text_password) do
+    case Comeonin.Bcrypt.checkpw(plain_text_password, user.password) do
+      true -> {:ok, user}
+      false -> {:error, "Incorrect username or password"}
+    end
+  end
 
   def login(params, repo) do
     user = repo.get_by(User, email: String.downcase(params["email"]))
@@ -40,9 +55,7 @@ defmodule EdgeCommander.Accounts do
   end
 
   def current_user(conn) do
-    conn = Plug.Conn.fetch_session(conn)
-    id = Plug.Conn.get_session(conn, :current_user)
-    if id, do: Repo.get(User, id)
+    Guardian.Plug.current_resource(conn)
   end
 
   def logged_in?(conn), do: !!current_user(conn)

@@ -12,8 +12,15 @@ defmodule EdgeCommanderWeb.Router do
     plug :protect_from_forgery
   end
 
-  pipeline :auth do
+  pipeline :swagger_auth do
     plug EdgeCommanderWeb.AuthenticationPlug
+  end
+
+  pipeline :auth do
+    plug EdgeCommander.Accounts.Pipeline
+  end
+  pipeline :ensure_auth do
+    plug Guardian.Plug.EnsureAuthenticated
   end
 
   pipeline :api do
@@ -59,8 +66,24 @@ defmodule EdgeCommanderWeb.Router do
       disable_validator: true
   end
 
+  # Maybe logged in scope
   scope "/", EdgeCommanderWeb do
-    pipe_through :browser # Use the default browser stack
+    pipe_through [:browser, :auth]
+    
+    get "/", DashboardController, :sign_in
+    post "/users/session", SessionController, :create
+    get "/users/session", SessionController, :delete
+    get "/users/sign_up", DashboardController, :sign_up
+    post "/users/sign_up", UsersController, :sign_up
+    get "/users/sign_up", DashboardController, :sign_up
+    get "/users/forgot_password", DashboardController, :forgot_password
+    get "/users/reset_password/:token", DashboardController, :reset_password
+    post "/users/forgot_password", UsersController, :forgot_password
+    post "/users/reset_password", UsersController, :reset_password
+  end
+
+  scope "/", EdgeCommanderWeb do
+    pipe_through [:browser, :auth, :ensure_auth]
 
     get "/sims", RooterController, :sim_logs
     get "/nvrs", RooterController, :nvrs
@@ -102,18 +125,7 @@ defmodule EdgeCommanderWeb.Router do
 
     get "/update_status_report", NvrsController, :update_status_report
 
-    get "/", DashboardController, :sign_in
-    get "/users/sign_up", DashboardController, :sign_up
-    get "/users/forgot_password", DashboardController, :forgot_password
-    get "/users/reset_password/:token", DashboardController, :reset_password
-
-    post "/users/sign_up", UsersController, :sign_up
     patch "/update_profile", UsersController, :update_profile
-    post "/users/forgot_password", UsersController, :forgot_password
-    post "/users/reset_password", UsersController, :reset_password
-
-    post "/users/session", SessionController, :create
-    get "/users/session", SessionController, :delete
 
     post "/send_sms", SimsController, :send_sms
     post "/receive_sms", SimsController, :receive_sms
@@ -132,7 +144,7 @@ defmodule EdgeCommanderWeb.Router do
     pipe_through :api
 
     scope "/" do
-      pipe_through :auth
+      pipe_through :swagger_auth
 
       get "/sims", SimsController, :get_sim_logs
       get "/sims/:sim_number/usage", SimsController, :create_chartjs_line_data
