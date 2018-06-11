@@ -75,6 +75,11 @@ defmodule EdgeCommanderWeb.Router do
     get "/users/session", SessionController, :delete
     get "/users/sign_up", DashboardController, :sign_up
     post "/users/sign_up", UsersController, :sign_up
+    get "/users/sign_up", DashboardController, :sign_up
+    get "/users/forgot_password", DashboardController, :forgot_password
+    get "/users/reset_password/:token", DashboardController, :reset_password
+    post "/users/forgot_password", UsersController, :forgot_password
+    post "/users/reset_password", UsersController, :reset_password
   end
 
   scope "/", EdgeCommanderWeb do

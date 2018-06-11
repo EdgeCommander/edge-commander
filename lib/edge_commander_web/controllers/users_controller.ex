@@ -5,7 +5,7 @@ defmodule EdgeCommanderWeb.UsersController do
   alias EdgeCommanderWeb.SessionController
   alias EdgeCommander.Util
   require Logger
-  import EdgeCommander.Accounts, only: [get_user!: 1]
+  import EdgeCommander.Accounts, only: [get_user!: 1, email_exist: 1, get_user_by_token: 1]
 
   def sign_up(conn, params) do
     with  {:ok, updated_params} <- merge_last_signed_in(params),
@@ -31,6 +31,63 @@ defmodule EdgeCommanderWeb.UsersController do
         conn
         |> put_flash(:error, error |> List.first)
         |> redirect(to: "/users/sign_up")
+    end
+  end
+
+  def forgot_password(conn, params) do
+    email = params["email"]
+    user = email_exist(email)
+    token_expire = Timex.shift(Timex.now, minutes: 15)
+    reset_token = Util.string_generator(20)
+    params = Map.merge(params, %{"reset_token" => reset_token, "token_expire" => token_expire})
+
+    if user != nil do
+      user
+      |> User.changeset(params)
+      |> Repo.update
+      |> case do
+      {:ok, user} ->
+          EdgeCommander.EcMailer.forgot_password(email, reset_token)
+          conn
+          |> put_flash(:info, "Email has been sent.")
+          |> redirect(to: "/users/forgot_password")
+
+        {:error, errors} ->
+        conn
+        |> put_flash(:error, errors)
+      end
+      else
+        conn
+        |> put_flash(:error, "Email does not exist.")
+        |> redirect(to: "/users/forgot_password")
+    end
+  end
+
+  def reset_password(conn, %{"token" => token} = params) do
+    user = get_user_by_token(token)
+    token_expire = user.token_expire
+    current_date = Timex.now
+
+    diff = Timex.diff(token_expire,current_date, :minutes)
+
+    if diff <= 0 do
+       conn
+        |> put_flash(:error, "Reset token has been expired.")
+        |> redirect(to: "/users/reset_password/"<> token)
+      else
+        user
+        |> User.changeset(params)
+        |> Repo.update
+        |> case do
+          {:ok, user} ->
+            conn
+            |> put_flash(:info, "Password has been reset successfully.")
+            |> redirect(to: "/users/reset_password/"<> token)
+          {:error, errors} ->
+            conn
+            |> put_flash(:error, errors)
+            |> redirect(to: "/users/reset_password/"<> token)
+        end
     end
   end
 

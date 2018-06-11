@@ -56,4 +56,11 @@ defmodule EdgeCommander.Util do
       current_user_id = users.id
     end
   end
+  @chars "ABCDEFGHIJKLMNOPQRSTUVWXYZ" |> String.split("")
+
+  def string_generator(length) do
+    Enum.reduce((1..length), [], fn (_i, acc) ->
+      [Enum.random(@chars) | acc]
+    end) |> Enum.join("")
+  end
 end

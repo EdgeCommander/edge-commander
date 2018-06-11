@@ -15,6 +15,8 @@ defmodule EdgeCommander.Accounts.User do
     field :api_id, :string
     field :password_confirmation, :string, virtual: true
     field :last_signed_in, :utc_datetime
+    field :reset_token, :string
+    field :token_expire, :utc_datetime
 
     timestamps()
   end
@@ -44,7 +46,7 @@ defmodule EdgeCommander.Accounts.User do
   @doc false
   def changeset(%User{} = user, attrs) do
     user
-    |> cast(attrs, [:firstname, :lastname, :username, :password, :email, :api_id, :api_key])
+    |> cast(attrs, [:firstname, :lastname, :username, :password, :email, :api_id, :api_key, :reset_token, :token_expire])
     |> validate_required(:firstname, [message: "Firstname cannot be empty."])
     |> validate_required(:lastname, [message: "Lastname cannot be empty."])
     |> validate_required(:password, [message: "Password cannot be empty."])

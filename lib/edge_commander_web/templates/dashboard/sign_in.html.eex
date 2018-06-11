@@ -63,7 +63,7 @@
                     </label>
                   </div>
                   <div class="col m--align-right m-login__form-right" style="padding-right:0">
-                    <a href="javascript:;" id="m_login_forget_password" class="m-link">
+                    <a href="/users/forgot_password" id="m_login_forget_password" class="m-link">
                       Forgot Password ?
                     </a>
                   </div>

@@ -22,4 +22,24 @@ defmodule EdgeCommanderWeb.DashboardController do
         render(conn, "sign_in.html", csrf_token: get_csrf_token())
     end
   end
+
+  def forgot_password(conn, _params) do
+    with %User{} <- current_user(conn) do
+    conn
+    |> redirect(to: "/sims")
+    else
+      _ ->
+        render(conn, "forgot_password.html", csrf_token: get_csrf_token())
+    end
+  end
+
+  def reset_password(conn, %{"token" => token} = _params) do
+    with %User{} <- current_user(conn) do
+    conn
+    |> redirect(to: "/sims")
+    else
+      _ ->
+        render(conn, "reset_password.html", csrf_token: get_csrf_token(), token: token)
+    end
+  end
 end
