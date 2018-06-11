@@ -42,4 +42,12 @@ defmodule EdgeCommander.Util do
       |> Timex.Timezone.convert(timezone_value)
       |> DateTime.to_naive
   end
+
+  @chars "ABCDEFGHIJKLMNOPQRSTUVWXYZ" |> String.split("")
+
+  def string_generator(length) do
+    Enum.reduce((1..length), [], fn (_i, acc) ->
+      [Enum.random(@chars) | acc]
+    end) |> Enum.join("")
+  end
 end
