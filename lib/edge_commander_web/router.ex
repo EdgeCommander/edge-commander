@@ -82,6 +82,7 @@ defmodule EdgeCommanderWeb.Router do
     post "/users/reset_password", UsersController, :reset_password
     post "/receive_sms", SimsController, :receive_sms
     get "/delivery_receipt", SimsController, :delivery_receipt
+    get "/users/reset_password_success", DashboardController, :reset_password_success
   end
 
   scope "/", EdgeCommanderWeb do

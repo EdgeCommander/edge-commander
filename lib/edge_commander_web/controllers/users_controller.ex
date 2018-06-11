@@ -49,7 +49,7 @@ defmodule EdgeCommanderWeb.UsersController do
       {:ok, user} ->
           EdgeCommander.EcMailer.forgot_password(email, reset_token)
           conn
-          |> put_flash(:info, "Email has been sent.")
+          |> put_flash(:info, "Password reset link has been sent to your email address.")
           |> redirect(to: "/users/forgot_password")
 
         {:error, errors} ->
@@ -81,8 +81,7 @@ defmodule EdgeCommanderWeb.UsersController do
         |> case do
           {:ok, user} ->
             conn
-            |> put_flash(:info, "Password has been reset successfully.")
-            |> redirect(to: "/users/reset_password/"<> token)
+            |> redirect(to: "/users/reset_password_success")
           {:error, errors} ->
             conn
             |> put_flash(:error, errors)

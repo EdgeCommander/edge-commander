@@ -26,16 +26,12 @@
                 </h3>
               </div>
               <%
-                info = get_flash(@conn, :info)
                 error = get_flash(@conn, :error)
               %>
 
               <%= if error do %>
                 <div class="alert alert-danger alert-dismissible fade show margin-top-10" style="margin-top: 20px;margin-bottom: -23px;" role="alert">
                   <button type="button" class="close" data-dismiss="alert" aria-label="Close"></button>
-                  <strong>
-                    Oh snap!
-                  </strong>
                   <p><%= error %></p>
                 </div>
               <% end %>
@@ -67,30 +63,6 @@
                       Forgot Password ?
                     </a>
                   </div>
-                </div>
-              </form>
-            </div>
-            <div class="m-login__forget-password">
-              <div class="m-login__head">
-                <h3 class="m-login__title">
-                  Forgotten Password ?
-                </h3>
-                <div class="m-login__desc">
-                  Enter your email to reset your password:
-                </div>
-              </div>
-              <form class="m-login__form m-form" action="">
-                <div class="form-group m-form__group">
-                  <input class="form-control m-input" type="text" placeholder="Email" name="email" id="m_email" autocomplete="off">
-                </div>
-                <div class="m-login__form-action">
-                  <button id="m_login_forget_password_submit" class="btn btn-focus m-btn m-btn--pill m-btn--custom m-btn--air  m-login__btn m-login__btn--primaryr">
-                    Request
-                  </button>
-                  &nbsp;&nbsp;
-                  <button id="m_login_forget_password_cancel" class="btn btn-outline-focus m-btn m-btn--pill m-btn--custom m-login__btn">
-                    Cancel
-                  </button>
                 </div>
               </form>
             </div>
