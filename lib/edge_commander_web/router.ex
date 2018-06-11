@@ -80,6 +80,8 @@ defmodule EdgeCommanderWeb.Router do
     get "/users/reset_password/:token", DashboardController, :reset_password
     post "/users/forgot_password", UsersController, :forgot_password
     post "/users/reset_password", UsersController, :reset_password
+    post "/receive_sms", SimsController, :receive_sms
+    get "/delivery_receipt", SimsController, :delivery_receipt
   end
 
   scope "/", EdgeCommanderWeb do
@@ -128,8 +130,6 @@ defmodule EdgeCommanderWeb.Router do
     patch "/update_profile", UsersController, :update_profile
 
     post "/send_sms", SimsController, :send_sms
-    post "/receive_sms", SimsController, :receive_sms
-    get "/delivery_receipt", SimsController, :delivery_receipt
     get "/get_all_sms/:from_date/:to_date", SmsController, :get_all_sms
 
     get "/three_accounts", ThreeController, :get_all_three_accounts
