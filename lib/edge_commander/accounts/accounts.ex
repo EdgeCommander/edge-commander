@@ -57,6 +57,18 @@ defmodule EdgeCommander.Accounts do
     end
   end
 
+  def email_exist(email) do
+    User
+    |> where(email: ^email)
+    |> Repo.one
+  end
+
+  def get_user_by_token(reset_token) do
+    User
+    |> where(reset_token: ^reset_token)
+    |> Repo.one
+  end
+
   @doc """
   Returns the list of users.
 

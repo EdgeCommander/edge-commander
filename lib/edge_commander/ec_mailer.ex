@@ -36,4 +36,12 @@ defmodule EdgeCommander.EcMailer do
       text: Phoenix.View.render_to_string(EdgeCommanderWeb.EmailView, "three_web_failure.txt", year: @year)
   end
 
+  def forgot_password(to, token) do
+    Mailgun.Client.send_email @config,
+      to: to,
+      subject: "EdgeCommander Password Reset",
+      from: @from,
+      html: Phoenix.View.render_to_string(EdgeCommanderWeb.EmailView, "forgot_password.html", token: token),
+      text: Phoenix.View.render_to_string(EdgeCommanderWeb.EmailView, "three_web_failure.txt", token: token)
+  end
 end
