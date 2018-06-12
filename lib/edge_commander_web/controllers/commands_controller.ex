@@ -29,8 +29,8 @@ defmodule EdgeCommanderWeb.CommandsController do
     description "Returns rules list"
     summary "Returns all rules"
     parameters do
-      api_key :query, :string, "", required: true, default: "ea3f489a45c98eab5cc22e38db1071e8"
-      api_id :query, :string, "", required: true, default: "2091d756"
+      api_id :query, :string, "", required: true
+      api_key :query, :string, "", required: true
     end
     tag "rules"
     response 200, "Success"
@@ -41,8 +41,8 @@ defmodule EdgeCommanderWeb.CommandsController do
     summary "Delete rule by ID"
     parameters do
       id :path, :string, "Rule id to delete", required: true
-      api_key :query, :string, "", required: true, default: "ea3f489a45c98eab5cc22e38db1071e8"
-      api_id :query, :string, "", required: true, default: "2091d756"
+      api_id :query, :string, "", required: true
+      api_key :query, :string, "", required: true
     end
     tag "rules"
     response 200, "Success"

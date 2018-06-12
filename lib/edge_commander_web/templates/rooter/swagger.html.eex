@@ -1,6 +1,7 @@
 <body class="m-page--fluid m--skin- m-content--skin-light2 m-header--fixed m-header--fixed-mobile m-aside-left--enabled m-aside-left--skin-dark m-aside-left--offcanvas m-footer--push m-aside--offcanvas-default"  >
     <!-- begin:: Page -->
     <div id="api_main">
+
         <div class="m-grid m-grid--hor m-grid--root m-page" id="page_content_main">
             <!-- BEGIN: Header -->
             <%= render_existing @view_module, "header.html", assigns %>
@@ -14,7 +15,24 @@
                       <div class="m-content">
                         <div class="m-portlet m-portlet--mobile" style="margin-bottom: 0">
                             <div class="m-portlet__body" id="double-scroll" style="padding: 10px; overflow: auto">
-                                    <div id="swagger-ui"></div>
+                                <div class="col-sm-12">
+                                    <div class="m-form m-form--fit m-form--label-align-left" style="margin-left:10px">
+                                        <input type="hidden" id="id"  value="<%= @user.id %>">
+                                        <div class="form-group m-form__group row">
+                                            <label class="col-sm-2 col-form-label" style="font-size: 16px">
+                                                <strong>API ID & Key</strong>
+                                            </label>
+                                            <div class="col-sm-3" style="padding-left: 5px">
+                                                <input type="text" class="form-control m-input m-input--solid" id="firstname" value="ID: <%= @user.api_id %>">
+                                            </div>
+                                            <div class="col-sm-7" style="padding-left: 5px">
+                                                <input type="text" class="form-control m-input m-input--solid" id="firstname" value="Key: <%= @user.api_key %>">
+                                            </div>
+                                        </div>
+                                        <div style="height:20px"></div>
+                                    </div>
+                                </div>
+                                <div id="swagger-ui"></div>
                             </div>
                         </div>
                       </div>

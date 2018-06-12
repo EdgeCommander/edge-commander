@@ -14,8 +14,8 @@ defmodule EdgeCommanderWeb.SimsController do
     get "/v1/sims"
     summary "Returns all sims data"
     parameters do
-      api_key :query, :string, "", required: true, default: "ea3f489a45c98eab5cc22e38db1071e8"
-      api_id :query, :string, "", required: true, default: "2091d756"
+      api_id :query, :string, "", required: true
+      api_key :query, :string, "", required: true
     end
     tag "sims"
     response 200, "Success"
@@ -27,8 +27,8 @@ defmodule EdgeCommanderWeb.SimsController do
     summary "Find data by sim number"
     parameters do
       sim_number :path, :string, "Sim number in given format (08xxxxxxxx)", required: true
-      api_key :query, :string, "", required: true, default: "ea3f489a45c98eab5cc22e38db1071e8"
-      api_id :query, :string, "", required: true, default: "2091d756"
+      api_id :query, :string, "", required: true
+      api_key :query, :string, "", required: true
     end
     tag "sims"
     response 200, "Success"
@@ -40,8 +40,8 @@ defmodule EdgeCommanderWeb.SimsController do
     summary "Find sms by sim number"
     parameters do
       sim_number :path, :string, "Sim number in given format (08xxxxxxxx)", required: true
-      api_key :query, :string, "", required: true, default: "ea3f489a45c98eab5cc22e38db1071e8"
-      api_id :query, :string, "", required: true, default: "2091d756"
+      api_id :query, :string, "", required: true
+      api_key :query, :string, "", required: true
     end
     tag "sims"
     response 200, "Success"
@@ -53,8 +53,8 @@ defmodule EdgeCommanderWeb.SimsController do
     summary "Find data usage in % by sim number"
     parameters do
       sim_number :path, :string, "Sim number in given format (08xxxxxxxx)", required: true
-      api_key :query, :string, "", required: true, default: "ea3f489a45c98eab5cc22e38db1071e8"
-      api_id :query, :string, "", required: true, default: "2091d756"
+      api_id :query, :string, "", required: true
+      api_key :query, :string, "", required: true
     end
     tag "sims"
     response 200, "Success"
@@ -66,8 +66,8 @@ defmodule EdgeCommanderWeb.SimsController do
     parameters do
       sim_number :path, :string, "Sim number in given format (08xxxxxxxx)", required: true
       sms_message :query, :string, "", required: true
-      api_key :query, :string, "", required: true, default: "ea3f489a45c98eab5cc22e38db1071e8"
-      api_id :query, :string, "", required: true, default: "2091d756"
+      api_id :query, :string, "", required: true
+      api_key :query, :string, "", required: true
     end
     tag "sims"
     response 200, "Success"
