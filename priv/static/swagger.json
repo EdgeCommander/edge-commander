@@ -45,18 +45,16 @@
           {
             "type": "string",
             "required": true,
-            "name": "api_key",
+            "name": "api_id",
             "in": "query",
-            "description": "",
-            "default": "ea3f489a45c98eab5cc22e38db1071e8"
+            "description": ""
           },
           {
             "type": "string",
             "required": true,
-            "name": "api_id",
+            "name": "api_key",
             "in": "query",
-            "description": "",
-            "default": "2091d756"
+            "description": ""
           }
         ],
         "operationId": "EdgeCommanderWeb.SitesController.delete",
@@ -78,18 +76,16 @@
           {
             "type": "string",
             "required": true,
-            "name": "api_key",
+            "name": "api_id",
             "in": "query",
-            "description": "",
-            "default": "ea3f489a45c98eab5cc22e38db1071e8"
+            "description": ""
           },
           {
             "type": "string",
             "required": true,
-            "name": "api_id",
+            "name": "api_key",
             "in": "query",
-            "description": "",
-            "default": "2091d756"
+            "description": ""
           }
         ],
         "operationId": "EdgeCommanderWeb.SitesController.get_all_sites",
@@ -118,18 +114,16 @@
           {
             "type": "string",
             "required": true,
-            "name": "api_key",
+            "name": "api_id",
             "in": "query",
-            "description": "",
-            "default": "ea3f489a45c98eab5cc22e38db1071e8"
+            "description": ""
           },
           {
             "type": "string",
             "required": true,
-            "name": "api_id",
+            "name": "api_key",
             "in": "query",
-            "description": "",
-            "default": "2091d756"
+            "description": ""
           }
         ],
         "operationId": "EdgeCommanderWeb.SimsController.create_chartjs_line_data",
@@ -165,18 +159,16 @@
           {
             "type": "string",
             "required": true,
-            "name": "api_key",
+            "name": "api_id",
             "in": "query",
-            "description": "",
-            "default": "ea3f489a45c98eab5cc22e38db1071e8"
+            "description": ""
           },
           {
             "type": "string",
             "required": true,
-            "name": "api_id",
+            "name": "api_key",
             "in": "query",
-            "description": "",
-            "default": "2091d756"
+            "description": ""
           }
         ],
         "operationId": "EdgeCommanderWeb.SimsController.send_sms",
@@ -203,18 +195,16 @@
           {
             "type": "string",
             "required": true,
-            "name": "api_key",
+            "name": "api_id",
             "in": "query",
-            "description": "",
-            "default": "ea3f489a45c98eab5cc22e38db1071e8"
+            "description": ""
           },
           {
             "type": "string",
             "required": true,
-            "name": "api_id",
+            "name": "api_key",
             "in": "query",
-            "description": "",
-            "default": "2091d756"
+            "description": ""
           }
         ],
         "operationId": "EdgeCommanderWeb.SimsController.get_single_sim_sms",
@@ -243,18 +233,16 @@
           {
             "type": "string",
             "required": true,
-            "name": "api_key",
+            "name": "api_id",
             "in": "query",
-            "description": "",
-            "default": "ea3f489a45c98eab5cc22e38db1071e8"
+            "description": ""
           },
           {
             "type": "string",
             "required": true,
-            "name": "api_id",
+            "name": "api_key",
             "in": "query",
-            "description": "",
-            "default": "2091d756"
+            "description": ""
           }
         ],
         "operationId": "EdgeCommanderWeb.SimsController.get_single_sim_data",
@@ -276,18 +264,16 @@
           {
             "type": "string",
             "required": true,
-            "name": "api_key",
+            "name": "api_id",
             "in": "query",
-            "description": "",
-            "default": "ea3f489a45c98eab5cc22e38db1071e8"
+            "description": ""
           },
           {
             "type": "string",
             "required": true,
-            "name": "api_id",
+            "name": "api_key",
             "in": "query",
-            "description": "",
-            "default": "2091d756"
+            "description": ""
           }
         ],
         "operationId": "EdgeCommanderWeb.SimsController.get_sim_logs",
@@ -316,18 +302,16 @@
           {
             "type": "string",
             "required": true,
-            "name": "api_key",
+            "name": "api_id",
             "in": "query",
-            "description": "",
-            "default": "ea3f489a45c98eab5cc22e38db1071e8"
+            "description": ""
           },
           {
             "type": "string",
             "required": true,
-            "name": "api_id",
+            "name": "api_key",
             "in": "query",
-            "description": "",
-            "default": "2091d756"
+            "description": ""
           }
         ],
         "operationId": "EdgeCommanderWeb.CommandsController.delete",
@@ -349,18 +333,16 @@
           {
             "type": "string",
             "required": true,
-            "name": "api_key",
+            "name": "api_id",
             "in": "query",
-            "description": "",
-            "default": "ea3f489a45c98eab5cc22e38db1071e8"
+            "description": ""
           },
           {
             "type": "string",
             "required": true,
-            "name": "api_id",
+            "name": "api_key",
             "in": "query",
-            "description": "",
-            "default": "2091d756"
+            "description": ""
           }
         ],
         "operationId": "EdgeCommanderWeb.CommandsController.get_all_rules",
@@ -431,18 +413,16 @@
           {
             "type": "string",
             "required": true,
-            "name": "api_key",
+            "name": "api_id",
             "in": "query",
-            "description": "",
-            "default": "ea3f489a45c98eab5cc22e38db1071e8"
+            "description": ""
           },
           {
             "type": "string",
             "required": true,
-            "name": "api_id",
+            "name": "api_key",
             "in": "query",
-            "description": "",
-            "default": "2091d756"
+            "description": ""
           }
         ],
         "operationId": "EdgeCommanderWeb.RoutersController.update",
@@ -469,18 +449,16 @@
           {
             "type": "string",
             "required": true,
-            "name": "api_key",
+            "name": "api_id",
             "in": "query",
-            "description": "",
-            "default": "ea3f489a45c98eab5cc22e38db1071e8"
+            "description": ""
           },
           {
             "type": "string",
             "required": true,
-            "name": "api_id",
+            "name": "api_key",
             "in": "query",
-            "description": "",
-            "default": "2091d756"
+            "description": ""
           }
         ],
         "operationId": "EdgeCommanderWeb.RoutersController.delete",
@@ -545,18 +523,16 @@
           {
             "type": "string",
             "required": true,
-            "name": "api_key",
+            "name": "api_id",
             "in": "query",
-            "description": "",
-            "default": "ea3f489a45c98eab5cc22e38db1071e8"
+            "description": ""
           },
           {
             "type": "string",
             "required": true,
-            "name": "api_id",
+            "name": "api_key",
             "in": "query",
-            "description": "",
-            "default": "2091d756"
+            "description": ""
           }
         ],
         "operationId": "EdgeCommanderWeb.RoutersController.create",
@@ -576,18 +552,16 @@
           {
             "type": "string",
             "required": true,
-            "name": "api_key",
+            "name": "api_id",
             "in": "query",
-            "description": "",
-            "default": "ea3f489a45c98eab5cc22e38db1071e8"
+            "description": ""
           },
           {
             "type": "string",
             "required": true,
-            "name": "api_id",
+            "name": "api_key",
             "in": "query",
-            "description": "",
-            "default": "2091d756"
+            "description": ""
           }
         ],
         "operationId": "EdgeCommanderWeb.RoutersController.get_all_routers",
@@ -679,18 +653,16 @@
           {
             "type": "string",
             "required": true,
-            "name": "api_key",
+            "name": "api_id",
             "in": "query",
-            "description": "",
-            "default": "ea3f489a45c98eab5cc22e38db1071e8"
+            "description": ""
           },
           {
             "type": "string",
             "required": true,
-            "name": "api_id",
+            "name": "api_key",
             "in": "query",
-            "description": "",
-            "default": "2091d756"
+            "description": ""
           }
         ],
         "operationId": "EdgeCommanderWeb.NvrsController.update",
@@ -717,18 +689,16 @@
           {
             "type": "string",
             "required": true,
-            "name": "api_key",
+            "name": "api_id",
             "in": "query",
-            "description": "",
-            "default": "ea3f489a45c98eab5cc22e38db1071e8"
+            "description": ""
           },
           {
             "type": "string",
             "required": true,
-            "name": "api_id",
+            "name": "api_key",
             "in": "query",
-            "description": "",
-            "default": "2091d756"
+            "description": ""
           }
         ],
         "operationId": "EdgeCommanderWeb.NvrsController.delete",
@@ -814,18 +784,16 @@
           {
             "type": "string",
             "required": true,
-            "name": "api_key",
+            "name": "api_id",
             "in": "query",
-            "description": "",
-            "default": "ea3f489a45c98eab5cc22e38db1071e8"
+            "description": ""
           },
           {
             "type": "string",
             "required": true,
-            "name": "api_id",
+            "name": "api_key",
             "in": "query",
-            "description": "",
-            "default": "2091d756"
+            "description": ""
           }
         ],
         "operationId": "EdgeCommanderWeb.NvrsController.create",
@@ -845,18 +813,16 @@
           {
             "type": "string",
             "required": true,
-            "name": "api_key",
+            "name": "api_id",
             "in": "query",
-            "description": "",
-            "default": "ea3f489a45c98eab5cc22e38db1071e8"
+            "description": ""
           },
           {
             "type": "string",
             "required": true,
-            "name": "api_id",
+            "name": "api_key",
             "in": "query",
-            "description": "",
-            "default": "2091d756"
+            "description": ""
           }
         ],
         "operationId": "EdgeCommanderWeb.NvrsController.get_all_nvrs",
