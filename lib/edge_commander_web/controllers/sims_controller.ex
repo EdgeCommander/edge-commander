@@ -147,7 +147,7 @@ defmodule EdgeCommanderWeb.SimsController do
         number = entries |> List.first |> get_number()
         last_bill_date = entries |> List.first |> Map.get(:last_bill_date)
 
-        last_sms_details = number |> get_last_message_details(current_user_id)
+        last_sms_details = get_last_message_details(number, current_user_id)
         if last_sms_details == nil do
           last_sms = "-";
           last_sms_date = "-";
@@ -157,7 +157,7 @@ defmodule EdgeCommanderWeb.SimsController do
           last_sms_date = last_sms_details |> Map.get(:inserted_at) |> Util.shift_zone()
         end
 
-        total_sms_send = number |> ensure_bill_date(last_bill_date)
+        total_sms_send = ensure_bill_date(number, last_bill_date)
 
         %{
           "number" => entries |> List.first |> get_number(),
@@ -367,7 +367,6 @@ defmodule EdgeCommanderWeb.SimsController do
   end
 
   defp ensure_bill_date(_number, nil),  do: 0
-
   defp ensure_bill_date(number, last_bill_date) do
     total_sms_send = get_sms_since_last_bill(number, last_bill_date)
   end
