@@ -1,7 +1,7 @@
 defmodule EdgeCommanderWeb.SimsController do
   use EdgeCommanderWeb, :controller
   import EdgeCommander.ThreeScraper
-  import EdgeCommander.Nexmo, only: [get_message: 1, get_single_sim_messages: 2]
+  import EdgeCommander.Nexmo, only: [get_message: 1, get_single_sim_messages: 2, get_last_message_details: 2, get_sms_since_last_bill: 2]
   import EdgeCommander.Accounts, only: [current_user: 1, by_api_keys: 2]
   alias EdgeCommander.Nexmo.SimMessages
   alias EdgeCommander.ThreeScraper.SimLogs
@@ -144,6 +144,20 @@ defmodule EdgeCommanderWeb.SimsController do
         {yesterday_in_number, _} = entries |> List.last |> get_volume_used() |> String.replace(",", "") |> Float.parse()
         {allowance_in_number, _} = entries |> List.first |> get_allowance() |> String.replace(",", "") |> Float.parse()
 
+        number = entries |> List.first |> get_number()
+        last_bill_date = entries |> List.first |> Map.get(:last_bill_date)
+
+        last_sms_details = get_last_message_details(number, current_user_id)
+        if last_sms_details == nil do
+          last_sms = "-";
+          last_sms_date = "-";
+          total_sms_send = 0;
+          else
+          last_sms = last_sms_details |> Map.get(:text)
+          last_sms_date = last_sms_details |> Map.get(:inserted_at) |> Util.shift_zone()
+          total_sms_send = get_sms_since_last_bill(number, last_bill_date)
+        end
+
         %{
           "number" => entries |> List.first |> get_number(),
           "name" => entries |> List.first |> get_name(),
@@ -155,7 +169,11 @@ defmodule EdgeCommanderWeb.SimsController do
           "yesterday_in_number" => yesterday_in_number,
           "allowance_in_number" => allowance_in_number,
           "date_of_use" => entries |> List.first |> Map.get(:datetime) |> Util.shift_zone(),
-          "sim_provider" => entries |> List.first |> Map.get(:sim_provider)
+          "sim_provider" => entries |> List.first |> Map.get(:sim_provider),
+          "last_bill_date" => entries |> List.first |> Map.get(:last_bill_date),
+          "last_sms" => last_sms,
+          "last_sms_date" => last_sms_date,
+          "total_sms_send" => total_sms_send
         }
       end) |> Enum.sort(& (&1["percentage_used"] >= &2["percentage_used"]))
     conn

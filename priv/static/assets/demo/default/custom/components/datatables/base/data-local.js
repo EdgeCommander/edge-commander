@@ -15,6 +15,10 @@ var vm = new Vue({
       {column: "Remaning Days"},
       {column: "Sim Provider"},
       {column: "Last Reading"},
+      {column: "Last Bill Date"},
+      {column: "Last SMS"},
+      {column: "Last SMS DateTime"},
+      {column: "# SMS Since Last Bill"}
     ],
     form_labels: {
       name: "Name",
@@ -127,6 +131,40 @@ var vm = new Vue({
           return moment(row.date_of_use).format('MMMM Do YYYY, H:mm:ss');
         }
       },
+      {
+        class: "text-center width-200",
+        data: function(row, type, set, meta) {
+          last_bill_date = row.last_bill_date
+          if(last_bill_date == null){
+            return "-"
+          }else{
+            return moment(row.last_bill_date).format('MMMM Do YYYY');
+          }
+        }
+      },
+      {
+        class: "width-1060",
+        data: function(row, type, set, meta) {
+          return row.last_sms;
+        }
+      },
+      {
+        class: "text-center width-200",
+        data: function(row, type, set, meta) {
+          last_sms_date = row.last_sms_date
+          if(last_sms_date == "-"){
+            return last_sms_date
+          }else{
+            return moment(row.last_sms_date).format('MMMM Do YYYY, H:mm:ss');
+          }
+        }
+      },
+      {
+        class: "text-center width-150",
+        data: function(row, type, set, meta) {
+          return row.total_sms_send;
+        }
+      }
       ],
       autoWidth: false,
       info: false,
