@@ -1,7 +1,7 @@
 defmodule EdgeCommanderWeb.SimsController do
   use EdgeCommanderWeb, :controller
   import EdgeCommander.ThreeScraper
-  import EdgeCommander.Nexmo, only: [get_message: 1, get_single_sim_messages: 2, get_last_message_details: 2, get_sms_since_last_bill: 2]
+  import EdgeCommander.Nexmo, only: [get_message: 1, get_single_sim_messages: 2, get_last_message_details: 2, get_sms_since_last_bill: 3]
   import EdgeCommander.Accounts, only: [current_user: 1, by_api_keys: 2]
   alias EdgeCommander.Nexmo.SimMessages
   alias EdgeCommander.ThreeScraper.SimLogs
@@ -157,7 +157,7 @@ defmodule EdgeCommanderWeb.SimsController do
           last_sms_date = last_sms_details |> Map.get(:inserted_at) |> Util.shift_zone()
         end
 
-        total_sms_send = ensure_bill_date(number, last_bill_date)
+        total_sms_send = ensure_bill_date(number, last_bill_date, current_user_id)
 
         %{
           "number" => entries |> List.first |> get_number(),
@@ -366,8 +366,8 @@ defmodule EdgeCommanderWeb.SimsController do
     log.allowance
   end
 
-  defp ensure_bill_date(_number, nil),  do: 0
-  defp ensure_bill_date(number, last_bill_date) do
-    total_sms_send = get_sms_since_last_bill(number, last_bill_date)
+  defp ensure_bill_date(_number, nil, _user_id),  do: 0
+  defp ensure_bill_date(number, last_bill_date, user_id) do
+    total_sms_send = get_sms_since_last_bill(number, last_bill_date, user_id)
   end
 end
