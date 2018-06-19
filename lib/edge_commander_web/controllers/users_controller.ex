@@ -8,6 +8,13 @@ defmodule EdgeCommanderWeb.UsersController do
   import EdgeCommander.Accounts, only: [get_user!: 1, email_exist: 1, get_user_by_token: 1]
 
   def sign_up(conn, params) do
+    params = %{
+      "_csrf_token" => params["_csrf_token"],
+      "email" => String.downcase(params["email"]),
+      "firstname" => params["firstname"],
+      "lastname" => params["lastname"],
+      "password" => params["password"]
+    }
     with  {:ok, updated_params} <- merge_last_signed_in(params),
           {:ok, changeset} <- changeset_is_fine(updated_params)
     do
@@ -91,6 +98,13 @@ defmodule EdgeCommanderWeb.UsersController do
   end
 
   def update_profile(conn, %{"id" => id} = params) do
+    params = %{
+      "email" => String.downcase(params["email"]),
+      "firstname" => params["firstname"],
+      "id" => params["id"],
+      "lastname" => params["lastname"],
+      "password" => params["password"]
+    }
     get_user!(id)
     |> User.changeset(params)
     |> Repo.update

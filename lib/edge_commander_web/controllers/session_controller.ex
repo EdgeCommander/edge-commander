@@ -6,7 +6,7 @@ defmodule EdgeCommanderWeb.SessionController do
   alias EdgeCommander.Accounts.Guardian
 
   def create(conn, params) do
-    email = params["email"]
+    email = String.downcase(params["email"])
     password = params["password"]
     %{"user" => %{"email" => email, "password" => password}}
     authenticate_user(email, password)
