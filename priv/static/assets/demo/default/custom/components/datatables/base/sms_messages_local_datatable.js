@@ -37,6 +37,18 @@ var vm = new Vue({
       to_date = $("#m_sms_datepicker_to").val();
 
       smsDataTable = $('#sms-datatable').DataTable({
+        fnInitComplete: function(){
+            // Enable TFOOT scoll bars
+            $('.dataTables_scrollFoot').css('overflow', 'auto');
+            $('.dataTables_scrollHead').css('overflow', 'auto');
+            // Sync TFOOT scrolling with TBODY
+            $('.dataTables_scrollFoot').on('scroll', function () {
+            $('.dataTables_scrollBody').scrollLeft($(this).scrollLeft());
+          });
+          $('.dataTables_scrollHead').on('scroll', function () {
+            $('.dataTables_scrollBody').scrollLeft($(this).scrollLeft());
+          });
+        },
         ajax: {
         url: "/get_all_sms/" + from_date + "/" + to_date,
           dataSrc: function(data) {
@@ -52,26 +64,22 @@ var vm = new Vue({
         },
         columns: [
         {
-          class: "width-120",
           data: function(row, type, set, meta) {
             return row.from;
           }
         },
         {
-          class: "width-120",
           data: function(row, type, set, meta) {
             return row.to;
           }
         },
         {
           visible: false,
-          class: "width-180",
           data: function(row, type, set, meta) {
             return row.message_id;
           }
         },
         {
-          class: "width-80",
           data: function(row, type, set, meta) {
             if(row.type == "MO"){
               return "<span class='m-badge m-badge--metal m-badge--wide'>Incoming</span>";
@@ -81,13 +89,11 @@ var vm = new Vue({
           }
         },
         {
-          class: "width-1060",
           data: function(row, type, set, meta) {
             return row.text;
           }
         },
         {
-          class: "width-80",
           data: function(row, type, set, meta) {
             status = row.status;
             if(status == "Received"){
@@ -100,7 +106,7 @@ var vm = new Vue({
           }
         },       
         {
-          class: "text-center width-200",
+          class: "text-center",
           data: function(row, type, set, meta) {
             return moment(row.inserted_at).format('MMMM Do YYYY, H:mm:ss');
           },
@@ -110,6 +116,7 @@ var vm = new Vue({
         info: false,
         bPaginate: false,
         lengthChange: false,
+        scrollX: true,
         // stateSave:  true,
       });
       this.dataTable = smsDataTable;
@@ -202,11 +209,6 @@ var vm = new Vue({
       $('ul#errorOnSite').html("");
       $("#body-sms-dis *").prop('disabled', false);
     },
-    resizeScreen: function(){
-      $('#double-scroll').doubleScroll();
-      var table_width = $("#sms-datatable").width();
-      $(".doubleScroll-scroll").width(table_width);
-    },
     dateFilterInitialize: function() {
       var table_data = this.dataTable;
     $('#m_sms_datepicker_from, #m_sms_datepicker_to').datepicker({
@@ -264,6 +266,19 @@ var vm = new Vue({
           value =  $(this).val();
           vm.smsMessage_text = value
         });
+      });
+    },
+    resizeScreen: function(){
+      this.dataTable.ajax.reload();
+      // Enable TFOOT scoll bars
+      $('.dataTables_scrollFoot').css('overflow', 'auto');
+      $('.dataTables_scrollHead').css('overflow', 'auto');
+      // Sync TFOOT scrolling with TBODY
+      $('.dataTables_scrollFoot').on('scroll', function () {
+        $('.dataTables_scrollBody').scrollLeft($(this).scrollLeft());
+      });
+      $('.dataTables_scrollHead').on('scroll', function () {
+        $('.dataTables_scrollBody').scrollLeft($(this).scrollLeft());
       });
     }
   }, // end of methods

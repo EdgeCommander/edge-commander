@@ -361,62 +361,6 @@ select.form-control:not([size]):not([multiple]) {
   padding: 0 10px 10px 10px;
 }
 
-.width-10{
-  min-width: 10px;
-}
-
-.width-80{
-  min-width: 80px;
-}
-
-.width-60{
-  min-width: 60px;
-}
-
-.width-100{
-  min-width: 100px;
-}
-
-.width-120{
-  min-width: 120px;
-}
-
-.width-120{
-  min-width: 120px;
-}
-
-.width-180{
-  min-width: 180px;
-}
-
-.width-150{
-  min-width: 150px;
-}
-
-.width-200{
-  min-width: 200px;
-}
-
-.width-250{
-  min-width: 250px;
-}
-
-.width-300{
-  min-width: 300px;
-}
-
-.width-400{
-  min-width: 400px;
-}
-
-.width-530{
-  min-width: 530px;
-}
-
-.width-1060{
-  min-width: 1060px;
-}
-
 .dataTables_filter{
   display:none;
 }

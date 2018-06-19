@@ -47,23 +47,13 @@
                         </div>
                       </div>
                       <!--end: Search Form -->
-                        <div id="double-scroll">
-                        <!-- Content Here -->
-                            <table id="nvr-datatable" class="table table-striped  table-hover table-bordered datatable" cellspacing="0" style="overflow-x: scroll; width:100%">
-                                <thead>
-                                    <tr>
-                                        <th v-for="(item, index) in headings">{{item.column}}</th>
-                                    </tr>
-                                </thead>
-                            </table>
-                        </div>
-                      <!--begin: Datatable -->
-                      <font class="reload"></font>
-                        <div class="tableScroll">
-                            <div class="topScroll"></div>
-                        </div>
-                       <div class="m_nvr_datatable" id="child_data_local"></div>
-                      <!--end: Datatable -->
+                        <table id="nvr-datatable" class="table table-striped  table-hover table-bordered datatable display nowrap" cellspacing="0" width="100%">
+                            <thead>
+                                <tr>
+                                    <th v-for="(item, index) in headings">{{item.column}}</th>
+                                </tr>
+                            </thead>
+                        </table>
                     </div>
                   </div>
                 </div>

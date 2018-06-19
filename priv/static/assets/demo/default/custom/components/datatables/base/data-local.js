@@ -39,6 +39,18 @@ var vm = new Vue({
   methods: {
     initializeTable: function(){
       simsDataTable = $('#sims-datatable').DataTable({
+      fnInitComplete: function(){
+          // Enable TFOOT scoll bars
+          $('.dataTables_scrollFoot').css('overflow', 'auto');
+          $('.dataTables_scrollHead').css('overflow', 'auto');
+          // Sync TFOOT scrolling with TBODY
+          $('.dataTables_scrollFoot').on('scroll', function () {
+          $('.dataTables_scrollBody').scrollLeft($(this).scrollLeft());
+        });
+        $('.dataTables_scrollHead').on('scroll', function () {
+          $('.dataTables_scrollBody').scrollLeft($(this).scrollLeft());
+        });
+      },
       ajax: {
       url: "/sims/data/json",
         dataSrc: function(data) {
@@ -54,19 +66,19 @@ var vm = new Vue({
       },
       columns: [
       {
-        class: "text-left width-150",
+        class: "text-left",
         data: function(row, type, set, meta) {
           return '<a style="color: blue;text-decoration: underline;cursor: pointer;" href="/sims/' + row.number + '" id="show-morris-graph" data-id="' + row.number + '">' + row.number  + '</a>'
         }
       },
       {
-        class: "text-left width-250",
+        class: "text-left",
         data: function(row, type, set, meta) {
           return row.name;
         }
       },
       {
-        class: "text-center width-150",
+        class: "text-center",
         data: function(row, type, set, meta) {
           allowance_value = row.allowance_in_number
           if (allowance_value == -1.0) {
@@ -76,7 +88,7 @@ var vm = new Vue({
         }
       },
       {
-        class: "text-center width-150",
+        class: "text-center",
         data: function(row, type, set, meta) {
           allowance_value = row.allowance_in_number
           current_in_number = row.current_in_number
@@ -87,7 +99,7 @@ var vm = new Vue({
         }
       },
       {
-        class: "text-center width-150",
+        class: "text-center",
         data: function(row, type, set, meta) {
          allowance_value = row.allowance_in_number
           yesterday_in_number = row.yesterday_in_number
@@ -98,7 +110,7 @@ var vm = new Vue({
         }
       },
       {
-        class: "text-center width-150",
+        class: "text-center",
         data: function(row, type, set, meta) {
           allowance_value = row.allowance_in_number
           percentage_used = row.percentage_used
@@ -109,7 +121,7 @@ var vm = new Vue({
         }
       },
       {
-        class: "text-center width-150",
+        class: "text-center",
         data: function(row, type, set, meta) {
           var days_left = (row.allowance_in_number - row.current_in_number) / (row.current_in_number - row.yesterday_in_number)
           value =  Math.round(days_left * 100) / 100;
@@ -120,19 +132,19 @@ var vm = new Vue({
         }
       },
       {
-        class: "text-center width-150",
+        class: "text-center",
         data: function(row, type, set, meta) {
           return row.sim_provider;
         }
       },
       {
-        class: "text-center width-250",
+        class: "text-center",
         data: function(row, type, set, meta) {
           return moment(row.date_of_use).format('MMMM Do YYYY, H:mm:ss');
         }
       },
       {
-        class: "text-center width-200",
+        class: "text-center",
         data: function(row, type, set, meta) {
           last_bill_date = row.last_bill_date
           if(last_bill_date == null){
@@ -143,13 +155,12 @@ var vm = new Vue({
         }
       },
       {
-        class: "width-1060",
         data: function(row, type, set, meta) {
           return row.last_sms;
         }
       },
       {
-        class: "text-center width-200",
+        class: "text-center",
         data: function(row, type, set, meta) {
           last_sms_date = row.last_sms_date
           if(last_sms_date == "-"){
@@ -160,17 +171,18 @@ var vm = new Vue({
         }
       },
       {
-        class: "text-center width-150",
+        class: "text-center",
         data: function(row, type, set, meta) {
           return row.total_sms_send;
         }
       }
       ],
-      autoWidth: false,
+      autoWidth: true,
       info: false,
       bPaginate: false,
       lengthChange: false,
       order: [[ 5, "desc" ]],
+      scrollX: true,
       // stateSave:  true,
     });
       this.dataTable = simsDataTable;
@@ -291,11 +303,19 @@ var vm = new Vue({
         }
       })
     },
-   resizeScreen: function(){
-    $('#double-scroll').doubleScroll();
-    var table_width = $("#sims-datatable").width();
-    $(".doubleScroll-scroll").width(table_width);
-   }
+    resizeScreen: function(){
+      this.dataTable.ajax.reload();
+      // Enable TFOOT scoll bars
+      $('.dataTables_scrollFoot').css('overflow', 'auto');
+      $('.dataTables_scrollHead').css('overflow', 'auto');
+      // Sync TFOOT scrolling with TBODY
+      $('.dataTables_scrollFoot').on('scroll', function () {
+        $('.dataTables_scrollBody').scrollLeft($(this).scrollLeft());
+      });
+      $('.dataTables_scrollHead').on('scroll', function () {
+        $('.dataTables_scrollBody').scrollLeft($(this).scrollLeft());
+      });
+    }
   }, // end of methods
   mounted(){
     this.initializeTable();
