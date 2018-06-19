@@ -136,7 +136,6 @@
                                           </span>
                                       </span>
                                   </a>
-                                  <div class="m-separator m-separator--dashed d-xl-none"></div>
                                   <div href="#" class="btn btn-default grey" data-toggle="modal" data-target="#toggle-datatable-columns">
                                     <i class="fa fa-columns"></i>
                                   </div>
@@ -144,21 +143,13 @@
                             </div>
                           </div>
                           <!--end: Search Form -->
-                          <table id="three-datatable" class="table table-striped  table-hover table-bordered datatable" cellspacing="0" >
+                          <table id="three-datatable" class="table table-striped  table-hover table-bordered display nowrap" cellspacing="0" width="100%">
                             <thead>
                                 <tr>
                                     <th v-for="(item, index) in headings" v-bind:class="item.class">{{item.column}}</th>
                                 </tr>
                             </thead>
                           </table>
-
-                          <!--begin: Datatable -->
-                          <font class="reload"></font>
-                          <div class="tableScroll">
-                            <div class="topScroll"></div>
-                          </div>
-                          <div class="m_commands_datatable" id="child_data_local"></div>
-                          <!--end: Datatable -->
                         </div>
                       </div>
                       </div>

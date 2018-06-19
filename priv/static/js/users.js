@@ -146,6 +146,7 @@ var vm = new Vue({
       bPaginate: false,
       lengthChange: false,
       searching: false,
+      scrollX: true,
       // stateSave:  true
     });
       this.dataTable = commandsDataTable;

@@ -44,13 +44,13 @@ var vm = new Vue({
       },
       columns: [
         {
-          class: "text-left width-180",
+          class: "text-left",
           data: function(row, type, set, meta) {
             return "" + moment(row.date_of_use).format('MMMM Do YYYY, H:mm:ss') +"";
           }
         },
         {
-          class: "text-center width-100",
+          class: "text-center",
           data: function(row, type, set, meta) {
             allowance_value = row.allowance_in_number
             if (allowance_value == -1.0) {
@@ -60,7 +60,7 @@ var vm = new Vue({
           }
         },
         {
-          class: "text-center width-120",
+          class: "text-center",
           data: function(row, type, set, meta) {
             allowance_value = row.allowance_in_number
             current_in_number = row.current_in_number
@@ -71,7 +71,7 @@ var vm = new Vue({
           }
         },
         {
-          class: "text-center width-80",
+          class: "text-center",
           data: function(row, type, set, meta) {
             allowance_value = row.allowance_in_number
             percentage_used = row.percentage_used
@@ -87,6 +87,7 @@ var vm = new Vue({
       bPaginate: false,
       lengthChange: false,
       order: [[ 3, "desc" ]],
+      scrollX: true,
       // stateSave:  true,
     });
     },
@@ -107,13 +108,13 @@ var vm = new Vue({
       },
       columns: [
         {
-          class: "text-left width-200",
+          class: "text-left",
           data: function(row, type, set, meta) {
             return "" + moment(row.inserted_at).format('MMMM Do YYYY, H:mm:ss') +"";
           }
         },
         {
-          class: "text-center width-80",
+          class: "text-center",
           data: function(row, type, set, meta) {
             if(row.type == "MO"){
               return "<span class='m-badge m-badge--metal m-badge--wide'>Incoming</span>";
@@ -123,13 +124,13 @@ var vm = new Vue({
           }
         },
         {
-          class: "text-center width-80",
+          class: "text-center",
           data: function(row, type, set, meta) {
             return "<span style='text-transform:capitalize'>"+row.status+"</sapn>"
           }
         },
         {
-          class: "text-left width-530",
+          class: "text-left",
           data: function(row, type, set, meta) {
             str = row.text;
             return str.split("\n").join("<br/>");
@@ -141,6 +142,7 @@ var vm = new Vue({
       bPaginate: false,
       lengthChange: false,
       ordering: false,
+      scrollX: true,
       // stateSave:  true,
     });
       this.dataTable = simsDataTable;

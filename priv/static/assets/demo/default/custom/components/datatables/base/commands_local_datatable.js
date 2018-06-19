@@ -7,7 +7,7 @@ var vm = new Vue({
     show_errors: false,
     show_edit_errors: false,
     headings: [
-      {column: "Actions", class: "text-center"},
+      {column: "Actions"},
       {column: "Rule Name"},
       {column: "Active"},
       {column: "Category"},
@@ -39,6 +39,18 @@ var vm = new Vue({
   methods: {
     initializeTable: function(){
       commandsDataTable = $('#commands-datatable').DataTable({
+        fnInitComplete: function(){
+          // Enable TFOOT scoll bars
+          $('.dataTables_scrollFoot').css('overflow', 'auto');
+          $('.dataTables_scrollHead').css('overflow', 'auto');
+          // Sync TFOOT scrolling with TBODY
+          $('.dataTables_scrollFoot').on('scroll', function () {
+          $('.dataTables_scrollBody').scrollLeft($(this).scrollLeft());
+        });
+        $('.dataTables_scrollHead').on('scroll', function () {
+          $('.dataTables_scrollBody').scrollLeft($(this).scrollLeft());
+        });
+      },
       ajax: {
       url: "/rules",
         dataSrc: function(data) {
@@ -54,13 +66,12 @@ var vm = new Vue({
       },
       columns: [
       {
-        class: "text-center width-60",
+        class: "text-center",
         data: function(row, type, set, meta) {
           return '<div class="editRULE cursor_to_pointer fa fa-edit" data-id="'+ row.id +'"></div> <div class="deleteRule cursor_to_pointer fa fa-trash" data-id="'+ row.id +'"></div>';
         }
       },
       {
-        class: "width-200",
         data: function(row, type, set, meta) {
           return row.rule_name;
         }
@@ -72,19 +83,18 @@ var vm = new Vue({
         }
       },
       {
-        class: "text-center width-150",
+        class: "text-center",
         data: function(row, type, set, meta) {
           return row.category;
         }
       },
       {
-        class: "width-200",
         data: function(row, type, set, meta) {
           return row.recipients;
         }
       },
       {
-        class: "text-center width-200",
+        class: "text-center",
         data: function(row, type, set, meta) {
           return moment(row.created_at).format('MMMM Do YYYY, H:mm:ss');
         },
@@ -94,6 +104,7 @@ var vm = new Vue({
       info: false,
       bPaginate: false,
       lengthChange: false,
+      scrollX: true,
       // stateSave:  true,
     });
       this.dataTable = commandsDataTable;
@@ -123,7 +134,7 @@ var vm = new Vue({
    showHideColumns: function(column){
     var column = this.dataTable.column(column);
     column.visible( ! column.visible() );
-    vm.resizeScreen();
+    this.resizeScreen();
    },
    onRuleButton: function(){
     $('.add_rule_to_db').modal('show');
@@ -320,17 +331,25 @@ var vm = new Vue({
     this.edit_rule_recipients = ""
     this.edit_rule_is_active = false
    },
-   resizeScreen: function(){
-    $('#double-scroll').doubleScroll();
-    var table_width = $("#commands-datatable").width();
-    $(".doubleScroll-scroll").width(table_width);
-   }
+    resizeScreen: function(){
+      this.dataTable.ajax.reload();
+      // Enable TFOOT scoll bars
+      $('.dataTables_scrollFoot').css('overflow', 'auto');
+      $('.dataTables_scrollHead').css('overflow', 'auto');
+      // Sync TFOOT scrolling with TBODY
+      $('.dataTables_scrollFoot').on('scroll', function () {
+        $('.dataTables_scrollBody').scrollLeft($(this).scrollLeft());
+      });
+      $('.dataTables_scrollHead').on('scroll', function () {
+        $('.dataTables_scrollBody').scrollLeft($(this).scrollLeft());
+      });
+    }
   }, // end of methods
    mounted(){
     this.initializeTable();
-    this.resizeScreen();
     this.getUniqueIdentifier();
     this.deleteRule();
+    this.resizeScreen();
     window.addEventListener('resize', this.resizeScreen);
    }
 });

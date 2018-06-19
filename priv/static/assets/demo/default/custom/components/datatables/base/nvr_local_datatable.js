@@ -69,6 +69,18 @@ var vm = new Vue({
   methods: {
     initializeTable: function(){
       nvrDataTable = $('#nvr-datatable').DataTable({
+        fnInitComplete: function(){
+          // Enable TFOOT scoll bars
+          $('.dataTables_scrollFoot').css('overflow', 'auto');
+          $('.dataTables_scrollHead').css('overflow', 'auto');
+          // Sync TFOOT scrolling with TBODY
+          $('.dataTables_scrollFoot').on('scroll', function () {
+          $('.dataTables_scrollBody').scrollLeft($(this).scrollLeft());
+        });
+        $('.dataTables_scrollHead').on('scroll', function () {
+          $('.dataTables_scrollBody').scrollLeft($(this).scrollLeft());
+        });
+      },
       ajax: {
       url: "/nvrs/data",
         dataSrc: function(data) {
@@ -84,121 +96,120 @@ var vm = new Vue({
       },
       columns: [
       {
-        class: "text-center width-10",
+        class: "text-center",
         data: function(row, type, set, meta) {
           return '<button class="btn btn-default rebootNVR cursor_to_pointer" data-id="'+ row.id +'" style="font-size:10px;padding: 5px;">Reboot</button>';
         }
       },
       {
-        class: "text-center width-80",
+        class: "text-center",
         data: function(row, type, set, meta) {
           return '<div class="editNVR cursor_to_pointer fa fa-edit" data-id="'+ row.id +'"></div> <div class="deleteNVR cursor_to_pointer fa fa-trash" data-id="'+ row.id +'"></div>';
         }
       },
       {
-        class: "width-250",
         data: function(row, type, set, meta) {
           url = row.ip + ":" + row.port
-          return "<span style='float:left'>"+row.name+"</span><a href='http://"+url+"' target='_blank'><span class='fa fa-external-link' style='float:right'></span></a>"
+          return row.name+"&nbsp;&nbsp;&nbsp;<a href='http://"+url+"' target='_blank'><span class='fa fa-external-link'></a>"
         }
       },
       {
-        class: "text-left width-250",
+        class: "text-left",
         data: function(row, type, set, meta) {
           return row.ip;
         }
       },
       {
         visible: false,
-        class: "text-center width-150",
+        class: "text-center",
         data: function(row, type, set, meta) {
           return row.port;
         }
       },
       {
         visible: false,
-        class: "text-center width-80",
+        class: "text-center",
         data: function(row, type, set, meta) {
           return row.vh_port;
         }
       },
       {
         visible: false,
-        class: "text-center width-80",
+        class: "text-center",
         data: function(row, type, set, meta) {
           return row.sdk_port;
         }
       },
       {
         visible: false,
-        class: "text-center width-80",
+        class: "text-center",
         data: function(row, type, set, meta) {
           return row.rtsp_port;
         }
       },
       {
         visible: false,
-        class: "text-center width-150",
+        class: "text-center",
         data: function(row, type, set, meta) {
           return row.username;
         }
       },
       {
         visible: false,
-        class: "text-center width-150",
+        class: "text-center",
         data: function(row, type, set, meta) {
           return row.password;
         }
       },
       {
-        class: "text-center width-250",
+        class: "text-center",
         data: function(row, type, set, meta) {
           return row.model;
         }
       },
       {
-        class: "text-center width-180",
+        class: "text-center",
         data: function(row, type, set, meta) {
           return row.firmware_version;
         }
       },
       {
         visible: false,
-        class: "text-center width-180",
+        class: "text-center",
         data: function(row, type, set, meta) {
           return row.encoder_released_date;
         }
       },
       {
         visible: false,
-        class: "text-center width-180",
+        class: "text-center",
         data: function(row, type, set, meta) {
           return row.encoder_version;
         }
       },
       {
         visible: false,
-        class: "text-center width-180",
+        class: "text-center",
         data: function(row, type, set, meta) {
           return row.firmware_released_date;
         }
       },
       {
         visible: false,
-        class: "text-left width-400",
+        class: "text-left",
         data: function(row, type, set, meta) {
           return row.serial_number;
         }
       },
       {
         visible: false,
-        class: "text-center width-180",
+        class: "text-center",
         data: function(row, type, set, meta) {
           return row.mac_address;
         }
       },
       {
-        class: "text-center width-200",
+        class: "text-center",
         data: function(row, type, set, meta) {
           if(row.nvr_status == false){
             reason  = row.reason;
@@ -213,7 +224,7 @@ var vm = new Vue({
       },
       {
         visible: false,
-        class: "text-center width-80",
+        class: "text-center",
         data: function(row, type, set, meta) {
            if (row.is_monitoring) {
             return "Yes";
@@ -224,7 +235,7 @@ var vm = new Vue({
       },
       {
         visible: false,
-        class: "text-center width-250",
+        class: "text-center",
         data: function(row, type, set, meta) {
           return moment(row.created_at).format('MMMM Do YYYY, H:mm:ss');
         }
@@ -234,6 +245,7 @@ var vm = new Vue({
       info: false,
       bPaginate: false,
       lengthChange: false,
+      scrollX: true,
       // stateSave:  true,
     });
       this.dataTable = nvrDataTable;
@@ -245,11 +257,6 @@ var vm = new Vue({
     var column = this.dataTable.column(column);
     column.visible( ! column.visible() );
     this.resizeScreen();
-   },
-   resizeScreen: function(){
-    $('#double-scroll').doubleScroll();
-    var table_width = $("#nvr-datatable").width();
-    $(".doubleScroll-scroll").width(table_width);
    },
    onNVRButton: function() {
     $('.add_nvr_to_db').modal('show');
@@ -579,16 +586,27 @@ var vm = new Vue({
       $("#body-nvr-edit-dis *").prop('disabled', false);
       this.show_loading = false;
       this.show_edit_errors = false;
+    },
+    resizeScreen: function(){
+      this.dataTable.ajax.reload();
+      // Enable TFOOT scoll bars
+      $('.dataTables_scrollFoot').css('overflow', 'auto');
+      $('.dataTables_scrollHead').css('overflow', 'auto');
+      // Sync TFOOT scrolling with TBODY
+      $('.dataTables_scrollFoot').on('scroll', function () {
+        $('.dataTables_scrollBody').scrollLeft($(this).scrollLeft());
+      });
+      $('.dataTables_scrollHead').on('scroll', function () {
+        $('.dataTables_scrollBody').scrollLeft($(this).scrollLeft());
+      });
     }
-
   }, // end of methods
   mounted(){
     this.initializeTable();
-    this.resizeScreen();
     this.deleteNVR();
     this.rebootNVR();
     this.getUniqueIdentifier();
+    this.resizeScreen();
     window.addEventListener('resize', this.resizeScreen);
   }
-
 });

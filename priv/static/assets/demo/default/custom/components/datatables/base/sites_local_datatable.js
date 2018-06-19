@@ -51,6 +51,18 @@ var vm = new Vue({
   methods: {
       initializeTable: function(){
         sitesDataTable = $('#sites-datatable').DataTable({
+          fnInitComplete: function(){
+              // Enable TFOOT scoll bars
+              $('.dataTables_scrollFoot').css('overflow', 'auto');
+              $('.dataTables_scrollHead').css('overflow', 'auto');
+              // Sync TFOOT scrolling with TBODY
+              $('.dataTables_scrollFoot').on('scroll', function () {
+              $('.dataTables_scrollBody').scrollLeft($(this).scrollLeft());
+            });
+            $('.dataTables_scrollHead').on('scroll', function () {
+              $('.dataTables_scrollBody').scrollLeft($(this).scrollLeft());
+            });
+          },
           ajax: {
           url: "/sites/data",
             dataSrc: function(data) {
@@ -66,49 +78,44 @@ var vm = new Vue({
           },
           columns: [
           {
-            class: "text-center width-60",
+            class: "text-center",
             data: function(row, type, set, meta) {
               return '<div class="editSite cursor_to_pointer fa fa-edit" data-id="'+ row.id +'"></div> <div class="deleteSite cursor_to_pointer fa fa-trash" data-id="'+ row.id +'"></div>';
             }
           },
           {
-            class: "width-200",
             data: function(row, type, set, meta) {
               return row.name;
             }
           },
           {
-            class: "width-300",
             data: function(row, type, set, meta) {
               return row.location.map_area;
             }
           },
           {
-            class: "text-center width-150",
+            class: "text-center",
             data: function(row, type, set, meta) {
               return row.sim_number;
             }
           },
           {
-            class: "width-250",
             data: function(row, type, set, meta) {
               return row.router_name;
             }
           },
           {
-            class: "width-250",
             data: function(row, type, set, meta) {
               return row.nvr_name;
             }
           },
           {
-            class: "width-250",
             data: function(row, type, set, meta) {
               return row.notes;
             }
           },
           {
-            class: "text-center width-250",
+            class: "text-center",
             data: function(row, type, set, meta) {
               return moment(row.created_at).format('MMMM Do YYYY, H:mm:ss');
             },
@@ -118,6 +125,7 @@ var vm = new Vue({
           info: false,
           bPaginate: false,
           lengthChange: false,
+          scrollX: true,
           // stateSave:  true,
         });
         this.dataTable = sitesDataTable;
@@ -509,16 +517,24 @@ var vm = new Vue({
       this.show_edit_errors = false;
     },
     resizeScreen: function(){
-      $('#double-scroll').doubleScroll();
-      var table_width = $("#sites-datatable").width();
-      $(".doubleScroll-scroll").width(table_width);
+      this.dataTable.ajax.reload();
+      // Enable TFOOT scoll bars
+      $('.dataTables_scrollFoot').css('overflow', 'auto');
+      $('.dataTables_scrollHead').css('overflow', 'auto');
+      // Sync TFOOT scrolling with TBODY
+      $('.dataTables_scrollFoot').on('scroll', function () {
+        $('.dataTables_scrollBody').scrollLeft($(this).scrollLeft());
+      });
+      $('.dataTables_scrollHead').on('scroll', function () {
+        $('.dataTables_scrollBody').scrollLeft($(this).scrollLeft());
+      });
     }
   }, // end of methods
    mounted(){
     this.initializeTable();
-    this.resizeScreen();
     this.deleteSite();
     this.getUniqueIdentifier();
+    this.resizeScreen();
     window.addEventListener('resize', this.resizeScreen);
    }
 });
