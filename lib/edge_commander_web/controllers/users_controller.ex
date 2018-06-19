@@ -6,7 +6,6 @@ defmodule EdgeCommanderWeb.UsersController do
   alias EdgeCommander.Util
   require Logger
   import EdgeCommander.Accounts, only: [get_user!: 1, email_exist: 1, get_user_by_token: 1]
-  require IEx
 
   def sign_up(conn, params) do
     params = %{
