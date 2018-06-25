@@ -11,6 +11,10 @@ defmodule EdgeCommanderWeb.RooterController do
     render(conn, "index.html", user: current_user(conn), gravatar_url: current_user(conn) |> Map.get(:email) |> gravatar_url(secure: true))
   end
 
+  def common(conn, _params) do
+    render(conn, "common.html", user: current_user(conn), gravatar_url: current_user(conn) |> Map.get(:email) |> gravatar_url(secure: true), csrf_token: get_csrf_token())
+  end
+
   def sim_logs(conn, _params) do
     render(conn, "sim_logs.html", user: current_user(conn), gravatar_url: current_user(conn) |> Map.get(:email) |> gravatar_url(secure: true), csrf_token: get_csrf_token())
   end

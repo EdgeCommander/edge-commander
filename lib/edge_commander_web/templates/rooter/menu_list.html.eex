@@ -5,8 +5,8 @@
   <!-- BEGIN: Aside Menu -->
   <div id="m_ver_menu" class="m-aside-menu  m-aside-menu--skin-dark  m-aside-menu--submenu-skin-dark " data-menu-vertical="true" data-menu-scrollable="false" data-menu-dropdown-timeout="500">
      <ul class="m-menu__nav  m-menu__nav--dropdown-submenu-arrow ">
-        <li class="m-menu__item <%=  if (@conn.request_path == "/sims" or String.starts_with?(@conn.request_path, "/sims/")), do: "m-menu__item--active", else: "" %>" aria-haspopup="true" >
-            <a  href="/sims" class="m-menu__link ">
+        <li class="m-menu__item sims" aria-haspopup="true" onclick="load_page('/sims')">
+            <a  href="javascript:void(0)" class="m-menu__link ">
                 <i class="m-menu__link-icon fa fa-newspaper-o"></i>
                 <span class="m-menu__link-title">
                     <span class="m-menu__link-wrap">
@@ -17,8 +17,8 @@
                 </span>
             </a>
         </li>
-        <li class="m-menu__item <%=  if (@conn.request_path == "/nvrs"), do: "m-menu__item--active", else: "" %>" aria-haspopup="true" >
-            <a  href="/nvrs" class="m-menu__link ">
+        <li class="m-menu__item nvrs" aria-haspopup="true" onclick="load_page('/nvrs')">
+            <a  href="javascript:void(0)" class="m-menu__link ">
                 <i class="m-menu__link-icon la  la-building"></i>
                 <span class="m-menu__link-title">
                     <span class="m-menu__link-wrap">
@@ -29,8 +29,8 @@
                 </span>
             </a>
         </li>
-        <li class="m-menu__item <%=  if (@conn.request_path == "/status_report"), do: "m-menu__item--active", else: "" %>" aria-haspopup="true" >
-            <a  href="/status_report" class="m-menu__link ">
+        <li class="m-menu__item status_report" aria-haspopup="true" onclick="load_page('/status_report')">
+            <a  href="javascript:void(0)" class="m-menu__link">
                 <i class="m-menu__link-icon fa  fa-barcode"></i>
                 <span class="m-menu__link-title">
                     <span class="m-menu__link-wrap">
@@ -41,8 +41,8 @@
                 </span>
             </a>
         </li>
-        <li class="m-menu__item <%=  if (@conn.request_path == "/routers"), do: "m-menu__item--active", else: "" %>" aria-haspopup="true" >
-            <a  href="/routers" class="m-menu__link ">
+        <li class="m-menu__item routers" aria-haspopup="true" onclick="load_page('/routers')">
+            <a  href="javascript:void(0)" class="m-menu__link">
                 <i class="m-menu__link-icon fa fa-registered"></i>
                 <span class="m-menu__link-title">
                     <span class="m-menu__link-wrap">
@@ -53,8 +53,8 @@
                 </span>
             </a>
         </li>
-        <li class="m-menu__item <%=  if (@conn.request_path == "/sites"), do: "m-menu__item--active", else: "" %>" aria-haspopup="true" >
-            <a  href="/sites" class="m-menu__link ">
+        <li class="m-menu__item sites" aria-haspopup="true" onclick="load_page('/sites')">
+            <a  href="javascript:void(0)" class="m-menu__link">
                 <i class="m-menu__link-icon fa  fa-leanpub"></i>
                 <span class="m-menu__link-title">
                     <span class="m-menu__link-wrap">
@@ -65,8 +65,8 @@
                 </span>
             </a>
         </li>
-        <li class="m-menu__item <%=  if (@conn.request_path == "/commands"), do: "m-menu__item--active", else: "" %>" aria-haspopup="true" >
-            <a  href="/commands" class="m-menu__link ">
+        <li class="m-menu__item commands" aria-haspopup="true" onclick="load_page('/commands')">
+            <a  href="javascript:void(0)" class="m-menu__link ">
                 <i class="m-menu__link-icon fa fa-bullhorn"></i>
                 <span class="m-menu__link-title">
                     <span class="m-menu__link-wrap">
@@ -77,8 +77,8 @@
                 </span>
             </a>
         </li>
-        <li class="m-menu__item <%=  if (@conn.request_path == "/sms"), do: "m-menu__item--active", else: "" %>" aria-haspopup="true" >
-            <a  href="/sms" class="m-menu__link ">
+        <li class="m-menu__item sms" aria-haspopup="true" onclick="load_page('/sms')">
+            <a  href="javascript:void(0)" class="m-menu__link ">
                 <i class="m-menu__link-icon fa fa-envelope-open"></i>
                 <span class="m-menu__link-title">
                     <span class="m-menu__link-wrap">
@@ -91,8 +91,8 @@
         </li>
     </ul>
     <ul class="m-menu__nav  m-menu__nav--dropdown-submenu-arrow bottom_links">
-        <li class="m-menu__item bottom_link <%=  if (@conn.request_path == "/api"), do: "m-menu__item--active", else: "" %>" aria-haspopup="true" >
-            <a  href="/api" class="m-menu__link">
+        <li class="m-menu__item bottom_link api" aria-haspopup="true" onclick="load_page('/api')">
+            <a  href="javascript:void(0)" class="m-menu__link">
                 <i class="m-menu__link-icon fa fa-paperclip"></i>
                 <span class="m-menu__link-title">
                     <span class="m-menu__link-wrap">
@@ -103,8 +103,8 @@
                 </span>
             </a>
         </li>
-        <li class="m-menu__item bottom_link <%=  if (@conn.request_path == "/my_profile"), do: "m-menu__item--active", else: "" %>" aria-haspopup="true" >
-            <a  href="/my_profile" class="m-menu__link ">
+        <li class="m-menu__item bottom_link my_profile" aria-haspopup="true" onclick="load_page('/my_profile')">
+            <a  href="javascript:void(0)" class="m-menu__link">
                 <i class="m-menu__link-icon fa fa-user"></i>
                 <span class="m-menu__link-title">
                     <span class="m-menu__link-wrap">

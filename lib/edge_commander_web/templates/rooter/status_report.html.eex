@@ -1,53 +1,29 @@
-<body class="m-page--fluid m--skin- m-content--skin-light2 m-header--fixed m-header--fixed-mobile m-aside-left--enabled m-aside-left--skin-dark m-aside-left--offcanvas m-footer--push m-aside--offcanvas-default">
-    <div id="status_rpt_main" v-cloak>
-        <!-- begin:: Page -->
-        <div class="m-grid m-grid--hor m-grid--root m-page" id="page_content_main">
-            <!-- BEGIN: Header -->
-            <%= render_existing @view_module, "header.html", assigns %>
-                <!-- END: Header -->
-                <!-- begin::Body -->
-                <div class="m-grid__item m-grid__item--fluid m-grid m-grid--ver-desktop m-grid--desktop m-body">
-                    <!-- BEGIN: Left Aside -->
-                    <%= render_existing @view_module, "menu_list.html", assigns %>
-                    <!-- END: Left Aside -->
-                        <div class="m-grid__item m-grid__item--fluid m-wrapper content_right_panel">
-                            <!-- BEGIN: Subheader -->
-                            <div class="m-subheader " style="padding: 5px 30px 0 5px;">
-                                <div class="d-flex align-items-center">
-                                    <div>
-                                        <span class="m-subheader__daterange" id="m_dashboard_daterangepicker">
-                                    <span class="m-subheader__daterange-label">
-                                        <span class="m-subheader__daterange-title"></span>
-                                        <span class="m-subheader__daterange-date m--font-brand"></span>
-                                        </span>
-                                        <a href="#" class="btn btn-sm btn-brand m-btn m-btn--icon m-btn--icon-only m-btn--custom m-btn--pill">
-                                        <i class="la la-angle-down"></i>
-                                    </a>
-                                        </span>
-                                    </div>
-                                </div>
-                            </div>
-                            <!-- END: Subheader -->
-                            <div class="m-content">
-                                <div class="m-portlet m-portlet--mobile" style="margin-bottom: 0">
-                                    <div class="m-portlet__body">
-                                        <div style="margin: 0 auto; width: 100%;padding: 10px" id="visavail_container">
-                                            <img src="/images/loading.gif" id="api-waiting" v-if="show_loading">
-                                            <p id="draw_report" class="margin-top-5"></p>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                </div>
-                <!-- end:: Body -->
+<div  id="status_rpt_main" v-cloak>
+    <!-- BEGIN: Subheader -->
+    <div class="m-subheader " style="padding: 5px 30px 0 5px;">
+        <div class="d-flex align-items-center">
+            <div>
+                <span class="m-subheader__daterange" id="m_dashboard_daterangepicker">
+            <span class="m-subheader__daterange-label">
+                <span class="m-subheader__daterange-title"></span>
+                <span class="m-subheader__daterange-date m--font-brand"></span>
+                </span>
+                <a href="#" class="btn btn-sm btn-brand m-btn m-btn--icon m-btn--icon-only m-btn--custom m-btn--pill">
+                <i class="la la-angle-down"></i>
+            </a>
+                </span>
+            </div>
         </div>
-        <!-- end:: Page -->
-        <!-- begin::Scroll Top -->
-        <div class="m-scroll-top m-scroll-top--skin-top" data-toggle="m-scroll-top" data-scroll-offset="500" data-scroll-speed="300">
-            <i class="la la-arrow-up"></i>
-        </div>
-        <!-- end::Scroll Top -->
-        <!-- begin::Quick Nav -->
     </div>
-</body>
+    <!-- END: Subheader -->
+    <div class="m-content">
+        <div class="m-portlet m-portlet--mobile" style="margin-bottom: 0">
+            <div class="m-portlet__body">
+                <div style="margin: 0 auto; width: 100%;padding: 10px" id="visavail_container">
+                    <img src="/images/loading.gif" id="api-waiting" v-if="show_loading">
+                    <p id="draw_report" class="margin-top-5"></p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

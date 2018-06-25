@@ -150,6 +150,9 @@ var vm = new Vue({
     onROUTERButton: function() {
       $('.add_router_to_db').modal('show');
     },
+    onROUTERHideShowButton: function() {
+      $('.toggle-datatable-columns').modal('show');
+    },
     setUserId: function(id){
       this.user_id = id;
     },
@@ -364,7 +367,6 @@ var vm = new Vue({
       this.show_edit_errors = false;
     },
     resizeScreen: function(){
-      this.dataTable.ajax.reload();
       // Enable TFOOT scoll bars
       $('.dataTables_scrollFoot').css('overflow', 'auto');
       $('.dataTables_scrollHead').css('overflow', 'auto');

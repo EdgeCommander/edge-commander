@@ -1,167 +1,147 @@
-<body class="m-page--fluid m--skin- m-content--skin-light2 m-header--fixed m-header--fixed-mobile m-aside-left--enabled m-aside-left--skin-dark m-aside-left--offcanvas m-footer--push m-aside--offcanvas-default">
-    <!-- begin:: Page -->
-    <div id="sims_main" v-cloak>
-        <div class="m-grid m-grid--hor m-grid--root m-page" id="page_content_main">
-            <!-- BEGIN: Header -->
-            <%= render_existing @view_module, "header.html", assigns %>
-                <!-- END: Header -->
-            <!-- begin::Body -->
-            <div class="m-grid__item m-grid__item--fluid m-grid m-grid--ver-desktop m-grid--desktop m-body">
-                <!-- BEGIN: Left Aside -->
-                <%= render_existing @view_module, "menu_list.html", assigns %>
-                <!-- END: Left Aside -->
-                <div class="m-grid__item m-grid__item--fluid m-wrapper content_right_panel">
-                    <div class="m-content">
-                        <div class="m-portlet m-portlet--mobile" style="margin-bottom: 0">
-                            <div class="m-portlet__body" style="padding: 10px;">
-                                <!--begin: Search Form -->
-                                <div class="m-form m-form--label-align-right m--margin-bottom-10">
-                                    <div class="row align-items-center">
-                                        <div class="col-md-8 order-2 order-md-1">
-                                            <div class="form-group m-form__group row align-items-center">
-                                                <div class="col-md-5">
-                                                    <div class="m-input-icon m-input-icon--left">
-                                                        <input type="text" class="form-control m-input m-input--solid" placeholder="Search..." id="m_form_search" v-model="m_form_search" v-on:keyup="search()">
-                                                        <span class="m-input-icon__icon m-input-icon__icon--left">
-                                                        <span> <i class="la la-search"></i></span>
-                                                        </span>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-4 order-1 order-md-2 m--align-right">
-                                            <a href="#" id="addSIM" class="btn btn-primary m-btn m-btn--icon" v-on:click="onSIMButton">
-                                              <span>
-                                                  <i class="fa fa-plus-square"></i>
-                                                  <span>{{form_labels.add_sim_button}}</span>
-                                              </span>
-                                            </a>
-                                            <div href="#" class="btn btn-default grey" data-toggle="modal" data-target=".toggle-datatable-columns">
-                                                <i class="fa fa-columns"></i>
-                                            </div>
-                                        </div>
+ <div id="sims_main" v-cloak>
+    
+    <div class="m-content">
+        <div class="m-portlet m-portlet--mobile" style="margin-bottom: 0">
+            <div class="m-portlet__body" style="padding: 10px;">
+                <!--begin: Search Form -->
+                <div class="m-form m-form--label-align-right m--margin-bottom-10">
+                    <div class="row align-items-center">
+                        <div class="col-md-8 order-2 order-md-1">
+                            <div class="form-group m-form__group row align-items-center">
+                                <div class="col-md-5">
+                                    <div class="m-input-icon m-input-icon--left">
+                                        <input type="text" class="form-control m-input m-input--solid" placeholder="Search..." id="m_form_search" v-model="m_form_search" v-on:keyup="search()">
+                                        <span class="m-input-icon__icon m-input-icon__icon--left">
+                                        <span> <i class="la la-search"></i></span>
+                                        </span>
                                     </div>
                                 </div>
-                                <!--end: Search Form -->
-                               <table id="sims-datatable" class="table table-striped  table-hover table-bordered datatable display nowrap" cellspacing="0" width="100%">
-                                    <thead>
-                                        <tr>
-                                            <th v-for="(item, index) in headings">{{item.column}}</th>
-                                        </tr>
-                                    </thead>
-                                </table>
+                            </div>
+                        </div>
+                        <div class="col-md-4 order-1 order-md-2 m--align-right">
+                            <a href="#" id="addSIM" class="btn btn-primary m-btn m-btn--icon" v-on:click="onSIMButton">
+                              <span>
+                                  <i class="fa fa-plus-square"></i>
+                                  <span>{{form_labels.add_sim_button}}</span>
+                              </span>
+                            </a>
+                            <div href="#" class="btn btn-default grey"  v-on:click="onSIMHideShowButton">
+                                <i class="fa fa-columns"></i>
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
-            <!-- end:: Body -->
-        </div>
-        <!--begin::Modal-->
-        <div class="modal fade toggle-datatable-columns" style="padding: 0px;" id="m_modal_1" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" data-backdrop="static" data-keyboard="false">
-            <div class="modal-dialog modal-sm" role="document">
-                <div class="modal-content" style="padding: 0px;">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLabel">
-                              {{form_labels.hide_show_title}}
-                          </h5>
-                        <div class="cancel">
-                            <a href="#" id="discardModal" data-dismiss="modal" v-on:click="clearForm">X</a>
-                        </div>
-                    </div>
-                    <div class="modal-body" id="body-sim-dis">
-                        <div class="form-group">
-                            <div class="column-checkbox" v-for="(item, index) in headings">
-                                <label class="m-checkbox m-checkbox--single m-checkbox--solid m-checkbox--brand" style="width: auto;">
-                                    <input type="checkbox" class="rule-column" checked v-on:change="showHideColumns(index)"><span></span> {{item.column}}</label>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-default" data-dismiss="modal">{{form_labels.hide_show_button}}</button>
-                    </div>
-                </div>
+                <!--end: Search Form -->
+               <table id="sims-datatable" class="table table-striped  table-hover table-bordered datatable display nowrap" cellspacing="0" width="100%">
+                    <thead>
+                        <tr>
+                            <th v-for="(item, index) in headings">{{item.column}}</th>
+                        </tr>
+                    </thead>
+                </table>
             </div>
         </div>
-        <div class="modal fade add_sim_to_db" style="padding: 0px;" id="m_modal_add" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" data-backdrop="static" data-keyboard="false">
-            <div class="modal-dialog" role="document">
-                <div class="modal-content" style="padding: 0px;">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLabel">
-                              {{form_labels.add_title}}
-                          </h5>
-                        <div class="cancel">
-                            <a href="#" id="discardModal" data-dismiss="modal" v-on:click="clearForm">X</a>
-                        </div>
-                    </div>
-                    <div class="modal-body" id="body-sim-dis">
-                        <img src="/images/loading.gif" id="api-wait" v-if="show_loading">
-                        <div id="simErrorDetails" v-if="show_errors">
-                            <div class="form-group m-form__group m--margin-top-10">
-                                <div class="alert m-alert m-alert--default" role="alert">
-                                    <ul id="errorOnSIM" style="margin:0px"></ul>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="m-form m-form--fit m-form--label-align-left">
-                            {{setUserId('<%= @user.id %>')}}
-                            <input type="hidden" id="user_id" value="<%= @user.id %>" v-model="user_id">
-                            <div class="form-group m-form__group row">
-                                <label class="col-3 col-form-label">
-                                    {{form_labels.name}}
-                                </label>
-                                <div class="col-9">
-                                    <input type="text" class="form-control m-input m-input--solid" id="name" placeholder="i.e IIA Airport" v-model="name">
-                                </div>
-                            </div>
-                            <div class="form-group m-form__group row">
-                                <label class="col-3 col-form-label">
-                                    {{form_labels.number}}
-                                </label>
-                                <div class="col-9">
-                                    <input type="text" class="form-control m-input m-input--solid" id="number" v-model="number" placeholder="i.e +353xxxxxx">
-                                </div>
-                            </div>
-                            <div class="form-group m-form__group row">
-                                <label class="col-3 col-form-label">
-                                    {{form_labels.sim_provider}}
-                                </label>
-                                <div class="col-9">
-                                    <select class="form-control m-input" id="sim_provider" v-model="sim_provider">
-                                        <option value="Lyca Mobile (Ireland)">Lyca Mobile (Ireland)</option>
-                                        <option value="Vodafone (Ireland)">Vodafone (Ireland)</option>
-                                        <option value="Vodafone (UK)">Vodafone (UK)</option>
-                                        <option value="Three (UK)">Three (UK)</option>
-                                        <option value="O2 (UK)">O2 (UK)</option>
-                                        <option value="other">Other</option>
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="form-group m-form__group row">
-                                <label class="col-3 col-form-label other_input">
-                                    &nbsp;
-                                </label>
-                                <div class="col-9">
-                                    <input type="text" class="form-control m-input m-input--solid other_input" id="other_sim_provider" v-model="other_sim_provider" placeholder="Please enter the sim provider name" />
-                                </div>
-                            </div>
-                        </div>
-                        <!--end::Form-->
-                    </div>
-                    <div class="modal-footer">
-                        <button id="" type="button" class="btn btn-default" v-on:click="saveModal">
-                            {{form_labels.submit_button}}
-                        </button>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <!--end::Modal-->
-        <!-- begin::Scroll Top -->
-        <div class="m-scroll-top m-scroll-top--skin-top" data-toggle="m-scroll-top" data-scroll-offset="500" data-scroll-speed="300">
-            <i class="la la-arrow-up"></i>
-        </div>
-        <!-- end::Scroll Top -->
     </div>
-    <!-- end:: Page -->
-</body>
+    <!--begin::Modal-->
+    <div class="modal fade toggle-datatable-columns" style="padding: 0px;" id="m_modal_1" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" data-backdrop="static" data-keyboard="false">
+        <div class="modal-dialog modal-sm" role="document">
+            <div class="modal-content" style="padding: 0px;">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">
+                          {{form_labels.hide_show_title}}
+                      </h5>
+                    <div class="cancel">
+                        <a href="#" id="discardModal" data-dismiss="modal" v-on:click="clearForm">X</a>
+                    </div>
+                </div>
+                <div class="modal-body" id="body-sim-dis">
+                    <div class="form-group">
+                        <div class="column-checkbox" v-for="(item, index) in headings">
+                            <label class="m-checkbox m-checkbox--single m-checkbox--solid m-checkbox--brand" style="width: auto;">
+                                <input type="checkbox" class="rule-column" checked v-on:change="showHideColumns(index)"><span></span> {{item.column}}</label>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">{{form_labels.hide_show_button}}</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade add_sim_to_db" style="padding: 0px;" id="m_modal_add" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" data-backdrop="static" data-keyboard="false">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content" style="padding: 0px;">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">
+                          {{form_labels.add_title}}
+                      </h5>
+                    <div class="cancel">
+                        <a href="#" id="discardModal" data-dismiss="modal" v-on:click="clearForm">X</a>
+                    </div>
+                </div>
+                <div class="modal-body" id="body-sim-dis">
+                    <img src="/images/loading.gif" id="api-wait" v-if="show_loading">
+                    <div id="simErrorDetails" v-if="show_errors">
+                        <div class="form-group m-form__group m--margin-top-10">
+                            <div class="alert m-alert m-alert--default" role="alert">
+                                <ul id="errorOnSIM" style="margin:0px"></ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="m-form m-form--fit m-form--label-align-left">
+                        {{setUserId('<%= @user.id %>')}}
+                        <input type="hidden" id="user_id" value="<%= @user.id %>" v-model="user_id">
+                        <div class="form-group m-form__group row">
+                            <label class="col-3 col-form-label">
+                                {{form_labels.name}}
+                            </label>
+                            <div class="col-9">
+                                <input type="text" class="form-control m-input m-input--solid" id="name" placeholder="i.e IIA Airport" v-model="name">
+                            </div>
+                        </div>
+                        <div class="form-group m-form__group row">
+                            <label class="col-3 col-form-label">
+                                {{form_labels.number}}
+                            </label>
+                            <div class="col-9">
+                                <input type="text" class="form-control m-input m-input--solid" id="number" v-model="number" placeholder="i.e +353xxxxxx">
+                            </div>
+                        </div>
+                        <div class="form-group m-form__group row">
+                            <label class="col-3 col-form-label">
+                                {{form_labels.sim_provider}}
+                            </label>
+                            <div class="col-9">
+                                <select class="form-control m-input" id="sim_provider" v-model="sim_provider">
+                                    <option value="Lyca Mobile (Ireland)">Lyca Mobile (Ireland)</option>
+                                    <option value="Vodafone (Ireland)">Vodafone (Ireland)</option>
+                                    <option value="Vodafone (UK)">Vodafone (UK)</option>
+                                    <option value="Three (UK)">Three (UK)</option>
+                                    <option value="O2 (UK)">O2 (UK)</option>
+                                    <option value="other">Other</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group m-form__group row">
+                            <label class="col-3 col-form-label other_input">
+                                &nbsp;
+                            </label>
+                            <div class="col-9">
+                                <input type="text" class="form-control m-input m-input--solid other_input" id="other_sim_provider" v-model="other_sim_provider" placeholder="Please enter the sim provider name" />
+                            </div>
+                        </div>
+                    </div>
+                    <!--end::Form-->
+                </div>
+                <div class="modal-footer">
+                    <button id="" type="button" class="btn btn-default" v-on:click="saveModal">
+                        {{form_labels.submit_button}}
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--end::Modal-->
+
+</div>
+
