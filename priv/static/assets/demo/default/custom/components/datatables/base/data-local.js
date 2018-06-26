@@ -206,10 +206,13 @@ var vm = new Vue({
     }
     return xhrRequestChangeMonth = jQuery.ajax(settings);
    },
-    onSIMButton: function() {
-      this.initializeInput();
-      $('.add_sim_to_db').modal('show');
-    },
+   onSIMButton: function() {
+     this.initializeInput();
+     $('.add_sim_to_db').modal('show');
+   },
+   onSIMHideShowButton: function() {
+     $('.toggle-datatable-columns').modal('show');
+   },
    setUserId: function(id){
      this.user_id = id;
    },
@@ -304,7 +307,6 @@ var vm = new Vue({
       })
     },
     resizeScreen: function(){
-      this.dataTable.ajax.reload();
       // Enable TFOOT scoll bars
       $('.dataTables_scrollFoot').css('overflow', 'auto');
       $('.dataTables_scrollHead').css('overflow', 'auto');

@@ -88,16 +88,27 @@ defmodule EdgeCommanderWeb.Router do
   scope "/", EdgeCommanderWeb do
     pipe_through [:browser, :auth, :ensure_auth]
 
-    get "/sims", RooterController, :sim_logs
-    get "/nvrs", RooterController, :nvrs
-    get "/routers", RooterController, :routers
-    get "/commands", RooterController, :commands
-    get "/sims/:sim_number", RooterController, :sim_graph_and_details
-    get "/my_profile", RooterController, :my_profile
-    get "/sites", RooterController, :sites
-    get "/sms", RooterController, :sms_messages
-    get "/status_report", RooterController, :status_report
-    get "/api", RooterController, :swagger
+    get "/sims_ajax", RooterController, :sim_logs
+    get "/nvrs_ajax", RooterController, :nvrs
+    get "/routers_ajax", RooterController, :routers
+    get "/commands_ajax", RooterController, :commands
+    get "/my_profile_ajax", RooterController, :my_profile
+    get "/sites_ajax", RooterController, :sites
+    get "/sms_ajax", RooterController, :sms_messages
+    get "/status_report_ajax", RooterController, :status_report
+    get "/api_ajax", RooterController, :swagger
+    get "/sims_ajax/:sim_number/", RooterController, :sim_graph_and_details
+
+    get "/sims", RooterController, :common
+    get "/nvrs", RooterController, :common
+    get "/routers", RooterController, :common
+    get "/commands", RooterController, :common
+    get "/sims/:sim_number", RooterController, :common
+    get "/my_profile", RooterController, :common
+    get "/sites", RooterController, :common
+    get "/sms", RooterController, :common
+    get "/status_report", RooterController, :common
+    get "/api", RooterController, :common
 
     get "/sims/data/json", SimsController, :get_sim_logs
     get "/sims/data/:sim_number", SimsController, :get_single_sim_data

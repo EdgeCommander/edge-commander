@@ -220,6 +220,9 @@ var vm = new Vue({
         })
         this.addMap();
       },
+      onSiteHideShowButton: function() {
+        $('.toggle-datatable-columns').modal('show');
+      },
       clearForm: function() {
         this.name = "";
         this.sim_number = "";
@@ -517,7 +520,6 @@ var vm = new Vue({
       this.show_edit_errors = false;
     },
     resizeScreen: function(){
-      this.dataTable.ajax.reload();
       // Enable TFOOT scoll bars
       $('.dataTables_scrollFoot').css('overflow', 'auto');
       $('.dataTables_scrollHead').css('overflow', 'auto');

@@ -336,6 +336,9 @@ var vm = new Vue({
    },
    onUserButton: function(){
     $('.add_user_to_db').modal('show');
+   },
+   onUserHideShowButton: function(){
+    $('#toggle-datatable-columns').modal('show');
    }
   }
 });

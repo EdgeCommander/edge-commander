@@ -229,6 +229,9 @@ var vm = new Vue({
     onSmsButton: function() {
       $('.add_sms_to_db').modal('show');
     },
+    onSmsHideShowButton: function() {
+      $('.toggle-datatable-columns').modal('show');
+    },
     autocompleteInput: function(){
       $(function () {
         var availableTags = [
@@ -269,7 +272,6 @@ var vm = new Vue({
       });
     },
     resizeScreen: function(){
-      this.dataTable.ajax.reload();
       // Enable TFOOT scoll bars
       $('.dataTables_scrollFoot').css('overflow', 'auto');
       $('.dataTables_scrollHead').css('overflow', 'auto');

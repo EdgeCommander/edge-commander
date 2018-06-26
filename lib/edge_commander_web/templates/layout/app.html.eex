@@ -47,13 +47,13 @@
   </script>
   <!--end::Web font -->
 
-  <main role="main">
+  <main role="main" >
     <%= render @view_module, @view_template, assigns %>
   </main>
 
-  <!--begin::Base Scripts -->
-  <script src="<%= static_path(@conn, "/js/jquery.min.js") %>"></script>
-<%= if @conn.request_path == "/sims" or @conn.request_path == "/nvrs" or @conn.request_path == "/status_report" or @conn.request_path == "/routers" or @conn.request_path == "/commands" or @conn.request_path == "/my_profile" or @conn.request_path == "/sites" or @conn.request_path == "/api"  or @conn.request_path == "/sms" or String.starts_with?(@conn.request_path, "/sims/") do %>
+<!--begin::Base Scripts -->
+<script src="<%= static_path(@conn, "/js/jquery.min.js") %>"></script>
+<%= if @conn.request_path == "/sims" or @conn.request_path == "/sims_ajax" or @conn.request_path == "/nvrs" or @conn.request_path == "/nvrs_ajax" or @conn.request_path == "/status_report" or @conn.request_path == "/status_report_ajax" or @conn.request_path == "/routers" or @conn.request_path == "/routers_ajax" or @conn.request_path == "/commands" or @conn.request_path == "/commands_ajax" or @conn.request_path == "/my_profile" or @conn.request_path == "/my_profile_ajax" or @conn.request_path == "/sites"  or @conn.request_path == "/sites_ajax" or @conn.request_path == "/api" or @conn.request_path == "/api_ajax"  or @conn.request_path == "/sms" or @conn.request_path == "/sms_ajax" or String.starts_with?(@conn.request_path, "/sims/") or String.starts_with?(@conn.request_path, "/sims_ajax/") do %>
   <script src="<%= static_path(@conn, "/assets/vendors/base/vendors.bundle.js") %>" type="text/javascript"></script>
   <script src="<%= static_path(@conn, "/assets/demo/default/base/scripts.bundle.js") %>" type="text/javascript"></script>
   <script src="<%= static_path(@conn, "/assets/app/js/dashboard.js") %>" type="text/javascript"></script>
@@ -67,14 +67,14 @@
   <script src="<%= static_path(@conn, "/assets/vendors/base/vendors.bundle.js") %>" type="text/javascript"></script>
 <%  end %>
 
-<%= if @conn.request_path == "/sims" do %>
+<%= if @conn.request_path == "/sims" or @conn.request_path == "/sims_ajax" do %>
   <script src="<%= static_path(@conn, "/js/Chart.js") %>"> type="text/javascript"></script>
   <script src="<%= static_path(@conn, "/assets/demo/default/custom/components/datatables/base/data-local.js") %>"> type="text/javascript"></script>
   <link href="<%= static_path(@conn, "/css/intlTelInput.css") %>" rel="stylesheet" type="text/css" />
   <script src="<%= static_path(@conn, "/js/intlTelInput.js") %>" type="text/javascript"></script>
 <%  end %>
 
-<%= if String.starts_with?(@conn.request_path, "/sims/") do %>
+<%= if String.starts_with?(@conn.request_path, "/sims/") or String.starts_with?(@conn.request_path, "/sims_ajax/") do %>
   <script src="<%= static_path(@conn, "/js/sim_graph_data.js") %>" type="text/javascript"></script>
   <link href="<%= static_path(@conn, "/css/jquery-ui.css") %>" rel="stylesheet" type="text/css" />
   <script src="<%= static_path(@conn, "/js/jquery-ui.min.js") %>"> type="text/javascript"></script>
@@ -83,28 +83,28 @@
   </script>
 <% end %>
 
-<%= if @conn.request_path == "/nvrs" do %>
+<%= if @conn.request_path == "/nvrs" or @conn.request_path == "/nvrs_ajax" do %>
   <link href="<%= static_path(@conn, "/css/for_nvr.css") %>" rel="stylesheet" type="text/css" />
   <script src="<%= static_path(@conn, "/assets/demo/default/custom/components/datatables/base/nvr_local_datatable.js") %>"> type="text/javascript"></script>
   <script src="<%= static_path(@conn, "/js/notify.min.js") %>"> type="text/javascript"></script>
 <%  end %>
 
-<%= if @conn.request_path == "/routers" do %>
+<%= if @conn.request_path == "/routers" or @conn.request_path == "/routers_ajax" do %>
   <script src="<%= static_path(@conn, "/assets/demo/default/custom/components/datatables/base/routers_local_datatable.js") %>"> type="text/javascript"></script>
   <script src="<%= static_path(@conn, "/js/notify.min.js") %>"> type="text/javascript"></script>
 <%  end %>
 
-<%= if @conn.request_path == "/commands" do %>
+<%= if @conn.request_path == "/commands" or @conn.request_path == "/commands_ajax" do %>
   <script src="<%= static_path(@conn, "/assets/demo/default/custom/components/datatables/base/commands_local_datatable.js") %>"> type="text/javascript"></script>
   <script src="<%= static_path(@conn, "/js/notify.min.js") %>"> type="text/javascript"></script>
 <%  end %>
 
-<%= if @conn.request_path == "/my_profile" do %>
+<%= if @conn.request_path == "/my_profile" or @conn.request_path == "/my_profile_ajax" do %>
   <script src="<%= static_path(@conn, "/js/notify.min.js") %>"> type="text/javascript"></script>
   <script src="<%= static_path(@conn, "/js/users.js") %>" type="text/javascript"></script>
 <%  end %>
 
-<%= if @conn.request_path == "/sites" do %>
+<%= if @conn.request_path == "/sites" or @conn.request_path == "/sites_ajax" do %>
   <script src="<%= static_path(@conn, "/assets/demo/default/custom/components/datatables/base/sites_local_datatable.js") %>"> type="text/javascript"></script>
   <script src="<%= static_path(@conn, "/js/notify.min.js") %>"> type="text/javascript"></script>
   <link href="<%= static_path(@conn, "/css/jquery-ui.css") %>" rel="stylesheet" type="text/css" />
@@ -112,7 +112,7 @@
   <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBfX46k9qCXNL6WR8wu8Jmb8yF4WxrpuUM&libraries=places"></script>
 <%  end %>
 
-<%= if @conn.request_path == "/sms" do %>
+<%= if @conn.request_path == "/sms" or @conn.request_path == "/sms_ajax" do %>
   <script src="<%= static_path(@conn, "/assets/demo/default/custom/components/datatables/base/sms_messages_local_datatable.js") %>"> type="text/javascript"></script>
   <link href="<%= static_path(@conn, "/css/jquery-ui.css") %>" rel="stylesheet" type="text/css" />
   <script src="<%= static_path(@conn, "/js/jquery-ui.min.js") %>"> type="text/javascript"></script>
@@ -121,13 +121,19 @@
   </script>
 <%  end %>
 
-<%= if @conn.request_path == "/api" do %>
+<%= if @conn.request_path == "/api" or @conn.request_path == "/api_ajax" do %>
   <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,700|Source+Code+Pro:300,600|Titillium+Web:400,600,700" rel="stylesheet">
   <link href="<%= static_path(@conn, "/swagger/swagger-ui.css") %>" rel="stylesheet" type="text/css" />
   <script src="<%= static_path(@conn, "/swagger/swagger-ui-bundle.js") %>" type="text/javascript"></script>
   <script src="<%= static_path(@conn, "/swagger/swagger-ui-standalone-preset.js") %>" type="text/javascript"></script>
   <script>
-    var base_url = window.location.href.replace('/api','/swagger/swagger.json');
+    function get_hostname(url) {
+      var m = url.match(/^http:\/\/[^/]+/);
+      return m ? m[0] : null;
+    }
+
+    var base_url = window.location;
+    var url = get_hostname(""+base_url+"") + '/swagger/swagger.json';
     var vm = new Vue({
       el: '#api_main',
       data: {},
@@ -137,7 +143,7 @@
           swagger_url.pathname = swagger_url.pathname.replace("index.html", "swagger.json");
           swagger_url.hash = "";
           const ui = SwaggerUIBundle({
-            url:  base_url,
+            url:  url,
             dom_id: '#swagger-ui',
             deepLinking: false,
             presets: [
@@ -166,7 +172,7 @@
   </script>
 <%  end %>
 
-<%= if @conn.request_path == "/status_report" do %>
+<%= if @conn.request_path == "/status_report" or @conn.request_path == "/status_report_ajax"  do %>
   <script src="<%= static_path(@conn, "/js/d3.min.js") %>"> type="text/javascript"></script>
   <script src="<%= static_path(@conn, "/js/visavail.js") %>"> type="text/javascript"></script>
   <script src="<%= static_path(@conn, "/js/statusreport.js") %>"> type="text/javascript"></script>
@@ -179,5 +185,36 @@
   });
   </script>
 <%  end %>
-    <!--end::Page Snippets -->
+
+<script type="text/javascript">
+  function load_page(link){
+    if(link.indexOf("/sims/") == 0){
+      var arr = link.split('/');
+      var string_1 = arr[1];
+      var string_2 = arr[2];
+      link_data = "/"+string_1+'_ajax' +"/" + string_2;
+    }else{
+      link_data = link+'_ajax';
+    }
+
+    mApp.block("#remote_data", {
+        overlayColor: "#000000",
+        type: "loader",
+        state: "success",
+        message: "Please wait..."
+    })
+
+    $.get(link_data, function( data ) {
+      $( "#remote_data" ).html( data );
+      mApp.unblock("#remote_data")
+      window.history.pushState(null, null, link);
+      var pathname = document.location.href.match(/[^\/]+$/)[0];
+      $("li").removeClass(" m-menu__item--active");
+      $("."+ pathname).addClass(" m-menu__item--active")
+      if(link == '/api'){
+        vm.swagger_api()
+      }
+    });
+  }
+</script>
 </html>
