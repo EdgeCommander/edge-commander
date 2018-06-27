@@ -183,7 +183,6 @@
       $("li").removeClass(" m-menu__item--active");
       $("."+ pathname).addClass(" m-menu__item--active")
       $(".m-aside-left-overlay").remove();
-      // $("#m_aside_left_close_btn").css("display", "none");
       $("#m_aside_left").removeClass("m-aside-left--on");
       $("#m_aside_left_offcanvas_toggle").removeClass("m-brand__toggler--active");
       $("#body_pannel").removeClass("m-aside-left--on");
