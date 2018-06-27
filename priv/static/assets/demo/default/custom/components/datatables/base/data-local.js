@@ -68,8 +68,7 @@ var vm = new Vue({
       {
         class: "text-left",
         data: function(row, type, set, meta) {
-          link = '/sims/' + row.number;
-          return '<a style="color: blue;text-decoration: underline;cursor: pointer;" href="javascript:void(0)" onclick="load_page(link)" id="show-morris-graph" data-id="' + row.number + '">' + row.number  + '</a>'
+          return '<a style="color: blue;text-decoration: underline;cursor: pointer;" href="/sims/' + row.number + '" id="show-morris-graph" data-id="' + row.number + '">' + row.number  + '</a>'
         }
       },
       {
