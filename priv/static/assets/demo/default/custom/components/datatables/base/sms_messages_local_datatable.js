@@ -30,8 +30,8 @@ var vm = new Vue({
   methods: {
     initializeTable: function(){
 
-      $( "#m_sms_datepicker_from" ).datepicker({autoclose:true, format:"yyyy-mm-dd"}).datepicker("setDate", new Date(new Date().getTime() - (48 * 60 * 60 * 1000)));
-      $( "#m_sms_datepicker_to" ).datepicker({autoclose:true, format:"yyyy-mm-dd"}).datepicker("setDate", new Date());
+      $( "#m_sms_datepicker_from" ).datepicker({autoclose:true, dateFormat:"yy-mm-dd"}).datepicker("setDate", new Date(new Date().getTime() - (48 * 60 * 60 * 1000)));
+      $( "#m_sms_datepicker_to" ).datepicker({autoclose:true, dateFormat:"yy-mm-dd"}).datepicker("setDate", new Date());
 
       var from_date = $("#m_sms_datepicker_from").val(),
       to_date = $("#m_sms_datepicker_to").val();
@@ -211,14 +211,11 @@ var vm = new Vue({
     },
     dateFilterInitialize: function() {
       var table_data = this.dataTable;
-    $('#m_sms_datepicker_from, #m_sms_datepicker_to').datepicker({
-        autoclose: true,
-        format: "yyyy-mm-dd"
-      }).on('changeDate', function(e) {
+      $('#m_sms_datepicker_from, #m_sms_datepicker_to').change(function(){
         var from_date = $("#m_sms_datepicker_from").val(),
-        to_date = $("#m_sms_datepicker_to").val();
-        var new_url = "/get_all_sms/" + from_date + "/" + to_date
-        table_data.ajax.url(new_url).load();
+          to_date = $("#m_sms_datepicker_to").val();
+          var new_url = "/get_all_sms/" + from_date + "/" + to_date
+          table_data.ajax.url(new_url).load();
       });
     },
     onSendSMSFocus: function() {
