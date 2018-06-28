@@ -163,9 +163,10 @@
   function load_page(link){
     if(link.indexOf("/sims/") == 0){
       var arr = link.split('/');
-      var string_1 = arr[1];
-      var string_2 = arr[2];
-      link_data = "/"+string_1+'_ajax' +"/" + string_2;
+      var string_one = arr[1];
+      var string_two = arr[2];
+      link_data = "/"+string_one+'_ajax' +"/" + string_two;
+      link = "/"+string_one +"/+" + string_two;
     }else{
       link_data = link+'_ajax';
     }
@@ -180,6 +181,9 @@
       $( "#remote_data" ).html( data );
       mApp.unblock("#remote_data")
       var pathname = document.location.href.match(/[^\/]+$/)[0];
+      if(link.indexOf("/sims/") == 0){
+        pathname = "sims";
+      }
       $("li").removeClass(" m-menu__item--active");
       $("."+ pathname).addClass(" m-menu__item--active")
       $(".m-aside-left-overlay").remove();
