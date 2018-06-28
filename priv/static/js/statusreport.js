@@ -33,7 +33,7 @@ var vm = new Vue({
       d3.select('#draw_report').datum(logs).call(chart);
     },
     initializeReport: function(days) {
-
+      this.show_loading = true;
       var data = {};
       data.history_days = days
       var settings;
