@@ -166,7 +166,10 @@
       var string_one = arr[1];
       var string_two = arr[2];
       link_data = "/"+string_one+'_ajax' +"/" + string_two;
-      link = "/"+string_one +"/+" + string_two;
+      if(string_two.indexOf('+') == -1){
+        link = "/"+string_one +"/+" + string_two;
+      }
+
     }else{
       link_data = link+'_ajax';
     }
