@@ -11,22 +11,22 @@ var vm = new Vue({
       {column: "Actions", visible: "checked"},
       {column: "Name", visible: "checked"},
       {column: "IP", visible: "checked"},
-      {column: "HTTP Port"},
-      {column: "VH Port"},
-      {column: "SDK Port"},
-      {column: "RTSP Port"},
-      {column: "Username"},
-      {column: "Password"},
+      {column: "HTTP Port", visible: ""},
+      {column: "VH Port", visible: ""},
+      {column: "SDK Port", visible: ""},
+      {column: "RTSP Port", visible: ""},
+      {column: "Username", visible: ""},
+      {column: "Password", visible: ""},
       {column: "Model", visible: "checked"},
       {column: "Firmware Version", visible: "checked"},
-      {column: "Encoder Released Date"},
-      {column: "Encoder Version"},
-      {column: "Firmware Released Date"},
-      {column: "Serial Number"},
+      {column: "Encoder Released Date", visible: ""},
+      {column: "Encoder Version", visible: ""},
+      {column: "Firmware Released Date", visible: ""},
+      {column: "Serial Number", visible: ""},
       {column: "Mac Address"},
       {column: "Status", visible: "checked"},
-      {column: "Monitoring"},
-      {column: "Created At"},
+      {column: "Monitoring", visible: ""},
+      {column: "Created At", visible: ""},
      ],
      form_labels: {
       name: "Name",
@@ -246,9 +246,11 @@ var vm = new Vue({
       bPaginate: false,
       lengthChange: false,
       scrollX: true,
-      // stateSave:  true,
+      colReorder: true,
+      stateSave:  true
     });
       this.dataTable = nvrDataTable;
+      vm.initHideShow();
    },
    search: function(){
     this.dataTable.search(this.m_form_search).draw();
@@ -601,6 +603,18 @@ var vm = new Vue({
       $('.dataTables_scrollHead').on('scroll', function () {
         $('.dataTables_scrollBody').scrollLeft($(this).scrollLeft());
       });
+    },
+    initHideShow: function(){
+      $(".nvr-column").each(function(){
+        var that = $(this);
+        index = $(".nvr-column").index(this);
+        status = vm.dataTable.column(index).visible();
+        if(status == 'true'){
+          $(this).prop('checked', true);
+        }else{
+          $(this).prop('checked', false);
+        }
+      });
     }
   }, // end of methods
   mounted(){
@@ -612,3 +626,4 @@ var vm = new Vue({
     window.addEventListener('resize', this.resizeScreen);
   }
 });
+vm.initHideShow();

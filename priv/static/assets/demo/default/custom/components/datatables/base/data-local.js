@@ -6,8 +6,8 @@ var vm = new Vue({
     show_loading: false,
     show_errors: false,
     headings: [
-      {column: "Number"},
       {column: "Name"},
+      {column: "Number"},
       {column: "MB Allowance"},
       {column: "MB Used (Today)"},
       {column: "MB Used (Yest.)"},
@@ -184,7 +184,8 @@ var vm = new Vue({
       lengthChange: false,
       order: [[ 5, "desc" ]],
       scrollX: true,
-      // stateSave:  true,
+      colReorder: true,
+      stateSave:  true
     });
       this.dataTable = simsDataTable;
    },
@@ -318,6 +319,18 @@ var vm = new Vue({
       $('.dataTables_scrollHead').on('scroll', function () {
         $('.dataTables_scrollBody').scrollLeft($(this).scrollLeft());
       });
+    },
+    initHideShow: function(){
+      $(".sims-column").each(function(){
+        var that = $(this);
+        index = $(".sims-column").index(this);
+        status = vm.dataTable.column(index).visible();
+        if(status == 'true'){
+          $(this).prop('checked', true);
+        }else{
+          $(this).prop('checked', false);
+        }
+      });
     }
   }, // end of methods
   mounted(){
@@ -326,3 +339,4 @@ var vm = new Vue({
     window.addEventListener('resize', this.resizeScreen);
   }
 });
+vm.initHideShow();
