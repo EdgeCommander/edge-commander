@@ -7,26 +7,26 @@ var vm = new Vue({
     show_errors: false,
     show_edit_errors: false,
     headings: [
-      {column: "Reboot", visible: "checked"},
-      {column: "Actions", visible: "checked"},
-      {column: "Name", visible: "checked"},
-      {column: "IP", visible: "checked"},
-      {column: "HTTP Port", visible: ""},
-      {column: "VH Port", visible: ""},
-      {column: "SDK Port", visible: ""},
-      {column: "RTSP Port", visible: ""},
-      {column: "Username", visible: ""},
-      {column: "Password", visible: ""},
-      {column: "Model", visible: "checked"},
-      {column: "Firmware Version", visible: "checked"},
-      {column: "Encoder Released Date", visible: ""},
-      {column: "Encoder Version", visible: ""},
-      {column: "Firmware Released Date", visible: ""},
-      {column: "Serial Number", visible: ""},
-      {column: "Mac Address"},
-      {column: "Status", visible: "checked"},
-      {column: "Monitoring", visible: ""},
-      {column: "Created At", visible: ""},
+      {column: "Reboot", visible: "checked", id: "reboot"},
+      {column: "Actions", visible: "checked", id: "actions"},
+      {column: "Name", visible: "checked", id: "name"},
+      {column: "IP", visible: "checked", id: "ip"},
+      {column: "HTTP Port", visible: "", id: "http_port"},
+      {column: "VH Port", visible: "", id: "vh_port"},
+      {column: "SDK Port", visible: "", id: "sdk_port"},
+      {column: "RTSP Port", visible: "", id: "rtsp_port"},
+      {column: "Username", visible: "", id: "username"},
+      {column: "Password", visible: "", id: "password"},
+      {column: "Model", visible: "checked", id: "model"},
+      {column: "Firmware Version", visible: "checked", id: "firmware_version"},
+      {column: "Encoder Released Date", visible: "", id: "encoder_released_date"},
+      {column: "Encoder Version", visible: "", id: "encoder_version"},
+      {column: "Firmware Released Date", visible: "", id: "firmware_released_date"},
+      {column: "Serial Number", visible: "", id: "serial_number"},
+      {column: "Mac Address", visible: "", id: "mac_address"},
+      {column: "Status", visible: "checked", id: "status"},
+      {column: "Monitoring", visible: "", id: "monitoring"},
+      {column: "Created At", visible: "", id: "created_at"},
      ],
      form_labels: {
       name: "Name",
@@ -96,73 +96,74 @@ var vm = new Vue({
       },
       columns: [
       {
-        class: "text-center",
+        class: "text-center reboot",
         data: function(row, type, set, meta) {
           return '<button class="btn btn-default rebootNVR cursor_to_pointer" data-id="'+ row.id +'" style="font-size:10px;padding: 5px;">Reboot</button>';
         }
       },
       {
-        class: "text-center",
+        class: "text-center actions",
         data: function(row, type, set, meta) {
           return '<div class="editNVR cursor_to_pointer fa fa-edit" data-id="'+ row.id +'"></div> <div class="deleteNVR cursor_to_pointer fa fa-trash" data-id="'+ row.id +'"></div>';
         }
       },
       {
+        class: "name",
         data: function(row, type, set, meta) {
           url = row.ip + ":" + row.port
           return row.name+"&nbsp;&nbsp;&nbsp;<a href='http://"+url+"' target='_blank'><span class='fa fa-external-link'></a>"
         }
       },
       {
-        class: "text-left",
+        class: "text-left ip",
         data: function(row, type, set, meta) {
           return row.ip;
         }
       },
       {
         visible: false,
-        class: "text-center",
+        class: "text-center http_port",
         data: function(row, type, set, meta) {
           return row.port;
         }
       },
       {
         visible: false,
-        class: "text-center",
+        class: "text-center vh_port",
         data: function(row, type, set, meta) {
           return row.vh_port;
         }
       },
       {
         visible: false,
-        class: "text-center",
+        class: "text-center sdk_port",
         data: function(row, type, set, meta) {
           return row.sdk_port;
         }
       },
       {
         visible: false,
-        class: "text-center",
+        class: "text-center rtsp_port",
         data: function(row, type, set, meta) {
           return row.rtsp_port;
         }
       },
       {
         visible: false,
-        class: "text-center",
+        class: "text-center username",
         data: function(row, type, set, meta) {
           return row.username;
         }
       },
       {
         visible: false,
-        class: "text-center",
+        class: "text-center password",
         data: function(row, type, set, meta) {
           return row.password;
         }
       },
       {
-        class: "text-center",
+        class: "text-center model",
         data: function(row, type, set, meta) {
           return row.model;
         }
@@ -175,41 +176,41 @@ var vm = new Vue({
       },
       {
         visible: false,
-        class: "text-center",
+        class: "text-center encoder_released_date",
         data: function(row, type, set, meta) {
           return row.encoder_released_date;
         }
       },
       {
         visible: false,
-        class: "text-center",
+        class: "text-center encoder_version",
         data: function(row, type, set, meta) {
           return row.encoder_version;
         }
       },
       {
         visible: false,
-        class: "text-center",
+        class: "text-center firmware_released_date",
         data: function(row, type, set, meta) {
           return row.firmware_released_date;
         }
       },
       {
         visible: false,
-        class: "text-left",
+        class: "text-left serial_number",
         data: function(row, type, set, meta) {
           return row.serial_number;
         }
       },
       {
         visible: false,
-        class: "text-center",
+        class: "text-center mac_address",
         data: function(row, type, set, meta) {
           return row.mac_address;
         }
       },
       {
-        class: "text-center",
+        class: "text-center status",
         data: function(row, type, set, meta) {
           if(row.nvr_status == false){
             reason  = row.reason;
@@ -224,7 +225,7 @@ var vm = new Vue({
       },
       {
         visible: false,
-        class: "text-center",
+        class: "text-center monitoring",
         data: function(row, type, set, meta) {
            if (row.is_monitoring) {
             return "Yes";
@@ -235,7 +236,7 @@ var vm = new Vue({
       },
       {
         visible: false,
-        class: "text-center",
+        class: "text-center created_at",
         data: function(row, type, set, meta) {
           return moment(row.created_at).format('MMMM Do YYYY, H:mm:ss');
         }
@@ -255,9 +256,13 @@ var vm = new Vue({
    search: function(){
     this.dataTable.search(this.m_form_search).draw();
    },
-   showHideColumns: function(column){
-    var column = this.dataTable.column(column);
-    column.visible( ! column.visible() );
+   showHideColumns: function(id){
+    var column = this.dataTable.columns("." +id);
+    if(column.visible()[0] == true){
+      column.visible(false);
+    }else{
+      column.visible(true);
+    }
     this.resizeScreen();
    },
    onNVRButton: function() {
@@ -606,10 +611,9 @@ var vm = new Vue({
     },
     initHideShow: function(){
       $(".nvr-column").each(function(){
-        var that = $(this);
-        index = $(".nvr-column").index(this);
-        status = vm.dataTable.column(index).visible();
-        if(status == 'true'){
+        var that = $(this).attr("id");
+        var column = vm.dataTable.columns("." +that);
+        if(column.visible()[0] == true){
           $(this).prop('checked', true);
         }else{
           $(this).prop('checked', false);

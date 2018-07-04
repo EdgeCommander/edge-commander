@@ -7,12 +7,12 @@ var vm = new Vue({
     show_errors: false,
     show_edit_errors: false,
     headings: [
-      {column: "Actions"},
-      {column: "Rule Name"},
-      {column: "Active"},
-      {column: "Category"},
-      {column: "Recipients"},
-      {column: "Created At"}
+      {column: "Actions", id: "actions"},
+      {column: "Rule Name", id: "rule_name"},
+      {column: "Active", id: "active"},
+      {column: "Category", id: "category"},
+      {column: "Recipients", id: "recipients"},
+      {column: "Created At", id: "created_at"}
     ],
     form_labels: {
       name: "Rule Name",
@@ -66,35 +66,37 @@ var vm = new Vue({
       },
       columns: [
       {
-        class: "text-center",
+        class: "text-center actions",
         data: function(row, type, set, meta) {
           return '<div class="editRULE cursor_to_pointer fa fa-edit" data-id="'+ row.id +'"></div> <div class="deleteRule cursor_to_pointer fa fa-trash" data-id="'+ row.id +'"></div>';
         }
       },
       {
+        class: "rule_name",
         data: function(row, type, set, meta) {
           return row.rule_name;
         }
       },
       {
-        class: "text-center",
+        class: "text-center active",
         data: function(row, type, set, meta) {
           return row.active;
         }
       },
       {
-        class: "text-center",
+        class: "text-center category",
         data: function(row, type, set, meta) {
           return row.category;
         }
       },
       {
+        class: "recipients",
         data: function(row, type, set, meta) {
           return row.recipients;
         }
       },
       {
-        class: "text-center",
+        class: "text-center created_at",
         data: function(row, type, set, meta) {
           return moment(row.created_at).format('MMMM Do YYYY, H:mm:ss');
         },
@@ -132,9 +134,13 @@ var vm = new Vue({
       }
       $('#edit_rule_to_db').modal('show');
    },
-   showHideColumns: function(column){
-    var column = this.dataTable.column(column);
-    column.visible( ! column.visible() );
+   showHideColumns: function(id){
+    var column = this.dataTable.columns("." +id);
+    if(column.visible()[0] == true){
+      column.visible(false);
+    }else{
+      column.visible(true);
+    }
     this.resizeScreen();
    },
    onRuleButton: function(){
@@ -349,10 +355,9 @@ var vm = new Vue({
     },
     initHideShow: function(){
       $(".rule-column").each(function(){
-        var that = $(this);
-        index = $(".rule-column").index(this);
-        status = vm.dataTable.column(index).visible();
-        if(status == 'true'){
+        var that = $(this).attr("id");
+        var column = vm.dataTable.columns("." +that);
+        if(column.visible()[0] == true){
           $(this).prop('checked', true);
         }else{
           $(this).prop('checked', false);

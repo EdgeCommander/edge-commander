@@ -5,13 +5,13 @@ var vm = new Vue({
     m_form_search: "",
     show_loading: false,
     headings: [
-      {column: "From", visible: "checked"},
-      {column: "To", visible: "checked"},
-      {column: "Message ID"},
-      {column: "Type", visible: "checked"},
-      {column: "Text Message", visible: "checked"},
-      {column: "Status", visible: "checked"},
-      {column: "Message Date", visible: "checked"}
+      {column: "From", visible: "checked", id: "from"},
+      {column: "To", visible: "checked", id: "to"},
+      {column: "Message ID", id: "message_id"},
+      {column: "Type", visible: "checked", id: "type"},
+      {column: "Text Message", visible: "checked", id: "text_message"},
+      {column: "Status", visible: "checked", id: "status"},
+      {column: "Message Date", visible: "checked", id: "inserted_at"}
     ],
     form_labels: {
       sim: "SIM",
@@ -64,22 +64,26 @@ var vm = new Vue({
         },
         columns: [
         {
+          class: "from",
           data: function(row, type, set, meta) {
             return row.from;
           }
         },
         {
+          class: "to",
           data: function(row, type, set, meta) {
             return row.to;
           }
         },
         {
+          class: "message_id",
           visible: false,
           data: function(row, type, set, meta) {
             return row.message_id;
           }
         },
         {
+          class: "type",
           data: function(row, type, set, meta) {
             if(row.type == "MO"){
               return "<span class='m-badge m-badge--metal m-badge--wide'>Incoming</span>";
@@ -89,11 +93,13 @@ var vm = new Vue({
           }
         },
         {
+          class: "text_message",
           data: function(row, type, set, meta) {
             return row.text;
           }
         },
         {
+          class: "status",
           data: function(row, type, set, meta) {
             status = row.status;
             if(status == "Received"){
@@ -106,7 +112,7 @@ var vm = new Vue({
           }
         },       
         {
-          class: "text-center",
+          class: "text-center inserted_at",
           data: function(row, type, set, meta) {
             return moment(row.inserted_at).format('MMMM Do YYYY, H:mm:ss');
           },
@@ -125,9 +131,13 @@ var vm = new Vue({
     search: function(){
       this.dataTable.search(this.m_form_search).draw();
     },
-    showHideColumns: function(column){
-      var column = this.dataTable.column(column);
-      column.visible( ! column.visible() );
+    showHideColumns: function(id){
+      var column = this.dataTable.columns("." +id);
+      if(column.visible()[0] == true){
+        column.visible(false);
+      }else{
+        column.visible(true);
+      }
       this.resizeScreen();
     },
     sendAJAXRequest: function(settings) {
@@ -283,10 +293,9 @@ var vm = new Vue({
     },
     initHideShow: function(){
       $(".sms-column").each(function(){
-        var that = $(this);
-        index = $(".sms-column").index(this);
-        status = vm.dataTable.column(index).visible();
-        if(status == 'true'){
+        var that = $(this).attr("id");
+        var column = vm.dataTable.columns("." +that);
+        if(column.visible()[0] == true){
           $(this).prop('checked', true);
         }else{
           $(this).prop('checked', false);

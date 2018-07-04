@@ -6,19 +6,19 @@ var vm = new Vue({
     show_loading: false,
     show_errors: false,
     headings: [
-      {column: "Name"},
-      {column: "Number"},
-      {column: "MB Allowance"},
-      {column: "MB Used (Today)"},
-      {column: "MB Used (Yest.)"},
-      {column: "% Used"},
-      {column: "Remaning Days"},
-      {column: "Sim Provider"},
-      {column: "Last Reading"},
-      {column: "Last Bill Date"},
-      {column: "Last SMS"},
-      {column: "Last SMS DateTime"},
-      {column: "# SMS Since Last Bill"}
+      {column: "Number", id: "number"},
+      {column: "Name", id: "name"},
+      {column: "MB Allowance", id: "allowance"},
+      {column: "MB Used (Today)", id: "mb_used_today"},
+      {column: "MB Used (Yest.)", id: "mb_used_yesterday"},
+      {column: "% Used", id: "mb_used_percentage"},
+      {column: "Remaning Days", id: "remaning_days"},
+      {column: "Sim Provider", id: "sim_provider"},
+      {column: "Last Reading", id: "last_reading"},
+      {column: "Last Bill Date", id: "last_bill_date"},
+      {column: "Last SMS", id: "last_sms"},
+      {column: "Last SMS DateTime", id: "last_sms_datetime"},
+      {column: "# SMS Since Last Bill", id: "sms_since_last_bill"}
     ],
     form_labels: {
       name: "Name",
@@ -66,20 +66,20 @@ var vm = new Vue({
       },
       columns: [
       {
-        class: "text-left",
+        class: "text-left number",
         data: function(row, type, set, meta) {
           link = "%2B" + row.number;
           return '<a style="color: blue;text-decoration: underline;cursor: pointer;" href="javascript:void(0)" onclick="load_page(\'/sims/\' '+ row.number+')" id="show-morris-graph" data-id="' + row.number + '">' + row.number  + '</a>'
         }
       },
       {
-        class: "text-left",
+        class: "text-left name",
         data: function(row, type, set, meta) {
           return row.name;
         }
       },
       {
-        class: "text-center",
+        class: "text-center allowance",
         data: function(row, type, set, meta) {
           allowance_value = row.allowance_in_number
           if (allowance_value == -1.0) {
@@ -89,7 +89,7 @@ var vm = new Vue({
         }
       },
       {
-        class: "text-center",
+        class: "text-center mb_used_today",
         data: function(row, type, set, meta) {
           allowance_value = row.allowance_in_number
           current_in_number = row.current_in_number
@@ -100,7 +100,7 @@ var vm = new Vue({
         }
       },
       {
-        class: "text-center",
+        class: "text-center mb_used_yesterday",
         data: function(row, type, set, meta) {
          allowance_value = row.allowance_in_number
           yesterday_in_number = row.yesterday_in_number
@@ -111,7 +111,7 @@ var vm = new Vue({
         }
       },
       {
-        class: "text-center",
+        class: "text-center mb_used_percentage",
         data: function(row, type, set, meta) {
           allowance_value = row.allowance_in_number
           percentage_used = row.percentage_used
@@ -122,7 +122,7 @@ var vm = new Vue({
         }
       },
       {
-        class: "text-center",
+        class: "text-center remaning_days",
         data: function(row, type, set, meta) {
           var days_left = (row.allowance_in_number - row.current_in_number) / (row.current_in_number - row.yesterday_in_number)
           value =  Math.round(days_left * 100) / 100;
@@ -133,19 +133,19 @@ var vm = new Vue({
         }
       },
       {
-        class: "text-center",
+        class: "text-center sim_provider",
         data: function(row, type, set, meta) {
           return row.sim_provider;
         }
       },
       {
-        class: "text-center",
+        class: "text-center last_reading",
         data: function(row, type, set, meta) {
           return moment(row.date_of_use).format('MMMM Do YYYY, H:mm:ss');
         }
       },
       {
-        class: "text-center",
+        class: "text-center last_bill_date",
         data: function(row, type, set, meta) {
           last_bill_date = row.last_bill_date
           if(last_bill_date == null){
@@ -156,12 +156,13 @@ var vm = new Vue({
         }
       },
       {
+        class: "last_sms",
         data: function(row, type, set, meta) {
           return row.last_sms;
         }
       },
       {
-        class: "text-center",
+        class: "text-center last_sms_datetime",
         data: function(row, type, set, meta) {
           last_sms_date = row.last_sms_date
           if(last_sms_date == "-"){
@@ -172,7 +173,7 @@ var vm = new Vue({
         }
       },
       {
-        class: "text-center",
+        class: "text-center sms_since_last_bill",
         data: function(row, type, set, meta) {
           return row.total_sms_send;
         }
@@ -192,9 +193,13 @@ var vm = new Vue({
    search: function(){
     this.dataTable.search(this.m_form_search).draw();
    },
-   showHideColumns: function(column){
-    var column = this.dataTable.column(column);
-    column.visible( ! column.visible() );
+   showHideColumns: function(id){
+    var column = this.dataTable.columns("." +id);
+    if(column.visible()[0] == true){
+      column.visible(false);
+    }else{
+      column.visible(true);
+    }
     this.resizeScreen();
    },
    sendAJAXRequest: function(settings) {
@@ -322,10 +327,9 @@ var vm = new Vue({
     },
     initHideShow: function(){
       $(".sims-column").each(function(){
-        var that = $(this);
-        index = $(".sims-column").index(this);
-        status = vm.dataTable.column(index).visible();
-        if(status == 'true'){
+        var that = $(this).attr("id");
+        var column = vm.dataTable.columns("." +that);
+        if(column.visible()[0] == true){
           $(this).prop('checked', true);
         }else{
           $(this).prop('checked', false);

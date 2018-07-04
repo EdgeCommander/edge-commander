@@ -4,10 +4,10 @@ var vm = new Vue({
     dataTable: null,
     add_button_label: "Add New",
     headings: [
-      {column: "Actions", class: "text-center"},
-      {column: "Username"},
-      {column: "Password"},
-      {column: "Created At"}
+      {column: "Actions", id: "actions"},
+      {column: "Username", id: "username"},
+      {column: "Password", id: "password"},
+      {column: "Created At", id: "created_at"}
     ],
     form_labels: {
       fname: "First Name",
@@ -118,24 +118,25 @@ var vm = new Vue({
       },
       columns: [
       {
-        class: "text-center",
+        class: "text-center actions",
         data: function(row, type, set, meta) {
           return '<div class="editThree cursor_to_pointer fa fa-edit" data-id="'+ row.id +'"></div> <div class="deleteThree cursor_to_pointer fa fa-trash" data-id="'+ row.id +'"></div>';
         }
       },
       {
+        class: "username",
         data: function(row, type, set, meta) {
           return row.username;
         }
       },
       {
-        class: "text-center",
+        class: "text-center password",
         data: function(row, type, set, meta) {
           return row.password;
         }
       },
       {
-        class: "text-center",
+        class: "text-center created_at",
         data: function(row, type, set, meta) {
           return moment(row.created_at).format('MMMM Do YYYY, H:mm:ss');
         },
@@ -147,7 +148,8 @@ var vm = new Vue({
       lengthChange: false,
       searching: false,
       scrollX: true,
-      // stateSave:  true
+      colReorder: true,
+      stateSave:  true
     });
       this.dataTable = commandsDataTable;
       this.onThreeEditButton();
@@ -330,16 +332,32 @@ var vm = new Vue({
     $("#body-three-dis *").prop('disabled', false);
     $("#threeErrorDetails").addClass("hide_me");
    },
-   showHideColumns: function(column){
-    var column = this.dataTable.column(column);
-    column.visible( ! column.visible() );
+   showHideColumns: function(id){
+    var column = this.dataTable.columns("." +id);
+    if(column.visible()[0] == true){
+      column.visible(false);
+    }else{
+      column.visible(true);
+    }
    },
    onUserButton: function(){
     $('.add_user_to_db').modal('show');
    },
    onUserHideShowButton: function(){
     $('#toggle-datatable-columns').modal('show');
-   }
+   },
+   initHideShow: function(){
+      $(".users-column").each(function(){
+        var that = $(this).attr("id");
+        var column = vm.dataTable.columns("." +that);
+        if(column.visible()[0] == true){
+          $(this).prop('checked', true);
+        }else{
+          $(this).prop('checked', false);
+        }
+      });
+    }
   }
 });
 vm.initializeTable();
+vm.initHideShow();

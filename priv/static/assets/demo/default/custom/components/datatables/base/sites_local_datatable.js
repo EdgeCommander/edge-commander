@@ -8,14 +8,14 @@ var vm = new Vue({
     show_errors: false,
     show_edit_errors: false,
     headings: [
-      {column: "Actions"},
-      {column: "Name"},
-      {column: "Location"},
-      {column: "Sim Number"},
-      {column: "Router Name"},
-      {column: "NVR Name"},
-      {column: "Notes"},
-      {column: "Created At"},
+      {column: "Actions", id: "actions"},
+      {column: "Name", id: "name"},
+      {column: "Location", id: "location"},
+      {column: "Sim Number", id: "sim_number"},
+      {column: "Router Name", id: "router_name"},
+      {column: "NVR Name", id: "nvr_name"},
+      {column: "Notes", id: "notes"},
+      {column: "Created At", id: "created_at"},
     ],
     form_labels: {
       name: "Name",
@@ -78,44 +78,49 @@ var vm = new Vue({
           },
           columns: [
           {
-            class: "text-center",
+            class: "text-center actions",
             data: function(row, type, set, meta) {
               return '<div class="editSite cursor_to_pointer fa fa-edit" data-id="'+ row.id +'"></div> <div class="deleteSite cursor_to_pointer fa fa-trash" data-id="'+ row.id +'"></div>';
             }
           },
           {
+            class: "name",
             data: function(row, type, set, meta) {
               return row.name;
             }
           },
           {
+            class: "location",
             data: function(row, type, set, meta) {
               return row.location.map_area;
             }
           },
           {
-            class: "text-center",
+            class: "text-center sim_number",
             data: function(row, type, set, meta) {
               return row.sim_number;
             }
           },
           {
+            class: "router_name",
             data: function(row, type, set, meta) {
               return row.router_name;
             }
           },
           {
+            class: "nvr_name",
             data: function(row, type, set, meta) {
               return row.nvr_name;
             }
           },
           {
+            class: "notes",
             data: function(row, type, set, meta) {
               return row.notes;
             }
           },
           {
-            class: "text-center",
+            class: "text-center created_at",
             data: function(row, type, set, meta) {
               return moment(row.created_at).format('MMMM Do YYYY, H:mm:ss');
             },
@@ -134,9 +139,13 @@ var vm = new Vue({
       search: function(){
         this.dataTable.search(this.m_form_search).draw();
       },
-      showHideColumns: function(column){
-        var column = this.dataTable.column(column);
-        column.visible( ! column.visible() );
+      showHideColumns: function(id){
+        var column = this.dataTable.columns("." +id);
+        if(column.visible()[0] == true){
+          column.visible(false);
+        }else{
+          column.visible(true);
+        }
         this.resizeScreen();
       },
       sendAJAXRequest: function(settings){
@@ -534,10 +543,9 @@ var vm = new Vue({
     },
     initHideShow: function(){
       $(".sites-column").each(function(){
-        var that = $(this);
-        index = $(".sites-column").index(this);
-        status = vm.dataTable.column(index).visible();
-        if(status == 'true'){
+        var that = $(this).attr("id");
+        var column = vm.dataTable.columns("." +that);
+        if(column.visible()[0] == true){
           $(this).prop('checked', true);
         }else{
           $(this).prop('checked', false);

@@ -84,7 +84,7 @@
               <div class="modal-body" id="body-sim-dis">
                   <div class="form-group">
                     <div class="column-checkbox" v-for="(item, index) in headings">
-                        <label class="m-checkbox m-checkbox--single m-checkbox--solid m-checkbox--brand" style="width: auto;"><input type="checkbox" class="sms-column" v-bind:checked = "item.visible" v-on:change="showHideColumns(index)" v-bind:id="item.column"><span></span> {{item.column}}</label>
+                        <label class="m-checkbox m-checkbox--single m-checkbox--solid m-checkbox--brand" style="width: auto;"><input type="checkbox" class="sms-column" v-bind:id="item.id" v-bind:checked = "item.visible" v-on:change="showHideColumns(item.id)" v-bind:id="item.column"><span></span> {{item.column}}</label>
                     </div>
                   </div>
               </div>

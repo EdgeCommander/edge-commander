@@ -149,7 +149,7 @@
       <div class="modal-body" style="padding: 15px;padding-bottom: 0px;">
         <div class="form-group" >
            <div class="column-checkbox" v-for="(item, index) in headings">
-            <label class="m-checkbox m-checkbox--single m-checkbox--solid m-checkbox--brand" style="width: auto;"><input type="checkbox" checked v-on:change="showHideColumns(index)"><span></span> {{item.column}}</label>
+            <label class="m-checkbox m-checkbox--single m-checkbox--solid m-checkbox--brand" style="width: auto;"><input type="checkbox" class="users-column" v-bind:id="item.id" v-on:change="showHideColumns(item.id)"><span></span> {{item.column}}</label>
           </div>
         </div>
       </div>

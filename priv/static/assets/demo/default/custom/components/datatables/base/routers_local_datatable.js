@@ -7,14 +7,14 @@ var vm = new Vue({
     show_errors: false,
     show_edit_errors: false,
     headings: [
-      {column: "Actions"},
-      {column: "Name"},
-      {column: "IP"},
-      {column: "HTTP Port"},
-      {column: "Username"},
-      {column: "Password"},
-      {column: "Monitoring"},
-      {column: "Created At"},
+      {column: "Actions", id: "actions"},
+      {column: "Name", id: "name"},
+      {column: "IP", id: "ip"},
+      {column: "HTTP Port", id: "http_port"},
+      {column: "Username", id: "username"},
+      {column: "Password", id: "password"},
+      {column: "Monitoring", id: "monitoring"},
+      {column: "Created At", id: "created_at"},
     ],
     form_labels: {
       name: "Name",
@@ -75,45 +75,49 @@ var vm = new Vue({
         },
         columns: [
         {
-          class: "text-center",
+          class: "text-center actions",
           data: function(row, type, set, meta) {
             return '<div class="editRouter cursor_to_pointer fa fa-edit" data-id="'+ row.id +'"></div> <div class="deleteRouter cursor_to_pointer fa fa-trash" data-id="'+ row.id +'"></div>';
           }
         },
         {
+          class: "name",
           data: function(row, type, set, meta) {
             return row.name;
           }
         },
         {
+          class: "ip",
           data: function(row, type, set, meta) {
             return row.ip;
           }
         },
         {
-          class: "text-center",
+          class: "text-center http_port",
           data: function(row, type, set, meta) {
             return row.port;
           }
         },
         {
-          class: "text-center",
+          class: "text-center username",
           data: function(row, type, set, meta) {
             return row.username;
           }
         },
         {
+          class: "text-center password",
           data: function(row, type, set, meta) {
             return row.password;
           }
         },
         {
+          class: "text-center monitoring",
           data: function(row, type, set, meta) {
             return row.is_monitoring;
           }
         },
         {
-          class: "text-center",
+          class: "text-center created_at",
           data: function(row, type, set, meta) {
             return moment(row.created_at).format('MMMM Do YYYY, H:mm:ss');
           },
@@ -132,9 +136,13 @@ var vm = new Vue({
     search: function(){
       this.dataTable.search(this.m_form_search).draw();
     },
-    showHideColumns: function(column){
-      var column = this.dataTable.column(column);
-      column.visible( ! column.visible() );
+    showHideColumns: function(id){
+      var column = this.dataTable.columns("." +id);
+      if(column.visible()[0] == true){
+        column.visible(false);
+      }else{
+        column.visible(true);
+      }
       this.resizeScreen();
     },
     sendAJAXRequest: function(settings){
@@ -381,10 +389,9 @@ var vm = new Vue({
     },
     initHideShow: function(){
       $(".router-column").each(function(){
-        var that = $(this);
-        index = $(".router-column").index(this);
-        status = vm.dataTable.column(index).visible();
-        if(status == 'true'){
+        var that = $(this).attr("id");
+        var column = vm.dataTable.columns("." +that);
+        if(column.visible()[0] == true){
           $(this).prop('checked', true);
         }else{
           $(this).prop('checked', false);
