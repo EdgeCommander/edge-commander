@@ -491,6 +491,25 @@ select.form-control:not([size]):not([multiple]) {
   font-size: 16px
 }
 
+.m-menu__nav>.m-menu__item>.m-menu__link .m-menu__link-icon, .m-aside-menu.m-aside-menu--skin-dark .m-menu__nav>.m-menu__item>.m-menu__heading .m-menu__link-text, .m-aside-menu.m-aside-menu--skin-dark .m-menu__nav>.m-menu__item>.m-menu__link .m-menu__link-text {
+  color: #bdbdbd;
+  font-size: 14px;
+}
+
+.m-aside-menu.m-aside-menu--skin-dark .m-menu__nav>.m-menu__item.m-menu__item--active>.m-menu__heading .m-menu__link-text, .m-aside-menu.m-aside-menu--skin-dark .m-menu__nav>.m-menu__item.m-menu__item--active>.m-menu__link .m-menu__link-text, .m-aside-menu.m-aside-menu--skin-dark .m-menu__nav>.m-menu__item.m-menu__item--active>.m-menu__heading .m-menu__link-icon, .m-aside-menu.m-aside-menu--skin-dark .m-menu__nav>.m-menu__item.m-menu__item--active>.m-menu__link .m-menu__link-icon {
+  color: #ffffff;
+}
+
+.table td {
+  padding: .40rem;
+  vertical-align: middle !important;
+}
+#sms-datatable td {
+  padding: .50rem;
+  padding-bottom: .10rem;
+  vertical-align: middle !important;
+}
+
 @media (max-width: 767px){
   #m_form_search{
     margin-top:10px;

@@ -293,7 +293,7 @@ var vm = new Vue({
     },
     initHideShow: function(){
       $(".sms-column").each(function(){
-        var that = $(this).attr("id");
+        var that = $(this).attr("data-id");
         var column = vm.dataTable.columns("." +that);
         if(column.visible()[0] == true){
           $(this).prop('checked', true);
