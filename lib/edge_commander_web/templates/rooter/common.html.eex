@@ -33,7 +33,7 @@
                     <div id="profile_main"></div>
                     <div id="sims_details_main"></div>
                 </div>
-                <div id="action_btn"></div>
+                <div class="action_btn" id="action_btn"></div>
             </div>
         </div>
             <!-- end:: Body -->

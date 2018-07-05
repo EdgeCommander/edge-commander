@@ -98,13 +98,13 @@ var vm = new Vue({
       {
         class: "text-center reboot",
         data: function(row, type, set, meta) {
-          return '<button class="btn btn-default rebootNVR cursor_to_pointer" data-id="'+ row.id +'" style="font-size:10px;padding: 5px;">Reboot</button>';
+          return '<div class="action_btn"><button class="btn btn-default cursor_to_pointer" data-id="'+ row.id +'" style="font-size:10px;padding: 5px;" onclick="vms.rebootNVR('+row.id+', this.parentNode.parentNode.parentNode)">Reboot</button></div>';
         }
       },
       {
         class: "text-center actions",
         data: function(row, type, set, meta) {
-          return '<div id="action_btn"><div id class="editNVR cursor_to_pointer fa fa-edit" data-id="'+ row.id +'"></div> <div class="cursor_to_pointer fa fa-trash" data-id="'+ row.id +'" onclick="vms.deleteNvr('+row.id+', this.parentNode.parentNode.parentNode)"></div></div>';
+          return '<div class="action_btn"><div id class="editNVR cursor_to_pointer fa fa-edit" data-id="'+ row.id +'"></div> <div class="cursor_to_pointer fa fa-trash" data-id="'+ row.id +'" onclick="vms.deleteNvr('+row.id+', this.parentNode.parentNode.parentNode)"></div></div>';
         }
       },
       {
@@ -368,85 +368,6 @@ var vm = new Vue({
       $("#body-nvr-dis *").prop('disabled', false);
       this.show_errors = false;
    },
-   rebootNVR: function() {
-    $(document).on("click", ".rebootNVR", function() {
-      var nvrRow, result;
-      result = confirm("Are you sure to reboot this NVR?");
-      if (result === false) {
-        return;
-      }
-      nvrRow = $(this).parents('tr');
-      nvrID = $(this).attr('data-id');
-
-      var data = {};
-      data.id = nvrID;
-      var settings;
-
-      mApp.block(".m_nvr_datatable", {
-        overlayColor: "#000000",
-        type: "loader",
-        state: "primary",
-        message: "Please Wait..."
-      });
-
-      settings = {
-        cache: false,
-        data: data,
-        dataType: 'json',
-        error: function(jqXHR, status, error) {
-        mApp.unblock(".m_nvr_datatable", {
-          overlayColor: "#000000",
-          type: "loader",
-          state: "primary",
-          message: "Please Wait..."
-        });
-       $.notify({
-          message: jqXHR.responseJSON.message
-        },{
-          type: 'danger'
-        });
-      return false;
-      },
-      success: function(result, status, jqXHR) {
-        mApp.unblock(".m_nvr_datatable", {
-          overlayColor: "#000000",
-          type: "loader",
-          state: "primary",
-          message: "Please Wait..."
-        });
-        if (result.status != 201) {
-          $.notify({
-            message: result.message
-          },{
-            type: 'danger'
-          });
-        } else
-        {
-          $.notify({
-            message: "Nvr has been reboot successfully."
-          },{
-            type: 'info'
-          });
-        }
-        return true;
-      },
-        contentType: "application/x-www-form-urlencoded",
-        context: {nvrRow: nvrRow},
-        type: "GET",
-        url: "/nvrs/" + nvrID
-      };
-
-      var headers, token, xhrRequestChangeMonth;
-      token = $('meta[name="csrf-token"]');
-      if (token.length > 0) {
-        headers = {
-          "X-CSRF-Token": token.attr("content")
-        };
-        settings.headers = headers;
-      }
-      jQuery.ajax(settings);
-    });
-   },
    getUniqueIdentifier: function(){
     $(document).on("click", ".editNVR", function(){
       var tr = $(this).closest('tr');
@@ -584,7 +505,6 @@ var vm = new Vue({
   }, // end of methods
   mounted(){
     this.initializeTable();
-    this.rebootNVR();
     this.getUniqueIdentifier();
     this.resizeScreen();
     window.addEventListener('resize', this.resizeScreen);
@@ -593,7 +513,7 @@ var vm = new Vue({
 vm.initHideShow();
 
 var vms = new Vue({
-  el: '#action_btn',
+  el: '.action_btn',
   data: {},
   methods: {
      deleteNvr: function(nvrID, nvrRow){
@@ -626,6 +546,72 @@ var vms = new Vue({
         type: "DELETE",
         url: "/nvrs/" + nvrID
       };
+      vm.sendAJAXRequest(settings)
+     },
+     rebootNVR: function(nvrID, nvrRow) {
+      var nvrRow, result;
+      result = confirm("Are you sure to reboot this NVR?");
+      if (result === false) {
+        return;
+      }
+      var data = {};
+      data.id = nvrID;
+      var settings;
+
+      mApp.block(".m_nvr_datatable", {
+        overlayColor: "#000000",
+        type: "loader",
+        state: "primary",
+        message: "Please Wait..."
+      });
+
+      settings = {
+        cache: false,
+        data: data,
+        dataType: 'json',
+        error: function(jqXHR, status, error) {
+        mApp.unblock(".m_nvr_datatable", {
+          overlayColor: "#000000",
+          type: "loader",
+          state: "primary",
+          message: "Please Wait..."
+        });
+       $.notify({
+          message: jqXHR.responseJSON.message
+        },{
+          type: 'danger'
+        });
+      return false;
+      },
+      success: function(result, status, jqXHR) {
+        mApp.unblock(".m_nvr_datatable", {
+          overlayColor: "#000000",
+          type: "loader",
+          state: "primary",
+          message: "Please Wait..."
+        });
+        if (result.status != 201) {
+          $.notify({
+            message: result.message
+          },{
+            type: 'danger'
+          });
+        } else
+        {
+          $.notify({
+            message: "Nvr has been reboot successfully."
+          },{
+            type: 'info'
+          });
+        }
+        return true;
+      },
+        contentType: "application/x-www-form-urlencoded",
+        context: {nvrRow: nvrRow},
+        type: "GET",
+        url: "/nvrs/" + nvrID
+      };
+
       vm.sendAJAXRequest(settings)
      }
   }
