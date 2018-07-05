@@ -299,7 +299,7 @@ var vm = new Vue({
       this.show_errors = false;
     },
     initializeInput: function() {
-      $("#number").intlTelInput({
+      $(".number_input").intlTelInput({
           nationalMode: false,
           initialCountry: "ie"
         });
