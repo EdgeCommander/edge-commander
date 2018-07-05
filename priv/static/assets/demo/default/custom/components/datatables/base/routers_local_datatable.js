@@ -77,7 +77,7 @@ var vm = new Vue({
         {
           class: "text-center actions",
           data: function(row, type, set, meta) {
-            return '<div class="editRouter cursor_to_pointer fa fa-edit" data-id="'+ row.id +'"></div> <div class="deleteRouter cursor_to_pointer fa fa-trash" data-id="'+ row.id +'"></div>';
+            return '<div id="action_btn"><div class="editRouter cursor_to_pointer fa fa-edit" data-id="'+ row.id +'"></div> <div class="cursor_to_pointer fa fa-trash" data-id="'+ row.id +'" onclick="vms.deleteRouter('+row.id+', this.parentNode.parentNode.parentNode)"></div></div>';
           }
         },
         {
@@ -240,43 +240,6 @@ var vm = new Vue({
       $("#body-router-dis *").prop('disabled', false);
       this.show_errors = false;
     },
-    deleteRouter: function() {
-      $(document).on("click", ".deleteRouter", function() {
-        var routerRow, result;
-        result = confirm("Are you sure to delete this Router?");
-        if (result === false) {
-          return;
-        }
-        routerRow = $(this).parents('tr');
-        routerID = $(this).attr('data-id');
-
-        var data = {};
-        data.id = routerID;
-        var settings;
-
-        settings = {
-          cache: false,
-          data: data,
-          dataType: 'json',
-          error: function(){return false},
-          success: function(){
-            this.routerRow.remove();
-            $.notify({
-              message: 'Router has been deleted.'
-            },{
-              type: 'info'
-            });
-            return true;
-          },
-          contentType: "application/x-www-form-urlencoded",
-          context: {routerRow: routerRow},
-          type: "DELETE",
-          url: "/routers/" + routerID
-        };
-
-        vm.sendAJAXRequest(settings);
-      });
-    },
     getUniqueIdentifier: function(){
       $(document).on("click", ".editRouter", function(){
         var tr = $(this).closest('tr');
@@ -389,7 +352,7 @@ var vm = new Vue({
     },
     initHideShow: function(){
       $(".router-column").each(function(){
-        var that = $(this).attr("id");
+        var that = $(this).attr("data-id");
         var column = vm.dataTable.columns("." +that);
         if(column.visible()[0] == true){
           $(this).prop('checked', true);
@@ -401,10 +364,47 @@ var vm = new Vue({
   }, // end of methods
    mounted(){
     this.initializeTable();
-    this.deleteRouter();
     this.getUniqueIdentifier();
     this.resizeScreen();
     window.addEventListener('resize', this.resizeScreen);
    }
 });
 vm.initHideShow();
+
+var vms = new Vue({
+  el: '#action_btn',
+  data: {},
+  methods: {
+    deleteRouter: function(routerID, routerRow){
+       var routerRow, result;
+        result = confirm("Are you sure to delete this Router?");
+        if (result === false) {
+          return;
+        }
+        var data = {};
+        data.id = routerID;
+        var settings;
+
+        settings = {
+          cache: false,
+          data: data,
+          dataType: 'json',
+          error: function(){return false},
+          success: function(){
+            this.routerRow.remove();
+            $.notify({
+              message: 'Router has been deleted.'
+            },{
+              type: 'info'
+            });
+            return true;
+          },
+          contentType: "application/x-www-form-urlencoded",
+          context: {routerRow: routerRow},
+          type: "DELETE",
+          url: "/routers/" + routerID
+        };
+        vm.sendAJAXRequest(settings);
+    }
+  }
+});

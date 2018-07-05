@@ -80,7 +80,7 @@ var vm = new Vue({
           {
             class: "text-center actions",
             data: function(row, type, set, meta) {
-              return '<div class="editSite cursor_to_pointer fa fa-edit" data-id="'+ row.id +'"></div> <div class="deleteSite cursor_to_pointer fa fa-trash" data-id="'+ row.id +'"></div>';
+              return '<div id="action_btn"><div class="editSite cursor_to_pointer fa fa-edit" data-id="'+ row.id +'"></div> <div class="cursor_to_pointer fa fa-trash" data-id="'+ row.id +'" onclick="vms.deleteSite('+row.id+', this.parentNode.parentNode.parentNode)"></div></div>';
             }
           },
           {
@@ -323,43 +323,6 @@ var vm = new Vue({
         this.clearForm();
         return true;
       },
-      deleteSite: function() {
-        $(document).on("click", ".deleteSite", function() {
-          var ruleRow, result;
-          result = confirm("Are you sure to delete this Site?");
-          if (result === false) {
-            return;
-          }
-          ruleRow = $(this).parents('tr');
-          siteID = $(this).attr('data-id');
-
-          var data = {};
-          data.id = siteID;
-          var settings;
-
-          settings = {
-            cache: false,
-            data: data,
-            dataType: 'json',
-            error: function(){return false},
-            success: function(){
-              this.ruleRow.remove();
-              $.notify({
-                message: 'Site has been deleted.'
-              },{
-                type: 'info'
-              });
-              return true;
-            },
-            contentType: "application/x-www-form-urlencoded",
-            context: {ruleRow: ruleRow},
-            type: "DELETE",
-            url: "/sites/" + siteID
-          };
-
-          vm.sendAJAXRequest(settings);
-      });
-    },
     getUniqueIdentifier: function(){
       $(document).on("click", ".editSite", function(){
         var tr = $(this).closest('tr');
@@ -543,7 +506,7 @@ var vm = new Vue({
     },
     initHideShow: function(){
       $(".sites-column").each(function(){
-        var that = $(this).attr("id");
+        var that = $(this).attr("data-id");
         var column = vm.dataTable.columns("." +that);
         if(column.visible()[0] == true){
           $(this).prop('checked', true);
@@ -555,10 +518,48 @@ var vm = new Vue({
   }, // end of methods
    mounted(){
     this.initializeTable();
-    this.deleteSite();
     this.getUniqueIdentifier();
     this.resizeScreen();
     window.addEventListener('resize', this.resizeScreen);
    }
 });
 vm.initHideShow();
+
+var vms = new Vue({
+  el: '#action_btn',
+  data: {},
+  methods: {
+    deleteSite: function(siteID, siteRow){
+      var siteRow, result;
+      result = confirm("Are you sure to delete this Site?");
+      if (result === false) {
+        return;
+      }
+
+      var data = {};
+      data.id = siteID;
+      var settings;
+
+      settings = {
+        cache: false,
+        data: data,
+        dataType: 'json',
+        error: function(){return false},
+        success: function(){
+          this.siteRow.remove();
+          $.notify({
+            message: 'Site has been deleted.'
+          },{
+            type: 'info'
+          });
+          return true;
+        },
+        contentType: "application/x-www-form-urlencoded",
+        context: {siteRow: siteRow},
+        type: "DELETE",
+        url: "/sites/" + siteID
+      };
+      vm.sendAJAXRequest(settings);
+    }
+  }
+});

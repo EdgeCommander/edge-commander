@@ -299,7 +299,7 @@ var vm = new Vue({
       this.show_errors = false;
     },
     initializeInput: function() {
-      $(".number_input").intlTelInput({
+      $("#number").intlTelInput({
           nationalMode: false,
           initialCountry: "ie"
         });
@@ -327,7 +327,7 @@ var vm = new Vue({
     },
     initHideShow: function(){
       $(".sims-column").each(function(){
-        var that = $(this).attr("id");
+        var that = $(this).attr("data-id");
         var column = vm.dataTable.columns("." +that);
         if(column.visible()[0] == true){
           $(this).prop('checked', true);

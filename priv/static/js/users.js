@@ -120,7 +120,7 @@ var vm = new Vue({
       {
         class: "text-center actions",
         data: function(row, type, set, meta) {
-          return '<div class="editThree cursor_to_pointer fa fa-edit" data-id="'+ row.id +'"></div> <div class="deleteThree cursor_to_pointer fa fa-trash" data-id="'+ row.id +'"></div>';
+          return '<div id="action_btn"><div class="editThree cursor_to_pointer fa fa-edit" data-id="'+ row.id +'"></div> <div class="cursor_to_pointer fa fa-trash" data-id="'+ row.id +'" onclick="vms.deleteThree('+row.id+', this.parentNode.parentNode.parentNode)"></div></div>';
         }
       },
       {
@@ -153,7 +153,6 @@ var vm = new Vue({
     });
       this.dataTable = commandsDataTable;
       this.onThreeEditButton();
-      this.deleteThree();
    },
    saveThreeModal: function(){
     $('ul#errorOnThree').html("");
@@ -281,43 +280,6 @@ var vm = new Vue({
     this.dataTable.ajax.reload();
     return true;
    },
-   deleteThree: function(){
-    $(document).on("click", ".deleteThree", function() {
-      var threeRow, result;
-      result = confirm("Are you sure to delete this three user?");
-      if (result === false) {
-        return;
-      }
-      threeRow = $(this).parents('tr');
-      threeID = $(this).attr('data-id');
-
-      var data = {};
-      data.id = threeID;
-      var settings;
-
-      settings = {
-        cache: false,
-        data: data,
-        dataType: 'json',
-        error: function(){return false},
-        success: function(){
-          this.threeRow.remove();
-          $.notify({
-            message: 'Three user has been deleted.'
-          },{
-            type: 'info'
-          });
-          return true;
-        },
-        contentType: "application/x-www-form-urlencoded",
-        context: {threeRow: threeRow},
-        type: "DELETE",
-        url: "/three_accounts/" + threeID
-      };
-
-      vm.sendAJAXRequest(settings);
-    });
-   },
    editClearFrom: function() {
     $("#edit_three_username").val("");
     $("#edit_three_password").val("");
@@ -361,3 +323,41 @@ var vm = new Vue({
 });
 vm.initializeTable();
 vm.initHideShow();
+
+var vms = new Vue({
+  el: '#action_btn',
+  data: {},
+  methods: {
+     deleteThree: function(threeID, threeRow){
+      var threeRow, result;
+      result = confirm("Are you sure to delete this three user?");
+      if (result === false) {
+        return;
+      }
+      var data = {};
+      data.id = threeID;
+      var settings;
+
+      settings = {
+        cache: false,
+        data: data,
+        dataType: 'json',
+        error: function(){return false},
+        success: function(){
+          this.threeRow.remove();
+          $.notify({
+            message: 'Three user has been deleted.'
+          },{
+            type: 'info'
+          });
+          return true;
+        },
+        contentType: "application/x-www-form-urlencoded",
+        context: {threeRow: threeRow},
+        type: "DELETE",
+        url: "/three_accounts/" + threeID
+      };
+      vm.sendAJAXRequest(settings);
+     }
+  }
+});

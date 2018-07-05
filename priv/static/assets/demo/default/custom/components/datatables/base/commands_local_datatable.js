@@ -68,7 +68,7 @@ var vm = new Vue({
       {
         class: "text-center actions",
         data: function(row, type, set, meta) {
-          return '<div class="editRULE cursor_to_pointer fa fa-edit" data-id="'+ row.id +'"></div> <div class="deleteRule cursor_to_pointer fa fa-trash" data-id="'+ row.id +'"></div>';
+          return '<div id="action_btn"><div class="editRULE cursor_to_pointer fa fa-edit" data-id="'+ row.id +'"></div> <div class="cursor_to_pointer fa fa-trash" data-id="'+ row.id +'" onclick="vms.deleteRule('+row.id+', this.parentNode.parentNode.parentNode)"></div></div>';
         }
       },
       {
@@ -234,43 +234,6 @@ var vm = new Vue({
     this.clearForm();
     return true;
    },
-   deleteRule: function(){
-    $(document).on("click", ".deleteRule", function() {
-      var ruleRow, result;
-      result = confirm("Are you sure to delete this Rule?");
-      if (result === false) {
-        return;
-      }
-      ruleRow = $(this).parents('tr');
-      ruleID = $(this).attr('data-id');
-
-      var data = {};
-      data.id = ruleID;
-      var settings;
-
-      settings = {
-        cache: false,
-        data: data,
-        dataType: 'json',
-        error: function(){return false},
-        success: function(){
-          this.ruleRow.remove();
-          $.notify({
-            message: 'Rule has been deleted.'
-          },{
-            type: 'info'
-          });
-          return true;
-        },
-        contentType: "application/x-www-form-urlencoded",
-        context: {ruleRow: ruleRow},
-        type: "DELETE",
-        url: "/rules/" + ruleID
-      };
-
-      vm.sendAJAXRequest(settings);
-    });
-   },
    updateRule: function(){
     $("#body-rule-edit-dis *").prop('disabled', true);
     $('ul#errorOnEditRULE').html("");
@@ -355,7 +318,7 @@ var vm = new Vue({
     },
     initHideShow: function(){
       $(".rule-column").each(function(){
-        var that = $(this).attr("id");
+        var that = $(this).attr("data-id");
         var column = vm.dataTable.columns("." +that);
         if(column.visible()[0] == true){
           $(this).prop('checked', true);
@@ -368,9 +331,46 @@ var vm = new Vue({
    mounted(){
     this.initializeTable();
     this.getUniqueIdentifier();
-    this.deleteRule();
     this.resizeScreen();
     window.addEventListener('resize', this.resizeScreen);
    }
 });
 vm.initHideShow();
+
+var vms = new Vue({
+  el: '#action_btn',
+  data: {},
+  methods: {
+     deleteRule: function(ruleID, ruleRow){
+      var ruleRow, result;
+      result = confirm("Are you sure to delete this Rule?");
+      if (result === false) {
+        return;
+      }
+      var data = {};
+      data.id = ruleID;
+      var settings;
+
+      settings = {
+        cache: false,
+        data: data,
+        dataType: 'json',
+        error: function(){return false},
+        success: function(){
+          this.ruleRow.remove();
+          $.notify({
+            message: 'Rule has been deleted.'
+          },{
+            type: 'info'
+          });
+          return true;
+        },
+        contentType: "application/x-www-form-urlencoded",
+        context: {ruleRow: ruleRow},
+        type: "DELETE",
+        url: "/rules/" + ruleID
+      };
+      vm.sendAJAXRequest(settings);
+     }
+  }
+});

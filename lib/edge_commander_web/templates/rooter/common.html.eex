@@ -12,7 +12,6 @@
 
 <body class="m-page--fluid m--skin- m-content--skin-light2 m-header--fixed m-header--fixed-mobile m-aside-left--enabled m-aside-left--skin-dark m-aside-left--offcanvas m-footer--push m-aside--offcanvas-default" onload="load_page('<%= @conn.request_path %>')" id="body_pannel">
     <!-- begin:: Page -->
-    <div>
         <div class="m-grid m-grid--hor m-grid--root m-page" id="page_content_main">
             <!-- BEGIN: Header -->
             <%= render_existing @view_module, "header.html", assigns %>
@@ -34,10 +33,10 @@
                     <div id="profile_main"></div>
                     <div id="sims_details_main"></div>
                 </div>
-                </div>
+                <div id="action_btn"></div>
             </div>
-            <!-- end:: Body -->
         </div>
+            <!-- end:: Body -->
         <!-- begin::Scroll Top -->
         <div class="m-scroll-top m-scroll-top--skin-top" data-toggle="m-scroll-top" data-scroll-offset="500" data-scroll-speed="300">
             <i class="la la-arrow-up"></i>

@@ -104,7 +104,7 @@ var vm = new Vue({
       {
         class: "text-center actions",
         data: function(row, type, set, meta) {
-          return '<div class="editNVR cursor_to_pointer fa fa-edit" data-id="'+ row.id +'"></div> <div class="deleteNVR cursor_to_pointer fa fa-trash" data-id="'+ row.id +'"></div>';
+          return '<div id="action_btn"><div id class="editNVR cursor_to_pointer fa fa-edit" data-id="'+ row.id +'"></div> <div class="cursor_to_pointer fa fa-trash" data-id="'+ row.id +'" onclick="vms.deleteNvr('+row.id+', this.parentNode.parentNode.parentNode)"></div></div>';
         }
       },
       {
@@ -251,7 +251,6 @@ var vm = new Vue({
       stateSave:  true
     });
       this.dataTable = nvrDataTable;
-      vm.initHideShow();
    },
    search: function(){
     this.dataTable.search(this.m_form_search).draw();
@@ -368,44 +367,6 @@ var vm = new Vue({
       $('ul#errorOnNVR').html("");
       $("#body-nvr-dis *").prop('disabled', false);
       this.show_errors = false;
-   },
-   deleteNVR: function() {
-      $(document).on("click", ".deleteNVR", function() {
-        var nvrRow, result;
-        result = confirm("Are you sure to delete this NVR?");
-        if (result === false) {
-          return;
-        }
-        nvrRow = $(this).parents('tr');
-        nvrID = $(this).attr('data-id');
-
-        var data = {};
-        data.id = nvrID;
-        var settings;
-
-        settings = {
-          cache: false,
-          data: data,
-          dataType: 'json',
-          error: function(){return false},
-          success: function(){
-            this.nvrRow.remove();
-            $.notify({
-              message: 'NVR has been deleted.'
-            },{
-              type: 'info'
-            });
-            return true;
-          },
-          contentType: "application/x-www-form-urlencoded",
-          context: {nvrRow: nvrRow},
-          type: "DELETE",
-          url: "/nvrs/" + nvrID
-        };
-
-        vm.sendAJAXRequest(settings)
-
-      });
    },
    rebootNVR: function() {
     $(document).on("click", ".rebootNVR", function() {
@@ -611,7 +572,7 @@ var vm = new Vue({
     },
     initHideShow: function(){
       $(".nvr-column").each(function(){
-        var that = $(this).attr("id");
+        var that = $(this).attr("data-id");
         var column = vm.dataTable.columns("." +that);
         if(column.visible()[0] == true){
           $(this).prop('checked', true);
@@ -623,7 +584,6 @@ var vm = new Vue({
   }, // end of methods
   mounted(){
     this.initializeTable();
-    this.deleteNVR();
     this.rebootNVR();
     this.getUniqueIdentifier();
     this.resizeScreen();
@@ -631,3 +591,42 @@ var vm = new Vue({
   }
 });
 vm.initHideShow();
+
+var vms = new Vue({
+  el: '#action_btn',
+  data: {},
+  methods: {
+     deleteNvr: function(nvrID, nvrRow){
+      var nvrRow, result;
+      result = confirm("Are you sure to delete this NVR?");
+      if (result === false) {
+        return;
+      }
+
+      var data = {};
+      data.id = nvrID;
+      var settings;
+
+      settings = {
+        cache: false,
+        data: data,
+        dataType: 'json',
+        error: function(){return false},
+        success: function(){
+          this.nvrRow.remove();
+          $.notify({
+            message: 'NVR has been deleted.'
+          },{
+            type: 'info'
+          });
+          return true;
+        },
+        contentType: "application/x-www-form-urlencoded",
+        context: {nvrRow: nvrRow},
+        type: "DELETE",
+        url: "/nvrs/" + nvrID
+      };
+      vm.sendAJAXRequest(settings)
+     }
+  }
+});
