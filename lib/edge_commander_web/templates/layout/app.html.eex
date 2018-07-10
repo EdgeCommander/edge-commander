@@ -92,7 +92,7 @@
   <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBfX46k9qCXNL6WR8wu8Jmb8yF4WxrpuUM&libraries=places"></script>
 <%  end %>
 
-<%= if @conn.request_path == "/sms" or @conn.request_path == "/sms_ajax" do %>
+<%= if @conn.request_path == "/messages" or @conn.request_path == "/messages_ajax" do %>
   <script src="<%= static_path(@conn, "/assets/demo/default/custom/components/datatables/base/sms_messages_local_datatable.js") %>"> type="text/javascript"></script>
   <script type="text/javascript">
     vm.autocompleteInput();
