@@ -94,7 +94,7 @@ defmodule EdgeCommanderWeb.Router do
     get "/commands_ajax", RooterController, :commands
     get "/my_profile_ajax", RooterController, :my_profile
     get "/sites_ajax", RooterController, :sites
-    get "/sms_ajax", RooterController, :sms_messages
+    get "/messages_ajax", RooterController, :sms_messages
     get "/status_report_ajax", RooterController, :status_report
     get "/api_ajax", RooterController, :swagger
     get "/sims_ajax/:sim_number/", RooterController, :sim_graph_and_details
@@ -106,7 +106,7 @@ defmodule EdgeCommanderWeb.Router do
     get "/sims/:sim_number", RooterController, :common
     get "/my_profile", RooterController, :common
     get "/sites", RooterController, :common
-    get "/sms", RooterController, :common
+    get "/messages", RooterController, :common
     get "/status_report", RooterController, :common
     get "/api", RooterController, :common
 
@@ -114,7 +114,7 @@ defmodule EdgeCommanderWeb.Router do
     get "/sims/data/:sim_number", SimsController, :get_single_sim_data
     get "/chartjs/data/:sim_number", SimsController, :create_chartjs_line_data
     get "/sims/sms/:sim_number", SimsController, :get_single_sim_sms
-    post "/sims", SimsController, :create
+    post "/messages", SimsController, :create
 
     get "/routers/data", RoutersController, :get_all_routers
     post "/routers", RoutersController, :create

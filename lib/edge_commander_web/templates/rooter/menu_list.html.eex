@@ -77,13 +77,13 @@
                 </span>
             </a>
         </li>
-        <li class="m-menu__item sms" aria-haspopup="true" onclick="load_page('/sms')">
+        <li class="m-menu__item messages" aria-haspopup="true" onclick="load_page('/messages')">
             <a  href="javascript:void(0)" class="m-menu__link ">
                 <i class="m-menu__link-icon fa fa-envelope-open"></i>
                 <span class="m-menu__link-title">
                     <span class="m-menu__link-wrap">
                         <span class="m-menu__link-text">
-                            SMS
+                            Messages
                         </span>>
                     </span>
                 </span>
