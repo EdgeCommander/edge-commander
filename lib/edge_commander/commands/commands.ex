@@ -3,6 +3,7 @@ defmodule EdgeCommander.Commands do
   import EdgeCommander.ThreeScraper, only: [all_sim_numbers: 0, get_last_record_for_number: 1]
   alias EdgeCommander.Repo
   alias EdgeCommander.Commands.Rule
+  alias EdgeCommander.Sharing.Member
   require Logger
 
   def start_usage_command do
@@ -52,9 +53,11 @@ defmodule EdgeCommander.Commands do
   end
 
   def list_rules(user_id) do
-    Rule
-      |> where(user_id: ^user_id)
-      |> Repo.all
+    query = from r in Rule,
+      left_join: m in Member, on: r.user_id == m.user_id,
+      where: (m.member_id == ^user_id or r.user_id == ^user_id)
+    query
+    |>  Repo.all
   end
 
   def get_rule!(id), do: Repo.get!(Rule, id)

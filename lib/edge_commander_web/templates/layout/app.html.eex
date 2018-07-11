@@ -82,6 +82,10 @@
   <script src="<%= static_path(@conn, "/assets/demo/default/custom/components/datatables/base/commands_local_datatable.js") %>"> type="text/javascript"></script>
 <%  end %>
 
+<%= if @conn.request_path == "/sharing" or @conn.request_path == "/sharing_ajax" do %>
+  <script src="<%= static_path(@conn, "/assets/demo/default/custom/components/datatables/base/sharing_local_datatable.js") %>"> type="text/javascript"></script>
+<%  end %>
+
 <%= if @conn.request_path == "/my_profile" or @conn.request_path == "/my_profile_ajax" do %>
   <script src="<%= static_path(@conn, "/js/notify.min.js") %>"> type="text/javascript"></script>
   <script src="<%= static_path(@conn, "/js/users.js") %>" type="text/javascript"></script>

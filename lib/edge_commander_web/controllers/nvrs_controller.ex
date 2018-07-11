@@ -1,6 +1,7 @@
 defmodule EdgeCommanderWeb.NvrsController do
   use EdgeCommanderWeb, :controller
   alias EdgeCommander.Devices.Nvr
+  alias EdgeCommander.Sharing.Member
   alias EdgeCommander.Repo
   alias EdgeCommander.Util
   import Ecto.Query, warn: false
@@ -292,11 +293,12 @@ defmodule EdgeCommanderWeb.NvrsController do
     current_user = current_user(conn)
     current_user_id = current_user.id
     all_logs = get_logs_for_days(days, current_user.id)
-    current_user_nvrs =
-      Nvr
-      |> where(user_id: ^current_user_id)
-      |> Repo.all
 
+    query = from n in Nvr,
+      left_join: m in Member, on: n.user_id == m.user_id,
+      where: (m.member_id == ^current_user_id or n.user_id == ^current_user_id)
+
+    current_user_nvrs = query |> Repo.all
     nvr_logs =
       Enum.map(current_user_nvrs, fn (nvr) ->
         %{

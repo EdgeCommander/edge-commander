@@ -32,6 +32,7 @@
                     <div id="api_main"></div>
                     <div id="profile_main"></div>
                     <div id="sims_details_main"></div>
+                    <div id="sharing_main"></div>
                 </div>
                 <div class="action_btn" id="action_btn"></div>
             </div>
