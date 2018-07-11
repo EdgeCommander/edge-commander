@@ -6,9 +6,9 @@ defmodule EdgeCommander.SharingTest do
   describe "sharing" do
     alias EdgeCommander.Sharing.Member
 
-    @valid_attrs %{member_id: 42, role: 42, user_id: 42}
-    @update_attrs %{member_id: 43, role: 43, user_id: 43}
-    @invalid_attrs %{member_id: nil, role: nil, user_id: nil}
+    @valid_attrs %{member_id: 42, role: 1, member_email: "some email"}
+    @update_attrs %{member_id: 43, role: 1, member_email: "some email"}
+    @invalid_attrs %{member_id: nil, role: nil, member_email: "some email"}
 
     def member_fixture(attrs \\ %{}) do
       {:ok, member} =
@@ -19,11 +19,6 @@ defmodule EdgeCommander.SharingTest do
       member
     end
 
-    test "list_sharing/0 returns all sharing" do
-      member = member_fixture()
-      assert Sharing.list_sharing() == [member]
-    end
-
     test "get_member!/1 returns the member with given id" do
       member = member_fixture()
       assert Sharing.get_member!(member.id) == member
@@ -32,8 +27,7 @@ defmodule EdgeCommander.SharingTest do
     test "create_member/1 with valid data creates a member" do
       assert {:ok, %Member{} = member} = Sharing.create_member(@valid_attrs)
       assert member.member_id == 42
-      assert member.role == 42
-      assert member.user_id == 42
+      assert member.role == 1
     end
 
     test "create_member/1 with invalid data returns error changeset" do
@@ -45,8 +39,7 @@ defmodule EdgeCommander.SharingTest do
       assert {:ok, member} = Sharing.update_member(member, @update_attrs)
       assert %Member{} = member
       assert member.member_id == 43
-      assert member.role == 43
-      assert member.user_id == 43
+      assert member.role == 1
     end
 
     test "update_member/2 with invalid data returns error changeset" do
