@@ -7,6 +7,7 @@ defmodule EdgeCommander.Sites do
   alias EdgeCommander.Repo
 
   alias EdgeCommander.Sites.Records
+  alias EdgeCommander.Sharing.Member
 
   @doc """
   Returns the list of sites.
@@ -17,10 +18,13 @@ defmodule EdgeCommander.Sites do
       [%Records{}, ...]
 
   """
+
   def list_sites(user_id) do
-    Records
-    |> where(user_id: ^user_id)
-    |> Repo.all
+    query = from r in Records,
+      left_join: m in Member, on: r.user_id == m.user_id,
+      where: (m.member_id == ^user_id or r.user_id == ^user_id)
+    query
+    |>  Repo.all
   end
 
   @doc """

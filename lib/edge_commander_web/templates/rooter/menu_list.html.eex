@@ -12,7 +12,7 @@
                     <span class="m-menu__link-wrap">
                         <span class="m-menu__link-text">
                             SIMs
-                        </span>
+                        </span>>
                     </span>
                 </span>
             </a>
@@ -91,6 +91,18 @@
         </li>
     </ul>
     <ul class="m-menu__nav  m-menu__nav--dropdown-submenu-arrow bottom_links">
+        <li class="m-menu__item bottom_link sharing" aria-haspopup="true" onclick="load_page('/sharing')">
+            <a  href="javascript:void(0)" class="m-menu__link">
+                <i class="m-menu__link-icon fa fa-slideshare"></i>
+                <span class="m-menu__link-title">
+                    <span class="m-menu__link-wrap">
+                        <span class="m-menu__link-text">
+                            Sharing
+                        </span>>
+                    </span>
+                </span>
+            </a>
+        </li>
         <li class="m-menu__item bottom_link api" aria-haspopup="true" onclick="load_page('/api')">
             <a  href="javascript:void(0)" class="m-menu__link">
                 <i class="m-menu__link-icon fa fa-paperclip"></i>

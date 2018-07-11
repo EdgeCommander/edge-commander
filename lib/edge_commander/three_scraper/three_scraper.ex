@@ -7,6 +7,7 @@ defmodule EdgeCommander.ThreeScraper do
   alias EdgeCommander.Repo
 
   alias EdgeCommander.ThreeScraper.SimLogs
+  alias EdgeCommander.Sharing.Member
 
   use GenServer
   require Logger
@@ -79,10 +80,13 @@ defmodule EdgeCommander.ThreeScraper do
     {:noreply, state}
   end
 
-  def all_sims do
-    SimLogs
+  def all_sims(user_id) do
+    query = from s in SimLogs,
+      left_join: m in Member, on: s.user_id == m.user_id,
+      where: (m.member_id == ^user_id or s.user_id == ^user_id)
+    query
     |> distinct([s], desc: s.name)
-    |> Repo.all
+    |>  Repo.all
   end
 
   def all_sim_numbers do
@@ -93,11 +97,12 @@ defmodule EdgeCommander.ThreeScraper do
   end
 
   def get_sim_numbers(user_id) do
-    SimLogs
-    |> select([sim], sim.number)
-    |> where(user_id: ^user_id)
+    query = from l in SimLogs,
+      left_join: m in Member, on: l.user_id == m.user_id,
+      where: (m.member_id == ^user_id or l.user_id == ^user_id), select: l.number
+    query
     |> distinct(true)
-    |> Repo.all
+    |>  Repo.all
   end
 
   def get_last_record_for_number(number) do
@@ -134,11 +139,13 @@ defmodule EdgeCommander.ThreeScraper do
   end
 
   def get_single_sim_by_user(sim_number, user_id) do
-    SimLogs
-    |> where([c], c.number == ^sim_number and c.user_id == ^user_id)
+    query = from l in SimLogs,
+      left_join: m in Member, on: l.user_id == m.user_id,
+      where: (m.member_id == ^user_id or l.user_id == ^user_id) and l.number == ^sim_number
+    query
     |> distinct([s], [desc: fragment("date_trunc('day', ?)", s.datetime)])
     |> order_by(desc: :id)
-    |> Repo.all
+    |>  Repo.all
   end
 
   def get_sim_name(sim_number) do
@@ -159,11 +166,13 @@ defmodule EdgeCommander.ThreeScraper do
   end
 
   def get_all_records_for_sim_by_user(sim_number, user_id) do
-    SimLogs
-    |> where([c], c.number == ^sim_number and c.user_id == ^user_id)
+    query = from l in SimLogs,
+      left_join: m in Member, on: l.user_id == m.user_id,
+      where: (m.member_id == ^user_id or l.user_id == ^user_id) and l.number == ^sim_number
+    query
     |> distinct([s], fragment("date_trunc('day', ?)", s.datetime))
     |> order_by(asc: :datetime)
-    |> Repo.all
+    |>  Repo.all
   end
 
   def get_all_users_by_number(sim_number) do

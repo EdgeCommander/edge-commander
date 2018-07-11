@@ -1,9 +1,9 @@
 defmodule EdgeCommanderWeb.RooterController do
   use EdgeCommanderWeb, :controller
   alias EdgeCommander.Accounts.User
-  import EdgeCommander.Accounts, only: [current_user: 1]
+  import EdgeCommander.Accounts, only: [current_user: 1, get_users: 1]
   import EdgeCommander.Devices, only: [list_nvrs: 1, list_routers: 1]
-  import EdgeCommander.ThreeScraper, only: [all_sims: 0]
+  import EdgeCommander.ThreeScraper, only: [all_sims: 1]
   import Gravatar
   require Logger
 
@@ -35,6 +35,12 @@ defmodule EdgeCommanderWeb.RooterController do
     render(conn, "commands.html", user: current_user(conn), gravatar_url: current_user(conn) |> Map.get(:email) |> gravatar_url(secure: true))
   end
 
+  def sharing(conn, _params) do
+    current_user = current_user(conn)
+    current_user_id = current_user.id
+    render(conn, "sharing.html", user: current_user(conn), gravatar_url: current_user(conn) |> Map.get(:email) |> gravatar_url(secure: true), users_list: get_users(current_user_id))
+  end
+
   def sim_graph_and_details(conn, %{"sim_number" => sim_number} = _params) do
     render(conn, "sim_graph_and_details.html", user: current_user(conn), gravatar_url: current_user(conn) |> Map.get(:email) |> gravatar_url(secure: true), sim_number: sim_number)
   end
@@ -46,18 +52,18 @@ defmodule EdgeCommanderWeb.RooterController do
   def sites(conn, _params) do
     current_user = current_user(conn)
     current_user_id = current_user.id
-    render(conn, "sites.html", user: current_user, gravatar_url: current_user |> Map.get(:email) |> gravatar_url(secure: true), list_nvrs: list_nvrs(current_user_id), list_routers: list_routers(current_user_id), all_sims: all_sims())
+    render(conn, "sites.html", user: current_user, gravatar_url: current_user |> Map.get(:email) |> gravatar_url(secure: true), list_nvrs: list_nvrs(current_user_id), list_routers: list_routers(current_user_id), all_sims: all_sims(current_user_id))
   end
 
   def swagger(conn, _params) do
     current_user = current_user(conn)
     current_user_id = current_user.id
-    render(conn, "swagger.html", user: current_user, gravatar_url: current_user |> Map.get(:email) |> gravatar_url(secure: true), list_nvrs: list_nvrs(current_user_id), list_routers: list_routers(current_user_id), all_sims: all_sims())
+    render(conn, "swagger.html", user: current_user, gravatar_url: current_user |> Map.get(:email) |> gravatar_url(secure: true))
   end
 
   def sms_messages(conn, _params) do
     current_user = current_user(conn)
     current_user_id = current_user.id
-    render(conn, "sms_messages.html", user: current_user, gravatar_url: current_user |> Map.get(:email) |> gravatar_url(secure: true), list_nvrs: list_nvrs(current_user_id), list_routers: list_routers(current_user_id), all_sims: all_sims())
+    render(conn, "sms_messages.html", user: current_user, gravatar_url: current_user |> Map.get(:email) |> gravatar_url(secure: true), list_nvrs: list_nvrs(current_user_id), list_routers: list_routers(current_user_id), all_sims: all_sims(current_user_id))
   end
 end

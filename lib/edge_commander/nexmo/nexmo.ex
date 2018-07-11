@@ -7,6 +7,7 @@ defmodule EdgeCommander.Nexmo do
   alias EdgeCommander.Repo
 
   alias EdgeCommander.Nexmo.SimMessages
+  alias EdgeCommander.Sharing.Member
 
   @doc """
   Returns the list of sms_messages.
@@ -20,9 +21,11 @@ defmodule EdgeCommander.Nexmo do
   def list_sms_messages(from_date, to_date, user_id) do
     from = NaiveDateTime.from_iso8601!(from_date <> " 00:00:00")
     to = NaiveDateTime.from_iso8601!(to_date <> " 23:59:59")
-    SimMessages
-    |> where([c], c.inserted_at >= ^from and c.inserted_at <= ^to and c.user_id == ^user_id)
-    |> Repo.all
+    query = from l in SimMessages,
+      left_join: m in Member, on: l.user_id == m.user_id,
+      where: (m.member_id == ^user_id or l.user_id == ^user_id) and (l.inserted_at >= ^from or l.inserted_at == ^to)
+    query
+    |>  Repo.all
   end
 
   @doc """
@@ -48,11 +51,13 @@ defmodule EdgeCommander.Nexmo do
   end
 
   def get_single_sim_messages(number, user_id) do
-    SimMessages
-    |> where([c], (c.from == ^number or c.to == ^number) and c.user_id == ^user_id)
+    query = from l in SimMessages,
+      left_join: m in Member, on: l.user_id == m.user_id,
+      where: (m.member_id == ^user_id or l.user_id == ^user_id) and (l.from == ^number or l.to == ^number)
+    query
     |> order_by(desc: :inserted_at)
     |> limit(10)
-    |> Repo.all
+    |>  Repo.all
   end
 
   def get_last_message_details(number, user_id) do

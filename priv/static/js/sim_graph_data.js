@@ -160,6 +160,9 @@ var vm = new Vue({
     },
     setSimNumber: function(num){
       this.toNumber = num;
+      if(num.indexOf('+') == -1){
+        this.toNumber = "+"+num;
+      }
     },
     setUserId: function(id){
       this.user_id = id;

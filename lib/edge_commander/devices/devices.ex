@@ -2,13 +2,11 @@ defmodule EdgeCommander.Devices do
   @moduledoc """
   The Devices context.
   """
-
   import Ecto.Query, warn: false
   import EdgeCommander.Util, only: [parse_inner_array: 1, parse_single_element: 2]
   alias EdgeCommander.Repo
   require Logger
-  require IEx
-
+  alias EdgeCommander.Sharing.Member
   alias EdgeCommander.Devices.Nvr
 
   def update_nvr_ISAPI(nvr)  do
@@ -64,11 +62,14 @@ defmodule EdgeCommander.Devices do
       [%Nvr{}, ...]
 
   """
+
   def list_nvrs(user_id) do
-    Nvr
-    |> where(user_id: ^user_id)
+    query = from n in Nvr,
+      left_join: m in Member, on: n.user_id == m.user_id,
+      where: (m.member_id == ^user_id or n.user_id == ^user_id)
+    query
     |> order_by(:name)
-    |> Repo.all
+    |>  Repo.all
   end
 
   @doc """
@@ -163,11 +164,14 @@ defmodule EdgeCommander.Devices do
       [%Router{}, ...]
 
   """
+
   def list_routers(user_id) do
-    Router
-    |> where(user_id: ^user_id)
+    query = from r in Router,
+      left_join: m in Member, on: r.user_id == m.user_id,
+      where: (m.member_id == ^user_id or r.user_id == ^user_id)
+    query
     |> order_by(:name)
-    |> Repo.all
+    |>  Repo.all
   end
 
   @doc """
