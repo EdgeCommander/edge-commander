@@ -2,7 +2,6 @@ defmodule EdgeCommander.Raid do
   @moduledoc """
   The Raid context.
   """
-  require IEx
   require Logger
   import Ecto.Query, warn: false
   alias EdgeCommander.Repo

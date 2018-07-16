@@ -65,7 +65,7 @@ defmodule EdgeCommander.Devices do
 
   def list_nvrs(user_id) do
     query = from n in Nvr,
-      left_join: m in Member, on: n.user_id == m.user_id,
+      left_join: m in Member, on: n.user_id == m.account_of_id,
       where: (m.member_id == ^user_id or n.user_id == ^user_id)
     query
     |> order_by(:name)
@@ -167,7 +167,7 @@ defmodule EdgeCommander.Devices do
 
   def list_routers(user_id) do
     query = from r in Router,
-      left_join: m in Member, on: r.user_id == m.user_id,
+      left_join: m in Member, on: r.user_id == m.account_of_id,
       where: (m.member_id == ^user_id or r.user_id == ^user_id)
     query
     |> order_by(:name)

@@ -21,7 +21,7 @@ defmodule EdgeCommander.Sites do
 
   def list_sites(user_id) do
     query = from r in Records,
-      left_join: m in Member, on: r.user_id == m.user_id,
+      left_join: m in Member, on: r.user_id == m.account_of_id,
       where: (m.member_id == ^user_id or r.user_id == ^user_id)
     query
     |>  Repo.all
