@@ -7,19 +7,19 @@ var vm = new Vue({
     show_errors: false,
     headings: [
       {column: "Actions", id: "actions"},
-      {column: "Account of", id: "account_of_id"},
+      {column: "Owner", id: "account_of_id"},
       {column: "Share With", id: "member_email"},
       {column: "Share by", id: "user_id"},
-      {column: "Role", id: "role"}
+      {column: "Rights", id: "role"}
     ],
     form_labels: {
       member_email: "Share With",
       role: "Role",
       choose_account: "Account of",
-      submit_button: "Save changes",
-      add_title: "Share Account with",
+      submit_button: "Share",
+      add_title: "Share Account",
       hide_show_title: "Show/Hide Columns",
-      add_sharing_button: "Share to others",
+      add_sharing_button: "Share Details",
       hide_show_button: "OK"
     },
     role: 1,
@@ -225,9 +225,17 @@ var vm = new Vue({
           $(this).prop('checked', false);
         }
       });
+    },
+    init_select: function(){
+      $('.js-example-basic-single').select2({
+        closeOnSelect: true,
+        maximumSelectionLength: 1,
+        placeholder: "Select an email",
+      });
     }
   }, // end of methods
    mounted(){
+    this.init_select();
     this.initializeTable();
     this.resizeScreen();
     window.addEventListener('resize', this.resizeScreen);
@@ -271,10 +279,4 @@ var vms = new Vue({
       vm.sendAJAXRequest(settings);
      }
   }
-});
-
-$('.js-example-basic-single').select2({
-  closeOnSelect: true,
-  tokenSeparators: [',', ';', ' '],
-  maximumSelectionLength: 1
 });

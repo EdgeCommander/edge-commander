@@ -102,14 +102,10 @@
                           </label>
                           <div class="col-9">
                              <select class="form-control m-input " id="account_of_id" v-model="account_of_id">
-                              <optgroup label="Own Accounts">
-                                  <option value="<%= @user.id %>"><%= @user.firstname %> <%= @user.lastname %> (<%= @user.email %>)</option>
-                              </optgroup>
-                              <optgroup label="Other's Accounts">
+                                  <option value="<%= @user.id %>"><%= @user.email %> (my account)</option>
                                  <%= for user <- @shared_users do %>
                                  <option value="<%= user.id %>"><%= user.email %></option>
                                   <% end %>
-                              </optgroup>
                               </select>
                           </div>
                       </div>

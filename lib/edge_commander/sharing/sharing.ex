@@ -56,6 +56,19 @@ defmodule EdgeCommander.Sharing do
     |> Repo.one
   end
 
+  def already_sharing(member_email, account_of_id) do
+    Member
+    |> where(member_email: ^member_email)
+    |> where(account_of_id: ^account_of_id)
+    |> Repo.one
+  end
+
+  def member_by_token(token) do
+    Member
+    |> where(token: ^token)
+    |> Repo.one
+  end
+
   @doc """
   Creates a member.
 

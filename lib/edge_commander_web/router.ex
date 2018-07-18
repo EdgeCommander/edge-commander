@@ -83,6 +83,8 @@ defmodule EdgeCommanderWeb.Router do
     post "/receive_sms", SimsController, :receive_sms
     get "/delivery_receipt", SimsController, :delivery_receipt
     get "/users/reset_password_success", DashboardController, :reset_password_success
+
+    get "/sign_up/:token", DashboardController, :sharing_confirm
   end
 
   scope "/", EdgeCommanderWeb do

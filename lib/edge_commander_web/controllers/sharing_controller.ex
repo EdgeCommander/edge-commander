@@ -4,57 +4,71 @@ defmodule EdgeCommanderWeb.SharingController do
   alias EdgeCommander.Repo
   alias EdgeCommander.Util
   import Ecto.Query, warn: false
-  import EdgeCommander.Sharing, only: [list_sharing: 1, get_member!: 1, user_already_exist: 1]
+  import EdgeCommander.Sharing, only: [list_sharing: 1, get_member!: 1, already_sharing: 2]
   import EdgeCommander.Accounts, only: [current_user: 1, email_exist: 1, get_user!: 1]
 
   def create(conn, params) do
-    member_id = params["member_email"] |> email_exist |> get_member_id
-
     token = Util.string_generator(30)
+    member_id = params["member_email"] |> email_exist |> get_member_id
+    account_of_id = params["account_of_id"]
+    member_email = params["member_email"]
+
     params = %{
       "user_id" => params["user_id"],
       "member_id" => member_id,
       "role" => params["role"],
-      "member_email" => params["member_email"],
-      "account_of_id" => params["account_of_id"],
+      "member_email" => member_email,
+      "account_of_id" => account_of_id,
       "token" => token
     }
 
-    user_exist = user_already_exist(params["member_email"])
-    if user_exist == nil do
-        changeset = Member.changeset(%Member{}, params)
-        case Repo.insert(changeset) do
-          {:ok, member} ->
-            %EdgeCommander.Sharing.Member{
-              user_id: user_id,
-              member_id: member_id,
-              role: role,
-              member_email: member_email,
-              account_of_id: account_of_id,
-              token: token
-            } = member
+    account_of_id = ensure_account_id(account_of_id)
 
-            conn
-            |> put_status(:created)
-            |> json(%{
-              "user_id" => user_id,
-              "member_id" => member_id,
-              "role" => role,
-              "member_email" => member_email,
-              "account_of_id" => account_of_id,
-              "token" => token
-            })
-          {:error, changeset} ->
-            errors = Util.parse_changeset(changeset)
-            traversed_errors = for {_key, values} <- errors, value <- values, do: "#{value}"
-            conn
-            |> put_status(400)
-            |> json(%{ errors: traversed_errors })
+    if (member_id == account_of_id) == false do
+        already_sharing = already_sharing(member_email, account_of_id)
+        if already_sharing == nil  do
+            changeset = Member.changeset(%Member{}, params)
+            case Repo.insert(changeset) do
+              {:ok, member} ->
+                %EdgeCommander.Sharing.Member{
+                  user_id: user_id,
+                  member_id: member_id,
+                  role: role,
+                  member_email: member_email,
+                  account_of_id: account_of_id,
+                  token: token
+                } = member
+
+                share_account = params["account_of_id"] |> get_user!
+                user_info =  share_account.firstname <> " " <> share_account.lastname <> " (" <> share_account.email <> ")"
+                EdgeCommander.EcMailer.signup_email_on_share(member_email, token, user_info)
+
+                conn
+                |> put_status(:created)
+                |> json(%{
+                  "user_id" => user_id,
+                  "member_id" => member_id,
+                  "role" => role,
+                  "member_email" => member_email,
+                  "account_of_id" => account_of_id,
+                  "token" => token
+                })
+              {:error, changeset} ->
+                errors = Util.parse_changeset(changeset)
+                traversed_errors = for {_key, values} <- errors, value <- values, do: "#{value}"
+                conn
+                |> put_status(400)
+                |> json(%{ errors: traversed_errors })
+            end
+          else
+          conn
+          |> put_status(400)
+          |> json(%{ errors: ["Rights have been already given to that email address."]})
         end
       else
-      conn
-      |> put_status(400)
-      |> json(%{ errors: ["Rights have been already given to that user."]})
+        conn
+        |> put_status(400)
+        |> json(%{ errors: ["Sorry you can not be given to own rights itself."]})
     end
   end
 
@@ -130,9 +144,15 @@ defmodule EdgeCommanderWeb.SharingController do
         |> json(%{ errors: traversed_errors })
     end
   end
-  
+
   defp get_member_id(nil), do: 0
   defp get_member_id(member_details)  do
       member_details.id
+  end
+
+  defp ensure_account_id(""), do: -1
+  defp ensure_account_id(account_id) do
+    {account_of_id, ""} = Integer.parse(account_id)
+    account_of_id
   end
 end
