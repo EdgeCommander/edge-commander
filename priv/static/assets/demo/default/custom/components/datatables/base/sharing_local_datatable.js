@@ -7,21 +7,23 @@ var vm = new Vue({
     show_errors: false,
     headings: [
       {column: "Actions", id: "actions"},
-      {column: "Email", id: "member_email"},
-      {column: "Role", id: "role"},
-      {column: "Created At", id: "created_at"}
+      {column: "Owner", id: "account_id"},
+      {column: "Share With", id: "member_email"},
+      {column: "Share by", id: "user_id"},
+      {column: "Rights", id: "role"}
     ],
     form_labels: {
-      member_email: "Email",
+      member_email: "Share With",
       role: "Role",
-      submit_button: "Save changes",
-      add_title: "Share access to others",
+      choose_account: "Account of",
+      submit_button: "Share",
+      add_title: "Share Account",
       hide_show_title: "Show/Hide Columns",
-      add_sharing_button: "Share to others",
+      add_sharing_button: "Share Details",
       hide_show_button: "OK"
     },
-    member_email: "",
-    role: 1
+    role: 1,
+    account_id: "",
   },
   methods: {
     initializeTable: function(){
@@ -59,9 +61,26 @@ var vm = new Vue({
         }
       },
       {
+        class: "account_id",
+        data: function(row, type, set, meta) {
+          return "<b>"+row.account_of_name+"</b></br>" + row.account_of_email;
+        }
+      },
+      {
         class: "member_email",
         data: function(row, type, set, meta) {
-          return row.member_email;
+          member_name = row.member_name;
+          color = "";
+          if(member_name == 'Pending....'){
+            color = "red";
+          }
+            return "<b style='color:"+color+"'>"+row.member_name+"</b></br>" + row.member_email;
+        }
+      },
+      {
+        class: "user_id",
+        data: function(row, type, set, meta) {
+          return "<b>"+row.share_by_name+"</b></br>" + row.share_by_email;
         }
       },
       {
@@ -69,19 +88,12 @@ var vm = new Vue({
         data: function(row, type, set, meta) {
           role = row.role;
           if(role == 1){
-            return "Full rights";
+            return "Full Rights";
           }else{
-            return "Read-only";
+            return "Read-Only";
           }
-          
         }
-      },
-      {
-        class: "text-center created_at",
-        data: function(row, type, set, meta) {
-          return moment(row.created_at).format('MMMM Do YYYY, H:mm:ss');
-        },
-      },
+      }
       ],
       autoWidth: false,
       info: false,
@@ -112,7 +124,8 @@ var vm = new Vue({
     $('.toggle-datatable-columns').modal('show');
    },
    clearForm: function(){
-    this.member_email = "";
+    $("#member_email").val('').trigger('change')
+    this.account_id = "";
     this.role = 1;
     $('ul#errorOnMember').html("");
     $("#body-member-dis *").prop('disabled', false);
@@ -138,15 +151,19 @@ var vm = new Vue({
     $("#body-member-dis *").prop('disabled',true);
     this.show_errors = true;
 
+    member_email = $( "#member_email option:selected" ).text()
+
     var user_id      = this.user_id,
-        member_email = this.member_email,
-        role         = this.role
+        member_email = member_email,
+        role         = this.role,
+        account_id = this.account_id
 
     var data = {};
    
     data.user_id = user_id;
     data.member_email = member_email;
     data.role = role
+    data.account_id = account_id
 
     var settings;
 
@@ -208,9 +225,17 @@ var vm = new Vue({
           $(this).prop('checked', false);
         }
       });
+    },
+    init_select: function(){
+      $('.js-example-basic-single').select2({
+        closeOnSelect: true,
+        maximumSelectionLength: 1,
+        placeholder: "Select an email",
+      });
     }
   }, // end of methods
    mounted(){
+    this.init_select();
     this.initializeTable();
     this.resizeScreen();
     window.addEventListener('resize', this.resizeScreen);

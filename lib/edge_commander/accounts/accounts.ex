@@ -95,7 +95,7 @@ defmodule EdgeCommander.Accounts do
     Repo.all(User)
   end
 
-  def get_users(user_id) do
+  def get_other_users(user_id) do
     User
     |> where([c], c.id != ^user_id)
     |> Repo.all

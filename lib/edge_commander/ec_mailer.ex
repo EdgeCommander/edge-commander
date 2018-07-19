@@ -42,6 +42,15 @@ defmodule EdgeCommander.EcMailer do
       subject: "EdgeCommander Password Reset",
       from: @from,
       html: Phoenix.View.render_to_string(EdgeCommanderWeb.EmailView, "forgot_password.html", token: token),
-      text: Phoenix.View.render_to_string(EdgeCommanderWeb.EmailView, "three_web_failure.txt", token: token)
+      text: Phoenix.View.render_to_string(EdgeCommanderWeb.EmailView, "forgot_password.txt", token: token)
+  end
+
+  def signup_email_on_share(to, token, from_user) do
+    Mailgun.Client.send_email @config,
+      to: to,
+      subject: "EdgeCommander Account Sharing",
+      from: @from,
+      html: Phoenix.View.render_to_string(EdgeCommanderWeb.EmailView, "account_sharing.html", token: token, from_user: from_user),
+      text: Phoenix.View.render_to_string(EdgeCommanderWeb.EmailView, "account_sharing.txt", token: token, from_user: from_user)
   end
 end

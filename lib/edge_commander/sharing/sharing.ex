@@ -7,6 +7,7 @@ defmodule EdgeCommander.Sharing do
   alias EdgeCommander.Repo
 
   alias EdgeCommander.Sharing.Member
+  alias EdgeCommander.Accounts.User
 
   @doc """
   Returns the list of sharing.
@@ -20,6 +21,16 @@ defmodule EdgeCommander.Sharing do
   def list_sharing(user_id) do
     Member
     |> where(user_id: ^user_id)
+    |> or_where(member_id: ^user_id)
+    |> or_where(account_id: ^user_id)
+    |> Repo.all
+  end
+
+  def all_shared_users(user_id) do
+    query = from u in User,
+      inner_join: m in Member, on: u.id == m.account_id,
+      where: m.member_id == ^user_id
+    query
     |> Repo.all
   end
 
@@ -42,6 +53,19 @@ defmodule EdgeCommander.Sharing do
   def user_already_exist(member_email) do
     Member
     |> where(member_email: ^member_email)
+    |> Repo.one
+  end
+
+  def already_sharing(member_email, account_id) do
+    Member
+    |> where(member_email: ^member_email)
+    |> where(account_id: ^account_id)
+    |> Repo.one
+  end
+
+  def member_by_token(token) do
+    Member
+    |> where(token: ^token)
     |> Repo.one
   end
 

@@ -83,6 +83,8 @@ defmodule EdgeCommanderWeb.Router do
     post "/receive_sms", SimsController, :receive_sms
     get "/delivery_receipt", SimsController, :delivery_receipt
     get "/users/reset_password_success", DashboardController, :reset_password_success
+
+    get "/sign_up/:token", DashboardController, :sharing_confirm
   end
 
   scope "/", EdgeCommanderWeb do
@@ -98,7 +100,7 @@ defmodule EdgeCommanderWeb.Router do
     get "/status_report_ajax", RooterController, :status_report
     get "/api_ajax", RooterController, :swagger
     get "/sims_ajax/:sim_number/", RooterController, :sim_graph_and_details
-    get "/sharing_ajax", RooterController, :sharing
+    get "/shares_ajax", RooterController, :sharing
 
     get "/sims", RooterController, :common
     get "/nvrs", RooterController, :common
@@ -110,7 +112,7 @@ defmodule EdgeCommanderWeb.Router do
     get "/messages", RooterController, :common
     get "/status_report", RooterController, :common
     get "/api", RooterController, :common
-    get "/sharing", RooterController, :common
+    get "/shares", RooterController, :common
 
     get "/sims/data/json", SimsController, :get_sim_logs
     get "/sims/data/:sim_number", SimsController, :get_single_sim_data
