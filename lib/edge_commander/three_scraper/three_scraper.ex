@@ -98,7 +98,7 @@ defmodule EdgeCommander.ThreeScraper do
 
   def get_sim_numbers(user_id) do
     query = from l in SimLogs,
-      left_join: m in Member, on: l.user_id == m.account_of_id,
+      left_join: m in Member, on: l.user_id == m.account_id,
       where: (m.member_id == ^user_id or l.user_id == ^user_id), select: l.number
     query
     |> distinct(true)

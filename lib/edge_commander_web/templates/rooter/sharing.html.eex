@@ -101,7 +101,7 @@
                             {{form_labels.choose_account}}
                           </label>
                           <div class="col-9">
-                             <select class="form-control m-input " id="account_of_id" v-model="account_of_id">
+                             <select class="form-control m-input " id="account_id" v-model="account_id">
                                   <option value="<%= @user.id %>"><%= @user.email %> (my account)</option>
                                  <%= for user <- @shared_users do %>
                                  <option value="<%= user.id %>"><%= user.email %></option>

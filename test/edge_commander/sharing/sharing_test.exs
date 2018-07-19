@@ -6,9 +6,9 @@ defmodule EdgeCommander.SharingTest do
   describe "sharing" do
     alias EdgeCommander.Sharing.Member
 
-    @valid_attrs %{member_id: 42, role: 1, member_email: "some email", account_of_id: 1, token: "some token"}
-    @update_attrs %{member_id: 43, role: 1, member_email: "some updated email", account_of_id: 2, token: "some updated token"}
-    @invalid_attrs %{member_id: nil, role: nil, member_email: nil, account_of_id: nil, token: nil}
+    @valid_attrs %{member_id: 42, role: 1, member_email: "some email", account_id: 1, token: "some token"}
+    @update_attrs %{member_id: 43, role: 1, member_email: "some updated email", account_id: 2, token: "some updated token"}
+    @invalid_attrs %{member_id: nil, role: nil, member_email: nil, account_id: nil, token: nil}
 
     def member_fixture(attrs \\ %{}) do
       {:ok, member} =
@@ -29,7 +29,6 @@ defmodule EdgeCommander.SharingTest do
       assert member.member_id == 42
       assert member.role == 1
       assert member.member_email == "some email"
-      assert member.account_of_id == 1
       assert member.token == "some token"
     end
 
@@ -44,7 +43,6 @@ defmodule EdgeCommander.SharingTest do
       assert member.member_id == 43
       assert member.role == 1
       assert member.member_email == "some updated email"
-      assert member.account_of_id == 2
       assert member.token == "some updated token"
     end
 

@@ -7,7 +7,7 @@ defmodule EdgeCommander.Sharing.Member do
     field :role, :integer
     field :user_id, :integer
     field :member_email, :string
-    field :account_of_id, :integer
+    field :account_id, :integer
     field :token, :string
 
     timestamps()
@@ -16,8 +16,8 @@ defmodule EdgeCommander.Sharing.Member do
   @doc false
   def changeset(member, attrs) do
     member
-    |> cast(attrs, [:user_id, :member_id, :role, :member_email, :account_of_id, :token])
-    |> validate_required(:account_of_id, [message: "Account cannot be empty."])
+    |> cast(attrs, [:user_id, :member_id, :role, :member_email, :account_id, :token])
+    |> validate_required(:account_id, [message: "Account cannot be empty."])
     |> validate_required(:member_email, [message: "Email cannot be empty."])
     |> validate_required(:role, [message: "Role cannot be empty."])
   end

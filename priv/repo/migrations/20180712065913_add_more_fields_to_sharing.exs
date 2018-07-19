@@ -3,7 +3,7 @@ defmodule EdgeCommander.Repo.Migrations.AddMoreFieldsToSharing do
    def change do
    	alter table(:sharing) do
       add :token, :string
-      add :account_of_id, :integer
+      add :account_id, :integer
     end
    end
 end

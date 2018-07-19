@@ -22,7 +22,7 @@ defmodule EdgeCommander.Nexmo do
     from = NaiveDateTime.from_iso8601!(from_date <> " 00:00:00")
     to = NaiveDateTime.from_iso8601!(to_date <> " 23:59:59")
     query = from l in SimMessages,
-      left_join: m in Member, on: l.user_id == m.account_of_id,
+      left_join: m in Member, on: l.user_id == m.account_id,
       where: (m.member_id == ^user_id or l.user_id == ^user_id) and (l.inserted_at >= ^from or l.inserted_at == ^to)
     query
     |>  Repo.all
@@ -52,7 +52,7 @@ defmodule EdgeCommander.Nexmo do
 
   def get_single_sim_messages(number, user_id) do
     query = from l in SimMessages,
-      left_join: m in Member, on: l.user_id == m.account_of_id,
+      left_join: m in Member, on: l.user_id == m.account_id,
       where: (m.member_id == ^user_id or l.user_id == ^user_id) and (l.from == ^number or l.to == ^number)
     query
     |> order_by(desc: :inserted_at)

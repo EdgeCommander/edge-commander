@@ -7,7 +7,7 @@ var vm = new Vue({
     show_errors: false,
     headings: [
       {column: "Actions", id: "actions"},
-      {column: "Owner", id: "account_of_id"},
+      {column: "Owner", id: "account_id"},
       {column: "Share With", id: "member_email"},
       {column: "Share by", id: "user_id"},
       {column: "Rights", id: "role"}
@@ -23,7 +23,7 @@ var vm = new Vue({
       hide_show_button: "OK"
     },
     role: 1,
-    account_of_id: "",
+    account_id: "",
   },
   methods: {
     initializeTable: function(){
@@ -61,7 +61,7 @@ var vm = new Vue({
         }
       },
       {
-        class: "account_of_id",
+        class: "account_id",
         data: function(row, type, set, meta) {
           return "<b>"+row.account_of_name+"</b></br>" + row.account_of_email;
         }
@@ -125,7 +125,7 @@ var vm = new Vue({
    },
    clearForm: function(){
     $("#member_email").val('').trigger('change')
-    this.account_of_id = "";
+    this.account_id = "";
     this.role = 1;
     $('ul#errorOnMember').html("");
     $("#body-member-dis *").prop('disabled', false);
@@ -156,14 +156,14 @@ var vm = new Vue({
     var user_id      = this.user_id,
         member_email = member_email,
         role         = this.role,
-        account_of_id = this.account_of_id
+        account_id = this.account_id
 
     var data = {};
    
     data.user_id = user_id;
     data.member_email = member_email;
     data.role = role
-    data.account_of_id = account_of_id
+    data.account_id = account_id
 
     var settings;
 

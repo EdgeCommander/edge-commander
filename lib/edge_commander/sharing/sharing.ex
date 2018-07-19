@@ -22,13 +22,13 @@ defmodule EdgeCommander.Sharing do
     Member
     |> where(user_id: ^user_id)
     |> or_where(member_id: ^user_id)
-    |> or_where(account_of_id: ^user_id)
+    |> or_where(account_id: ^user_id)
     |> Repo.all
   end
 
   def all_shared_users(user_id) do
     query = from u in User,
-      inner_join: m in Member, on: u.id == m.account_of_id,
+      inner_join: m in Member, on: u.id == m.account_id,
       where: m.member_id == ^user_id
     query
     |> Repo.all
@@ -56,10 +56,10 @@ defmodule EdgeCommander.Sharing do
     |> Repo.one
   end
 
-  def already_sharing(member_email, account_of_id) do
+  def already_sharing(member_email, account_id) do
     Member
     |> where(member_email: ^member_email)
-    |> where(account_of_id: ^account_of_id)
+    |> where(account_id: ^account_id)
     |> Repo.one
   end
 
