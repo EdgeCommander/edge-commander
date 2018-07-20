@@ -25,6 +25,7 @@ defmodule EdgeCommander.Nexmo do
       left_join: m in Member, on: l.user_id == m.account_id,
       where: (m.member_id == ^user_id or l.user_id == ^user_id) and (l.inserted_at >= ^from or l.inserted_at == ^to)
     query
+    |> order_by(desc: :inserted_at)
     |>  Repo.all
   end
 

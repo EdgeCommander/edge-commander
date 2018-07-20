@@ -5,15 +5,14 @@
 	        <div class="m-stack__item m-brand  m-brand--skin-dark ">
 	            <div class="m-stack m-stack--ver m-stack--general">
 	                <div class="m-stack__item m-stack__item--middle m-brand__logo">
-	                     <a href="/" class="m-brand__logo-wrapper">
+	                     <a href="javascript:;" class="m-brand__logo-wrapper menu_collapse">
 	                        <img alt="" src="<%= static_path(@conn, "/assets/demo/default/media/img/logo/logo_default_dark.png") %>" />
 	                    </a>
 	                </div>
 	                <div class="m-stack__item m-stack__item--middle m-brand__tools">
-	                    <!-- BEGIN: Left Aside Minimize Toggle -->
-	                    <a href="javascript:;" id="m_aside_left_minimize_toggle" class="m-brand__icon m-brand__toggler m-brand__toggler--left m--visible-desktop-inline-block">
-	                        <span></span>
-	                    </a>
+						<a href="javascript:;" class="menu_expand">
+						<img alt="" src="<%= static_path(@conn, "/images/fav-icons/favicon-32x32.png") %>" />
+						</a>
 	                    <!-- END -->
 	                    <!-- BEGIN: Responsive Aside Left Menu Toggler -->
 	                    <a href="javascript:;" id="m_aside_left_offcanvas_toggle" class="m-brand__icon m-brand__toggler m-brand__toggler--left m--visible-tablet-and-mobile-inline-block">

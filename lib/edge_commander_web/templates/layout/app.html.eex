@@ -203,5 +203,16 @@
       }
     });
   }
+
+  $(".menu_collapse").click(function(){
+    $("#body_pannel").addClass("m-brand--minimize m-aside-left--minimize")
+    $(".menu_expand").css("display", "block")
+  });
+
+  $(".menu_expand").click(function(){
+    $("#body_pannel").removeClass("m-brand--minimize m-aside-left--minimize")
+    $(".menu_expand").css("display", "none")
+  });
+
 </script>
 </html>

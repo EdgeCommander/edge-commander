@@ -504,10 +504,15 @@ select.form-control:not([size]):not([multiple]) {
   padding: .40rem;
   vertical-align: middle !important;
 }
+
 #sms-datatable td {
   padding: .50rem;
   padding-bottom: .10rem;
   vertical-align: middle !important;
+}
+
+.menu_expand{
+  display: none;
 }
 
 .select2-container--default .select2-selection--multiple .select2-selection__rendered {
