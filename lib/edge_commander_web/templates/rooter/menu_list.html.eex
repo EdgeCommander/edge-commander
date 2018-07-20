@@ -91,13 +91,13 @@
         </li>
     </ul>
     <ul class="m-menu__nav  m-menu__nav--dropdown-submenu-arrow bottom_links">
-        <li class="m-menu__item bottom_link sharing" aria-haspopup="true" onclick="load_page('/sharing')">
+        <li class="m-menu__item bottom_link shares" aria-haspopup="true" onclick="load_page('/shares')">
             <a  href="javascript:void(0)" class="m-menu__link">
                 <i class="m-menu__link-icon fa fa-slideshare"></i>
                 <span class="m-menu__link-title">
                     <span class="m-menu__link-wrap">
                         <span class="m-menu__link-text">
-                            Sharing
+                            Shares
                         </span>>
                     </span>
                 </span>

@@ -2,15 +2,18 @@ defmodule EdgeCommanderWeb.UsersController do
   use EdgeCommanderWeb, :controller
   alias EdgeCommander.Repo
   alias EdgeCommander.Accounts.User
+  alias EdgeCommander.Sharing.Member
   alias EdgeCommanderWeb.SessionController
   alias EdgeCommander.Util
   require Logger
   import EdgeCommander.Accounts, only: [get_user!: 1, email_exist: 1, get_user_by_token: 1]
+  import EdgeCommander.Sharing, only: [user_already_exist: 1]
 
   def sign_up(conn, params) do
+    email = String.downcase(params["email"])
     params = %{
       "_csrf_token" => params["_csrf_token"],
-      "email" => String.downcase(params["email"]),
+      "email" => email,
       "firstname" => params["firstname"],
       "lastname" => params["lastname"],
       "password" => params["password"]
@@ -21,6 +24,10 @@ defmodule EdgeCommanderWeb.UsersController do
       case Repo.insert(changeset) do
         {:ok, user} ->
           Logger.info "[POST /create_user] [#{user.email}] [#{user.last_signed_in}]"
+
+          user_exist = user_already_exist(email)
+          |> update_sharing_record(email, user)
+
           conn
           |> put_flash(:info, "Your account has been created.")
           |> SessionController.create(params)
@@ -152,5 +159,13 @@ defmodule EdgeCommanderWeb.UsersController do
       %Ecto.Changeset{valid?: false} ->
         {:error, Util.parse_changeset(changeset)}
     end
+  end
+
+  defp update_sharing_record(nil, _email, _user), do: :noop
+  defp update_sharing_record(member_details, email, user)  do
+    sharing_params = %{"member_id" => user.id}
+    member_details
+    |> Member.changeset(sharing_params)
+    |> Repo.update
   end
 end

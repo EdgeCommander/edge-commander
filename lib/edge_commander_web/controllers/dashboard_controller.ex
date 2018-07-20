@@ -3,6 +3,7 @@ defmodule EdgeCommanderWeb.DashboardController do
   alias EdgeCommander.Accounts.User
   alias EdgeCommander.Accounts.Guardian
   import EdgeCommander.Accounts, only: [current_user: 1]
+  import EdgeCommander.Sharing, only: [member_by_token: 1]
 
   def sign_up(conn, _params) do
   with %User{} <- current_user(conn) do
@@ -54,4 +55,13 @@ defmodule EdgeCommanderWeb.DashboardController do
     |> redirect(to: "/users/reset_password/#{token}")
   end
 
+  def sharing_confirm(conn, %{"token" => token} = _params) do
+    user_details = member_by_token(token)
+    if user_details.member_id != 0 do
+      conn
+      |> redirect(to: "/sims")
+      else
+        render(conn, "sign_up_on_sharing.html", user_details: user_details)
+    end
+  end
 end

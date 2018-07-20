@@ -2,7 +2,6 @@ defmodule EdgeCommander.Commands.Rule do
   use Ecto.Schema
   import Ecto.Changeset
   alias EdgeCommander.Commands.Rule
-  require IEx
 
   @valid_email_string ~r/^([\w+-.%]+@[\w-.]+\.[A-Za-z]{2,4},?)+$/
 

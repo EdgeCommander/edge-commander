@@ -1,8 +1,9 @@
 defmodule EdgeCommanderWeb.RooterController do
   use EdgeCommanderWeb, :controller
   alias EdgeCommander.Accounts.User
-  import EdgeCommander.Accounts, only: [current_user: 1, get_users: 1]
+  import EdgeCommander.Accounts, only: [current_user: 1, get_other_users: 1]
   import EdgeCommander.Devices, only: [list_nvrs: 1, list_routers: 1]
+  import EdgeCommander.Sharing, only: [all_shared_users: 1]
   import EdgeCommander.ThreeScraper, only: [all_sims: 1]
   import Gravatar
   require Logger
@@ -38,7 +39,7 @@ defmodule EdgeCommanderWeb.RooterController do
   def sharing(conn, _params) do
     current_user = current_user(conn)
     current_user_id = current_user.id
-    render(conn, "sharing.html", user: current_user(conn), gravatar_url: current_user(conn) |> Map.get(:email) |> gravatar_url(secure: true), users_list: get_users(current_user_id))
+    render(conn, "sharing.html", user: current_user(conn), gravatar_url: current_user(conn) |> Map.get(:email) |> gravatar_url(secure: true), shared_users: all_shared_users(current_user_id), other_users: get_other_users(current_user_id))
   end
 
   def sim_graph_and_details(conn, %{"sim_number" => sim_number} = _params) do

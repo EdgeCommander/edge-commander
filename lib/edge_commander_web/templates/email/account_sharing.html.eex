@@ -1,0 +1,29 @@
+<html>
+<head>
+  <title>Account Sharing</title>
+</head>
+<body style="font-size: 12px; font-family: arial; font-size: 12px">
+    <div style=" width: 70%; margin: auto;">
+      <div style="border: 1px solid #eee; padding: 10px; margin-bottom: 10px">
+        <div style="background: #eee; padding:5px 10px;">
+          <div style="float: left;">
+          <img src="http://icons.iconarchive.com/icons/designbolts/seo/256/Social-Media-Sharing-icon.png" width="60px">
+          </div> 
+          <div style="float: left;">
+          <h2 style="margin: 18px 10px">Account Share</h2>
+          </div> 
+          <div style="clear: both;"></div>
+      </div>
+      <div style="text-align: center;">
+        <p>Congratulation, the account of <%= @from_user %> has been shared with you. click here in below link & get a login or sign up if the account does not exist.</p>
+        <div style="height: 10px"></div>
+        <a href="https://app.edgecommander.com/sign_up/<%= @token %>" style="background: #fdc735; padding: 10px; text-decoration: none;color: #343433;">Access your account</a>
+        <div style="height: 10px"></div>
+      </div>
+      </div>
+      <img src="https://edgecommander.com/wp-content/uploads/2017/11/edgecommander.png" width="200px" style="border: solid 1px #eee;">
+      <h3 style="margin: 5px">EdgeCommander</h3>
+      <p style="margin: 5px">6-7 Granby Row,</br> Dublin 1,</br> D01 FW20,</br> Ireland.<p>
+    </div>
+</body>
+</html>

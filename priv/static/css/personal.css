@@ -515,6 +515,22 @@ select.form-control:not([size]):not([multiple]) {
   display: none;
 }
 
+.select2-container--default .select2-selection--multiple .select2-selection__rendered {
+  min-height: 35px;
+}
+
+.select2-container--default .select2-selection--multiple .select2-selection__rendered {
+  padding: 7px;
+}
+
+.select2-selection__choice__remove{
+  display: none !important;
+}
+
+.select2-container--default.select2-container--focus .select2-selection--multiple, .select2-container--default.select2-container--focus .select2-selection--single, .select2-container--default.select2-container--open .select2-selection--multiple, .select2-container--default.select2-container--open .select2-selection--single {
+  border-color: #575962;
+}
+
 @media (max-width: 767px){
   #m_form_search{
     margin-top:10px;

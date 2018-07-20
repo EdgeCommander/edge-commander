@@ -6,7 +6,6 @@ defmodule EdgeCommander.Monitors do
   import Ecto.Query, warn: false
   alias EdgeCommander.Repo
 
-  require IEx
   alias EdgeCommander.Monitors.NvrPorts
   alias EdgeCommander.Devices.Nvr
 
