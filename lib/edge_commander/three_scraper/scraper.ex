@@ -43,9 +43,10 @@ defmodule ThreeScraper.Scraper do
       username = user.username
       password = user.password
       user_id = user.user_id
+      three_user_id = user.id
       headers = get_login(username, password)
       cookie = headers |> get_cookies
-      cookie |> insert_into_db(user_id)
+      cookie |> insert_into_db(user_id, three_user_id)
     end)
   end
 
@@ -55,9 +56,10 @@ defmodule ThreeScraper.Scraper do
     username = user.username
     password = user.password
     user_id = user.user_id
+    three_user_id = user.id
     headers = get_login(username, password)
     cookie = headers |> get_cookies
-    cookie |> insert_into_db(user_id)
+    cookie |> insert_into_db(user_id, three_user_id)
   end
 
   defp get_login(username, password) do
@@ -79,8 +81,8 @@ defmodule ThreeScraper.Scraper do
     end
   end
 
-  defp insert_into_db(false, _user_id), do: Logger.error "Login failed."
-  defp insert_into_db(cookie, user_id) do
+  defp insert_into_db(false, _user_id, _three_user_id), do: Logger.error "Login failed."
+  defp insert_into_db(cookie, user_id, three_user_id) do
     Logger.info "Getting sims data"
     sim_data =
       get_info(cookie)
@@ -115,7 +117,8 @@ defmodule ThreeScraper.Scraper do
         datetime: datetime,
         sim_provider: "Three Ireland",
         user_id: user_id,
-        last_bill_date: last_bill_date
+        last_bill_date: last_bill_date,
+        three_user_id: three_user_id
       }
 
       changeset = SimLogs.changeset(%SimLogs{}, sims_logs)

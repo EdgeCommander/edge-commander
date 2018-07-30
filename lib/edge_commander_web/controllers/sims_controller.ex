@@ -3,6 +3,7 @@ defmodule EdgeCommanderWeb.SimsController do
   import EdgeCommander.ThreeScraper
   import EdgeCommander.Nexmo, only: [get_message: 1, get_single_sim_messages: 2, get_last_message_details: 2, get_sms_since_last_bill: 3]
   import EdgeCommander.Accounts, only: [current_user: 1, by_api_keys: 2]
+  import EdgeCommander.ThreeScraper.ThreeUsers, only: [get_bill_day: 1]
   alias EdgeCommander.Nexmo.SimMessages
   alias EdgeCommander.ThreeScraper.SimLogs
   alias EdgeCommander.Repo
@@ -143,9 +144,10 @@ defmodule EdgeCommanderWeb.SimsController do
         {current_in_number, _} = entries |> List.first |> get_volume_used() |> String.replace(",", "") |> Float.parse()
         {yesterday_in_number, _} = entries |> List.last |> get_volume_used() |> String.replace(",", "") |> Float.parse()
         {allowance_in_number, _} = entries |> List.first |> get_allowance() |> String.replace(",", "") |> Float.parse()
+        three_user_id = entries |> List.first |> Map.get(:three_user_id)
 
         number = entries |> List.first |> get_number()
-        last_bill_date = entries |> List.first |> Map.get(:last_bill_date)
+        last_bill_date = get_last_bill_date(three_user_id)
 
         last_sms_details = get_last_message_details(number, current_user_id)
         if last_sms_details == nil do
@@ -171,7 +173,7 @@ defmodule EdgeCommanderWeb.SimsController do
           "allowance_in_number" => allowance_in_number,
           "date_of_use" => entries |> List.first |> Map.get(:datetime) |> Util.shift_zone(),
           "sim_provider" => entries |> List.first |> Map.get(:sim_provider),
-          "last_bill_date" => entries |> List.first |> Map.get(:last_bill_date),
+          "last_bill_date" => last_bill_date,
           "last_sms" => last_sms,
           "last_sms_date" => last_sms_date,
           "total_sms_send" => total_sms_send
@@ -369,5 +371,22 @@ defmodule EdgeCommanderWeb.SimsController do
   defp ensure_bill_date(_number, nil, _user_id),  do: 0
   defp ensure_bill_date(number, last_bill_date, user_id) do
     total_sms_send = get_sms_since_last_bill(number, last_bill_date, user_id)
+  end
+
+  defp ensure_number(number) when number >= 1 and number <= 9, do: "0#{number}"
+  defp ensure_number(number), do: number
+
+  defp get_month(current_day, bill_day, current_month) when current_day > bill_day, do: ensure_number(current_month)
+  defp get_month(_current_day, _bill_day, current_month), do: ensure_number(current_month - 1)
+
+  defp get_last_bill_date(three_user_id)  do
+    bill_day = get_bill_day(three_user_id) |> ensure_number
+    year = DateTime.utc_now |> Map.fetch!(:year)
+    current_month = DateTime.utc_now |> Map.fetch!(:month)
+    current_day = DateTime.utc_now |> Map.fetch!(:day)
+    month = get_month(current_day, bill_day, current_month)
+    date_time = "#{year}-#{month}-#{bill_day} 00:00:00"
+    {:ok, date} = NaiveDateTime.from_iso8601(date_time)
+    date
   end
 end

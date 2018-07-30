@@ -7,6 +7,7 @@ var vm = new Vue({
       {column: "Actions", id: "actions"},
       {column: "Username", id: "username"},
       {column: "Password", id: "password"},
+      {column: "Bill Day", id: "bill_day"},
       {column: "Created At", id: "created_at"}
     ],
     form_labels: {
@@ -21,6 +22,7 @@ var vm = new Vue({
       add_title: "Add new account (three.ie)",
       username: "Username",
       password: "Password",
+      day: "Bill Day",
       edit_title: "Edit account details",
       hide_show_title: "Show/Hide Columns",
       hide_show_button: "OK"
@@ -136,6 +138,12 @@ var vm = new Vue({
         }
       },
       {
+        class: "text-center bill_day",
+        data: function(row, type, set, meta) {
+          return row.bill_day;
+        }
+      },
+      {
         class: "text-center created_at",
         data: function(row, type, set, meta) {
           return moment(row.created_at).format('MMMM Do YYYY, H:mm:ss');
@@ -162,13 +170,15 @@ var vm = new Vue({
 
     var username     = $("#three_username").val(),
         password     = $("#three_password").val(),
-        user_id       = $("#user_id").val();
+        user_id      = $("#user_id").val();
+        bill_day     = $("#day").val();
 
     var data = {};
 
     data.username = username;
     data.password = password;
     data.user_id = user_id;
+    data.bill_day = bill_day;
 
     var settings;
 
@@ -221,6 +231,7 @@ var vm = new Vue({
       $("#edit_three_user_id").val(three_user_id);
       $("#edit_three_username").val(data.username);
       $("#edit_three_password").val(data.password);
+      $("#edit_bill_day").val(data.bill_day);
       $('#edit_three_user_to_db').modal('show');
     });
    },
@@ -234,11 +245,13 @@ var vm = new Vue({
 
     var username = $("#edit_three_username").val(),
     password    = $("#edit_three_password").val();
+    bill_day    = $("#edit_bill_day").val();
 
     var data = {};
 
     data.username = username;
     data.password = password;
+    data.bill_day = bill_day;
     data.id = threeID;
 
     var settings;

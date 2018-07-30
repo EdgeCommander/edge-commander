@@ -9,12 +9,14 @@ defmodule EdgeCommanderWeb.ThreeController do
 
   def create(conn, params) do
     changeset = ThreeUsers.changeset(%ThreeUsers{}, params)
+
     case Repo.insert(changeset) do
       {:ok, user} ->
         %EdgeCommander.ThreeScraper.ThreeUsers{
           username: username,
           password: password,
-          user_id: user_id
+          user_id: user_id,
+          bill_day: bill_day
         } = user
 
         spawn fn -> single_start_scraper(user.id) end
@@ -24,7 +26,8 @@ defmodule EdgeCommanderWeb.ThreeController do
         |> json(%{
           "username" => username,
           "password" => password,
-          "user_id" => user_id
+          "user_id" => user_id,
+          "bill_day" => bill_day
         })
       {:error, changeset} ->
         errors = Util.parse_changeset(changeset)
@@ -46,6 +49,7 @@ defmodule EdgeCommanderWeb.ThreeController do
           username: user.username,
           password: user.password,
           user_id: user.user_id,
+          bill_day: user.bill_day,
           created_at: user.inserted_at |> Util.shift_zone()
         }
       end)
@@ -65,6 +69,7 @@ defmodule EdgeCommanderWeb.ThreeController do
         %EdgeCommander.ThreeScraper.ThreeUsers{
           username: username,
           password: password,
+          bill_day: bill_day,
           updated_at: updated_at
         } = user
 
@@ -75,6 +80,7 @@ defmodule EdgeCommanderWeb.ThreeController do
         |> json(%{
           "username" => username,
           "password" => password,
+          "bill_day" => bill_day,
           "updated_at" => updated_at
         })
       {:error, changeset} ->
