@@ -9,6 +9,7 @@ defmodule EdgeCommander.ThreeScraper.ThreeUsers do
     field :username, :string
     field :password, :string
     field :user_id, :integer
+    field :bill_day, :integer
 
     timestamps()
   end
@@ -24,14 +25,22 @@ defmodule EdgeCommander.ThreeScraper.ThreeUsers do
     |> Repo.all
   end
 
+  def get_bill_day(id) do
+    ThreeUsers
+    |> select([t], t.bill_day)
+    |> where(id: ^id)
+    |> Repo.one
+  end
+
   def get_three_account!(id), do: Repo.get!(ThreeUsers, id)
 
   @doc false
   def changeset(%ThreeUsers{} = three_users, attrs) do
     three_users
-    |> cast(attrs, [:username, :password, :user_id])
+    |> cast(attrs, [:username, :password, :user_id, :bill_day])
     |> validate_required(:username, [message: "Username cannot be empty."])
     |> validate_required(:password, [message: "Password cannot be empty."])
+    |> validate_required(:bill_day, [message: "Bill day cannot be empty."])
   end
 
 end
