@@ -96,12 +96,11 @@ defmodule ThreeScraper.Scraper do
       number = log.number
       datetime = log.datetime
       volume_used = log.volume_used
-      last_bill_date = get_last_bill_date(cookie)
 
       new_addon = addon |> ensure_addon_value
       new_allowance = allowance  |> ensure_allowance_value
       new_volume_used = volume_used  |> ensure_used_value
-      new_record_list = [new_addon, new_allowance, new_volume_used, name, last_bill_date]
+      new_record_list = [new_addon, new_allowance, new_volume_used, name]
 
       old_data = number |> number_with_code |> ThreeScraper.last_record_for_number_by_user(user_id)
 
@@ -117,7 +116,6 @@ defmodule ThreeScraper.Scraper do
         datetime: datetime,
         sim_provider: "Three Ireland",
         user_id: user_id,
-        last_bill_date: last_bill_date,
         three_user_id: three_user_id
       }
 
@@ -261,19 +259,6 @@ defmodule ThreeScraper.Scraper do
     old_allowance = old_data.allowance  |> ensure_allowance_value
     old_volume_used = old_data.volume_used  |> ensure_used_value
     old_name = old_data.name
-    last_bill_date = old_data.last_bill_date
-    [old_addon, old_allowance, old_volume_used, old_name, last_bill_date]
+    [old_addon, old_allowance, old_volume_used, old_name]
   end
-
-  defp get_last_bill_date(cookie)  do
-    %{body: body} = HTTPoison.get!(@base_url <> "/NASApp/MyAccount/PostpaidBillPaymentHistoryServlet.htm", %{}, [hackney: [cookie: cookie, recv_timeout: 30_000]])
-    [_header | bill_pay_row] = body |> Floki.parse()  |> Floki.find(".standard2ColTable") |> Floki.find("tr")
-    last_bill = Enum.at(bill_pay_row, 0)
-    [{"td", [], [date]}, {"td", [], [_]}, {"td", [], [_]}] = Floki.find(last_bill, "td")
-    [day, month, year] = String.split(date, "/")
-    new_date = "#{year}-#{month}-#{day} 00:00:00.000000"
-    {:ok, bill_date} = NaiveDateTime.from_iso8601(new_date)
-    bill_date
-  end
-
 end

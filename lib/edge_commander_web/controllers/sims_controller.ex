@@ -87,7 +87,8 @@ defmodule EdgeCommanderWeb.SimsController do
           allowance: allowance,
           volume_used: volume_used,
           datetime: datetime,
-          user_id: user_id
+          user_id: user_id,
+          three_user_id: three_user_id
         } = site
 
         conn
@@ -100,7 +101,8 @@ defmodule EdgeCommanderWeb.SimsController do
           "allowance" => allowance,
           "volume_used" => volume_used,
           "datetime" => datetime,
-          "user_id" => user_id
+          "user_id" => user_id,
+          "three_user_id" => three_user_id
         })
       {:error, changeset} ->
         errors = Util.parse_changeset(changeset)
@@ -146,23 +148,15 @@ defmodule EdgeCommanderWeb.SimsController do
         {allowance_in_number, _} = entries |> List.first |> get_allowance() |> String.replace(",", "") |> Float.parse()
         three_user_id = entries |> List.first |> Map.get(:three_user_id)
 
-        number = entries |> List.first |> get_number()
-        last_bill_date = get_last_bill_date(three_user_id)
-
+        last_bill_date = validate_bill_date(three_user_id)
         last_sms_details = get_last_message_details(number, current_user_id)
-        if last_sms_details == nil do
-          last_sms = "-";
-          last_sms_date = "-";
-          total_sms_send = 0;
-          else
-          last_sms = last_sms_details |> Map.get(:text)
-          last_sms_date = last_sms_details |> Map.get(:inserted_at) |> Util.shift_zone()
-        end
 
-        total_sms_send = ensure_bill_date(number, last_bill_date, current_user_id)
+        last_sms = get_last_sms(last_sms_details)
+        last_sms_date = get_last_sms_date(last_sms_details)
+        total_sms_send = validate_total_sms(number, last_bill_date, current_user_id)
 
         %{
-          "number" => entries |> List.first |> get_number(),
+          "number" => number,
           "name" => entries |> List.first |> get_name(),
           "allowance" => entries |> List.first |> get_allowance(),
           "volume_used_today" => entries |> List.first |> get_volume_used(),
@@ -185,11 +179,6 @@ defmodule EdgeCommanderWeb.SimsController do
         "logs": logs
       })
   end
-
-  defp get_percentage_used(current_in_number, allowance_in_number) when allowance_in_number > 0  do
-    (current_in_number / allowance_in_number * 100) |> Float.round(3)
-  end
-  defp get_percentage_used(_current_in_number, _allowance_in_number), do: 0
 
   def create_chartjs_line_data(conn, %{"sim_number" => sim_number } = params) do
     current_user_id = Util.get_user_id(conn, params)
@@ -360,10 +349,6 @@ defmodule EdgeCommanderWeb.SimsController do
     log.name
   end
 
-  defp get_number(log) do
-    log.number
-  end
-
   defp get_allowance(log) do
     log.allowance
   end
@@ -389,4 +374,21 @@ defmodule EdgeCommanderWeb.SimsController do
     {:ok, date} = NaiveDateTime.from_iso8601(date_time)
     date
   end
+
+  defp get_last_sms_date(nil), do: "-"
+  defp get_last_sms_date(last_sms_details), do: last_sms_details |> Map.get(:inserted_at) |> Util.shift_zone()
+
+  defp get_last_sms(nil), do: "-"
+  defp get_last_sms(last_sms_details), do: last_sms_details |> Map.get(:text)
+
+  defp validate_bill_date(0), do: nil
+  defp validate_bill_date(three_user_id), do: get_last_bill_date(three_user_id)
+
+  defp validate_total_sms(_number, nil, _current_user_id), do: 0
+  defp validate_total_sms(number, last_bill_date, current_user_id), do: ensure_bill_date(number, last_bill_date, current_user_id)
+
+  defp get_percentage_used(current_in_number, allowance_in_number) when allowance_in_number > 0  do
+    (current_in_number / allowance_in_number * 100) |> Float.round(3)
+  end
+  defp get_percentage_used(_current_in_number, _allowance_in_number), do: 0
 end
