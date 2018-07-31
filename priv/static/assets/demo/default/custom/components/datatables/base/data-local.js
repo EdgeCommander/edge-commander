@@ -239,7 +239,6 @@ var vm = new Vue({
         number        = this.number,
         name          = this.name,
         user_id       = this.user_id
-
     var data = {};
         data.sim_provider = sim_provider;
         data.number = number;
@@ -248,6 +247,7 @@ var vm = new Vue({
         data.allowance = "0";
         data.volume_used = "0";
         data.user_id = user_id;
+        data.three_user_id = 0;
 
     var settings;
 
