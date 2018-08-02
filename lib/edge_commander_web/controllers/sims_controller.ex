@@ -9,7 +9,6 @@ defmodule EdgeCommanderWeb.SimsController do
   alias EdgeCommander.Util
   require Logger
   use PhoenixSwagger
-  require IEx
 
   swagger_path :get_sim_logs do
     get "/v1/sims"
