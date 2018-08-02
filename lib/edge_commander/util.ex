@@ -37,11 +37,13 @@ defmodule EdgeCommander.Util do
   end
 
   def shift_zone(timestamp, timezone \\ "Europe/Dublin") do
-    timezone_value = Timex.Timezone.get(timezone, Timex.now())
-    date_time =
-      timestamp
-      |> Timex.Timezone.convert(timezone_value)
-      |> DateTime.to_naive
+    %{year: year, month: month, day: day, hour: hour, minute: minute, second: second} = timestamp
+    Calendar.DateTime.from_erl!({{year, month, day}, {hour, minute, second}}, "UTC")
+    |> Calendar.DateTime.shift_zone(timezone)
+    |> case do
+      {:ok, datetime} -> datetime |> DateTime.to_naive
+      {:ambiguous, datetime} -> datetime.possible_date_times |> hd |> DateTime.to_naive
+    end
   end
 
   def get_user_id(conn, params) do
