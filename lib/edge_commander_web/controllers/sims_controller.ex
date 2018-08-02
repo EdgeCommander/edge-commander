@@ -10,7 +10,6 @@ defmodule EdgeCommanderWeb.SimsController do
   alias EdgeCommander.Util
   require Logger
   use PhoenixSwagger
-  require IEx
 
   swagger_path :get_sim_logs do
     get "/v1/sims"
@@ -142,7 +141,6 @@ defmodule EdgeCommanderWeb.SimsController do
     logs = 
       get_sim_numbers(current_user_id)
       |> Enum.map(fn(sims) ->
-
         yesterday_volume_used = validate_value(sims.yesterday_volume_used)
         today_volume_used = validate_value(sims.today_volume_used)
         allowance = sims.allowance
@@ -153,13 +151,14 @@ defmodule EdgeCommanderWeb.SimsController do
         name = sims.name
         last_sms = get_last_sms(sims.last_sms)
         last_sms_date = get_last_sms_date(sims.last_sms_date)
+        bill_day = sims.bill_day
 
         {current_in_number, _} = today_volume_used |> String.replace(",", "") |> Float.parse()
         {yesterday_in_number, _} = yesterday_volume_used  |> String.replace(",", "") |> Float.parse()
         {allowance_in_number, _} = allowance |> String.replace(",", "") |> Float.parse()
 
-        last_bill_date = validate_bill_date(three_user_id)
-        total_sms_send = validate_total_sms(number, last_bill_date, current_user_id)
+        last_bill_date = validate_bill_date(bill_day)
+        total_sms_send = get_total_sms(sim_provider, number, last_bill_date, current_user_id)
 
         %{
           "number" => number,
@@ -187,9 +186,6 @@ defmodule EdgeCommanderWeb.SimsController do
         "logs": logs
       })
   end
-
-  defp validate_value(nil), do: "0"
-  defp validate_value(value), do: value
 
   def create_chartjs_line_data(conn, %{"sim_number" => sim_number } = params) do
     current_user_id = Util.get_user_id(conn, params)
@@ -375,16 +371,6 @@ defmodule EdgeCommanderWeb.SimsController do
   defp get_month(current_day, bill_day, current_month) when current_day > bill_day, do: ensure_number(current_month)
   defp get_month(_current_day, _bill_day, current_month), do: ensure_number(current_month - 1)
 
-  defp get_last_bill_date(three_user_id)  do
-    bill_day = get_bill_day(three_user_id) |> ensure_number
-    year = DateTime.utc_now |> Map.fetch!(:year)
-    current_month = DateTime.utc_now |> Map.fetch!(:month)
-    current_day = DateTime.utc_now |> Map.fetch!(:day)
-    month = get_month(current_day, bill_day, current_month)
-    date_time = "#{year}-#{month}-#{bill_day} 00:00:00"
-    {:ok, date} = NaiveDateTime.from_iso8601(date_time)
-    date
-  end
 
   defp get_last_sms_date(nil), do: "-"
   defp get_last_sms_date(inserted_at), do: inserted_at |> Util.shift_zone()
@@ -392,8 +378,18 @@ defmodule EdgeCommanderWeb.SimsController do
   defp get_last_sms(nil), do: "-"
   defp get_last_sms(text), do: text
 
-  defp validate_bill_date(0), do: nil
-  defp validate_bill_date(three_user_id), do: get_last_bill_date(three_user_id)
+  defp validate_bill_date(nil), do: nil
+  defp validate_bill_date(bill_day) do
+    bill_day = bill_day  |>  ensure_number
+    year = DateTime.utc_now |> Map.fetch!(:year)
+    current_month = DateTime.utc_now |> Map.fetch!(:month)
+    current_day = DateTime.utc_now |> Map.fetch!(:day)
+    month = get_month(current_day, bill_day, current_month)
+    date_time = "#{year}-#{month}-#{bill_day} 00:00:00"
+    {:ok, date} = NaiveDateTime.from_iso8601(date_time)
+
+    date
+  end
 
   defp validate_total_sms(_number, nil, _current_user_id), do: 0
   defp validate_total_sms(number, last_bill_date, current_user_id), do: ensure_bill_date(number, last_bill_date, current_user_id)
@@ -402,4 +398,10 @@ defmodule EdgeCommanderWeb.SimsController do
     (current_in_number / allowance_in_number * 100) |> Float.round(3)
   end
   defp get_percentage_used(_current_in_number, _allowance_in_number), do: 0
+
+  defp get_total_sms("Three Ireland", number, last_bill_date, current_user_id), do: validate_total_sms(number, last_bill_date, current_user_id)
+  defp get_total_sms(_sim_provider, _number, _last_bill_date, _current_user_id), do: 0
+
+  defp validate_value(nil), do: "0"
+  defp validate_value(value), do: value
 end
