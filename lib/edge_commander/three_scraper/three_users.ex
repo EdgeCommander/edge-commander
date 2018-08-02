@@ -25,13 +25,6 @@ defmodule EdgeCommander.ThreeScraper.ThreeUsers do
     |> Repo.all
   end
 
-  def get_bill_day(id) do
-    ThreeUsers
-    |> select([t], t.bill_day)
-    |> where(id: ^id)
-    |> Repo.one
-  end
-
   def get_three_account!(id), do: Repo.get!(ThreeUsers, id)
 
   @doc false
