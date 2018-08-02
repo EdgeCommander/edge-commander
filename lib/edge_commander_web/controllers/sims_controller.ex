@@ -391,6 +391,12 @@ defmodule EdgeCommanderWeb.SimsController do
     date
   end
 
+  defp get_last_sms_date(nil), do: "-"
+  defp get_last_sms_date(last_sms_details), do: last_sms_details |> Map.get(:inserted_at) |> Util.shift_zone()
+
+  defp get_last_sms(nil), do: "-"
+  defp get_last_sms(last_sms_details), do: last_sms_details |> Map.get(:text)
+
   defp validate_total_sms(_number, nil, _current_user_id), do: 0
   defp validate_total_sms(number, last_bill_date, current_user_id), do: ensure_bill_date(number, last_bill_date, current_user_id)
 
