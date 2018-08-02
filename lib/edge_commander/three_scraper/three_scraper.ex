@@ -8,6 +8,7 @@ defmodule EdgeCommander.ThreeScraper do
 
   alias EdgeCommander.ThreeScraper.SimLogs
   alias EdgeCommander.Sharing.Member
+  alias EdgeCommander.ThreeScraper.ThreeUsers
 
   use GenServer
   require Logger
@@ -99,9 +100,11 @@ defmodule EdgeCommander.ThreeScraper do
   def get_sim_numbers(user_id) do
     query = from l in SimLogs,
       left_join: m in Member, on: l.user_id == m.account_id,
-      where: (m.member_id == ^user_id or l.user_id == ^user_id), select: l.number
+      left_join: t in ThreeUsers, on: l.three_user_id == t.id,
+      where: (m.member_id == ^user_id or l.user_id == ^user_id),
+      select: %{bill_day: t.bill_day, number: l.number, name: l.name, allowance: l.allowance,  today_volume_used: l.volume_used , yesterday_volume_used: (fragment("(select volume_used from sim_logs where number = ? order by id desc limit 1 OFFSET 1)", l.number)), datetime: l.datetime, sim_provider: l.sim_provider, three_user_id: l.three_user_id},
+      distinct: [desc: l.number]
     query
-    |> distinct(true)
     |>  Repo.all
   end
 
