@@ -8,7 +8,6 @@ defmodule EdgeCommander.ThreeScraper do
 
   alias EdgeCommander.ThreeScraper.SimLogs
   alias EdgeCommander.Sharing.Member
-  alias EdgeCommander.ThreeScraper.ThreeUsers
 
   use GenServer
   require Logger
@@ -98,13 +97,12 @@ defmodule EdgeCommander.ThreeScraper do
   end
 
   def get_sim_numbers(user_id) do
-    query = from l in SimLogs, left_join: m in Member, on: l.user_id == m.account_id,
-      left_join: t in ThreeUsers, on: l.three_user_id == t.id,
-      where: (m.member_id == ^user_id or l.user_id == ^user_id),
-      select: %{bill_day: t.bill_day, number: l.number, name: l.name, allowance: l.allowance,  today_volume_used: l.volume_used , yesterday_volume_used: (fragment("(select volume_used from sim_logs where number = ? order by id desc limit 1 OFFSET 1)", l.number)), datetime: l.datetime, sim_provider: l.sim_provider, three_user_id: l.three_user_id, last_sms: (fragment("(select text from sms_messages as s where  (s.from = ? or s.to = ?) and s.user_id = ? order by id desc limit 1)", l.number, l.number, ^user_id)), last_sms_date: (fragment("(select inserted_at from sms_messages as s where  s.from = ? or s.to = ? order by id desc limit 1)", l.number, l.number))  }, order_by: [desc: l.id], distinct: l.number
-
+    query = from l in SimLogs,
+      left_join: m in Member, on: l.user_id == m.account_id,
+      where: (m.member_id == ^user_id or l.user_id == ^user_id), select: l.number
     query
-    |> Repo.all
+    |> distinct(true)
+    |>  Repo.all
   end
 
   def get_last_record_for_number(number) do
