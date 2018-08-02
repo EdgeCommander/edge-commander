@@ -144,14 +144,14 @@ defmodule EdgeCommanderWeb.SimsController do
         name = sims.name
         bill_day = sims.bill_day
         allowance = sims.allowance
-        today_volume_used = sims.today_volume_used
-        yesterday_volume_used = sims.yesterday_volume_used
+        today_volume_used = validate_value(sims.today_volume_used)
+        yesterday_volume_used = validate_value(sims.yesterday_volume_used)
         three_user_id = sims.three_user_id
         datetime = sims.datetime
         sim_provider = sims.sim_provider
 
-        {current_in_number, _} = today_volume_used |> validate_value |> String.replace(",", "") |> Float.parse()
-        {yesterday_in_number, _} = yesterday_volume_used |> validate_value |> String.replace(",", "") |> Float.parse()
+        {current_in_number, _} = today_volume_used |> String.replace(",", "") |> Float.parse()
+        {yesterday_in_number, _} = yesterday_volume_used |> String.replace(",", "") |> Float.parse()
         {allowance_in_number, _} = allowance |> String.replace(",", "") |> Float.parse()
 
         last_bill_date = validate_bill_date(bill_day)
