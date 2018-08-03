@@ -132,7 +132,7 @@ var vm = new Vue({
         sort: false
       });
       this.dataTable = smsDataTable;
-      this.dataTable.search("").draw();
+      this.dataTable.search("");
     },
     search: function(){
       this.dataTable.search(this.m_form_search).draw();
@@ -296,7 +296,7 @@ var vm = new Vue({
       $('.dataTables_scrollHead').on('scroll', function () {
         $('.dataTables_scrollBody').scrollLeft($(this).scrollLeft());
       });
-      this.dataTable.search("").draw();
+      this.dataTable.search("");
     },
     initHideShow: function(){
       $(".sms-column").each(function(){
