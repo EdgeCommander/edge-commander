@@ -111,7 +111,7 @@
                 </div>
               </div>
               <div class="col-xl-4 order-1 order-xl-2 m--align-right" >
-                <a href="#" class="btn btn-primary m-btn m-btn--icon" v-on:click="onUserButton">
+                <a href="javascript:void(0)" class="btn btn-primary m-btn m-btn--icon" v-on:click="onUserButton">
                       <span>
                           <i class="fa fa-plus-square"></i>
                           <span>
@@ -119,7 +119,7 @@
                           </span>
                       </span>
                   </a>
-                  <div href="#" class="btn btn-default grey" v-on:click="onUserHideShowButton">
+                  <div href="javascript:void(0)" class="btn btn-default grey" v-on:click="onUserHideShowButton">
                     <i class="fa fa-columns"></i>
                   </div>
               </div>

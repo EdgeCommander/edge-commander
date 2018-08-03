@@ -20,7 +20,7 @@
               </div>
             </div>
             <div class="col-md-4 order-1 order-md-2 m--align-right">
-               <a href="#" class="btn btn-primary m-btn m-btn--icon" v-on:click="onMemberButton">
+               <a href="javascript:void(0)" class="btn btn-primary m-btn m-btn--icon" v-on:click="onMemberButton">
                     <span>
                         <i class="fa fa-plus-square"></i>
                         <span>
@@ -28,7 +28,7 @@
                         </span>
                     </span>
                 </a>
-                <div href="#" class="btn btn-default grey" v-on:click="onMemeberHideShowButton">
+                <div href="javascript:void(0)" class="btn btn-default grey" v-on:click="onMemeberHideShowButton">
                   <i class="fa fa-columns"></i>
                 </div>
             </div>

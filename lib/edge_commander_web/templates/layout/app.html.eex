@@ -214,5 +214,13 @@
     $(".menu_expand").css("display", "none")
   });
 
+   var counter = 1;
+    $(window).on('popstate', function() {
+        if(counter == 1){
+            url = location.pathname
+            load_page(url)
+        }
+        counter = counter + 1;
+    });
 </script>
 </html>
