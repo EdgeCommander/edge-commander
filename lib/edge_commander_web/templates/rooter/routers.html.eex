@@ -20,7 +20,7 @@
               </div>
             </div>
             <div class="col-md-4 order-1 order-md-2 m--align-right">
-                <a href="#" id="addROUTER" class="btn btn-primary m-btn m-btn--icon" v-on:click="onROUTERButton">
+                <a href="javascript:void(0)" id="addROUTER" class="btn btn-primary m-btn m-btn--icon" v-on:click="onROUTERButton">
                     <span>
                         <i class="fa fa-plus-square"></i>
                         <span>
@@ -28,7 +28,7 @@
                         </span>
                     </span>
                 </a>
-                <div href="#" class="btn btn-default grey" v-on:click="onROUTERHideShowButton">
+                <div href="javascript:void(0)" class="btn btn-default grey" v-on:click="onROUTERHideShowButton">
                   <i class="fa fa-columns"></i>
                 </div>
             </div>

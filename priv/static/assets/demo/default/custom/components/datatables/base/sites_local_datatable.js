@@ -135,6 +135,7 @@ var vm = new Vue({
           stateSave:  true
         });
         this.dataTable = sitesDataTable;
+        this.dataTable.search("").draw();
       },
       search: function(){
         this.dataTable.search(this.m_form_search).draw();
@@ -503,6 +504,7 @@ var vm = new Vue({
       $('.dataTables_scrollHead').on('scroll', function () {
         $('.dataTables_scrollBody').scrollLeft($(this).scrollLeft());
       });
+      this.dataTable.search("").draw();
     },
     initHideShow: function(){
       $(".sites-column").each(function(){
