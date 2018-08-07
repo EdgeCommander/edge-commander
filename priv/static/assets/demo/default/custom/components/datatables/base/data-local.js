@@ -215,9 +215,8 @@ var vm = new Vue({
       colReorder: true,
       stateSave:  true
     });
-      this.dataTable = simsDataTable;
-      this.dataTable.search("");
-
+    this.dataTable = simsDataTable;
+    this.dataTable.search("");
    },
    search: function(){
     this.dataTable.search(this.m_form_search).draw();
