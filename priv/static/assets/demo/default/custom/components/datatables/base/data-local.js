@@ -159,16 +159,34 @@ var vm = new Vue({
         class: "last_sms",
         data: function(row, type, set, meta) {
           return row.last_sms;
+        },
+        createdCell: function (td, cellData, rowData, row, col) {
+          number = rowData.number
+          if (cellData == "Processing") {
+            $.get( "/sms/last/"+number+"/", function(data) {
+              $(td).html(data.sms.last_sms)
+            });
+          }
         }
       },
       {
         class: "text-center last_sms_datetime",
         data: function(row, type, set, meta) {
           last_sms_date = row.last_sms_date
-          if(last_sms_date == "-"){
-            return last_sms_date
-          }else{
-            return moment(row.last_sms_date).format('MMMM Do YYYY, H:mm:ss');
+          return last_sms_date
+        },
+        createdCell: function (td, cellData, rowData, row, col) {
+          number = rowData.number
+          if (cellData == "Processing") {
+            $.get( "/sms/last/"+number+"/", function(data) {
+              last_sms_date = data.sms.last_sms_date
+              if (last_sms_date == '-') {
+                  date_value = last_sms_date
+              }else{
+               date_value = moment(last_sms_date).format('MMMM Do YYYY, H:mm:ss');
+              }
+              $(td).html(date_value)
+            });
           }
         }
       },
@@ -176,6 +194,15 @@ var vm = new Vue({
         class: "text-center sms_since_last_bill",
         data: function(row, type, set, meta) {
           return row.total_sms_send;
+        },
+        createdCell: function (td, cellData, rowData, row, col) {
+          bill_day = rowData.bill_day
+          number = rowData.number
+          if (cellData == "Processing") {
+            $.get( "/sims/"+number+"/"+bill_day, function(data) {
+              $(td).html(data.result)
+            });
+          }
         }
       }
       ],
@@ -190,6 +217,7 @@ var vm = new Vue({
     });
       this.dataTable = simsDataTable;
       this.dataTable.search("");
+
    },
    search: function(){
     this.dataTable.search(this.m_form_search).draw();

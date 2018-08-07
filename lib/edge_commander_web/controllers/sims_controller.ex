@@ -154,12 +154,7 @@ defmodule EdgeCommanderWeb.SimsController do
         {yesterday_in_number, _} = yesterday_volume_used |> String.replace(",", "") |> Float.parse()
         {allowance_in_number, _} = allowance |> String.replace(",", "") |> Float.parse()
 
-        last_bill_date = validate_bill_date(bill_day)
-        last_sms_details = get_last_message_details(number, current_user_id)
-
-        last_sms = get_last_sms(last_sms_details)
-        last_sms_date = get_last_sms_date(last_sms_details)
-        total_sms_send = validate_total_sms(number, last_bill_date, current_user_id)
+        last_bill_date = get_bill_date(bill_day)
 
         %{
           "number" => number,
@@ -174,15 +169,33 @@ defmodule EdgeCommanderWeb.SimsController do
           "date_of_use" => datetime |> Util.shift_zone(),
           "sim_provider" => sim_provider,
           "last_bill_date" => last_bill_date,
-          "last_sms" => last_sms,
-          "last_sms_date" => last_sms_date,
-          "total_sms_send" => total_sms_send
+          "last_sms" => "Processing",
+          "last_sms_date" => "Processing",
+          "total_sms_send" => "Processing",
+          "bill_day" => bill_day
         }
       end) |> Enum.sort(& (&1["percentage_used"] >= &2["percentage_used"]))
     conn
     |> put_status(200)
     |> json(%{
         "logs": logs
+      })
+  end
+
+  def last_sms_details(conn, params) do
+    number = params["number"]
+    current_user_id = Util.get_user_id(conn, params)
+    last_sms_details = get_last_message_details(number, current_user_id)
+    last_sms = get_last_sms(last_sms_details)
+    last_sms_date = get_last_sms_date(last_sms_details)
+    sms_details = %{
+      "last_sms" => last_sms,
+      "last_sms_date" => last_sms_date
+    }
+    conn
+    |> put_status(200)
+    |> json(%{
+        "sms": sms_details
       })
   end
 
@@ -247,6 +260,20 @@ defmodule EdgeCommanderWeb.SimsController do
         |> json(%{reason: reason})
     end
   end
+
+  def count_total_sms(conn, params) do
+    bill_day = params["bill_day"]
+    number = params["number"]
+    current_user_id = Util.get_user_id(conn, params)
+    last_bill_date = get_bill_date(bill_day)
+    total_sms = get_total_sms(number, last_bill_date, current_user_id)
+    conn
+     |> put_status(200)
+     |> json(%{result: total_sms})
+  end
+
+  defp get_total_sms(_number, nil, _current_user_id), do: 0
+  defp get_total_sms(number, last_bill_date, current_user_id), do: get_sms_since_last_bill(number, last_bill_date, current_user_id)
 
   defp save_send_sms("0", results, sms_message, user_id) do
     params = %{
@@ -359,11 +386,6 @@ defmodule EdgeCommanderWeb.SimsController do
     log.allowance
   end
 
-  defp ensure_bill_date(_number, nil, _user_id),  do: 0
-  defp ensure_bill_date(number, last_bill_date, user_id) do
-    total_sms_send = get_sms_since_last_bill(number, last_bill_date, user_id)
-  end
-
   defp ensure_number(number) when number >= 1 and number <= 9, do: "0#{number}"
   defp ensure_number(number), do: number
 
@@ -376,9 +398,11 @@ defmodule EdgeCommanderWeb.SimsController do
   defp get_last_sms(nil), do: "-"
   defp get_last_sms(last_sms_details), do: last_sms_details |> Map.get(:text)
 
-  defp validate_bill_date(nil), do: nil
-  defp validate_bill_date(day) do
-    bill_day = day |> ensure_number
+  defp get_bill_date(nil), do: nil
+  defp get_bill_date("null"), do: nil
+  defp get_bill_date(day) do
+    day = check_data_type(day)
+    bill_day = day  |> ensure_number
     year = DateTime.utc_now |> Map.fetch!(:year)
     current_month = DateTime.utc_now |> Map.fetch!(:month)
     current_day = DateTime.utc_now |> Map.fetch!(:day)
@@ -388,8 +412,11 @@ defmodule EdgeCommanderWeb.SimsController do
     date
   end
 
-  defp validate_total_sms(_number, nil, _current_user_id), do: 0
-  defp validate_total_sms(number, last_bill_date, current_user_id), do: ensure_bill_date(number, last_bill_date, current_user_id)
+  defp check_data_type(number) when is_bitstring(number) do
+    {day, ""} = Integer.parse(number)
+    day
+  end
+  defp check_data_type(day), do: day
 
   defp get_percentage_used(current_in_number, allowance_in_number) when allowance_in_number > 0  do
     (current_in_number / allowance_in_number * 100) |> Float.round(3)
