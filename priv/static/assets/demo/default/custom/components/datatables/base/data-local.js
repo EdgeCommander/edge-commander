@@ -46,9 +46,11 @@ var vm = new Vue({
           // Sync TFOOT scrolling with TBODY
           $('.dataTables_scrollFoot').on('scroll', function () {
           $('.dataTables_scrollBody').scrollLeft($(this).scrollLeft());
+              vm.dataTable.columns.adjust().draw();
         });
         $('.dataTables_scrollHead').on('scroll', function () {
           $('.dataTables_scrollBody').scrollLeft($(this).scrollLeft());
+            vm.dataTable.columns.adjust().draw();
         });
       },
       ajax: {
