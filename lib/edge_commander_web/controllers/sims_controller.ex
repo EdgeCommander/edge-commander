@@ -225,13 +225,14 @@ defmodule EdgeCommanderWeb.SimsController do
     sms_message = params["sms_message"]
     to_number = params["sim_number"]
     user_id = params["user_id"]
+    nexmo_number = choose_nexmo_number(to_number)
     current_user = ensure_user_id(conn, user_id)
     url = "https://rest.nexmo.com/sms/json"
     body = Poison.encode!(%{
       "api_key": System.get_env("NEXMO_API_KEY"),
       "api_secret": System.get_env("NEXMO_API_SECRET"),
       "to": to_number |> number_without_plus_code,
-      "from": System.get_env("NEXMO_API_NUMBER"),
+      "from": nexmo_number,
       "text": sms_message
     })
     headers = [{"Content-type", "application/json"}]
@@ -247,7 +248,7 @@ defmodule EdgeCommanderWeb.SimsController do
           |> List.first
 
         status_code = results |> Map.get("status")
-        status_code |> save_send_sms(results, sms_message, current_user)
+        status_code |> save_send_sms(nexmo_number, results, sms_message, current_user)
 
         error_text = results |> Map.get("error-text")
         conn
@@ -258,6 +259,15 @@ defmodule EdgeCommanderWeb.SimsController do
         conn
         |> put_status(404)
         |> json(%{reason: reason})
+    end
+  end
+
+  defp choose_nexmo_number(number)  do
+    ir_number = String.contains? number, "+353"
+    if ir_number == true do
+      System.get_env("NEXMO_API_IR_NUMBER")
+    else
+      System.get_env("NEXMO_API_UK_NUMBER")
     end
   end
 
@@ -275,10 +285,10 @@ defmodule EdgeCommanderWeb.SimsController do
   defp get_total_sms(_number, nil, _current_user_id), do: 0
   defp get_total_sms(number, last_bill_date, current_user_id), do: get_sms_since_last_bill(number, last_bill_date, current_user_id)
 
-  defp save_send_sms("0", results, sms_message, user_id) do
+  defp save_send_sms("0", nexmo_number, results, sms_message, user_id) do
     params = %{
       to: results |> Map.get("to") |> number_with_plus_code,
-      from: System.get_env("NEXMO_API_NUMBER") |> number_with_plus_code,
+      from: nexmo_number |> number_with_plus_code,
       message_id: results |> Map.get("message-id"),
       status: "Pending",
       text: sms_message,
@@ -292,7 +302,7 @@ defmodule EdgeCommanderWeb.SimsController do
     end
   end
 
-  defp save_send_sms(_status, _results, _sms_message, _user_id), do: :noop
+  defp save_send_sms(_status, nexmo_number, _results, _sms_message, _user_id), do: :noop
 
   def receive_sms(conn, params) do
     from_number = params["from_number"]
