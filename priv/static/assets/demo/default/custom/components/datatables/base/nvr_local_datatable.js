@@ -238,7 +238,7 @@ var vm = new Vue({
         visible: false,
         class: "text-center created_at",
         data: function(row, type, set, meta) {
-          return moment(row.created_at).format('MMMM Do YYYY, H:mm:ss');
+          return moment(row.created_at).format('DD/MM/YYYY HH:mm:ss');
         }
       },
       ],
