@@ -47,11 +47,11 @@ var vm = new Vue({
           $('.dataTables_scrollFoot').on('scroll', function () {
           $('.dataTables_scrollBody').scrollLeft($(this).scrollLeft());
               vm.dataTable.columns.adjust().draw();
-        });
-        $('.dataTables_scrollHead').on('scroll', function () {
-          $('.dataTables_scrollBody').scrollLeft($(this).scrollLeft());
-            vm.dataTable.columns.adjust().draw();
-        });
+          });
+          $('.dataTables_scrollHead').on('scroll', function () {
+            $('.dataTables_scrollBody').scrollLeft($(this).scrollLeft());
+              vm.dataTable.columns.adjust().draw();
+          });
       },
       ajax: {
       url: "/sims/data/json",
@@ -375,3 +375,9 @@ var vm = new Vue({
   }
 });
 vm.initHideShow();
+$(document).ready(function() {
+  function resize_scroll() {
+    vm.dataTable.search("").draw();
+ }
+ setTimeout(resize_scroll, 1500)
+});
