@@ -66,7 +66,7 @@ var vm = new Vue({
         {
           class: "text-center inserted_at",
           data: function(row, type, set, meta) {
-            return moment(row.inserted_at).format('MMMM Do YYYY, H:mm:ss');
+            return moment(row.inserted_at).format('DD/MM/YYYY HH:mm:ss');
           },
         },
         {

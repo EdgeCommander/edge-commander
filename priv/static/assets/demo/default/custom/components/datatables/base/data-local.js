@@ -143,7 +143,7 @@ var vm = new Vue({
       {
         class: "text-center last_reading",
         data: function(row, type, set, meta) {
-          return moment(row.date_of_use).format('MMMM Do YYYY, H:mm:ss');
+          return moment(row.date_of_use).format('DD/MM/YYYY HH:mm:ss');
         }
       },
       {
@@ -153,7 +153,7 @@ var vm = new Vue({
           if(last_bill_date == null){
             return "-"
           }else{
-            return moment(row.last_bill_date).format('MMMM Do YYYY');
+            return moment(row.last_bill_date).format('DD/MM/YYYY');
           }
         }
       },
@@ -185,7 +185,7 @@ var vm = new Vue({
               if (last_sms_date == '-') {
                   date_value = last_sms_date
               }else{
-               date_value = moment(last_sms_date).format('MMMM Do YYYY, H:mm:ss');
+               date_value = moment(last_sms_date).format('DD/MM/YYYY HH:mm:ss');
               }
               $(td).html(date_value)
             });
