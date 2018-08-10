@@ -164,7 +164,7 @@ var vm = new Vue({
         },
         createdCell: function (td, cellData, rowData, row, col) {
           number = rowData.number
-          if (cellData == "Processing") {
+          if (cellData == "Loading....") {
             $.get( "/sms/last/"+number+"/", function(data) {
               $(td).html(data.sms.last_sms)
             });
@@ -179,7 +179,7 @@ var vm = new Vue({
         },
         createdCell: function (td, cellData, rowData, row, col) {
           number = rowData.number
-          if (cellData == "Processing") {
+          if (cellData == "Loading....") {
             $.get( "/sms/last/"+number+"/", function(data) {
               last_sms_date = data.sms.last_sms_date
               if (last_sms_date == '-') {
@@ -200,7 +200,7 @@ var vm = new Vue({
         createdCell: function (td, cellData, rowData, row, col) {
           bill_day = rowData.bill_day
           number = rowData.number
-          if (cellData == "Processing") {
+          if (cellData == "Loading....") {
             $.get( "/sims/"+number+"/"+bill_day, function(data) {
               $(td).html(data.result)
             });

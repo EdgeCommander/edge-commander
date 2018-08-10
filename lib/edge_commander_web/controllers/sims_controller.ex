@@ -169,9 +169,9 @@ defmodule EdgeCommanderWeb.SimsController do
           "date_of_use" => datetime |> Util.shift_zone(),
           "sim_provider" => sim_provider,
           "last_bill_date" => last_bill_date,
-          "last_sms" => "Processing",
-          "last_sms_date" => "Processing",
-          "total_sms_send" => "Processing",
+          "last_sms" => "Loading....",
+          "last_sms_date" => "Loading....",
+          "total_sms_send" => "Loading....",
           "bill_day" => bill_day
         }
       end) |> Enum.sort(& (&1["percentage_used"] >= &2["percentage_used"]))
