@@ -531,6 +531,25 @@ select.form-control:not([size]):not([multiple]) {
   border-color: #575962;
 }
 
+.m-brand {
+  width: 200px;
+  padding: 0 15px;
+}
+
+.m-aside-left {
+  width: 200px;
+}
+
+.m-aside-menu .m-menu__nav>.m-menu__item>.m-menu__link {
+  padding: 9px 15px;
+}
+
+@media (max-width: 992px){
+  .m-brand{
+    width: 100%;
+  }
+}
+
 @media (max-width: 767px){
   #m_form_search{
     margin-top:10px;
