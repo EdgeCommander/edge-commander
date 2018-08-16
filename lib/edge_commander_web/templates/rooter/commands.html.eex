@@ -109,7 +109,9 @@
                           </label>
                           <div class="col-9">
                               <select class="form-control m-input" id="rule_category" v-model="rule_category">
-                                  <option value="usage_command">Usage > 90%</option>
+                                  <option value="usage_command">Internet usage > 90%</option>
+                                  <option value="daily_sms_usage_command">Daily SMS > 6</option>
+                                  <option value="monthly_sms_usage_command">Monthy SMS > 190</option>
                               </select>
                           </div>
                       </div>
@@ -180,7 +182,9 @@
                           </label>
                           <div class="col-9">
                               <select class="form-control m-input" id="edit_rule_category" v-model="edit_rule_category">
-                                  <option value="usage_command">Usage > 90%</option>
+                                  <option value="usage_command">Internet usage > 90%</option>
+                                  <option value="daily_sms_usage_command">Daily SMS > 6</option>
+                                  <option value="monthly_sms_usage_command">Monthy SMS > 190</option>
                               </select>
                           </div>
                       </div>

@@ -53,4 +53,22 @@ defmodule EdgeCommander.EcMailer do
       html: Phoenix.View.render_to_string(EdgeCommanderWeb.EmailView, "account_sharing.html", token: token, from_user: from_user),
       text: Phoenix.View.render_to_string(EdgeCommanderWeb.EmailView, "account_sharing.txt", token: token, from_user: from_user)
   end
+
+  def daily_sms_usage_alert(current_date, senders, number, total_sms) do
+    Mailgun.Client.send_email @config,
+      to: Enum.join(senders, ","),
+      subject: "Daily SMS usage alert of #{number}",
+      from: @from,
+      html: Phoenix.View.render_to_string(EdgeCommanderWeb.EmailView, "daily_sms_alert.html", number: number, total_sms: total_sms, current_date: current_date),
+      text: Phoenix.View.render_to_string(EdgeCommanderWeb.EmailView, "daily_sms_alert.txt", number: number, total_sms: total_sms, current_date: current_date)
+  end
+
+  def monthly_sms_usage_alert(last_bill_date, senders, number, total_sms) do
+    Mailgun.Client.send_email @config,
+      to: Enum.join(senders, ","),
+      subject: "Monthly SMS usage alert of #{number}",
+      from: @from,
+      html: Phoenix.View.render_to_string(EdgeCommanderWeb.EmailView, "monthly_sms_alert.html", number: number, total_sms: total_sms, last_bill_date: last_bill_date),
+      text: Phoenix.View.render_to_string(EdgeCommanderWeb.EmailView, "monthly_sms_alert.txt", number: number, total_sms: total_sms, last_bill_date: last_bill_date)
+  end
 end

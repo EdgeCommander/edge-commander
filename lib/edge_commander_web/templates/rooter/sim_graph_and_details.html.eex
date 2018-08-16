@@ -48,7 +48,8 @@
                         <div class="m-portlet__body  m-portlet__body--no-padding">
                             <div style="margin: 10px 0">
                                 <h3 class="pull-left">
-                                  SMS History <span style="font-size:12px">Last 10 SMS</span>
+                                  SMS History <span style="font-size:12px">(Last 10 SMS)</br>
+                                  Today SMS Count : </span><span style="font-size:12px" id="dailySMSCount">0</span>
                                 </h3>
                                 <div class="pull-right">
                                     <button type="button" class="btn btn-primary m-btn m-btn--icon" data-toggle="modal" data-target="#smsModal">
