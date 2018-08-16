@@ -434,6 +434,11 @@ var vm = new Vue({
           vm.smsMessage_text = value
         });
       });
+    },
+    count_daily_sms: function(){
+      $.get("/daily_sms_count/" + window.location.href.substring(window.location.href.lastIndexOf('/') + 1), function(data) {
+        $("#dailySMSCount").html(data.result)
+      });
     }
   }, // end of methods
   mounted(){
@@ -444,5 +449,6 @@ var vm = new Vue({
     this.resizeSMSTable();
     window.addEventListener('resize', this.startMORRISChartJS);
     window.addEventListener('resize', this.resizeSMSTable);
+    this.count_daily_sms();
   }
 });

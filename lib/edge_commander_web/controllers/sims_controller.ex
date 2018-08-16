@@ -278,8 +278,8 @@ defmodule EdgeCommanderWeb.SimsController do
     last_bill_date = get_bill_date(bill_day)
     total_sms = get_total_sms(number, last_bill_date, current_user_id)
     conn
-     |> put_status(200)
-     |> json(%{result: total_sms})
+    |> put_status(200)
+    |> json(%{result: total_sms})
   end
 
   defp get_total_sms(_number, nil, _current_user_id), do: 0
@@ -305,21 +305,24 @@ defmodule EdgeCommanderWeb.SimsController do
   defp save_send_sms(_status, nexmo_number, _results, _sms_message, _user_id), do: :noop
 
   def receive_sms(conn, params) do
-    from_number = params["from_number"]
+    from_number = params["msisdn"] |> number_with_plus_code
+    to_number = params["to"] |> number_with_plus_code
     users = get_all_users_by_number(from_number)
     Enum.each(users, fn(user_id) ->
       params = %{
-        to: params["to_number"] |> number_with_plus_code,
+        to: to_number,
         from: from_number,
-        message_id: params["external_id"],
+        message_id: params["messageId"],
         status: "Received",
-        text: params["content"],
+        text: params["text"],
         type: "MO",
         user_id: user_id
       }
       changeset = SimMessages.changeset(%SimMessages{}, params)
       case Repo.insert(changeset) do
         {:ok, _} -> Logger.info "SMS has been saved"
+        send_daily_sms_alert(from_number, user_id)
+        send_monthly_sms_alert(from_number, user_id)
         {:error, changeset} -> Logger.info Util.parse_changeset(changeset)
       end
     end)
@@ -327,10 +330,32 @@ defmodule EdgeCommanderWeb.SimsController do
     |> json(%{void: 0})
   end
 
+  defp send_daily_sms_alert(number, current_user_id) do
+    current_day_date = get_current_date()
+    total_sms = get_total_sms(number, current_day_date, current_user_id)
+    send_daily_alert_email(number, total_sms)
+  end
+
+  defp send_monthly_sms_alert(number, current_user_id) do
+    bill_day = get_sim_bill_day(number) |> Map.get(:bill_day)
+    last_bill_date = get_bill_date(bill_day)
+    total_monthly_sms = get_total_sms(number, last_bill_date, current_user_id)
+    send_monthly_alert_email(number, total_monthly_sms, last_bill_date)
+  end
+
+  def daily_sms_count(conn, params) do
+    number = params["number"]
+    current_user_id = Util.get_user_id(conn, params)
+    current_day_date = get_current_date()
+    total_sms = get_total_sms(number, current_day_date, current_user_id)
+    conn
+    |> put_status(200)
+    |> json(%{result: total_sms})
+  end
+
   def delivery_receipt(conn, params) do
     get_message(params["messageId"])
     |> ensure_message(params)
-
     conn
     |> json(%{void: 0})
   end
@@ -435,4 +460,43 @@ defmodule EdgeCommanderWeb.SimsController do
 
   defp validate_value(nil), do: "0"
   defp validate_value(value), do: value
+
+  defp get_current_date() do
+    current_year = DateTime.utc_now |> Map.fetch!(:year)
+    month = DateTime.utc_now |> Map.fetch!(:month)
+    day = DateTime.utc_now |> Map.fetch!(:day)
+    current_month = ensure_number(month)
+    current_day = ensure_number(day)
+    date_time = "#{current_year}-#{current_month}-#{current_day} 00:00:00"
+    {:ok, date} = NaiveDateTime.from_iso8601(date_time)
+    date
+  end
+
+  defp convert_date_format(date) do
+    year = date.year
+    month = date.month |> ensure_number
+    day = date.day |> ensure_number
+    date = "#{day}-#{month}-#{year}"
+  end
+
+  defp send_daily_alert_email(number, total_sms) when total_sms > 6 do
+    current_day_date = get_current_date()
+    current_date = convert_date_format(current_day_date)
+    EdgeCommander.Commands.get_active_sms_usage_rules()
+    |> Enum.map(fn(recipients) ->
+      EdgeCommander.EcMailer.daily_sms_usage_alert(current_date, recipients, number, total_sms)
+      Logger.info "Daily SMS usage email alert has been sent."
+  end)
+  end
+  defp send_daily_alert_email(_number, _total_sms), do: :noop
+
+  defp send_monthly_alert_email(number, total_sms, bill_date) when total_sms > 190 do
+    last_bill_date = convert_date_format(bill_date)
+    EdgeCommander.Commands.get_monthly_sms_usage_rules()
+    |> Enum.map(fn(recipients) ->
+        EdgeCommander.EcMailer.monthly_sms_usage_alert(last_bill_date, recipients, number, total_sms)
+        Logger.info "Monthly SMS usage email alert has been sent."
+    end)
+  end
+  defp send_monthly_alert_email(_number, _total_sms, _last_bill_date), do: :noop
 end
