@@ -10,7 +10,9 @@ config :edge_commander, EdgeCommanderWeb.Endpoint,
   http: [port: 4000],
   debug_errors: true,
   code_reloader: true,
-  check_origin: false
+  check_origin: false,
+  watchers: [npm: ["run", "watch", "--prefix", "assets"]]
+
 
 # ## SSL Support
 #

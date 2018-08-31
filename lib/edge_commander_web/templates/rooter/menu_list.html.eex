@@ -115,8 +115,8 @@
                 </span>
             </a>
         </li>
-        <li class="m-menu__item bottom_link my_profile" aria-haspopup="true" onclick="load_page('/my_profile')">
-            <a  href="javascript:void(0)" class="m-menu__link">
+        <li class="m-menu__item bottom_link" aria-haspopup="true">
+            <a  href="my_profile" class="m-menu__link">
                 <i class="m-menu__link-icon fa fa-user"></i>
                 <span class="m-menu__link-title">
                     <span class="m-menu__link-wrap">
