@@ -76,10 +76,6 @@
   <script src="<%= static_path(@conn, "/assets/demo/default/custom/components/datatables/base/nvr_local_datatable.js") %>"> type="text/javascript"></script>
 <%  end %>
 
-<%= if @conn.request_path == "/routers" or @conn.request_path == "/routers_ajax" do %>
-  <script src="<%= static_path(@conn, "/assets/demo/default/custom/components/datatables/base/routers_local_datatable.js") %>"> type="text/javascript"></script>
-<%  end %>
-
 <%= if @conn.request_path == "/shares" or @conn.request_path == "/shares_ajax" do %>
   <script src="<%= static_path(@conn, "/assets/demo/default/custom/components/forms/widgets/select2.js") %>"> type="text/javascript"></script>
   <script src="<%= static_path(@conn, "/assets/demo/default/custom/components/datatables/base/sharing_local_datatable.js") %>"> type="text/javascript"></script>
