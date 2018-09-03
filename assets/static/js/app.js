@@ -26,6 +26,7 @@ import VueRouter from 'vue-router'
 // Import Vue components
 import App from "../components/App"
 import my_profile from "../components/my_profile"
+import commands from "../components/commands"
 
 Vue.config.productionTip = false
 Vue.use(VueResource)
@@ -38,6 +39,11 @@ const router = new VueRouter({
       path: '/my_profile',
       name: 'my_profile',
       component: my_profile,
+    },
+    {
+      path: '/commands',
+      name: 'commands',
+      component: commands,
     }
   ],
 });

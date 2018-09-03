@@ -65,8 +65,8 @@
                 </span>
             </a>
         </li>
-        <li class="m-menu__item commands" aria-haspopup="true" onclick="load_page('/commands')">
-            <a  href="javascript:void(0)" class="m-menu__link ">
+        <li class="m-menu__item commands" aria-haspopup="true">
+            <a  href="commands" class="m-menu__link ">
                 <i class="m-menu__link-icon fa fa-bullhorn"></i>
                 <span class="m-menu__link-title">
                     <span class="m-menu__link-wrap">
