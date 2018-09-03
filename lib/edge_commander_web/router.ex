@@ -102,12 +102,14 @@ defmodule EdgeCommanderWeb.Router do
     get "/sims_ajax/:sim_number/", RooterController, :sim_graph_and_details
     get "/shares_ajax", RooterController, :sharing
 
+    get "/get_porfile", UsersController, :get_porfile
+
     get "/sims", RooterController, :common
     get "/nvrs", RooterController, :common
     get "/routers", RooterController, :common
     get "/commands", RooterController, :common
     get "/sims/:sim_number", RooterController, :common
-    get "/my_profile", RooterController, :common
+    get "/my_profile", RooterController, :main
     get "/sites", RooterController, :common
     get "/messages", RooterController, :common
     get "/status_report", RooterController, :common

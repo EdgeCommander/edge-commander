@@ -6,8 +6,42 @@ defmodule EdgeCommanderWeb.UsersController do
   alias EdgeCommanderWeb.SessionController
   alias EdgeCommander.Util
   require Logger
-  import EdgeCommander.Accounts, only: [get_user!: 1, email_exist: 1, get_user_by_token: 1]
+  import EdgeCommander.Accounts, only: [get_user!: 1, email_exist: 1, get_user_by_token: 1, current_user: 1]
   import EdgeCommander.Sharing, only: [user_already_exist: 1]
+  import Gravatar
+
+  def get_porfile(conn, params) do
+    current_user = current_user(conn)
+    current_user_id = current_user.id
+
+    user_record = get_user!(current_user_id)
+    firstname = user_record.firstname
+    lastname = user_record.lastname
+    email = user_record.email
+    password = user_record.password
+    id = user_record.id
+    api_key = user_record.api_key
+    api_id = user_record.api_id
+    username = user_record.username
+    gravatar_url = current_user.email |> gravatar_url(secure: true)
+    csrf_token = get_csrf_token()
+
+    conn
+    |> put_status(:created)
+    |> json(%{
+      "firstname" => firstname,
+      "lastname" => lastname,
+      "email" => email,
+      "password" => password,
+      "id" => id,
+      "api_key" => api_key,
+      "api_id" => api_id,
+      "username" => username,
+      "gravatar_url" => gravatar_url,
+      "csrf_token" => csrf_token
+    })
+
+  end
 
   def sign_up(conn, params) do
     email = String.downcase(params["email"])
