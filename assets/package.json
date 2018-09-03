@@ -1,7 +1,7 @@
 {
   "name": "edge-commander",
   "version": "1.0.0",
-  "author": "Ali imran <ali@evercam.io>",
+  "author": "Evercam <support@evercam.io>",
   "private": true,
   "scripts": {
     "watch": "webpack --watch-stdin --progress --color",
