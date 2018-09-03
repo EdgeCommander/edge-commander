@@ -41,8 +41,8 @@
                 </span>
             </a>
         </li>
-        <li class="m-menu__item routers" aria-haspopup="true" onclick="load_page('/routers')">
-            <a  href="javascript:void(0)" class="m-menu__link">
+        <li class="m-menu__item routers" aria-haspopup="true">
+            <a  href="routers" class="m-menu__link">
                 <i class="m-menu__link-icon fa fa-registered"></i>
                 <span class="m-menu__link-title">
                     <span class="m-menu__link-wrap">
