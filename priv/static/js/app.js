@@ -17452,6 +17452,7 @@ module.exports = {
       this.dataTable = dataTable;
 
       dataTable.columns(['.port', '.vh_port', '.sdk_port', '.rtsp_port', '.username', '.password', '.encoder_released_date', '.encoder_version', '.firmware_released_date', '.serial_number', '.mac_address', '.monitoring', '.created_at']).visible(false);
+      dataTable.columns.adjust().draw(false); // adjust column sizing and redraw  
     }
   },
   created: function created() {

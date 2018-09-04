@@ -622,7 +622,8 @@ module.exports = {
         '.monitoring',
         '.created_at'
         ] 
-      ).visible(false);    
+      ).visible(false);  
+      dataTable.columns.adjust().draw(false); // adjust column sizing and redraw  
     }
   },
   created() {
