@@ -423,9 +423,11 @@ module.exports = {
         response => {
           this.table_records = response.body.nvrs
           $("#data-table .dataTables_empty").hide();
-        }).catch(function(error){
-          console.log(error)
-      })
+        }).then(()=>{
+        this.init_datatable();
+    }).catch(function(error){
+      console.log(error)
+    })
    },
    get_session: function(){
     this.$http.get('/get_porfile').then(response => {
@@ -580,8 +582,32 @@ module.exports = {
         return false
       });
     },
-    init_hidden_columns: function(table){
-      table.columns([
+    init_datatable: function(){
+      let dataTable = $('#data-table').DataTable({
+        autoWidth: true,
+        info: false,
+        bPaginate: false,
+        lengthChange: false,
+        searching: true,
+        scrollX: true,
+        colReorder: true,
+        retrieve: true,
+        fnInitComplete: function(){
+          // Enable TFOOT scoll bars
+          $('.dataTables_scrollFoot').css('overflow', 'auto');
+          $('.dataTables_scrollHead').css('overflow', 'auto');
+          // Sync TFOOT scrolling with TBODY
+          $('.dataTables_scrollFoot').on('scroll', function () {
+          $('.dataTables_scrollBody').scrollLeft($(this).scrollLeft());
+          });
+          $('.dataTables_scrollHead').on('scroll', function () {
+          $('.dataTables_scrollBody').scrollLeft($(this).scrollLeft());
+          });
+        }
+      });
+      this.dataTable = dataTable;
+
+      dataTable.columns([
         '.port',
         '.vh_port',
         '.sdk_port',
@@ -595,8 +621,8 @@ module.exports = {
         '.mac_address',
         '.monitoring',
         '.created_at'
-        ]
-      ).visible(false);
+        ] 
+      ).visible(false);    
     }
   },
   created() {
@@ -604,32 +630,6 @@ module.exports = {
   },
   mounted(){
     this.get_session();
-  },
-  updated(){
-    let dataTable = $('#data-table').DataTable({
-      autoWidth: true,
-      info: false,
-      bPaginate: false,
-      lengthChange: false,
-      searching: true,
-      scrollX: true,
-      colReorder: true,
-      retrieve: true,
-      fnInitComplete: function(){
-        // Enable TFOOT scoll bars
-        $('.dataTables_scrollFoot').css('overflow', 'auto');
-        $('.dataTables_scrollHead').css('overflow', 'auto');
-        // Sync TFOOT scrolling with TBODY
-        $('.dataTables_scrollFoot').on('scroll', function () {
-        $('.dataTables_scrollBody').scrollLeft($(this).scrollLeft());
-        });
-        $('.dataTables_scrollHead').on('scroll', function () {
-        $('.dataTables_scrollBody').scrollLeft($(this).scrollLeft());
-        });
-      }
-    });
-    this.dataTable = dataTable;
-    this.init_hidden_columns(this.dataTable)
   }
 }
 </script>
