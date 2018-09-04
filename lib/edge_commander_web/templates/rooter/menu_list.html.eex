@@ -17,8 +17,8 @@
                 </span>
             </a>
         </li>
-        <li class="m-menu__item nvrs" aria-haspopup="true" onclick="load_page('/nvrs')">
-            <a  href="javascript:void(0)" class="m-menu__link ">
+        <li class="m-menu__item " aria-haspopup="true">
+            <a  href="nvrs" class="m-menu__link ">
                 <i class="m-menu__link-icon la  la-building"></i>
                 <span class="m-menu__link-title">
                     <span class="m-menu__link-wrap">
