@@ -36,50 +36,56 @@
             </div>
           </div>
           <!--end: Search Form -->
-            <table id="data-table" class="table table-striped  table-hover table-bordered display nowrap " cellspacing="0" width="100%">
-            <thead>
-                <tr>
-                    <th v-for="(item, index) in headings" v-bind:class="item.class" >{{item.column}}</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr v-for="record in table_records">
-                  <td class="text-center reboot">
-                    <button class="btn btn-default cursor_to_pointer"  style="font-size:10px;padding: 5px;" v-on:click="rebootNVR(record.id, $event)">Reboot</button>
-                  </td>
-                  <td class="text-center actions">
-                    <div class="cursor_to_pointer fa fa-edit" v-on:click="onNVREditButton(record)"></div>
-                    <div class="cursor_to_pointer fa fa-trash" v-on:click="deleteNVR(record.id, $event)"></div>
-                  </td>
-                  <td class="name">{{record.name}}&nbsp;&nbsp;&nbsp;
-                    <a v-bind:href="'http://' +record.ip + ':' + record.port" target="_blank">
-                      <span class="fa fa-external-link"></span></a>
-                  </td>
-                  <td class="ip">{{record.ip}}</td>
-                  <td class="text-center port">{{record.port}}</td>
-                  <td class="text-center vh_port">{{record.vh_port}}</td>
-                  <td class="text-center sdk_port">{{record.sdk_port}}</td>
-                  <td class="text-center rtsp_port">{{record.rtsp_port}}</td>
-                  <td class="text-center username">{{record.username}}</td>
-                  <td class="text-center password">{{record.password}}</td>
-                  <td class="text-center model">{{record.model}}</td>
-                  <td class="text-center firmware_version">{{record.firmware_version}}</td>
-                  <td class="text-center encoder_released_date">{{record.encoder_released_date}}</td>
-                  <td class="text-center encoder_version">{{record.encoder_version}}</td>
-                  <td class="text-center firmware_released_date">{{record.firmware_released_date}}</td>
-                  <td class="serial_number">{{record.serial_number}}</td>
-                  <td class="text-center mac_address">{{record.mac_address}}</td>
-                  <td class="text-center nvr_status">
-                    <div v-if="record.nvr_status == false">
-                      <span style='color:#d9534d' >Offline</span><span>{{record.reason | get_status_reason}}</span>
-                    </div>
-                    <span style='color:#5cb85c' v-if="record.nvr_status == true">Online</span>
-                  </td>
-                  <td class="text-center monitoring">{{record.is_monitoring}}</td>
-                  <td class="text-center created_at">{{record.created_at | formatDate}}</td>
-                </tr>
-              </tbody>
-          </table>
+          <div class="text-center" v-if="loading_data == true" >
+            <i class="fa fa-circle-o-notch fa-spin fa-5x fa-fw"></i>
+            <span>Loading...</span>
+          </div>
+          <div class="m_nvr_datatable" style="display: none">
+              <table id="data-table" class=" table table-striped  table-hover table-bordered display nowrap " cellspacing="0" width="100%">
+                <thead>
+                    <tr>
+                        <th v-for="(item, index) in headings" v-bind:class="item.class" >{{item.column}}</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr v-for="record in table_records">
+                      <td class="text-center reboot">
+                        <button class="btn btn-default cursor_to_pointer"  style="font-size:10px;padding: 5px;" v-on:click="rebootNVR(record.id, $event)">Reboot</button>
+                      </td>
+                      <td class="text-center actions">
+                        <div class="cursor_to_pointer fa fa-edit" v-on:click="onNVREditButton(record)"></div>
+                        <div class="cursor_to_pointer fa fa-trash" v-on:click="deleteNVR(record.id, $event)"></div>
+                      </td>
+                      <td class="name">{{record.name}}&nbsp;&nbsp;&nbsp;
+                        <a v-bind:href="'http://' +record.ip + ':' + record.port" target="_blank">
+                          <span class="fa fa-external-link"></span></a>
+                      </td>
+                      <td class="ip">{{record.ip}}</td>
+                      <td class="text-center port">{{record.port}}</td>
+                      <td class="text-center vh_port">{{record.vh_port}}</td>
+                      <td class="text-center sdk_port">{{record.sdk_port}}</td>
+                      <td class="text-center rtsp_port">{{record.rtsp_port}}</td>
+                      <td class="text-center username">{{record.username}}</td>
+                      <td class="text-center password">{{record.password}}</td>
+                      <td class="text-center model">{{record.model}}</td>
+                      <td class="text-center firmware_version">{{record.firmware_version}}</td>
+                      <td class="text-center encoder_released_date">{{record.encoder_released_date}}</td>
+                      <td class="text-center encoder_version">{{record.encoder_version}}</td>
+                      <td class="text-center firmware_released_date">{{record.firmware_released_date}}</td>
+                      <td class="serial_number">{{record.serial_number}}</td>
+                      <td class="text-center mac_address">{{record.mac_address}}</td>
+                      <td class="text-center nvr_status">
+                        <div v-if="record.nvr_status == false">
+                          <span style='color:#d9534d' >Offline</span><span>{{record.reason | get_status_reason}}</span>
+                        </div>
+                        <span style='color:#5cb85c' v-if="record.nvr_status == true">Online</span>
+                      </td>
+                      <td class="text-center monitoring">{{record.is_monitoring}}</td>
+                      <td class="text-center created_at">{{record.created_at | formatDate}}</td>
+                    </tr>
+                </tbody>
+              </table>
+          </div>
         </div>
       </div>
     </div>
@@ -345,6 +351,7 @@ module.exports = {
       show_edit_errors: false,
       show_add_messages: "",
       show_edit_messages: "",
+      loading_data: true,
       headings: [
         {column: "Reboot", visible: "checked", id: "reboot", class: "text-center reboot"},
         {column: "Actions", visible: "checked", id: "actions", class: "text-center"},
@@ -593,6 +600,7 @@ module.exports = {
         colReorder: true,
         retrieve: true,
         fnInitComplete: function(){
+           $(".m_nvr_datatable").css("display", "block")
           // Enable TFOOT scoll bars
           $('.dataTables_scrollFoot').css('overflow', 'auto');
           $('.dataTables_scrollHead').css('overflow', 'auto');
@@ -624,10 +632,12 @@ module.exports = {
         ] 
       ).visible(false);  
       dataTable.columns.adjust().draw(false); // adjust column sizing and redraw  
+     this.loading_data = false;
     }
   },
   created() {
     this.initDatatable();
+
   },
   mounted(){
     this.get_session();
