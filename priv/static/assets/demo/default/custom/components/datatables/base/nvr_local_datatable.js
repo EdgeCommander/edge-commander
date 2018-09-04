@@ -572,17 +572,17 @@ var vms = new Vue({
         data: data,
         dataType: 'json',
         error: function(jqXHR, status, error) {
-        mApp.unblock(".m_nvr_datatable", {
-          overlayColor: "#000000",
-          type: "loader",
-          state: "primary",
-          message: "Please Wait..."
-        });
-       $.notify({
-          message: jqXHR.responseJSON.message
-        },{
-          type: 'danger'
-        });
+          mApp.unblock(".m_nvr_datatable", {
+            overlayColor: "#000000",
+            type: "loader",
+            state: "primary",
+            message: "Please Wait..."
+          });
+         $.notify({
+            message: jqXHR.responseJSON.message
+          },{
+            type: 'danger'
+          });
       return false;
       },
       success: function(result, status, jqXHR) {
