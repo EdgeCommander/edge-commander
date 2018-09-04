@@ -17192,6 +17192,12 @@ module.exports = {
 //
 //
 //
+//
+//
+//
+//
+//
+//
 
 module.exports = {
   name: 'nvrs',
@@ -17205,6 +17211,7 @@ module.exports = {
       show_edit_errors: false,
       show_add_messages: "",
       show_edit_messages: "",
+      loading_data: true,
       headings: [{ column: "Reboot", visible: "checked", id: "reboot", class: "text-center reboot" }, { column: "Actions", visible: "checked", id: "actions", class: "text-center" }, { column: "Name", visible: "checked", class: "name" }, { column: "IP", visible: "checked", id: "ip" }, { column: "HTTP Port", visible: "", class: "text-center port" }, { column: "VH Port", visible: "", class: "text-center vh_port" }, { column: "SDK Port", visible: "", class: "text-center sdk_port" }, { column: "RTSP Port", visible: "", class: "text-center rtsp_port" }, { column: "Username", visible: "", class: "text-center username" }, { column: "Password", visible: "", class: "text-center password" }, { column: "Model", visible: "checked", class: "text-center" }, { column: "Firmware Version", visible: "checked", class: "text-center" }, { column: "Encoder Released Date", visible: "", class: "text-center encoder_released_date" }, { column: "Encoder Version", visible: "", class: "text-center encoder_version" }, { column: "Firmware Released Date", visible: "", class: "text-center firmware_released_date" }, { column: "Serial Number", visible: "", class: "serial_number" }, { column: "Mac Address", visible: "", class: "text-center mac_address" }, { column: "Status", visible: "checked", class: "text-center" }, { column: "Monitoring", visible: "", class: "text-center monitoring" }, { column: "Created At", visible: "", class: "text-center created_at" }],
       form_labels: {
         name: "Name",
@@ -17437,6 +17444,7 @@ module.exports = {
         colReorder: true,
         retrieve: true,
         fnInitComplete: function fnInitComplete() {
+          $(".m_nvr_datatable").css("display", "block");
           // Enable TFOOT scoll bars
           $('.dataTables_scrollFoot').css('overflow', 'auto');
           $('.dataTables_scrollHead').css('overflow', 'auto');
@@ -17453,6 +17461,7 @@ module.exports = {
 
       dataTable.columns(['.port', '.vh_port', '.sdk_port', '.rtsp_port', '.username', '.password', '.encoder_released_date', '.encoder_version', '.firmware_released_date', '.serial_number', '.mac_address', '.monitoring', '.created_at']).visible(false);
       dataTable.columns.adjust().draw(false); // adjust column sizing and redraw  
+      this.loading_data = false;
     }
   },
   created: function created() {
@@ -20755,8 +20764,17 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }
   }, [_c('i', {
     staticClass: "fa fa-columns"
-  })])])])]), _vm._v(" "), _c('table', {
-    staticClass: "table table-striped  table-hover table-bordered display nowrap ",
+  })])])])]), _vm._v(" "), (_vm.loading_data == true) ? _c('div', {
+    staticClass: "text-center"
+  }, [_c('i', {
+    staticClass: "fa fa-circle-o-notch fa-spin fa-5x fa-fw"
+  }), _vm._v(" "), _c('span', [_vm._v("Loading...")])]) : _vm._e(), _vm._v(" "), _c('div', {
+    staticClass: "m_nvr_datatable",
+    staticStyle: {
+      "display": "none"
+    }
+  }, [_c('table', {
+    staticClass: " table table-striped  table-hover table-bordered display nowrap ",
     attrs: {
       "id": "data-table",
       "cellspacing": "0",
@@ -20798,7 +20816,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       }
     })]), _vm._v(" "), _c('td', {
       staticClass: "name"
-    }, [_vm._v(_vm._s(record.name) + "   \n                  "), _c('a', {
+    }, [_vm._v(_vm._s(record.name) + "   \n                      "), _c('a', {
       attrs: {
         "href": 'http://' + record.ip + ':' + record.port,
         "target": "_blank"
@@ -20848,7 +20866,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }, [_vm._v(_vm._s(record.is_monitoring))]), _vm._v(" "), _c('td', {
       staticClass: "text-center created_at"
     }, [_vm._v(_vm._s(_vm._f("formatDate")(record.created_at)))])])
-  }))])])])]), _vm._v(" "), _c('div', {
+  }))])])])])]), _vm._v(" "), _c('div', {
     ref: "addmodal",
     staticClass: "modal fade add_nvr_to_db",
     staticStyle: {
