@@ -44,7 +44,7 @@
             </thead>
             <tbody>
                 <tr v-for="record in table_records">
-                  <td class="text-center actions">
+                  <td class="text-center reboot">
                     <button class="btn btn-default cursor_to_pointer"  style="font-size:10px;padding: 5px;" v-on:click="rebootNVR(record.id, $event)">Reboot</button>
                   </td>
                   <td class="text-center actions">
@@ -68,14 +68,14 @@
                   <td class="text-center encoder_version">{{record.encoder_version}}</td>
                   <td class="text-center firmware_released_date">{{record.firmware_released_date}}</td>
                   <td class="serial_number">{{record.serial_number}}</td>
-                  <td class="text-center category">{{record.mac_address}}</td>
+                  <td class="text-center mac_address">{{record.mac_address}}</td>
                   <td class="text-center nvr_status">
                     <div v-if="record.nvr_status == false">
                       <span style='color:#d9534d' >Offline</span><span>{{record.reason | get_status_reason}}</span>
                     </div>
                     <span style='color:#5cb85c' v-if="record.nvr_status == true">Online</span>
                   </td>
-                  <td class="text-center is_monitoring">{{record.is_monitoring}}</td>
+                  <td class="text-center monitoring">{{record.is_monitoring}}</td>
                   <td class="text-center created_at">{{record.created_at | formatDate}}</td>
                 </tr>
               </tbody>
@@ -346,26 +346,26 @@ module.exports = {
       show_add_messages: "",
       show_edit_messages: "",
       headings: [
-        {column: "Reboot", visible: "checked", id: "reboot", class: "text-center"},
+        {column: "Reboot", visible: "checked", id: "reboot", class: "text-center reboot"},
         {column: "Actions", visible: "checked", id: "actions", class: "text-center"},
-        {column: "Name", visible: "checked", id: "name"},
+        {column: "Name", visible: "checked", class: "name"},
         {column: "IP", visible: "checked", id: "ip"},
-        {column: "HTTP Port", visible: "", id: "http_port", class: "text-center"},
-        {column: "VH Port", visible: "", id: "vh_port", class: "text-center"},
-        {column: "SDK Port", visible: "", id: "sdk_port", class: "text-center"},
-        {column: "RTSP Port", visible: "", id: "rtsp_port", class: "text-center"},
-        {column: "Username", visible: "", id: "username", class: "text-center"},
-        {column: "Password", visible: "", id: "password", class: "text-center"},
-        {column: "Model", visible: "checked", id: "model", class: "text-center"},
-        {column: "Firmware Version", visible: "checked", id: "firmware_version", class: "text-center"},
-        {column: "Encoder Released Date", visible: "", id: "encoder_released_date", class: "text-center"},
-        {column: "Encoder Version", visible: "", id: "encoder_version", class: "text-center"},
-        {column: "Firmware Released Date", visible: "", id: "firmware_released_date", class: "text-center"},
-        {column: "Serial Number", visible: "", id: "serial_number"},
-        {column: "Mac Address", visible: "", id: "mac_address", class: "text-center"},
-        {column: "Status", visible: "checked", id: "status", class: "text-center"},
-        {column: "Monitoring", visible: "", id: "monitoring", class: "text-center"},
-        {column: "Created At", visible: "", id: "created_at", class: "text-center"},
+        {column: "HTTP Port", visible: "", class: "text-center port"},
+        {column: "VH Port", visible: "", class: "text-center vh_port"},
+        {column: "SDK Port", visible: "", class: "text-center sdk_port"},
+        {column: "RTSP Port", visible: "", class: "text-center rtsp_port"},
+        {column: "Username", visible: "", class: "text-center username"},
+        {column: "Password", visible: "", class: "text-center password"},
+        {column: "Model", visible: "checked", class: "text-center"},
+        {column: "Firmware Version", visible: "checked", class: "text-center"},
+        {column: "Encoder Released Date", visible: "", class: "text-center encoder_released_date"},
+        {column: "Encoder Version", visible: "", class: "text-center encoder_version"},
+        {column: "Firmware Released Date", visible: "", class: "text-center firmware_released_date"},
+        {column: "Serial Number", visible: "", class: "serial_number"},
+        {column: "Mac Address", visible: "", class: "text-center mac_address"},
+        {column: "Status", visible: "checked", class: "text-center"},
+        {column: "Monitoring", visible: "", class: "text-center monitoring"},
+        {column: "Created At", visible: "", class: "text-center created_at"},
        ],
        form_labels: {
         name: "Name",
@@ -579,6 +579,24 @@ module.exports = {
        $.notify({ message: error.body.message },{ type: 'danger'});
         return false
       });
+    },
+    init_hidden_columns: function(table){
+      table.columns([
+        '.port',
+        '.vh_port',
+        '.sdk_port',
+        '.rtsp_port',
+        '.username',
+        '.password',
+        '.encoder_released_date',
+        '.encoder_version',
+        '.firmware_released_date',
+        '.serial_number',
+        '.mac_address',
+        '.monitoring',
+        '.created_at'
+        ]
+      ).visible(false);
     }
   },
   created() {
@@ -608,15 +626,10 @@ module.exports = {
         $('.dataTables_scrollHead').on('scroll', function () {
         $('.dataTables_scrollBody').scrollLeft($(this).scrollLeft());
         });
-      },
-      columnDefs: [
-      {
-        "targets": [ 4,5,6,7,8,9,12,13,14,15,16,17,19],
-        "visible": false
       }
-      ]
     });
     this.dataTable = dataTable;
+    this.init_hidden_columns(this.dataTable)
   }
 }
 </script>
