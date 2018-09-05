@@ -29,6 +29,7 @@ import my_profile from "../components/my_profile"
 import commands from "../components/commands"
 import routers from "../components/routers"
 import nvrs from "../components/nvrs"
+import sites from "../components/sites"
 
 Vue.config.productionTip = false
 Vue.use(VueResource)
@@ -56,6 +57,11 @@ const router = new VueRouter({
       path: '/nvrs',
       name: 'nvrs',
       component: nvrs,
+    },
+    {
+      path: '/sites',
+      name: 'sites',
+      component: sites,
     }
   ],
 });
