@@ -17490,7 +17490,6 @@ module.exports = {
         retrieve: true,
         fnInitComplete: function fnInitComplete() {
           $(".m_nvr_datatable").css("display", "block");
-          mApp.unblock("#loading_content");
           // Enable TFOOT scoll bars
           $('.dataTables_scrollFoot').css('overflow', 'auto');
           $('.dataTables_scrollHead').css('overflow', 'auto');
@@ -17507,6 +17506,7 @@ module.exports = {
 
       dataTable.columns(['.port', '.vh_port', '.sdk_port', '.rtsp_port', '.username', '.password', '.encoder_released_date', '.encoder_version', '.firmware_released_date', '.serial_number', '.mac_address', '.monitoring', '.created_at']).visible(false);
       dataTable.columns.adjust().draw(false); // adjust column sizing and redraw  
+      mApp.unblock("#loading_content");
     }
   },
   created: function created() {
@@ -18510,7 +18510,6 @@ module.exports = {
         retrieve: true,
         fnInitComplete: function fnInitComplete() {
           $(".m_site_datatable").css("display", "block");
-          mApp.unblock("#loading_content");
           // Enable TFOOT scoll bars
           $('.dataTables_scrollFoot').css('overflow', 'auto');
           $('.dataTables_scrollHead').css('overflow', 'auto');
@@ -18525,6 +18524,7 @@ module.exports = {
       });
       this.dataTable = dataTable;
       dataTable.columns.adjust().draw(false); // adjust column sizing and redraw
+      mApp.unblock("#loading_content");
     },
     saveModal: function saveModal() {
       this.show_loading = true;

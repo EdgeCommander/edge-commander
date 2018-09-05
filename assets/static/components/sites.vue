@@ -506,7 +506,6 @@ module.exports = {
         retrieve: true,
         fnInitComplete: function(){
          $(".m_site_datatable").css("display", "block")
-         mApp.unblock("#loading_content");
           // Enable TFOOT scoll bars
           $('.dataTables_scrollFoot').css('overflow', 'auto');
           $('.dataTables_scrollHead').css('overflow', 'auto');
@@ -521,6 +520,7 @@ module.exports = {
       });
       this.dataTable = dataTable;
       dataTable.columns.adjust().draw(false); // adjust column sizing and redraw
+      mApp.unblock("#loading_content");
    },
    saveModal: function() {
     this.show_loading = true;

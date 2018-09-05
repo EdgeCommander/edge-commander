@@ -602,7 +602,6 @@ module.exports = {
         retrieve: true,
         fnInitComplete: function(){
            $(".m_nvr_datatable").css("display", "block");
-          mApp.unblock("#loading_content");
           // Enable TFOOT scoll bars
           $('.dataTables_scrollFoot').css('overflow', 'auto');
           $('.dataTables_scrollHead').css('overflow', 'auto');
@@ -634,6 +633,7 @@ module.exports = {
         ] 
       ).visible(false);  
       dataTable.columns.adjust().draw(false); // adjust column sizing and redraw  
+      mApp.unblock("#loading_content");
     }
   },
   created() {
