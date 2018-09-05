@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="m-content">
+    <div class="m-content" id="loading_content">
       <div class="m-portlet m-portlet--mobile" style="margin-bottom: 0">
         <div class="m-portlet__body" style="padding: 10px;">
           <!--begin: Search Form -->
@@ -36,13 +36,8 @@
             </div>
           </div>
           <!--end: Search Form -->
-          
-          <div class="m_nvr_datatable">
+          <div class="m_site_datatable" style="display: none;">
               <table id="data-table" class=" table table-striped  table-hover table-bordered display nowrap " cellspacing="0" width="100%">
-                  <caption  class="text-center"  v-if="loading_data == true">
-                   <i class="fa fa-circle-o-notch fa-spin fa-5x fa-fw"></i>
-                          <span>Loading...</span>
-                </caption>
                 <thead>
                     <tr>
                         <th v-for="(item, index) in headings" v-bind:class="item.class" >{{item.column}}</th>
@@ -340,7 +335,6 @@ module.exports = {
       show_loading: false,
       show_add_errors: false,
       show_edit_errors: false,
-      loading_data: true,
       show_add_messages: "",
       show_edit_messages: "",
       sims_list: "",
@@ -399,6 +393,8 @@ module.exports = {
         response => {
           this.table_records = response.body.sites
           $("#data-table .dataTables_empty").hide();
+        }).then(()=>{
+            this.init_datatable();
         }).catch(function(error){
         console.log(error)
       })
@@ -493,6 +489,12 @@ module.exports = {
     this.dataTable.search(this.m_form_search).draw();
    },
    init_datatable: function(){
+      mApp.block("#loading_content", {
+        overlayColor: "#000000",
+        type: "loader",
+        state: "primary",
+        message: "Loading..."
+      });
       let dataTable = $('#data-table').DataTable({
         autoWidth: true,
         info: false,
@@ -503,6 +505,7 @@ module.exports = {
         colReorder: true,
         retrieve: true,
         fnInitComplete: function(){
+         $(".m_site_datatable").css("display", "block")
           // Enable TFOOT scoll bars
           $('.dataTables_scrollFoot').css('overflow', 'auto');
           $('.dataTables_scrollHead').css('overflow', 'auto');
@@ -516,7 +519,8 @@ module.exports = {
         }
       });
       this.dataTable = dataTable;
-      this.loading_data = false;
+      dataTable.columns.adjust().draw(false); // adjust column sizing and redraw
+      mApp.unblock("#loading_content");
    },
    saveModal: function() {
     this.show_loading = true;
@@ -731,15 +735,10 @@ module.exports = {
   },
   created() {
     this.initDatatable();
-  },
-  mounted(){
     this.get_session();
     this.get_sims();
     this.get_routers();
     this.get_nvrs();
-  },
-  updated(){
-    this.init_datatable();
   }
 }
 </script>

@@ -494,6 +494,7 @@ var vm = new Vue({
       this.show_edit_errors = false;
     },
     resizeScreen: function(){
+       $(".m_nvr_datatable").css("display", "block")
       // Enable TFOOT scoll bars
       $('.dataTables_scrollFoot').css('overflow', 'auto');
       $('.dataTables_scrollHead').css('overflow', 'auto');

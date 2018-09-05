@@ -17238,10 +17238,6 @@ module.exports = {
 //
 //
 //
-//
-//
-//
-//
 
 module.exports = {
   name: 'nvrs',
@@ -17255,7 +17251,6 @@ module.exports = {
       show_edit_errors: false,
       show_add_messages: "",
       show_edit_messages: "",
-      loading_data: true,
       headings: [{ column: "Reboot", visible: "checked", id: "reboot", class: "text-center reboot" }, { column: "Actions", visible: "checked", id: "actions", class: "text-center" }, { column: "Name", visible: "checked", class: "name" }, { column: "IP", visible: "checked", id: "ip" }, { column: "HTTP Port", visible: "", class: "text-center port" }, { column: "VH Port", visible: "", class: "text-center vh_port" }, { column: "SDK Port", visible: "", class: "text-center sdk_port" }, { column: "RTSP Port", visible: "", class: "text-center rtsp_port" }, { column: "Username", visible: "", class: "text-center username" }, { column: "Password", visible: "", class: "text-center password" }, { column: "Model", visible: "checked", class: "text-center" }, { column: "Firmware Version", visible: "checked", class: "text-center" }, { column: "Encoder Released Date", visible: "", class: "text-center encoder_released_date" }, { column: "Encoder Version", visible: "", class: "text-center encoder_version" }, { column: "Firmware Released Date", visible: "", class: "text-center firmware_released_date" }, { column: "Serial Number", visible: "", class: "serial_number" }, { column: "Mac Address", visible: "", class: "text-center mac_address" }, { column: "Status", visible: "checked", class: "text-center" }, { column: "Monitoring", visible: "", class: "text-center monitoring" }, { column: "Created At", visible: "", class: "text-center created_at" }],
       form_labels: {
         name: "Name",
@@ -17478,6 +17473,12 @@ module.exports = {
       });
     },
     init_datatable: function init_datatable() {
+      mApp.block("#loading_content", {
+        overlayColor: "#000000",
+        type: "loader",
+        state: "primary",
+        message: "Loading..."
+      });
       var dataTable = $('#data-table').DataTable({
         autoWidth: true,
         info: false,
@@ -17505,7 +17506,7 @@ module.exports = {
 
       dataTable.columns(['.port', '.vh_port', '.sdk_port', '.rtsp_port', '.username', '.password', '.encoder_released_date', '.encoder_version', '.firmware_released_date', '.serial_number', '.mac_address', '.monitoring', '.created_at']).visible(false);
       dataTable.columns.adjust().draw(false); // adjust column sizing and redraw  
-      this.loading_data = false;
+      mApp.unblock("#loading_content");
     }
   },
   created: function created() {
@@ -18332,11 +18333,6 @@ module.exports = {
 //
 //
 //
-//
-//
-//
-//
-//
 
 module.exports = {
   name: 'sites',
@@ -18349,7 +18345,6 @@ module.exports = {
       show_loading: false,
       show_add_errors: false,
       show_edit_errors: false,
-      loading_data: true,
       show_add_messages: "",
       show_edit_messages: "",
       sims_list: "",
@@ -18400,6 +18395,8 @@ module.exports = {
       this.$http.get('/sites/data').then(function (response) {
         _this.table_records = response.body.sites;
         $("#data-table .dataTables_empty").hide();
+      }).then(function () {
+        _this.init_datatable();
       }).catch(function (error) {
         console.log(error);
       });
@@ -18496,6 +18493,12 @@ module.exports = {
       this.dataTable.search(this.m_form_search).draw();
     },
     init_datatable: function init_datatable() {
+      mApp.block("#loading_content", {
+        overlayColor: "#000000",
+        type: "loader",
+        state: "primary",
+        message: "Loading..."
+      });
       var dataTable = $('#data-table').DataTable({
         autoWidth: true,
         info: false,
@@ -18506,6 +18509,7 @@ module.exports = {
         colReorder: true,
         retrieve: true,
         fnInitComplete: function fnInitComplete() {
+          $(".m_site_datatable").css("display", "block");
           // Enable TFOOT scoll bars
           $('.dataTables_scrollFoot').css('overflow', 'auto');
           $('.dataTables_scrollHead').css('overflow', 'auto');
@@ -18519,7 +18523,8 @@ module.exports = {
         }
       });
       this.dataTable = dataTable;
-      this.loading_data = false;
+      dataTable.columns.adjust().draw(false); // adjust column sizing and redraw
+      mApp.unblock("#loading_content");
     },
     saveModal: function saveModal() {
       this.show_loading = true;
@@ -18741,15 +18746,10 @@ module.exports = {
   },
   created: function created() {
     this.initDatatable();
-  },
-  mounted: function mounted() {
     this.get_session();
     this.get_sims();
     this.get_routers();
     this.get_nvrs();
-  },
-  updated: function updated() {
-    this.init_datatable();
   }
 };
 
@@ -21504,7 +21504,10 @@ if (false) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
   return _c('div', [_c('div', {
-    staticClass: "m-content"
+    staticClass: "m-content",
+    attrs: {
+      "id": "loading_content"
+    }
   }, [_c('div', {
     staticClass: "m-portlet m-portlet--mobile",
     staticStyle: {
@@ -21574,11 +21577,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }
   }, [_c('i', {
     staticClass: "fa fa-columns"
-  })])])])]), _vm._v(" "), (_vm.loading_data == true) ? _c('div', {
-    staticClass: "text-center"
-  }, [_c('i', {
-    staticClass: "fa fa-circle-o-notch fa-spin fa-5x fa-fw"
-  }), _vm._v(" "), _c('span', [_vm._v("Loading...")])]) : _vm._e(), _vm._v(" "), _c('div', {
+  })])])])]), _vm._v(" "), _c('div', {
     staticClass: "m_nvr_datatable",
     staticStyle: {
       "display": "none"
@@ -22531,7 +22530,10 @@ if (false) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
   return _c('div', [_c('div', {
-    staticClass: "m-content"
+    staticClass: "m-content",
+    attrs: {
+      "id": "loading_content"
+    }
   }, [_c('div', {
     staticClass: "m-portlet m-portlet--mobile",
     staticStyle: {
@@ -22603,7 +22605,10 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
   }, [_c('i', {
     staticClass: "fa fa-columns"
   })])])])]), _vm._v(" "), _c('div', {
-    staticClass: "m_nvr_datatable"
+    staticClass: "m_site_datatable",
+    staticStyle: {
+      "display": "none"
+    }
   }, [_c('table', {
     staticClass: " table table-striped  table-hover table-bordered display nowrap ",
     attrs: {
@@ -22611,11 +22616,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       "cellspacing": "0",
       "width": "100%"
     }
-  }, [(_vm.loading_data == true) ? _c('caption', {
-    staticClass: "text-center"
-  }, [_c('i', {
-    staticClass: "fa fa-circle-o-notch fa-spin fa-5x fa-fw"
-  }), _vm._v(" "), _c('span', [_vm._v("Loading...")])]) : _vm._e(), _vm._v(" "), _c('thead', [_c('tr', _vm._l((_vm.headings), function(item, index) {
+  }, [_c('thead', [_c('tr', _vm._l((_vm.headings), function(item, index) {
     return _c('th', {
       class: item.class
     }, [_vm._v(_vm._s(item.column))])
