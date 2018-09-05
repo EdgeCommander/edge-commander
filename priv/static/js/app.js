@@ -63,7 +63,7 @@
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 17);
+/******/ 	return __webpack_require__(__webpack_require__.s = 19);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -469,13 +469,13 @@ process.umask = function() { return 0; };
 var disposed = false
 function injectStyle (ssrContext) {
   if (disposed) return
-  __webpack_require__(18)
+  __webpack_require__(20)
 }
 var Component = __webpack_require__(0)(
   /* script */
-  __webpack_require__(12),
+  __webpack_require__(13),
   /* template */
-  __webpack_require__(25),
+  __webpack_require__(28),
   /* styles */
   injectStyle,
   /* scopeId */
@@ -513,13 +513,13 @@ module.exports = Component.exports
 var disposed = false
 function injectStyle (ssrContext) {
   if (disposed) return
-  __webpack_require__(19)
+  __webpack_require__(21)
 }
 var Component = __webpack_require__(0)(
   /* script */
-  __webpack_require__(13),
+  __webpack_require__(14),
   /* template */
-  __webpack_require__(26),
+  __webpack_require__(29),
   /* styles */
   injectStyle,
   /* scopeId */
@@ -557,13 +557,13 @@ module.exports = Component.exports
 var disposed = false
 function injectStyle (ssrContext) {
   if (disposed) return
-  __webpack_require__(20)
+  __webpack_require__(22)
 }
 var Component = __webpack_require__(0)(
   /* script */
-  __webpack_require__(14),
+  __webpack_require__(15),
   /* template */
-  __webpack_require__(27),
+  __webpack_require__(30),
   /* styles */
   injectStyle,
   /* scopeId */
@@ -601,13 +601,13 @@ module.exports = Component.exports
 var disposed = false
 function injectStyle (ssrContext) {
   if (disposed) return
-  __webpack_require__(22)
+  __webpack_require__(24)
 }
 var Component = __webpack_require__(0)(
   /* script */
-  __webpack_require__(15),
+  __webpack_require__(16),
   /* template */
-  __webpack_require__(29),
+  __webpack_require__(32),
   /* styles */
   injectStyle,
   /* scopeId */
@@ -645,13 +645,13 @@ module.exports = Component.exports
 var disposed = false
 function injectStyle (ssrContext) {
   if (disposed) return
-  __webpack_require__(21)
+  __webpack_require__(23)
 }
 var Component = __webpack_require__(0)(
   /* script */
-  __webpack_require__(16),
+  __webpack_require__(17),
   /* template */
-  __webpack_require__(28),
+  __webpack_require__(31),
   /* styles */
   injectStyle,
   /* scopeId */
@@ -684,6 +684,50 @@ module.exports = Component.exports
 
 /***/ }),
 /* 9 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var disposed = false
+function injectStyle (ssrContext) {
+  if (disposed) return
+  __webpack_require__(25)
+}
+var Component = __webpack_require__(0)(
+  /* script */
+  __webpack_require__(18),
+  /* template */
+  __webpack_require__(33),
+  /* styles */
+  injectStyle,
+  /* scopeId */
+  null,
+  /* moduleIdentifier (server only) */
+  null
+)
+Component.options.__file = "/home/ali/edge-commander/assets/static/components/sites.vue"
+if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key.substr(0, 2) !== "__"})) {console.error("named exports are not supported in *.vue files.")}
+if (Component.options.functional) {console.error("[vue-loader] sites.vue: functional components are not supported with templates, they should use render functions.")}
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-f8a18c54", Component.options)
+  } else {
+    hotAPI.reload("data-v-f8a18c54", Component.options)
+  }
+  module.hot.dispose(function (data) {
+    disposed = true
+  })
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+/* 10 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -1782,7 +1826,7 @@ function xhrClient (request) {
 
 function nodeClient (request) {
 
-    var client = __webpack_require__(30);
+    var client = __webpack_require__(34);
 
     return new PromiseObj(function (resolve) {
 
@@ -2250,7 +2294,7 @@ if (typeof window !== 'undefined' && window.Vue) {
 
 
 /***/ }),
-/* 10 */
+/* 11 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -4882,7 +4926,7 @@ if (inBrowser && window.Vue) {
 /* WEBPACK VAR INJECTION */}.call(__webpack_exports__, __webpack_require__(2)))
 
 /***/ }),
-/* 11 */
+/* 12 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(global, setImmediate) {/*!
@@ -15833,10 +15877,10 @@ return Vue;
 
 })));
 
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1), __webpack_require__(24).setImmediate))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1), __webpack_require__(27).setImmediate))
 
 /***/ }),
-/* 12 */
+/* 13 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -15855,7 +15899,7 @@ exports.default = {
 };
 
 /***/ }),
-/* 13 */
+/* 14 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -16318,7 +16362,7 @@ module.exports = {
 };
 
 /***/ }),
-/* 14 */
+/* 15 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -16852,7 +16896,7 @@ module.exports = {
 };
 
 /***/ }),
-/* 15 */
+/* 16 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -17473,7 +17517,7 @@ module.exports = {
 };
 
 /***/ }),
-/* 16 */
+/* 17 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -17957,7 +18001,760 @@ module.exports = {
 };
 
 /***/ }),
-/* 17 */
+/* 18 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+module.exports = {
+  name: 'sites',
+  data: function data() {
+    return {
+      dataTable: null,
+      table_records: "",
+      m_form_search: "",
+      mapEditView: "",
+      show_loading: false,
+      show_add_errors: false,
+      show_edit_errors: false,
+      loading_data: true,
+      show_add_messages: "",
+      show_edit_messages: "",
+      sims_list: "",
+      routers_list: "",
+      nvrs_list: "",
+      headings: [{ column: "Actions", id: "actions", class: "text-center" }, { column: "Name", id: "name" }, { column: "Location", id: "location" }, { column: "Sim Number", id: "sim_number", class: "text-center" }, { column: "Router Name", id: "router_name" }, { column: "NVR Name", id: "nvr_name" }, { column: "Notes", id: "notes" }, { column: "Created At", id: "created_at", class: "text-center" }],
+      form_labels: {
+        name: "Name",
+        location: "Location",
+        sim: "SIM",
+        router: "Router",
+        nvr: "NVR",
+        notes: "Notes",
+        latitude: "Latitude",
+        longitude: "Longitude",
+        add_title: "Add Site",
+        edit_title: "Edit Site",
+        hide_show_title: "Show/Hide Columns",
+        add_site_button: "Add Site",
+        hide_show_button: "OK",
+        submit_button: "Save changes"
+      },
+      name: "",
+      sim_number: "",
+      router_id: "",
+      nvr_id: "",
+      notes: "",
+      map_area: "Dublin, Ireland",
+      user_id: "",
+      edit_id: "",
+      edit_name: "",
+      edit_sim_number: "",
+      edit_router_id: "",
+      edit_nvr_id: "",
+      edit_notes: "",
+      edit_map_area: ""
+    };
+  },
+  filters: {
+    formatDate: function formatDate(value) {
+      return moment(String(value)).format('DD/MM/YYYY HH:mm:ss');
+    }
+  },
+  methods: {
+    initDatatable: function initDatatable() {
+      var _this = this;
+
+      this.$http.get('/sites/data').then(function (response) {
+        _this.table_records = response.body.sites;
+        $("#data-table .dataTables_empty").hide();
+      }).catch(function (error) {
+        console.log(error);
+      });
+    },
+    get_session: function get_session() {
+      var _this2 = this;
+
+      this.$http.get('/get_porfile').then(function (response) {
+        _this2.user_id = response.body.id;
+      });
+    },
+    onSiteButton: function onSiteButton() {
+      $(this.$refs.addmodal).modal("show");
+      this.map_area = "Dublin, Ireland";
+      document.getElementById('latitude').value = "53.349805";
+      document.getElementById('longitude').value = "-6.2603010";
+      this.addMap();
+    },
+    mapInitialize: function mapInitialize() {
+      var initialLat = document.getElementById('latitude').value;
+      var initialLong = document.getElementById('longitude').value;
+      initialLat = initialLat ? initialLat : 53.349805;
+      initialLong = initialLong ? initialLong : -6.260310;
+
+      var latlng = new google.maps.LatLng(initialLat, initialLong);
+      var options = {
+        zoom: 15,
+        center: latlng,
+        mapTypeId: google.maps.MapTypeId.ROADMAP
+      };
+      var map = new google.maps.Map(document.getElementById("map_canvas"), options);
+      var geocoder = new google.maps.Geocoder();
+      var marker = new google.maps.Marker({
+        map: map,
+        draggable: true,
+        position: latlng
+      });
+      google.maps.event.addListener(marker, "dragend", function () {
+        var point = marker.getPosition();
+        var geocoder = new google.maps.Geocoder();
+        map.panTo(point);
+        geocoder.geocode({ 'latLng': marker.getPosition() }, function (results, status) {
+          if (status == google.maps.GeocoderStatus.OK) {
+            var latVal = marker.getPosition().lat();
+            var lngVal = marker.getPosition().lng();
+            document.getElementById("latitude").value = latVal.toFixed(6);
+            document.getElementById("longitude").value = lngVal.toFixed(6);
+          }
+        });
+      });
+    },
+    addMap: function addMap() {
+      this.mapInitialize();
+      var PostCodeid = document.getElementById("map_area");
+      var geocoder = new google.maps.Geocoder();
+      $(PostCodeid).autocomplete({
+        source: function source(request, response) {
+          geocoder.geocode({
+            'address': request.term
+          }, function (results, status) {
+            response($.map(results, function (item) {
+              return {
+                label: item.formatted_address,
+                value: item.formatted_address,
+                lat: item.geometry.location.lat(),
+                lon: item.geometry.location.lng()
+              };
+            }));
+          });
+        },
+        select: function select(event, ui) {
+          var latVal = ui.item.lat;
+          var lngVal = ui.item.lon;
+          document.getElementById("latitude").value = latVal.toFixed(6);
+          document.getElementById("longitude").value = lngVal.toFixed(6);
+          var latlng = new google.maps.LatLng(latVal, lngVal);
+          var options = {
+            zoom: 15,
+            center: latlng,
+            mapTypeId: google.maps.MapTypeId.ROADMAP
+          };
+          var map = new google.maps.Map(document.getElementById("map_canvas"), options);
+          var marker = new google.maps.Marker({
+            map: map,
+            draggable: true,
+            position: latlng
+          });
+          marker.setPosition(latlng);
+          module.exports.methods.mapInitialize();
+        }
+      });
+    },
+    search: function search() {
+      this.dataTable.search(this.m_form_search).draw();
+    },
+    init_datatable: function init_datatable() {
+      var dataTable = $('#data-table').DataTable({
+        autoWidth: true,
+        info: false,
+        bPaginate: false,
+        lengthChange: false,
+        searching: true,
+        scrollX: true,
+        colReorder: true,
+        retrieve: true,
+        fnInitComplete: function fnInitComplete() {
+          // Enable TFOOT scoll bars
+          $('.dataTables_scrollFoot').css('overflow', 'auto');
+          $('.dataTables_scrollHead').css('overflow', 'auto');
+          // Sync TFOOT scrolling with TBODY
+          $('.dataTables_scrollFoot').on('scroll', function () {
+            $('.dataTables_scrollBody').scrollLeft($(this).scrollLeft());
+          });
+          $('.dataTables_scrollHead').on('scroll', function () {
+            $('.dataTables_scrollBody').scrollLeft($(this).scrollLeft());
+          });
+        }
+      });
+      this.dataTable = dataTable;
+      this.loading_data = false;
+    },
+    saveModal: function saveModal() {
+      this.show_loading = true;
+      this.show_add_errors = true;
+      this.$http.post('/sites/new', {
+        name: this.name,
+        sim_number: this.sim_number,
+        router_id: this.router_id,
+        nvr_id: this.nvr_id,
+        notes: this.notes,
+        location: {
+          lat: document.getElementById("latitude").value,
+          lng: document.getElementById("longitude").value,
+          map_area: this.map_area
+        },
+        user_id: this.user_id
+      }).then(function (response) {
+        $.notify({ message: 'Site has been added.' }, { type: 'info' });
+        this.show_loading = false;
+        this.initDatatable();
+        this.clearForm();
+        $(this.$refs.addmodal).modal("hide");
+      }).catch(function (error) {
+        this.show_add_messages = error.body.errors;
+        this.show_add_errors = true;
+        this.show_loading = false;
+      });
+    },
+    clearForm: function clearForm() {
+      this.name = "";
+      this.sim_number = "";
+      this.router_id = "";
+      this.nvr_id = "";
+      this.notes = "";
+      this.map_area = "Dublin, Ireland";
+      this.show_add_messages = "";
+      this.show_add_errors = false;
+      this.map_area = "Dublin, Ireland";
+      this.latitude = "53.349805";
+      this.longitude = "-6.2603010";
+      this.addMap();
+    },
+    editMapInitialize: function editMapInitialize() {
+      var initialLat = document.getElementById("edit_latitude").value;
+      var initialLong = document.getElementById("edit_longitude").value;
+      initialLat = initialLat ? initialLat : 53.3498053;
+      initialLong = initialLong ? initialLong : -6.260309699999993;
+
+      var latlng = new google.maps.LatLng(initialLat, initialLong);
+      var options = {
+        zoom: 15,
+        center: latlng,
+        mapTypeId: google.maps.MapTypeId.ROADMAP
+      };
+      var map = new google.maps.Map(document.getElementById("edit_map_canvas"), options);
+      var geocoder = new google.maps.Geocoder();
+      var marker = new google.maps.Marker({
+        map: map,
+        draggable: true,
+        position: latlng
+      });
+
+      google.maps.event.addListener(marker, "dragend", function () {
+        var point = marker.getPosition();
+        map.panTo(point);
+        geocoder.geocode({ 'latLng': marker.getPosition() }, function (results, status) {
+          if (status == google.maps.GeocoderStatus.OK) {
+            var latVal = marker.getPosition().lat();
+            var lngVal = marker.getPosition().lng();
+            document.getElementById("edit_latitude").value = latVal.toFixed(6);
+            document.getElementById("edit_longitude").value = lngVal.toFixed(6);
+          }
+        });
+      });
+    },
+    onSiteEditButton: function onSiteEditButton(data) {
+      this.edit_id = data.id;
+      this.edit_name = data.name;
+      this.edit_sim_number = data.sim_number;
+      this.edit_router_id = data.router_id;
+      this.edit_nvr_id = data.nvr_id;
+      this.edit_notes = data.notes;
+      this.edit_map_area = data.location.map_area;
+
+      document.getElementById("edit_longitude").value = data.location.lng;
+      document.getElementById("edit_latitude").value = data.location.lat;
+
+      $(this.$refs.editmodal).modal("show");
+      this.editMapInitialize();
+      var PostCodeid = document.getElementById("edit_map_area");
+      $(PostCodeid).autocomplete({
+        source: function source(request, response) {
+          var geocoder = new google.maps.Geocoder();
+          geocoder.geocode({
+            'address': request.term
+          }, function (results, status) {
+            response($.map(results, function (item) {
+              return {
+                label: item.formatted_address,
+                value: item.formatted_address,
+                lat: item.geometry.location.lat(),
+                lon: item.geometry.location.lng()
+              };
+            }));
+          });
+        },
+        select: function select(event, ui) {
+          var latVal = ui.item.lat;
+          var lngVal = ui.item.lon;
+          document.getElementById("edit_latitude").value = latVal.toFixed(6);
+          document.getElementById("edit_longitude").value = lngVal.toFixed(6);
+          var latlng = new google.maps.LatLng(latVal, lngVal);
+          var options = {
+            zoom: 15,
+            center: latlng,
+            mapTypeId: google.maps.MapTypeId.ROADMAP
+          };
+          var map = new google.maps.Map(document.getElementById("edit_map_canvas"), options);
+          var geocoder = new google.maps.Geocoder();
+          var marker = new google.maps.Marker({
+            map: map,
+            draggable: true,
+            position: latlng
+          });
+          marker.setPosition(latlng);
+          module.exports.methods.editMapInitialize();
+        }
+      });
+    },
+    updateSitedo: function updateSitedo() {
+      this.show_loading = true;
+      this.show_edit_errors = true;
+
+      var siteID = this.edit_id;
+
+      this.$http.patch('/sites/update', {
+        name: this.edit_name,
+        sim_number: this.edit_sim_number,
+        router_id: this.edit_router_id,
+        nvr_id: this.edit_nvr_id,
+        notes: this.edit_notes,
+        location: {
+          lat: document.getElementById("edit_latitude").value,
+          lng: document.getElementById("edit_longitude").value,
+          map_area: this.edit_map_area
+        },
+        id: siteID
+      }).then(function (response) {
+        $.notify({ message: 'Site has been updated.' }, { type: 'info' });
+        this.show_loading = false;
+        this.initDatatable();
+        this.editClearFrom();
+        $(this.$refs.editmodal).modal("hide");
+      }).catch(function (error) {
+        this.show_loading = false;
+        this.show_edit_messages = error.body.errors;
+        this.show_edit_errors = true;
+      });
+    },
+    editClearFrom: function editClearFrom() {
+      this.edit_name = "";
+      this.edit_map_area = "";
+      this.edit_sim_number = "";
+      this.edit_router_id = "";
+      this.edit_nvr_id = "";
+      this.show_edit_messages = "";
+      this.show_loading = false;
+      this.show_edit_errors = false;
+    },
+    deleteSite: function deleteSite(siteID, event) {
+      var siteRow = void 0,
+          result = void 0;
+      siteRow = event.target.parentElement.parentElement;
+      result = confirm("Are you sure to delete this Site?");
+      if (result === false) {
+        return;
+      }
+      var data = {};
+      data.id = siteID;
+      this.$http.delete("/sites/" + siteID, { siteRow: siteRow }).then(function (response) {
+        siteRow.remove();
+        $.notify({ message: 'Site has been deleted.' }, { type: 'info' });
+      }).catch(function (error) {
+        return false;
+      });
+    },
+    onSiteHideShowButton: function onSiteHideShowButton() {
+      $(this.$refs.hideShow).modal("show");
+    },
+    showHideColumns: function showHideColumns(id) {
+      var column = this.dataTable.columns(id);
+      if (column.visible()[0] == true) {
+        column.visible(false);
+      } else {
+        column.visible(true);
+      }
+    },
+    get_sims: function get_sims() {
+      var _this3 = this;
+
+      this.$http.get('/sims/data/json').then(function (response) {
+        _this3.sims_list = response.body.logs;
+      });
+    },
+    get_routers: function get_routers() {
+      var _this4 = this;
+
+      this.$http.get('/routers/data').then(function (response) {
+        _this4.routers_list = response.body.routers;
+      });
+    },
+    get_nvrs: function get_nvrs() {
+      var _this5 = this;
+
+      this.$http.get('/nvrs/data').then(function (response) {
+        _this5.nvrs_list = response.body.nvrs;
+      });
+    }
+  },
+  created: function created() {
+    this.initDatatable();
+  },
+  mounted: function mounted() {
+    this.get_session();
+    this.get_sims();
+    this.get_routers();
+    this.get_nvrs();
+  },
+  updated: function updated() {
+    this.init_datatable();
+  }
+};
+
+/***/ }),
+/* 19 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -17965,15 +18762,15 @@ module.exports = {
 
 __webpack_require__(3);
 
-var _vue = __webpack_require__(11);
+var _vue = __webpack_require__(12);
 
 var _vue2 = _interopRequireDefault(_vue);
 
-var _vueResource = __webpack_require__(9);
+var _vueResource = __webpack_require__(10);
 
 var _vueResource2 = _interopRequireDefault(_vueResource);
 
-var _vueRouter = __webpack_require__(10);
+var _vueRouter = __webpack_require__(11);
 
 var _vueRouter2 = _interopRequireDefault(_vueRouter);
 
@@ -17997,9 +18794,12 @@ var _nvrs = __webpack_require__(7);
 
 var _nvrs2 = _interopRequireDefault(_nvrs);
 
+var _sites = __webpack_require__(9);
+
+var _sites2 = _interopRequireDefault(_sites);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-_vue2.default.config.productionTip = false;
 // Import local files
 //
 // Local files can be imported directly using relative
@@ -18022,7 +18822,7 @@ _vue2.default.config.productionTip = false;
 //
 // If you no longer want to use a dependency, remember
 // to also remove its path from "config.paths.watched".
-
+_vue2.default.config.productionTip = false;
 _vue2.default.use(_vueResource2.default);
 _vue2.default.use(_vueRouter2.default);
 
@@ -18044,6 +18844,10 @@ var router = new _vueRouter2.default({
     path: '/nvrs',
     name: 'nvrs',
     component: _nvrs2.default
+  }, {
+    path: '/sites',
+    name: 'sites',
+    component: _sites2.default
   }]
 });
 
@@ -18053,18 +18857,6 @@ new _vue2.default({
   template: '<App/>',
   components: { App: _App2.default }
 });
-
-/***/ }),
-/* 18 */
-/***/ (function(module, exports) {
-
-// removed by extract-text-webpack-plugin
-
-/***/ }),
-/* 19 */
-/***/ (function(module, exports) {
-
-// removed by extract-text-webpack-plugin
 
 /***/ }),
 /* 20 */
@@ -18086,6 +18878,24 @@ new _vue2.default({
 
 /***/ }),
 /* 23 */
+/***/ (function(module, exports) {
+
+// removed by extract-text-webpack-plugin
+
+/***/ }),
+/* 24 */
+/***/ (function(module, exports) {
+
+// removed by extract-text-webpack-plugin
+
+/***/ }),
+/* 25 */
+/***/ (function(module, exports) {
+
+// removed by extract-text-webpack-plugin
+
+/***/ }),
+/* 26 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(global, process) {(function (global, undefined) {
@@ -18278,7 +19088,7 @@ new _vue2.default({
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1), __webpack_require__(2)))
 
 /***/ }),
-/* 24 */
+/* 27 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(global) {var scope = (typeof global !== "undefined" && global) ||
@@ -18334,7 +19144,7 @@ exports._unrefActive = exports.active = function(item) {
 };
 
 // setimmediate attaches itself to the global object
-__webpack_require__(23);
+__webpack_require__(26);
 // On some exotic environments, it's not clear which object `setimmediate` was
 // able to install onto.  Search each possibility in the same order as the
 // `setimmediate` library.
@@ -18348,7 +19158,7 @@ exports.clearImmediate = (typeof self !== "undefined" && self.clearImmediate) ||
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1)))
 
 /***/ }),
-/* 25 */
+/* 28 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
@@ -18363,7 +19173,7 @@ if (false) {
 }
 
 /***/ }),
-/* 26 */
+/* 29 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
@@ -19080,7 +19890,7 @@ if (false) {
 }
 
 /***/ }),
-/* 27 */
+/* 30 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
@@ -19898,7 +20708,7 @@ if (false) {
 }
 
 /***/ }),
-/* 28 */
+/* 31 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
@@ -20689,7 +21499,7 @@ if (false) {
 }
 
 /***/ }),
-/* 29 */
+/* 32 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
@@ -21716,7 +22526,937 @@ if (false) {
 }
 
 /***/ }),
-/* 30 */
+/* 33 */
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('div', [_c('div', {
+    staticClass: "m-content"
+  }, [_c('div', {
+    staticClass: "m-portlet m-portlet--mobile",
+    staticStyle: {
+      "margin-bottom": "0"
+    }
+  }, [_c('div', {
+    staticClass: "m-portlet__body",
+    staticStyle: {
+      "padding": "10px"
+    }
+  }, [_c('div', {
+    staticClass: "m-form m-form--label-align-right m--margin-bottom-10"
+  }, [_c('div', {
+    staticClass: "row align-items-center"
+  }, [_c('div', {
+    staticClass: "col-md-8 order-2 order-md-1"
+  }, [_c('div', {
+    staticClass: "form-group m-form__group row align-items-center"
+  }, [_c('div', {
+    staticClass: "col-md-5"
+  }, [_c('div', {
+    staticClass: "m-input-icon m-input-icon--left"
+  }, [_c('input', {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: (_vm.m_form_search),
+      expression: "m_form_search"
+    }],
+    staticClass: "form-control m-input m-input--solid",
+    attrs: {
+      "type": "text",
+      "placeholder": "Search...",
+      "id": "m_form_search"
+    },
+    domProps: {
+      "value": (_vm.m_form_search)
+    },
+    on: {
+      "keyup": function($event) {
+        _vm.search()
+      },
+      "input": function($event) {
+        if ($event.target.composing) { return; }
+        _vm.m_form_search = $event.target.value
+      }
+    }
+  }), _vm._v(" "), _vm._m(0)])])])]), _vm._v(" "), _c('div', {
+    staticClass: "col-md-4 order-1 order-md-2 m--align-right"
+  }, [_c('a', {
+    staticClass: "btn btn-primary m-btn m-btn--icon",
+    attrs: {
+      "href": "javascript:void(0)",
+      "id": "addSite"
+    },
+    on: {
+      "click": _vm.onSiteButton
+    }
+  }, [_c('span', [_c('i', {
+    staticClass: "fa fa-plus-square"
+  }), _vm._v(" "), _c('span', [_vm._v("\n                            " + _vm._s(_vm.form_labels.add_site_button) + "\n                        ")])])]), _vm._v(" "), _c('div', {
+    staticClass: "btn btn-default grey",
+    attrs: {
+      "href": "javascript:void(0)"
+    },
+    on: {
+      "click": _vm.onSiteHideShowButton
+    }
+  }, [_c('i', {
+    staticClass: "fa fa-columns"
+  })])])])]), _vm._v(" "), _c('div', {
+    staticClass: "m_nvr_datatable"
+  }, [_c('table', {
+    staticClass: " table table-striped  table-hover table-bordered display nowrap ",
+    attrs: {
+      "id": "data-table",
+      "cellspacing": "0",
+      "width": "100%"
+    }
+  }, [(_vm.loading_data == true) ? _c('caption', {
+    staticClass: "text-center"
+  }, [_c('i', {
+    staticClass: "fa fa-circle-o-notch fa-spin fa-5x fa-fw"
+  }), _vm._v(" "), _c('span', [_vm._v("Loading...")])]) : _vm._e(), _vm._v(" "), _c('thead', [_c('tr', _vm._l((_vm.headings), function(item, index) {
+    return _c('th', {
+      class: item.class
+    }, [_vm._v(_vm._s(item.column))])
+  }))]), _vm._v(" "), _c('tbody', _vm._l((_vm.table_records), function(record) {
+    return _c('tr', [_c('td', {
+      staticClass: "text-center actions"
+    }, [_c('div', {
+      staticClass: "cursor_to_pointer fa fa-edit",
+      on: {
+        "click": function($event) {
+          _vm.onSiteEditButton(record)
+        }
+      }
+    }), _vm._v(" "), _c('div', {
+      staticClass: "cursor_to_pointer fa fa-trash",
+      on: {
+        "click": function($event) {
+          _vm.deleteSite(record.id, $event)
+        }
+      }
+    })]), _vm._v(" "), _c('td', {
+      staticClass: "name"
+    }, [_vm._v(_vm._s(record.name))]), _vm._v(" "), _c('td', {
+      staticClass: "map_area"
+    }, [_vm._v(_vm._s(record.location.map_area))]), _vm._v(" "), _c('td', {
+      staticClass: "text-center sim_number"
+    }, [_vm._v(_vm._s(record.sim_number))]), _vm._v(" "), _c('td', {
+      staticClass: "router_name"
+    }, [_vm._v(_vm._s(record.router_name))]), _vm._v(" "), _c('td', {
+      staticClass: "nvr_name"
+    }, [_vm._v(_vm._s(record.nvr_name))]), _vm._v(" "), _c('td', {
+      staticClass: "notes"
+    }, [_vm._v(_vm._s(record.notes))]), _vm._v(" "), _c('td', {
+      staticClass: "text-center created_at"
+    }, [_vm._v(_vm._s(_vm._f("formatDate")(record.created_at)))])])
+  }))])])])])]), _vm._v(" "), _c('div', {
+    ref: "addmodal",
+    staticClass: "modal fade add_site_to_db",
+    staticStyle: {
+      "padding": "0px"
+    },
+    attrs: {
+      "id": "m_modal_1",
+      "tabindex": "-1",
+      "role": "dialog",
+      "aria-labelledby": "exampleModalLabel",
+      "aria-hidden": "true",
+      "data-backdrop": "static",
+      "data-keyboard": "false"
+    }
+  }, [_c('div', {
+    staticClass: "modal-dialog modal-lg",
+    attrs: {
+      "role": "document"
+    }
+  }, [_c('div', {
+    staticClass: "modal-content",
+    staticStyle: {
+      "padding": "0px"
+    }
+  }, [_c('div', {
+    staticClass: "modal-header"
+  }, [_c('h5', {
+    staticClass: "modal-title",
+    attrs: {
+      "id": "exampleModalLabel"
+    }
+  }, [_vm._v("\n                    " + _vm._s(_vm.form_labels.add_title) + "\n                ")]), _vm._v(" "), _c('div', {
+    staticClass: "cancel"
+  }, [_c('a', {
+    attrs: {
+      "href": "#",
+      "id": "discardModal",
+      "data-dismiss": "modal"
+    },
+    on: {
+      "click": _vm.clearForm
+    }
+  }, [_vm._v("X")])])]), _vm._v(" "), _c('div', {
+    staticClass: "modal-body",
+    attrs: {
+      "id": "body-site-dis"
+    }
+  }, [(_vm.show_loading) ? _c('img', {
+    attrs: {
+      "src": "/images/loading.gif",
+      "id": "api-wait"
+    }
+  }) : _vm._e(), _vm._v(" "), (_vm.show_add_errors) ? _c('div', {
+    attrs: {
+      "id": "siteErrorDetails"
+    }
+  }, [_c('div', {
+    staticClass: "form-group m-form__group m--margin-top-10"
+  }, [_c('div', {
+    staticClass: "alert m-alert m-alert--default",
+    attrs: {
+      "role": "alert"
+    }
+  }, [_c('ul', {
+    staticStyle: {
+      "margin": "0px"
+    }
+  }, _vm._l((_vm.show_add_messages), function(message) {
+    return _c('li', [_vm._v(_vm._s(message))])
+  }))])])]) : _vm._e(), _vm._v(" "), _c('div', {
+    staticClass: "m-form m-form--fit m-form--label-align-left"
+  }, [_c('input', {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: (_vm.user_id),
+      expression: "user_id"
+    }],
+    attrs: {
+      "type": "hidden",
+      "id": "user_id"
+    },
+    domProps: {
+      "value": (_vm.user_id)
+    },
+    on: {
+      "input": function($event) {
+        if ($event.target.composing) { return; }
+        _vm.user_id = $event.target.value
+      }
+    }
+  }), _vm._v(" "), _c('div', {
+    staticClass: "row"
+  }, [_c('div', {
+    staticClass: "col-lg-6"
+  }, [_c('div', {
+    staticClass: "form-group m-form__group row"
+  }, [_c('label', {
+    staticClass: "col-3 col-form-label"
+  }, [_vm._v("\n                                        " + _vm._s(_vm.form_labels.name) + "\n                                    ")]), _vm._v(" "), _c('div', {
+    staticClass: "col-9"
+  }, [_c('input', {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: (_vm.name),
+      expression: "name"
+    }],
+    staticClass: "form-control m-input m-input--solid",
+    attrs: {
+      "type": "text",
+      "id": "name",
+      "aria-describedby": "emailHelp",
+      "placeholder": "Site Name"
+    },
+    domProps: {
+      "value": (_vm.name)
+    },
+    on: {
+      "input": function($event) {
+        if ($event.target.composing) { return; }
+        _vm.name = $event.target.value
+      }
+    }
+  })])]), _vm._v(" "), _c('div', {
+    staticClass: "form-group m-form__group row"
+  }, [_c('label', {
+    staticClass: "col-3 col-form-label"
+  }, [_vm._v("\n                                    " + _vm._s(_vm.form_labels.sim) + "\n                                ")]), _vm._v(" "), _c('div', {
+    staticClass: "col-9"
+  }, [_c('select', {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: (_vm.sim_number),
+      expression: "sim_number"
+    }],
+    staticClass: "form-control m-input",
+    attrs: {
+      "id": "sim_number"
+    },
+    on: {
+      "change": function($event) {
+        var $$selectedVal = Array.prototype.filter.call($event.target.options, function(o) {
+          return o.selected
+        }).map(function(o) {
+          var val = "_value" in o ? o._value : o.value;
+          return val
+        });
+        _vm.sim_number = $event.target.multiple ? $$selectedVal : $$selectedVal[0]
+      }
+    }
+  }, _vm._l((_vm.sims_list), function(sim) {
+    return _c('option', {
+      domProps: {
+        "value": sim.number
+      }
+    }, [_vm._v(_vm._s(sim.number) + " " + _vm._s(sim.name) + " ")])
+  }))])]), _vm._v(" "), _c('div', {
+    staticClass: "form-group m-form__group row"
+  }, [_c('label', {
+    staticClass: "col-3 col-form-label"
+  }, [_vm._v("\n                                        " + _vm._s(_vm.form_labels.router) + "\n                                    ")]), _vm._v(" "), _c('div', {
+    staticClass: "col-9"
+  }, [_c('select', {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: (_vm.router_id),
+      expression: "router_id"
+    }],
+    staticClass: "form-control m-input drop-input",
+    attrs: {
+      "id": "router_id"
+    },
+    on: {
+      "change": function($event) {
+        var $$selectedVal = Array.prototype.filter.call($event.target.options, function(o) {
+          return o.selected
+        }).map(function(o) {
+          var val = "_value" in o ? o._value : o.value;
+          return val
+        });
+        _vm.router_id = $event.target.multiple ? $$selectedVal : $$selectedVal[0]
+      }
+    }
+  }, _vm._l((_vm.routers_list), function(router) {
+    return _c('option', {
+      domProps: {
+        "value": router.id
+      }
+    }, [_vm._v(_vm._s(router.name))])
+  }))])]), _vm._v(" "), _c('div', {
+    staticClass: "form-group m-form__group row"
+  }, [_c('label', {
+    staticClass: "col-3 col-form-label"
+  }, [_vm._v("\n                                        " + _vm._s(_vm.form_labels.nvr) + "\n                                    ")]), _vm._v(" "), _c('div', {
+    staticClass: "col-9"
+  }, [_c('select', {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: (_vm.nvr_id),
+      expression: "nvr_id"
+    }],
+    staticClass: "form-control m-input drop-input",
+    attrs: {
+      "id": "nvr_id"
+    },
+    on: {
+      "change": function($event) {
+        var $$selectedVal = Array.prototype.filter.call($event.target.options, function(o) {
+          return o.selected
+        }).map(function(o) {
+          var val = "_value" in o ? o._value : o.value;
+          return val
+        });
+        _vm.nvr_id = $event.target.multiple ? $$selectedVal : $$selectedVal[0]
+      }
+    }
+  }, _vm._l((_vm.nvrs_list), function(nvr) {
+    return _c('option', {
+      domProps: {
+        "value": nvr.id
+      }
+    }, [_vm._v(_vm._s(nvr.name))])
+  }))])]), _vm._v(" "), _c('div', {
+    staticClass: "form-group m-form__group row"
+  }, [_c('label', {
+    staticClass: "col-3 col-form-label"
+  }, [_vm._v("\n                                        " + _vm._s(_vm.form_labels.notes) + "\n                                    ")]), _vm._v(" "), _c('div', {
+    staticClass: "col-9"
+  }, [_c('input', {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: (_vm.notes),
+      expression: "notes"
+    }],
+    staticClass: "form-control m-input m-input--solid",
+    attrs: {
+      "type": "text",
+      "id": "notes",
+      "aria-describedby": "emailHelp",
+      "placeholder": "Short Note."
+    },
+    domProps: {
+      "value": (_vm.notes)
+    },
+    on: {
+      "input": function($event) {
+        if ($event.target.composing) { return; }
+        _vm.notes = $event.target.value
+      }
+    }
+  })])]), _vm._v(" "), _c('div', {
+    staticClass: "form-group m-form__group row"
+  }, [_c('label', {
+    staticClass: "col-3 col-form-label"
+  }, [_vm._v("\n                                    " + _vm._s(_vm.form_labels.latitude) + "\n                                ")]), _vm._v(" "), _vm._m(1)]), _vm._v(" "), _c('div', {
+    staticClass: "form-group m-form__group row"
+  }, [_c('label', {
+    staticClass: "col-3 col-form-label"
+  }, [_vm._v("\n                                    " + _vm._s(_vm.form_labels.latitude) + "\n                                ")]), _vm._v(" "), _vm._m(2)])]), _vm._v(" "), _c('div', {
+    staticClass: "col-lg-6"
+  }, [_c('div', {
+    staticClass: "form-group m-form__group row"
+  }, [_c('label', {
+    staticClass: "col-3 col-form-label"
+  }, [_vm._v("\n                                    " + _vm._s(_vm.form_labels.location) + "\n                                ")]), _vm._v(" "), _c('div', {
+    staticClass: "col-9"
+  }, [_c('input', {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: (_vm.map_area),
+      expression: "map_area"
+    }],
+    staticClass: "form-control m-input m-input--solid",
+    attrs: {
+      "type": "text",
+      "id": "map_area",
+      "aria-describedby": "emailHelp",
+      "placeholder": "Search Location"
+    },
+    domProps: {
+      "value": (_vm.map_area)
+    },
+    on: {
+      "input": function($event) {
+        if ($event.target.composing) { return; }
+        _vm.map_area = $event.target.value
+      }
+    }
+  })])]), _vm._v(" "), _vm._m(3)])])])]), _vm._v(" "), _c('div', {
+    staticClass: "modal-footer",
+    staticStyle: {
+      "padding": "11px"
+    }
+  }, [_c('button', {
+    staticClass: "btn btn-default",
+    attrs: {
+      "type": "button"
+    },
+    on: {
+      "click": _vm.saveModal
+    }
+  }, [_vm._v("\n                    " + _vm._s(_vm.form_labels.submit_button) + "\n                ")])])])])]), _vm._v(" "), _c('div', {
+    ref: "editmodal",
+    staticClass: "modal fade",
+    staticStyle: {
+      "padding": "0px"
+    },
+    attrs: {
+      "id": "edit_site_to_db",
+      "data-backdrop": "static",
+      "data-keyboard": "false"
+    }
+  }, [_c('div', {
+    staticClass: "modal-dialog modal-lg",
+    attrs: {
+      "role": "document"
+    }
+  }, [_c('div', {
+    staticClass: "modal-content",
+    staticStyle: {
+      "padding": "0px"
+    }
+  }, [_c('div', {
+    staticClass: "modal-header"
+  }, [_c('h5', {
+    staticClass: "modal-title",
+    attrs: {
+      "id": "exampleModalLabel"
+    }
+  }, [_vm._v("\n                    " + _vm._s(_vm.form_labels.edit_title) + "\n                ")]), _vm._v(" "), _c('div', {
+    staticClass: "cancel"
+  }, [_c('a', {
+    attrs: {
+      "href": "#",
+      "id": "discardEditModal",
+      "data-dismiss": "modal"
+    },
+    on: {
+      "click": _vm.editClearFrom
+    }
+  }, [_vm._v("X")])])]), _vm._v(" "), _c('div', {
+    staticClass: "modal-body",
+    attrs: {
+      "id": "body-site-edit-dis"
+    }
+  }, [(_vm.show_loading) ? _c('img', {
+    attrs: {
+      "src": "/images/loading.gif",
+      "id": "api-wait"
+    }
+  }) : _vm._e(), _vm._v(" "), (_vm.show_edit_errors) ? _c('div', {
+    attrs: {
+      "id": "siteEditErrorDetails"
+    }
+  }, [_c('div', {
+    staticClass: "form-group m-form__group m--margin-top-10"
+  }, [_c('div', {
+    staticClass: "alert m-alert m-alert--default",
+    attrs: {
+      "role": "alert"
+    }
+  }, [_c('ul', {
+    staticStyle: {
+      "margin": "0px"
+    }
+  }, _vm._l((_vm.show_edit_messages), function(message) {
+    return _c('li', [_vm._v(_vm._s(message))])
+  }))])])]) : _vm._e(), _vm._v(" "), _c('div', {
+    staticClass: "m-form m-form--fit m-form--label-align-left"
+  }, [_c('input', {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: (_vm.user_id),
+      expression: "user_id"
+    }],
+    attrs: {
+      "type": "hidden",
+      "id": "user_id"
+    },
+    domProps: {
+      "value": (_vm.user_id)
+    },
+    on: {
+      "input": function($event) {
+        if ($event.target.composing) { return; }
+        _vm.user_id = $event.target.value
+      }
+    }
+  }), _vm._v(" "), _c('input', {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: (_vm.edit_id),
+      expression: "edit_id"
+    }],
+    attrs: {
+      "type": "hidden",
+      "id": "edit_id"
+    },
+    domProps: {
+      "value": (_vm.edit_id)
+    },
+    on: {
+      "input": function($event) {
+        if ($event.target.composing) { return; }
+        _vm.edit_id = $event.target.value
+      }
+    }
+  }), _vm._v(" "), _c('div', {
+    staticClass: "row"
+  }, [_c('div', {
+    staticClass: "col-lg-6"
+  }, [_c('div', {
+    staticClass: "form-group m-form__group row"
+  }, [_c('label', {
+    staticClass: "col-3 col-form-label"
+  }, [_vm._v("\n                                    " + _vm._s(_vm.form_labels.name) + "\n                                ")]), _vm._v(" "), _c('div', {
+    staticClass: "col-9"
+  }, [_c('input', {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: (_vm.edit_name),
+      expression: "edit_name"
+    }],
+    staticClass: "form-control m-input m-input--solid",
+    attrs: {
+      "type": "text",
+      "id": "edit_name",
+      "aria-describedby": "emailHelp",
+      "placeholder": "Site Name"
+    },
+    domProps: {
+      "value": (_vm.edit_name)
+    },
+    on: {
+      "input": function($event) {
+        if ($event.target.composing) { return; }
+        _vm.edit_name = $event.target.value
+      }
+    }
+  })])]), _vm._v(" "), _c('div', {
+    staticClass: "form-group m-form__group row"
+  }, [_c('label', {
+    staticClass: "col-3 col-form-label"
+  }, [_vm._v("\n                                    " + _vm._s(_vm.form_labels.sim) + "\n                                ")]), _vm._v(" "), _c('div', {
+    staticClass: "col-9"
+  }, [_c('select', {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: (_vm.edit_sim_number),
+      expression: "edit_sim_number"
+    }],
+    staticClass: "form-control m-input",
+    attrs: {
+      "id": "edit_sim_number"
+    },
+    on: {
+      "change": function($event) {
+        var $$selectedVal = Array.prototype.filter.call($event.target.options, function(o) {
+          return o.selected
+        }).map(function(o) {
+          var val = "_value" in o ? o._value : o.value;
+          return val
+        });
+        _vm.edit_sim_number = $event.target.multiple ? $$selectedVal : $$selectedVal[0]
+      }
+    }
+  }, _vm._l((_vm.sims_list), function(sim) {
+    return _c('option', {
+      domProps: {
+        "value": sim.number
+      }
+    }, [_vm._v(_vm._s(sim.number) + " " + _vm._s(sim.name) + " ")])
+  }))])]), _vm._v(" "), _c('div', {
+    staticClass: "form-group m-form__group row"
+  }, [_c('label', {
+    staticClass: "col-3 col-form-label"
+  }, [_vm._v("\n                                    " + _vm._s(_vm.form_labels.router) + "\n                                ")]), _vm._v(" "), _c('div', {
+    staticClass: "col-9"
+  }, [_c('select', {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: (_vm.edit_router_id),
+      expression: "edit_router_id"
+    }],
+    staticClass: "form-control m-input drop-input",
+    attrs: {
+      "id": "edit_router_id"
+    },
+    on: {
+      "change": function($event) {
+        var $$selectedVal = Array.prototype.filter.call($event.target.options, function(o) {
+          return o.selected
+        }).map(function(o) {
+          var val = "_value" in o ? o._value : o.value;
+          return val
+        });
+        _vm.edit_router_id = $event.target.multiple ? $$selectedVal : $$selectedVal[0]
+      }
+    }
+  }, _vm._l((_vm.routers_list), function(router) {
+    return _c('option', {
+      domProps: {
+        "value": router.id
+      }
+    }, [_vm._v(_vm._s(router.name))])
+  }))])]), _vm._v(" "), _c('div', {
+    staticClass: "form-group m-form__group row"
+  }, [_c('label', {
+    staticClass: "col-3 col-form-label"
+  }, [_vm._v("\n                                    " + _vm._s(_vm.form_labels.nvr) + "\n                                ")]), _vm._v(" "), _c('div', {
+    staticClass: "col-9"
+  }, [_c('select', {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: (_vm.edit_nvr_id),
+      expression: "edit_nvr_id"
+    }],
+    staticClass: "form-control m-input drop-input",
+    attrs: {
+      "id": "edit_nvr_id"
+    },
+    on: {
+      "change": function($event) {
+        var $$selectedVal = Array.prototype.filter.call($event.target.options, function(o) {
+          return o.selected
+        }).map(function(o) {
+          var val = "_value" in o ? o._value : o.value;
+          return val
+        });
+        _vm.edit_nvr_id = $event.target.multiple ? $$selectedVal : $$selectedVal[0]
+      }
+    }
+  }, _vm._l((_vm.nvrs_list), function(nvr) {
+    return _c('option', {
+      domProps: {
+        "value": nvr.id
+      }
+    }, [_vm._v(_vm._s(nvr.name))])
+  }))])]), _vm._v(" "), _c('div', {
+    staticClass: "form-group m-form__group row"
+  }, [_c('label', {
+    staticClass: "col-3 col-form-label"
+  }, [_vm._v("\n                                    " + _vm._s(_vm.form_labels.notes) + "\n                                ")]), _vm._v(" "), _c('div', {
+    staticClass: "col-9"
+  }, [_c('input', {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: (_vm.edit_notes),
+      expression: "edit_notes"
+    }],
+    staticClass: "form-control m-input m-input--solid",
+    attrs: {
+      "type": "text",
+      "id": "edit_notes",
+      "aria-describedby": "emailHelp",
+      "placeholder": "Short Note."
+    },
+    domProps: {
+      "value": (_vm.edit_notes)
+    },
+    on: {
+      "input": function($event) {
+        if ($event.target.composing) { return; }
+        _vm.edit_notes = $event.target.value
+      }
+    }
+  })])]), _vm._v(" "), _c('div', {
+    staticClass: "form-group m-form__group row"
+  }, [_c('label', {
+    staticClass: "col-3 col-form-label"
+  }, [_vm._v("\n                                    " + _vm._s(_vm.form_labels.latitude) + "\n                                ")]), _vm._v(" "), _vm._m(4)]), _vm._v(" "), _c('div', {
+    staticClass: "form-group m-form__group row"
+  }, [_c('label', {
+    staticClass: "col-3 col-form-label"
+  }, [_vm._v("\n                                    " + _vm._s(_vm.form_labels.longitude) + "\n                                ")]), _vm._v(" "), _vm._m(5)])]), _vm._v(" "), _c('div', {
+    staticClass: "col-lg-6"
+  }, [_c('div', {
+    staticClass: "form-group m-form__group row"
+  }, [_c('label', {
+    staticClass: "col-3 col-form-label"
+  }, [_vm._v("\n                                    " + _vm._s(_vm.form_labels.location) + "\n                                ")]), _vm._v(" "), _c('div', {
+    staticClass: "col-9"
+  }, [_c('input', {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: (_vm.edit_map_area),
+      expression: "edit_map_area"
+    }],
+    staticClass: "form-control m-input m-input--solid",
+    attrs: {
+      "type": "text",
+      "id": "edit_map_area",
+      "aria-describedby": "emailHelp",
+      "placeholder": "Search Location"
+    },
+    domProps: {
+      "value": (_vm.edit_map_area)
+    },
+    on: {
+      "input": function($event) {
+        if ($event.target.composing) { return; }
+        _vm.edit_map_area = $event.target.value
+      }
+    }
+  })])]), _vm._v(" "), _vm._m(6)])])])]), _vm._v(" "), _c('div', {
+    staticClass: "modal-footer",
+    staticStyle: {
+      "padding": "11px"
+    }
+  }, [_c('button', {
+    staticClass: "btn btn-default",
+    attrs: {
+      "id": "",
+      "type": "button"
+    },
+    on: {
+      "click": _vm.updateSitedo
+    }
+  }, [_vm._v("\n                    " + _vm._s(_vm.form_labels.submit_button) + "\n                ")])])])])]), _vm._v(" "), _c('div', {
+    ref: "hideShow",
+    staticClass: "modal fade toggle-datatable-columns",
+    staticStyle: {
+      "padding": "0px"
+    },
+    attrs: {
+      "tabindex": "-1",
+      "role": "dialog",
+      "aria-labelledby": "exampleModalLabel",
+      "aria-hidden": "true",
+      "data-backdrop": "static",
+      "data-keyboard": "false"
+    }
+  }, [_c('div', {
+    staticClass: "modal-dialog modal-sm",
+    attrs: {
+      "role": "document"
+    }
+  }, [_c('div', {
+    staticClass: "modal-content",
+    staticStyle: {
+      "padding": "0px"
+    }
+  }, [_c('div', {
+    staticClass: "modal-header"
+  }, [_c('h5', {
+    staticClass: "modal-title",
+    attrs: {
+      "id": "exampleModalLabel"
+    }
+  }, [_vm._v("\n                  " + _vm._s(_vm.form_labels.hide_show_title) + "\n              ")]), _vm._v(" "), _c('div', {
+    staticClass: "cancel"
+  }, [_c('a', {
+    attrs: {
+      "href": "#",
+      "id": "discardModal",
+      "data-dismiss": "modal"
+    },
+    on: {
+      "click": _vm.clearForm
+    }
+  }, [_vm._v("X")])])]), _vm._v(" "), _c('div', {
+    staticClass: "modal-body",
+    attrs: {
+      "id": "body-sim-dis"
+    }
+  }, [_c('div', {
+    staticClass: "form-group"
+  }, _vm._l((_vm.headings), function(item, index) {
+    return _c('div', {
+      staticClass: "column-checkbox"
+    }, [_c('label', {
+      staticClass: "m-checkbox m-checkbox--single m-checkbox--solid m-checkbox--brand",
+      staticStyle: {
+        "width": "auto"
+      }
+    }, [_c('input', {
+      staticClass: "users-column",
+      attrs: {
+        "type": "checkbox",
+        "checked": "checked",
+        "id": index,
+        "name": item.id
+      },
+      on: {
+        "change": function($event) {
+          _vm.showHideColumns(index)
+        }
+      }
+    }), _c('span'), _vm._v(" " + _vm._s(item.column))])])
+  }))]), _vm._v(" "), _c('div', {
+    staticClass: "modal-footer"
+  }, [_c('button', {
+    staticClass: "btn btn-default",
+    attrs: {
+      "type": "button",
+      "data-dismiss": "modal"
+    }
+  }, [_vm._v(_vm._s(_vm.form_labels.hide_show_button))])])])])])])
+},staticRenderFns: [function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('span', {
+    staticClass: "m-input-icon__icon m-input-icon__icon--left"
+  }, [_c('span', [_c('i', {
+    staticClass: "la la-search"
+  })])])
+},function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('div', {
+    staticClass: "col-9"
+  }, [_c('input', {
+    staticClass: "form-control m-input m-input--solid readonly",
+    attrs: {
+      "name": "lat",
+      "type": "text",
+      "id": "latitude",
+      "readonly": ""
+    }
+  })])
+},function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('div', {
+    staticClass: "col-9"
+  }, [_c('input', {
+    staticClass: "form-control m-input m-input--solid readonly",
+    attrs: {
+      "name": "lng",
+      "type": "text",
+      "id": "longitude",
+      "readonly": ""
+    }
+  })])
+},function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('div', {
+    staticClass: "form-group m-form__group row"
+  }, [_c('div', {
+    staticClass: "col-12"
+  }, [_c('div', {
+    staticStyle: {
+      "height": "300px",
+      "width": "100%"
+    },
+    attrs: {
+      "id": "map_canvas"
+    }
+  })])])
+},function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('div', {
+    staticClass: "col-9"
+  }, [_c('input', {
+    staticClass: "form-control m-input m-input--solid readonly",
+    attrs: {
+      "name": "lat",
+      "type": "text",
+      "id": "edit_latitude",
+      "readonly": ""
+    }
+  })])
+},function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('div', {
+    staticClass: "col-9"
+  }, [_c('input', {
+    staticClass: "form-control m-input m-input--solid readonly",
+    attrs: {
+      "name": "lng",
+      "type": "text",
+      "id": "edit_longitude",
+      "readonly": ""
+    }
+  })])
+},function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('div', {
+    staticClass: "form-group m-form__group row"
+  }, [_c('div', {
+    staticClass: "col-12"
+  }, [_c('div', {
+    staticStyle: {
+      "height": "300px",
+      "width": "100%"
+    },
+    attrs: {
+      "id": "edit_map_canvas"
+    }
+  })])])
+}]}
+module.exports.render._withStripped = true
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+     require("vue-hot-reload-api").rerender("data-v-f8a18c54", module.exports)
+  }
+}
+
+/***/ }),
+/* 34 */
 /***/ (function(module, exports) {
 
 /* (ignored) */
