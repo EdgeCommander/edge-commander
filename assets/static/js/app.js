@@ -30,6 +30,7 @@ import commands from "../components/commands"
 import routers from "../components/routers"
 import nvrs from "../components/nvrs"
 import sites from "../components/sites"
+import status_report from "../components/status_report"
 
 Vue.config.productionTip = false
 Vue.use(VueResource)
@@ -62,6 +63,11 @@ const router = new VueRouter({
       path: '/sites',
       name: 'sites',
       component: sites,
+    },
+    {
+      path: '/status_report',
+      name: 'status_report',
+      component: status_report,
     }
   ],
 });

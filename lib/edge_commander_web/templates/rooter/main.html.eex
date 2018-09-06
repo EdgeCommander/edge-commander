@@ -10,6 +10,7 @@
 <link href="<%= static_path(@conn, "/css/jquery-ui.css") %>" rel="stylesheet" type="text/css" />
 <script src="<%= static_path(@conn, "/assets/app/js/dashboard.js") %>" type="text/javascript"></script>
 <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBfX46k9qCXNL6WR8wu8Jmb8yF4WxrpuUM&libraries=places"></script>
+<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 
 
 <body class="m-page--fluid m--skin- m-content--skin-light2 m-header--fixed m-header--fixed-mobile m-aside-left--enabled m-aside-left--skin-dark m-aside-left--offcanvas m-footer--push m-aside--offcanvas-default"  id="body_pannel">

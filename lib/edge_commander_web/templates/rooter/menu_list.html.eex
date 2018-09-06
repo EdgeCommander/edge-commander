@@ -29,8 +29,8 @@
                 </span>
             </a>
         </li>
-        <li class="m-menu__item status_report" aria-haspopup="true" onclick="load_page('/status_report')">
-            <a  href="javascript:void(0)" class="m-menu__link">
+        <li class="m-menu__item status_report" aria-haspopup="true">
+            <a  href="status_report" class="m-menu__link">
                 <i class="m-menu__link-icon fa  fa-barcode"></i>
                 <span class="m-menu__link-title">
                     <span class="m-menu__link-wrap">
