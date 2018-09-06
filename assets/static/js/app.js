@@ -31,6 +31,7 @@ import routers from "../components/routers"
 import nvrs from "../components/nvrs"
 import sites from "../components/sites"
 import status_report from "../components/status_report"
+import api from "../components/api"
 
 Vue.config.productionTip = false
 Vue.use(VueResource)
@@ -68,6 +69,11 @@ const router = new VueRouter({
       path: '/status_report',
       name: 'status_report',
       component: status_report,
+    },
+    {
+      path: '/api',
+      name: 'api',
+      component: api,
     }
   ],
 });
