@@ -103,8 +103,8 @@
                 </span>
             </a>
         </li>
-        <li class="m-menu__item bottom_link api" aria-haspopup="true" onclick="load_page('/api')">
-            <a  href="javascript:void(0)" class="m-menu__link">
+        <li class="m-menu__item bottom_link" aria-haspopup="true">
+            <a  href="api" class="m-menu__link">
                 <i class="m-menu__link-icon fa fa-paperclip"></i>
                 <span class="m-menu__link-title">
                     <span class="m-menu__link-wrap">
