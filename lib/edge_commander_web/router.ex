@@ -103,6 +103,8 @@ defmodule EdgeCommanderWeb.Router do
     get "/shares_ajax", RooterController, :sharing
 
     get "/get_porfile", UsersController, :get_porfile
+    get "/get_shared_users", SharingController, :shared_users
+    get "/get_other_users", SharingController, :get_other_users
 
     get "/sims", RooterController, :common
     get "/nvrs", RooterController, :main
@@ -114,7 +116,7 @@ defmodule EdgeCommanderWeb.Router do
     get "/messages", RooterController, :main
     get "/status_report", RooterController, :main
     get "/api", RooterController, :main
-    get "/shares", RooterController, :common
+    get "/shares", RooterController, :main
 
     get "/sims/data/json", SimsController, :get_sim_logs
     get "/sims/data/:sim_number", SimsController, :get_single_sim_data
