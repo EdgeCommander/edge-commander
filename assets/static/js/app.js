@@ -32,6 +32,7 @@ import nvrs from "../components/nvrs"
 import sites from "../components/sites"
 import status_report from "../components/status_report"
 import api from "../components/api"
+import messages from "../components/messages"
 
 Vue.config.productionTip = false
 Vue.use(VueResource)
@@ -74,6 +75,11 @@ const router = new VueRouter({
       path: '/api',
       name: 'api',
       component: api,
+    },
+    {
+      path: '/messages',
+      name: 'messages',
+      component: messages,
     }
   ],
 });
