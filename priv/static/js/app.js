@@ -17818,57 +17818,19 @@ module.exports = {
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 
 module.exports = {
   name: 'nvrs',
   data: function data() {
     return {
       dataTable: null,
-      table_records: "",
       m_form_search: "",
       show_loading: false,
       show_add_errors: false,
       show_edit_errors: false,
-      show_add_messages: "",
       show_edit_messages: "",
-      headings: [{ column: "Reboot", visible: "checked", id: "reboot", class: "text-center reboot" }, { column: "Actions", visible: "checked", id: "actions", class: "text-center" }, { column: "Name", visible: "checked", class: "name" }, { column: "IP", visible: "checked", id: "ip" }, { column: "HTTP Port", visible: "", class: "text-center port" }, { column: "VH Port", visible: "", class: "text-center vh_port" }, { column: "SDK Port", visible: "", class: "text-center sdk_port" }, { column: "RTSP Port", visible: "", class: "text-center rtsp_port" }, { column: "Username", visible: "", class: "text-center username" }, { column: "Password", visible: "", class: "text-center password" }, { column: "Model", visible: "checked", class: "text-center" }, { column: "Firmware Version", visible: "checked", class: "text-center" }, { column: "Encoder Released Date", visible: "", class: "text-center encoder_released_date" }, { column: "Encoder Version", visible: "", class: "text-center encoder_version" }, { column: "Firmware Released Date", visible: "", class: "text-center firmware_released_date" }, { column: "Serial Number", visible: "", class: "serial_number" }, { column: "Mac Address", visible: "", class: "text-center mac_address" }, { column: "Status", visible: "checked", class: "text-center" }, { column: "Monitoring", visible: "", class: "text-center monitoring" }, { column: "Created At", visible: "", class: "text-center created_at" }],
+      show_add_messages: "",
+      headings: [{ column: "Reboot", visible: "checked", id: "reboot" }, { column: "Actions", visible: "checked", id: "actions" }, { column: "Name", visible: "checked", id: "name" }, { column: "IP", visible: "checked", id: "ip" }, { column: "HTTP Port", visible: "", id: "http_port" }, { column: "VH Port", visible: "", id: "vh_port" }, { column: "SDK Port", visible: "", id: "sdk_port" }, { column: "RTSP Port", visible: "", id: "rtsp_port" }, { column: "Username", visible: "", id: "username" }, { column: "Password", visible: "", id: "password" }, { column: "Model", visible: "checked", id: "model" }, { column: "Firmware Version", visible: "checked", id: "firmware_version" }, { column: "Encoder Released Date", visible: "", id: "encoder_released_date" }, { column: "Encoder Version", visible: "", id: "encoder_version" }, { column: "Firmware Released Date", visible: "", id: "firmware_released_date" }, { column: "Serial Number", visible: "", id: "serial_number" }, { column: "Mac Address", visible: "", id: "mac_address" }, { column: "Status", visible: "checked", id: "status" }, { column: "Monitoring", visible: "", id: "monitoring" }, { column: "Created At", visible: "", id: "created_at" }],
       form_labels: {
         name: "Name",
         ip: "IP",
@@ -17920,33 +17882,176 @@ module.exports = {
     }
   },
   methods: {
-    initDatatable: function initDatatable() {
-      var _this = this;
-
-      this.$http.get('/nvrs/data').then(function (response) {
-        _this.table_records = response.body.nvrs;
-        $("#data-table .dataTables_empty").hide();
-      }).then(function () {
-        _this.init_datatable();
-      }).catch(function (error) {
-        console.log(error);
+    initializeTable: function initializeTable() {
+      var nvrDataTable = $('#nvr-datatable').DataTable({
+        fnInitComplete: function fnInitComplete() {
+          // Enable TFOOT scoll bars
+          $('.dataTables_scrollFoot').css('overflow', 'auto');
+          $('.dataTables_scrollHead').css('overflow', 'auto');
+          // Sync TFOOT scrolling with TBODY
+          $('.dataTables_scrollFoot').on('scroll', function () {
+            $('.dataTables_scrollBody').scrollLeft($(this).scrollLeft());
+          });
+          $('.dataTables_scrollHead').on('scroll', function () {
+            $('.dataTables_scrollBody').scrollLeft($(this).scrollLeft());
+          });
+        },
+        ajax: {
+          url: "/nvrs/data",
+          dataSrc: function dataSrc(data) {
+            return data.nvrs;
+          },
+          error: function error(xhr, _error, thrown) {
+            if (xhr.responseJSON) {
+              console.log(xhr.responseJSON.message);
+            } else {
+              console.log("Something went wrong, Please try again.");
+            }
+          }
+        },
+        columns: [{
+          class: "text-center reboot",
+          data: function data(row, type, set, meta) {
+            return '<div class="action_btn"><button class="btn btn-default cursor_to_pointer" data-id="' + row.id + '" style="font-size:10px;padding: 5px;" onclick="vms.rebootNVR(' + row.id + ', this.parentNode.parentNode.parentNode)">Reboot</button></div>';
+          }
+        }, {
+          class: "text-center actions",
+          data: function data(row, type, set, meta) {
+            return '<div class="action_btn"><div id class="editNVR cursor_to_pointer fa fa-edit" data-id="' + row.id + '"></div> <div class="cursor_to_pointer fa fa-trash delNVR" data-id="' + row.id + '"></div></div>';
+          }
+        }, {
+          class: "name",
+          data: function data(row, type, set, meta) {
+            var url = row.ip + ":" + row.port;
+            return row.name + "&nbsp;&nbsp;&nbsp;<a href='http://" + url + "' target='_blank'><span class='fa fa-external-link'></a>";
+          }
+        }, {
+          class: "text-left ip",
+          data: function data(row, type, set, meta) {
+            return row.ip;
+          }
+        }, {
+          visible: false,
+          class: "text-center http_port",
+          data: function data(row, type, set, meta) {
+            return row.port;
+          }
+        }, {
+          visible: false,
+          class: "text-center vh_port",
+          data: function data(row, type, set, meta) {
+            return row.vh_port;
+          }
+        }, {
+          visible: false,
+          class: "text-center sdk_port",
+          data: function data(row, type, set, meta) {
+            return row.sdk_port;
+          }
+        }, {
+          visible: false,
+          class: "text-center rtsp_port",
+          data: function data(row, type, set, meta) {
+            return row.rtsp_port;
+          }
+        }, {
+          visible: false,
+          class: "text-center username",
+          data: function data(row, type, set, meta) {
+            return row.username;
+          }
+        }, {
+          visible: false,
+          class: "text-center password",
+          data: function data(row, type, set, meta) {
+            return row.password;
+          }
+        }, {
+          class: "text-center model",
+          data: function data(row, type, set, meta) {
+            return row.model;
+          }
+        }, {
+          class: "text-center",
+          data: function data(row, type, set, meta) {
+            return row.firmware_version;
+          }
+        }, {
+          visible: false,
+          class: "text-center encoder_released_date",
+          data: function data(row, type, set, meta) {
+            return row.encoder_released_date;
+          }
+        }, {
+          visible: false,
+          class: "text-center encoder_version",
+          data: function data(row, type, set, meta) {
+            return row.encoder_version;
+          }
+        }, {
+          visible: false,
+          class: "text-center firmware_released_date",
+          data: function data(row, type, set, meta) {
+            return row.firmware_released_date;
+          }
+        }, {
+          visible: false,
+          class: "text-left serial_number",
+          data: function data(row, type, set, meta) {
+            return row.serial_number;
+          }
+        }, {
+          visible: false,
+          class: "text-center mac_address",
+          data: function data(row, type, set, meta) {
+            return row.mac_address;
+          }
+        }, {
+          class: "text-center status",
+          data: function data(row, type, set, meta) {
+            if (row.nvr_status == false) {
+              reason = row.reason;
+              if (reason == '') {
+                reason = "no reason found.";
+              }
+              return "<span style='color:#d9534d'>Offline</span> <span>(" + reason + ")</span>";
+            } else {
+              return "<span style='color:#5cb85c'>Online</span>";
+            }
+          }
+        }, {
+          visible: false,
+          class: "text-center monitoring",
+          data: function data(row, type, set, meta) {
+            if (row.is_monitoring) {
+              return "Yes";
+            } else {
+              return "No";
+            }
+          }
+        }, {
+          visible: false,
+          class: "text-center created_at",
+          data: function data(row, type, set, meta) {
+            return moment(row.created_at).format('DD/MM/YYYY HH:mm:ss');
+          }
+        }],
+        autoWidth: true,
+        info: false,
+        bPaginate: false,
+        lengthChange: false,
+        scrollX: true,
+        colReorder: true,
+        stateSave: true
       });
-    },
-    get_session: function get_session() {
-      var _this2 = this;
-
-      this.$http.get('/get_porfile').then(function (response) {
-        _this2.user_id = response.body.id;
-      });
+      return this.dataTable = nvrDataTable;
+      this.dataTable.search("");
     },
     search: function search() {
       this.dataTable.search(this.m_form_search).draw();
     },
-    onNVRHideShowButton: function onNVRHideShowButton() {
-      $(this.$refs.hideShow).modal("show");
-    },
     showHideColumns: function showHideColumns(id) {
-      var column = this.dataTable.columns(id);
+      var column = this.dataTable.columns("." + id);
       if (column.visible()[0] == true) {
         column.visible(false);
       } else {
@@ -17955,6 +18060,9 @@ module.exports = {
     },
     onNVRButton: function onNVRButton() {
       $(this.$refs.addmodal).modal("show");
+    },
+    onNVRHideShowButton: function onNVRHideShowButton() {
+      $(this.$refs.hideShow).modal("show");
     },
     saveModal: function saveModal() {
       this.show_loading = true;
@@ -17974,7 +18082,7 @@ module.exports = {
       }).then(function (response) {
         $.notify({ message: 'NVR has been added.' }, { type: 'info' });
         this.show_loading = false;
-        this.initDatatable();
+        this.dataTable.ajax.reload();
         this.clearForm();
         $(this.$refs.addmodal).modal("hide");
       }).catch(function (error) {
@@ -17993,43 +18101,54 @@ module.exports = {
       this.vh_nvr_port = "";
       this.rtsp_nvr_port = "";
       this.nvr_is_monitoring = false;
-      this.show_add_messages = "";
       this.show_add_errors = false;
+      this.show_add_messages = "";
     },
-    onNVREditButton: function onNVREditButton(data) {
-      this.edit_nvr_id = data.id;
-      this.edit_nvr_name = data.name;
-      this.edit_nvr_ip = data.ip;
-      this.edit_nvr_username = data.username;
-      this.edit_nvr_password = data.password;
-      this.edit_http_nvr_port = data.port;
-      this.edit_sdk_nvr_port = data.sdk_port;
-      this.edit_vh_nvr_port = data.vh_port;
-      this.edit_rtsp_nvr_port = data.rtsp_port;
-      this.edit_nvr_is_monitoring = data.is_monitoring;
-      $(this.$refs.editmodal).modal("show");
+    getUniqueIdentifier: function getUniqueIdentifier(nvrDataTable) {
+      $(document).on("click", ".editNVR", function () {
+        var tr = $(this).closest('tr');
+        var row = nvrDataTable.row(tr);
+        var data = row.data();
+        var nvr_id = $(this).data("id");
+        module.exports.methods.onNVREditButton(nvr_id, data);
+      });
+    },
+    onNVREditButton: function onNVREditButton(nvr_id, data) {
+      $("#edit_nvr_id").val(nvr_id);
+      $("#edit_nvr_ip").val(data.ip);
+      $("#edit_nvr_name").val(data.name);
+      $("#edit_nvr_username").val(data.username);
+      $("#edit_nvr_password").val(data.password);
+      $("#edit_http_nvr_port").val(data.port);
+      $("#edit_vh_nvr_port").val(data.vh_port);
+      $("#edit_sdk_nvr_port").val(data.sdk_port);
+      $("#edit_rtsp_nvr_port").val(data.rtsp_port);
+      if (data.is_monitoring == true) {
+        $("#edit_nvr_is_monitoring").prop("checked", true);
+      }
+      $('#edit_nvr_to_db').modal('show');
     },
     updateNVRdo: function updateNVRdo() {
       this.show_loading = true;
       this.show_edit_errors = true;
 
-      var nvrID = this.edit_nvr_id;
+      var nvrID = $("#edit_nvr_id").val();
 
       this.$http.patch("/nvrs/" + nvrID, {
-        name: this.edit_nvr_name,
-        ip: this.edit_nvr_ip,
-        username: this.edit_nvr_username,
-        password: this.edit_nvr_password,
-        port: this.edit_http_nvr_port,
-        sdk_port: this.edit_sdk_nvr_port,
-        vh_port: this.edit_vh_nvr_port,
-        is_monitoring: this.edit_nvr_is_monitoring,
-        rtsp_port: this.edit_rtsp_nvr_port,
+        name: $("#edit_nvr_name").val(),
+        ip: $("#edit_nvr_ip").val(),
+        username: $("#edit_nvr_username").val(),
+        password: $("#edit_nvr_password").val(),
+        port: $("#edit_http_nvr_port").val(),
+        sdk_port: $("#edit_sdk_nvr_port").val(),
+        vh_port: $("#edit_vh_nvr_port").val(),
+        is_monitoring: $('#edit_nvr_is_monitoring').is(':checked'),
+        rtsp_port: $("#edit_rtsp_nvr_port").val(),
         id: nvrID
       }).then(function (response) {
         $.notify({ message: 'NVR has been updated.' }, { type: 'info' });
         this.show_loading = false;
-        this.initDatatable();
+        this.dataTable.ajax.reload();
         this.editClearFrom();
         $(this.$refs.editmodal).modal("hide");
       }).catch(function (error) {
@@ -18053,84 +18172,68 @@ module.exports = {
       this.show_edit_errors = false;
       this.show_edit_messages = "";
     },
-    deleteNVR: function deleteNVR(nvrID, event) {
-      var nvrRow = void 0,
-          result = void 0;
-      nvrRow = event.target.parentElement.parentElement;
-      result = confirm("Are you sure to delete this NVR?");
-      if (result === false) {
-        return;
-      }
-      var data = {};
-      data.id = nvrID;
-      this.$http.delete("/nvrs/" + nvrID, { nvrRow: nvrRow }).then(function (response) {
-        nvrRow.remove();
-        $.notify({ message: 'NVR has been deleted.' }, { type: 'info' });
-      }).catch(function (error) {
-        return false;
-      });
-    },
-    rebootNVR: function rebootNVR(nvrID, event) {
-      var nvrRow = void 0,
-          result = void 0;
-      nvrRow = event.target.parentElement.parentElement;
-      result = confirm("Are you sure to reboot this NVR?");
-      if (result === false) {
-        return;
-      }
-      this.$http.get("/nvrs/" + nvrID, { nvrRow: nvrRow }).then(function (response) {
-        if (response.body.status != 201) {
-          $.notify({ message: response.body.message }, { type: 'danger' });
+    initHideShow: function initHideShow() {
+      $(".nvr-column").each(function () {
+        var that = $(this).attr("data-id");
+        var nvrDataTable = $('#nvr-datatable').DataTable();
+        var column = nvrDataTable.columns("." + that);
+        if (column.visible()[0] == true) {
+          $(this).prop('checked', true);
         } else {
-          $.notify({ message: "Nvr has been reboot successfully." }, { type: 'info' });
+          $(this).prop('checked', false);
         }
-      }).catch(function (error) {
-        $.notify({ message: error.body.message }, { type: 'danger' });
-        return false;
       });
     },
-    init_datatable: function init_datatable() {
-      mApp.block("#loading_content", {
-        overlayColor: "#000000",
-        type: "loader",
-        state: "primary",
-        message: "Loading..."
-      });
-      var dataTable = $('#data-table').DataTable({
-        autoWidth: true,
-        info: false,
-        bPaginate: false,
-        lengthChange: false,
-        searching: true,
-        scrollX: true,
-        colReorder: true,
-        retrieve: true,
-        fnInitComplete: function fnInitComplete() {
-          $(".m_nvr_datatable").css("display", "block");
-          // Enable TFOOT scoll bars
-          $('.dataTables_scrollFoot').css('overflow', 'auto');
-          $('.dataTables_scrollHead').css('overflow', 'auto');
-          // Sync TFOOT scrolling with TBODY
-          $('.dataTables_scrollFoot').on('scroll', function () {
-            $('.dataTables_scrollBody').scrollLeft($(this).scrollLeft());
-          });
-          $('.dataTables_scrollHead').on('scroll', function () {
-            $('.dataTables_scrollBody').scrollLeft($(this).scrollLeft());
-          });
-        }
-      });
-      this.dataTable = dataTable;
+    get_session: function get_session() {
+      var _this = this;
 
-      dataTable.columns(['.port', '.vh_port', '.sdk_port', '.rtsp_port', '.username', '.password', '.encoder_released_date', '.encoder_version', '.firmware_released_date', '.serial_number', '.mac_address', '.monitoring', '.created_at']).visible(false);
-      dataTable.columns.adjust().draw(false); // adjust column sizing and redraw  
-      mApp.unblock("#loading_content");
+      this.$http.get('/get_porfile').then(function (response) {
+        _this.user_id = response.body.id;
+      });
+    },
+    deleteNvr: function deleteNvr() {
+      $(document).on("click", ".delNVR", function () {
+        var nvrRow = void 0,
+            result = void 0;
+        nvrRow = $(this).closest('tr');
+        var nvrID = $(this).data("id");
+
+        result = confirm("Are you sure to delete this NVR?");
+        if (result === false) {
+          return;
+        }
+
+        var data = {};
+        data.id = nvrID;
+        var settings = void 0;
+
+        settings = {
+          cache: false,
+          data: data,
+          dataType: 'json',
+          error: function error() {
+            return false;
+          },
+          success: function success() {
+            nvrRow.remove();
+            $.notify({ message: 'NVR has been deleted.' }, { type: 'info' });
+            return true;
+          },
+          contentType: "application/x-www-form-urlencoded",
+          context: { nvrRow: nvrRow },
+          type: "DELETE",
+          url: "/nvrs/" + nvrID
+        };
+        $.ajax(settings);
+      });
     }
-  },
-  created: function created() {
-    this.initDatatable();
-  },
+  }, // end of methods
   mounted: function mounted() {
     this.get_session();
+    var table = this.initializeTable();
+    this.getUniqueIdentifier(table);
+    this.deleteNvr();
+    this.initHideShow();
   }
 };
 
@@ -23690,10 +23793,7 @@ if (false) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
   return _c('div', [_c('div', {
-    staticClass: "m-content",
-    attrs: {
-      "id": "loading_content"
-    }
+    staticClass: "m-content"
   }, [_c('div', {
     staticClass: "m-portlet m-portlet--mobile",
     staticStyle: {
@@ -23763,105 +23863,242 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }
   }, [_c('i', {
     staticClass: "fa fa-columns"
-  })])])])]), _vm._v(" "), _c('div', {
-    staticClass: "m_nvr_datatable",
-    staticStyle: {
-      "display": "none"
-    }
-  }, [_c('table', {
-    staticClass: " table table-striped  table-hover table-bordered display nowrap ",
+  })])])])]), _vm._v(" "), _c('table', {
+    staticClass: "table table-striped  table-hover table-bordered datatable display nowrap",
     attrs: {
-      "id": "data-table",
+      "id": "nvr-datatable",
       "cellspacing": "0",
       "width": "100%"
     }
   }, [_c('thead', [_c('tr', _vm._l((_vm.headings), function(item, index) {
-    return _c('th', {
-      class: item.class
-    }, [_vm._v(_vm._s(item.column))])
-  }))]), _vm._v(" "), _c('tbody', _vm._l((_vm.table_records), function(record) {
-    return _c('tr', [_c('td', {
-      staticClass: "text-center reboot"
-    }, [_c('button', {
-      staticClass: "btn btn-default cursor_to_pointer",
+    return _c('th', [_vm._v(_vm._s(item.column))])
+  }))])])])])]), _vm._v(" "), _c('div', {
+    ref: "hideShow",
+    staticClass: "modal fade toggle-datatable-columns",
+    staticStyle: {
+      "padding": "0px"
+    },
+    attrs: {
+      "tabindex": "-1",
+      "role": "dialog",
+      "aria-labelledby": "exampleModalLabel",
+      "aria-hidden": "true",
+      "data-backdrop": "static",
+      "data-keyboard": "false"
+    }
+  }, [_c('div', {
+    staticClass: "modal-dialog modal-sm",
+    attrs: {
+      "role": "document"
+    }
+  }, [_c('div', {
+    staticClass: "modal-content",
+    staticStyle: {
+      "padding": "0px"
+    }
+  }, [_c('div', {
+    staticClass: "modal-header"
+  }, [_c('h5', {
+    staticClass: "modal-title",
+    attrs: {
+      "id": "exampleModalLabel"
+    }
+  }, [_vm._v("\n                    " + _vm._s(_vm.form_labels.hide_show_title) + "\n                ")]), _vm._v(" "), _c('div', {
+    staticClass: "cancel"
+  }, [_c('a', {
+    attrs: {
+      "href": "#",
+      "id": "discardModal",
+      "data-dismiss": "modal"
+    },
+    on: {
+      "click": _vm.clearForm
+    }
+  }, [_vm._v("X")])])]), _vm._v(" "), _c('div', {
+    staticClass: "modal-body",
+    attrs: {
+      "id": "body-sim-dis"
+    }
+  }, [_c('div', {
+    staticClass: "form-group"
+  }, _vm._l((_vm.headings), function(item, index) {
+    return _c('div', {
+      staticClass: "column-checkbox"
+    }, [_c('label', {
+      staticClass: "m-checkbox m-checkbox--single m-checkbox--solid m-checkbox--brand",
       staticStyle: {
-        "font-size": "10px",
-        "padding": "5px"
+        "width": "auto"
+      }
+    }, [_c('input', {
+      staticClass: "nvr-column",
+      attrs: {
+        "type": "checkbox",
+        "data-id": item.id
       },
       on: {
-        "click": function($event) {
-          _vm.rebootNVR(record.id, $event)
+        "change": function($event) {
+          _vm.showHideColumns(item.id)
         }
       }
-    }, [_vm._v("Reboot")])]), _vm._v(" "), _c('td', {
-      staticClass: "text-center actions"
-    }, [_c('div', {
-      staticClass: "cursor_to_pointer fa fa-edit",
-      on: {
-        "click": function($event) {
-          _vm.onNVREditButton(record)
-        }
+    }), _c('span'), _vm._v(" " + _vm._s(item.column))])])
+  }))]), _vm._v(" "), _c('div', {
+    staticClass: "modal-footer"
+  }, [_c('button', {
+    staticClass: "btn btn-default",
+    attrs: {
+      "type": "button",
+      "data-dismiss": "modal"
+    }
+  }, [_vm._v(_vm._s(_vm.form_labels.hide_show_button))])])])])]), _vm._v(" "), _c('div', {
+    ref: "editmodal",
+    staticClass: "modal fade",
+    staticStyle: {
+      "padding": "0px"
+    },
+    attrs: {
+      "id": "edit_nvr_to_db",
+      "data-backdrop": "static",
+      "data-keyboard": "false"
+    }
+  }, [_c('div', {
+    staticClass: "modal-dialog",
+    attrs: {
+      "role": "document"
+    }
+  }, [_c('div', {
+    staticClass: "modal-content",
+    staticStyle: {
+      "padding": "0px"
+    }
+  }, [_c('div', {
+    staticClass: "modal-header"
+  }, [_c('h5', {
+    staticClass: "modal-title",
+    attrs: {
+      "id": "exampleModalLabel"
+    }
+  }, [_vm._v("\n                    " + _vm._s(_vm.form_labels.edit_title) + "\n                ")]), _vm._v(" "), _c('div', {
+    staticClass: "cancel"
+  }, [_c('a', {
+    attrs: {
+      "href": "#",
+      "id": "discardEditModal",
+      "data-dismiss": "modal"
+    },
+    on: {
+      "click": _vm.editClearFrom
+    }
+  }, [_vm._v("X")])])]), _vm._v(" "), _c('div', {
+    staticClass: "modal-body",
+    attrs: {
+      "id": "body-nvr-edit-dis"
+    }
+  }, [(_vm.show_loading) ? _c('img', {
+    attrs: {
+      "src": "/images/loading.gif",
+      "id": "api-wait"
+    }
+  }) : _vm._e(), _vm._v(" "), (_vm.show_edit_errors) ? _c('div', {
+    attrs: {
+      "id": "nvrEditErrorDetails"
+    }
+  }, [_c('div', {
+    staticClass: "form-group m-form__group m--margin-top-10"
+  }, [_c('div', {
+    staticClass: "alert m-alert m-alert--default",
+    attrs: {
+      "role": "alert"
+    }
+  }, [_c('ul', {
+    staticStyle: {
+      "margin": "0px"
+    }
+  }, _vm._l((_vm.show_edit_messages), function(message) {
+    return _c('li', [_vm._v(_vm._s(message))])
+  }))])])]) : _vm._e(), _vm._v(" "), _c('div', {
+    staticClass: "m-form m-form--fit m-form--label-align-left"
+  }, [_c('input', {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: (_vm.user_id),
+      expression: "user_id"
+    }],
+    attrs: {
+      "type": "hidden",
+      "id": "user_id"
+    },
+    domProps: {
+      "value": (_vm.user_id)
+    },
+    on: {
+      "input": function($event) {
+        if ($event.target.composing) { return; }
+        _vm.user_id = $event.target.value
       }
-    }), _vm._v(" "), _c('div', {
-      staticClass: "cursor_to_pointer fa fa-trash",
-      on: {
-        "click": function($event) {
-          _vm.deleteNVR(record.id, $event)
-        }
-      }
-    })]), _vm._v(" "), _c('td', {
-      staticClass: "name"
-    }, [_vm._v(_vm._s(record.name) + "   \n                      "), _c('a', {
-      attrs: {
-        "href": 'http://' + record.ip + ':' + record.port,
-        "target": "_blank"
-      }
-    }, [_c('span', {
-      staticClass: "fa fa-external-link"
-    })])]), _vm._v(" "), _c('td', {
-      staticClass: "ip"
-    }, [_vm._v(_vm._s(record.ip))]), _vm._v(" "), _c('td', {
-      staticClass: "text-center port"
-    }, [_vm._v(_vm._s(record.port))]), _vm._v(" "), _c('td', {
-      staticClass: "text-center vh_port"
-    }, [_vm._v(_vm._s(record.vh_port))]), _vm._v(" "), _c('td', {
-      staticClass: "text-center sdk_port"
-    }, [_vm._v(_vm._s(record.sdk_port))]), _vm._v(" "), _c('td', {
-      staticClass: "text-center rtsp_port"
-    }, [_vm._v(_vm._s(record.rtsp_port))]), _vm._v(" "), _c('td', {
-      staticClass: "text-center username"
-    }, [_vm._v(_vm._s(record.username))]), _vm._v(" "), _c('td', {
-      staticClass: "text-center password"
-    }, [_vm._v(_vm._s(record.password))]), _vm._v(" "), _c('td', {
-      staticClass: "text-center model"
-    }, [_vm._v(_vm._s(record.model))]), _vm._v(" "), _c('td', {
-      staticClass: "text-center firmware_version"
-    }, [_vm._v(_vm._s(record.firmware_version))]), _vm._v(" "), _c('td', {
-      staticClass: "text-center encoder_released_date"
-    }, [_vm._v(_vm._s(record.encoder_released_date))]), _vm._v(" "), _c('td', {
-      staticClass: "text-center encoder_version"
-    }, [_vm._v(_vm._s(record.encoder_version))]), _vm._v(" "), _c('td', {
-      staticClass: "text-center firmware_released_date"
-    }, [_vm._v(_vm._s(record.firmware_released_date))]), _vm._v(" "), _c('td', {
-      staticClass: "serial_number"
-    }, [_vm._v(_vm._s(record.serial_number))]), _vm._v(" "), _c('td', {
-      staticClass: "text-center mac_address"
-    }, [_vm._v(_vm._s(record.mac_address))]), _vm._v(" "), _c('td', {
-      staticClass: "text-center nvr_status"
-    }, [(record.nvr_status == false) ? _c('div', [_c('span', {
-      staticStyle: {
-        "color": "#d9534d"
-      }
-    }, [_vm._v("Offline")]), _c('span', [_vm._v(_vm._s(_vm._f("get_status_reason")(record.reason)))])]) : _vm._e(), _vm._v(" "), (record.nvr_status == true) ? _c('span', {
-      staticStyle: {
-        "color": "#5cb85c"
-      }
-    }, [_vm._v("Online")]) : _vm._e()]), _vm._v(" "), _c('td', {
-      staticClass: "text-center monitoring"
-    }, [_vm._v(_vm._s(record.is_monitoring))]), _vm._v(" "), _c('td', {
-      staticClass: "text-center created_at"
-    }, [_vm._v(_vm._s(_vm._f("formatDate")(record.created_at)))])])
-  }))])])])])]), _vm._v(" "), _c('div', {
+    }
+  }), _vm._v(" "), _c('input', {
+    attrs: {
+      "type": "hidden",
+      "id": "edit_nvr_id"
+    }
+  }), _vm._v(" "), _c('div', {
+    staticClass: "form-group m-form__group row"
+  }, [_c('label', {
+    staticClass: "col-3 col-form-label"
+  }, [_vm._v("\n                              " + _vm._s(_vm.form_labels.name) + "\n                          ")]), _vm._v(" "), _vm._m(1)]), _vm._v(" "), _c('div', {
+    staticClass: "form-group m-form__group row"
+  }, [_c('label', {
+    staticClass: "col-3 col-form-label"
+  }, [_vm._v("\n                              " + _vm._s(_vm.form_labels.ip) + "\n                          ")]), _vm._v(" "), _vm._m(2)]), _vm._v(" "), _c('div', {
+    staticClass: "form-group m-form__group row"
+  }, [_c('label', {
+    staticClass: "col-3 col-form-label"
+  }, [_vm._v("\n                              " + _vm._s(_vm.form_labels.username) + "\n                          ")]), _vm._v(" "), _vm._m(3)]), _vm._v(" "), _c('div', {
+    staticClass: "form-group m-form__group row"
+  }, [_c('label', {
+    staticClass: "col-3 col-form-label"
+  }, [_vm._v("\n                              " + _vm._s(_vm.form_labels.password) + "\n                          ")]), _vm._v(" "), _vm._m(4)]), _vm._v(" "), _c('div', {
+    staticClass: "form-group m-form__group row"
+  }, [_c('label', {
+    staticClass: "col-3 col-form-label"
+  }, [_vm._v("\n                              " + _vm._s(_vm.form_labels.http_port) + "\n                          ")]), _vm._v(" "), _vm._m(5)]), _vm._v(" "), _c('div', {
+    staticClass: "form-group m-form__group row"
+  }, [_c('label', {
+    staticClass: "col-3 col-form-label"
+  }, [_vm._v("\n                              " + _vm._s(_vm.form_labels.rtsp_port) + "\n                          ")]), _vm._v(" "), _vm._m(6)]), _vm._v(" "), _c('div', {
+    staticClass: "form-group m-form__group row"
+  }, [_c('label', {
+    staticClass: "col-3 col-form-label"
+  }, [_vm._v("\n                              " + _vm._s(_vm.form_labels.sdk_port) + "\n                          ")]), _vm._v(" "), _vm._m(7)]), _vm._v(" "), _c('div', {
+    staticClass: "form-group m-form__group row"
+  }, [_c('label', {
+    staticClass: "col-3 col-form-label"
+  }, [_vm._v("\n                              " + _vm._s(_vm.form_labels.vh_port) + "\n                          ")]), _vm._v(" "), _vm._m(8)]), _vm._v(" "), _c('div', {
+    staticClass: "form-group m-form__group row"
+  }, [_c('label', {
+    staticClass: "col-3 col-form-label"
+  }), _vm._v(" "), _c('div', {
+    staticClass: "col-9"
+  }, [_c('label', {
+    staticClass: "m-checkbox"
+  }, [_c('input', {
+    attrs: {
+      "type": "checkbox",
+      "id": "edit_nvr_is_monitoring"
+    }
+  }), _vm._v("\n                                  " + _vm._s(_vm.form_labels.status) + "\n                                "), _c('span')])])])])]), _vm._v(" "), _c('div', {
+    staticClass: "modal-footer"
+  }, [_c('button', {
+    staticClass: "btn btn-default",
+    attrs: {
+      "id": "",
+      "type": "button"
+    },
+    on: {
+      "click": _vm.updateNVRdo
+    }
+  }, [_vm._v("\n                    " + _vm._s(_vm.form_labels.submit_button) + "\n                ")])])])])]), _vm._v(" "), _c('div', {
     ref: "addmodal",
     staticClass: "modal fade add_nvr_to_db",
     staticStyle: {
@@ -24229,478 +24466,102 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     on: {
       "click": _vm.saveModal
     }
-  }, [_vm._v("\n                    " + _vm._s(_vm.form_labels.submit_button) + "\n                ")])])])])]), _vm._v(" "), _c('div', {
-    ref: "editmodal",
-    staticClass: "modal fade",
-    staticStyle: {
-      "padding": "0px"
-    },
-    attrs: {
-      "id": "edit_nvr_to_db",
-      "data-backdrop": "static",
-      "data-keyboard": "false"
-    }
-  }, [_c('div', {
-    staticClass: "modal-dialog",
-    attrs: {
-      "role": "document"
-    }
-  }, [_c('div', {
-    staticClass: "modal-content",
-    staticStyle: {
-      "padding": "0px"
-    }
-  }, [_c('div', {
-    staticClass: "modal-header"
-  }, [_c('h5', {
-    staticClass: "modal-title",
-    attrs: {
-      "id": "exampleModalLabel"
-    }
-  }, [_vm._v("\n                    " + _vm._s(_vm.form_labels.edit_title) + "\n                ")]), _vm._v(" "), _c('div', {
-    staticClass: "cancel"
-  }, [_c('a', {
-    attrs: {
-      "href": "#",
-      "id": "discardEditModal",
-      "data-dismiss": "modal"
-    },
-    on: {
-      "click": _vm.editClearFrom
-    }
-  }, [_vm._v("X")])])]), _vm._v(" "), _c('div', {
-    staticClass: "modal-body",
-    attrs: {
-      "id": "body-nvr-edit-dis"
-    }
-  }, [(_vm.show_loading) ? _c('img', {
-    attrs: {
-      "src": "/images/loading.gif",
-      "id": "api-wait"
-    }
-  }) : _vm._e(), _vm._v(" "), (_vm.show_edit_errors) ? _c('div', {
-    attrs: {
-      "id": "nvrEditErrorDetails"
-    }
-  }, [_c('div', {
-    staticClass: "form-group m-form__group m--margin-top-10"
-  }, [_c('div', {
-    staticClass: "alert m-alert m-alert--default",
-    attrs: {
-      "role": "alert"
-    }
-  }, [_c('ul', {
-    staticStyle: {
-      "margin": "0px"
-    }
-  }, _vm._l((_vm.show_edit_messages), function(message) {
-    return _c('li', [_vm._v(_vm._s(message))])
-  }))])])]) : _vm._e(), _vm._v(" "), _c('div', {
-    staticClass: "m-form m-form--fit m-form--label-align-left"
-  }, [_c('input', {
-    directives: [{
-      name: "model",
-      rawName: "v-model",
-      value: (_vm.user_id),
-      expression: "user_id"
-    }],
-    attrs: {
-      "type": "hidden",
-      "id": "user_id"
-    },
-    domProps: {
-      "value": (_vm.user_id)
-    },
-    on: {
-      "input": function($event) {
-        if ($event.target.composing) { return; }
-        _vm.user_id = $event.target.value
-      }
-    }
-  }), _vm._v(" "), _c('input', {
-    directives: [{
-      name: "model",
-      rawName: "v-model",
-      value: (_vm.edit_nvr_id),
-      expression: "edit_nvr_id"
-    }],
-    attrs: {
-      "type": "hidden",
-      "id": "edit_nvr_id"
-    },
-    domProps: {
-      "value": (_vm.edit_nvr_id)
-    },
-    on: {
-      "input": function($event) {
-        if ($event.target.composing) { return; }
-        _vm.edit_nvr_id = $event.target.value
-      }
-    }
-  }), _vm._v(" "), _c('div', {
-    staticClass: "form-group m-form__group row"
-  }, [_c('label', {
-    staticClass: "col-3 col-form-label"
-  }, [_vm._v("\n                              " + _vm._s(_vm.form_labels.name) + "\n                          ")]), _vm._v(" "), _c('div', {
-    staticClass: "col-9"
-  }, [_c('input', {
-    directives: [{
-      name: "model",
-      rawName: "v-model",
-      value: (_vm.edit_nvr_name),
-      expression: "edit_nvr_name"
-    }],
-    staticClass: "form-control m-input m-input--solid",
-    attrs: {
-      "type": "text",
-      "id": "edit_nvr_name",
-      "aria-describedby": "emailHelp",
-      "placeholder": "Galway route."
-    },
-    domProps: {
-      "value": (_vm.edit_nvr_name)
-    },
-    on: {
-      "input": function($event) {
-        if ($event.target.composing) { return; }
-        _vm.edit_nvr_name = $event.target.value
-      }
-    }
-  })])]), _vm._v(" "), _c('div', {
-    staticClass: "form-group m-form__group row"
-  }, [_c('label', {
-    staticClass: "col-3 col-form-label"
-  }, [_vm._v("\n                              " + _vm._s(_vm.form_labels.ip) + "\n                          ")]), _vm._v(" "), _c('div', {
-    staticClass: "col-9"
-  }, [_c('input', {
-    directives: [{
-      name: "model",
-      rawName: "v-model",
-      value: (_vm.edit_nvr_ip),
-      expression: "edit_nvr_ip"
-    }],
-    staticClass: "form-control m-input m-input--solid",
-    attrs: {
-      "type": "text",
-      "id": "edit_nvr_ip",
-      "placeholder": "https://youripmaybe"
-    },
-    domProps: {
-      "value": (_vm.edit_nvr_ip)
-    },
-    on: {
-      "input": function($event) {
-        if ($event.target.composing) { return; }
-        _vm.edit_nvr_ip = $event.target.value
-      }
-    }
-  })])]), _vm._v(" "), _c('div', {
-    staticClass: "form-group m-form__group row"
-  }, [_c('label', {
-    staticClass: "col-3 col-form-label"
-  }, [_vm._v("\n                              " + _vm._s(_vm.form_labels.username) + "\n                          ")]), _vm._v(" "), _c('div', {
-    staticClass: "col-9"
-  }, [_c('input', {
-    directives: [{
-      name: "model",
-      rawName: "v-model",
-      value: (_vm.edit_nvr_username),
-      expression: "edit_nvr_username"
-    }],
-    staticClass: "form-control m-input m-input--solid",
-    attrs: {
-      "type": "text",
-      "id": "edit_nvr_username",
-      "placeholder": "i.e admin"
-    },
-    domProps: {
-      "value": (_vm.edit_nvr_username)
-    },
-    on: {
-      "input": function($event) {
-        if ($event.target.composing) { return; }
-        _vm.edit_nvr_username = $event.target.value
-      }
-    }
-  })])]), _vm._v(" "), _c('div', {
-    staticClass: "form-group m-form__group row"
-  }, [_c('label', {
-    staticClass: "col-3 col-form-label"
-  }, [_vm._v("\n                              " + _vm._s(_vm.form_labels.password) + "\n                          ")]), _vm._v(" "), _c('div', {
-    staticClass: "col-9"
-  }, [_c('input', {
-    directives: [{
-      name: "model",
-      rawName: "v-model",
-      value: (_vm.edit_nvr_password),
-      expression: "edit_nvr_password"
-    }],
-    staticClass: "form-control m-input m-input--solid",
-    attrs: {
-      "type": "text",
-      "id": "edit_nvr_password",
-      "placeholder": "Super Secret"
-    },
-    domProps: {
-      "value": (_vm.edit_nvr_password)
-    },
-    on: {
-      "input": function($event) {
-        if ($event.target.composing) { return; }
-        _vm.edit_nvr_password = $event.target.value
-      }
-    }
-  })])]), _vm._v(" "), _c('div', {
-    staticClass: "form-group m-form__group row"
-  }, [_c('label', {
-    staticClass: "col-3 col-form-label"
-  }, [_vm._v("\n                              " + _vm._s(_vm.form_labels.http_port) + "\n                          ")]), _vm._v(" "), _c('div', {
-    staticClass: "col-9"
-  }, [_c('input', {
-    directives: [{
-      name: "model",
-      rawName: "v-model",
-      value: (_vm.edit_http_nvr_port),
-      expression: "edit_http_nvr_port"
-    }],
-    staticClass: "form-control m-input m-input--solid",
-    attrs: {
-      "type": "number",
-      "id": "edit_http_nvr_port",
-      "placeholder": "i.e 80"
-    },
-    domProps: {
-      "value": (_vm.edit_http_nvr_port)
-    },
-    on: {
-      "input": function($event) {
-        if ($event.target.composing) { return; }
-        _vm.edit_http_nvr_port = $event.target.value
-      }
-    }
-  })])]), _vm._v(" "), _c('div', {
-    staticClass: "form-group m-form__group row"
-  }, [_c('label', {
-    staticClass: "col-3 col-form-label"
-  }, [_vm._v("\n                              " + _vm._s(_vm.form_labels.rtsp_port) + "\n                          ")]), _vm._v(" "), _c('div', {
-    staticClass: "col-9"
-  }, [_c('input', {
-    directives: [{
-      name: "model",
-      rawName: "v-model",
-      value: (_vm.edit_rtsp_nvr_port),
-      expression: "edit_rtsp_nvr_port"
-    }],
-    staticClass: "form-control m-input m-input--solid",
-    attrs: {
-      "type": "number",
-      "id": "edit_rtsp_nvr_port",
-      "placeholder": "i.e 880"
-    },
-    domProps: {
-      "value": (_vm.edit_rtsp_nvr_port)
-    },
-    on: {
-      "input": function($event) {
-        if ($event.target.composing) { return; }
-        _vm.edit_rtsp_nvr_port = $event.target.value
-      }
-    }
-  })])]), _vm._v(" "), _c('div', {
-    staticClass: "form-group m-form__group row"
-  }, [_c('label', {
-    staticClass: "col-3 col-form-label"
-  }, [_vm._v("\n                              " + _vm._s(_vm.form_labels.sdk_port) + "\n                          ")]), _vm._v(" "), _c('div', {
-    staticClass: "col-9"
-  }, [_c('input', {
-    directives: [{
-      name: "model",
-      rawName: "v-model",
-      value: (_vm.edit_sdk_nvr_port),
-      expression: "edit_sdk_nvr_port"
-    }],
-    staticClass: "form-control m-input m-input--solid",
-    attrs: {
-      "type": "number",
-      "id": "edit_sdk_nvr_port",
-      "placeholder": "i.e 840"
-    },
-    domProps: {
-      "value": (_vm.edit_sdk_nvr_port)
-    },
-    on: {
-      "input": function($event) {
-        if ($event.target.composing) { return; }
-        _vm.edit_sdk_nvr_port = $event.target.value
-      }
-    }
-  })])]), _vm._v(" "), _c('div', {
-    staticClass: "form-group m-form__group row"
-  }, [_c('label', {
-    staticClass: "col-3 col-form-label"
-  }, [_vm._v("\n                              " + _vm._s(_vm.form_labels.vh_port) + "\n                          ")]), _vm._v(" "), _c('div', {
-    staticClass: "col-9"
-  }, [_c('input', {
-    directives: [{
-      name: "model",
-      rawName: "v-model",
-      value: (_vm.edit_vh_nvr_port),
-      expression: "edit_vh_nvr_port"
-    }],
-    staticClass: "form-control m-input m-input--solid",
-    attrs: {
-      "type": "number",
-      "id": "edit_vh_nvr_port",
-      "placeholder": "i.e 890"
-    },
-    domProps: {
-      "value": (_vm.edit_vh_nvr_port)
-    },
-    on: {
-      "input": function($event) {
-        if ($event.target.composing) { return; }
-        _vm.edit_vh_nvr_port = $event.target.value
-      }
-    }
-  })])]), _vm._v(" "), _c('div', {
-    staticClass: "form-group m-form__group row"
-  }, [_c('label', {
-    staticClass: "col-3 col-form-label"
-  }), _vm._v(" "), _c('div', {
-    staticClass: "col-9"
-  }, [_c('label', {
-    staticClass: "m-checkbox"
-  }, [_c('input', {
-    directives: [{
-      name: "model",
-      rawName: "v-model",
-      value: (_vm.edit_nvr_is_monitoring),
-      expression: "edit_nvr_is_monitoring"
-    }],
-    attrs: {
-      "type": "checkbox",
-      "id": "edit_nvr_is_monitoring"
-    },
-    domProps: {
-      "checked": Array.isArray(_vm.edit_nvr_is_monitoring) ? _vm._i(_vm.edit_nvr_is_monitoring, null) > -1 : (_vm.edit_nvr_is_monitoring)
-    },
-    on: {
-      "change": function($event) {
-        var $$a = _vm.edit_nvr_is_monitoring,
-          $$el = $event.target,
-          $$c = $$el.checked ? (true) : (false);
-        if (Array.isArray($$a)) {
-          var $$v = null,
-            $$i = _vm._i($$a, $$v);
-          if ($$el.checked) {
-            $$i < 0 && (_vm.edit_nvr_is_monitoring = $$a.concat([$$v]))
-          } else {
-            $$i > -1 && (_vm.edit_nvr_is_monitoring = $$a.slice(0, $$i).concat($$a.slice($$i + 1)))
-          }
-        } else {
-          _vm.edit_nvr_is_monitoring = $$c
-        }
-      }
-    }
-  }), _vm._v("\n                                  " + _vm._s(_vm.form_labels.status) + "\n                                "), _c('span')])])])])]), _vm._v(" "), _c('div', {
-    staticClass: "modal-footer"
-  }, [_c('button', {
-    staticClass: "btn btn-default",
-    attrs: {
-      "id": "",
-      "type": "button"
-    },
-    on: {
-      "click": _vm.updateNVRdo
-    }
-  }, [_vm._v("\n                    " + _vm._s(_vm.form_labels.submit_button) + "\n                ")])])])])]), _vm._v(" "), _c('div', {
-    ref: "hideShow",
-    staticClass: "modal fade toggle-datatable-columns",
-    staticStyle: {
-      "padding": "0px"
-    },
-    attrs: {
-      "tabindex": "-1",
-      "role": "dialog",
-      "aria-labelledby": "exampleModalLabel",
-      "aria-hidden": "true",
-      "data-backdrop": "static",
-      "data-keyboard": "false"
-    }
-  }, [_c('div', {
-    staticClass: "modal-dialog modal-sm",
-    attrs: {
-      "role": "document"
-    }
-  }, [_c('div', {
-    staticClass: "modal-content",
-    staticStyle: {
-      "padding": "0px"
-    }
-  }, [_c('div', {
-    staticClass: "modal-header"
-  }, [_c('h5', {
-    staticClass: "modal-title",
-    attrs: {
-      "id": "exampleModalLabel"
-    }
-  }, [_vm._v("\n                    " + _vm._s(_vm.form_labels.hide_show_title) + "\n                ")]), _vm._v(" "), _c('div', {
-    staticClass: "cancel"
-  }, [_c('a', {
-    attrs: {
-      "href": "#",
-      "id": "discardModal",
-      "data-dismiss": "modal"
-    },
-    on: {
-      "click": _vm.clearForm
-    }
-  }, [_vm._v("X")])])]), _vm._v(" "), _c('div', {
-    staticClass: "modal-body",
-    attrs: {
-      "id": "body-sim-dis"
-    }
-  }, [_c('div', {
-    staticClass: "form-group"
-  }, _vm._l((_vm.headings), function(item, index) {
-    return _c('div', {
-      staticClass: "column-checkbox"
-    }, [_c('label', {
-      staticClass: "m-checkbox m-checkbox--single m-checkbox--solid m-checkbox--brand",
-      staticStyle: {
-        "width": "auto"
-      }
-    }, [_c('input', {
-      staticClass: "users-column",
-      attrs: {
-        "type": "checkbox",
-        "id": index,
-        "name": item.id
-      },
-      domProps: {
-        "checked": item.visible
-      },
-      on: {
-        "change": function($event) {
-          _vm.showHideColumns(index)
-        }
-      }
-    }), _c('span'), _vm._v(" " + _vm._s(item.column))])])
-  }))]), _vm._v(" "), _c('div', {
-    staticClass: "modal-footer"
-  }, [_c('button', {
-    staticClass: "btn btn-default",
-    attrs: {
-      "type": "button",
-      "data-dismiss": "modal"
-    }
-  }, [_vm._v(_vm._s(_vm.form_labels.hide_show_button))])])])])])])
+  }, [_vm._v("\n                    " + _vm._s(_vm.form_labels.submit_button) + "\n                ")])])])])])])
 },staticRenderFns: [function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
   return _c('span', {
     staticClass: "m-input-icon__icon m-input-icon__icon--left"
   }, [_c('span', [_c('i', {
     staticClass: "la la-search"
   })])])
+},function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('div', {
+    staticClass: "col-9"
+  }, [_c('input', {
+    staticClass: "form-control m-input m-input--solid",
+    attrs: {
+      "type": "text",
+      "id": "edit_nvr_name",
+      "aria-describedby": "emailHelp",
+      "placeholder": "Galway route."
+    }
+  })])
+},function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('div', {
+    staticClass: "col-9"
+  }, [_c('input', {
+    staticClass: "form-control m-input m-input--solid",
+    attrs: {
+      "type": "text",
+      "id": "edit_nvr_ip",
+      "placeholder": "https://youripmaybe"
+    }
+  })])
+},function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('div', {
+    staticClass: "col-9"
+  }, [_c('input', {
+    staticClass: "form-control m-input m-input--solid",
+    attrs: {
+      "type": "text",
+      "id": "edit_nvr_username",
+      "placeholder": "i.e admin"
+    }
+  })])
+},function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('div', {
+    staticClass: "col-9"
+  }, [_c('input', {
+    staticClass: "form-control m-input m-input--solid",
+    attrs: {
+      "type": "text",
+      "id": "edit_nvr_password",
+      "placeholder": "Super Secret"
+    }
+  })])
+},function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('div', {
+    staticClass: "col-9"
+  }, [_c('input', {
+    staticClass: "form-control m-input m-input--solid",
+    attrs: {
+      "type": "number",
+      "id": "edit_http_nvr_port",
+      "placeholder": "i.e 80"
+    }
+  })])
+},function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('div', {
+    staticClass: "col-9"
+  }, [_c('input', {
+    staticClass: "form-control m-input m-input--solid",
+    attrs: {
+      "type": "number",
+      "id": "edit_rtsp_nvr_port",
+      "placeholder": "i.e 880"
+    }
+  })])
+},function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('div', {
+    staticClass: "col-9"
+  }, [_c('input', {
+    staticClass: "form-control m-input m-input--solid",
+    attrs: {
+      "type": "number",
+      "id": "edit_sdk_nvr_port",
+      "placeholder": "i.e 840"
+    }
+  })])
+},function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('div', {
+    staticClass: "col-9"
+  }, [_c('input', {
+    staticClass: "form-control m-input m-input--solid",
+    attrs: {
+      "type": "number",
+      "id": "edit_vh_nvr_port",
+      "placeholder": "i.e 890"
+    }
+  })])
 }]}
 module.exports.render._withStripped = true
 if (false) {
