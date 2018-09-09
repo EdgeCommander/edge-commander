@@ -18494,16 +18494,6 @@ module.exports = {
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 
 module.exports = {
   name: 'routers',
@@ -18515,9 +18505,7 @@ module.exports = {
       show_add_errors: false,
       show_edit_errors: false,
       show_add_messages: "",
-      table_records: "",
-      show_edit_messages: "",
-      headings: [{ column: "Actions", id: "actions", class: "text-center" }, { column: "Name", id: "name" }, { column: "IP", id: "ip" }, { column: "HTTP Port", id: "http_port", class: "text-center" }, { column: "Username", id: "username", class: "text-center" }, { column: "Password", id: "password", class: "text-center" }, { column: "Monitoring", id: "monitoring", class: "text-center" }, { column: "Created At", id: "created_at", class: "text-center" }],
+      headings: [{ column: "Actions", id: "actions" }, { column: "Name", id: "name" }, { column: "IP", id: "ip" }, { column: "HTTP Port", id: "http_port" }, { column: "Username", id: "username" }, { column: "Password", id: "password" }, { column: "Monitoring", id: "monitoring" }, { column: "Created At", id: "created_at" }],
       form_labels: {
         name: "Name",
         ip: "IP",
@@ -18548,36 +18536,106 @@ module.exports = {
       user_id: ""
     };
   },
-  filters: {
-    formatDate: function formatDate(value) {
-      return moment(String(value)).format('DD/MM/YYYY HH:mm:ss');
-    }
-  },
   methods: {
-    initDatatable: function initDatatable() {
-      var _this = this;
-
-      this.$http.get('/routers/data').then(function (response) {
-        _this.table_records = response.body.routers;
-        $("#data-table .dataTables_empty").hide();
-      }).catch(function (error) {
-        console.log(error);
+    initializeTable: function initializeTable() {
+      var routersDataTable = $('#routers-datatable').DataTable({
+        fnInitComplete: function fnInitComplete() {
+          // Enable TFOOT scoll bars
+          $('.dataTables_scrollFoot').css('overflow', 'auto');
+          $('.dataTables_scrollHead').css('overflow', 'auto');
+          // Sync TFOOT scrolling with TBODY
+          $('.dataTables_scrollFoot').on('scroll', function () {
+            $('.dataTables_scrollBody').scrollLeft($(this).scrollLeft());
+          });
+          $('.dataTables_scrollHead').on('scroll', function () {
+            $('.dataTables_scrollBody').scrollLeft($(this).scrollLeft());
+          });
+        },
+        ajax: {
+          url: "/routers/data",
+          dataSrc: function dataSrc(data) {
+            return data.routers;
+          },
+          error: function error(xhr, _error, thrown) {
+            if (xhr.responseJSON) {
+              console.log(xhr.responseJSON.message);
+            } else {
+              console.log("Something went wrong, Please try again.");
+            }
+          }
+        },
+        columns: [{
+          class: "text-center actions",
+          data: function data(row, type, set, meta) {
+            return '<div id="action_btn"><div class="editRouter cursor_to_pointer fa fa-edit" data-id="' + row.id + '"></div> <div class="cursor_to_pointer fa fa-trash delRouter" data-id="' + row.id + '"></div></div>';
+          }
+        }, {
+          class: "name",
+          data: function data(row, type, set, meta) {
+            return row.name;
+          }
+        }, {
+          class: "ip",
+          data: function data(row, type, set, meta) {
+            return row.ip;
+          }
+        }, {
+          class: "text-center http_port",
+          data: function data(row, type, set, meta) {
+            return row.port;
+          }
+        }, {
+          class: "text-center username",
+          data: function data(row, type, set, meta) {
+            return row.username;
+          }
+        }, {
+          class: "text-center password",
+          data: function data(row, type, set, meta) {
+            return row.password;
+          }
+        }, {
+          class: "text-center monitoring",
+          data: function data(row, type, set, meta) {
+            return row.is_monitoring;
+          }
+        }, {
+          class: "text-center created_at",
+          data: function data(row, type, set, meta) {
+            return moment(row.created_at).format('DD/MM/YYYY HH:mm:ss');
+          }
+        }],
+        autoWidth: true,
+        info: false,
+        bPaginate: false,
+        lengthChange: false,
+        scrollX: true,
+        colReorder: true,
+        stateSave: true
       });
+      return this.dataTable = routersDataTable;
+      this.dataTable.search("");
     },
-    get_session: function get_session() {
-      var _this2 = this;
-
-      this.$http.get('/get_porfile').then(function (response) {
-        _this2.user_id = response.body.id;
-      });
+    search: function search() {
+      this.dataTable.search(this.m_form_search).draw();
+    },
+    showHideColumns: function showHideColumns(id) {
+      var column = this.dataTable.columns("." + id);
+      if (column.visible()[0] == true) {
+        column.visible(false);
+      } else {
+        column.visible(true);
+      }
     },
     onROUTERButton: function onROUTERButton() {
       $(this.$refs.addmodal).modal("show");
     },
+    onROUTERHideShowButton: function onROUTERHideShowButton() {
+      $(this.$refs.hideShow).modal("show");
+    },
     saveModal: function saveModal() {
       this.show_loading = true;
       this.show_add_errors = true;
-
       this.$http.post('/routers', {
         name: this.router_name,
         ip: this.router_ip,
@@ -18589,7 +18647,7 @@ module.exports = {
       }).then(function (response) {
         $.notify({ message: 'Router has been added.' }, { type: 'info' });
         this.show_loading = false;
-        this.initDatatable();
+        this.dataTable.ajax.reload();
         this.clearForm();
         $(this.$refs.addmodal).modal("hide");
       }).catch(function (error) {
@@ -18598,9 +18656,6 @@ module.exports = {
         this.show_loading = false;
       });
     },
-    search: function search() {
-      this.dataTable.search(this.m_form_search).draw();
-    },
     clearForm: function clearForm() {
       this.router_name = "";
       this.router_ip = "";
@@ -18608,37 +18663,52 @@ module.exports = {
       this.router_password = "";
       this.http_router_port = "";
       this.router_is_monitoring = false;
-      this.show_add_messages = "";
       this.show_add_errors = false;
     },
-    onRouterEditButton: function onRouterEditButton(data) {
-      this.edit_router_id = data.id;
-      this.edit_router_name = data.name;
-      this.edit_router_ip = data.ip;
-      this.edit_router_username = data.username;
-      this.edit_router_password = data.password;
-      this.edit_http_router_port = data.port;
-      this.edit_router_is_monitoring = data.is_monitoring;
-      $(this.$refs.editmodal).modal("show");
+    getUniqueIdentifier: function getUniqueIdentifier(routersDataTable) {
+      $(document).on("click", ".editRouter", function () {
+        var tr = $(this).closest('tr');
+        var row = routersDataTable.row(tr);
+        var data = row.data();
+        var router_id = $(this).data("id");
+        module.exports.methods.onRouterEditButton(router_id, data);
+      });
+    },
+    onRouterEditButton: function onRouterEditButton(router_id, data) {
+      $("#edit_router_id").val(router_id);
+      $("#edit_router_name").val(data.name);
+      $("#edit_router_ip").val(data.ip);
+      $("#edit_router_username").val(data.username);
+      $("#edit_router_password").val(data.password);
+      $("#edit_http_router_port").val(data.port);
+      if (data.is_monitoring == true) {
+        $("#edit_router_is_monitoring").prop("checked", true);
+      }
+      $('#edit_router_to_db').modal('show');
     },
     updateRouterdo: function updateRouterdo() {
       this.show_loading = true;
       this.show_edit_errors = true;
+      var routerID = $("#edit_router_id").val();
+      var name = $("#edit_router_name").val(),
+          IP = $("#edit_router_ip").val(),
+          username = $("#edit_router_username").val(),
+          password = $("#edit_router_password").val(),
+          http_router_port = $("#edit_http_router_port").val(),
+          is_monitoring = $("#edit_router_is_monitoring").val();
 
-      var routerID = this.edit_router_id;
-
-      this.$http.patch('/routers/' + routerID, {
-        name: this.edit_router_name,
-        ip: this.edit_router_ip,
-        username: this.edit_router_username,
-        password: this.edit_router_password,
-        port: this.edit_http_router_port,
-        is_monitoring: this.edit_router_is_monitoring,
+      this.$http.patch("/routers/" + routerID, {
+        name: $("#edit_router_name").val(),
+        ip: $("#edit_router_ip").val(),
+        username: $("#edit_router_username").val(),
+        password: $("#edit_router_password").val(),
+        port: $("#edit_http_router_port").val(),
+        is_monitoring: $('#edit_router_is_monitoring').is(':checked'),
         id: routerID
       }).then(function (response) {
         $.notify({ message: 'Router has been updated.' }, { type: 'info' });
         this.show_loading = false;
-        this.initDatatable();
+        this.dataTable.ajax.reload();
         this.editClearFrom();
         $(this.$refs.editmodal).modal("hide");
       }).catch(function (error) {
@@ -18657,67 +18727,67 @@ module.exports = {
       this.edit_router_is_monitoring = false;
       this.show_loading = false;
       this.show_edit_errors = false;
-      this.show_edit_messages = "";
     },
-    deleteRouter: function deleteRouter(routerID, event) {
-      var routerRow = void 0,
-          result = void 0;
-      routerRow = event.target.parentElement.parentElement;
-      result = confirm("Are you sure to delete this rule?");
-      if (result === false) {
-        return;
-      }
-      var data = {};
-      data.id = routerID;
-      this.$http.delete("/routers/" + routerID, { routerRow: routerRow }).then(function (response) {
-        routerRow.remove();
-        $.notify({ message: 'Router has been deleted.' }, { type: 'info' });
-      }).catch(function (error) {
-        return false;
+    initHideShow: function initHideShow() {
+      $(".nvr-column").each(function () {
+        var routersDataTable = $('#routers-datatable').DataTable();
+        var that = $(this).attr("data-id");
+        var column = routersDataTable.columns("." + that);
+        if (column.visible()[0] == true) {
+          $(this).prop('checked', true);
+        } else {
+          $(this).prop('checked', false);
+        }
       });
     },
-    onROUTERHideShowButton: function onROUTERHideShowButton() {
-      $(this.$refs.hideShow).modal("show");
+    get_session: function get_session() {
+      var _this = this;
+
+      this.$http.get('/get_porfile').then(function (response) {
+        _this.user_id = response.body.id;
+      });
     },
-    showHideColumns: function showHideColumns(id) {
-      var column = this.dataTable.columns(id);
-      if (column.visible()[0] == true) {
-        column.visible(false);
-      } else {
-        column.visible(true);
-      }
+    deleteRouter: function deleteRouter() {
+      $(document).on("click", ".delRouter", function () {
+        var routerRow = void 0,
+            result = void 0;
+        routerRow = $(this).closest('tr');
+        var routerID = $(this).data("id");
+        result = confirm("Are you sure to delete this Router?");
+        if (result === false) {
+          return;
+        }
+        var data = {};
+        data.id = routerID;
+        var settings = void 0;
+        settings = {
+          cache: false,
+          data: data,
+          dataType: 'json',
+          error: function error() {
+            return false;
+          },
+          success: function success() {
+            routerRow.remove();
+            $.notify({ message: 'Router has been deleted.' }, { type: 'info' });
+            return true;
+          },
+          contentType: "application/x-www-form-urlencoded",
+          context: { routerRow: routerRow },
+          type: "DELETE",
+          url: "/routers/" + routerID
+        };
+        $.ajax(settings);
+      });
     }
   },
-  created: function created() {
-    this.initDatatable();
-  },
   mounted: function mounted() {
+    var table = this.initializeTable();
+    this.getUniqueIdentifier(table);
     this.get_session();
-  },
-  updated: function updated() {
-    var dataTable = $('#data-table').DataTable({
-      autoWidth: true,
-      info: false,
-      bPaginate: false,
-      lengthChange: false,
-      searching: true,
-      scrollX: true,
-      colReorder: true,
-      retrieve: true,
-      fnInitComplete: function fnInitComplete() {
-        // Enable TFOOT scoll bars
-        $('.dataTables_scrollFoot').css('overflow', 'auto');
-        $('.dataTables_scrollHead').css('overflow', 'auto');
-        // Sync TFOOT scrolling with TBODY
-        $('.dataTables_scrollFoot').on('scroll', function () {
-          $('.dataTables_scrollBody').scrollLeft($(this).scrollLeft());
-        });
-        $('.dataTables_scrollHead').on('scroll', function () {
-          $('.dataTables_scrollBody').scrollLeft($(this).scrollLeft());
-        });
-      }
-    });
-    this.dataTable = dataTable;
+    this.dataTable.search("");
+    this.initHideShow();
+    this.deleteRouter();
   }
 };
 
@@ -22889,49 +22959,92 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
   }, [_c('i', {
     staticClass: "fa fa-columns"
   })])])])]), _vm._v(" "), _c('table', {
-    staticClass: "table table-striped  table-hover table-bordered display nowrap",
+    staticClass: "table table-striped  table-hover table-bordered datatable display nowrap",
     attrs: {
-      "id": "data-table",
+      "id": "routers-datatable",
       "cellspacing": "0",
       "width": "100%"
     }
   }, [_c('thead', [_c('tr', _vm._l((_vm.headings), function(item, index) {
-    return _c('th', {
-      class: item.class
-    }, [_vm._v(_vm._s(item.column))])
-  }))]), _vm._v(" "), _c('tbody', _vm._l((_vm.table_records), function(record) {
-    return _c('tr', [_c('td', {
-      staticClass: "text-center actions"
-    }, [_c('div', {
-      staticClass: "cursor_to_pointer fa fa-edit",
+    return _c('th', [_vm._v(_vm._s(item.column))])
+  }))])])])])]), _vm._v(" "), _c('div', {
+    ref: "hideShow",
+    staticClass: "modal fade toggle-datatable-columns",
+    staticStyle: {
+      "padding": "0px"
+    },
+    attrs: {
+      "tabindex": "-1",
+      "role": "dialog",
+      "aria-labelledby": "exampleModalLabel",
+      "aria-hidden": "true",
+      "data-backdrop": "static",
+      "data-keyboard": "false"
+    }
+  }, [_c('div', {
+    staticClass: "modal-dialog modal-sm",
+    attrs: {
+      "role": "document"
+    }
+  }, [_c('div', {
+    staticClass: "modal-content",
+    staticStyle: {
+      "padding": "0px"
+    }
+  }, [_c('div', {
+    staticClass: "modal-header"
+  }, [_c('h5', {
+    staticClass: "modal-title",
+    attrs: {
+      "id": "exampleModalLabel"
+    }
+  }, [_vm._v("\n                    " + _vm._s(_vm.form_labels.hide_show_title) + "\n                ")]), _vm._v(" "), _c('div', {
+    staticClass: "cancel"
+  }, [_c('a', {
+    attrs: {
+      "href": "#",
+      "id": "discardModal",
+      "data-dismiss": "modal"
+    },
+    on: {
+      "click": _vm.clearForm
+    }
+  }, [_vm._v("X")])])]), _vm._v(" "), _c('div', {
+    staticClass: "modal-body",
+    attrs: {
+      "id": "body-sim-dis"
+    }
+  }, [_c('div', {
+    staticClass: "form-group"
+  }, _vm._l((_vm.headings), function(item, index) {
+    return _c('div', {
+      staticClass: "column-checkbox"
+    }, [_c('label', {
+      staticClass: "m-checkbox m-checkbox--single m-checkbox--solid m-checkbox--brand",
+      staticStyle: {
+        "width": "auto"
+      }
+    }, [_c('input', {
+      staticClass: "nvr-column",
+      attrs: {
+        "type": "checkbox",
+        "data-id": item.id
+      },
       on: {
-        "click": function($event) {
-          _vm.onRouterEditButton(record)
+        "change": function($event) {
+          _vm.showHideColumns(item.id)
         }
       }
-    }), _vm._v(" "), _c('div', {
-      staticClass: "cursor_to_pointer fa fa-trash",
-      on: {
-        "click": function($event) {
-          _vm.deleteRouter(record.id, $event)
-        }
-      }
-    })]), _vm._v(" "), _c('td', {
-      staticClass: "rule_name"
-    }, [_vm._v(_vm._s(record.name))]), _vm._v(" "), _c('td', {
-      staticClass: "active"
-    }, [_vm._v(_vm._s(record.ip))]), _vm._v(" "), _c('td', {
-      staticClass: "text-center category"
-    }, [_vm._v(_vm._s(record.http_port))]), _vm._v(" "), _c('td', {
-      staticClass: "text-center category"
-    }, [_vm._v(_vm._s(record.username))]), _vm._v(" "), _c('td', {
-      staticClass: "text-center category"
-    }, [_vm._v(_vm._s(record.password))]), _vm._v(" "), _c('td', {
-      staticClass: "text-center category"
-    }, [_vm._v(_vm._s(record.monitoring))]), _vm._v(" "), _c('td', {
-      staticClass: "text-center created_at"
-    }, [_vm._v(_vm._s(_vm._f("formatDate")(record.created_at)))])])
-  }))])])])]), _vm._v(" "), _c('div', {
+    }), _c('span'), _vm._v(" " + _vm._s(item.column))])])
+  }))]), _vm._v(" "), _c('div', {
+    staticClass: "modal-footer"
+  }, [_c('button', {
+    staticClass: "btn btn-default",
+    attrs: {
+      "type": "button",
+      "data-dismiss": "modal"
+    }
+  }, [_vm._v(_vm._s(_vm.form_labels.hide_show_button))])])])])]), _vm._v(" "), _c('div', {
     ref: "addmodal",
     staticClass: "modal fade add_router_to_db",
     staticStyle: {
@@ -22963,7 +23076,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     attrs: {
       "id": "exampleModalLabel"
     }
-  }, [_vm._v("\n                    " + _vm._s(_vm.form_labels.add_title) + "\n                ")]), _vm._v(" "), _c('div', {
+  }, [_vm._v("\n                      " + _vm._s(_vm.form_labels.add_title) + "\n                  ")]), _vm._v(" "), _c('div', {
     staticClass: "cancel"
   }, [_c('a', {
     attrs: {
@@ -22995,9 +23108,13 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     attrs: {
       "role": "alert"
     }
+  }, [_c('ul', {
+    staticStyle: {
+      "margin": "0px"
+    }
   }, _vm._l((_vm.show_add_messages), function(message) {
     return _c('li', [_vm._v(_vm._s(message))])
-  }))])]) : _vm._e(), _vm._v(" "), _c('div', {
+  }))])])]) : _vm._e(), _vm._v(" "), _c('div', {
     staticClass: "m-form m-form--fit m-form--label-align-left"
   }, [_c('input', {
     directives: [{
@@ -23008,7 +23125,8 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }],
     attrs: {
       "type": "hidden",
-      "id": "user_id"
+      "id": "user_id",
+      "value": "<%= @user.id %>"
     },
     domProps: {
       "value": (_vm.user_id)
@@ -23023,7 +23141,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "form-group m-form__group row"
   }, [_c('label', {
     staticClass: "col-3 col-form-label"
-  }, [_vm._v("\n                            " + _vm._s(_vm.form_labels.name) + "\n                        ")]), _vm._v(" "), _c('div', {
+  }, [_vm._v("\n                              " + _vm._s(_vm.form_labels.name) + "\n                          ")]), _vm._v(" "), _c('div', {
     staticClass: "col-9"
   }, [_c('input', {
     directives: [{
@@ -23052,7 +23170,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "form-group m-form__group row"
   }, [_c('label', {
     staticClass: "col-3 col-form-label"
-  }, [_vm._v("\n                            " + _vm._s(_vm.form_labels.ip) + "\n                        ")]), _vm._v(" "), _c('div', {
+  }, [_vm._v("\n                              " + _vm._s(_vm.form_labels.ip) + "\n                          ")]), _vm._v(" "), _c('div', {
     staticClass: "col-9"
   }, [_c('input', {
     directives: [{
@@ -23080,7 +23198,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "form-group m-form__group row"
   }, [_c('label', {
     staticClass: "col-3 col-form-label"
-  }, [_vm._v("\n                            " + _vm._s(_vm.form_labels.username) + "\n                        ")]), _vm._v(" "), _c('div', {
+  }, [_vm._v("\n                              " + _vm._s(_vm.form_labels.username) + "\n                          ")]), _vm._v(" "), _c('div', {
     staticClass: "col-9"
   }, [_c('input', {
     directives: [{
@@ -23108,7 +23226,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "form-group m-form__group row"
   }, [_c('label', {
     staticClass: "col-3 col-form-label"
-  }, [_vm._v("\n                            " + _vm._s(_vm.form_labels.password) + "\n                        ")]), _vm._v(" "), _c('div', {
+  }, [_vm._v("\n                              " + _vm._s(_vm.form_labels.password) + "\n                          ")]), _vm._v(" "), _c('div', {
     staticClass: "col-9"
   }, [_c('input', {
     directives: [{
@@ -23136,7 +23254,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "form-group m-form__group row"
   }, [_c('label', {
     staticClass: "col-3 col-form-label"
-  }, [_vm._v("\n                            " + _vm._s(_vm.form_labels.http_port) + "\n                        ")]), _vm._v(" "), _c('div', {
+  }, [_vm._v("\n                              " + _vm._s(_vm.form_labels.http_port) + "\n                          ")]), _vm._v(" "), _c('div', {
     staticClass: "col-9"
   }, [_c('input', {
     directives: [{
@@ -23200,7 +23318,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         }
       }
     }
-  }), _vm._v("\n                                " + _vm._s(_vm.form_labels.status) + "\n                                "), _c('span')])])])])]), _vm._v(" "), _c('div', {
+  }), _vm._v("\n                                  " + _vm._s(_vm.form_labels.status) + "\n                                  "), _c('span')])])])])]), _vm._v(" "), _c('div', {
     staticClass: "modal-footer"
   }, [_c('button', {
     staticClass: "btn btn-default",
@@ -23211,7 +23329,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     on: {
       "click": _vm.saveModal
     }
-  }, [_vm._v("\n                    " + _vm._s(_vm.form_labels.submit_button) + "\n                ")])])])])]), _vm._v(" "), _c('div', {
+  }, [_vm._v("\n                      " + _vm._s(_vm.form_labels.submit_button) + "\n                  ")])])])])]), _vm._v(" "), _c('div', {
     ref: "editmodal",
     staticClass: "modal fade",
     staticStyle: {
@@ -23239,7 +23357,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     attrs: {
       "id": "exampleModalLabel"
     }
-  }, [_vm._v("\n                    " + _vm._s(_vm.form_labels.edit_title) + "\n                ")]), _vm._v(" "), _c('div', {
+  }, [_vm._v("\n                      " + _vm._s(_vm.form_labels.edit_title) + "\n                  ")]), _vm._v(" "), _c('div', {
     staticClass: "cancel"
   }, [_c('a', {
     attrs: {
@@ -23271,9 +23389,13 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     attrs: {
       "role": "alert"
     }
+  }, [_c('ul', {
+    staticStyle: {
+      "margin": "0px"
+    }
   }, _vm._l((_vm.show_edit_messages), function(message) {
     return _c('li', [_vm._v(_vm._s(message))])
-  }))])]) : _vm._e(), _vm._v(" "), _c('div', {
+  }))])])]) : _vm._e(), _vm._v(" "), _c('div', {
     staticClass: "m-form m-form--fit m-form--label-align-left"
   }, [_c('input', {
     directives: [{
@@ -23296,167 +23418,31 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       }
     }
   }), _vm._v(" "), _c('input', {
-    directives: [{
-      name: "model",
-      rawName: "v-model",
-      value: (_vm.edit_router_id),
-      expression: "edit_router_id"
-    }],
     attrs: {
       "type": "hidden",
       "id": "edit_router_id"
-    },
-    domProps: {
-      "value": (_vm.edit_router_id)
-    },
-    on: {
-      "input": function($event) {
-        if ($event.target.composing) { return; }
-        _vm.edit_router_id = $event.target.value
-      }
     }
   }), _vm._v(" "), _c('div', {
     staticClass: "form-group m-form__group row"
   }, [_c('label', {
     staticClass: "col-3 col-form-label"
-  }, [_vm._v("\n                            " + _vm._s(_vm.form_labels.name) + "\n                        ")]), _vm._v(" "), _c('div', {
-    staticClass: "col-9"
-  }, [_c('input', {
-    directives: [{
-      name: "model",
-      rawName: "v-model",
-      value: (_vm.edit_router_name),
-      expression: "edit_router_name"
-    }],
-    staticClass: "form-control m-input m-input--solid",
-    attrs: {
-      "type": "text",
-      "id": "edit_router_name",
-      "aria-describedby": "emailHelp",
-      "placeholder": "Galway route."
-    },
-    domProps: {
-      "value": (_vm.edit_router_name)
-    },
-    on: {
-      "input": function($event) {
-        if ($event.target.composing) { return; }
-        _vm.edit_router_name = $event.target.value
-      }
-    }
-  })])]), _vm._v(" "), _c('div', {
+  }, [_vm._v("\n                              " + _vm._s(_vm.form_labels.name) + "\n                          ")]), _vm._v(" "), _vm._m(1)]), _vm._v(" "), _c('div', {
     staticClass: "form-group m-form__group row"
   }, [_c('label', {
     staticClass: "col-3 col-form-label"
-  }, [_vm._v("\n                            " + _vm._s(_vm.form_labels.ip) + "\n                        ")]), _vm._v(" "), _c('div', {
-    staticClass: "col-9"
-  }, [_c('input', {
-    directives: [{
-      name: "model",
-      rawName: "v-model",
-      value: (_vm.edit_router_ip),
-      expression: "edit_router_ip"
-    }],
-    staticClass: "form-control m-input m-input--solid",
-    attrs: {
-      "type": "text",
-      "id": "edit_router_ip",
-      "placeholder": "https://youripmaybe"
-    },
-    domProps: {
-      "value": (_vm.edit_router_ip)
-    },
-    on: {
-      "input": function($event) {
-        if ($event.target.composing) { return; }
-        _vm.edit_router_ip = $event.target.value
-      }
-    }
-  })])]), _vm._v(" "), _c('div', {
+  }, [_vm._v("\n                              " + _vm._s(_vm.form_labels.ip) + "\n                          ")]), _vm._v(" "), _vm._m(2)]), _vm._v(" "), _c('div', {
     staticClass: "form-group m-form__group row"
   }, [_c('label', {
     staticClass: "col-3 col-form-label"
-  }, [_vm._v("\n                            " + _vm._s(_vm.form_labels.username) + "\n                        ")]), _vm._v(" "), _c('div', {
-    staticClass: "col-9"
-  }, [_c('input', {
-    directives: [{
-      name: "model",
-      rawName: "v-model",
-      value: (_vm.edit_router_username),
-      expression: "edit_router_username"
-    }],
-    staticClass: "form-control m-input m-input--solid",
-    attrs: {
-      "type": "text",
-      "id": "edit_router_username",
-      "placeholder": "i.e admin"
-    },
-    domProps: {
-      "value": (_vm.edit_router_username)
-    },
-    on: {
-      "input": function($event) {
-        if ($event.target.composing) { return; }
-        _vm.edit_router_username = $event.target.value
-      }
-    }
-  })])]), _vm._v(" "), _c('div', {
+  }, [_vm._v("\n                              " + _vm._s(_vm.form_labels.username) + "\n                          ")]), _vm._v(" "), _vm._m(3)]), _vm._v(" "), _c('div', {
     staticClass: "form-group m-form__group row"
   }, [_c('label', {
     staticClass: "col-3 col-form-label"
-  }, [_vm._v("\n                            " + _vm._s(_vm.form_labels.password) + "\n                        ")]), _vm._v(" "), _c('div', {
-    staticClass: "col-9"
-  }, [_c('input', {
-    directives: [{
-      name: "model",
-      rawName: "v-model",
-      value: (_vm.edit_router_password),
-      expression: "edit_router_password"
-    }],
-    staticClass: "form-control m-input m-input--solid",
-    attrs: {
-      "type": "text",
-      "id": "edit_router_password",
-      "placeholder": "Super Secret"
-    },
-    domProps: {
-      "value": (_vm.edit_router_password)
-    },
-    on: {
-      "input": function($event) {
-        if ($event.target.composing) { return; }
-        _vm.edit_router_password = $event.target.value
-      }
-    }
-  })])]), _vm._v(" "), _c('div', {
+  }, [_vm._v("\n                              " + _vm._s(_vm.form_labels.password) + "\n                          ")]), _vm._v(" "), _vm._m(4)]), _vm._v(" "), _c('div', {
     staticClass: "form-group m-form__group row"
   }, [_c('label', {
     staticClass: "col-3 col-form-label"
-  }, [_vm._v("\n                            " + _vm._s(_vm.form_labels.http_port) + "\n                        ")]), _vm._v(" "), _c('div', {
-    staticClass: "col-9"
-  }, [_c('input', {
-    directives: [{
-      name: "model",
-      rawName: "v-model",
-      value: (_vm.edit_http_router_port),
-      expression: "edit_http_router_port"
-    }],
-    staticClass: "form-control m-input m-input--solid",
-    attrs: {
-      "type": "number",
-      "id": "edit_http_router_port",
-      "placeholder": "i.e 80"
-    },
-    domProps: {
-      "value": (_vm.edit_http_router_port)
-    },
-    on: {
-      "input": function($event) {
-        if ($event.target.composing) { return; }
-        _vm.edit_http_router_port = $event.target.value
-      }
-    }
-  })])]), _vm._v(" "), _c('div', {
+  }, [_vm._v("\n                              " + _vm._s(_vm.form_labels.http_port) + "\n                          ")]), _vm._v(" "), _vm._m(5)]), _vm._v(" "), _c('div', {
     staticClass: "form-group m-form__group row"
   }, [_c('label', {
     staticClass: "col-3 col-form-label"
@@ -23465,38 +23451,11 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
   }, [_c('label', {
     staticClass: "m-checkbox"
   }, [_c('input', {
-    directives: [{
-      name: "model",
-      rawName: "v-model",
-      value: (_vm.edit_router_is_monitoring),
-      expression: "edit_router_is_monitoring"
-    }],
     attrs: {
       "type": "checkbox",
       "id": "edit_router_is_monitoring"
-    },
-    domProps: {
-      "checked": Array.isArray(_vm.edit_router_is_monitoring) ? _vm._i(_vm.edit_router_is_monitoring, null) > -1 : (_vm.edit_router_is_monitoring)
-    },
-    on: {
-      "change": function($event) {
-        var $$a = _vm.edit_router_is_monitoring,
-          $$el = $event.target,
-          $$c = $$el.checked ? (true) : (false);
-        if (Array.isArray($$a)) {
-          var $$v = null,
-            $$i = _vm._i($$a, $$v);
-          if ($$el.checked) {
-            $$i < 0 && (_vm.edit_router_is_monitoring = $$a.concat([$$v]))
-          } else {
-            $$i > -1 && (_vm.edit_router_is_monitoring = $$a.slice(0, $$i).concat($$a.slice($$i + 1)))
-          }
-        } else {
-          _vm.edit_router_is_monitoring = $$c
-        }
-      }
     }
-  }), _vm._v("\n                                " + _vm._s(_vm.form_labels.status) + "\n                                "), _c('span')])])])])]), _vm._v(" "), _c('div', {
+  }), _vm._v("\n                                  " + _vm._s(_vm.form_labels.status) + "\n                                  "), _c('span')])])])])]), _vm._v(" "), _c('div', {
     staticClass: "modal-footer"
   }, [_c('button', {
     staticClass: "btn btn-default",
@@ -23507,92 +23466,69 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     on: {
       "click": _vm.updateRouterdo
     }
-  }, [_vm._v("\n                    " + _vm._s(_vm.form_labels.submit_button) + "\n                ")])])])])]), _vm._v(" "), _c('div', {
-    ref: "hideShow",
-    staticClass: "modal fade toggle-datatable-columns",
-    staticStyle: {
-      "padding": "0px"
-    },
-    attrs: {
-      "tabindex": "-1",
-      "role": "dialog",
-      "aria-labelledby": "exampleModalLabel",
-      "aria-hidden": "true",
-      "data-backdrop": "static",
-      "data-keyboard": "false"
-    }
-  }, [_c('div', {
-    staticClass: "modal-dialog modal-sm",
-    attrs: {
-      "role": "document"
-    }
-  }, [_c('div', {
-    staticClass: "modal-content",
-    staticStyle: {
-      "padding": "0px"
-    }
-  }, [_c('div', {
-    staticClass: "modal-header"
-  }, [_c('h5', {
-    staticClass: "modal-title",
-    attrs: {
-      "id": "exampleModalLabel"
-    }
-  }, [_vm._v("\n                  " + _vm._s(_vm.form_labels.hide_show_title) + "\n              ")]), _vm._v(" "), _c('div', {
-    staticClass: "cancel"
-  }, [_c('a', {
-    attrs: {
-      "href": "#",
-      "id": "discardModal",
-      "data-dismiss": "modal"
-    },
-    on: {
-      "click": _vm.clearForm
-    }
-  }, [_vm._v("X")])])]), _vm._v(" "), _c('div', {
-    staticClass: "modal-body",
-    attrs: {
-      "id": "body-sim-dis"
-    }
-  }, [_c('div', {
-    staticClass: "form-group"
-  }, _vm._l((_vm.headings), function(item, index) {
-    return _c('div', {
-      staticClass: "column-checkbox"
-    }, [_c('label', {
-      staticClass: "m-checkbox m-checkbox--single m-checkbox--solid m-checkbox--brand",
-      staticStyle: {
-        "width": "auto"
-      }
-    }, [_c('input', {
-      staticClass: "users-column",
-      attrs: {
-        "type": "checkbox",
-        "checked": "checked",
-        "id": index,
-        "name": item.id
-      },
-      on: {
-        "change": function($event) {
-          _vm.showHideColumns(index)
-        }
-      }
-    }), _c('span'), _vm._v(" " + _vm._s(item.column))])])
-  }))]), _vm._v(" "), _c('div', {
-    staticClass: "modal-footer"
-  }, [_c('button', {
-    staticClass: "btn btn-default",
-    attrs: {
-      "type": "button",
-      "data-dismiss": "modal"
-    }
-  }, [_vm._v(_vm._s(_vm.form_labels.hide_show_button))])])])])])])
+  }, [_vm._v("\n                      " + _vm._s(_vm.form_labels.submit_button) + "\n                  ")])])])])])])
 },staticRenderFns: [function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
   return _c('span', {
     staticClass: "m-input-icon__icon m-input-icon__icon--left"
   }, [_c('span', [_c('i', {
     staticClass: "la la-search"
   })])])
+},function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('div', {
+    staticClass: "col-9"
+  }, [_c('input', {
+    staticClass: "form-control m-input m-input--solid",
+    attrs: {
+      "type": "text",
+      "id": "edit_router_name",
+      "aria-describedby": "emailHelp",
+      "placeholder": "Galway route."
+    }
+  })])
+},function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('div', {
+    staticClass: "col-9"
+  }, [_c('input', {
+    staticClass: "form-control m-input m-input--solid",
+    attrs: {
+      "type": "text",
+      "id": "edit_router_ip",
+      "placeholder": "https://youripmaybe"
+    }
+  })])
+},function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('div', {
+    staticClass: "col-9"
+  }, [_c('input', {
+    staticClass: "form-control m-input m-input--solid",
+    attrs: {
+      "type": "text",
+      "id": "edit_router_username",
+      "placeholder": "i.e admin"
+    }
+  })])
+},function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('div', {
+    staticClass: "col-9"
+  }, [_c('input', {
+    staticClass: "form-control m-input m-input--solid",
+    attrs: {
+      "type": "text",
+      "id": "edit_router_password",
+      "placeholder": "Super Secret"
+    }
+  })])
+},function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('div', {
+    staticClass: "col-9"
+  }, [_c('input', {
+    staticClass: "form-control m-input m-input--solid",
+    attrs: {
+      "type": "number",
+      "id": "edit_http_router_port",
+      "placeholder": "i.e 80"
+    }
+  })])
 }]}
 module.exports.render._withStripped = true
 if (false) {
