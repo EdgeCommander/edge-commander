@@ -1,69 +1,77 @@
 <template>
   <div>
-    <div class="m-content" id="loading_content">
-      <div class="m-portlet m-portlet--mobile" style="margin-bottom: 0">
-        <div class="m-portlet__body" style="padding: 10px;">
-          <!--begin: Search Form -->
-          <div class="m-form m-form--label-align-right m--margin-bottom-10">
-            <div class="row align-items-center">
-              <div class="col-md-8 order-2 order-md-1">
-                <div class="form-group m-form__group row align-items-center">
-                  <div class="col-md-5">
-                    <div class="m-input-icon m-input-icon--left">
-                      <input type="text" class="form-control m-input m-input--solid" placeholder="Search..." id="m_form_search" v-model="m_form_search" v-on:keyup="search()">
-                      <span class="m-input-icon__icon m-input-icon__icon--left">
-                        <span>
-                          <i class="la la-search"></i>
-                        </span>
+  <div class="m-content">
+    <div class="m-portlet m-portlet--mobile" style="margin-bottom: 0">
+      <div class="m-portlet__body" style="padding: 10px;">
+        <!--begin: Search Form -->
+        <div class="m-form m-form--label-align-right m--margin-bottom-10">
+          <div class="row align-items-center">
+            <div class="col-md-8 order-2 order-md-1">
+              <div class="form-group m-form__group row align-items-center">
+                <div class="col-md-5">
+                  <div class="m-input-icon m-input-icon--left">
+                    <input type="text" class="form-control m-input m-input--solid" placeholder="Search..." id="m_form_search" v-model="m_form_search" v-on:keyup="search()">
+                    <span class="m-input-icon__icon m-input-icon__icon--left">
+                      <span>
+                        <i class="la la-search"></i>
                       </span>
-                    </div>
+                    </span>
                   </div>
                 </div>
               </div>
-              <div class="col-md-4 order-1 order-md-2 m--align-right">
-                  <a href="javascript:void(0)" id="addSite" class="btn btn-primary m-btn m-btn--icon" v-on:click="onSiteButton">
-                      <span>
-                          <i class="fa fa-plus-square"></i>
-                          <span>
-                              {{form_labels.add_site_button}}
-                          </span>
-                      </span>
-                  </a>
-                  <div href="javascript:void(0)" class="btn btn-default grey" v-on:click="onSiteHideShowButton">
-                    <i class="fa fa-columns"></i>
-                  </div>
-              </div>
+            </div>
+            <div class="col-md-4 order-1 order-md-2 m--align-right">
+                <a href="javascript:void(0)" id="addSite" class="btn btn-primary m-btn m-btn--icon" v-on:click="onSiteButton">
+                    <span>
+                        <i class="fa fa-plus-square"></i>
+                        <span>
+                            {{form_labels.add_site_button}}
+                        </span>
+                    </span>
+                </a>
+                <div href="javascript:void(0)" class="btn btn-default grey" v-on:click="onSiteHideShowButton">
+                  <i class="fa fa-columns"></i>
+                </div>
             </div>
           </div>
-          <!--end: Search Form -->
-          <div class="m_site_datatable" style="display: none;">
-              <table id="data-table" class=" table table-striped  table-hover table-bordered display nowrap " cellspacing="0" width="100%">
-                <thead>
-                    <tr>
-                        <th v-for="(item, index) in headings" v-bind:class="item.class" >{{item.column}}</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr v-for="record in table_records">
-                      <td class="text-center actions">
-                        <div class="cursor_to_pointer fa fa-edit" v-on:click="onSiteEditButton(record)"></div>
-                        <div class="cursor_to_pointer fa fa-trash" v-on:click="deleteSite(record.id, $event)"></div>
-                      </td>
-                      <td class="name">{{record.name}}</td>
-                      <td class="map_area">{{record.location.map_area}}</td>
-                      <td class="text-center sim_number">{{record.sim_number}}</td>
-                      <td class="router_name">{{record.router_name}}</td>
-                      <td class="nvr_name">{{record.nvr_name}}</td>
-                      <td class="notes">{{record.notes}}</td>
-                      <td class="text-center created_at">{{record.created_at | formatDate}}</td>
-                    </tr>
-                </tbody>
-              </table>
-          </div>
         </div>
+        <!--end: Search Form -->
+        <table id="sites-datatable" class="table table-striped  table-hover table-bordered datatable display nowrap" cellspacing="0" width="100%">
+            <thead>
+                <tr>
+                    <th v-for="(item, index) in headings">{{item.column}}</th>
+                </tr>
+            </thead>
+        </table>
       </div>
     </div>
-    <div class="modal fade add_site_to_db" ref="addmodal" style="padding: 0px;" id="m_modal_1" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" data-backdrop="static" data-keyboard="false">
+  </div>
+  <!-- end:: modal -->
+  <div class="modal fade toggle-datatable-columns" ref="hideShow" style="padding: 0px;"  tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" data-backdrop="static" data-keyboard="false">
+    <div class="modal-dialog modal-sm" role="document">
+        <div class="modal-content" style="padding: 0px;">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">
+                    {{form_labels.hide_show_title}}
+                </h5>
+                <div class="cancel">
+                  <a href="#" id="discardModal" data-dismiss="modal" v-on:click="clearForm">X</a>
+                </div>
+            </div>
+            <div class="modal-body" id="body-sim-dis">
+                <div class="form-group">
+                  <div class="column-checkbox" v-for="(item, index) in headings">
+                      <label class="m-checkbox m-checkbox--single m-checkbox--solid m-checkbox--brand" style="width: auto;"><input type="checkbox" class="sites-column" v-bind:data-id="item.id" v-on:change="showHideColumns(item.id)"><span></span> {{item.column}}</label>
+                  </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-default" data-dismiss="modal">{{form_labels.hide_show_button}}</button>
+            </div>
+        </div>
+    </div>
+  </div>
+  <div class="modal fade add_site_to_db" ref="addmodal" style="padding: 0px;" id="m_modal_1" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" data-backdrop="static" data-keyboard="false">
       <div class="modal-dialog modal-lg" role="document">
           <div class="modal-content" style="padding: 0px;">
               <div class="modal-header">
@@ -80,8 +88,8 @@
                       <div class="form-group m-form__group m--margin-top-10">
                           <div class="alert m-alert m-alert--default" role="alert">
                               <ul style="margin:0px">
-                               <li v-for="message in show_add_messages">{{message}}</li>
-                            </ul>
+                                <li v-for="message in show_add_messages">{{message}}</li>
+                              </ul>
                           </div>
                       </div>
                   </div>
@@ -113,7 +121,7 @@
                                       </label>
                                       <div class="col-9">
                                           <select class="form-control m-input drop-input" id="router_id" v-model="router_id">
-                                            <option v-bind:value="router.id" v-for="router in routers_list">{{router.name}}</option>
+                                              <option v-bind:value="router.id" v-for="router in routers_list">{{router.name}}</option>
                                           </select>
                                       </div>
                                   </div>
@@ -123,7 +131,7 @@
                                       </label>
                                       <div class="col-9">
                                           <select class="form-control m-input drop-input" id="nvr_id" v-model="nvr_id">
-                                            <option v-bind:value="nvr.id" v-for="nvr in nvrs_list">{{nvr.name}}</option>
+                                             <option v-bind:value="nvr.id" v-for="nvr in nvrs_list">{{nvr.name}}</option>
                                           </select>
                                       </div>
                                   </div>
@@ -140,7 +148,7 @@
                                       {{form_labels.latitude}}
                                   </label>
                                   <div class="col-9">
-                                      <input name="lat" type="text" class="form-control m-input m-input--solid readonly" id="latitude"  readonly>
+                                      <input name="lat" type="text" class="form-control m-input m-input--solid readonly" id="latitude" readonly>
                                   </div>
                               </div>
                               <div class="form-group m-form__group row">
@@ -178,8 +186,8 @@
               </div>
           </div>
       </div>
-    </div>
-    <div class="modal fade" ref="editmodal" id="edit_site_to_db" style="padding: 0px;" data-backdrop="static" data-keyboard="false">
+  </div>
+  <div class="modal fade" id="edit_site_to_db" style="padding: 0px;" data-backdrop="static" data-keyboard="false">
       <div class="modal-dialog modal-lg" role="document">
           <div class="modal-content" style="padding: 0px;">
               <div class="modal-header">
@@ -195,15 +203,15 @@
                   <div id="siteEditErrorDetails" v-if="show_edit_errors">
                       <div class="form-group m-form__group m--margin-top-10">
                           <div class="alert m-alert m-alert--default" role="alert">
-                               <ul style="margin:0px">
-                                  <li v-for="message in show_edit_messages">{{message}}</li>
-                                </ul>
+                              <ul style="margin:0px">
+                               <li v-for="message in show_edit_messages">{{message}}</li>
+                              </ul>
                           </div>
                       </div>
                   </div>
                   <div class="m-form m-form--fit m-form--label-align-left">
                       <input type="hidden" id="user_id" v-model="user_id">
-                      <input type="hidden" id="edit_id" v-model="edit_id">
+                      <input type="hidden" id="edit_id">
                       <div class="row">
                           <div class="col-lg-6">
                                <div class="form-group m-form__group row">
@@ -211,7 +219,7 @@
                                       {{form_labels.name}}
                                   </label>
                                   <div class="col-9">
-                                      <input type="text" class="form-control m-input m-input--solid" id="edit_name" v-model="edit_name" aria-describedby="emailHelp" placeholder="Site Name">
+                                      <input type="text" class="form-control m-input m-input--solid" id="edit_name"aria-describedby="emailHelp" placeholder="Site Name">
                                   </div>
                               </div>
                               <div class="form-group m-form__group row">
@@ -219,8 +227,8 @@
                                       {{form_labels.sim}}
                                   </label>
                                   <div class="col-9">
-                                      <select class="form-control m-input" id="edit_sim_number" v-model="edit_sim_number">
-                                       <option v-bind:value="sim.number" v-for="sim in sims_list">{{sim.number}} {{sim.name}} </option>
+                                      <select class="form-control m-input" id="edit_sim_number">
+                                          <option v-bind:value="sim.number" v-for="sim in sims_list">{{sim.number}} {{sim.name}} </option>
                                       </select>
                                   </div>
                               </div>
@@ -229,8 +237,8 @@
                                       {{form_labels.router}}
                                   </label>
                                   <div class="col-9">
-                                      <select class="form-control m-input drop-input" id="edit_router_id" v-model="edit_router_id">
-                                        <option v-bind:value="router.id" v-for="router in routers_list">{{router.name}}</option>
+                                      <select class="form-control m-input drop-input" id="edit_router_id">
+                                            <option v-bind:value="router.id" v-for="router in routers_list">{{router.name}}</option>
                                       </select>
                                   </div>
                               </div>
@@ -239,8 +247,8 @@
                                       {{form_labels.nvr}}
                                   </label>
                                   <div class="col-9">
-                                      <select class="form-control m-input drop-input" id="edit_nvr_id" v-model="edit_nvr_id">
-                                        <option v-bind:value="nvr.id" v-for="nvr in nvrs_list">{{nvr.name}}</option>
+                                      <select class="form-control m-input drop-input" id="edit_nvr_id">
+                                           <option v-bind:value="nvr.id" v-for="nvr in nvrs_list">{{nvr.name}}</option>
                                       </select>
                                   </div>
                               </div>
@@ -249,7 +257,7 @@
                                       {{form_labels.notes}}
                                   </label>
                                   <div class="col-9">
-                                      <input type="text" class="form-control m-input m-input--solid" id="edit_notes" v-model="edit_notes" aria-describedby="emailHelp" placeholder="Short Note.">
+                                      <input type="text" class="form-control m-input m-input--solid" id="edit_notes"aria-describedby="emailHelp" placeholder="Short Note.">
                                   </div>
                               </div>
                               <div class="form-group m-form__group row">
@@ -275,7 +283,7 @@
                                       {{form_labels.location}}
                                   </label>
                                   <div class="col-9">
-                                     <input type="text" class="form-control m-input m-input--solid" id="edit_map_area" v-model="edit_map_area" aria-describedby="emailHelp" placeholder="Search Location">
+                                     <input type="text" class="form-control m-input m-input--solid" id="edit_map_area" aria-describedby="emailHelp" placeholder="Search Location">
                                   </div>
                               </div>
                               <div class="form-group m-form__group row">
@@ -295,32 +303,9 @@
               </div>
           </div>
       </div>
-    </div>
-    <div class="modal fade toggle-datatable-columns" ref="hideShow" style="padding: 0px;"  tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" data-backdrop="static" data-keyboard="false">
-    <div class="modal-dialog modal-sm" role="document">
-        <div class="modal-content" style="padding: 0px;">
-            <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">
-                    {{form_labels.hide_show_title}}
-                </h5>
-                <div class="cancel">
-                  <a href="#" id="discardModal" data-dismiss="modal" v-on:click="clearForm">X</a>
-                </div>
-            </div>
-            <div class="modal-body" id="body-sim-dis">
-               <div class="form-group" >
-                   <div class="column-checkbox" v-for="(item, index) in headings">
-                    <label class="m-checkbox m-checkbox--single m-checkbox--solid m-checkbox--brand" style="width: auto;"><input type="checkbox" class="users-column" checked="checked" v-bind:id="index" v-bind:name="item.id" v-on:change="showHideColumns(index)"><span></span> {{item.column}}</label>
-                  </div>
-                </div>
-            </div>
-            <div class="modal-footer">
-              <button type="button" class="btn btn-default" data-dismiss="modal">{{form_labels.hide_show_button}}</button>
-            </div>
-        </div>
-    </div>
   </div>
-  </div>
+  <!--end::Modal-->
+</div>
 </template>
 
 <script>
@@ -329,42 +314,41 @@ module.exports = {
   data: function(){
     return{
       dataTable: null,
-      table_records: "",
       m_form_search: "",
       mapEditView: "",
       show_loading: false,
       show_add_errors: false,
       show_edit_errors: false,
-      show_add_messages: "",
-      show_edit_messages: "",
       sims_list: "",
       routers_list: "",
       nvrs_list: "",
+      show_add_messages: "",
+      show_edit_messages: "",
       headings: [
-        {column: "Actions", id: "actions", class: "text-center"},
+        {column: "Actions", id: "actions"},
         {column: "Name", id: "name"},
         {column: "Location", id: "location"},
-        {column: "Sim Number", id: "sim_number", class: "text-center"},
+        {column: "Sim Number", id: "sim_number"},
         {column: "Router Name", id: "router_name"},
         {column: "NVR Name", id: "nvr_name"},
         {column: "Notes", id: "notes"},
-        {column: "Created At", id: "created_at", class: "text-center"},
+        {column: "Created At", id: "created_at"},
       ],
       form_labels: {
-        name: "Name",
-        location: "Location",
-        sim: "SIM",
-        router: "Router",
-        nvr: "NVR",
-        notes: "Notes",
-        latitude: "Latitude",
-        longitude: "Longitude",
-        add_title: "Add Site",
-        edit_title: "Edit Site",
-        hide_show_title: "Show/Hide Columns",
-        add_site_button: "Add Site",
-        hide_show_button: "OK",
-        submit_button: "Save changes"
+      name: "Name",
+      location: "Location",
+      sim: "SIM",
+      router: "Router",
+      nvr: "NVR",
+      notes: "Notes",
+      latitude: "Latitude",
+      longitude: "Longitude",
+      add_title: "Add Site",
+      edit_title: "Edit Site",
+      hide_show_title: "Show/Hide Columns",
+      add_site_button: "Add Site",
+      hide_show_button: "OK",
+      submit_button: "Save changes"
       },
       name: "",
       sim_number: "",
@@ -382,150 +366,194 @@ module.exports = {
       edit_map_area: ""
     }
   },
-  filters:{
-    formatDate: function(value){
-      return moment(String(value)).format('DD/MM/YYYY HH:mm:ss')
-    }
-  },
   methods: {
-    initDatatable: function(){
-      this.$http.get('/sites/data').then(
-        response => {
-          this.table_records = response.body.sites
-          $("#data-table .dataTables_empty").hide();
-        }).then(()=>{
-            this.init_datatable();
-        }).catch(function(error){
-        console.log(error)
-      })
-   },
-   get_session: function(){
-    this.$http.get('/get_porfile').then(response => {
-      this.user_id = response.body.id;
-    });
-   },
-   onSiteButton: function() {
-    $(this.$refs.addmodal).modal("show");
-    this.map_area = "Dublin, Ireland";
-    document.getElementById('latitude').value = "53.349805";
-    document.getElementById('longitude').value = "-6.2603010";
-    this.addMap();
-   },
-   mapInitialize: function(){
-    var initialLat = document.getElementById('latitude').value;
-    var initialLong = document.getElementById('longitude').value;
-    initialLat = initialLat?initialLat:53.349805;
-    initialLong = initialLong?initialLong:-6.260310;
-
-    let latlng = new google.maps.LatLng(initialLat, initialLong);
-    let options = {
-      zoom: 15,
-      center: latlng,
-      mapTypeId: google.maps.MapTypeId.ROADMAP
-    };
-    let map = new google.maps.Map(document.getElementById("map_canvas"), options);
-    let geocoder = new google.maps.Geocoder();
-    let marker = new google.maps.Marker({
-      map: map,
-      draggable: true,
-      position: latlng
-    });
-    google.maps.event.addListener(marker, "dragend", function () {
-      let point = marker.getPosition();
-      let geocoder = new google.maps.Geocoder();
-      map.panTo(point);
-      geocoder.geocode({'latLng': marker.getPosition()}, function (results, status) {
-        if (status == google.maps.GeocoderStatus.OK) {
-          let latVal = marker.getPosition().lat();
-          let lngVal = marker.getPosition().lng();
-          document.getElementById("latitude").value = latVal.toFixed(6)
-          document.getElementById("longitude").value = lngVal.toFixed(6)
-        }
-      });
-    });
-   },
-   addMap: function() {
-      this.mapInitialize();
-      let PostCodeid = document.getElementById("map_area");
-      let geocoder = new google.maps.Geocoder();
-      $(PostCodeid).autocomplete({
-        source: function (request, response) {
-          geocoder.geocode({
-            'address': request.term
-          }, function (results, status) {
-            response($.map(results, function (item) {
-              return {
-                label: item.formatted_address,
-                value: item.formatted_address,
-                lat: item.geometry.location.lat(),
-                lon: item.geometry.location.lng()
-              };
-            }));
+    initializeTable: function(){
+      let sitesDataTable = $('#sites-datatable').DataTable({
+        fnInitComplete: function(){
+            // Enable TFOOT scoll bars
+            $('.dataTables_scrollFoot').css('overflow', 'auto');
+            $('.dataTables_scrollHead').css('overflow', 'auto');
+            // Sync TFOOT scrolling with TBODY
+            $('.dataTables_scrollFoot').on('scroll', function () {
+            $('.dataTables_scrollBody').scrollLeft($(this).scrollLeft());
+          });
+          $('.dataTables_scrollHead').on('scroll', function () {
+            $('.dataTables_scrollBody').scrollLeft($(this).scrollLeft());
           });
         },
-        select: function (event, ui) {
-          let latVal = ui.item.lat;
-          let lngVal = ui.item.lon;
-          document.getElementById("latitude").value = latVal.toFixed(6)
-          document.getElementById("longitude").value = lngVal.toFixed(6)
-          let latlng = new google.maps.LatLng(latVal, lngVal);
-          let options = {
-            zoom: 15,
-            center: latlng,
-            mapTypeId: google.maps.MapTypeId.ROADMAP
-          };
-          let map = new google.maps.Map(document.getElementById("map_canvas"), options);
-          let marker = new google.maps.Marker({
-            map: map,
-            draggable: true,
-            position: latlng
-          });
-          marker.setPosition(latlng);
-          module.exports.methods.mapInitialize();
-        }
-      });
-   },
-   search: function(){
-    this.dataTable.search(this.m_form_search).draw();
-   },
-   init_datatable: function(){
-      mApp.block("#loading_content", {
-        overlayColor: "#000000",
-        type: "loader",
-        state: "primary",
-        message: "Loading..."
-      });
-      let dataTable = $('#data-table').DataTable({
+        ajax: {
+        url: "/sites/data",
+          dataSrc: function(data) {
+            return data.sites;
+          },
+          error: function(xhr, error, thrown) {
+            if (xhr.responseJSON) {
+              console.log(xhr.responseJSON.message);
+            } else {
+              console.log("Something went wrong, Please try again.");
+            }
+          }
+        },
+        columns: [
+        {
+          class: "text-center actions",
+          data: function(row, type, set, meta) {
+            return '<div id="action_btn"><div class="editSite cursor_to_pointer fa fa-edit" data-id="'+ row.id +'"></div> <div class="cursor_to_pointer fa fa-trash delSite" data-id="'+ row.id +'"></div></div>';
+          }
+        },
+        {
+          class: "name",
+          data: function(row, type, set, meta) {
+            return row.name;
+          }
+        },
+        {
+          class: "location",
+          data: function(row, type, set, meta) {
+            return row.location.map_area;
+          }
+        },
+        {
+          class: "text-center sim_number",
+          data: function(row, type, set, meta) {
+            return row.sim_number;
+          }
+        },
+        {
+          class: "router_name",
+          data: function(row, type, set, meta) {
+            return row.router_name;
+          }
+        },
+        {
+          class: "nvr_name",
+          data: function(row, type, set, meta) {
+            return row.nvr_name;
+          }
+        },
+        {
+          class: "notes",
+          data: function(row, type, set, meta) {
+            return row.notes;
+          }
+        },
+        {
+          class: "text-center created_at",
+          data: function(row, type, set, meta) {
+            return moment(row.created_at).format('DD/MM/YYYY HH:mm:ss');
+          },
+        },
+        ],
         autoWidth: true,
         info: false,
         bPaginate: false,
         lengthChange: false,
-        searching: true,
         scrollX: true,
         colReorder: true,
-        retrieve: true,
-        fnInitComplete: function(){
-         $(".m_site_datatable").css("display", "block")
-          // Enable TFOOT scoll bars
-          $('.dataTables_scrollFoot').css('overflow', 'auto');
-          $('.dataTables_scrollHead').css('overflow', 'auto');
-          // Sync TFOOT scrolling with TBODY
-          $('.dataTables_scrollFoot').on('scroll', function () {
-          $('.dataTables_scrollBody').scrollLeft($(this).scrollLeft());
-          });
-          $('.dataTables_scrollHead').on('scroll', function () {
-          $('.dataTables_scrollBody').scrollLeft($(this).scrollLeft());
-          });
-        }
+        stateSave:  true
       });
-      this.dataTable = dataTable;
-      dataTable.columns.adjust().draw(false); // adjust column sizing and redraw
-      mApp.unblock("#loading_content");
+      return this.dataTable = sitesDataTable;
+      this.dataTable.search("");
+    },
+    search: function(){
+      this.dataTable.search(this.m_form_search).draw();
+    },
+    showHideColumns: function(id){
+      let column = this.dataTable.columns("." +id);
+      if(column.visible()[0] == true){
+        column.visible(false);
+      }else{
+        column.visible(true);
+      }
+    },
+    mapInitialize: function(){
+      let initialLat = document.getElementById('latitude').value;
+      let initialLong = document.getElementById('longitude').value;
+      initialLat = initialLat?initialLat:53.349805;
+      initialLong = initialLong?initialLong:-6.260310;
+
+      let latlng = new google.maps.LatLng(initialLat, initialLong);
+      let options = {
+        zoom: 15,
+        center: latlng,
+        mapTypeId: google.maps.MapTypeId.ROADMAP
+      };
+      let map = new google.maps.Map(document.getElementById("map_canvas"), options);
+      let geocoder = new google.maps.Geocoder();
+      let marker = new google.maps.Marker({
+        map: map,
+        draggable: true,
+        position: latlng
+      });
+      google.maps.event.addListener(marker, "dragend", function () {
+        let point = marker.getPosition();
+        let geocoder = new google.maps.Geocoder();
+        map.panTo(point);
+        geocoder.geocode({'latLng': marker.getPosition()}, function (results, status) {
+          if (status == google.maps.GeocoderStatus.OK) {
+            let latVal = marker.getPosition().lat();
+            let lngVal = marker.getPosition().lng();
+            document.getElementById("latitude").value = latVal.toFixed(6)
+            document.getElementById("longitude").value = lngVal.toFixed(6)
+          }
+        });
+      });
    },
-   saveModal: function() {
-    this.show_loading = true;
-    this.show_add_errors = true;
-    this.$http.post('/sites/new', {
+   addMap: function() {
+    this.mapInitialize();
+    let PostCodeid = document.getElementById("map_area");
+    let geocoder = new google.maps.Geocoder();
+    $(PostCodeid).autocomplete({
+      source: function (request, response) {
+        geocoder.geocode({
+          'address': request.term
+        }, function (results, status) {
+          response($.map(results, function (item) {
+            return {
+              label: item.formatted_address,
+              value: item.formatted_address,
+              lat: item.geometry.location.lat(),
+              lon: item.geometry.location.lng()
+            };
+          }));
+        });
+      },
+      select: function (event, ui) {
+        let latVal = ui.item.lat;
+        let lngVal = ui.item.lon;
+        document.getElementById("latitude").value = latVal.toFixed(6)
+        document.getElementById("longitude").value = lngVal.toFixed(6)
+        let latlng = new google.maps.LatLng(latVal, lngVal);
+        let options = {
+          zoom: 15,
+          center: latlng,
+          mapTypeId: google.maps.MapTypeId.ROADMAP
+        };
+        let map = new google.maps.Map(document.getElementById("map_canvas"), options);
+        let marker = new google.maps.Marker({
+          map: map,
+          draggable: true,
+          position: latlng
+        });
+        marker.setPosition(latlng);
+        module.exports.methods.mapInitialize();
+      }
+    });
+   },
+    onSiteButton: function() {
+      $(this.$refs.addmodal).modal("show");
+      this.map_area = "Dublin, Ireland";
+      document.getElementById('latitude').value = "53.349805";
+      document.getElementById('longitude').value = "-6.2603010";
+      this.addMap();
+    },
+    onSiteHideShowButton: function(){
+      $(this.$refs.hideShow).modal("show");
+    },
+    saveModal: function() {
+      this.show_loading = true;
+      this.show_add_errors = true;
+      this.$http.post('/sites/new', {
         name: this.name,
         sim_number:  this.sim_number,
         router_id: this.router_id,
@@ -540,7 +568,7 @@ module.exports = {
       }).then(function (response) {
         $.notify({message: 'Site has been added.'},{type: 'info'});
         this.show_loading = false;
-        this.initDatatable()
+        this.dataTable.ajax.reload();
         this.clearForm();
         $(this.$refs.addmodal).modal("hide");
       }).catch(function (error) {
@@ -563,14 +591,23 @@ module.exports = {
       this.longitude = "-6.2603010";
       this.addMap();
     },
+    getUniqueIdentifier: function(sitesDataTable){
+      $(document).on("click", ".editSite", function(){
+        let tr = $(this).closest('tr');
+        let row = sitesDataTable.row(tr);
+        let data = row.data();
+        let site_id = $(this).data("id");
+        module.exports.methods.onSiteEditButton(data);
+      });
+    },
     editMapInitialize: function(){
-      var initialLat =  document.getElementById("edit_latitude").value;
-      var initialLong = document.getElementById("edit_longitude").value;
+      let initialLat =  document.getElementById("edit_latitude").value;
+      let initialLong = document.getElementById("edit_longitude").value;
       initialLat = initialLat?initialLat:53.3498053;
       initialLong = initialLong?initialLong:-6.260309699999993;
 
-      var latlng = new google.maps.LatLng(initialLat, initialLong);
-      var options = {
+      let latlng = new google.maps.LatLng(initialLat, initialLong);
+      let options = {
         zoom: 15,
         center: latlng,
         mapTypeId: google.maps.MapTypeId.ROADMAP
@@ -584,12 +621,12 @@ module.exports = {
       });
 
       google.maps.event.addListener(marker, "dragend", function () {
-        var point = marker.getPosition();
+        let point = marker.getPosition();
         map.panTo(point);
         geocoder.geocode({'latLng': marker.getPosition()}, function (results, status) {
           if (status == google.maps.GeocoderStatus.OK) {
-            var latVal = marker.getPosition().lat();
-            var lngVal = marker.getPosition().lng();
+            let latVal = marker.getPosition().lat();
+            let lngVal = marker.getPosition().lng();
             document.getElementById("edit_latitude").value = latVal.toFixed(6);
             document.getElementById("edit_longitude").value = lngVal.toFixed(6);
           }
@@ -597,20 +634,20 @@ module.exports = {
       });
     },
     onSiteEditButton: function(data){
-      this.edit_id = data.id;
-      this.edit_name = data.name;
-      this.edit_sim_number = data.sim_number;
-      this.edit_router_id = data.router_id;
-      this.edit_nvr_id = data.nvr_id;
-      this.edit_notes = data.notes;
-      this.edit_map_area = data.location.map_area;
+      $("#edit_id").val(data.id);
+      $("#edit_name").val(data.name);
+      $("#edit_sim_number").val(data.sim_number);
+      $("#edit_router_id").val(data.router_id);
+      $("#edit_nvr_id").val(data.nvr_id);
+      $("#edit_notes").val(data.notes);
+      $("#edit_map_area").val(data.location.map_area);
 
       document.getElementById("edit_longitude").value = data.location.lng;
       document.getElementById("edit_latitude").value = data.location.lat;
 
-      $(this.$refs.editmodal).modal("show");
+      $("#edit_site_to_db").modal("show");
       this.editMapInitialize();
-      var PostCodeid =  document.getElementById("edit_map_area");
+      let PostCodeid =  document.getElementById("edit_map_area");
       $(PostCodeid).autocomplete({
         source: function (request, response) {
           let geocoder = new google.maps.Geocoder();
@@ -628,12 +665,12 @@ module.exports = {
           });
         },
         select: function (event, ui) {
-          var latVal = ui.item.lat;
-          var lngVal = ui.item.lon;
+          let latVal = ui.item.lat;
+          let lngVal = ui.item.lon;
           document.getElementById("edit_latitude").value = latVal.toFixed(6);
           document.getElementById("edit_longitude").value = lngVal.toFixed(6);
-          var latlng = new google.maps.LatLng(latVal, lngVal);
-          var options = {
+          let latlng = new google.maps.LatLng(latVal, lngVal);
+          let options = {
             zoom: 15,
             center: latlng,
             mapTypeId: google.maps.MapTypeId.ROADMAP
@@ -653,33 +690,64 @@ module.exports = {
     updateSitedo: function(){
       this.show_loading = true;
       this.show_edit_errors = true;
-
-      var siteID = this.edit_id;
-
+      let siteID = $("#edit_id").val();
       this.$http.patch('/sites/update', {
-        name: this.edit_name,
-        sim_number: this.edit_sim_number,
-        router_id: this.edit_router_id,
-        nvr_id: this.edit_nvr_id,
-        notes: this.edit_notes,
+        name: $("#edit_name").val(),
+        sim_number: $("#edit_sim_number").val(),
+        router_id: $("#edit_router_id").val(),
+        nvr_id: $("#edit_nvr_id").val(),
+        notes: $("#edit_notes").val(),
         location: {
-          lat: document.getElementById("edit_latitude").value,
-          lng: document.getElementById("edit_longitude").value,
-          map_area: this.edit_map_area
+          lat: $("#edit_latitude").val(),
+          lng: $("#edit_longitude").val(),
+          map_area: $("#edit_map_area").val()
         },
         id: siteID
       }).then(function (response) {
         $.notify({message: 'Site has been updated.'},{type: 'info'});
         this.show_loading = false;
-        this.initDatatable()
+        this.dataTable.ajax.reload();
         this.editClearFrom();
-        $(this.$refs.editmodal).modal("hide");
+        $("#edit_site_to_db").modal("hide");
       }).catch(function (error) {
         this.show_loading = false;
         this.show_edit_messages = error.body.errors;
         this.show_edit_errors = true;
       });
     },
+    deleteSite: function(){
+    $(document).on("click", ".delSite", function(){
+      let siteRow, result;
+      siteRow = $(this).closest('tr');
+      let siteID = $(this).data("id");
+
+      result = confirm("Are you sure to delete this Site?");
+      if (result === false) {
+        return;
+      }
+
+      let data = {};
+      data.id = siteID;
+      let settings;
+
+      settings = {
+        cache: false,
+        data: data,
+        dataType: 'json',
+        error: function(){return false},
+        success: function(){
+          siteRow.remove();
+          $.notify({message: 'Site has been deleted.'},{type: 'info'});
+          return true;
+        },
+        contentType: "application/x-www-form-urlencoded",
+        context: {siteRow: siteRow},
+        type: "DELETE",
+        url: "/sites/" + siteID
+      };
+      $.ajax(settings);
+    });
+   },
     editClearFrom: function() {
       this.edit_name = ""
       this.edit_map_area = ""
@@ -690,32 +758,22 @@ module.exports = {
       this.show_loading = false;
       this.show_edit_errors = false;
     },
-    deleteSite: function(siteID, event){
-      let siteRow, result;
-      siteRow = event.target.parentElement.parentElement
-      result = confirm("Are you sure to delete this Site?");
-      if (result === false) {
-        return;
-      }
-      let data = {};
-      data.id = siteID;
-      this.$http.delete("/sites/" + siteID, {siteRow: siteRow}).then(function (response) {
-        siteRow.remove();
-        $.notify({message: 'Site has been deleted.'},{type: 'info'});
-      }).catch(function (error) {
-         return false
+    initHideShow: function(){
+      $(".sites-column").each(function(){
+        let sitesDataTable = $('#sites-datatable').DataTable();
+        let that = $(this).attr("data-id");
+        let column = sitesDataTable.columns("." +that);
+        if(column.visible()[0] == true){
+          $(this).prop('checked', true);
+        }else{
+          $(this).prop('checked', false);
+        }
       });
     },
-    onSiteHideShowButton: function(){
-      $(this.$refs.hideShow).modal("show");
-    },
-    showHideColumns: function(id){
-      let column = this.dataTable.columns(id);
-      if(column.visible()[0] == true){
-        column.visible(false);
-      }else{
-        column.visible(true);
-      }
+    get_session: function(){
+      this.$http.get('/get_porfile').then(response => {
+        this.user_id = response.body.id;
+      });
     },
     get_sims: function(){
       this.$http.get('/sims/data/json').then(response => {
@@ -732,16 +790,21 @@ module.exports = {
         this.nvrs_list = response.body.nvrs;
       });
     }
-  },
+   }, // end of methods\
   created() {
-    this.initDatatable();
     this.get_session();
     this.get_sims();
     this.get_routers();
     this.get_nvrs();
-  }
+  },
+   mounted(){
+    let table = this.initializeTable();
+    this.getUniqueIdentifier(table);
+    this.initHideShow();
+    this.deleteSite();
+    this.dataTable.search("");
+   }
 }
 </script>
-
 <style lang="scss">
 </style>

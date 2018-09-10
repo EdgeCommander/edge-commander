@@ -4,8 +4,8 @@ defmodule EdgeCommanderWeb.SharingController do
   alias EdgeCommander.Repo
   alias EdgeCommander.Util
   import Ecto.Query, warn: false
-  import EdgeCommander.Sharing, only: [list_sharing: 1, get_member!: 1, already_sharing: 2]
-  import EdgeCommander.Accounts, only: [current_user: 1, email_exist: 1, get_user!: 1]
+  import EdgeCommander.Sharing, only: [list_sharing: 1, get_member!: 1, already_sharing: 2, all_shared_users: 1]
+  import EdgeCommander.Accounts, only: [current_user: 1, email_exist: 1, get_user!: 1, get_other_users: 1]
 
   def create(conn, params) do
     member_id = params["member_email"] |> email_exist |> get_member_id
@@ -100,6 +100,43 @@ defmodule EdgeCommanderWeb.SharingController do
         |> json(%{ errors: traversed_errors })
     end
   end
+
+   def get_other_users(conn, params) do
+    current_user = current_user(conn)
+    current_user_id = Util.get_user_id(conn, params)
+    users =
+      get_other_users(current_user_id)
+      |> Enum.map(fn(user) ->
+        %{
+          id: user.id,
+          email: user.email
+        }
+      end)
+      conn
+      |> put_status(200)
+      |> json(%{
+        "users": users
+      })
+  end
+
+  def shared_users(conn, params)  do
+    current_user = current_user(conn)
+    current_user_id = Util.get_user_id(conn, params)
+    users =
+      all_shared_users(current_user_id)
+      |> Enum.map(fn(user) ->
+        %{
+          id: user.id,
+          email: user.email
+        }
+      end)
+    conn
+    |> put_status(200)
+    |> json(%{
+        "users": users
+      })
+  end
+
 
   defp get_member_id(nil), do: 0
   defp get_member_id(member_details)  do

@@ -63,7 +63,7 @@
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 25);
+/******/ 	return __webpack_require__(__webpack_require__.s = 27);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -469,13 +469,13 @@ process.umask = function() { return 0; };
 var disposed = false
 function injectStyle (ssrContext) {
   if (disposed) return
-  __webpack_require__(26)
+  __webpack_require__(28)
 }
 var Component = __webpack_require__(0)(
   /* script */
-  __webpack_require__(16),
+  __webpack_require__(17),
   /* template */
-  __webpack_require__(37),
+  __webpack_require__(40),
   /* styles */
   injectStyle,
   /* scopeId */
@@ -513,13 +513,13 @@ module.exports = Component.exports
 var disposed = false
 function injectStyle (ssrContext) {
   if (disposed) return
-  __webpack_require__(32)
+  __webpack_require__(35)
 }
 var Component = __webpack_require__(0)(
   /* script */
-  __webpack_require__(17),
+  __webpack_require__(18),
   /* template */
-  __webpack_require__(43),
+  __webpack_require__(47),
   /* styles */
   injectStyle,
   /* scopeId */
@@ -557,13 +557,13 @@ module.exports = Component.exports
 var disposed = false
 function injectStyle (ssrContext) {
   if (disposed) return
-  __webpack_require__(27)
+  __webpack_require__(29)
 }
 var Component = __webpack_require__(0)(
   /* script */
-  __webpack_require__(18),
+  __webpack_require__(19),
   /* template */
-  __webpack_require__(38),
+  __webpack_require__(41),
   /* styles */
   injectStyle,
   /* scopeId */
@@ -601,13 +601,13 @@ module.exports = Component.exports
 var disposed = false
 function injectStyle (ssrContext) {
   if (disposed) return
-  __webpack_require__(28)
+  __webpack_require__(31)
 }
 var Component = __webpack_require__(0)(
   /* script */
-  __webpack_require__(19),
+  __webpack_require__(20),
   /* template */
-  __webpack_require__(39),
+  __webpack_require__(43),
   /* styles */
   injectStyle,
   /* scopeId */
@@ -645,13 +645,13 @@ module.exports = Component.exports
 var disposed = false
 function injectStyle (ssrContext) {
   if (disposed) return
-  __webpack_require__(29)
+  __webpack_require__(32)
 }
 var Component = __webpack_require__(0)(
   /* script */
-  __webpack_require__(20),
+  __webpack_require__(21),
   /* template */
-  __webpack_require__(40),
+  __webpack_require__(44),
   /* styles */
   injectStyle,
   /* scopeId */
@@ -689,13 +689,13 @@ module.exports = Component.exports
 var disposed = false
 function injectStyle (ssrContext) {
   if (disposed) return
-  __webpack_require__(33)
+  __webpack_require__(36)
 }
 var Component = __webpack_require__(0)(
   /* script */
-  __webpack_require__(21),
+  __webpack_require__(22),
   /* template */
-  __webpack_require__(44),
+  __webpack_require__(48),
   /* styles */
   injectStyle,
   /* scopeId */
@@ -733,13 +733,13 @@ module.exports = Component.exports
 var disposed = false
 function injectStyle (ssrContext) {
   if (disposed) return
-  __webpack_require__(30)
+  __webpack_require__(33)
 }
 var Component = __webpack_require__(0)(
   /* script */
-  __webpack_require__(22),
+  __webpack_require__(23),
   /* template */
-  __webpack_require__(41),
+  __webpack_require__(45),
   /* styles */
   injectStyle,
   /* scopeId */
@@ -777,13 +777,57 @@ module.exports = Component.exports
 var disposed = false
 function injectStyle (ssrContext) {
   if (disposed) return
-  __webpack_require__(34)
+  __webpack_require__(30)
 }
 var Component = __webpack_require__(0)(
   /* script */
-  __webpack_require__(23),
+  __webpack_require__(24),
   /* template */
-  __webpack_require__(45),
+  __webpack_require__(42),
+  /* styles */
+  injectStyle,
+  /* scopeId */
+  null,
+  /* moduleIdentifier (server only) */
+  null
+)
+Component.options.__file = "/home/ali/edge-commander/assets/static/components/shares.vue"
+if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key.substr(0, 2) !== "__"})) {console.error("named exports are not supported in *.vue files.")}
+if (Component.options.functional) {console.error("[vue-loader] shares.vue: functional components are not supported with templates, they should use render functions.")}
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-43b6081a", Component.options)
+  } else {
+    hotAPI.reload("data-v-43b6081a", Component.options)
+  }
+  module.hot.dispose(function (data) {
+    disposed = true
+  })
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+/* 12 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var disposed = false
+function injectStyle (ssrContext) {
+  if (disposed) return
+  __webpack_require__(37)
+}
+var Component = __webpack_require__(0)(
+  /* script */
+  __webpack_require__(25),
+  /* template */
+  __webpack_require__(49),
   /* styles */
   injectStyle,
   /* scopeId */
@@ -815,19 +859,19 @@ module.exports = Component.exports
 
 
 /***/ }),
-/* 12 */
+/* 13 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var disposed = false
 function injectStyle (ssrContext) {
   if (disposed) return
-  __webpack_require__(31)
+  __webpack_require__(34)
 }
 var Component = __webpack_require__(0)(
   /* script */
-  __webpack_require__(24),
+  __webpack_require__(26),
   /* template */
-  __webpack_require__(42),
+  __webpack_require__(46),
   /* styles */
   injectStyle,
   /* scopeId */
@@ -859,7 +903,7 @@ module.exports = Component.exports
 
 
 /***/ }),
-/* 13 */
+/* 14 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -1958,7 +2002,7 @@ function xhrClient (request) {
 
 function nodeClient (request) {
 
-    var client = __webpack_require__(46);
+    var client = __webpack_require__(50);
 
     return new PromiseObj(function (resolve) {
 
@@ -2426,7 +2470,7 @@ if (typeof window !== 'undefined' && window.Vue) {
 
 
 /***/ }),
-/* 14 */
+/* 15 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -5058,7 +5102,7 @@ if (inBrowser && window.Vue) {
 /* WEBPACK VAR INJECTION */}.call(__webpack_exports__, __webpack_require__(2)))
 
 /***/ }),
-/* 15 */
+/* 16 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(global, setImmediate) {/*!
@@ -16009,10 +16053,10 @@ return Vue;
 
 })));
 
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1), __webpack_require__(36).setImmediate))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1), __webpack_require__(39).setImmediate))
 
 /***/ }),
-/* 16 */
+/* 17 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -16031,7 +16075,7 @@ exports.default = {
 };
 
 /***/ }),
-/* 17 */
+/* 18 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -16090,29 +16134,12 @@ module.exports = {
 };
 
 /***/ }),
-/* 18 */
+/* 19 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 //
 //
 //
@@ -16347,14 +16374,13 @@ module.exports = {
   data: function data() {
     return {
       dataTable: null,
-      table_records: "",
       m_form_search: "",
       show_loading: false,
       show_add_errors: false,
       show_edit_errors: false,
-      show_add_messages: "",
       show_edit_messages: "",
-      headings: [{ column: "Actions", id: "actions", class: "text-center" }, { column: "Rule Name", id: "rule_name" }, { column: "Active", id: "active", class: "text-center" }, { column: "Category", id: "category", class: "text-center" }, { column: "Recipients", id: "recipients" }, { column: "Created At", id: "created_at", class: "text-center" }],
+      show_add_messages: "",
+      headings: [{ column: "Actions", id: "actions" }, { column: "Rule Name", id: "rule_name" }, { column: "Active", id: "active" }, { column: "Category", id: "category" }, { column: "Recipients", id: "recipients" }, { column: "Created At", id: "created_at" }],
       form_labels: {
         name: "Rule Name",
         category: "Category",
@@ -16379,21 +16405,118 @@ module.exports = {
       user_id: ""
     };
   },
-  filters: {
-    formatDate: function formatDate(value) {
-      return moment(String(value)).format('DD/MM/YYYY HH:mm:ss');
-    }
-  },
   methods: {
-    initDatatable: function initDatatable() {
-      var _this = this;
-
-      this.$http.get('/rules').then(function (response) {
-        _this.table_records = response.body.rules;
-        $("#data-table .dataTables_empty").hide();
-      }).catch(function (error) {
-        console.log(error);
+    initializeTable: function initializeTable() {
+      var commandsDataTable = $('#commands-datatable').DataTable({
+        fnInitComplete: function fnInitComplete() {
+          // Enable TFOOT scoll bars
+          $('.dataTables_scrollFoot').css('overflow', 'auto');
+          $('.dataTables_scrollHead').css('overflow', 'auto');
+          // Sync TFOOT scrolling with TBODY
+          $('.dataTables_scrollFoot').on('scroll', function () {
+            $('.dataTables_scrollBody').scrollLeft($(this).scrollLeft());
+          });
+          $('.dataTables_scrollHead').on('scroll', function () {
+            $('.dataTables_scrollBody').scrollLeft($(this).scrollLeft());
+          });
+        },
+        ajax: {
+          url: "/rules",
+          dataSrc: function dataSrc(data) {
+            return data.rules;
+          },
+          error: function error(xhr, _error, thrown) {
+            if (xhr.responseJSON) {
+              console.log(xhr.responseJSON.message);
+            } else {
+              console.log("Something went wrong, Please try again.");
+            }
+          }
+        },
+        columns: [{
+          class: "text-center actions",
+          data: function data(row, type, set, meta) {
+            return '<div id="action_btn"><div class="editRULE cursor_to_pointer fa fa-edit" data-id="' + row.id + '"></div> <div class="cursor_to_pointer fa fa-trash delRule" data-id="' + row.id + '"></div></div>';
+          }
+        }, {
+          class: "rule_name",
+          data: function data(row, type, set, meta) {
+            return row.rule_name;
+          }
+        }, {
+          class: "text-center active",
+          data: function data(row, type, set, meta) {
+            return row.active;
+          }
+        }, {
+          class: "text-center category",
+          data: function data(row, type, set, meta) {
+            return row.category;
+          }
+        }, {
+          class: "recipients",
+          data: function data(row, type, set, meta) {
+            return row.recipients;
+          }
+        }, {
+          class: "text-center created_at",
+          data: function data(row, type, set, meta) {
+            return moment(row.created_at).format('DD/MM/YYYY HH:mm:ss');
+          }
+        }],
+        autoWidth: true,
+        info: false,
+        bPaginate: false,
+        lengthChange: false,
+        scrollX: true,
+        colReorder: true,
+        stateSave: true
       });
+      return this.dataTable = commandsDataTable;
+      this.dataTable.search("");
+    },
+    search: function search() {
+      this.dataTable.search(this.m_form_search).draw();
+    },
+    getUniqueIdentifier: function getUniqueIdentifier(commandsDataTable) {
+      $(document).on("click", ".editRULE", function () {
+        var tr = $(this).closest('tr');
+        var row = commandsDataTable.row(tr);
+        var data = row.data();
+        var rule_id = $(this).data("id");
+        module.exports.methods.onRuleEditButton(rule_id, data);
+      });
+    },
+    onRuleEditButton: function onRuleEditButton(rule_id, data) {
+      $("#edit_rule_name").val(data.rule_name);
+      $("#edit_rule_id").val(rule_id);
+      $("#edit_rule_category").val(data.category);
+      $("#edit_rule_recipients").val(data.recipients);
+      if (data.active == true) {
+        $("#edit_rule_is_active").prop("checked", true);
+      }
+      $('#edit_rule_to_db').modal('show');
+    },
+    showHideColumns: function showHideColumns(id) {
+      var column = this.dataTable.columns("." + id);
+      if (column.visible()[0] == true) {
+        column.visible(false);
+      } else {
+        column.visible(true);
+      }
+    },
+    onRuleButton: function onRuleButton() {
+      $(this.$refs.addmodal).modal("show");
+    },
+    onRuleHideShowButton: function onRuleHideShowButton() {
+      $(this.$refs.hideShow).modal("show");
+    },
+    clearForm: function clearForm() {
+      this.rule_name = "";
+      this.rule_category = "";
+      this.rule_recipients = "";
+      this.rule_is_active = false;
+      this.show_add_errors = false;
     },
     saveModal: function saveModal() {
       this.show_loading = true;
@@ -16415,7 +16538,7 @@ module.exports = {
       }).then(function (response) {
         $.notify({ message: 'Rule has been added.' }, { type: 'info' });
         this.show_loading = false;
-        this.initDatatable();
+        this.dataTable.ajax.reload();
         this.clearForm();
         $(this.$refs.addmodal).modal("hide");
       }).catch(function (error) {
@@ -16424,61 +16547,29 @@ module.exports = {
         this.show_loading = false;
       });
     },
-    deleteRule: function deleteRule(ruleID, event) {
-      var ruleRow = void 0,
-          result = void 0;
-      ruleRow = event.target.parentElement.parentElement;
-      result = confirm("Are you sure to delete this rule?");
-      if (result === false) {
-        return;
-      }
-      var data = {};
-      data.id = ruleID;
-      this.$http.delete("/rules/" + ruleID, { ruleRow: ruleRow }).then(function (response) {
-        ruleRow.remove();
-        $.notify({ message: 'Rule has been deleted.' }, { type: 'info' });
-      }).catch(function (error) {
-        return false;
-      });
-    },
-    clearForm: function clearForm() {
-      this.rule_name = "";
-      this.rule_category = "";
-      this.rule_recipients = "";
-      this.rule_is_active = false;
-      this.show_add_errors = false;
-    },
-    onRuleEditButton: function onRuleEditButton(data) {
-      this.edit_rule_id = data.id;
-      this.edit_rule_name = data.rule_name;
-      this.edit_rule_category = data.category;
-      this.edit_rule_recipients = data.recipients;
-      this.edit_rule_is_active = data.active;
-      $(this.$refs.editmodal).modal("show");
-    },
     updateRule: function updateRule() {
       this.show_loading = true;
       this.show_edit_errors = true;
 
-      var ruleID = this.edit_rule_id;
+      var ruleID = $("#edit_rule_id").val();
 
-      var recipients = this.edit_rule_recipients;
+      var recipients = $("#edit_rule_recipients").val();
       if (recipients != "") {
-        recipients = recipients;
+        recipients = recipients.split(",");
       } else {
         recipients = "";
       }
 
       this.$http.patch('/rules/update', {
-        rule_name: this.edit_rule_name,
-        category: this.edit_rule_category,
+        rule_name: $("#edit_rule_name").val(),
+        category: $("#edit_rule_category").val(),
         recipients: recipients,
-        active: this.edit_rule_is_active,
+        active: $('#edit_rule_is_active').is(':checked'),
         id: ruleID
       }).then(function (response) {
         $.notify({ message: 'Rule has been updated.' }, { type: 'info' });
         this.show_loading = false;
-        this.initDatatable();
+        this.dataTable.ajax.reload();
         this.editClearFrom();
         $(this.$refs.editmodal).modal("hide");
       }).catch(function (error) {
@@ -16488,72 +16579,79 @@ module.exports = {
       });
     },
     editClearFrom: function editClearFrom() {
-      this.show_edit_messages = "";
       this.show_edit_errors = false;
       this.edit_rule_name = "";
       this.edit_rule_recipients = "";
       this.edit_rule_is_active = false;
     },
-    search: function search() {
-      this.dataTable.search(this.m_form_search).draw();
-    },
-    onRuleButton: function onRuleButton() {
-      $(this.$refs.addmodal).modal("show");
-    },
-    get_session: function get_session() {
-      var _this2 = this;
-
-      this.$http.get('/get_porfile').then(function (response) {
-        _this2.user_id = response.body.id;
+    initHideShow: function initHideShow() {
+      $(".rule-column").each(function () {
+        var that = $(this).attr("data-id");
+        var commandsDataTable = $('#commands-datatable').DataTable();
+        var column = commandsDataTable.columns("." + that);
+        if (column.visible()[0] == true) {
+          $(this).prop('checked', true);
+        } else {
+          $(this).prop('checked', false);
+        }
       });
     },
-    onRuleHideShowButton: function onRuleHideShowButton() {
-      $(this.$refs.hideShow).modal("show");
+    get_session: function get_session() {
+      var _this = this;
+
+      this.$http.get('/get_porfile').then(function (response) {
+        _this.user_id = response.body.id;
+      });
     },
-    showHideColumns: function showHideColumns(id) {
-      var column = this.dataTable.columns(id);
-      if (column.visible()[0] == true) {
-        column.visible(false);
-      } else {
-        column.visible(true);
-      }
+    deleteRule: function deleteRule() {
+      $(document).on("click", ".delRule", function () {
+        var ruleRow = void 0,
+            result = void 0;
+        ruleRow = $(this).closest('tr');
+        var ruleID = $(this).data("id");
+
+        result = confirm("Are you sure to delete this Rule?");
+        if (result === false) {
+          return;
+        }
+
+        var data = {};
+        data.id = ruleID;
+        var settings = void 0;
+
+        settings = {
+          cache: false,
+          data: data,
+          dataType: 'json',
+          error: function error() {
+            return false;
+          },
+          success: function success() {
+            ruleRow.remove();
+            $.notify({ message: 'Rule has been deleted.' }, { type: 'info' });
+            return true;
+          },
+          contentType: "application/x-www-form-urlencoded",
+          context: { ruleRow: ruleRow },
+          type: "DELETE",
+          url: "/rules/" + ruleID
+        };
+        $.ajax(settings);
+      });
     }
-  },
-  created: function created() {
-    this.initDatatable();
-  },
+  }, // end of methods
   mounted: function mounted() {
+    var table = this.initializeTable();
+    this.getUniqueIdentifier(table);
     this.get_session();
-  },
-  updated: function updated() {
-    var dataTable = $('#data-table').DataTable({
-      autoWidth: true,
-      info: false,
-      bPaginate: false,
-      lengthChange: false,
-      searching: true,
-      scrollX: true,
-      colReorder: true,
-      retrieve: true,
-      fnInitComplete: function fnInitComplete() {
-        // Enable TFOOT scoll bars
-        $('.dataTables_scrollFoot').css('overflow', 'auto');
-        $('.dataTables_scrollHead').css('overflow', 'auto');
-        // Sync TFOOT scrolling with TBODY
-        $('.dataTables_scrollFoot').on('scroll', function () {
-          $('.dataTables_scrollBody').scrollLeft($(this).scrollLeft());
-        });
-        $('.dataTables_scrollHead').on('scroll', function () {
-          $('.dataTables_scrollBody').scrollLeft($(this).scrollLeft());
-        });
-      }
-    });
-    this.dataTable = dataTable;
+    this.initHideShow();
+    this.deleteRule();
+    this.dataTable.search("");
   }
 };
 
 /***/ }),
-/* 19 */
+/* 20 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -16935,7 +17033,7 @@ module.exports = {
 };
 
 /***/ }),
-/* 20 */
+/* 21 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -17469,49 +17567,12 @@ module.exports = {
 };
 
 /***/ }),
-/* 21 */
+/* 22 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 //
 //
 //
@@ -17817,14 +17878,13 @@ module.exports = {
   data: function data() {
     return {
       dataTable: null,
-      table_records: "",
       m_form_search: "",
       show_loading: false,
       show_add_errors: false,
       show_edit_errors: false,
-      show_add_messages: "",
       show_edit_messages: "",
-      headings: [{ column: "Reboot", visible: "checked", id: "reboot", class: "text-center reboot" }, { column: "Actions", visible: "checked", id: "actions", class: "text-center" }, { column: "Name", visible: "checked", class: "name" }, { column: "IP", visible: "checked", id: "ip" }, { column: "HTTP Port", visible: "", class: "text-center port" }, { column: "VH Port", visible: "", class: "text-center vh_port" }, { column: "SDK Port", visible: "", class: "text-center sdk_port" }, { column: "RTSP Port", visible: "", class: "text-center rtsp_port" }, { column: "Username", visible: "", class: "text-center username" }, { column: "Password", visible: "", class: "text-center password" }, { column: "Model", visible: "checked", class: "text-center" }, { column: "Firmware Version", visible: "checked", class: "text-center" }, { column: "Encoder Released Date", visible: "", class: "text-center encoder_released_date" }, { column: "Encoder Version", visible: "", class: "text-center encoder_version" }, { column: "Firmware Released Date", visible: "", class: "text-center firmware_released_date" }, { column: "Serial Number", visible: "", class: "serial_number" }, { column: "Mac Address", visible: "", class: "text-center mac_address" }, { column: "Status", visible: "checked", class: "text-center" }, { column: "Monitoring", visible: "", class: "text-center monitoring" }, { column: "Created At", visible: "", class: "text-center created_at" }],
+      show_add_messages: "",
+      headings: [{ column: "Reboot", visible: "checked", id: "reboot" }, { column: "Actions", visible: "checked", id: "actions" }, { column: "Name", visible: "checked", id: "name" }, { column: "IP", visible: "checked", id: "ip" }, { column: "HTTP Port", visible: "", id: "http_port" }, { column: "VH Port", visible: "", id: "vh_port" }, { column: "SDK Port", visible: "", id: "sdk_port" }, { column: "RTSP Port", visible: "", id: "rtsp_port" }, { column: "Username", visible: "", id: "username" }, { column: "Password", visible: "", id: "password" }, { column: "Model", visible: "checked", id: "model" }, { column: "Firmware Version", visible: "checked", id: "firmware_version" }, { column: "Encoder Released Date", visible: "", id: "encoder_released_date" }, { column: "Encoder Version", visible: "", id: "encoder_version" }, { column: "Firmware Released Date", visible: "", id: "firmware_released_date" }, { column: "Serial Number", visible: "", id: "serial_number" }, { column: "Mac Address", visible: "", id: "mac_address" }, { column: "Status", visible: "checked", id: "status" }, { column: "Monitoring", visible: "", id: "monitoring" }, { column: "Created At", visible: "", id: "created_at" }],
       form_labels: {
         name: "Name",
         ip: "IP",
@@ -17876,33 +17936,176 @@ module.exports = {
     }
   },
   methods: {
-    initDatatable: function initDatatable() {
-      var _this = this;
-
-      this.$http.get('/nvrs/data').then(function (response) {
-        _this.table_records = response.body.nvrs;
-        $("#data-table .dataTables_empty").hide();
-      }).then(function () {
-        _this.init_datatable();
-      }).catch(function (error) {
-        console.log(error);
+    initializeTable: function initializeTable() {
+      var nvrDataTable = $('#nvr-datatable').DataTable({
+        fnInitComplete: function fnInitComplete() {
+          // Enable TFOOT scoll bars
+          $('.dataTables_scrollFoot').css('overflow', 'auto');
+          $('.dataTables_scrollHead').css('overflow', 'auto');
+          // Sync TFOOT scrolling with TBODY
+          $('.dataTables_scrollFoot').on('scroll', function () {
+            $('.dataTables_scrollBody').scrollLeft($(this).scrollLeft());
+          });
+          $('.dataTables_scrollHead').on('scroll', function () {
+            $('.dataTables_scrollBody').scrollLeft($(this).scrollLeft());
+          });
+        },
+        ajax: {
+          url: "/nvrs/data",
+          dataSrc: function dataSrc(data) {
+            return data.nvrs;
+          },
+          error: function error(xhr, _error, thrown) {
+            if (xhr.responseJSON) {
+              console.log(xhr.responseJSON.message);
+            } else {
+              console.log("Something went wrong, Please try again.");
+            }
+          }
+        },
+        columns: [{
+          class: "text-center reboot",
+          data: function data(row, type, set, meta) {
+            return '<div class="action_btn"><button class="btn btn-default cursor_to_pointer" data-id="' + row.id + '" style="font-size:10px;padding: 5px;" onclick="vms.rebootNVR(' + row.id + ', this.parentNode.parentNode.parentNode)">Reboot</button></div>';
+          }
+        }, {
+          class: "text-center actions",
+          data: function data(row, type, set, meta) {
+            return '<div class="action_btn"><div id class="editNVR cursor_to_pointer fa fa-edit" data-id="' + row.id + '"></div> <div class="cursor_to_pointer fa fa-trash delNVR" data-id="' + row.id + '"></div></div>';
+          }
+        }, {
+          class: "name",
+          data: function data(row, type, set, meta) {
+            var url = row.ip + ":" + row.port;
+            return row.name + "&nbsp;&nbsp;&nbsp;<a href='http://" + url + "' target='_blank'><span class='fa fa-external-link'></a>";
+          }
+        }, {
+          class: "text-left ip",
+          data: function data(row, type, set, meta) {
+            return row.ip;
+          }
+        }, {
+          visible: false,
+          class: "text-center http_port",
+          data: function data(row, type, set, meta) {
+            return row.port;
+          }
+        }, {
+          visible: false,
+          class: "text-center vh_port",
+          data: function data(row, type, set, meta) {
+            return row.vh_port;
+          }
+        }, {
+          visible: false,
+          class: "text-center sdk_port",
+          data: function data(row, type, set, meta) {
+            return row.sdk_port;
+          }
+        }, {
+          visible: false,
+          class: "text-center rtsp_port",
+          data: function data(row, type, set, meta) {
+            return row.rtsp_port;
+          }
+        }, {
+          visible: false,
+          class: "text-center username",
+          data: function data(row, type, set, meta) {
+            return row.username;
+          }
+        }, {
+          visible: false,
+          class: "text-center password",
+          data: function data(row, type, set, meta) {
+            return row.password;
+          }
+        }, {
+          class: "text-center model",
+          data: function data(row, type, set, meta) {
+            return row.model;
+          }
+        }, {
+          class: "text-center",
+          data: function data(row, type, set, meta) {
+            return row.firmware_version;
+          }
+        }, {
+          visible: false,
+          class: "text-center encoder_released_date",
+          data: function data(row, type, set, meta) {
+            return row.encoder_released_date;
+          }
+        }, {
+          visible: false,
+          class: "text-center encoder_version",
+          data: function data(row, type, set, meta) {
+            return row.encoder_version;
+          }
+        }, {
+          visible: false,
+          class: "text-center firmware_released_date",
+          data: function data(row, type, set, meta) {
+            return row.firmware_released_date;
+          }
+        }, {
+          visible: false,
+          class: "text-left serial_number",
+          data: function data(row, type, set, meta) {
+            return row.serial_number;
+          }
+        }, {
+          visible: false,
+          class: "text-center mac_address",
+          data: function data(row, type, set, meta) {
+            return row.mac_address;
+          }
+        }, {
+          class: "text-center status",
+          data: function data(row, type, set, meta) {
+            if (row.nvr_status == false) {
+              reason = row.reason;
+              if (reason == '') {
+                reason = "no reason found.";
+              }
+              return "<span style='color:#d9534d'>Offline</span> <span>(" + reason + ")</span>";
+            } else {
+              return "<span style='color:#5cb85c'>Online</span>";
+            }
+          }
+        }, {
+          visible: false,
+          class: "text-center monitoring",
+          data: function data(row, type, set, meta) {
+            if (row.is_monitoring) {
+              return "Yes";
+            } else {
+              return "No";
+            }
+          }
+        }, {
+          visible: false,
+          class: "text-center created_at",
+          data: function data(row, type, set, meta) {
+            return moment(row.created_at).format('DD/MM/YYYY HH:mm:ss');
+          }
+        }],
+        autoWidth: true,
+        info: false,
+        bPaginate: false,
+        lengthChange: false,
+        scrollX: true,
+        colReorder: true,
+        stateSave: true
       });
-    },
-    get_session: function get_session() {
-      var _this2 = this;
-
-      this.$http.get('/get_porfile').then(function (response) {
-        _this2.user_id = response.body.id;
-      });
+      return this.dataTable = nvrDataTable;
+      this.dataTable.search("");
     },
     search: function search() {
       this.dataTable.search(this.m_form_search).draw();
     },
-    onNVRHideShowButton: function onNVRHideShowButton() {
-      $(this.$refs.hideShow).modal("show");
-    },
     showHideColumns: function showHideColumns(id) {
-      var column = this.dataTable.columns(id);
+      var column = this.dataTable.columns("." + id);
       if (column.visible()[0] == true) {
         column.visible(false);
       } else {
@@ -17911,6 +18114,9 @@ module.exports = {
     },
     onNVRButton: function onNVRButton() {
       $(this.$refs.addmodal).modal("show");
+    },
+    onNVRHideShowButton: function onNVRHideShowButton() {
+      $(this.$refs.hideShow).modal("show");
     },
     saveModal: function saveModal() {
       this.show_loading = true;
@@ -17930,7 +18136,7 @@ module.exports = {
       }).then(function (response) {
         $.notify({ message: 'NVR has been added.' }, { type: 'info' });
         this.show_loading = false;
-        this.initDatatable();
+        this.dataTable.ajax.reload();
         this.clearForm();
         $(this.$refs.addmodal).modal("hide");
       }).catch(function (error) {
@@ -17949,43 +18155,54 @@ module.exports = {
       this.vh_nvr_port = "";
       this.rtsp_nvr_port = "";
       this.nvr_is_monitoring = false;
-      this.show_add_messages = "";
       this.show_add_errors = false;
+      this.show_add_messages = "";
     },
-    onNVREditButton: function onNVREditButton(data) {
-      this.edit_nvr_id = data.id;
-      this.edit_nvr_name = data.name;
-      this.edit_nvr_ip = data.ip;
-      this.edit_nvr_username = data.username;
-      this.edit_nvr_password = data.password;
-      this.edit_http_nvr_port = data.port;
-      this.edit_sdk_nvr_port = data.sdk_port;
-      this.edit_vh_nvr_port = data.vh_port;
-      this.edit_rtsp_nvr_port = data.rtsp_port;
-      this.edit_nvr_is_monitoring = data.is_monitoring;
-      $(this.$refs.editmodal).modal("show");
+    getUniqueIdentifier: function getUniqueIdentifier(nvrDataTable) {
+      $(document).on("click", ".editNVR", function () {
+        var tr = $(this).closest('tr');
+        var row = nvrDataTable.row(tr);
+        var data = row.data();
+        var nvr_id = $(this).data("id");
+        module.exports.methods.onNVREditButton(nvr_id, data);
+      });
+    },
+    onNVREditButton: function onNVREditButton(nvr_id, data) {
+      $("#edit_nvr_id").val(nvr_id);
+      $("#edit_nvr_ip").val(data.ip);
+      $("#edit_nvr_name").val(data.name);
+      $("#edit_nvr_username").val(data.username);
+      $("#edit_nvr_password").val(data.password);
+      $("#edit_http_nvr_port").val(data.port);
+      $("#edit_vh_nvr_port").val(data.vh_port);
+      $("#edit_sdk_nvr_port").val(data.sdk_port);
+      $("#edit_rtsp_nvr_port").val(data.rtsp_port);
+      if (data.is_monitoring == true) {
+        $("#edit_nvr_is_monitoring").prop("checked", true);
+      }
+      $('#edit_nvr_to_db').modal('show');
     },
     updateNVRdo: function updateNVRdo() {
       this.show_loading = true;
       this.show_edit_errors = true;
 
-      var nvrID = this.edit_nvr_id;
+      var nvrID = $("#edit_nvr_id").val();
 
       this.$http.patch("/nvrs/" + nvrID, {
-        name: this.edit_nvr_name,
-        ip: this.edit_nvr_ip,
-        username: this.edit_nvr_username,
-        password: this.edit_nvr_password,
-        port: this.edit_http_nvr_port,
-        sdk_port: this.edit_sdk_nvr_port,
-        vh_port: this.edit_vh_nvr_port,
-        is_monitoring: this.edit_nvr_is_monitoring,
-        rtsp_port: this.edit_rtsp_nvr_port,
+        name: $("#edit_nvr_name").val(),
+        ip: $("#edit_nvr_ip").val(),
+        username: $("#edit_nvr_username").val(),
+        password: $("#edit_nvr_password").val(),
+        port: $("#edit_http_nvr_port").val(),
+        sdk_port: $("#edit_sdk_nvr_port").val(),
+        vh_port: $("#edit_vh_nvr_port").val(),
+        is_monitoring: $('#edit_nvr_is_monitoring').is(':checked'),
+        rtsp_port: $("#edit_rtsp_nvr_port").val(),
         id: nvrID
       }).then(function (response) {
         $.notify({ message: 'NVR has been updated.' }, { type: 'info' });
         this.show_loading = false;
-        this.initDatatable();
+        this.dataTable.ajax.reload();
         this.editClearFrom();
         $(this.$refs.editmodal).modal("hide");
       }).catch(function (error) {
@@ -18009,104 +18226,78 @@ module.exports = {
       this.show_edit_errors = false;
       this.show_edit_messages = "";
     },
-    deleteNVR: function deleteNVR(nvrID, event) {
-      var nvrRow = void 0,
-          result = void 0;
-      nvrRow = event.target.parentElement.parentElement;
-      result = confirm("Are you sure to delete this NVR?");
-      if (result === false) {
-        return;
-      }
-      var data = {};
-      data.id = nvrID;
-      this.$http.delete("/nvrs/" + nvrID, { nvrRow: nvrRow }).then(function (response) {
-        nvrRow.remove();
-        $.notify({ message: 'NVR has been deleted.' }, { type: 'info' });
-      }).catch(function (error) {
-        return false;
-      });
-    },
-    rebootNVR: function rebootNVR(nvrID, event) {
-      var nvrRow = void 0,
-          result = void 0;
-      nvrRow = event.target.parentElement.parentElement;
-      result = confirm("Are you sure to reboot this NVR?");
-      if (result === false) {
-        return;
-      }
-      this.$http.get("/nvrs/" + nvrID, { nvrRow: nvrRow }).then(function (response) {
-        if (response.body.status != 201) {
-          $.notify({ message: response.body.message }, { type: 'danger' });
+    initHideShow: function initHideShow() {
+      $(".nvr-column").each(function () {
+        var that = $(this).attr("data-id");
+        var nvrDataTable = $('#nvr-datatable').DataTable();
+        var column = nvrDataTable.columns("." + that);
+        if (column.visible()[0] == true) {
+          $(this).prop('checked', true);
         } else {
-          $.notify({ message: "Nvr has been reboot successfully." }, { type: 'info' });
+          $(this).prop('checked', false);
         }
-      }).catch(function (error) {
-        $.notify({ message: error.body.message }, { type: 'danger' });
-        return false;
       });
     },
-    init_datatable: function init_datatable() {
-      mApp.block("#loading_content", {
-        overlayColor: "#000000",
-        type: "loader",
-        state: "primary",
-        message: "Loading..."
-      });
-      var dataTable = $('#data-table').DataTable({
-        autoWidth: true,
-        info: false,
-        bPaginate: false,
-        lengthChange: false,
-        searching: true,
-        scrollX: true,
-        colReorder: true,
-        retrieve: true,
-        fnInitComplete: function fnInitComplete() {
-          $(".m_nvr_datatable").css("display", "block");
-          // Enable TFOOT scoll bars
-          $('.dataTables_scrollFoot').css('overflow', 'auto');
-          $('.dataTables_scrollHead').css('overflow', 'auto');
-          // Sync TFOOT scrolling with TBODY
-          $('.dataTables_scrollFoot').on('scroll', function () {
-            $('.dataTables_scrollBody').scrollLeft($(this).scrollLeft());
-          });
-          $('.dataTables_scrollHead').on('scroll', function () {
-            $('.dataTables_scrollBody').scrollLeft($(this).scrollLeft());
-          });
-        }
-      });
-      this.dataTable = dataTable;
+    get_session: function get_session() {
+      var _this = this;
 
-      dataTable.columns(['.port', '.vh_port', '.sdk_port', '.rtsp_port', '.username', '.password', '.encoder_released_date', '.encoder_version', '.firmware_released_date', '.serial_number', '.mac_address', '.monitoring', '.created_at']).visible(false);
-      dataTable.columns.adjust().draw(false); // adjust column sizing and redraw  
-      mApp.unblock("#loading_content");
+      this.$http.get('/get_porfile').then(function (response) {
+        _this.user_id = response.body.id;
+      });
+    },
+    deleteNvr: function deleteNvr() {
+      $(document).on("click", ".delNVR", function () {
+        var nvrRow = void 0,
+            result = void 0;
+        nvrRow = $(this).closest('tr');
+        var nvrID = $(this).data("id");
+
+        result = confirm("Are you sure to delete this NVR?");
+        if (result === false) {
+          return;
+        }
+
+        var data = {};
+        data.id = nvrID;
+        var settings = void 0;
+
+        settings = {
+          cache: false,
+          data: data,
+          dataType: 'json',
+          error: function error() {
+            return false;
+          },
+          success: function success() {
+            nvrRow.remove();
+            $.notify({ message: 'NVR has been deleted.' }, { type: 'info' });
+            return true;
+          },
+          contentType: "application/x-www-form-urlencoded",
+          context: { nvrRow: nvrRow },
+          type: "DELETE",
+          url: "/nvrs/" + nvrID
+        };
+        $.ajax(settings);
+      });
     }
-  },
-  created: function created() {
-    this.initDatatable();
-  },
+  }, // end of methods
   mounted: function mounted() {
     this.get_session();
+    var table = this.initializeTable();
+    this.getUniqueIdentifier(table);
+    this.deleteNvr();
+    this.initHideShow();
   }
 };
 
 /***/ }),
-/* 22 */
+/* 23 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 //
 //
 //
@@ -18368,9 +18559,7 @@ module.exports = {
       show_add_errors: false,
       show_edit_errors: false,
       show_add_messages: "",
-      table_records: "",
-      show_edit_messages: "",
-      headings: [{ column: "Actions", id: "actions", class: "text-center" }, { column: "Name", id: "name" }, { column: "IP", id: "ip" }, { column: "HTTP Port", id: "http_port", class: "text-center" }, { column: "Username", id: "username", class: "text-center" }, { column: "Password", id: "password", class: "text-center" }, { column: "Monitoring", id: "monitoring", class: "text-center" }, { column: "Created At", id: "created_at", class: "text-center" }],
+      headings: [{ column: "Actions", id: "actions" }, { column: "Name", id: "name" }, { column: "IP", id: "ip" }, { column: "HTTP Port", id: "http_port" }, { column: "Username", id: "username" }, { column: "Password", id: "password" }, { column: "Monitoring", id: "monitoring" }, { column: "Created At", id: "created_at" }],
       form_labels: {
         name: "Name",
         ip: "IP",
@@ -18401,36 +18590,106 @@ module.exports = {
       user_id: ""
     };
   },
-  filters: {
-    formatDate: function formatDate(value) {
-      return moment(String(value)).format('DD/MM/YYYY HH:mm:ss');
-    }
-  },
   methods: {
-    initDatatable: function initDatatable() {
-      var _this = this;
-
-      this.$http.get('/routers/data').then(function (response) {
-        _this.table_records = response.body.routers;
-        $("#data-table .dataTables_empty").hide();
-      }).catch(function (error) {
-        console.log(error);
+    initializeTable: function initializeTable() {
+      var routersDataTable = $('#routers-datatable').DataTable({
+        fnInitComplete: function fnInitComplete() {
+          // Enable TFOOT scoll bars
+          $('.dataTables_scrollFoot').css('overflow', 'auto');
+          $('.dataTables_scrollHead').css('overflow', 'auto');
+          // Sync TFOOT scrolling with TBODY
+          $('.dataTables_scrollFoot').on('scroll', function () {
+            $('.dataTables_scrollBody').scrollLeft($(this).scrollLeft());
+          });
+          $('.dataTables_scrollHead').on('scroll', function () {
+            $('.dataTables_scrollBody').scrollLeft($(this).scrollLeft());
+          });
+        },
+        ajax: {
+          url: "/routers/data",
+          dataSrc: function dataSrc(data) {
+            return data.routers;
+          },
+          error: function error(xhr, _error, thrown) {
+            if (xhr.responseJSON) {
+              console.log(xhr.responseJSON.message);
+            } else {
+              console.log("Something went wrong, Please try again.");
+            }
+          }
+        },
+        columns: [{
+          class: "text-center actions",
+          data: function data(row, type, set, meta) {
+            return '<div id="action_btn"><div class="editRouter cursor_to_pointer fa fa-edit" data-id="' + row.id + '"></div> <div class="cursor_to_pointer fa fa-trash delRouter" data-id="' + row.id + '"></div></div>';
+          }
+        }, {
+          class: "name",
+          data: function data(row, type, set, meta) {
+            return row.name;
+          }
+        }, {
+          class: "ip",
+          data: function data(row, type, set, meta) {
+            return row.ip;
+          }
+        }, {
+          class: "text-center http_port",
+          data: function data(row, type, set, meta) {
+            return row.port;
+          }
+        }, {
+          class: "text-center username",
+          data: function data(row, type, set, meta) {
+            return row.username;
+          }
+        }, {
+          class: "text-center password",
+          data: function data(row, type, set, meta) {
+            return row.password;
+          }
+        }, {
+          class: "text-center monitoring",
+          data: function data(row, type, set, meta) {
+            return row.is_monitoring;
+          }
+        }, {
+          class: "text-center created_at",
+          data: function data(row, type, set, meta) {
+            return moment(row.created_at).format('DD/MM/YYYY HH:mm:ss');
+          }
+        }],
+        autoWidth: true,
+        info: false,
+        bPaginate: false,
+        lengthChange: false,
+        scrollX: true,
+        colReorder: true,
+        stateSave: true
       });
+      return this.dataTable = routersDataTable;
+      this.dataTable.search("");
     },
-    get_session: function get_session() {
-      var _this2 = this;
-
-      this.$http.get('/get_porfile').then(function (response) {
-        _this2.user_id = response.body.id;
-      });
+    search: function search() {
+      this.dataTable.search(this.m_form_search).draw();
+    },
+    showHideColumns: function showHideColumns(id) {
+      var column = this.dataTable.columns("." + id);
+      if (column.visible()[0] == true) {
+        column.visible(false);
+      } else {
+        column.visible(true);
+      }
     },
     onROUTERButton: function onROUTERButton() {
       $(this.$refs.addmodal).modal("show");
     },
+    onROUTERHideShowButton: function onROUTERHideShowButton() {
+      $(this.$refs.hideShow).modal("show");
+    },
     saveModal: function saveModal() {
       this.show_loading = true;
       this.show_add_errors = true;
-
       this.$http.post('/routers', {
         name: this.router_name,
         ip: this.router_ip,
@@ -18442,7 +18701,7 @@ module.exports = {
       }).then(function (response) {
         $.notify({ message: 'Router has been added.' }, { type: 'info' });
         this.show_loading = false;
-        this.initDatatable();
+        this.dataTable.ajax.reload();
         this.clearForm();
         $(this.$refs.addmodal).modal("hide");
       }).catch(function (error) {
@@ -18451,9 +18710,6 @@ module.exports = {
         this.show_loading = false;
       });
     },
-    search: function search() {
-      this.dataTable.search(this.m_form_search).draw();
-    },
     clearForm: function clearForm() {
       this.router_name = "";
       this.router_ip = "";
@@ -18461,37 +18717,52 @@ module.exports = {
       this.router_password = "";
       this.http_router_port = "";
       this.router_is_monitoring = false;
-      this.show_add_messages = "";
       this.show_add_errors = false;
     },
-    onRouterEditButton: function onRouterEditButton(data) {
-      this.edit_router_id = data.id;
-      this.edit_router_name = data.name;
-      this.edit_router_ip = data.ip;
-      this.edit_router_username = data.username;
-      this.edit_router_password = data.password;
-      this.edit_http_router_port = data.port;
-      this.edit_router_is_monitoring = data.is_monitoring;
-      $(this.$refs.editmodal).modal("show");
+    getUniqueIdentifier: function getUniqueIdentifier(routersDataTable) {
+      $(document).on("click", ".editRouter", function () {
+        var tr = $(this).closest('tr');
+        var row = routersDataTable.row(tr);
+        var data = row.data();
+        var router_id = $(this).data("id");
+        module.exports.methods.onRouterEditButton(router_id, data);
+      });
+    },
+    onRouterEditButton: function onRouterEditButton(router_id, data) {
+      $("#edit_router_id").val(router_id);
+      $("#edit_router_name").val(data.name);
+      $("#edit_router_ip").val(data.ip);
+      $("#edit_router_username").val(data.username);
+      $("#edit_router_password").val(data.password);
+      $("#edit_http_router_port").val(data.port);
+      if (data.is_monitoring == true) {
+        $("#edit_router_is_monitoring").prop("checked", true);
+      }
+      $('#edit_router_to_db').modal('show');
     },
     updateRouterdo: function updateRouterdo() {
       this.show_loading = true;
       this.show_edit_errors = true;
+      var routerID = $("#edit_router_id").val();
+      var name = $("#edit_router_name").val(),
+          IP = $("#edit_router_ip").val(),
+          username = $("#edit_router_username").val(),
+          password = $("#edit_router_password").val(),
+          http_router_port = $("#edit_http_router_port").val(),
+          is_monitoring = $("#edit_router_is_monitoring").val();
 
-      var routerID = this.edit_router_id;
-
-      this.$http.patch('/routers/' + routerID, {
-        name: this.edit_router_name,
-        ip: this.edit_router_ip,
-        username: this.edit_router_username,
-        password: this.edit_router_password,
-        port: this.edit_http_router_port,
-        is_monitoring: this.edit_router_is_monitoring,
+      this.$http.patch("/routers/" + routerID, {
+        name: $("#edit_router_name").val(),
+        ip: $("#edit_router_ip").val(),
+        username: $("#edit_router_username").val(),
+        password: $("#edit_router_password").val(),
+        port: $("#edit_http_router_port").val(),
+        is_monitoring: $('#edit_router_is_monitoring').is(':checked'),
         id: routerID
       }).then(function (response) {
         $.notify({ message: 'Router has been updated.' }, { type: 'info' });
         this.show_loading = false;
-        this.initDatatable();
+        this.dataTable.ajax.reload();
         this.editClearFrom();
         $(this.$refs.editmodal).modal("hide");
       }).catch(function (error) {
@@ -18510,72 +18781,72 @@ module.exports = {
       this.edit_router_is_monitoring = false;
       this.show_loading = false;
       this.show_edit_errors = false;
-      this.show_edit_messages = "";
     },
-    deleteRouter: function deleteRouter(routerID, event) {
-      var routerRow = void 0,
-          result = void 0;
-      routerRow = event.target.parentElement.parentElement;
-      result = confirm("Are you sure to delete this rule?");
-      if (result === false) {
-        return;
-      }
-      var data = {};
-      data.id = routerID;
-      this.$http.delete("/routers/" + routerID, { routerRow: routerRow }).then(function (response) {
-        routerRow.remove();
-        $.notify({ message: 'Router has been deleted.' }, { type: 'info' });
-      }).catch(function (error) {
-        return false;
+    initHideShow: function initHideShow() {
+      $(".nvr-column").each(function () {
+        var routersDataTable = $('#routers-datatable').DataTable();
+        var that = $(this).attr("data-id");
+        var column = routersDataTable.columns("." + that);
+        if (column.visible()[0] == true) {
+          $(this).prop('checked', true);
+        } else {
+          $(this).prop('checked', false);
+        }
       });
     },
-    onROUTERHideShowButton: function onROUTERHideShowButton() {
-      $(this.$refs.hideShow).modal("show");
+    get_session: function get_session() {
+      var _this = this;
+
+      this.$http.get('/get_porfile').then(function (response) {
+        _this.user_id = response.body.id;
+      });
     },
-    showHideColumns: function showHideColumns(id) {
-      var column = this.dataTable.columns(id);
-      if (column.visible()[0] == true) {
-        column.visible(false);
-      } else {
-        column.visible(true);
-      }
+    deleteRouter: function deleteRouter() {
+      $(document).on("click", ".delRouter", function () {
+        var routerRow = void 0,
+            result = void 0;
+        routerRow = $(this).closest('tr');
+        var routerID = $(this).data("id");
+        result = confirm("Are you sure to delete this Router?");
+        if (result === false) {
+          return;
+        }
+        var data = {};
+        data.id = routerID;
+        var settings = void 0;
+        settings = {
+          cache: false,
+          data: data,
+          dataType: 'json',
+          error: function error() {
+            return false;
+          },
+          success: function success() {
+            routerRow.remove();
+            $.notify({ message: 'Router has been deleted.' }, { type: 'info' });
+            return true;
+          },
+          contentType: "application/x-www-form-urlencoded",
+          context: { routerRow: routerRow },
+          type: "DELETE",
+          url: "/routers/" + routerID
+        };
+        $.ajax(settings);
+      });
     }
   },
-  created: function created() {
-    this.initDatatable();
-  },
   mounted: function mounted() {
+    var table = this.initializeTable();
+    this.getUniqueIdentifier(table);
     this.get_session();
-  },
-  updated: function updated() {
-    var dataTable = $('#data-table').DataTable({
-      autoWidth: true,
-      info: false,
-      bPaginate: false,
-      lengthChange: false,
-      searching: true,
-      scrollX: true,
-      colReorder: true,
-      retrieve: true,
-      fnInitComplete: function fnInitComplete() {
-        // Enable TFOOT scoll bars
-        $('.dataTables_scrollFoot').css('overflow', 'auto');
-        $('.dataTables_scrollHead').css('overflow', 'auto');
-        // Sync TFOOT scrolling with TBODY
-        $('.dataTables_scrollFoot').on('scroll', function () {
-          $('.dataTables_scrollBody').scrollLeft($(this).scrollLeft());
-        });
-        $('.dataTables_scrollHead').on('scroll', function () {
-          $('.dataTables_scrollBody').scrollLeft($(this).scrollLeft());
-        });
-      }
-    });
-    this.dataTable = dataTable;
+    this.dataTable.search("");
+    this.initHideShow();
+    this.deleteRouter();
   }
 };
 
 /***/ }),
-/* 23 */
+/* 24 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -18596,6 +18867,394 @@ module.exports = {
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+module.exports = {
+  name: 'shares',
+  data: function data() {
+    return {
+      dataTable: null,
+      m_form_search: "",
+      show_loading: false,
+      show_errors: false,
+      show_add_messages: "",
+      shared_users: "",
+      other_users: "",
+      headings: [{ column: "Actions", visible: "checked", id: "actions" }, { column: "Owner", visible: "checked", id: "account_id" }, { column: "Share With", visible: "checked", id: "member_email" }, { column: "Share by", visible: "checked", id: "user_id" }, { column: "Rights", visible: "checked", id: "role" }],
+      form_labels: {
+        member_email: "Share With",
+        role: "Role",
+        choose_account: "Account of",
+        submit_button: "Share",
+        add_title: "Share Account",
+        hide_show_title: "Show/Hide Columns",
+        add_sharing_button: "Share Details",
+        hide_show_button: "OK"
+      },
+      role: 1,
+      account_id: "",
+      user_id: "",
+      user_email: ""
+    };
+  },
+  methods: {
+    initializeTable: function initializeTable() {
+      var sharingDataTable = $('#members-datatable').DataTable({
+        fnInitComplete: function fnInitComplete() {
+          // Enable TFOOT scoll bars
+          $('.dataTables_scrollFoot').css('overflow', 'auto');
+          $('.dataTables_scrollHead').css('overflow', 'auto');
+          // Sync TFOOT scrolling with TBODY
+          $('.dataTables_scrollFoot').on('scroll', function () {
+            $('.dataTables_scrollBody').scrollLeft($(this).scrollLeft());
+          });
+          $('.dataTables_scrollHead').on('scroll', function () {
+            $('.dataTables_scrollBody').scrollLeft($(this).scrollLeft());
+          });
+        },
+        ajax: {
+          url: "/members",
+          dataSrc: function dataSrc(data) {
+            return data.members;
+          },
+          error: function error(xhr, _error, thrown) {
+            if (xhr.responseJSON) {
+              console.log(xhr.responseJSON.message);
+            } else {
+              console.log("Something went wrong, Please try again.");
+            }
+          }
+        },
+        columns: [{
+          class: "text-center actions",
+          data: function data(row, type, set, meta) {
+            return '<div id="action_btn"><div class="cursor_to_pointer fa fa-trash delShare" data-id="' + row.id + '"></div></div>';
+          }
+        }, {
+          class: "account_id",
+          data: function data(row, type, set, meta) {
+            return "<b>" + row.account_of_name + "</b></br>" + row.account_of_email;
+          }
+        }, {
+          class: "member_email",
+          data: function data(row, type, set, meta) {
+            var color = void 0;
+            var member_name = row.member_name;
+            color = "";
+            if (member_name == 'Pending....') {
+              color = "red";
+            }
+            return "<b style='color:" + color + "'>" + row.member_name + "</b></br>" + row.member_email;
+          }
+        }, {
+          class: "user_id",
+          data: function data(row, type, set, meta) {
+            return "<b>" + row.share_by_name + "</b></br>" + row.share_by_email;
+          }
+        }, {
+          class: "text-center role",
+          data: function data(row, type, set, meta) {
+            var role = row.role;
+            if (role == 1) {
+              return "Full Rights";
+            } else {
+              return "Read-Only";
+            }
+          }
+        }],
+        autoWidth: true,
+        info: false,
+        bPaginate: false,
+        lengthChange: false,
+        scrollX: true,
+        colReorder: true
+      });
+      this.dataTable = sharingDataTable;
+      this.dataTable.search("");
+    },
+    search: function search() {
+      this.dataTable.search(this.m_form_search).draw();
+    },
+    showHideColumns: function showHideColumns(id) {
+      var column = this.dataTable.columns("." + id);
+      if (column.visible()[0] == true) {
+        column.visible(false);
+      } else {
+        column.visible(true);
+      }
+    },
+    onMemberButton: function onMemberButton() {
+      $(this.$refs.addmodal).modal('show');
+    },
+    onMemeberHideShowButton: function onMemeberHideShowButton() {
+      $(this.$refs.hideShow).modal("show");
+    },
+    clearForm: function clearForm() {
+      $("#member_email").val('').trigger('change');
+      this.account_id = "";
+      this.role = 1;
+      $('ul#errorOnMember').html("");
+      this.show_errors = false;
+    },
+    saveModal: function saveModal() {
+      this.show_loading = true;
+      this.show_errors = true;
+
+      member_email = $("#member_email option:selected").text();
+
+      var user_id = this.user_id,
+          member_email = member_email,
+          role = this.role,
+          account_id = this.account_id;
+
+      var data = {};
+
+      data.user_id = user_id;
+      data.member_email = member_email;
+      data.role = role;
+      data.account_id = account_id;
+
+      var settings;
+
+      settings = {
+        cache: false,
+        data: data,
+        dataType: 'json',
+        error: this.onSaveError,
+        success: this.onSaveSuccess,
+        contentType: "application/x-www-form-urlencoded",
+        type: "POST",
+        url: "/members/new"
+      };
+      $.ajax(settings);
+    },
+    onSaveError: function onSaveError(jqXHR, status, error) {
+      this.show_add_messages = jqXHR.responseJSON.errors;
+      this.show_loading = false;
+      return false;
+    },
+    onSaveSuccess: function onSaveSuccess(result, status, jqXHR) {
+      $.notify({ message: 'Member has been added.' }, { type: 'info' });
+      $(this.$refs.addmodal).modal('hide');
+      this.show_loading = false;
+      this.dataTable.ajax.reload();
+      this.clearForm();
+      return true;
+    },
+    initHideShow: function initHideShow() {
+      $(".member-column").each(function () {
+        var that = $(this).attr("data-id");
+        var column = vm.dataTable.columns("." + that);
+        if (column.visible()[0] == true) {
+          $(this).prop('checked', true);
+        } else {
+          $(this).prop('checked', false);
+        }
+      });
+    },
+    init_select: function init_select() {
+      $('.js-example-basic-single').select2({
+        closeOnSelect: true,
+        maximumSelectionLength: 1,
+        placeholder: "Select an email"
+      });
+    },
+    deleteMember: function deleteMember() {
+      $(document).on("click", ".delShare", function () {
+        var memberRow = void 0,
+            result = void 0,
+            memberID = void 0,
+            settings = void 0;
+        memberRow = $(this).closest('tr');
+        memberID = $(this).data("id");
+        result = confirm("Are you sure to delete this Member?");
+        if (result === false) {
+          return;
+        }
+        var data = {};
+        data.id = memberID;
+
+        settings = {
+          cache: false,
+          data: data,
+          dataType: 'json',
+          error: function error() {
+            return false;
+          },
+          success: function success() {
+            memberRow.remove();
+            $.notify({ message: 'Member has been deleted.' }, { type: 'info' });
+            return true;
+          },
+          contentType: "application/x-www-form-urlencoded",
+          context: { memberRow: memberRow },
+          type: "DELETE",
+          url: "/members/" + memberID
+        };
+        $.ajax(settings);
+      });
+    },
+    get_session: function get_session() {
+      var _this = this;
+
+      this.$http.get('/get_porfile').then(function (response) {
+        _this.user_id = response.body.id;
+        _this.user_email = response.body.email;
+      });
+    },
+    get_shared_users: function get_shared_users() {
+      var _this2 = this;
+
+      this.$http.get('/get_shared_users').then(function (response) {
+        console.log(response.body.users);
+        _this2.shared_users = response.body.users;
+      });
+    },
+    get_other_users: function get_other_users() {
+      var _this3 = this;
+
+      this.$http.get('/get_other_users').then(function (response) {
+        _this3.other_users = response.body.users;
+      });
+    }
+  }, // end of methods
+  mounted: function mounted() {
+    this.init_select();
+    this.initializeTable();
+    this.deleteMember();
+    this.get_session();
+    this.get_shared_users();
+    this.get_other_users();
+  }
+};
+
+/***/ }),
+/* 25 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
 //
 //
 //
@@ -18912,18 +19571,17 @@ module.exports = {
   data: function data() {
     return {
       dataTable: null,
-      table_records: "",
       m_form_search: "",
       mapEditView: "",
       show_loading: false,
       show_add_errors: false,
       show_edit_errors: false,
-      show_add_messages: "",
-      show_edit_messages: "",
       sims_list: "",
       routers_list: "",
       nvrs_list: "",
-      headings: [{ column: "Actions", id: "actions", class: "text-center" }, { column: "Name", id: "name" }, { column: "Location", id: "location" }, { column: "Sim Number", id: "sim_number", class: "text-center" }, { column: "Router Name", id: "router_name" }, { column: "NVR Name", id: "nvr_name" }, { column: "Notes", id: "notes" }, { column: "Created At", id: "created_at", class: "text-center" }],
+      show_add_messages: "",
+      show_edit_messages: "",
+      headings: [{ column: "Actions", id: "actions" }, { column: "Name", id: "name" }, { column: "Location", id: "location" }, { column: "Sim Number", id: "sim_number" }, { column: "Router Name", id: "router_name" }, { column: "NVR Name", id: "nvr_name" }, { column: "Notes", id: "notes" }, { column: "Created At", id: "created_at" }],
       form_labels: {
         name: "Name",
         location: "Location",
@@ -18956,37 +19614,96 @@ module.exports = {
       edit_map_area: ""
     };
   },
-  filters: {
-    formatDate: function formatDate(value) {
-      return moment(String(value)).format('DD/MM/YYYY HH:mm:ss');
-    }
-  },
   methods: {
-    initDatatable: function initDatatable() {
-      var _this = this;
-
-      this.$http.get('/sites/data').then(function (response) {
-        _this.table_records = response.body.sites;
-        $("#data-table .dataTables_empty").hide();
-      }).then(function () {
-        _this.init_datatable();
-      }).catch(function (error) {
-        console.log(error);
+    initializeTable: function initializeTable() {
+      var sitesDataTable = $('#sites-datatable').DataTable({
+        fnInitComplete: function fnInitComplete() {
+          // Enable TFOOT scoll bars
+          $('.dataTables_scrollFoot').css('overflow', 'auto');
+          $('.dataTables_scrollHead').css('overflow', 'auto');
+          // Sync TFOOT scrolling with TBODY
+          $('.dataTables_scrollFoot').on('scroll', function () {
+            $('.dataTables_scrollBody').scrollLeft($(this).scrollLeft());
+          });
+          $('.dataTables_scrollHead').on('scroll', function () {
+            $('.dataTables_scrollBody').scrollLeft($(this).scrollLeft());
+          });
+        },
+        ajax: {
+          url: "/sites/data",
+          dataSrc: function dataSrc(data) {
+            return data.sites;
+          },
+          error: function error(xhr, _error, thrown) {
+            if (xhr.responseJSON) {
+              console.log(xhr.responseJSON.message);
+            } else {
+              console.log("Something went wrong, Please try again.");
+            }
+          }
+        },
+        columns: [{
+          class: "text-center actions",
+          data: function data(row, type, set, meta) {
+            return '<div id="action_btn"><div class="editSite cursor_to_pointer fa fa-edit" data-id="' + row.id + '"></div> <div class="cursor_to_pointer fa fa-trash delSite" data-id="' + row.id + '"></div></div>';
+          }
+        }, {
+          class: "name",
+          data: function data(row, type, set, meta) {
+            return row.name;
+          }
+        }, {
+          class: "location",
+          data: function data(row, type, set, meta) {
+            return row.location.map_area;
+          }
+        }, {
+          class: "text-center sim_number",
+          data: function data(row, type, set, meta) {
+            return row.sim_number;
+          }
+        }, {
+          class: "router_name",
+          data: function data(row, type, set, meta) {
+            return row.router_name;
+          }
+        }, {
+          class: "nvr_name",
+          data: function data(row, type, set, meta) {
+            return row.nvr_name;
+          }
+        }, {
+          class: "notes",
+          data: function data(row, type, set, meta) {
+            return row.notes;
+          }
+        }, {
+          class: "text-center created_at",
+          data: function data(row, type, set, meta) {
+            return moment(row.created_at).format('DD/MM/YYYY HH:mm:ss');
+          }
+        }],
+        autoWidth: true,
+        info: false,
+        bPaginate: false,
+        lengthChange: false,
+        scrollX: true,
+        colReorder: true,
+        stateSave: true
       });
+      return this.dataTable = sitesDataTable;
+      this.dataTable.search("");
     },
-    get_session: function get_session() {
-      var _this2 = this;
-
-      this.$http.get('/get_porfile').then(function (response) {
-        _this2.user_id = response.body.id;
-      });
+    search: function search() {
+      this.dataTable.search(this.m_form_search).draw();
     },
-    onSiteButton: function onSiteButton() {
-      $(this.$refs.addmodal).modal("show");
-      this.map_area = "Dublin, Ireland";
-      document.getElementById('latitude').value = "53.349805";
-      document.getElementById('longitude').value = "-6.2603010";
-      this.addMap();
+    showHideColumns: function showHideColumns(id) {
+      var column = this.dataTable.columns("." + id);
+      if (column.visible()[0] == true) {
+        column.visible(false);
+      } else {
+        column.visible(true);
+      }
     },
     mapInitialize: function mapInitialize() {
       var initialLat = document.getElementById('latitude').value;
@@ -19062,42 +19779,15 @@ module.exports = {
         }
       });
     },
-    search: function search() {
-      this.dataTable.search(this.m_form_search).draw();
+    onSiteButton: function onSiteButton() {
+      $(this.$refs.addmodal).modal("show");
+      this.map_area = "Dublin, Ireland";
+      document.getElementById('latitude').value = "53.349805";
+      document.getElementById('longitude').value = "-6.2603010";
+      this.addMap();
     },
-    init_datatable: function init_datatable() {
-      mApp.block("#loading_content", {
-        overlayColor: "#000000",
-        type: "loader",
-        state: "primary",
-        message: "Loading..."
-      });
-      var dataTable = $('#data-table').DataTable({
-        autoWidth: true,
-        info: false,
-        bPaginate: false,
-        lengthChange: false,
-        searching: true,
-        scrollX: true,
-        colReorder: true,
-        retrieve: true,
-        fnInitComplete: function fnInitComplete() {
-          $(".m_site_datatable").css("display", "block");
-          // Enable TFOOT scoll bars
-          $('.dataTables_scrollFoot').css('overflow', 'auto');
-          $('.dataTables_scrollHead').css('overflow', 'auto');
-          // Sync TFOOT scrolling with TBODY
-          $('.dataTables_scrollFoot').on('scroll', function () {
-            $('.dataTables_scrollBody').scrollLeft($(this).scrollLeft());
-          });
-          $('.dataTables_scrollHead').on('scroll', function () {
-            $('.dataTables_scrollBody').scrollLeft($(this).scrollLeft());
-          });
-        }
-      });
-      this.dataTable = dataTable;
-      dataTable.columns.adjust().draw(false); // adjust column sizing and redraw
-      mApp.unblock("#loading_content");
+    onSiteHideShowButton: function onSiteHideShowButton() {
+      $(this.$refs.hideShow).modal("show");
     },
     saveModal: function saveModal() {
       this.show_loading = true;
@@ -19117,7 +19807,7 @@ module.exports = {
       }).then(function (response) {
         $.notify({ message: 'Site has been added.' }, { type: 'info' });
         this.show_loading = false;
-        this.initDatatable();
+        this.dataTable.ajax.reload();
         this.clearForm();
         $(this.$refs.addmodal).modal("hide");
       }).catch(function (error) {
@@ -19139,6 +19829,15 @@ module.exports = {
       this.latitude = "53.349805";
       this.longitude = "-6.2603010";
       this.addMap();
+    },
+    getUniqueIdentifier: function getUniqueIdentifier(sitesDataTable) {
+      $(document).on("click", ".editSite", function () {
+        var tr = $(this).closest('tr');
+        var row = sitesDataTable.row(tr);
+        var data = row.data();
+        var site_id = $(this).data("id");
+        module.exports.methods.onSiteEditButton(data);
+      });
     },
     editMapInitialize: function editMapInitialize() {
       var initialLat = document.getElementById("edit_latitude").value;
@@ -19174,18 +19873,18 @@ module.exports = {
       });
     },
     onSiteEditButton: function onSiteEditButton(data) {
-      this.edit_id = data.id;
-      this.edit_name = data.name;
-      this.edit_sim_number = data.sim_number;
-      this.edit_router_id = data.router_id;
-      this.edit_nvr_id = data.nvr_id;
-      this.edit_notes = data.notes;
-      this.edit_map_area = data.location.map_area;
+      $("#edit_id").val(data.id);
+      $("#edit_name").val(data.name);
+      $("#edit_sim_number").val(data.sim_number);
+      $("#edit_router_id").val(data.router_id);
+      $("#edit_nvr_id").val(data.nvr_id);
+      $("#edit_notes").val(data.notes);
+      $("#edit_map_area").val(data.location.map_area);
 
       document.getElementById("edit_longitude").value = data.location.lng;
       document.getElementById("edit_latitude").value = data.location.lat;
 
-      $(this.$refs.editmodal).modal("show");
+      $("#edit_site_to_db").modal("show");
       this.editMapInitialize();
       var PostCodeid = document.getElementById("edit_map_area");
       $(PostCodeid).autocomplete({
@@ -19230,31 +19929,65 @@ module.exports = {
     updateSitedo: function updateSitedo() {
       this.show_loading = true;
       this.show_edit_errors = true;
-
-      var siteID = this.edit_id;
-
+      var siteID = $("#edit_id").val();
       this.$http.patch('/sites/update', {
-        name: this.edit_name,
-        sim_number: this.edit_sim_number,
-        router_id: this.edit_router_id,
-        nvr_id: this.edit_nvr_id,
-        notes: this.edit_notes,
+        name: $("#edit_name").val(),
+        sim_number: $("#edit_sim_number").val(),
+        router_id: $("#edit_router_id").val(),
+        nvr_id: $("#edit_nvr_id").val(),
+        notes: $("#edit_notes").val(),
         location: {
-          lat: document.getElementById("edit_latitude").value,
-          lng: document.getElementById("edit_longitude").value,
-          map_area: this.edit_map_area
+          lat: $("#edit_latitude").val(),
+          lng: $("#edit_longitude").val(),
+          map_area: $("#edit_map_area").val()
         },
         id: siteID
       }).then(function (response) {
         $.notify({ message: 'Site has been updated.' }, { type: 'info' });
         this.show_loading = false;
-        this.initDatatable();
+        this.dataTable.ajax.reload();
         this.editClearFrom();
-        $(this.$refs.editmodal).modal("hide");
+        $("#edit_site_to_db").modal("hide");
       }).catch(function (error) {
         this.show_loading = false;
         this.show_edit_messages = error.body.errors;
         this.show_edit_errors = true;
+      });
+    },
+    deleteSite: function deleteSite() {
+      $(document).on("click", ".delSite", function () {
+        var siteRow = void 0,
+            result = void 0;
+        siteRow = $(this).closest('tr');
+        var siteID = $(this).data("id");
+
+        result = confirm("Are you sure to delete this Site?");
+        if (result === false) {
+          return;
+        }
+
+        var data = {};
+        data.id = siteID;
+        var settings = void 0;
+
+        settings = {
+          cache: false,
+          data: data,
+          dataType: 'json',
+          error: function error() {
+            return false;
+          },
+          success: function success() {
+            siteRow.remove();
+            $.notify({ message: 'Site has been deleted.' }, { type: 'info' });
+            return true;
+          },
+          contentType: "application/x-www-form-urlencoded",
+          context: { siteRow: siteRow },
+          type: "DELETE",
+          url: "/sites/" + siteID
+        };
+        $.ajax(settings);
       });
     },
     editClearFrom: function editClearFrom() {
@@ -19267,67 +20000,64 @@ module.exports = {
       this.show_loading = false;
       this.show_edit_errors = false;
     },
-    deleteSite: function deleteSite(siteID, event) {
-      var siteRow = void 0,
-          result = void 0;
-      siteRow = event.target.parentElement.parentElement;
-      result = confirm("Are you sure to delete this Site?");
-      if (result === false) {
-        return;
-      }
-      var data = {};
-      data.id = siteID;
-      this.$http.delete("/sites/" + siteID, { siteRow: siteRow }).then(function (response) {
-        siteRow.remove();
-        $.notify({ message: 'Site has been deleted.' }, { type: 'info' });
-      }).catch(function (error) {
-        return false;
+    initHideShow: function initHideShow() {
+      $(".sites-column").each(function () {
+        var sitesDataTable = $('#sites-datatable').DataTable();
+        var that = $(this).attr("data-id");
+        var column = sitesDataTable.columns("." + that);
+        if (column.visible()[0] == true) {
+          $(this).prop('checked', true);
+        } else {
+          $(this).prop('checked', false);
+        }
       });
     },
-    onSiteHideShowButton: function onSiteHideShowButton() {
-      $(this.$refs.hideShow).modal("show");
-    },
-    showHideColumns: function showHideColumns(id) {
-      var column = this.dataTable.columns(id);
-      if (column.visible()[0] == true) {
-        column.visible(false);
-      } else {
-        column.visible(true);
-      }
+    get_session: function get_session() {
+      var _this = this;
+
+      this.$http.get('/get_porfile').then(function (response) {
+        _this.user_id = response.body.id;
+      });
     },
     get_sims: function get_sims() {
-      var _this3 = this;
+      var _this2 = this;
 
       this.$http.get('/sims/data/json').then(function (response) {
-        _this3.sims_list = response.body.logs;
+        _this2.sims_list = response.body.logs;
       });
     },
     get_routers: function get_routers() {
-      var _this4 = this;
+      var _this3 = this;
 
       this.$http.get('/routers/data').then(function (response) {
-        _this4.routers_list = response.body.routers;
+        _this3.routers_list = response.body.routers;
       });
     },
     get_nvrs: function get_nvrs() {
-      var _this5 = this;
+      var _this4 = this;
 
       this.$http.get('/nvrs/data').then(function (response) {
-        _this5.nvrs_list = response.body.nvrs;
+        _this4.nvrs_list = response.body.nvrs;
       });
     }
-  },
+  }, // end of methods\
   created: function created() {
-    this.initDatatable();
     this.get_session();
     this.get_sims();
     this.get_routers();
     this.get_nvrs();
+  },
+  mounted: function mounted() {
+    var table = this.initializeTable();
+    this.getUniqueIdentifier(table);
+    this.initHideShow();
+    this.deleteSite();
+    this.dataTable.search("");
   }
 };
 
 /***/ }),
-/* 24 */
+/* 26 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -19458,7 +20188,7 @@ module.exports = {
 };
 
 /***/ }),
-/* 25 */
+/* 27 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -19466,15 +20196,15 @@ module.exports = {
 
 __webpack_require__(3);
 
-var _vue = __webpack_require__(15);
+var _vue = __webpack_require__(16);
 
 var _vue2 = _interopRequireDefault(_vue);
 
-var _vueResource = __webpack_require__(13);
+var _vueResource = __webpack_require__(14);
 
 var _vueResource2 = _interopRequireDefault(_vueResource);
 
-var _vueRouter = __webpack_require__(14);
+var _vueRouter = __webpack_require__(15);
 
 var _vueRouter2 = _interopRequireDefault(_vueRouter);
 
@@ -19498,11 +20228,11 @@ var _nvrs = __webpack_require__(9);
 
 var _nvrs2 = _interopRequireDefault(_nvrs);
 
-var _sites = __webpack_require__(11);
+var _sites = __webpack_require__(12);
 
 var _sites2 = _interopRequireDefault(_sites);
 
-var _status_report = __webpack_require__(12);
+var _status_report = __webpack_require__(13);
 
 var _status_report2 = _interopRequireDefault(_status_report);
 
@@ -19514,9 +20244,12 @@ var _messages = __webpack_require__(7);
 
 var _messages2 = _interopRequireDefault(_messages);
 
+var _shares = __webpack_require__(11);
+
+var _shares2 = _interopRequireDefault(_shares);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-_vue2.default.config.productionTip = false;
 // Import local files
 //
 // Local files can be imported directly using relative
@@ -19539,7 +20272,7 @@ _vue2.default.config.productionTip = false;
 //
 // If you no longer want to use a dependency, remember
 // to also remove its path from "config.paths.watched".
-
+_vue2.default.config.productionTip = false;
 _vue2.default.use(_vueResource2.default);
 _vue2.default.use(_vueRouter2.default);
 
@@ -19577,6 +20310,10 @@ var router = new _vueRouter2.default({
     path: '/messages',
     name: 'messages',
     component: _messages2.default
+  }, {
+    path: '/shares',
+    name: 'shares',
+    component: _shares2.default
   }]
 });
 
@@ -19586,18 +20323,6 @@ new _vue2.default({
   template: '<App/>',
   components: { App: _App2.default }
 });
-
-/***/ }),
-/* 26 */
-/***/ (function(module, exports) {
-
-// removed by extract-text-webpack-plugin
-
-/***/ }),
-/* 27 */
-/***/ (function(module, exports) {
-
-// removed by extract-text-webpack-plugin
 
 /***/ }),
 /* 28 */
@@ -19643,6 +20368,24 @@ new _vue2.default({
 
 /***/ }),
 /* 35 */
+/***/ (function(module, exports) {
+
+// removed by extract-text-webpack-plugin
+
+/***/ }),
+/* 36 */
+/***/ (function(module, exports) {
+
+// removed by extract-text-webpack-plugin
+
+/***/ }),
+/* 37 */
+/***/ (function(module, exports) {
+
+// removed by extract-text-webpack-plugin
+
+/***/ }),
+/* 38 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(global, process) {(function (global, undefined) {
@@ -19835,7 +20578,7 @@ new _vue2.default({
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1), __webpack_require__(2)))
 
 /***/ }),
-/* 36 */
+/* 39 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(global) {var scope = (typeof global !== "undefined" && global) ||
@@ -19891,7 +20634,7 @@ exports._unrefActive = exports.active = function(item) {
 };
 
 // setimmediate attaches itself to the global object
-__webpack_require__(35);
+__webpack_require__(38);
 // On some exotic environments, it's not clear which object `setimmediate` was
 // able to install onto.  Search each possibility in the same order as the
 // `setimmediate` library.
@@ -19905,7 +20648,7 @@ exports.clearImmediate = (typeof self !== "undefined" && self.clearImmediate) ||
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1)))
 
 /***/ }),
-/* 37 */
+/* 40 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
@@ -19920,7 +20663,7 @@ if (false) {
 }
 
 /***/ }),
-/* 38 */
+/* 41 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
@@ -19999,45 +20742,90 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
   })])])])]), _vm._v(" "), _c('div'), _vm._v(" "), _c('table', {
     staticClass: "table table-striped  table-hover table-bordered display nowrap",
     attrs: {
-      "id": "data-table",
+      "id": "commands-datatable",
       "cellspacing": "0",
       "width": "100%"
     }
   }, [_c('thead', [_c('tr', _vm._l((_vm.headings), function(item, index) {
-    return _c('th', {
-      class: item.class
-    }, [_vm._v(_vm._s(item.column))])
-  }))]), _vm._v(" "), _c('tbody', _vm._l((_vm.table_records), function(record) {
-    return _c('tr', [_c('td', {
-      staticClass: "text-center actions"
-    }, [_c('div', {
-      staticClass: "cursor_to_pointer fa fa-edit",
+    return _c('th', [_vm._v(_vm._s(item.column))])
+  }))])])])])]), _vm._v(" "), _c('div', {
+    ref: "hideShow",
+    staticClass: "modal fade toggle-datatable-columns",
+    staticStyle: {
+      "padding": "0px"
+    },
+    attrs: {
+      "tabindex": "-1",
+      "role": "dialog",
+      "aria-labelledby": "exampleModalLabel",
+      "aria-hidden": "true",
+      "data-backdrop": "static",
+      "data-keyboard": "false"
+    }
+  }, [_c('div', {
+    staticClass: "modal-dialog modal-sm",
+    attrs: {
+      "role": "document"
+    }
+  }, [_c('div', {
+    staticClass: "modal-content",
+    staticStyle: {
+      "padding": "0px"
+    }
+  }, [_c('div', {
+    staticClass: "modal-header"
+  }, [_c('h5', {
+    staticClass: "modal-title",
+    attrs: {
+      "id": "exampleModalLabel"
+    }
+  }, [_vm._v("\n                    " + _vm._s(_vm.form_labels.hide_show_title) + "\n                ")]), _vm._v(" "), _c('div', {
+    staticClass: "cancel"
+  }, [_c('a', {
+    attrs: {
+      "href": "#",
+      "id": "discardModal",
+      "data-dismiss": "modal"
+    },
+    on: {
+      "click": _vm.clearForm
+    }
+  }, [_vm._v("X")])])]), _vm._v(" "), _c('div', {
+    staticClass: "modal-body",
+    attrs: {
+      "id": "body-sim-dis"
+    }
+  }, [_c('div', {
+    staticClass: "form-group"
+  }, _vm._l((_vm.headings), function(item, index) {
+    return _c('div', {
+      staticClass: "column-checkbox"
+    }, [_c('label', {
+      staticClass: "m-checkbox m-checkbox--single m-checkbox--solid m-checkbox--brand",
+      staticStyle: {
+        "width": "auto"
+      }
+    }, [_c('input', {
+      staticClass: "rule-column",
+      attrs: {
+        "type": "checkbox",
+        "data-id": item.id
+      },
       on: {
-        "click": function($event) {
-          _vm.onRuleEditButton(record)
+        "change": function($event) {
+          _vm.showHideColumns(item.id)
         }
       }
-    }), _vm._v(" "), _c('div', {
-      staticClass: "cursor_to_pointer fa fa-trash",
-      on: {
-        "click": function($event) {
-          _vm.deleteRule(record.id, $event)
-        }
-      }
-    })]), _vm._v(" "), _c('td', {
-      staticClass: "rule_name"
-    }, [_vm._v(_vm._s(record.rule_name))]), _vm._v(" "), _c('td', {
-      staticClass: "text-center active"
-    }, [_vm._v(_vm._s(record.active))]), _vm._v(" "), _c('td', {
-      staticClass: "text-center category"
-    }, [_vm._v(_vm._s(record.category))]), _vm._v(" "), _c('td', {
-      staticClass: "recipients"
-    }, _vm._l((record.recipients), function(recipient, index) {
-      return _c('span', [_c('span', [_vm._v(_vm._s(recipient))]), (index + 1 < record.recipients.length) ? _c('span', [_vm._v(", ")]) : _vm._e()])
-    })), _vm._v(" "), _c('td', {
-      staticClass: "text-center created_at"
-    }, [_vm._v(_vm._s(_vm._f("formatDate")(record.created_at)))])])
-  }))])])])]), _vm._v(" "), _c('div', {
+    }), _c('span'), _vm._v(" " + _vm._s(item.column))])])
+  }))]), _vm._v(" "), _c('div', {
+    staticClass: "modal-footer"
+  }, [_c('button', {
+    staticClass: "btn btn-default",
+    attrs: {
+      "type": "button",
+      "data-dismiss": "modal"
+    }
+  }, [_vm._v(_vm._s(_vm.form_labels.hide_show_button))])])])])]), _vm._v(" "), _c('div', {
     ref: "addmodal",
     staticClass: "modal fade add_rule_to_db",
     staticStyle: {
@@ -20069,7 +20857,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     attrs: {
       "id": "exampleModalLabel"
     }
-  }, [_vm._v("\n                   " + _vm._s(_vm.form_labels.add_title) + "\n                ")]), _vm._v(" "), _c('div', {
+  }, [_vm._v("\n                     " + _vm._s(_vm.form_labels.add_title) + "\n                  ")]), _vm._v(" "), _c('div', {
     staticClass: "cancel"
   }, [_c('a', {
     attrs: {
@@ -20133,7 +20921,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "form-group m-form__group row"
   }, [_c('label', {
     staticClass: "col-3 col-form-label"
-  }, [_vm._v("\n                            " + _vm._s(_vm.form_labels.name) + "\n                        ")]), _vm._v(" "), _c('div', {
+  }, [_vm._v("\n                              " + _vm._s(_vm.form_labels.name) + "\n                          ")]), _vm._v(" "), _c('div', {
     staticClass: "col-9"
   }, [_c('input', {
     directives: [{
@@ -20162,7 +20950,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "form-group m-form__group row"
   }, [_c('label', {
     staticClass: "col-3 col-form-label"
-  }, [_vm._v("\n                            " + _vm._s(_vm.form_labels.category) + "\n                        ")]), _vm._v(" "), _c('div', {
+  }, [_vm._v("\n                              " + _vm._s(_vm.form_labels.category) + "\n                          ")]), _vm._v(" "), _c('div', {
     staticClass: "col-9"
   }, [_c('select', {
     directives: [{
@@ -20202,7 +20990,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "form-group m-form__group row"
   }, [_c('label', {
     staticClass: "col-3 col-form-label"
-  }, [_vm._v("\n                            " + _vm._s(_vm.form_labels.recipients) + "\n                        ")]), _vm._v(" "), _c('div', {
+  }, [_vm._v("\n                              " + _vm._s(_vm.form_labels.recipients) + "\n                          ")]), _vm._v(" "), _c('div', {
     staticClass: "col-9"
   }, [_c('input', {
     directives: [{
@@ -20267,7 +21055,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         }
       }
     }
-  }), _vm._v("\n                                    " + _vm._s(_vm.form_labels.status) + "\n                                "), _c('span')])])])])]), _vm._v(" "), _c('div', {
+  }), _vm._v("\n                                      " + _vm._s(_vm.form_labels.status) + "\n                                  "), _c('span')])])])])]), _vm._v(" "), _c('div', {
     staticClass: "modal-footer",
     staticStyle: {
       "padding": "11px"
@@ -20281,7 +21069,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     on: {
       "click": _vm.saveModal
     }
-  }, [_vm._v("\n                    " + _vm._s(_vm.form_labels.submit_button) + "\n                ")])])])])]), _vm._v(" "), _c('div', {
+  }, [_vm._v("\n                      " + _vm._s(_vm.form_labels.submit_button) + "\n                  ")])])])])]), _vm._v(" "), _c('div', {
     ref: "editmodal",
     staticClass: "modal fade",
     staticStyle: {
@@ -20309,7 +21097,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     attrs: {
       "id": "exampleModalLabel"
     }
-  }, [_vm._v("\n                    " + _vm._s(_vm.form_labels.edit_title) + "\n                ")]), _vm._v(" "), _c('div', {
+  }, [_vm._v("\n                      " + _vm._s(_vm.form_labels.edit_title) + "\n                  ")]), _vm._v(" "), _c('div', {
     staticClass: "cancel"
   }, [_c('a', {
     attrs: {
@@ -20370,124 +21158,23 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       }
     }
   }), _vm._v(" "), _c('input', {
-    directives: [{
-      name: "model",
-      rawName: "v-model",
-      value: (_vm.edit_rule_id),
-      expression: "edit_rule_id"
-    }],
     attrs: {
       "type": "hidden",
       "id": "edit_rule_id"
-    },
-    domProps: {
-      "value": (_vm.edit_rule_id)
-    },
-    on: {
-      "input": function($event) {
-        if ($event.target.composing) { return; }
-        _vm.edit_rule_id = $event.target.value
-      }
     }
   }), _vm._v(" "), _c('div', {
     staticClass: "form-group m-form__group row"
   }, [_c('label', {
     staticClass: "col-3 col-form-label"
-  }, [_vm._v("\n                            " + _vm._s(_vm.form_labels.name) + "\n                        ")]), _vm._v(" "), _c('div', {
-    staticClass: "col-9"
-  }, [_c('input', {
-    directives: [{
-      name: "model",
-      rawName: "v-model",
-      value: (_vm.edit_rule_name),
-      expression: "edit_rule_name"
-    }],
-    staticClass: "form-control m-input m-input--solid",
-    attrs: {
-      "type": "text",
-      "id": "edit_rule_name",
-      "aria-describedby": "emailHelp",
-      "placeholder": "Test Usage."
-    },
-    domProps: {
-      "value": (_vm.edit_rule_name)
-    },
-    on: {
-      "input": function($event) {
-        if ($event.target.composing) { return; }
-        _vm.edit_rule_name = $event.target.value
-      }
-    }
-  })])]), _vm._v(" "), _c('div', {
+  }, [_vm._v("\n                              " + _vm._s(_vm.form_labels.name) + "\n                          ")]), _vm._v(" "), _vm._m(1)]), _vm._v(" "), _c('div', {
     staticClass: "form-group m-form__group row"
   }, [_c('label', {
     staticClass: "col-3 col-form-label"
-  }, [_vm._v("\n                            " + _vm._s(_vm.form_labels.category) + "\n                        ")]), _vm._v(" "), _c('div', {
-    staticClass: "col-9"
-  }, [_c('select', {
-    directives: [{
-      name: "model",
-      rawName: "v-model",
-      value: (_vm.edit_rule_category),
-      expression: "edit_rule_category"
-    }],
-    staticClass: "form-control m-input",
-    attrs: {
-      "id": "edit_rule_category"
-    },
-    on: {
-      "change": function($event) {
-        var $$selectedVal = Array.prototype.filter.call($event.target.options, function(o) {
-          return o.selected
-        }).map(function(o) {
-          var val = "_value" in o ? o._value : o.value;
-          return val
-        });
-        _vm.edit_rule_category = $event.target.multiple ? $$selectedVal : $$selectedVal[0]
-      }
-    }
-  }, [_c('option', {
-    attrs: {
-      "value": "usage_command"
-    }
-  }, [_vm._v("Internet usage > 90%")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "daily_sms_usage_command"
-    }
-  }, [_vm._v("Daily SMS > 6")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "monthly_sms_usage_command"
-    }
-  }, [_vm._v("Monthy SMS > 190")])])])]), _vm._v(" "), _c('div', {
+  }, [_vm._v("\n                              " + _vm._s(_vm.form_labels.category) + "\n                          ")]), _vm._v(" "), _vm._m(2)]), _vm._v(" "), _c('div', {
     staticClass: "form-group m-form__group row"
   }, [_c('label', {
     staticClass: "col-3 col-form-label"
-  }, [_vm._v("\n                            " + _vm._s(_vm.form_labels.recipients) + "\n                        ")]), _vm._v(" "), _c('div', {
-    staticClass: "col-9"
-  }, [_c('input', {
-    directives: [{
-      name: "model",
-      rawName: "v-model",
-      value: (_vm.edit_rule_recipients),
-      expression: "edit_rule_recipients"
-    }],
-    staticClass: "form-control m-input m-input--solid",
-    attrs: {
-      "type": "text",
-      "id": "edit_rule_recipients",
-      "aria-describedby": "emailHelp",
-      "placeholder": "test@user.com,who@am.io"
-    },
-    domProps: {
-      "value": (_vm.edit_rule_recipients)
-    },
-    on: {
-      "input": function($event) {
-        if ($event.target.composing) { return; }
-        _vm.edit_rule_recipients = $event.target.value
-      }
-    }
-  })])]), _vm._v(" "), _c('div', {
+  }, [_vm._v("\n                              " + _vm._s(_vm.form_labels.recipients) + "\n                          ")]), _vm._v(" "), _vm._m(3)]), _vm._v(" "), _c('div', {
     staticClass: "form-group m-form__group row"
   }, [_c('label', {
     staticClass: "col-3 col-form-label"
@@ -20496,38 +21183,11 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
   }, [_c('label', {
     staticClass: "m-checkbox"
   }, [_c('input', {
-    directives: [{
-      name: "model",
-      rawName: "v-model",
-      value: (_vm.edit_rule_is_active),
-      expression: "edit_rule_is_active"
-    }],
     attrs: {
       "type": "checkbox",
       "id": "edit_rule_is_active"
-    },
-    domProps: {
-      "checked": Array.isArray(_vm.edit_rule_is_active) ? _vm._i(_vm.edit_rule_is_active, null) > -1 : (_vm.edit_rule_is_active)
-    },
-    on: {
-      "change": function($event) {
-        var $$a = _vm.edit_rule_is_active,
-          $$el = $event.target,
-          $$c = $$el.checked ? (true) : (false);
-        if (Array.isArray($$a)) {
-          var $$v = null,
-            $$i = _vm._i($$a, $$v);
-          if ($$el.checked) {
-            $$i < 0 && (_vm.edit_rule_is_active = $$a.concat([$$v]))
-          } else {
-            $$i > -1 && (_vm.edit_rule_is_active = $$a.slice(0, $$i).concat($$a.slice($$i + 1)))
-          }
-        } else {
-          _vm.edit_rule_is_active = $$c
-        }
-      }
     }
-  }), _vm._v("\n                                " + _vm._s(_vm.form_labels.status) + "\n                                "), _c('span')])])])])]), _vm._v(" "), _c('div', {
+  }), _vm._v("\n                                  " + _vm._s(_vm.form_labels.status) + "\n                                  "), _c('span')])])])])]), _vm._v(" "), _c('div', {
     staticClass: "modal-footer",
     staticStyle: {
       "padding": "11px"
@@ -20541,7 +21201,153 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     on: {
       "click": _vm.updateRule
     }
-  }, [_vm._v("\n                    " + _vm._s(_vm.form_labels.submit_button) + "\n                ")])])])])]), _vm._v(" "), _c('div', {
+  }, [_vm._v("\n                      " + _vm._s(_vm.form_labels.submit_button) + "\n                  ")])])])])])])
+},staticRenderFns: [function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('span', {
+    staticClass: "m-input-icon__icon m-input-icon__icon--left"
+  }, [_c('span', [_c('i', {
+    staticClass: "la la-search"
+  })])])
+},function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('div', {
+    staticClass: "col-9"
+  }, [_c('input', {
+    staticClass: "form-control m-input m-input--solid",
+    attrs: {
+      "type": "text",
+      "id": "edit_rule_name",
+      "aria-describedby": "emailHelp",
+      "placeholder": "Test Usage."
+    }
+  })])
+},function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('div', {
+    staticClass: "col-9"
+  }, [_c('select', {
+    staticClass: "form-control m-input",
+    attrs: {
+      "id": "edit_rule_category"
+    }
+  }, [_c('option', {
+    attrs: {
+      "value": "usage_command"
+    }
+  }, [_vm._v("Internet usage > 90%")]), _vm._v(" "), _c('option', {
+    attrs: {
+      "value": "daily_sms_usage_command"
+    }
+  }, [_vm._v("Daily SMS > 6")]), _vm._v(" "), _c('option', {
+    attrs: {
+      "value": "monthly_sms_usage_command"
+    }
+  }, [_vm._v("Monthy SMS > 190")])])])
+},function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('div', {
+    staticClass: "col-9"
+  }, [_c('input', {
+    staticClass: "form-control m-input m-input--solid",
+    attrs: {
+      "type": "text",
+      "id": "edit_rule_recipients",
+      "aria-describedby": "emailHelp",
+      "placeholder": "test@user.com,who@am.io"
+    }
+  })])
+}]}
+module.exports.render._withStripped = true
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+     require("vue-hot-reload-api").rerender("data-v-076db0ae", module.exports)
+  }
+}
+
+/***/ }),
+/* 42 */
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('div', [_c('div', {
+    staticClass: "m-content"
+  }, [_c('div', {
+    staticClass: "m-portlet m-portlet--mobile",
+    staticStyle: {
+      "margin-bottom": "0"
+    }
+  }, [_c('div', {
+    staticClass: "m-portlet__body",
+    staticStyle: {
+      "padding": "10px"
+    }
+  }, [_c('div', {
+    staticClass: "m-form m-form--label-align-right m--margin-bottom-10"
+  }, [_c('div', {
+    staticClass: "row align-items-center"
+  }, [_c('div', {
+    staticClass: "col-md-8 order-2 order-md-1"
+  }, [_c('div', {
+    staticClass: "form-group m-form__group row align-items-center"
+  }, [_c('div', {
+    staticClass: "col-md-5"
+  }, [_c('div', {
+    staticClass: "m-input-icon m-input-icon--left"
+  }, [_c('input', {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: (_vm.m_form_search),
+      expression: "m_form_search"
+    }],
+    staticClass: "form-control m-input m-input--solid",
+    attrs: {
+      "type": "text",
+      "placeholder": "Search...",
+      "id": "m_form_search"
+    },
+    domProps: {
+      "value": (_vm.m_form_search)
+    },
+    on: {
+      "keyup": function($event) {
+        _vm.search()
+      },
+      "input": function($event) {
+        if ($event.target.composing) { return; }
+        _vm.m_form_search = $event.target.value
+      }
+    }
+  }), _vm._v(" "), _vm._m(0)])])])]), _vm._v(" "), _c('div', {
+    staticClass: "col-md-4 order-1 order-md-2 m--align-right"
+  }, [_c('a', {
+    staticClass: "btn btn-primary m-btn m-btn--icon",
+    attrs: {
+      "href": "javascript:void(0)"
+    },
+    on: {
+      "click": _vm.onMemberButton
+    }
+  }, [_c('span', [_c('i', {
+    staticClass: "fa fa-plus-square"
+  }), _vm._v(" "), _c('span', [_vm._v("\n                            " + _vm._s(_vm.form_labels.add_sharing_button) + "\n                        ")])])]), _vm._v(" "), _c('div', {
+    staticClass: "btn btn-default grey",
+    attrs: {
+      "href": "javascript:void(0)"
+    },
+    on: {
+      "click": _vm.onMemeberHideShowButton
+    }
+  }, [_c('i', {
+    staticClass: "fa fa-columns"
+  })])])])]), _vm._v(" "), _c('div'), _vm._v(" "), _c('table', {
+    staticClass: "table table-striped  table-hover table-bordered display nowrap",
+    attrs: {
+      "id": "members-datatable",
+      "cellspacing": "0",
+      "width": "100%"
+    }
+  }, [_c('thead', [_c('tr', _vm._l((_vm.headings), function(item, index) {
+    return _c('th', [_vm._v(_vm._s(item.column))])
+  }))])])])])]), _vm._v(" "), _c('div', {
     ref: "hideShow",
     staticClass: "modal fade toggle-datatable-columns",
     staticStyle: {
@@ -20572,7 +21378,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     attrs: {
       "id": "exampleModalLabel"
     }
-  }, [_vm._v("\n                  " + _vm._s(_vm.form_labels.hide_show_title) + "\n              ")]), _vm._v(" "), _c('div', {
+  }, [_vm._v("\n                    " + _vm._s(_vm.form_labels.hide_show_title) + "\n                ")]), _vm._v(" "), _c('div', {
     staticClass: "cancel"
   }, [_c('a', {
     attrs: {
@@ -20599,16 +21405,17 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         "width": "auto"
       }
     }, [_c('input', {
-      staticClass: "users-column",
+      staticClass: "sms-column",
       attrs: {
         "type": "checkbox",
-        "checked": "checked",
-        "id": index,
-        "name": item.id
+        "data-id": item.id
+      },
+      domProps: {
+        "checked": item.visible
       },
       on: {
         "change": function($event) {
-          _vm.showHideColumns(index)
+          _vm.showHideColumns(item.id)
         }
       }
     }), _c('span'), _vm._v(" " + _vm._s(item.column))])])
@@ -20620,7 +21427,190 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       "type": "button",
       "data-dismiss": "modal"
     }
-  }, [_vm._v(_vm._s(_vm.form_labels.hide_show_button))])])])])])])
+  }, [_vm._v(_vm._s(_vm.form_labels.hide_show_button))])])])])]), _vm._v(" "), _c('div', {
+    ref: "addmodal",
+    staticClass: "modal fade add_member_to_db",
+    staticStyle: {
+      "padding": "0px"
+    },
+    attrs: {
+      "id": "m_modal_1",
+      "tabindex": "-1",
+      "role": "dialog",
+      "aria-labelledby": "exampleModalLabel",
+      "aria-hidden": "true",
+      "data-backdrop": "static",
+      "data-keyboard": "false"
+    }
+  }, [_c('div', {
+    staticClass: "modal-dialog",
+    attrs: {
+      "role": "document"
+    }
+  }, [_c('div', {
+    staticClass: "modal-content",
+    staticStyle: {
+      "padding": "0px"
+    }
+  }, [_c('div', {
+    staticClass: "modal-header"
+  }, [_c('h5', {
+    staticClass: "modal-title",
+    attrs: {
+      "id": "exampleModalLabel"
+    }
+  }, [_vm._v("\n                     " + _vm._s(_vm.form_labels.add_title) + "\n                  ")]), _vm._v(" "), _c('div', {
+    staticClass: "cancel"
+  }, [_c('a', {
+    attrs: {
+      "href": "#",
+      "id": "discardModal",
+      "data-dismiss": "modal"
+    },
+    on: {
+      "click": _vm.clearForm
+    }
+  }, [_vm._v("X")])])]), _vm._v(" "), _c('div', {
+    staticClass: "modal-body",
+    attrs: {
+      "id": "body-member-dis"
+    }
+  }, [(_vm.show_loading) ? _c('img', {
+    attrs: {
+      "src": "/images/loading.gif",
+      "id": "api-wait"
+    }
+  }) : _vm._e(), _vm._v(" "), (_vm.show_errors) ? _c('div', [_c('div', {
+    staticClass: "form-group m-form__group m--margin-top-10"
+  }, [_c('div', {
+    staticClass: "alert m-alert m-alert--default",
+    attrs: {
+      "role": "alert"
+    }
+  }, [_c('ul', {
+    staticStyle: {
+      "margin": "0px"
+    }
+  }, _vm._l((_vm.show_add_messages), function(message) {
+    return _c('li', [_vm._v(_vm._s(message))])
+  }))])])]) : _vm._e(), _vm._v(" "), _c('div', {
+    staticClass: "m-form m-form--fit m-form--label-align-left"
+  }, [_c('input', {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: (_vm.user_id),
+      expression: "user_id"
+    }],
+    attrs: {
+      "type": "hidden",
+      "id": "user_id"
+    },
+    domProps: {
+      "value": (_vm.user_id)
+    },
+    on: {
+      "input": function($event) {
+        if ($event.target.composing) { return; }
+        _vm.user_id = $event.target.value
+      }
+    }
+  }), _vm._v(" "), _c('input', {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: (_vm.role),
+      expression: "role"
+    }],
+    attrs: {
+      "type": "hidden",
+      "id": "role",
+      "value": "1"
+    },
+    domProps: {
+      "value": (_vm.role)
+    },
+    on: {
+      "input": function($event) {
+        if ($event.target.composing) { return; }
+        _vm.role = $event.target.value
+      }
+    }
+  }), _vm._v(" "), _c('div', {
+    staticClass: "form-group m-form__group row"
+  }, [_c('label', {
+    staticClass: "col-3 col-form-label"
+  }, [_vm._v("\n                            " + _vm._s(_vm.form_labels.choose_account) + "\n                          ")]), _vm._v(" "), _c('div', {
+    staticClass: "col-9"
+  }, [_c('select', {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: (_vm.account_id),
+      expression: "account_id"
+    }],
+    staticClass: "form-control m-input ",
+    attrs: {
+      "id": "account_id"
+    },
+    on: {
+      "change": function($event) {
+        var $$selectedVal = Array.prototype.filter.call($event.target.options, function(o) {
+          return o.selected
+        }).map(function(o) {
+          var val = "_value" in o ? o._value : o.value;
+          return val
+        });
+        _vm.account_id = $event.target.multiple ? $$selectedVal : $$selectedVal[0]
+      }
+    }
+  }, [_c('option', {
+    domProps: {
+      "value": _vm.user_id
+    }
+  }, [_vm._v(_vm._s(_vm.user_email) + " (my account)")]), _vm._v(" "), _vm._l((_vm.shared_users), function(shared_user) {
+    return _c('option', {
+      domProps: {
+        "value": shared_user.id
+      }
+    }, [_vm._v(_vm._s(shared_user.email))])
+  })], 2)])]), _vm._v(" "), _c('div', {
+    staticClass: "form-group m-form__group row"
+  }, [_c('label', {
+    staticClass: "col-3 col-form-label"
+  }, [_vm._v("\n                              " + _vm._s(_vm.form_labels.member_email) + "\n                          ")]), _vm._v(" "), _c('div', {
+    staticClass: "col-9"
+  }, [_c('select', {
+    staticClass: "js-example-basic-single form-control m-input ",
+    staticStyle: {
+      "width": "100%"
+    },
+    attrs: {
+      "id": "member_email",
+      "multiple": "multiple",
+      "data-tags": "true"
+    }
+  }, _vm._l((_vm.other_users), function(other_user) {
+    return _c('option', {
+      domProps: {
+        "value": other_user.id
+      }
+    }, [_vm._v(_vm._s(other_user.email))])
+  }))])])])]), _vm._v(" "), _c('div', {
+    staticClass: "modal-footer",
+    staticStyle: {
+      "padding": "11px"
+    }
+  }, [_c('button', {
+    staticClass: "btn btn-default",
+    attrs: {
+      "id": "",
+      "type": "button"
+    },
+    on: {
+      "click": _vm.saveModal
+    }
+  }, [_vm._v("\n                      " + _vm._s(_vm.form_labels.submit_button) + "\n                  ")])])])])])])
 },staticRenderFns: [function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
   return _c('span', {
     staticClass: "m-input-icon__icon m-input-icon__icon--left"
@@ -20632,12 +21622,12 @@ module.exports.render._withStripped = true
 if (false) {
   module.hot.accept()
   if (module.hot.data) {
-     require("vue-hot-reload-api").rerender("data-v-076db0ae", module.exports)
+     require("vue-hot-reload-api").rerender("data-v-43b6081a", module.exports)
   }
 }
 
 /***/ }),
-/* 39 */
+/* 43 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
@@ -21067,7 +22057,7 @@ if (false) {
 }
 
 /***/ }),
-/* 40 */
+/* 44 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
@@ -21885,7 +22875,7 @@ if (false) {
 }
 
 /***/ }),
-/* 41 */
+/* 45 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
@@ -21962,49 +22952,92 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
   }, [_c('i', {
     staticClass: "fa fa-columns"
   })])])])]), _vm._v(" "), _c('table', {
-    staticClass: "table table-striped  table-hover table-bordered display nowrap",
+    staticClass: "table table-striped  table-hover table-bordered datatable display nowrap",
     attrs: {
-      "id": "data-table",
+      "id": "routers-datatable",
       "cellspacing": "0",
       "width": "100%"
     }
   }, [_c('thead', [_c('tr', _vm._l((_vm.headings), function(item, index) {
-    return _c('th', {
-      class: item.class
-    }, [_vm._v(_vm._s(item.column))])
-  }))]), _vm._v(" "), _c('tbody', _vm._l((_vm.table_records), function(record) {
-    return _c('tr', [_c('td', {
-      staticClass: "text-center actions"
-    }, [_c('div', {
-      staticClass: "cursor_to_pointer fa fa-edit",
+    return _c('th', [_vm._v(_vm._s(item.column))])
+  }))])])])])]), _vm._v(" "), _c('div', {
+    ref: "hideShow",
+    staticClass: "modal fade toggle-datatable-columns",
+    staticStyle: {
+      "padding": "0px"
+    },
+    attrs: {
+      "tabindex": "-1",
+      "role": "dialog",
+      "aria-labelledby": "exampleModalLabel",
+      "aria-hidden": "true",
+      "data-backdrop": "static",
+      "data-keyboard": "false"
+    }
+  }, [_c('div', {
+    staticClass: "modal-dialog modal-sm",
+    attrs: {
+      "role": "document"
+    }
+  }, [_c('div', {
+    staticClass: "modal-content",
+    staticStyle: {
+      "padding": "0px"
+    }
+  }, [_c('div', {
+    staticClass: "modal-header"
+  }, [_c('h5', {
+    staticClass: "modal-title",
+    attrs: {
+      "id": "exampleModalLabel"
+    }
+  }, [_vm._v("\n                    " + _vm._s(_vm.form_labels.hide_show_title) + "\n                ")]), _vm._v(" "), _c('div', {
+    staticClass: "cancel"
+  }, [_c('a', {
+    attrs: {
+      "href": "#",
+      "id": "discardModal",
+      "data-dismiss": "modal"
+    },
+    on: {
+      "click": _vm.clearForm
+    }
+  }, [_vm._v("X")])])]), _vm._v(" "), _c('div', {
+    staticClass: "modal-body",
+    attrs: {
+      "id": "body-sim-dis"
+    }
+  }, [_c('div', {
+    staticClass: "form-group"
+  }, _vm._l((_vm.headings), function(item, index) {
+    return _c('div', {
+      staticClass: "column-checkbox"
+    }, [_c('label', {
+      staticClass: "m-checkbox m-checkbox--single m-checkbox--solid m-checkbox--brand",
+      staticStyle: {
+        "width": "auto"
+      }
+    }, [_c('input', {
+      staticClass: "nvr-column",
+      attrs: {
+        "type": "checkbox",
+        "data-id": item.id
+      },
       on: {
-        "click": function($event) {
-          _vm.onRouterEditButton(record)
+        "change": function($event) {
+          _vm.showHideColumns(item.id)
         }
       }
-    }), _vm._v(" "), _c('div', {
-      staticClass: "cursor_to_pointer fa fa-trash",
-      on: {
-        "click": function($event) {
-          _vm.deleteRouter(record.id, $event)
-        }
-      }
-    })]), _vm._v(" "), _c('td', {
-      staticClass: "rule_name"
-    }, [_vm._v(_vm._s(record.name))]), _vm._v(" "), _c('td', {
-      staticClass: "active"
-    }, [_vm._v(_vm._s(record.ip))]), _vm._v(" "), _c('td', {
-      staticClass: "text-center category"
-    }, [_vm._v(_vm._s(record.http_port))]), _vm._v(" "), _c('td', {
-      staticClass: "text-center category"
-    }, [_vm._v(_vm._s(record.username))]), _vm._v(" "), _c('td', {
-      staticClass: "text-center category"
-    }, [_vm._v(_vm._s(record.password))]), _vm._v(" "), _c('td', {
-      staticClass: "text-center category"
-    }, [_vm._v(_vm._s(record.monitoring))]), _vm._v(" "), _c('td', {
-      staticClass: "text-center created_at"
-    }, [_vm._v(_vm._s(_vm._f("formatDate")(record.created_at)))])])
-  }))])])])]), _vm._v(" "), _c('div', {
+    }), _c('span'), _vm._v(" " + _vm._s(item.column))])])
+  }))]), _vm._v(" "), _c('div', {
+    staticClass: "modal-footer"
+  }, [_c('button', {
+    staticClass: "btn btn-default",
+    attrs: {
+      "type": "button",
+      "data-dismiss": "modal"
+    }
+  }, [_vm._v(_vm._s(_vm.form_labels.hide_show_button))])])])])]), _vm._v(" "), _c('div', {
     ref: "addmodal",
     staticClass: "modal fade add_router_to_db",
     staticStyle: {
@@ -22036,7 +23069,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     attrs: {
       "id": "exampleModalLabel"
     }
-  }, [_vm._v("\n                    " + _vm._s(_vm.form_labels.add_title) + "\n                ")]), _vm._v(" "), _c('div', {
+  }, [_vm._v("\n                      " + _vm._s(_vm.form_labels.add_title) + "\n                  ")]), _vm._v(" "), _c('div', {
     staticClass: "cancel"
   }, [_c('a', {
     attrs: {
@@ -22068,9 +23101,13 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     attrs: {
       "role": "alert"
     }
+  }, [_c('ul', {
+    staticStyle: {
+      "margin": "0px"
+    }
   }, _vm._l((_vm.show_add_messages), function(message) {
     return _c('li', [_vm._v(_vm._s(message))])
-  }))])]) : _vm._e(), _vm._v(" "), _c('div', {
+  }))])])]) : _vm._e(), _vm._v(" "), _c('div', {
     staticClass: "m-form m-form--fit m-form--label-align-left"
   }, [_c('input', {
     directives: [{
@@ -22081,7 +23118,8 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }],
     attrs: {
       "type": "hidden",
-      "id": "user_id"
+      "id": "user_id",
+      "value": "<%= @user.id %>"
     },
     domProps: {
       "value": (_vm.user_id)
@@ -22096,7 +23134,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "form-group m-form__group row"
   }, [_c('label', {
     staticClass: "col-3 col-form-label"
-  }, [_vm._v("\n                            " + _vm._s(_vm.form_labels.name) + "\n                        ")]), _vm._v(" "), _c('div', {
+  }, [_vm._v("\n                              " + _vm._s(_vm.form_labels.name) + "\n                          ")]), _vm._v(" "), _c('div', {
     staticClass: "col-9"
   }, [_c('input', {
     directives: [{
@@ -22125,7 +23163,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "form-group m-form__group row"
   }, [_c('label', {
     staticClass: "col-3 col-form-label"
-  }, [_vm._v("\n                            " + _vm._s(_vm.form_labels.ip) + "\n                        ")]), _vm._v(" "), _c('div', {
+  }, [_vm._v("\n                              " + _vm._s(_vm.form_labels.ip) + "\n                          ")]), _vm._v(" "), _c('div', {
     staticClass: "col-9"
   }, [_c('input', {
     directives: [{
@@ -22153,7 +23191,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "form-group m-form__group row"
   }, [_c('label', {
     staticClass: "col-3 col-form-label"
-  }, [_vm._v("\n                            " + _vm._s(_vm.form_labels.username) + "\n                        ")]), _vm._v(" "), _c('div', {
+  }, [_vm._v("\n                              " + _vm._s(_vm.form_labels.username) + "\n                          ")]), _vm._v(" "), _c('div', {
     staticClass: "col-9"
   }, [_c('input', {
     directives: [{
@@ -22181,7 +23219,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "form-group m-form__group row"
   }, [_c('label', {
     staticClass: "col-3 col-form-label"
-  }, [_vm._v("\n                            " + _vm._s(_vm.form_labels.password) + "\n                        ")]), _vm._v(" "), _c('div', {
+  }, [_vm._v("\n                              " + _vm._s(_vm.form_labels.password) + "\n                          ")]), _vm._v(" "), _c('div', {
     staticClass: "col-9"
   }, [_c('input', {
     directives: [{
@@ -22209,7 +23247,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "form-group m-form__group row"
   }, [_c('label', {
     staticClass: "col-3 col-form-label"
-  }, [_vm._v("\n                            " + _vm._s(_vm.form_labels.http_port) + "\n                        ")]), _vm._v(" "), _c('div', {
+  }, [_vm._v("\n                              " + _vm._s(_vm.form_labels.http_port) + "\n                          ")]), _vm._v(" "), _c('div', {
     staticClass: "col-9"
   }, [_c('input', {
     directives: [{
@@ -22273,7 +23311,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         }
       }
     }
-  }), _vm._v("\n                                " + _vm._s(_vm.form_labels.status) + "\n                                "), _c('span')])])])])]), _vm._v(" "), _c('div', {
+  }), _vm._v("\n                                  " + _vm._s(_vm.form_labels.status) + "\n                                  "), _c('span')])])])])]), _vm._v(" "), _c('div', {
     staticClass: "modal-footer"
   }, [_c('button', {
     staticClass: "btn btn-default",
@@ -22284,7 +23322,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     on: {
       "click": _vm.saveModal
     }
-  }, [_vm._v("\n                    " + _vm._s(_vm.form_labels.submit_button) + "\n                ")])])])])]), _vm._v(" "), _c('div', {
+  }, [_vm._v("\n                      " + _vm._s(_vm.form_labels.submit_button) + "\n                  ")])])])])]), _vm._v(" "), _c('div', {
     ref: "editmodal",
     staticClass: "modal fade",
     staticStyle: {
@@ -22312,7 +23350,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     attrs: {
       "id": "exampleModalLabel"
     }
-  }, [_vm._v("\n                    " + _vm._s(_vm.form_labels.edit_title) + "\n                ")]), _vm._v(" "), _c('div', {
+  }, [_vm._v("\n                      " + _vm._s(_vm.form_labels.edit_title) + "\n                  ")]), _vm._v(" "), _c('div', {
     staticClass: "cancel"
   }, [_c('a', {
     attrs: {
@@ -22344,9 +23382,13 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     attrs: {
       "role": "alert"
     }
+  }, [_c('ul', {
+    staticStyle: {
+      "margin": "0px"
+    }
   }, _vm._l((_vm.show_edit_messages), function(message) {
     return _c('li', [_vm._v(_vm._s(message))])
-  }))])]) : _vm._e(), _vm._v(" "), _c('div', {
+  }))])])]) : _vm._e(), _vm._v(" "), _c('div', {
     staticClass: "m-form m-form--fit m-form--label-align-left"
   }, [_c('input', {
     directives: [{
@@ -22369,167 +23411,31 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       }
     }
   }), _vm._v(" "), _c('input', {
-    directives: [{
-      name: "model",
-      rawName: "v-model",
-      value: (_vm.edit_router_id),
-      expression: "edit_router_id"
-    }],
     attrs: {
       "type": "hidden",
       "id": "edit_router_id"
-    },
-    domProps: {
-      "value": (_vm.edit_router_id)
-    },
-    on: {
-      "input": function($event) {
-        if ($event.target.composing) { return; }
-        _vm.edit_router_id = $event.target.value
-      }
     }
   }), _vm._v(" "), _c('div', {
     staticClass: "form-group m-form__group row"
   }, [_c('label', {
     staticClass: "col-3 col-form-label"
-  }, [_vm._v("\n                            " + _vm._s(_vm.form_labels.name) + "\n                        ")]), _vm._v(" "), _c('div', {
-    staticClass: "col-9"
-  }, [_c('input', {
-    directives: [{
-      name: "model",
-      rawName: "v-model",
-      value: (_vm.edit_router_name),
-      expression: "edit_router_name"
-    }],
-    staticClass: "form-control m-input m-input--solid",
-    attrs: {
-      "type": "text",
-      "id": "edit_router_name",
-      "aria-describedby": "emailHelp",
-      "placeholder": "Galway route."
-    },
-    domProps: {
-      "value": (_vm.edit_router_name)
-    },
-    on: {
-      "input": function($event) {
-        if ($event.target.composing) { return; }
-        _vm.edit_router_name = $event.target.value
-      }
-    }
-  })])]), _vm._v(" "), _c('div', {
+  }, [_vm._v("\n                              " + _vm._s(_vm.form_labels.name) + "\n                          ")]), _vm._v(" "), _vm._m(1)]), _vm._v(" "), _c('div', {
     staticClass: "form-group m-form__group row"
   }, [_c('label', {
     staticClass: "col-3 col-form-label"
-  }, [_vm._v("\n                            " + _vm._s(_vm.form_labels.ip) + "\n                        ")]), _vm._v(" "), _c('div', {
-    staticClass: "col-9"
-  }, [_c('input', {
-    directives: [{
-      name: "model",
-      rawName: "v-model",
-      value: (_vm.edit_router_ip),
-      expression: "edit_router_ip"
-    }],
-    staticClass: "form-control m-input m-input--solid",
-    attrs: {
-      "type": "text",
-      "id": "edit_router_ip",
-      "placeholder": "https://youripmaybe"
-    },
-    domProps: {
-      "value": (_vm.edit_router_ip)
-    },
-    on: {
-      "input": function($event) {
-        if ($event.target.composing) { return; }
-        _vm.edit_router_ip = $event.target.value
-      }
-    }
-  })])]), _vm._v(" "), _c('div', {
+  }, [_vm._v("\n                              " + _vm._s(_vm.form_labels.ip) + "\n                          ")]), _vm._v(" "), _vm._m(2)]), _vm._v(" "), _c('div', {
     staticClass: "form-group m-form__group row"
   }, [_c('label', {
     staticClass: "col-3 col-form-label"
-  }, [_vm._v("\n                            " + _vm._s(_vm.form_labels.username) + "\n                        ")]), _vm._v(" "), _c('div', {
-    staticClass: "col-9"
-  }, [_c('input', {
-    directives: [{
-      name: "model",
-      rawName: "v-model",
-      value: (_vm.edit_router_username),
-      expression: "edit_router_username"
-    }],
-    staticClass: "form-control m-input m-input--solid",
-    attrs: {
-      "type": "text",
-      "id": "edit_router_username",
-      "placeholder": "i.e admin"
-    },
-    domProps: {
-      "value": (_vm.edit_router_username)
-    },
-    on: {
-      "input": function($event) {
-        if ($event.target.composing) { return; }
-        _vm.edit_router_username = $event.target.value
-      }
-    }
-  })])]), _vm._v(" "), _c('div', {
+  }, [_vm._v("\n                              " + _vm._s(_vm.form_labels.username) + "\n                          ")]), _vm._v(" "), _vm._m(3)]), _vm._v(" "), _c('div', {
     staticClass: "form-group m-form__group row"
   }, [_c('label', {
     staticClass: "col-3 col-form-label"
-  }, [_vm._v("\n                            " + _vm._s(_vm.form_labels.password) + "\n                        ")]), _vm._v(" "), _c('div', {
-    staticClass: "col-9"
-  }, [_c('input', {
-    directives: [{
-      name: "model",
-      rawName: "v-model",
-      value: (_vm.edit_router_password),
-      expression: "edit_router_password"
-    }],
-    staticClass: "form-control m-input m-input--solid",
-    attrs: {
-      "type": "text",
-      "id": "edit_router_password",
-      "placeholder": "Super Secret"
-    },
-    domProps: {
-      "value": (_vm.edit_router_password)
-    },
-    on: {
-      "input": function($event) {
-        if ($event.target.composing) { return; }
-        _vm.edit_router_password = $event.target.value
-      }
-    }
-  })])]), _vm._v(" "), _c('div', {
+  }, [_vm._v("\n                              " + _vm._s(_vm.form_labels.password) + "\n                          ")]), _vm._v(" "), _vm._m(4)]), _vm._v(" "), _c('div', {
     staticClass: "form-group m-form__group row"
   }, [_c('label', {
     staticClass: "col-3 col-form-label"
-  }, [_vm._v("\n                            " + _vm._s(_vm.form_labels.http_port) + "\n                        ")]), _vm._v(" "), _c('div', {
-    staticClass: "col-9"
-  }, [_c('input', {
-    directives: [{
-      name: "model",
-      rawName: "v-model",
-      value: (_vm.edit_http_router_port),
-      expression: "edit_http_router_port"
-    }],
-    staticClass: "form-control m-input m-input--solid",
-    attrs: {
-      "type": "number",
-      "id": "edit_http_router_port",
-      "placeholder": "i.e 80"
-    },
-    domProps: {
-      "value": (_vm.edit_http_router_port)
-    },
-    on: {
-      "input": function($event) {
-        if ($event.target.composing) { return; }
-        _vm.edit_http_router_port = $event.target.value
-      }
-    }
-  })])]), _vm._v(" "), _c('div', {
+  }, [_vm._v("\n                              " + _vm._s(_vm.form_labels.http_port) + "\n                          ")]), _vm._v(" "), _vm._m(5)]), _vm._v(" "), _c('div', {
     staticClass: "form-group m-form__group row"
   }, [_c('label', {
     staticClass: "col-3 col-form-label"
@@ -22538,38 +23444,11 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
   }, [_c('label', {
     staticClass: "m-checkbox"
   }, [_c('input', {
-    directives: [{
-      name: "model",
-      rawName: "v-model",
-      value: (_vm.edit_router_is_monitoring),
-      expression: "edit_router_is_monitoring"
-    }],
     attrs: {
       "type": "checkbox",
       "id": "edit_router_is_monitoring"
-    },
-    domProps: {
-      "checked": Array.isArray(_vm.edit_router_is_monitoring) ? _vm._i(_vm.edit_router_is_monitoring, null) > -1 : (_vm.edit_router_is_monitoring)
-    },
-    on: {
-      "change": function($event) {
-        var $$a = _vm.edit_router_is_monitoring,
-          $$el = $event.target,
-          $$c = $$el.checked ? (true) : (false);
-        if (Array.isArray($$a)) {
-          var $$v = null,
-            $$i = _vm._i($$a, $$v);
-          if ($$el.checked) {
-            $$i < 0 && (_vm.edit_router_is_monitoring = $$a.concat([$$v]))
-          } else {
-            $$i > -1 && (_vm.edit_router_is_monitoring = $$a.slice(0, $$i).concat($$a.slice($$i + 1)))
-          }
-        } else {
-          _vm.edit_router_is_monitoring = $$c
-        }
-      }
     }
-  }), _vm._v("\n                                " + _vm._s(_vm.form_labels.status) + "\n                                "), _c('span')])])])])]), _vm._v(" "), _c('div', {
+  }), _vm._v("\n                                  " + _vm._s(_vm.form_labels.status) + "\n                                  "), _c('span')])])])])]), _vm._v(" "), _c('div', {
     staticClass: "modal-footer"
   }, [_c('button', {
     staticClass: "btn btn-default",
@@ -22580,92 +23459,69 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     on: {
       "click": _vm.updateRouterdo
     }
-  }, [_vm._v("\n                    " + _vm._s(_vm.form_labels.submit_button) + "\n                ")])])])])]), _vm._v(" "), _c('div', {
-    ref: "hideShow",
-    staticClass: "modal fade toggle-datatable-columns",
-    staticStyle: {
-      "padding": "0px"
-    },
-    attrs: {
-      "tabindex": "-1",
-      "role": "dialog",
-      "aria-labelledby": "exampleModalLabel",
-      "aria-hidden": "true",
-      "data-backdrop": "static",
-      "data-keyboard": "false"
-    }
-  }, [_c('div', {
-    staticClass: "modal-dialog modal-sm",
-    attrs: {
-      "role": "document"
-    }
-  }, [_c('div', {
-    staticClass: "modal-content",
-    staticStyle: {
-      "padding": "0px"
-    }
-  }, [_c('div', {
-    staticClass: "modal-header"
-  }, [_c('h5', {
-    staticClass: "modal-title",
-    attrs: {
-      "id": "exampleModalLabel"
-    }
-  }, [_vm._v("\n                  " + _vm._s(_vm.form_labels.hide_show_title) + "\n              ")]), _vm._v(" "), _c('div', {
-    staticClass: "cancel"
-  }, [_c('a', {
-    attrs: {
-      "href": "#",
-      "id": "discardModal",
-      "data-dismiss": "modal"
-    },
-    on: {
-      "click": _vm.clearForm
-    }
-  }, [_vm._v("X")])])]), _vm._v(" "), _c('div', {
-    staticClass: "modal-body",
-    attrs: {
-      "id": "body-sim-dis"
-    }
-  }, [_c('div', {
-    staticClass: "form-group"
-  }, _vm._l((_vm.headings), function(item, index) {
-    return _c('div', {
-      staticClass: "column-checkbox"
-    }, [_c('label', {
-      staticClass: "m-checkbox m-checkbox--single m-checkbox--solid m-checkbox--brand",
-      staticStyle: {
-        "width": "auto"
-      }
-    }, [_c('input', {
-      staticClass: "users-column",
-      attrs: {
-        "type": "checkbox",
-        "checked": "checked",
-        "id": index,
-        "name": item.id
-      },
-      on: {
-        "change": function($event) {
-          _vm.showHideColumns(index)
-        }
-      }
-    }), _c('span'), _vm._v(" " + _vm._s(item.column))])])
-  }))]), _vm._v(" "), _c('div', {
-    staticClass: "modal-footer"
-  }, [_c('button', {
-    staticClass: "btn btn-default",
-    attrs: {
-      "type": "button",
-      "data-dismiss": "modal"
-    }
-  }, [_vm._v(_vm._s(_vm.form_labels.hide_show_button))])])])])])])
+  }, [_vm._v("\n                      " + _vm._s(_vm.form_labels.submit_button) + "\n                  ")])])])])])])
 },staticRenderFns: [function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
   return _c('span', {
     staticClass: "m-input-icon__icon m-input-icon__icon--left"
   }, [_c('span', [_c('i', {
     staticClass: "la la-search"
   })])])
+},function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('div', {
+    staticClass: "col-9"
+  }, [_c('input', {
+    staticClass: "form-control m-input m-input--solid",
+    attrs: {
+      "type": "text",
+      "id": "edit_router_name",
+      "aria-describedby": "emailHelp",
+      "placeholder": "Galway route."
+    }
+  })])
+},function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('div', {
+    staticClass: "col-9"
+  }, [_c('input', {
+    staticClass: "form-control m-input m-input--solid",
+    attrs: {
+      "type": "text",
+      "id": "edit_router_ip",
+      "placeholder": "https://youripmaybe"
+    }
+  })])
+},function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('div', {
+    staticClass: "col-9"
+  }, [_c('input', {
+    staticClass: "form-control m-input m-input--solid",
+    attrs: {
+      "type": "text",
+      "id": "edit_router_username",
+      "placeholder": "i.e admin"
+    }
+  })])
+},function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('div', {
+    staticClass: "col-9"
+  }, [_c('input', {
+    staticClass: "form-control m-input m-input--solid",
+    attrs: {
+      "type": "text",
+      "id": "edit_router_password",
+      "placeholder": "Super Secret"
+    }
+  })])
+},function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('div', {
+    staticClass: "col-9"
+  }, [_c('input', {
+    staticClass: "form-control m-input m-input--solid",
+    attrs: {
+      "type": "number",
+      "id": "edit_http_router_port",
+      "placeholder": "i.e 80"
+    }
+  })])
 }]}
 module.exports.render._withStripped = true
 if (false) {
@@ -22676,7 +23532,7 @@ if (false) {
 }
 
 /***/ }),
-/* 42 */
+/* 46 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
@@ -22746,7 +23602,7 @@ if (false) {
 }
 
 /***/ }),
-/* 43 */
+/* 47 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
@@ -22861,15 +23717,12 @@ if (false) {
 }
 
 /***/ }),
-/* 44 */
+/* 48 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
   return _c('div', [_c('div', {
-    staticClass: "m-content",
-    attrs: {
-      "id": "loading_content"
-    }
+    staticClass: "m-content"
   }, [_c('div', {
     staticClass: "m-portlet m-portlet--mobile",
     staticStyle: {
@@ -22939,105 +23792,242 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }
   }, [_c('i', {
     staticClass: "fa fa-columns"
-  })])])])]), _vm._v(" "), _c('div', {
-    staticClass: "m_nvr_datatable",
-    staticStyle: {
-      "display": "none"
-    }
-  }, [_c('table', {
-    staticClass: " table table-striped  table-hover table-bordered display nowrap ",
+  })])])])]), _vm._v(" "), _c('table', {
+    staticClass: "table table-striped  table-hover table-bordered datatable display nowrap",
     attrs: {
-      "id": "data-table",
+      "id": "nvr-datatable",
       "cellspacing": "0",
       "width": "100%"
     }
   }, [_c('thead', [_c('tr', _vm._l((_vm.headings), function(item, index) {
-    return _c('th', {
-      class: item.class
-    }, [_vm._v(_vm._s(item.column))])
-  }))]), _vm._v(" "), _c('tbody', _vm._l((_vm.table_records), function(record) {
-    return _c('tr', [_c('td', {
-      staticClass: "text-center reboot"
-    }, [_c('button', {
-      staticClass: "btn btn-default cursor_to_pointer",
+    return _c('th', [_vm._v(_vm._s(item.column))])
+  }))])])])])]), _vm._v(" "), _c('div', {
+    ref: "hideShow",
+    staticClass: "modal fade toggle-datatable-columns",
+    staticStyle: {
+      "padding": "0px"
+    },
+    attrs: {
+      "tabindex": "-1",
+      "role": "dialog",
+      "aria-labelledby": "exampleModalLabel",
+      "aria-hidden": "true",
+      "data-backdrop": "static",
+      "data-keyboard": "false"
+    }
+  }, [_c('div', {
+    staticClass: "modal-dialog modal-sm",
+    attrs: {
+      "role": "document"
+    }
+  }, [_c('div', {
+    staticClass: "modal-content",
+    staticStyle: {
+      "padding": "0px"
+    }
+  }, [_c('div', {
+    staticClass: "modal-header"
+  }, [_c('h5', {
+    staticClass: "modal-title",
+    attrs: {
+      "id": "exampleModalLabel"
+    }
+  }, [_vm._v("\n                    " + _vm._s(_vm.form_labels.hide_show_title) + "\n                ")]), _vm._v(" "), _c('div', {
+    staticClass: "cancel"
+  }, [_c('a', {
+    attrs: {
+      "href": "#",
+      "id": "discardModal",
+      "data-dismiss": "modal"
+    },
+    on: {
+      "click": _vm.clearForm
+    }
+  }, [_vm._v("X")])])]), _vm._v(" "), _c('div', {
+    staticClass: "modal-body",
+    attrs: {
+      "id": "body-sim-dis"
+    }
+  }, [_c('div', {
+    staticClass: "form-group"
+  }, _vm._l((_vm.headings), function(item, index) {
+    return _c('div', {
+      staticClass: "column-checkbox"
+    }, [_c('label', {
+      staticClass: "m-checkbox m-checkbox--single m-checkbox--solid m-checkbox--brand",
       staticStyle: {
-        "font-size": "10px",
-        "padding": "5px"
+        "width": "auto"
+      }
+    }, [_c('input', {
+      staticClass: "nvr-column",
+      attrs: {
+        "type": "checkbox",
+        "data-id": item.id
       },
       on: {
-        "click": function($event) {
-          _vm.rebootNVR(record.id, $event)
+        "change": function($event) {
+          _vm.showHideColumns(item.id)
         }
       }
-    }, [_vm._v("Reboot")])]), _vm._v(" "), _c('td', {
-      staticClass: "text-center actions"
-    }, [_c('div', {
-      staticClass: "cursor_to_pointer fa fa-edit",
-      on: {
-        "click": function($event) {
-          _vm.onNVREditButton(record)
-        }
+    }), _c('span'), _vm._v(" " + _vm._s(item.column))])])
+  }))]), _vm._v(" "), _c('div', {
+    staticClass: "modal-footer"
+  }, [_c('button', {
+    staticClass: "btn btn-default",
+    attrs: {
+      "type": "button",
+      "data-dismiss": "modal"
+    }
+  }, [_vm._v(_vm._s(_vm.form_labels.hide_show_button))])])])])]), _vm._v(" "), _c('div', {
+    ref: "editmodal",
+    staticClass: "modal fade",
+    staticStyle: {
+      "padding": "0px"
+    },
+    attrs: {
+      "id": "edit_nvr_to_db",
+      "data-backdrop": "static",
+      "data-keyboard": "false"
+    }
+  }, [_c('div', {
+    staticClass: "modal-dialog",
+    attrs: {
+      "role": "document"
+    }
+  }, [_c('div', {
+    staticClass: "modal-content",
+    staticStyle: {
+      "padding": "0px"
+    }
+  }, [_c('div', {
+    staticClass: "modal-header"
+  }, [_c('h5', {
+    staticClass: "modal-title",
+    attrs: {
+      "id": "exampleModalLabel"
+    }
+  }, [_vm._v("\n                    " + _vm._s(_vm.form_labels.edit_title) + "\n                ")]), _vm._v(" "), _c('div', {
+    staticClass: "cancel"
+  }, [_c('a', {
+    attrs: {
+      "href": "#",
+      "id": "discardEditModal",
+      "data-dismiss": "modal"
+    },
+    on: {
+      "click": _vm.editClearFrom
+    }
+  }, [_vm._v("X")])])]), _vm._v(" "), _c('div', {
+    staticClass: "modal-body",
+    attrs: {
+      "id": "body-nvr-edit-dis"
+    }
+  }, [(_vm.show_loading) ? _c('img', {
+    attrs: {
+      "src": "/images/loading.gif",
+      "id": "api-wait"
+    }
+  }) : _vm._e(), _vm._v(" "), (_vm.show_edit_errors) ? _c('div', {
+    attrs: {
+      "id": "nvrEditErrorDetails"
+    }
+  }, [_c('div', {
+    staticClass: "form-group m-form__group m--margin-top-10"
+  }, [_c('div', {
+    staticClass: "alert m-alert m-alert--default",
+    attrs: {
+      "role": "alert"
+    }
+  }, [_c('ul', {
+    staticStyle: {
+      "margin": "0px"
+    }
+  }, _vm._l((_vm.show_edit_messages), function(message) {
+    return _c('li', [_vm._v(_vm._s(message))])
+  }))])])]) : _vm._e(), _vm._v(" "), _c('div', {
+    staticClass: "m-form m-form--fit m-form--label-align-left"
+  }, [_c('input', {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: (_vm.user_id),
+      expression: "user_id"
+    }],
+    attrs: {
+      "type": "hidden",
+      "id": "user_id"
+    },
+    domProps: {
+      "value": (_vm.user_id)
+    },
+    on: {
+      "input": function($event) {
+        if ($event.target.composing) { return; }
+        _vm.user_id = $event.target.value
       }
-    }), _vm._v(" "), _c('div', {
-      staticClass: "cursor_to_pointer fa fa-trash",
-      on: {
-        "click": function($event) {
-          _vm.deleteNVR(record.id, $event)
-        }
-      }
-    })]), _vm._v(" "), _c('td', {
-      staticClass: "name"
-    }, [_vm._v(_vm._s(record.name) + "   \n                      "), _c('a', {
-      attrs: {
-        "href": 'http://' + record.ip + ':' + record.port,
-        "target": "_blank"
-      }
-    }, [_c('span', {
-      staticClass: "fa fa-external-link"
-    })])]), _vm._v(" "), _c('td', {
-      staticClass: "ip"
-    }, [_vm._v(_vm._s(record.ip))]), _vm._v(" "), _c('td', {
-      staticClass: "text-center port"
-    }, [_vm._v(_vm._s(record.port))]), _vm._v(" "), _c('td', {
-      staticClass: "text-center vh_port"
-    }, [_vm._v(_vm._s(record.vh_port))]), _vm._v(" "), _c('td', {
-      staticClass: "text-center sdk_port"
-    }, [_vm._v(_vm._s(record.sdk_port))]), _vm._v(" "), _c('td', {
-      staticClass: "text-center rtsp_port"
-    }, [_vm._v(_vm._s(record.rtsp_port))]), _vm._v(" "), _c('td', {
-      staticClass: "text-center username"
-    }, [_vm._v(_vm._s(record.username))]), _vm._v(" "), _c('td', {
-      staticClass: "text-center password"
-    }, [_vm._v(_vm._s(record.password))]), _vm._v(" "), _c('td', {
-      staticClass: "text-center model"
-    }, [_vm._v(_vm._s(record.model))]), _vm._v(" "), _c('td', {
-      staticClass: "text-center firmware_version"
-    }, [_vm._v(_vm._s(record.firmware_version))]), _vm._v(" "), _c('td', {
-      staticClass: "text-center encoder_released_date"
-    }, [_vm._v(_vm._s(record.encoder_released_date))]), _vm._v(" "), _c('td', {
-      staticClass: "text-center encoder_version"
-    }, [_vm._v(_vm._s(record.encoder_version))]), _vm._v(" "), _c('td', {
-      staticClass: "text-center firmware_released_date"
-    }, [_vm._v(_vm._s(record.firmware_released_date))]), _vm._v(" "), _c('td', {
-      staticClass: "serial_number"
-    }, [_vm._v(_vm._s(record.serial_number))]), _vm._v(" "), _c('td', {
-      staticClass: "text-center mac_address"
-    }, [_vm._v(_vm._s(record.mac_address))]), _vm._v(" "), _c('td', {
-      staticClass: "text-center nvr_status"
-    }, [(record.nvr_status == false) ? _c('div', [_c('span', {
-      staticStyle: {
-        "color": "#d9534d"
-      }
-    }, [_vm._v("Offline")]), _c('span', [_vm._v(_vm._s(_vm._f("get_status_reason")(record.reason)))])]) : _vm._e(), _vm._v(" "), (record.nvr_status == true) ? _c('span', {
-      staticStyle: {
-        "color": "#5cb85c"
-      }
-    }, [_vm._v("Online")]) : _vm._e()]), _vm._v(" "), _c('td', {
-      staticClass: "text-center monitoring"
-    }, [_vm._v(_vm._s(record.is_monitoring))]), _vm._v(" "), _c('td', {
-      staticClass: "text-center created_at"
-    }, [_vm._v(_vm._s(_vm._f("formatDate")(record.created_at)))])])
-  }))])])])])]), _vm._v(" "), _c('div', {
+    }
+  }), _vm._v(" "), _c('input', {
+    attrs: {
+      "type": "hidden",
+      "id": "edit_nvr_id"
+    }
+  }), _vm._v(" "), _c('div', {
+    staticClass: "form-group m-form__group row"
+  }, [_c('label', {
+    staticClass: "col-3 col-form-label"
+  }, [_vm._v("\n                              " + _vm._s(_vm.form_labels.name) + "\n                          ")]), _vm._v(" "), _vm._m(1)]), _vm._v(" "), _c('div', {
+    staticClass: "form-group m-form__group row"
+  }, [_c('label', {
+    staticClass: "col-3 col-form-label"
+  }, [_vm._v("\n                              " + _vm._s(_vm.form_labels.ip) + "\n                          ")]), _vm._v(" "), _vm._m(2)]), _vm._v(" "), _c('div', {
+    staticClass: "form-group m-form__group row"
+  }, [_c('label', {
+    staticClass: "col-3 col-form-label"
+  }, [_vm._v("\n                              " + _vm._s(_vm.form_labels.username) + "\n                          ")]), _vm._v(" "), _vm._m(3)]), _vm._v(" "), _c('div', {
+    staticClass: "form-group m-form__group row"
+  }, [_c('label', {
+    staticClass: "col-3 col-form-label"
+  }, [_vm._v("\n                              " + _vm._s(_vm.form_labels.password) + "\n                          ")]), _vm._v(" "), _vm._m(4)]), _vm._v(" "), _c('div', {
+    staticClass: "form-group m-form__group row"
+  }, [_c('label', {
+    staticClass: "col-3 col-form-label"
+  }, [_vm._v("\n                              " + _vm._s(_vm.form_labels.http_port) + "\n                          ")]), _vm._v(" "), _vm._m(5)]), _vm._v(" "), _c('div', {
+    staticClass: "form-group m-form__group row"
+  }, [_c('label', {
+    staticClass: "col-3 col-form-label"
+  }, [_vm._v("\n                              " + _vm._s(_vm.form_labels.rtsp_port) + "\n                          ")]), _vm._v(" "), _vm._m(6)]), _vm._v(" "), _c('div', {
+    staticClass: "form-group m-form__group row"
+  }, [_c('label', {
+    staticClass: "col-3 col-form-label"
+  }, [_vm._v("\n                              " + _vm._s(_vm.form_labels.sdk_port) + "\n                          ")]), _vm._v(" "), _vm._m(7)]), _vm._v(" "), _c('div', {
+    staticClass: "form-group m-form__group row"
+  }, [_c('label', {
+    staticClass: "col-3 col-form-label"
+  }, [_vm._v("\n                              " + _vm._s(_vm.form_labels.vh_port) + "\n                          ")]), _vm._v(" "), _vm._m(8)]), _vm._v(" "), _c('div', {
+    staticClass: "form-group m-form__group row"
+  }, [_c('label', {
+    staticClass: "col-3 col-form-label"
+  }), _vm._v(" "), _c('div', {
+    staticClass: "col-9"
+  }, [_c('label', {
+    staticClass: "m-checkbox"
+  }, [_c('input', {
+    attrs: {
+      "type": "checkbox",
+      "id": "edit_nvr_is_monitoring"
+    }
+  }), _vm._v("\n                                  " + _vm._s(_vm.form_labels.status) + "\n                                "), _c('span')])])])])]), _vm._v(" "), _c('div', {
+    staticClass: "modal-footer"
+  }, [_c('button', {
+    staticClass: "btn btn-default",
+    attrs: {
+      "id": "",
+      "type": "button"
+    },
+    on: {
+      "click": _vm.updateNVRdo
+    }
+  }, [_vm._v("\n                    " + _vm._s(_vm.form_labels.submit_button) + "\n                ")])])])])]), _vm._v(" "), _c('div', {
     ref: "addmodal",
     staticClass: "modal fade add_nvr_to_db",
     staticStyle: {
@@ -23405,478 +24395,102 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     on: {
       "click": _vm.saveModal
     }
-  }, [_vm._v("\n                    " + _vm._s(_vm.form_labels.submit_button) + "\n                ")])])])])]), _vm._v(" "), _c('div', {
-    ref: "editmodal",
-    staticClass: "modal fade",
-    staticStyle: {
-      "padding": "0px"
-    },
-    attrs: {
-      "id": "edit_nvr_to_db",
-      "data-backdrop": "static",
-      "data-keyboard": "false"
-    }
-  }, [_c('div', {
-    staticClass: "modal-dialog",
-    attrs: {
-      "role": "document"
-    }
-  }, [_c('div', {
-    staticClass: "modal-content",
-    staticStyle: {
-      "padding": "0px"
-    }
-  }, [_c('div', {
-    staticClass: "modal-header"
-  }, [_c('h5', {
-    staticClass: "modal-title",
-    attrs: {
-      "id": "exampleModalLabel"
-    }
-  }, [_vm._v("\n                    " + _vm._s(_vm.form_labels.edit_title) + "\n                ")]), _vm._v(" "), _c('div', {
-    staticClass: "cancel"
-  }, [_c('a', {
-    attrs: {
-      "href": "#",
-      "id": "discardEditModal",
-      "data-dismiss": "modal"
-    },
-    on: {
-      "click": _vm.editClearFrom
-    }
-  }, [_vm._v("X")])])]), _vm._v(" "), _c('div', {
-    staticClass: "modal-body",
-    attrs: {
-      "id": "body-nvr-edit-dis"
-    }
-  }, [(_vm.show_loading) ? _c('img', {
-    attrs: {
-      "src": "/images/loading.gif",
-      "id": "api-wait"
-    }
-  }) : _vm._e(), _vm._v(" "), (_vm.show_edit_errors) ? _c('div', {
-    attrs: {
-      "id": "nvrEditErrorDetails"
-    }
-  }, [_c('div', {
-    staticClass: "form-group m-form__group m--margin-top-10"
-  }, [_c('div', {
-    staticClass: "alert m-alert m-alert--default",
-    attrs: {
-      "role": "alert"
-    }
-  }, [_c('ul', {
-    staticStyle: {
-      "margin": "0px"
-    }
-  }, _vm._l((_vm.show_edit_messages), function(message) {
-    return _c('li', [_vm._v(_vm._s(message))])
-  }))])])]) : _vm._e(), _vm._v(" "), _c('div', {
-    staticClass: "m-form m-form--fit m-form--label-align-left"
-  }, [_c('input', {
-    directives: [{
-      name: "model",
-      rawName: "v-model",
-      value: (_vm.user_id),
-      expression: "user_id"
-    }],
-    attrs: {
-      "type": "hidden",
-      "id": "user_id"
-    },
-    domProps: {
-      "value": (_vm.user_id)
-    },
-    on: {
-      "input": function($event) {
-        if ($event.target.composing) { return; }
-        _vm.user_id = $event.target.value
-      }
-    }
-  }), _vm._v(" "), _c('input', {
-    directives: [{
-      name: "model",
-      rawName: "v-model",
-      value: (_vm.edit_nvr_id),
-      expression: "edit_nvr_id"
-    }],
-    attrs: {
-      "type": "hidden",
-      "id": "edit_nvr_id"
-    },
-    domProps: {
-      "value": (_vm.edit_nvr_id)
-    },
-    on: {
-      "input": function($event) {
-        if ($event.target.composing) { return; }
-        _vm.edit_nvr_id = $event.target.value
-      }
-    }
-  }), _vm._v(" "), _c('div', {
-    staticClass: "form-group m-form__group row"
-  }, [_c('label', {
-    staticClass: "col-3 col-form-label"
-  }, [_vm._v("\n                              " + _vm._s(_vm.form_labels.name) + "\n                          ")]), _vm._v(" "), _c('div', {
-    staticClass: "col-9"
-  }, [_c('input', {
-    directives: [{
-      name: "model",
-      rawName: "v-model",
-      value: (_vm.edit_nvr_name),
-      expression: "edit_nvr_name"
-    }],
-    staticClass: "form-control m-input m-input--solid",
-    attrs: {
-      "type": "text",
-      "id": "edit_nvr_name",
-      "aria-describedby": "emailHelp",
-      "placeholder": "Galway route."
-    },
-    domProps: {
-      "value": (_vm.edit_nvr_name)
-    },
-    on: {
-      "input": function($event) {
-        if ($event.target.composing) { return; }
-        _vm.edit_nvr_name = $event.target.value
-      }
-    }
-  })])]), _vm._v(" "), _c('div', {
-    staticClass: "form-group m-form__group row"
-  }, [_c('label', {
-    staticClass: "col-3 col-form-label"
-  }, [_vm._v("\n                              " + _vm._s(_vm.form_labels.ip) + "\n                          ")]), _vm._v(" "), _c('div', {
-    staticClass: "col-9"
-  }, [_c('input', {
-    directives: [{
-      name: "model",
-      rawName: "v-model",
-      value: (_vm.edit_nvr_ip),
-      expression: "edit_nvr_ip"
-    }],
-    staticClass: "form-control m-input m-input--solid",
-    attrs: {
-      "type": "text",
-      "id": "edit_nvr_ip",
-      "placeholder": "https://youripmaybe"
-    },
-    domProps: {
-      "value": (_vm.edit_nvr_ip)
-    },
-    on: {
-      "input": function($event) {
-        if ($event.target.composing) { return; }
-        _vm.edit_nvr_ip = $event.target.value
-      }
-    }
-  })])]), _vm._v(" "), _c('div', {
-    staticClass: "form-group m-form__group row"
-  }, [_c('label', {
-    staticClass: "col-3 col-form-label"
-  }, [_vm._v("\n                              " + _vm._s(_vm.form_labels.username) + "\n                          ")]), _vm._v(" "), _c('div', {
-    staticClass: "col-9"
-  }, [_c('input', {
-    directives: [{
-      name: "model",
-      rawName: "v-model",
-      value: (_vm.edit_nvr_username),
-      expression: "edit_nvr_username"
-    }],
-    staticClass: "form-control m-input m-input--solid",
-    attrs: {
-      "type": "text",
-      "id": "edit_nvr_username",
-      "placeholder": "i.e admin"
-    },
-    domProps: {
-      "value": (_vm.edit_nvr_username)
-    },
-    on: {
-      "input": function($event) {
-        if ($event.target.composing) { return; }
-        _vm.edit_nvr_username = $event.target.value
-      }
-    }
-  })])]), _vm._v(" "), _c('div', {
-    staticClass: "form-group m-form__group row"
-  }, [_c('label', {
-    staticClass: "col-3 col-form-label"
-  }, [_vm._v("\n                              " + _vm._s(_vm.form_labels.password) + "\n                          ")]), _vm._v(" "), _c('div', {
-    staticClass: "col-9"
-  }, [_c('input', {
-    directives: [{
-      name: "model",
-      rawName: "v-model",
-      value: (_vm.edit_nvr_password),
-      expression: "edit_nvr_password"
-    }],
-    staticClass: "form-control m-input m-input--solid",
-    attrs: {
-      "type": "text",
-      "id": "edit_nvr_password",
-      "placeholder": "Super Secret"
-    },
-    domProps: {
-      "value": (_vm.edit_nvr_password)
-    },
-    on: {
-      "input": function($event) {
-        if ($event.target.composing) { return; }
-        _vm.edit_nvr_password = $event.target.value
-      }
-    }
-  })])]), _vm._v(" "), _c('div', {
-    staticClass: "form-group m-form__group row"
-  }, [_c('label', {
-    staticClass: "col-3 col-form-label"
-  }, [_vm._v("\n                              " + _vm._s(_vm.form_labels.http_port) + "\n                          ")]), _vm._v(" "), _c('div', {
-    staticClass: "col-9"
-  }, [_c('input', {
-    directives: [{
-      name: "model",
-      rawName: "v-model",
-      value: (_vm.edit_http_nvr_port),
-      expression: "edit_http_nvr_port"
-    }],
-    staticClass: "form-control m-input m-input--solid",
-    attrs: {
-      "type": "number",
-      "id": "edit_http_nvr_port",
-      "placeholder": "i.e 80"
-    },
-    domProps: {
-      "value": (_vm.edit_http_nvr_port)
-    },
-    on: {
-      "input": function($event) {
-        if ($event.target.composing) { return; }
-        _vm.edit_http_nvr_port = $event.target.value
-      }
-    }
-  })])]), _vm._v(" "), _c('div', {
-    staticClass: "form-group m-form__group row"
-  }, [_c('label', {
-    staticClass: "col-3 col-form-label"
-  }, [_vm._v("\n                              " + _vm._s(_vm.form_labels.rtsp_port) + "\n                          ")]), _vm._v(" "), _c('div', {
-    staticClass: "col-9"
-  }, [_c('input', {
-    directives: [{
-      name: "model",
-      rawName: "v-model",
-      value: (_vm.edit_rtsp_nvr_port),
-      expression: "edit_rtsp_nvr_port"
-    }],
-    staticClass: "form-control m-input m-input--solid",
-    attrs: {
-      "type": "number",
-      "id": "edit_rtsp_nvr_port",
-      "placeholder": "i.e 880"
-    },
-    domProps: {
-      "value": (_vm.edit_rtsp_nvr_port)
-    },
-    on: {
-      "input": function($event) {
-        if ($event.target.composing) { return; }
-        _vm.edit_rtsp_nvr_port = $event.target.value
-      }
-    }
-  })])]), _vm._v(" "), _c('div', {
-    staticClass: "form-group m-form__group row"
-  }, [_c('label', {
-    staticClass: "col-3 col-form-label"
-  }, [_vm._v("\n                              " + _vm._s(_vm.form_labels.sdk_port) + "\n                          ")]), _vm._v(" "), _c('div', {
-    staticClass: "col-9"
-  }, [_c('input', {
-    directives: [{
-      name: "model",
-      rawName: "v-model",
-      value: (_vm.edit_sdk_nvr_port),
-      expression: "edit_sdk_nvr_port"
-    }],
-    staticClass: "form-control m-input m-input--solid",
-    attrs: {
-      "type": "number",
-      "id": "edit_sdk_nvr_port",
-      "placeholder": "i.e 840"
-    },
-    domProps: {
-      "value": (_vm.edit_sdk_nvr_port)
-    },
-    on: {
-      "input": function($event) {
-        if ($event.target.composing) { return; }
-        _vm.edit_sdk_nvr_port = $event.target.value
-      }
-    }
-  })])]), _vm._v(" "), _c('div', {
-    staticClass: "form-group m-form__group row"
-  }, [_c('label', {
-    staticClass: "col-3 col-form-label"
-  }, [_vm._v("\n                              " + _vm._s(_vm.form_labels.vh_port) + "\n                          ")]), _vm._v(" "), _c('div', {
-    staticClass: "col-9"
-  }, [_c('input', {
-    directives: [{
-      name: "model",
-      rawName: "v-model",
-      value: (_vm.edit_vh_nvr_port),
-      expression: "edit_vh_nvr_port"
-    }],
-    staticClass: "form-control m-input m-input--solid",
-    attrs: {
-      "type": "number",
-      "id": "edit_vh_nvr_port",
-      "placeholder": "i.e 890"
-    },
-    domProps: {
-      "value": (_vm.edit_vh_nvr_port)
-    },
-    on: {
-      "input": function($event) {
-        if ($event.target.composing) { return; }
-        _vm.edit_vh_nvr_port = $event.target.value
-      }
-    }
-  })])]), _vm._v(" "), _c('div', {
-    staticClass: "form-group m-form__group row"
-  }, [_c('label', {
-    staticClass: "col-3 col-form-label"
-  }), _vm._v(" "), _c('div', {
-    staticClass: "col-9"
-  }, [_c('label', {
-    staticClass: "m-checkbox"
-  }, [_c('input', {
-    directives: [{
-      name: "model",
-      rawName: "v-model",
-      value: (_vm.edit_nvr_is_monitoring),
-      expression: "edit_nvr_is_monitoring"
-    }],
-    attrs: {
-      "type": "checkbox",
-      "id": "edit_nvr_is_monitoring"
-    },
-    domProps: {
-      "checked": Array.isArray(_vm.edit_nvr_is_monitoring) ? _vm._i(_vm.edit_nvr_is_monitoring, null) > -1 : (_vm.edit_nvr_is_monitoring)
-    },
-    on: {
-      "change": function($event) {
-        var $$a = _vm.edit_nvr_is_monitoring,
-          $$el = $event.target,
-          $$c = $$el.checked ? (true) : (false);
-        if (Array.isArray($$a)) {
-          var $$v = null,
-            $$i = _vm._i($$a, $$v);
-          if ($$el.checked) {
-            $$i < 0 && (_vm.edit_nvr_is_monitoring = $$a.concat([$$v]))
-          } else {
-            $$i > -1 && (_vm.edit_nvr_is_monitoring = $$a.slice(0, $$i).concat($$a.slice($$i + 1)))
-          }
-        } else {
-          _vm.edit_nvr_is_monitoring = $$c
-        }
-      }
-    }
-  }), _vm._v("\n                                  " + _vm._s(_vm.form_labels.status) + "\n                                "), _c('span')])])])])]), _vm._v(" "), _c('div', {
-    staticClass: "modal-footer"
-  }, [_c('button', {
-    staticClass: "btn btn-default",
-    attrs: {
-      "id": "",
-      "type": "button"
-    },
-    on: {
-      "click": _vm.updateNVRdo
-    }
-  }, [_vm._v("\n                    " + _vm._s(_vm.form_labels.submit_button) + "\n                ")])])])])]), _vm._v(" "), _c('div', {
-    ref: "hideShow",
-    staticClass: "modal fade toggle-datatable-columns",
-    staticStyle: {
-      "padding": "0px"
-    },
-    attrs: {
-      "tabindex": "-1",
-      "role": "dialog",
-      "aria-labelledby": "exampleModalLabel",
-      "aria-hidden": "true",
-      "data-backdrop": "static",
-      "data-keyboard": "false"
-    }
-  }, [_c('div', {
-    staticClass: "modal-dialog modal-sm",
-    attrs: {
-      "role": "document"
-    }
-  }, [_c('div', {
-    staticClass: "modal-content",
-    staticStyle: {
-      "padding": "0px"
-    }
-  }, [_c('div', {
-    staticClass: "modal-header"
-  }, [_c('h5', {
-    staticClass: "modal-title",
-    attrs: {
-      "id": "exampleModalLabel"
-    }
-  }, [_vm._v("\n                    " + _vm._s(_vm.form_labels.hide_show_title) + "\n                ")]), _vm._v(" "), _c('div', {
-    staticClass: "cancel"
-  }, [_c('a', {
-    attrs: {
-      "href": "#",
-      "id": "discardModal",
-      "data-dismiss": "modal"
-    },
-    on: {
-      "click": _vm.clearForm
-    }
-  }, [_vm._v("X")])])]), _vm._v(" "), _c('div', {
-    staticClass: "modal-body",
-    attrs: {
-      "id": "body-sim-dis"
-    }
-  }, [_c('div', {
-    staticClass: "form-group"
-  }, _vm._l((_vm.headings), function(item, index) {
-    return _c('div', {
-      staticClass: "column-checkbox"
-    }, [_c('label', {
-      staticClass: "m-checkbox m-checkbox--single m-checkbox--solid m-checkbox--brand",
-      staticStyle: {
-        "width": "auto"
-      }
-    }, [_c('input', {
-      staticClass: "users-column",
-      attrs: {
-        "type": "checkbox",
-        "id": index,
-        "name": item.id
-      },
-      domProps: {
-        "checked": item.visible
-      },
-      on: {
-        "change": function($event) {
-          _vm.showHideColumns(index)
-        }
-      }
-    }), _c('span'), _vm._v(" " + _vm._s(item.column))])])
-  }))]), _vm._v(" "), _c('div', {
-    staticClass: "modal-footer"
-  }, [_c('button', {
-    staticClass: "btn btn-default",
-    attrs: {
-      "type": "button",
-      "data-dismiss": "modal"
-    }
-  }, [_vm._v(_vm._s(_vm.form_labels.hide_show_button))])])])])])])
+  }, [_vm._v("\n                    " + _vm._s(_vm.form_labels.submit_button) + "\n                ")])])])])])])
 },staticRenderFns: [function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
   return _c('span', {
     staticClass: "m-input-icon__icon m-input-icon__icon--left"
   }, [_c('span', [_c('i', {
     staticClass: "la la-search"
   })])])
+},function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('div', {
+    staticClass: "col-9"
+  }, [_c('input', {
+    staticClass: "form-control m-input m-input--solid",
+    attrs: {
+      "type": "text",
+      "id": "edit_nvr_name",
+      "aria-describedby": "emailHelp",
+      "placeholder": "Galway route."
+    }
+  })])
+},function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('div', {
+    staticClass: "col-9"
+  }, [_c('input', {
+    staticClass: "form-control m-input m-input--solid",
+    attrs: {
+      "type": "text",
+      "id": "edit_nvr_ip",
+      "placeholder": "https://youripmaybe"
+    }
+  })])
+},function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('div', {
+    staticClass: "col-9"
+  }, [_c('input', {
+    staticClass: "form-control m-input m-input--solid",
+    attrs: {
+      "type": "text",
+      "id": "edit_nvr_username",
+      "placeholder": "i.e admin"
+    }
+  })])
+},function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('div', {
+    staticClass: "col-9"
+  }, [_c('input', {
+    staticClass: "form-control m-input m-input--solid",
+    attrs: {
+      "type": "text",
+      "id": "edit_nvr_password",
+      "placeholder": "Super Secret"
+    }
+  })])
+},function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('div', {
+    staticClass: "col-9"
+  }, [_c('input', {
+    staticClass: "form-control m-input m-input--solid",
+    attrs: {
+      "type": "number",
+      "id": "edit_http_nvr_port",
+      "placeholder": "i.e 80"
+    }
+  })])
+},function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('div', {
+    staticClass: "col-9"
+  }, [_c('input', {
+    staticClass: "form-control m-input m-input--solid",
+    attrs: {
+      "type": "number",
+      "id": "edit_rtsp_nvr_port",
+      "placeholder": "i.e 880"
+    }
+  })])
+},function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('div', {
+    staticClass: "col-9"
+  }, [_c('input', {
+    staticClass: "form-control m-input m-input--solid",
+    attrs: {
+      "type": "number",
+      "id": "edit_sdk_nvr_port",
+      "placeholder": "i.e 840"
+    }
+  })])
+},function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('div', {
+    staticClass: "col-9"
+  }, [_c('input', {
+    staticClass: "form-control m-input m-input--solid",
+    attrs: {
+      "type": "number",
+      "id": "edit_vh_nvr_port",
+      "placeholder": "i.e 890"
+    }
+  })])
 }]}
 module.exports.render._withStripped = true
 if (false) {
@@ -23887,15 +24501,12 @@ if (false) {
 }
 
 /***/ }),
-/* 45 */
+/* 49 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
   return _c('div', [_c('div', {
-    staticClass: "m-content",
-    attrs: {
-      "id": "loading_content"
-    }
+    staticClass: "m-content"
   }, [_c('div', {
     staticClass: "m-portlet m-portlet--mobile",
     staticStyle: {
@@ -23966,55 +24577,93 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }
   }, [_c('i', {
     staticClass: "fa fa-columns"
-  })])])])]), _vm._v(" "), _c('div', {
-    staticClass: "m_site_datatable",
-    staticStyle: {
-      "display": "none"
-    }
-  }, [_c('table', {
-    staticClass: " table table-striped  table-hover table-bordered display nowrap ",
+  })])])])]), _vm._v(" "), _c('table', {
+    staticClass: "table table-striped  table-hover table-bordered datatable display nowrap",
     attrs: {
-      "id": "data-table",
+      "id": "sites-datatable",
       "cellspacing": "0",
       "width": "100%"
     }
   }, [_c('thead', [_c('tr', _vm._l((_vm.headings), function(item, index) {
-    return _c('th', {
-      class: item.class
-    }, [_vm._v(_vm._s(item.column))])
-  }))]), _vm._v(" "), _c('tbody', _vm._l((_vm.table_records), function(record) {
-    return _c('tr', [_c('td', {
-      staticClass: "text-center actions"
-    }, [_c('div', {
-      staticClass: "cursor_to_pointer fa fa-edit",
-      on: {
-        "click": function($event) {
-          _vm.onSiteEditButton(record)
-        }
-      }
-    }), _vm._v(" "), _c('div', {
-      staticClass: "cursor_to_pointer fa fa-trash",
-      on: {
-        "click": function($event) {
-          _vm.deleteSite(record.id, $event)
-        }
-      }
-    })]), _vm._v(" "), _c('td', {
-      staticClass: "name"
-    }, [_vm._v(_vm._s(record.name))]), _vm._v(" "), _c('td', {
-      staticClass: "map_area"
-    }, [_vm._v(_vm._s(record.location.map_area))]), _vm._v(" "), _c('td', {
-      staticClass: "text-center sim_number"
-    }, [_vm._v(_vm._s(record.sim_number))]), _vm._v(" "), _c('td', {
-      staticClass: "router_name"
-    }, [_vm._v(_vm._s(record.router_name))]), _vm._v(" "), _c('td', {
-      staticClass: "nvr_name"
-    }, [_vm._v(_vm._s(record.nvr_name))]), _vm._v(" "), _c('td', {
-      staticClass: "notes"
-    }, [_vm._v(_vm._s(record.notes))]), _vm._v(" "), _c('td', {
-      staticClass: "text-center created_at"
-    }, [_vm._v(_vm._s(_vm._f("formatDate")(record.created_at)))])])
+    return _c('th', [_vm._v(_vm._s(item.column))])
   }))])])])])]), _vm._v(" "), _c('div', {
+    ref: "hideShow",
+    staticClass: "modal fade toggle-datatable-columns",
+    staticStyle: {
+      "padding": "0px"
+    },
+    attrs: {
+      "tabindex": "-1",
+      "role": "dialog",
+      "aria-labelledby": "exampleModalLabel",
+      "aria-hidden": "true",
+      "data-backdrop": "static",
+      "data-keyboard": "false"
+    }
+  }, [_c('div', {
+    staticClass: "modal-dialog modal-sm",
+    attrs: {
+      "role": "document"
+    }
+  }, [_c('div', {
+    staticClass: "modal-content",
+    staticStyle: {
+      "padding": "0px"
+    }
+  }, [_c('div', {
+    staticClass: "modal-header"
+  }, [_c('h5', {
+    staticClass: "modal-title",
+    attrs: {
+      "id": "exampleModalLabel"
+    }
+  }, [_vm._v("\n                    " + _vm._s(_vm.form_labels.hide_show_title) + "\n                ")]), _vm._v(" "), _c('div', {
+    staticClass: "cancel"
+  }, [_c('a', {
+    attrs: {
+      "href": "#",
+      "id": "discardModal",
+      "data-dismiss": "modal"
+    },
+    on: {
+      "click": _vm.clearForm
+    }
+  }, [_vm._v("X")])])]), _vm._v(" "), _c('div', {
+    staticClass: "modal-body",
+    attrs: {
+      "id": "body-sim-dis"
+    }
+  }, [_c('div', {
+    staticClass: "form-group"
+  }, _vm._l((_vm.headings), function(item, index) {
+    return _c('div', {
+      staticClass: "column-checkbox"
+    }, [_c('label', {
+      staticClass: "m-checkbox m-checkbox--single m-checkbox--solid m-checkbox--brand",
+      staticStyle: {
+        "width": "auto"
+      }
+    }, [_c('input', {
+      staticClass: "sites-column",
+      attrs: {
+        "type": "checkbox",
+        "data-id": item.id
+      },
+      on: {
+        "change": function($event) {
+          _vm.showHideColumns(item.id)
+        }
+      }
+    }), _c('span'), _vm._v(" " + _vm._s(item.column))])])
+  }))]), _vm._v(" "), _c('div', {
+    staticClass: "modal-footer"
+  }, [_c('button', {
+    staticClass: "btn btn-default",
+    attrs: {
+      "type": "button",
+      "data-dismiss": "modal"
+    }
+  }, [_vm._v(_vm._s(_vm.form_labels.hide_show_button))])])])])]), _vm._v(" "), _c('div', {
     ref: "addmodal",
     staticClass: "modal fade add_site_to_db",
     staticStyle: {
@@ -24046,7 +24695,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     attrs: {
       "id": "exampleModalLabel"
     }
-  }, [_vm._v("\n                    " + _vm._s(_vm.form_labels.add_title) + "\n                ")]), _vm._v(" "), _c('div', {
+  }, [_vm._v("\n                      " + _vm._s(_vm.form_labels.add_title) + "\n                  ")]), _vm._v(" "), _c('div', {
     staticClass: "cancel"
   }, [_c('a', {
     attrs: {
@@ -24114,7 +24763,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "form-group m-form__group row"
   }, [_c('label', {
     staticClass: "col-3 col-form-label"
-  }, [_vm._v("\n                                        " + _vm._s(_vm.form_labels.name) + "\n                                    ")]), _vm._v(" "), _c('div', {
+  }, [_vm._v("\n                                          " + _vm._s(_vm.form_labels.name) + "\n                                      ")]), _vm._v(" "), _c('div', {
     staticClass: "col-9"
   }, [_c('input', {
     directives: [{
@@ -24143,7 +24792,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "form-group m-form__group row"
   }, [_c('label', {
     staticClass: "col-3 col-form-label"
-  }, [_vm._v("\n                                    " + _vm._s(_vm.form_labels.sim) + "\n                                ")]), _vm._v(" "), _c('div', {
+  }, [_vm._v("\n                                      " + _vm._s(_vm.form_labels.sim) + "\n                                  ")]), _vm._v(" "), _c('div', {
     staticClass: "col-9"
   }, [_c('select', {
     directives: [{
@@ -24177,7 +24826,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "form-group m-form__group row"
   }, [_c('label', {
     staticClass: "col-3 col-form-label"
-  }, [_vm._v("\n                                        " + _vm._s(_vm.form_labels.router) + "\n                                    ")]), _vm._v(" "), _c('div', {
+  }, [_vm._v("\n                                          " + _vm._s(_vm.form_labels.router) + "\n                                      ")]), _vm._v(" "), _c('div', {
     staticClass: "col-9"
   }, [_c('select', {
     directives: [{
@@ -24211,7 +24860,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "form-group m-form__group row"
   }, [_c('label', {
     staticClass: "col-3 col-form-label"
-  }, [_vm._v("\n                                        " + _vm._s(_vm.form_labels.nvr) + "\n                                    ")]), _vm._v(" "), _c('div', {
+  }, [_vm._v("\n                                          " + _vm._s(_vm.form_labels.nvr) + "\n                                      ")]), _vm._v(" "), _c('div', {
     staticClass: "col-9"
   }, [_c('select', {
     directives: [{
@@ -24245,7 +24894,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "form-group m-form__group row"
   }, [_c('label', {
     staticClass: "col-3 col-form-label"
-  }, [_vm._v("\n                                        " + _vm._s(_vm.form_labels.notes) + "\n                                    ")]), _vm._v(" "), _c('div', {
+  }, [_vm._v("\n                                          " + _vm._s(_vm.form_labels.notes) + "\n                                      ")]), _vm._v(" "), _c('div', {
     staticClass: "col-9"
   }, [_c('input', {
     directives: [{
@@ -24274,17 +24923,17 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "form-group m-form__group row"
   }, [_c('label', {
     staticClass: "col-3 col-form-label"
-  }, [_vm._v("\n                                    " + _vm._s(_vm.form_labels.latitude) + "\n                                ")]), _vm._v(" "), _vm._m(1)]), _vm._v(" "), _c('div', {
+  }, [_vm._v("\n                                      " + _vm._s(_vm.form_labels.latitude) + "\n                                  ")]), _vm._v(" "), _vm._m(1)]), _vm._v(" "), _c('div', {
     staticClass: "form-group m-form__group row"
   }, [_c('label', {
     staticClass: "col-3 col-form-label"
-  }, [_vm._v("\n                                    " + _vm._s(_vm.form_labels.latitude) + "\n                                ")]), _vm._v(" "), _vm._m(2)])]), _vm._v(" "), _c('div', {
+  }, [_vm._v("\n                                      " + _vm._s(_vm.form_labels.latitude) + "\n                                  ")]), _vm._v(" "), _vm._m(2)])]), _vm._v(" "), _c('div', {
     staticClass: "col-lg-6"
   }, [_c('div', {
     staticClass: "form-group m-form__group row"
   }, [_c('label', {
     staticClass: "col-3 col-form-label"
-  }, [_vm._v("\n                                    " + _vm._s(_vm.form_labels.location) + "\n                                ")]), _vm._v(" "), _c('div', {
+  }, [_vm._v("\n                                      " + _vm._s(_vm.form_labels.location) + "\n                                  ")]), _vm._v(" "), _c('div', {
     staticClass: "col-9"
   }, [_c('input', {
     directives: [{
@@ -24322,8 +24971,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     on: {
       "click": _vm.saveModal
     }
-  }, [_vm._v("\n                    " + _vm._s(_vm.form_labels.submit_button) + "\n                ")])])])])]), _vm._v(" "), _c('div', {
-    ref: "editmodal",
+  }, [_vm._v("\n                      " + _vm._s(_vm.form_labels.submit_button) + "\n                  ")])])])])]), _vm._v(" "), _c('div', {
     staticClass: "modal fade",
     staticStyle: {
       "padding": "0px"
@@ -24350,7 +24998,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     attrs: {
       "id": "exampleModalLabel"
     }
-  }, [_vm._v("\n                    " + _vm._s(_vm.form_labels.edit_title) + "\n                ")]), _vm._v(" "), _c('div', {
+  }, [_vm._v("\n                      " + _vm._s(_vm.form_labels.edit_title) + "\n                  ")]), _vm._v(" "), _c('div', {
     staticClass: "cancel"
   }, [_c('a', {
     attrs: {
@@ -24411,24 +25059,9 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       }
     }
   }), _vm._v(" "), _c('input', {
-    directives: [{
-      name: "model",
-      rawName: "v-model",
-      value: (_vm.edit_id),
-      expression: "edit_id"
-    }],
     attrs: {
       "type": "hidden",
       "id": "edit_id"
-    },
-    domProps: {
-      "value": (_vm.edit_id)
-    },
-    on: {
-      "input": function($event) {
-        if ($event.target.composing) { return; }
-        _vm.edit_id = $event.target.value
-      }
     }
   }), _vm._v(" "), _c('div', {
     staticClass: "row"
@@ -24438,58 +25071,16 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "form-group m-form__group row"
   }, [_c('label', {
     staticClass: "col-3 col-form-label"
-  }, [_vm._v("\n                                    " + _vm._s(_vm.form_labels.name) + "\n                                ")]), _vm._v(" "), _c('div', {
-    staticClass: "col-9"
-  }, [_c('input', {
-    directives: [{
-      name: "model",
-      rawName: "v-model",
-      value: (_vm.edit_name),
-      expression: "edit_name"
-    }],
-    staticClass: "form-control m-input m-input--solid",
-    attrs: {
-      "type": "text",
-      "id": "edit_name",
-      "aria-describedby": "emailHelp",
-      "placeholder": "Site Name"
-    },
-    domProps: {
-      "value": (_vm.edit_name)
-    },
-    on: {
-      "input": function($event) {
-        if ($event.target.composing) { return; }
-        _vm.edit_name = $event.target.value
-      }
-    }
-  })])]), _vm._v(" "), _c('div', {
+  }, [_vm._v("\n                                      " + _vm._s(_vm.form_labels.name) + "\n                                  ")]), _vm._v(" "), _vm._m(4)]), _vm._v(" "), _c('div', {
     staticClass: "form-group m-form__group row"
   }, [_c('label', {
     staticClass: "col-3 col-form-label"
-  }, [_vm._v("\n                                    " + _vm._s(_vm.form_labels.sim) + "\n                                ")]), _vm._v(" "), _c('div', {
+  }, [_vm._v("\n                                      " + _vm._s(_vm.form_labels.sim) + "\n                                  ")]), _vm._v(" "), _c('div', {
     staticClass: "col-9"
   }, [_c('select', {
-    directives: [{
-      name: "model",
-      rawName: "v-model",
-      value: (_vm.edit_sim_number),
-      expression: "edit_sim_number"
-    }],
     staticClass: "form-control m-input",
     attrs: {
       "id": "edit_sim_number"
-    },
-    on: {
-      "change": function($event) {
-        var $$selectedVal = Array.prototype.filter.call($event.target.options, function(o) {
-          return o.selected
-        }).map(function(o) {
-          var val = "_value" in o ? o._value : o.value;
-          return val
-        });
-        _vm.edit_sim_number = $event.target.multiple ? $$selectedVal : $$selectedVal[0]
-      }
     }
   }, _vm._l((_vm.sims_list), function(sim) {
     return _c('option', {
@@ -24501,29 +25092,12 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "form-group m-form__group row"
   }, [_c('label', {
     staticClass: "col-3 col-form-label"
-  }, [_vm._v("\n                                    " + _vm._s(_vm.form_labels.router) + "\n                                ")]), _vm._v(" "), _c('div', {
+  }, [_vm._v("\n                                      " + _vm._s(_vm.form_labels.router) + "\n                                  ")]), _vm._v(" "), _c('div', {
     staticClass: "col-9"
   }, [_c('select', {
-    directives: [{
-      name: "model",
-      rawName: "v-model",
-      value: (_vm.edit_router_id),
-      expression: "edit_router_id"
-    }],
     staticClass: "form-control m-input drop-input",
     attrs: {
       "id": "edit_router_id"
-    },
-    on: {
-      "change": function($event) {
-        var $$selectedVal = Array.prototype.filter.call($event.target.options, function(o) {
-          return o.selected
-        }).map(function(o) {
-          var val = "_value" in o ? o._value : o.value;
-          return val
-        });
-        _vm.edit_router_id = $event.target.multiple ? $$selectedVal : $$selectedVal[0]
-      }
     }
   }, _vm._l((_vm.routers_list), function(router) {
     return _c('option', {
@@ -24535,29 +25109,12 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "form-group m-form__group row"
   }, [_c('label', {
     staticClass: "col-3 col-form-label"
-  }, [_vm._v("\n                                    " + _vm._s(_vm.form_labels.nvr) + "\n                                ")]), _vm._v(" "), _c('div', {
+  }, [_vm._v("\n                                      " + _vm._s(_vm.form_labels.nvr) + "\n                                  ")]), _vm._v(" "), _c('div', {
     staticClass: "col-9"
   }, [_c('select', {
-    directives: [{
-      name: "model",
-      rawName: "v-model",
-      value: (_vm.edit_nvr_id),
-      expression: "edit_nvr_id"
-    }],
     staticClass: "form-control m-input drop-input",
     attrs: {
       "id": "edit_nvr_id"
-    },
-    on: {
-      "change": function($event) {
-        var $$selectedVal = Array.prototype.filter.call($event.target.options, function(o) {
-          return o.selected
-        }).map(function(o) {
-          var val = "_value" in o ? o._value : o.value;
-          return val
-        });
-        _vm.edit_nvr_id = $event.target.multiple ? $$selectedVal : $$selectedVal[0]
-      }
     }
   }, _vm._l((_vm.nvrs_list), function(nvr) {
     return _c('option', {
@@ -24569,71 +25126,21 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "form-group m-form__group row"
   }, [_c('label', {
     staticClass: "col-3 col-form-label"
-  }, [_vm._v("\n                                    " + _vm._s(_vm.form_labels.notes) + "\n                                ")]), _vm._v(" "), _c('div', {
-    staticClass: "col-9"
-  }, [_c('input', {
-    directives: [{
-      name: "model",
-      rawName: "v-model",
-      value: (_vm.edit_notes),
-      expression: "edit_notes"
-    }],
-    staticClass: "form-control m-input m-input--solid",
-    attrs: {
-      "type": "text",
-      "id": "edit_notes",
-      "aria-describedby": "emailHelp",
-      "placeholder": "Short Note."
-    },
-    domProps: {
-      "value": (_vm.edit_notes)
-    },
-    on: {
-      "input": function($event) {
-        if ($event.target.composing) { return; }
-        _vm.edit_notes = $event.target.value
-      }
-    }
-  })])]), _vm._v(" "), _c('div', {
+  }, [_vm._v("\n                                      " + _vm._s(_vm.form_labels.notes) + "\n                                  ")]), _vm._v(" "), _vm._m(5)]), _vm._v(" "), _c('div', {
     staticClass: "form-group m-form__group row"
   }, [_c('label', {
     staticClass: "col-3 col-form-label"
-  }, [_vm._v("\n                                    " + _vm._s(_vm.form_labels.latitude) + "\n                                ")]), _vm._v(" "), _vm._m(4)]), _vm._v(" "), _c('div', {
+  }, [_vm._v("\n                                      " + _vm._s(_vm.form_labels.latitude) + "\n                                  ")]), _vm._v(" "), _vm._m(6)]), _vm._v(" "), _c('div', {
     staticClass: "form-group m-form__group row"
   }, [_c('label', {
     staticClass: "col-3 col-form-label"
-  }, [_vm._v("\n                                    " + _vm._s(_vm.form_labels.longitude) + "\n                                ")]), _vm._v(" "), _vm._m(5)])]), _vm._v(" "), _c('div', {
+  }, [_vm._v("\n                                      " + _vm._s(_vm.form_labels.longitude) + "\n                                  ")]), _vm._v(" "), _vm._m(7)])]), _vm._v(" "), _c('div', {
     staticClass: "col-lg-6"
   }, [_c('div', {
     staticClass: "form-group m-form__group row"
   }, [_c('label', {
     staticClass: "col-3 col-form-label"
-  }, [_vm._v("\n                                    " + _vm._s(_vm.form_labels.location) + "\n                                ")]), _vm._v(" "), _c('div', {
-    staticClass: "col-9"
-  }, [_c('input', {
-    directives: [{
-      name: "model",
-      rawName: "v-model",
-      value: (_vm.edit_map_area),
-      expression: "edit_map_area"
-    }],
-    staticClass: "form-control m-input m-input--solid",
-    attrs: {
-      "type": "text",
-      "id": "edit_map_area",
-      "aria-describedby": "emailHelp",
-      "placeholder": "Search Location"
-    },
-    domProps: {
-      "value": (_vm.edit_map_area)
-    },
-    on: {
-      "input": function($event) {
-        if ($event.target.composing) { return; }
-        _vm.edit_map_area = $event.target.value
-      }
-    }
-  })])]), _vm._v(" "), _vm._m(6)])])])]), _vm._v(" "), _c('div', {
+  }, [_vm._v("\n                                      " + _vm._s(_vm.form_labels.location) + "\n                                  ")]), _vm._v(" "), _vm._m(8)]), _vm._v(" "), _vm._m(9)])])])]), _vm._v(" "), _c('div', {
     staticClass: "modal-footer",
     staticStyle: {
       "padding": "11px"
@@ -24647,86 +25154,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     on: {
       "click": _vm.updateSitedo
     }
-  }, [_vm._v("\n                    " + _vm._s(_vm.form_labels.submit_button) + "\n                ")])])])])]), _vm._v(" "), _c('div', {
-    ref: "hideShow",
-    staticClass: "modal fade toggle-datatable-columns",
-    staticStyle: {
-      "padding": "0px"
-    },
-    attrs: {
-      "tabindex": "-1",
-      "role": "dialog",
-      "aria-labelledby": "exampleModalLabel",
-      "aria-hidden": "true",
-      "data-backdrop": "static",
-      "data-keyboard": "false"
-    }
-  }, [_c('div', {
-    staticClass: "modal-dialog modal-sm",
-    attrs: {
-      "role": "document"
-    }
-  }, [_c('div', {
-    staticClass: "modal-content",
-    staticStyle: {
-      "padding": "0px"
-    }
-  }, [_c('div', {
-    staticClass: "modal-header"
-  }, [_c('h5', {
-    staticClass: "modal-title",
-    attrs: {
-      "id": "exampleModalLabel"
-    }
-  }, [_vm._v("\n                  " + _vm._s(_vm.form_labels.hide_show_title) + "\n              ")]), _vm._v(" "), _c('div', {
-    staticClass: "cancel"
-  }, [_c('a', {
-    attrs: {
-      "href": "#",
-      "id": "discardModal",
-      "data-dismiss": "modal"
-    },
-    on: {
-      "click": _vm.clearForm
-    }
-  }, [_vm._v("X")])])]), _vm._v(" "), _c('div', {
-    staticClass: "modal-body",
-    attrs: {
-      "id": "body-sim-dis"
-    }
-  }, [_c('div', {
-    staticClass: "form-group"
-  }, _vm._l((_vm.headings), function(item, index) {
-    return _c('div', {
-      staticClass: "column-checkbox"
-    }, [_c('label', {
-      staticClass: "m-checkbox m-checkbox--single m-checkbox--solid m-checkbox--brand",
-      staticStyle: {
-        "width": "auto"
-      }
-    }, [_c('input', {
-      staticClass: "users-column",
-      attrs: {
-        "type": "checkbox",
-        "checked": "checked",
-        "id": index,
-        "name": item.id
-      },
-      on: {
-        "change": function($event) {
-          _vm.showHideColumns(index)
-        }
-      }
-    }), _c('span'), _vm._v(" " + _vm._s(item.column))])])
-  }))]), _vm._v(" "), _c('div', {
-    staticClass: "modal-footer"
-  }, [_c('button', {
-    staticClass: "btn btn-default",
-    attrs: {
-      "type": "button",
-      "data-dismiss": "modal"
-    }
-  }, [_vm._v(_vm._s(_vm.form_labels.hide_show_button))])])])])])])
+  }, [_vm._v("\n                      " + _vm._s(_vm.form_labels.submit_button) + "\n                  ")])])])])])])
 },staticRenderFns: [function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
   return _c('span', {
     staticClass: "m-input-icon__icon m-input-icon__icon--left"
@@ -24775,6 +25203,30 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
   return _c('div', {
     staticClass: "col-9"
   }, [_c('input', {
+    staticClass: "form-control m-input m-input--solid",
+    attrs: {
+      "type": "text",
+      "id": "edit_name",
+      "aria-describedby": "emailHelp",
+      "placeholder": "Site Name"
+    }
+  })])
+},function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('div', {
+    staticClass: "col-9"
+  }, [_c('input', {
+    staticClass: "form-control m-input m-input--solid",
+    attrs: {
+      "type": "text",
+      "id": "edit_notes",
+      "aria-describedby": "emailHelp",
+      "placeholder": "Short Note."
+    }
+  })])
+},function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('div', {
+    staticClass: "col-9"
+  }, [_c('input', {
     staticClass: "form-control m-input m-input--solid readonly",
     attrs: {
       "name": "lat",
@@ -24793,6 +25245,18 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       "type": "text",
       "id": "edit_longitude",
       "readonly": ""
+    }
+  })])
+},function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('div', {
+    staticClass: "col-9"
+  }, [_c('input', {
+    staticClass: "form-control m-input m-input--solid",
+    attrs: {
+      "type": "text",
+      "id": "edit_map_area",
+      "aria-describedby": "emailHelp",
+      "placeholder": "Search Location"
     }
   })])
 },function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
@@ -24819,7 +25283,7 @@ if (false) {
 }
 
 /***/ }),
-/* 46 */
+/* 50 */
 /***/ (function(module, exports) {
 
 /* (ignored) */

@@ -33,6 +33,7 @@ import sites from "../components/sites"
 import status_report from "../components/status_report"
 import api from "../components/api"
 import messages from "../components/messages"
+import shares from "../components/shares"
 
 Vue.config.productionTip = false
 Vue.use(VueResource)
@@ -80,6 +81,11 @@ const router = new VueRouter({
       path: '/messages',
       name: 'messages',
       component: messages,
+    },
+    {
+      path: '/shares',
+      name: 'shares',
+      component: shares,
     }
   ],
 });
