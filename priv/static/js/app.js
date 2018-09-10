@@ -63,7 +63,7 @@
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 27);
+/******/ 	return __webpack_require__(__webpack_require__.s = 31);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -469,13 +469,13 @@ process.umask = function() { return 0; };
 var disposed = false
 function injectStyle (ssrContext) {
   if (disposed) return
-  __webpack_require__(28)
+  __webpack_require__(32)
 }
 var Component = __webpack_require__(0)(
   /* script */
-  __webpack_require__(17),
+  __webpack_require__(19),
   /* template */
-  __webpack_require__(40),
+  __webpack_require__(46),
   /* styles */
   injectStyle,
   /* scopeId */
@@ -513,13 +513,13 @@ module.exports = Component.exports
 var disposed = false
 function injectStyle (ssrContext) {
   if (disposed) return
-  __webpack_require__(35)
+  __webpack_require__(40)
 }
 var Component = __webpack_require__(0)(
   /* script */
-  __webpack_require__(18),
+  __webpack_require__(20),
   /* template */
-  __webpack_require__(47),
+  __webpack_require__(54),
   /* styles */
   injectStyle,
   /* scopeId */
@@ -557,13 +557,13 @@ module.exports = Component.exports
 var disposed = false
 function injectStyle (ssrContext) {
   if (disposed) return
-  __webpack_require__(29)
+  __webpack_require__(33)
 }
 var Component = __webpack_require__(0)(
   /* script */
-  __webpack_require__(19),
+  __webpack_require__(21),
   /* template */
-  __webpack_require__(41),
+  __webpack_require__(47),
   /* styles */
   injectStyle,
   /* scopeId */
@@ -601,13 +601,13 @@ module.exports = Component.exports
 var disposed = false
 function injectStyle (ssrContext) {
   if (disposed) return
-  __webpack_require__(31)
+  __webpack_require__(36)
 }
 var Component = __webpack_require__(0)(
   /* script */
-  __webpack_require__(20),
+  __webpack_require__(22),
   /* template */
-  __webpack_require__(43),
+  __webpack_require__(50),
   /* styles */
   injectStyle,
   /* scopeId */
@@ -645,13 +645,13 @@ module.exports = Component.exports
 var disposed = false
 function injectStyle (ssrContext) {
   if (disposed) return
-  __webpack_require__(32)
+  __webpack_require__(37)
 }
 var Component = __webpack_require__(0)(
   /* script */
-  __webpack_require__(21),
+  __webpack_require__(23),
   /* template */
-  __webpack_require__(44),
+  __webpack_require__(51),
   /* styles */
   injectStyle,
   /* scopeId */
@@ -689,13 +689,13 @@ module.exports = Component.exports
 var disposed = false
 function injectStyle (ssrContext) {
   if (disposed) return
-  __webpack_require__(36)
+  __webpack_require__(41)
 }
 var Component = __webpack_require__(0)(
   /* script */
-  __webpack_require__(22),
+  __webpack_require__(24),
   /* template */
-  __webpack_require__(48),
+  __webpack_require__(55),
   /* styles */
   injectStyle,
   /* scopeId */
@@ -733,13 +733,13 @@ module.exports = Component.exports
 var disposed = false
 function injectStyle (ssrContext) {
   if (disposed) return
-  __webpack_require__(33)
+  __webpack_require__(38)
 }
 var Component = __webpack_require__(0)(
   /* script */
-  __webpack_require__(23),
+  __webpack_require__(25),
   /* template */
-  __webpack_require__(45),
+  __webpack_require__(52),
   /* styles */
   injectStyle,
   /* scopeId */
@@ -777,13 +777,13 @@ module.exports = Component.exports
 var disposed = false
 function injectStyle (ssrContext) {
   if (disposed) return
-  __webpack_require__(30)
+  __webpack_require__(35)
 }
 var Component = __webpack_require__(0)(
   /* script */
-  __webpack_require__(24),
+  __webpack_require__(26),
   /* template */
-  __webpack_require__(42),
+  __webpack_require__(49),
   /* styles */
   injectStyle,
   /* scopeId */
@@ -821,13 +821,101 @@ module.exports = Component.exports
 var disposed = false
 function injectStyle (ssrContext) {
   if (disposed) return
-  __webpack_require__(37)
+  __webpack_require__(34)
 }
 var Component = __webpack_require__(0)(
   /* script */
-  __webpack_require__(25),
+  __webpack_require__(27),
   /* template */
-  __webpack_require__(49),
+  __webpack_require__(48),
+  /* styles */
+  injectStyle,
+  /* scopeId */
+  null,
+  /* moduleIdentifier (server only) */
+  null
+)
+Component.options.__file = "/home/ali/edge-commander/assets/static/components/sims.vue"
+if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key.substr(0, 2) !== "__"})) {console.error("named exports are not supported in *.vue files.")}
+if (Component.options.functional) {console.error("[vue-loader] sims.vue: functional components are not supported with templates, they should use render functions.")}
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-2f1f3cbc", Component.options)
+  } else {
+    hotAPI.reload("data-v-2f1f3cbc", Component.options)
+  }
+  module.hot.dispose(function (data) {
+    disposed = true
+  })
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+/* 13 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var disposed = false
+function injectStyle (ssrContext) {
+  if (disposed) return
+  __webpack_require__(42)
+}
+var Component = __webpack_require__(0)(
+  /* script */
+  __webpack_require__(28),
+  /* template */
+  __webpack_require__(56),
+  /* styles */
+  injectStyle,
+  /* scopeId */
+  null,
+  /* moduleIdentifier (server only) */
+  null
+)
+Component.options.__file = "/home/ali/edge-commander/assets/static/components/single_sims.vue"
+if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key.substr(0, 2) !== "__"})) {console.error("named exports are not supported in *.vue files.")}
+if (Component.options.functional) {console.error("[vue-loader] single_sims.vue: functional components are not supported with templates, they should use render functions.")}
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-d7ecb246", Component.options)
+  } else {
+    hotAPI.reload("data-v-d7ecb246", Component.options)
+  }
+  module.hot.dispose(function (data) {
+    disposed = true
+  })
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+/* 14 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var disposed = false
+function injectStyle (ssrContext) {
+  if (disposed) return
+  __webpack_require__(43)
+}
+var Component = __webpack_require__(0)(
+  /* script */
+  __webpack_require__(29),
+  /* template */
+  __webpack_require__(57),
   /* styles */
   injectStyle,
   /* scopeId */
@@ -859,19 +947,19 @@ module.exports = Component.exports
 
 
 /***/ }),
-/* 13 */
+/* 15 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var disposed = false
 function injectStyle (ssrContext) {
   if (disposed) return
-  __webpack_require__(34)
+  __webpack_require__(39)
 }
 var Component = __webpack_require__(0)(
   /* script */
-  __webpack_require__(26),
+  __webpack_require__(30),
   /* template */
-  __webpack_require__(46),
+  __webpack_require__(53),
   /* styles */
   injectStyle,
   /* scopeId */
@@ -903,7 +991,7 @@ module.exports = Component.exports
 
 
 /***/ }),
-/* 14 */
+/* 16 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -2002,7 +2090,7 @@ function xhrClient (request) {
 
 function nodeClient (request) {
 
-    var client = __webpack_require__(50);
+    var client = __webpack_require__(58);
 
     return new PromiseObj(function (resolve) {
 
@@ -2470,7 +2558,7 @@ if (typeof window !== 'undefined' && window.Vue) {
 
 
 /***/ }),
-/* 15 */
+/* 17 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -5102,7 +5190,7 @@ if (inBrowser && window.Vue) {
 /* WEBPACK VAR INJECTION */}.call(__webpack_exports__, __webpack_require__(2)))
 
 /***/ }),
-/* 16 */
+/* 18 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(global, setImmediate) {/*!
@@ -16053,10 +16141,10 @@ return Vue;
 
 })));
 
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1), __webpack_require__(39).setImmediate))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1), __webpack_require__(45).setImmediate))
 
 /***/ }),
-/* 17 */
+/* 19 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -16075,7 +16163,7 @@ exports.default = {
 };
 
 /***/ }),
-/* 18 */
+/* 20 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -16134,7 +16222,7 @@ module.exports = {
 };
 
 /***/ }),
-/* 19 */
+/* 21 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -16651,7 +16739,7 @@ module.exports = {
 };
 
 /***/ }),
-/* 20 */
+/* 22 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -17033,7 +17121,7 @@ module.exports = {
 };
 
 /***/ }),
-/* 21 */
+/* 23 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -17567,7 +17655,7 @@ module.exports = {
 };
 
 /***/ }),
-/* 22 */
+/* 24 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -18293,7 +18381,7 @@ module.exports = {
 };
 
 /***/ }),
-/* 23 */
+/* 25 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -18847,7 +18935,7 @@ module.exports = {
 };
 
 /***/ }),
-/* 24 */
+/* 26 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -19250,7 +19338,966 @@ module.exports = {
 };
 
 /***/ }),
-/* 25 */
+/* 27 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+module.exports = {
+  name: 'sims',
+  data: function data() {
+    return {
+      dataTable: null,
+      m_form_search: "",
+      show_loading: false,
+      show_errors: false,
+      show_add_messages: "",
+      headings: [{ column: "Number", id: "number" }, { column: "Name", id: "name" }, { column: "MB Allowance", id: "allowance" }, { column: "MB Used (Today)", id: "mb_used_today" }, { column: "MB Used (Yest.)", id: "mb_used_yesterday" }, { column: "% Used", id: "mb_used_percentage" }, { column: "Remaning Days", id: "remaning_days" }, { column: "Sim Provider", id: "sim_provider" }, { column: "Last Reading", id: "last_reading" }, { column: "Last Bill Date", id: "last_bill_date" }, { column: "Last SMS", id: "last_sms" }, { column: "Last SMS DateTime", id: "last_sms_datetime" }, { column: "# SMS Since Last Bill", id: "sms_since_last_bill" }],
+      form_labels: {
+        name: "Name",
+        number: "Number",
+        sim_provider: "SIM Provider",
+        add_title: "Add SIM",
+        hide_show_title: "Show/Hide Columns",
+        add_sim_button: "Add SIM",
+        hide_show_button: "OK",
+        submit_button: "Save changes"
+      },
+      name: "",
+      number: "",
+      sim_provider: "",
+      other_sim_provider: "",
+      user_id: ""
+    };
+  },
+  methods: {
+    initializeTable: function initializeTable() {
+      var simsDataTable = $('#sims-datatable').DataTable({
+        fnInitComplete: function fnInitComplete() {
+          // Enable TFOOT scoll bars
+          $('.dataTables_scrollFoot').css('overflow', 'auto');
+          $('.dataTables_scrollHead').css('overflow', 'auto');
+          // Sync TFOOT scrolling with TBODY
+          $('.dataTables_scrollFoot').on('scroll', function () {
+            $('.dataTables_scrollBody').scrollLeft($(this).scrollLeft());
+            var simsDataTable = $('#sims-datatable').DataTable();
+            simsDataTable.columns.adjust().draw();
+          });
+          $('.dataTables_scrollHead').on('scroll', function () {
+            $('.dataTables_scrollBody').scrollLeft($(this).scrollLeft());
+            var simsDataTable = $('#sims-datatable').DataTable();
+            simsDataTable.columns.adjust().draw();
+          });
+        },
+        ajax: {
+          url: "/sims/data/json",
+          dataSrc: function dataSrc(data) {
+            return data.logs;
+          },
+          error: function error(xhr, _error, thrown) {
+            if (xhr.responseJSON) {
+              console.log(xhr.responseJSON.message);
+            } else {
+              console.log("Something went wrong, Please try again.");
+            }
+          }
+        },
+        columns: [{
+          class: "text-left number",
+          data: function data(row, type, set, meta) {
+            var link = "%2B" + row.number;
+            return '<a style="color: blue;text-decoration: underline;cursor: pointer;" href="' + '/sims/' + row.number + '" id="show-morris-graph" data-id="' + row.number + '">' + row.number + '</a>';
+          }
+        }, {
+          class: "text-left name",
+          data: function data(row, type, set, meta) {
+            return row.name;
+          }
+        }, {
+          class: "text-center allowance",
+          data: function data(row, type, set, meta) {
+            var allowance_value = void 0;
+            allowance_value = row.allowance_in_number;
+            if (allowance_value == -1.0) {
+              allowance_value = "Unlimited";
+            }
+            return allowance_value;
+          }
+        }, {
+          class: "text-center mb_used_today",
+          data: function data(row, type, set, meta) {
+            var allowance_value = void 0,
+                current_in_number = void 0;
+            allowance_value = row.allowance_in_number;
+            current_in_number = row.current_in_number;
+            if (allowance_value == -1.0) {
+              current_in_number = "-";
+            }
+            return current_in_number;
+          }
+        }, {
+          class: "text-center mb_used_yesterday",
+          data: function data(row, type, set, meta) {
+            var allowance_value = void 0,
+                yesterday_in_number = void 0;
+            allowance_value = row.allowance_in_number;
+            yesterday_in_number = row.yesterday_in_number;
+            if (allowance_value == -1.0) {
+              yesterday_in_number = "-";
+            }
+            return yesterday_in_number;
+          }
+        }, {
+          class: "text-center mb_used_percentage",
+          data: function data(row, type, set, meta) {
+            var allowance_value = void 0,
+                percentage_used = void 0;
+            allowance_value = row.allowance_in_number;
+            percentage_used = row.percentage_used;
+            if (allowance_value == -1.0) {
+              percentage_used = "-";
+            }
+            return percentage_used;
+          }
+        }, {
+          class: "text-center remaning_days",
+          data: function data(row, type, set, meta) {
+            var value = void 0;
+            var days_left = (row.allowance_in_number - row.current_in_number) / (row.current_in_number - row.yesterday_in_number);
+            value = Math.round(days_left * 100) / 100;
+            if (row.current_in_number == 0) {
+              value = "Infinity";
+            }
+            return value;
+          }
+        }, {
+          class: "text-center sim_provider",
+          data: function data(row, type, set, meta) {
+            return row.sim_provider;
+          }
+        }, {
+          class: "text-center last_reading",
+          data: function data(row, type, set, meta) {
+            return moment(row.date_of_use).format('DD/MM/YYYY HH:mm:ss');
+          }
+        }, {
+          class: "text-center last_bill_date",
+          data: function data(row, type, set, meta) {
+            var last_bill_date = void 0;
+            last_bill_date = row.last_bill_date;
+            if (last_bill_date == null) {
+              return "-";
+            } else {
+              return moment(row.last_bill_date).format('DD/MM/YYYY');
+            }
+          }
+        }, {
+          class: "last_sms",
+          data: function data(row, type, set, meta) {
+            return row.last_sms;
+          },
+          createdCell: function createdCell(td, cellData, rowData, row, col) {
+            var number = rowData.number;
+            if (cellData == "Loading....") {
+              $.get("/sms/last/" + number + "/", function (data) {
+                $(td).html(data.sms.last_sms);
+              });
+            }
+          }
+        }, {
+          class: "text-center last_sms_datetime",
+          data: function data(row, type, set, meta) {
+            var last_sms_date = row.last_sms_date;
+            return last_sms_date;
+          },
+          createdCell: function createdCell(td, cellData, rowData, row, col) {
+            var date_value = void 0;
+            var number = rowData.number;
+            if (cellData == "Loading....") {
+              $.get("/sms/last/" + number + "/", function (data) {
+                var last_sms_date = data.sms.last_sms_date;
+                if (last_sms_date == '-') {
+                  date_value = last_sms_date;
+                } else {
+                  date_value = moment(last_sms_date).format('DD/MM/YYYY HH:mm:ss');
+                }
+                $(td).html(date_value);
+              });
+            }
+          }
+        }, {
+          class: "text-center sms_since_last_bill",
+          data: function data(row, type, set, meta) {
+            return row.total_sms_send;
+          },
+          createdCell: function createdCell(td, cellData, rowData, row, col) {
+            var bill_day = rowData.bill_day;
+            var number = rowData.number;
+            if (cellData == "Loading....") {
+              $.get("/sims/" + number + "/" + bill_day, function (data) {
+                $(td).html(data.result);
+              });
+            }
+          }
+        }],
+        autoWidth: true,
+        info: false,
+        bPaginate: false,
+        lengthChange: false,
+        order: [[5, "desc"]],
+        scrollX: true,
+        colReorder: true,
+        stateSave: true
+      });
+      this.dataTable = simsDataTable;
+      this.dataTable.search("");
+    },
+    search: function search() {
+      this.dataTable.search(this.m_form_search).draw();
+    },
+    showHideColumns: function showHideColumns(id) {
+      var column = this.dataTable.columns("." + id);
+      if (column.visible()[0] == true) {
+        column.visible(false);
+      } else {
+        column.visible(true);
+      }
+    },
+    onSIMButton: function onSIMButton() {
+      this.initializeInput();
+      $(this.$refs.addmodal).modal("show");
+    },
+    onSIMHideShowButton: function onSIMHideShowButton() {
+      $(this.$refs.hideShow).modal("show");
+    },
+    saveModal: function saveModal() {
+      $('ul#errorOnSIM').html("");
+      this.show_loading = true;
+      this.show_errors = true;
+
+      var sim_provider = this.sim_provider;
+      if (sim_provider == 'other') {
+        sim_provider = this.other_sim_provider;
+      }
+
+      this.$http.post('/sims', {
+        sim_provider: sim_provider,
+        number: this.number,
+        name: this.name,
+        addon: "Unknown",
+        allowance: "0",
+        volume_used: "0",
+        user_id: this.user_id,
+        three_user_id: 0
+      }).then(function (response) {
+        $.notify({ message: 'SIM has been added.' }, { type: 'info' });
+        this.show_loading = false;
+        this.dataTable.ajax.reload();
+        this.clearForm();
+        $(this.$refs.addmodal).modal("hide");
+      }).catch(function (error) {
+        this.show_add_messages = error.body.errors;
+        this.show_errors = true;
+        this.show_loading = false;
+      });
+    },
+    clearForm: function clearForm() {
+      this.number = "";
+      this.name = "";
+      this.sim_provider = "";
+      this.other_sim_provider = "";
+      this.show_add_messages = "";
+      this.show_errors = false;
+    },
+    get_session: function get_session() {
+      var _this = this;
+
+      this.$http.get('/get_porfile').then(function (response) {
+        _this.user_id = response.body.id;
+      });
+    },
+    initializeInput: function initializeInput() {
+      $("#number").intlTelInput({
+        nationalMode: false,
+        initialCountry: "ie"
+      });
+      $('.other_input').css("display", "none");
+      $('#sim_provider').change(function () {
+        if ($(this).val() == "other") {
+          $('.other_input').css("display", "block");
+        } else {
+          $('.other_input').css("display", "none");
+        }
+      });
+    },
+    initHideShow: function initHideShow() {
+      $(".sims-column").each(function () {
+        var simsDataTable = $('#sims-datatable').DataTable();
+        var that = $(this).attr("data-id");
+        var column = simsDataTable.columns("." + that);
+        if (column.visible()[0] == true) {
+          $(this).prop('checked', true);
+        } else {
+          $(this).prop('checked', false);
+        }
+      });
+    }
+  }, // end of methods
+  mounted: function mounted() {
+    this.initializeTable();
+    this.get_session();
+    this.initHideShow();
+  }
+};
+
+/***/ }),
+/* 28 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+module.exports = {
+  name: 'single_sims',
+  data: function data() {
+    return {
+      dataTable: null,
+      m_form_search: "",
+      show_loading: false,
+      SimHeadings: [{ column: "DateTime" }, { column: "MB Allowance" }, { column: "MB Used (Today)" }, { column: "% Used" }],
+      SmsHeadings: [{ column: "Date" }, { column: "Type" }, { column: "Status" }, { column: "Message" }],
+      form_labels: {
+        message: "Message",
+        send_title: "SMS To",
+        send_button: "Send"
+      },
+      smsMessage: "",
+      toNumber: "",
+      user_id: "",
+      smsMessage_text: ""
+    };
+  },
+  methods: {
+    initializeSimsTable: function initializeSimsTable() {
+      var simsDataTable = $('#sim-datatable').DataTable({
+        ajax: {
+          url: "/sims/data/" + window.location.href.substring(window.location.href.lastIndexOf('/') + 1) + "",
+          dataSrc: function dataSrc(data) {
+            return data.logs;
+          },
+          error: function error(xhr, _error, thrown) {
+            if (xhr.responseJSON) {
+              console.log(xhr.responseJSON.message);
+            } else {
+              console.log("Something went wrong, Please try again.");
+            }
+          }
+        },
+        columns: [{
+          class: "text-left",
+          data: function data(row, type, set, meta) {
+            return "" + moment(row.date_of_use).format('MMMM Do YYYY, H:mm:ss') + "";
+          }
+        }, {
+          class: "text-center",
+          data: function data(row, type, set, meta) {
+            var allowance_value = row.allowance_in_number;
+            if (allowance_value == -1.0) {
+              allowance_value = "Unlimited";
+            }
+            return allowance_value;
+          }
+        }, {
+          class: "text-center",
+          data: function data(row, type, set, meta) {
+            var allowance_value = row.allowance_in_number;
+            var current_in_number = row.current_in_number;
+            if (allowance_value == -1.0) {
+              current_in_number = "-";
+            }
+            return current_in_number;
+          }
+        }, {
+          class: "text-center",
+          data: function data(row, type, set, meta) {
+            var allowance_value = row.allowance_in_number;
+            var percentage_used = row.percentage_used;
+            if (allowance_value == -1.0) {
+              percentage_used = "-";
+            }
+            return percentage_used;
+          }
+        }],
+        autoWidth: true,
+        info: false,
+        bPaginate: false,
+        lengthChange: false,
+        order: [[3, "desc"]],
+        scrollX: true
+      });
+    },
+    initializeSmsTable: function initializeSmsTable() {
+      var simsDataTable = $('#sms-datatable').DataTable({
+        ajax: {
+          url: "/sims/sms/" + window.location.href.substring(window.location.href.lastIndexOf('/') + 1) + "",
+          dataSrc: function dataSrc(data) {
+            return data.single_sim_sms;
+          },
+          error: function error(xhr, _error2, thrown) {
+            if (xhr.responseJSON) {
+              console.log(xhr.responseJSON.message);
+            } else {
+              console.log("Something went wrong, Please try again.");
+            }
+          }
+        },
+        columns: [{
+          class: "text-left",
+          data: function data(row, type, set, meta) {
+            return "" + moment(row.inserted_at).format('MMMM Do YYYY, H:mm:ss') + "";
+          }
+        }, {
+          class: "text-center",
+          data: function data(row, type, set, meta) {
+            if (row.type == "MO") {
+              return "<span class='m-badge m-badge--metal m-badge--wide'>Incoming</span>";
+            } else {
+              return "<span class='m-badge m-badge--success m-badge--wide'>Outgoing</span>";
+            }
+          }
+        }, {
+          class: "text-center",
+          data: function data(row, type, set, meta) {
+            return "<span style='text-transform:capitalize'>" + row.status + "</sapn>";
+          }
+        }, {
+          class: "text-left",
+          data: function data(row, type, set, meta) {
+            var str = row.text;
+            return str.split("\n").join("<br/>");
+          }
+        }],
+        autoWidth: false,
+        info: false,
+        bPaginate: false,
+        lengthChange: false,
+        ordering: false,
+        scrollX: true
+      });
+      this.dataTable = simsDataTable;
+    },
+    setSimNumber: function setSimNumber() {
+      var num = window.location.href.substring(window.location.href.lastIndexOf('/') + 1);
+      this.toNumber = num;
+      if (num.indexOf('+') == -1) {
+        this.toNumber = "+" + num;
+      }
+    },
+    sendSMS: function sendSMS() {
+      this.show_loading = true;
+      this.smsMessage_text = document.getElementById("smsMessage_text").value;
+      this.$http.post('/send_sms', {
+        sms_message: this.smsMessage_text,
+        sim_number: this.toNumber,
+        user_id: this.user_id
+      }).then(function (response) {
+        if (response.body.status != 0) {
+          $.notify({ message: response.body.error_text }, { type: 'danger' });
+        } else {
+          $.notify({ message: "Your message has been sent." }, { type: 'info' });
+        }
+        $(this.$refs.addmodal).modal("hide");
+        this.dataTable.ajax.reload();
+        this.show_loading = false;
+        this.clearForm();
+      }).catch(function (error) {
+        $.notify({ message: "Something went wrong." }, { type: 'danger' });
+        this.show_loading = false;
+        this.clearForm();
+      });
+    },
+    clearForm: function clearForm() {
+      this.smsMessage = "";
+      this.smsMessage_text = "";
+    },
+    onSendSMSFocus: function onSendSMSFocus() {
+      $('#smsModal').on('shown.bs.modal', function () {
+        $('#smsMessage').focus();
+      });
+    },
+    startMORRISChartJS: function startMORRISChartJS() {
+      var settingsForMorris = void 0;
+      var id = window.location.href.substring(window.location.href.lastIndexOf('/') + 1);
+      settingsForMorris = {
+        cache: false,
+        data: { sim_number: id },
+        dataType: 'json',
+        success: this.onMorrisSuccess,
+        contentType: "application/x-www-form-urlencoded",
+        type: "GET",
+        url: "/chartjs/data/" + id
+      };
+      $.ajax(settingsForMorris);
+    },
+    addZero: function addZero(i) {
+      if (i < 10) {
+        i = "0" + i;
+      }
+      return i;
+    },
+    getActualFullDate: function getActualFullDate() {
+      var d = new Date();
+      var day = this.addZero(d.getDate());
+      var month = this.addZero(d.getMonth() + 1);
+      var year = this.addZero(d.getFullYear());
+      var h = this.addZero(d.getHours());
+      var m = this.addZero(d.getMinutes());
+      var s = this.addZero(d.getSeconds());
+      return year + "-" + month + "-" + day;
+    },
+    dateExist: function dateExist(array, obj) {
+      var i = array.length;
+      while (i--) {
+        if (array[i]["datetime"] == obj) {
+          return true;
+        }
+      }
+      return false;
+    },
+    getUsageValue: function getUsageValue(array, obj) {
+      var i = array.length;
+      while (i--) {
+        if (array[i]["datetime"] == obj) {
+          return array[i]["percentage_used"];
+        }
+      }
+      return 0;
+    },
+    onMorrisSuccess: function onMorrisSuccess(result, status, jqXHR) {
+
+      var labelsZchartjs = [],
+          dataZChartsJS = [];
+      var todayDate = module.exports.methods.getActualFullDate();
+
+      var dateExist = module.exports.methods.dateExist(result.chartjs_data, todayDate);
+      if (dateExist == false) {
+        var val = module.exports.methods.getUsageValue(result.chartjs_data, todayDate);
+        var data = { percentage_used: val, datetime: todayDate };
+        result.chartjs_data.push(data);
+      }
+
+      $.each(result.chartjs_data, function (index, element) {
+        labelsZchartjs.push(element.datetime);
+        dataZChartsJS.push(element.percentage_used);
+      });
+
+      var chartColors = {
+        red: 'rgb(255, 99, 132)',
+        orange: 'rgb(255, 159, 64)',
+        yellow: 'rgb(255, 205, 86)',
+        green: 'rgb(75, 192, 192)',
+        blue: 'rgb(54, 162, 235)',
+        purple: 'rgb(153, 102, 255)',
+        grey: 'rgb(231,233,237)'
+      };
+
+      var randomScalingFactor = function randomScalingFactor() {
+        return (Math.random() > 0.5 ? 1.0 : -1.0) * Math.round(Math.random() * 100);
+      };
+      var config = {
+        type: 'line',
+        data: {
+          labels: labelsZchartjs,
+          datasets: [{
+            label: "",
+            fill: false,
+            backgroundColor: chartColors.blue,
+            borderColor: chartColors.blue,
+            data: dataZChartsJS
+          }]
+        },
+        options: {
+          legend: {
+            labels: {
+              boxWidth: 0,
+              fontStyle: "bold",
+              fontSize: 18
+            }
+          },
+          responsive: true,
+          tooltips: {
+            bodyFontStyle: "bold",
+            mode: 'label'
+          },
+          hover: {
+            mode: 'nearest',
+            intersect: true
+          },
+          scales: {
+            xAxes: [{
+              ticks: {
+                autoSkip: true,
+                callback: function callback(value, index, values) {
+                  return new moment(value).format('YYYY-MM-DD');
+                }
+              },
+              display: true,
+              fontStyle: "bold",
+              scaleLabel: {
+                fontStyle: "bold",
+                display: false,
+                labelString: 'Date & Time'
+              }
+            }],
+            yAxes: [{
+              ticks: {
+                min: 0,
+                max: 100,
+                stepSize: 20
+              },
+              display: true,
+              fontStyle: "bold",
+              scaleLabel: {
+                fontStyle: "bold",
+                display: true,
+                labelString: '% Allowance Used'
+              }
+            }]
+          }
+        }
+      };
+      $("#api-wait").addClass("hide_me");
+      var ctx = document.getElementById("canvas").getContext("2d");
+      var ctx_div = document.getElementById("canvas");
+      ctx_div.height = 200;
+      window.myLine = new Chart(ctx, config);
+      this.resizeTableDiv();
+    },
+    get_session: function get_session() {
+      var _this = this;
+
+      this.$http.get('/get_porfile').then(function (response) {
+        _this.user_id = response.body.id;
+      });
+    },
+    resizeTableDiv: function resizeTableDiv() {
+      var window_width = $(window).width();
+      var objDiv = document.getElementById("iam_canvas");
+      var convasHeight = objDiv.scrollHeight + 20;
+      $("#sm_datatable_inner").css("min-height", convasHeight).css("max-height", convasHeight).css("overflow-y", "auto");
+    },
+    resizeSMSTable: function resizeSMSTable() {
+      $('#double-scroll').doubleScroll();
+      var table_width = $("#sms-datatable").width();
+      $(".doubleScroll-scroll").width(table_width);
+    },
+    init_select: function init_select() {
+      $('.js-example-basic-single').select2({
+        closeOnSelect: true,
+        maximumSelectionLength: 1,
+        placeholder: "Choose or type"
+      });
+    },
+    count_daily_sms: function count_daily_sms() {
+      $.get("/daily_sms_count/" + window.location.href.substring(window.location.href.lastIndexOf('/') + 1), function (data) {
+        $("#dailySMSCount").html(data.result);
+      });
+    }
+  }, // end of methods
+  mounted: function mounted() {
+    this.initializeSimsTable();
+    this.initializeSmsTable();
+    this.onSendSMSFocus();
+    this.startMORRISChartJS();
+    this.count_daily_sms();
+    this.init_select();
+    this.get_session();
+    this.setSimNumber();
+    this.resizeTableDiv();
+    window.addEventListener('resize', this.startMORRISChartJS);
+    window.addEventListener('resize', this.resizeSMSTable);
+  }
+};
+
+/***/ }),
+/* 29 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -20058,7 +21105,7 @@ module.exports = {
 };
 
 /***/ }),
-/* 26 */
+/* 30 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -20189,7 +21236,7 @@ module.exports = {
 };
 
 /***/ }),
-/* 27 */
+/* 31 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -20197,15 +21244,15 @@ module.exports = {
 
 __webpack_require__(3);
 
-var _vue = __webpack_require__(16);
+var _vue = __webpack_require__(18);
 
 var _vue2 = _interopRequireDefault(_vue);
 
-var _vueResource = __webpack_require__(14);
+var _vueResource = __webpack_require__(16);
 
 var _vueResource2 = _interopRequireDefault(_vueResource);
 
-var _vueRouter = __webpack_require__(15);
+var _vueRouter = __webpack_require__(17);
 
 var _vueRouter2 = _interopRequireDefault(_vueRouter);
 
@@ -20229,11 +21276,11 @@ var _nvrs = __webpack_require__(9);
 
 var _nvrs2 = _interopRequireDefault(_nvrs);
 
-var _sites = __webpack_require__(12);
+var _sites = __webpack_require__(14);
 
 var _sites2 = _interopRequireDefault(_sites);
 
-var _status_report = __webpack_require__(13);
+var _status_report = __webpack_require__(15);
 
 var _status_report2 = _interopRequireDefault(_status_report);
 
@@ -20248,6 +21295,14 @@ var _messages2 = _interopRequireDefault(_messages);
 var _shares = __webpack_require__(11);
 
 var _shares2 = _interopRequireDefault(_shares);
+
+var _sims = __webpack_require__(12);
+
+var _sims2 = _interopRequireDefault(_sims);
+
+var _single_sims = __webpack_require__(13);
+
+var _single_sims2 = _interopRequireDefault(_single_sims);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -20315,6 +21370,14 @@ var router = new _vueRouter2.default({
     path: '/shares',
     name: 'shares',
     component: _shares2.default
+  }, {
+    path: '/sims',
+    name: 'sims',
+    component: _sims2.default
+  }, {
+    path: '/sims/:number',
+    name: 'single_sims',
+    component: _single_sims2.default
   }]
 });
 
@@ -20324,30 +21387,6 @@ new _vue2.default({
   template: '<App/>',
   components: { App: _App2.default }
 });
-
-/***/ }),
-/* 28 */
-/***/ (function(module, exports) {
-
-// removed by extract-text-webpack-plugin
-
-/***/ }),
-/* 29 */
-/***/ (function(module, exports) {
-
-// removed by extract-text-webpack-plugin
-
-/***/ }),
-/* 30 */
-/***/ (function(module, exports) {
-
-// removed by extract-text-webpack-plugin
-
-/***/ }),
-/* 31 */
-/***/ (function(module, exports) {
-
-// removed by extract-text-webpack-plugin
 
 /***/ }),
 /* 32 */
@@ -20387,6 +21426,42 @@ new _vue2.default({
 
 /***/ }),
 /* 38 */
+/***/ (function(module, exports) {
+
+// removed by extract-text-webpack-plugin
+
+/***/ }),
+/* 39 */
+/***/ (function(module, exports) {
+
+// removed by extract-text-webpack-plugin
+
+/***/ }),
+/* 40 */
+/***/ (function(module, exports) {
+
+// removed by extract-text-webpack-plugin
+
+/***/ }),
+/* 41 */
+/***/ (function(module, exports) {
+
+// removed by extract-text-webpack-plugin
+
+/***/ }),
+/* 42 */
+/***/ (function(module, exports) {
+
+// removed by extract-text-webpack-plugin
+
+/***/ }),
+/* 43 */
+/***/ (function(module, exports) {
+
+// removed by extract-text-webpack-plugin
+
+/***/ }),
+/* 44 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(global, process) {(function (global, undefined) {
@@ -20579,7 +21654,7 @@ new _vue2.default({
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1), __webpack_require__(2)))
 
 /***/ }),
-/* 39 */
+/* 45 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(global) {var scope = (typeof global !== "undefined" && global) ||
@@ -20635,7 +21710,7 @@ exports._unrefActive = exports.active = function(item) {
 };
 
 // setimmediate attaches itself to the global object
-__webpack_require__(38);
+__webpack_require__(44);
 // On some exotic environments, it's not clear which object `setimmediate` was
 // able to install onto.  Search each possibility in the same order as the
 // `setimmediate` library.
@@ -20649,7 +21724,7 @@ exports.clearImmediate = (typeof self !== "undefined" && self.clearImmediate) ||
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1)))
 
 /***/ }),
-/* 40 */
+/* 46 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
@@ -20664,7 +21739,7 @@ if (false) {
 }
 
 /***/ }),
-/* 41 */
+/* 47 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
@@ -21264,7 +22339,425 @@ if (false) {
 }
 
 /***/ }),
-/* 42 */
+/* 48 */
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('div', [_c('div', {
+    staticClass: "m-content"
+  }, [_c('div', {
+    staticClass: "m-portlet m-portlet--mobile",
+    staticStyle: {
+      "margin-bottom": "0"
+    }
+  }, [_c('div', {
+    staticClass: "m-portlet__body",
+    staticStyle: {
+      "padding": "10px"
+    }
+  }, [_c('div', {
+    staticClass: "m-form m-form--label-align-right m--margin-bottom-10"
+  }, [_c('div', {
+    staticClass: "row align-items-center"
+  }, [_c('div', {
+    staticClass: "col-md-8 order-2 order-md-1"
+  }, [_c('div', {
+    staticClass: "form-group m-form__group row align-items-center"
+  }, [_c('div', {
+    staticClass: "col-md-5"
+  }, [_c('div', {
+    staticClass: "m-input-icon m-input-icon--left"
+  }, [_c('input', {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: (_vm.m_form_search),
+      expression: "m_form_search"
+    }],
+    staticClass: "form-control m-input m-input--solid",
+    attrs: {
+      "type": "text",
+      "placeholder": "Search...",
+      "id": "m_form_search"
+    },
+    domProps: {
+      "value": (_vm.m_form_search)
+    },
+    on: {
+      "keyup": function($event) {
+        _vm.search()
+      },
+      "input": function($event) {
+        if ($event.target.composing) { return; }
+        _vm.m_form_search = $event.target.value
+      }
+    }
+  }), _vm._v(" "), _vm._m(0)])])])]), _vm._v(" "), _c('div', {
+    staticClass: "col-md-4 order-1 order-md-2 m--align-right"
+  }, [_c('a', {
+    staticClass: "btn btn-primary m-btn m-btn--icon",
+    attrs: {
+      "href": "javascript:void(0)"
+    },
+    on: {
+      "click": _vm.onSIMButton
+    }
+  }, [_c('span', [_c('i', {
+    staticClass: "fa fa-plus-square"
+  }), _vm._v(" "), _c('span', [_vm._v(_vm._s(_vm.form_labels.add_sim_button))])])]), _vm._v(" "), _c('div', {
+    staticClass: "btn btn-default grey",
+    attrs: {
+      "href": "javascript:void(0)"
+    },
+    on: {
+      "click": _vm.onSIMHideShowButton
+    }
+  }, [_c('i', {
+    staticClass: "fa fa-columns"
+  })])])])]), _vm._v(" "), _c('table', {
+    staticClass: "table table-striped  table-hover table-bordered datatable display nowrap",
+    attrs: {
+      "id": "sims-datatable",
+      "cellspacing": "0",
+      "width": "100%"
+    }
+  }, [_c('thead', [_c('tr', _vm._l((_vm.headings), function(item, index) {
+    return _c('th', [_vm._v(_vm._s(item.column))])
+  }))])])])])]), _vm._v(" "), _c('div', {
+    ref: "hideShow",
+    staticClass: "modal fade toggle-datatable-columns",
+    staticStyle: {
+      "padding": "0px"
+    },
+    attrs: {
+      "id": "m_modal_1",
+      "tabindex": "-1",
+      "role": "dialog",
+      "aria-labelledby": "exampleModalLabel",
+      "aria-hidden": "true",
+      "data-backdrop": "static",
+      "data-keyboard": "false"
+    }
+  }, [_c('div', {
+    staticClass: "modal-dialog modal-sm",
+    attrs: {
+      "role": "document"
+    }
+  }, [_c('div', {
+    staticClass: "modal-content",
+    staticStyle: {
+      "padding": "0px"
+    }
+  }, [_c('div', {
+    staticClass: "modal-header"
+  }, [_c('h5', {
+    staticClass: "modal-title",
+    attrs: {
+      "id": "exampleModalLabel"
+    }
+  }, [_vm._v("\n                          " + _vm._s(_vm.form_labels.hide_show_title) + "\n                      ")]), _vm._v(" "), _c('div', {
+    staticClass: "cancel"
+  }, [_c('a', {
+    attrs: {
+      "href": "#",
+      "id": "discardModal",
+      "data-dismiss": "modal"
+    },
+    on: {
+      "click": _vm.clearForm
+    }
+  }, [_vm._v("X")])])]), _vm._v(" "), _c('div', {
+    staticClass: "modal-body",
+    attrs: {
+      "id": "body-sim-dis"
+    }
+  }, [_c('div', {
+    staticClass: "form-group"
+  }, _vm._l((_vm.headings), function(item, index) {
+    return _c('div', {
+      staticClass: "column-checkbox"
+    }, [_c('label', {
+      staticClass: "m-checkbox m-checkbox--single m-checkbox--solid m-checkbox--brand",
+      staticStyle: {
+        "width": "auto"
+      }
+    }, [_c('input', {
+      staticClass: "sims-column",
+      attrs: {
+        "type": "checkbox",
+        "data-id": item.id
+      },
+      on: {
+        "change": function($event) {
+          _vm.showHideColumns(item.id)
+        }
+      }
+    }), _c('span'), _vm._v(" " + _vm._s(item.column))])])
+  }))]), _vm._v(" "), _c('div', {
+    staticClass: "modal-footer"
+  }, [_c('button', {
+    staticClass: "btn btn-default",
+    attrs: {
+      "type": "button",
+      "data-dismiss": "modal"
+    }
+  }, [_vm._v(_vm._s(_vm.form_labels.hide_show_button))])])])])]), _vm._v(" "), _c('div', {
+    ref: "addmodal",
+    staticClass: "modal fade add_sim_to_db",
+    staticStyle: {
+      "padding": "0px"
+    },
+    attrs: {
+      "id": "m_modal_add",
+      "tabindex": "-1",
+      "role": "dialog",
+      "aria-labelledby": "exampleModalLabel",
+      "aria-hidden": "true",
+      "data-backdrop": "static",
+      "data-keyboard": "false"
+    }
+  }, [_c('div', {
+    staticClass: "modal-dialog",
+    attrs: {
+      "role": "document"
+    }
+  }, [_c('div', {
+    staticClass: "modal-content",
+    staticStyle: {
+      "padding": "0px"
+    }
+  }, [_c('div', {
+    staticClass: "modal-header"
+  }, [_c('h5', {
+    staticClass: "modal-title",
+    attrs: {
+      "id": "exampleModalLabel"
+    }
+  }, [_vm._v("\n                          " + _vm._s(_vm.form_labels.add_title) + "\n                      ")]), _vm._v(" "), _c('div', {
+    staticClass: "cancel"
+  }, [_c('a', {
+    attrs: {
+      "href": "#",
+      "id": "discardModal",
+      "data-dismiss": "modal"
+    },
+    on: {
+      "click": _vm.clearForm
+    }
+  }, [_vm._v("X")])])]), _vm._v(" "), _c('div', {
+    staticClass: "modal-body",
+    attrs: {
+      "id": "body-sim-dis"
+    }
+  }, [(_vm.show_loading) ? _c('img', {
+    attrs: {
+      "src": "/images/loading.gif",
+      "id": "api-wait"
+    }
+  }) : _vm._e(), _vm._v(" "), (_vm.show_errors) ? _c('div', {
+    attrs: {
+      "id": "simErrorDetails"
+    }
+  }, [_c('div', {
+    staticClass: "form-group m-form__group m--margin-top-10"
+  }, [_c('div', {
+    staticClass: "alert m-alert m-alert--default",
+    attrs: {
+      "role": "alert"
+    }
+  }, [_c('ul', {
+    staticStyle: {
+      "margin": "0px"
+    }
+  }, _vm._l((_vm.show_add_messages), function(message) {
+    return _c('li', [_vm._v(_vm._s(message))])
+  }))])])]) : _vm._e(), _vm._v(" "), _c('div', {
+    staticClass: "m-form m-form--fit m-form--label-align-left"
+  }, [_c('input', {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: (_vm.user_id),
+      expression: "user_id"
+    }],
+    attrs: {
+      "type": "hidden",
+      "id": "user_id"
+    },
+    domProps: {
+      "value": (_vm.user_id)
+    },
+    on: {
+      "input": function($event) {
+        if ($event.target.composing) { return; }
+        _vm.user_id = $event.target.value
+      }
+    }
+  }), _vm._v(" "), _c('div', {
+    staticClass: "form-group m-form__group row"
+  }, [_c('label', {
+    staticClass: "col-3 col-form-label"
+  }, [_vm._v("\n                                " + _vm._s(_vm.form_labels.name) + "\n                            ")]), _vm._v(" "), _c('div', {
+    staticClass: "col-9"
+  }, [_c('input', {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: (_vm.name),
+      expression: "name"
+    }],
+    staticClass: "form-control m-input m-input--solid",
+    attrs: {
+      "type": "text",
+      "id": "name",
+      "placeholder": "i.e IIA Airport"
+    },
+    domProps: {
+      "value": (_vm.name)
+    },
+    on: {
+      "input": function($event) {
+        if ($event.target.composing) { return; }
+        _vm.name = $event.target.value
+      }
+    }
+  })])]), _vm._v(" "), _c('div', {
+    staticClass: "form-group m-form__group row"
+  }, [_c('label', {
+    staticClass: "col-3 col-form-label"
+  }, [_vm._v("\n                                " + _vm._s(_vm.form_labels.number) + "\n                            ")]), _vm._v(" "), _c('div', {
+    staticClass: "col-9"
+  }, [_c('input', {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: (_vm.number),
+      expression: "number"
+    }],
+    staticClass: "form-control m-input m-input--solid",
+    attrs: {
+      "type": "text",
+      "id": "number",
+      "placeholder": "i.e +353xxxxxx"
+    },
+    domProps: {
+      "value": (_vm.number)
+    },
+    on: {
+      "input": function($event) {
+        if ($event.target.composing) { return; }
+        _vm.number = $event.target.value
+      }
+    }
+  })])]), _vm._v(" "), _c('div', {
+    staticClass: "form-group m-form__group row"
+  }, [_c('label', {
+    staticClass: "col-3 col-form-label"
+  }, [_vm._v("\n                                " + _vm._s(_vm.form_labels.sim_provider) + "\n                            ")]), _vm._v(" "), _c('div', {
+    staticClass: "col-9"
+  }, [_c('select', {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: (_vm.sim_provider),
+      expression: "sim_provider"
+    }],
+    staticClass: "form-control m-input",
+    attrs: {
+      "id": "sim_provider"
+    },
+    on: {
+      "change": function($event) {
+        var $$selectedVal = Array.prototype.filter.call($event.target.options, function(o) {
+          return o.selected
+        }).map(function(o) {
+          var val = "_value" in o ? o._value : o.value;
+          return val
+        });
+        _vm.sim_provider = $event.target.multiple ? $$selectedVal : $$selectedVal[0]
+      }
+    }
+  }, [_c('option', {
+    attrs: {
+      "value": "Lyca Mobile (Ireland)"
+    }
+  }, [_vm._v("Lyca Mobile (Ireland)")]), _vm._v(" "), _c('option', {
+    attrs: {
+      "value": "Vodafone (Ireland)"
+    }
+  }, [_vm._v("Vodafone (Ireland)")]), _vm._v(" "), _c('option', {
+    attrs: {
+      "value": "Vodafone (UK)"
+    }
+  }, [_vm._v("Vodafone (UK)")]), _vm._v(" "), _c('option', {
+    attrs: {
+      "value": "Three (UK)"
+    }
+  }, [_vm._v("Three (UK)")]), _vm._v(" "), _c('option', {
+    attrs: {
+      "value": "O2 (UK)"
+    }
+  }, [_vm._v("O2 (UK)")]), _vm._v(" "), _c('option', {
+    attrs: {
+      "value": "other"
+    }
+  }, [_vm._v("Other")])])])]), _vm._v(" "), _c('div', {
+    staticClass: "form-group m-form__group row"
+  }, [_c('label', {
+    staticClass: "col-3 col-form-label other_input"
+  }, [_vm._v("\n                                 \n                            ")]), _vm._v(" "), _c('div', {
+    staticClass: "col-9"
+  }, [_c('input', {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: (_vm.other_sim_provider),
+      expression: "other_sim_provider"
+    }],
+    staticClass: "form-control m-input m-input--solid other_input",
+    attrs: {
+      "type": "text",
+      "id": "other_sim_provider",
+      "placeholder": "Please enter the sim provider name"
+    },
+    domProps: {
+      "value": (_vm.other_sim_provider)
+    },
+    on: {
+      "input": function($event) {
+        if ($event.target.composing) { return; }
+        _vm.other_sim_provider = $event.target.value
+      }
+    }
+  })])])])]), _vm._v(" "), _c('div', {
+    staticClass: "modal-footer"
+  }, [_c('button', {
+    staticClass: "btn btn-default",
+    attrs: {
+      "id": "",
+      "type": "button"
+    },
+    on: {
+      "click": _vm.saveModal
+    }
+  }, [_vm._v("\n                        " + _vm._s(_vm.form_labels.submit_button) + "\n                    ")])])])])])])
+},staticRenderFns: [function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('span', {
+    staticClass: "m-input-icon__icon m-input-icon__icon--left"
+  }, [_c('span', [_c('i', {
+    staticClass: "la la-search"
+  })])])
+}]}
+module.exports.render._withStripped = true
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+     require("vue-hot-reload-api").rerender("data-v-2f1f3cbc", module.exports)
+  }
+}
+
+/***/ }),
+/* 49 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
@@ -21628,7 +23121,7 @@ if (false) {
 }
 
 /***/ }),
-/* 43 */
+/* 50 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
@@ -22058,7 +23551,7 @@ if (false) {
 }
 
 /***/ }),
-/* 44 */
+/* 51 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
@@ -22876,7 +24369,7 @@ if (false) {
 }
 
 /***/ }),
-/* 45 */
+/* 52 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
@@ -23533,7 +25026,7 @@ if (false) {
 }
 
 /***/ }),
-/* 46 */
+/* 53 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
@@ -23603,7 +25096,7 @@ if (false) {
 }
 
 /***/ }),
-/* 47 */
+/* 54 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
@@ -23718,7 +25211,7 @@ if (false) {
 }
 
 /***/ }),
-/* 48 */
+/* 55 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
@@ -24502,7 +25995,354 @@ if (false) {
 }
 
 /***/ }),
-/* 49 */
+/* 56 */
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('div', [_c('div', {
+    staticClass: "m-content"
+  }, [_c('div', {
+    staticClass: "row"
+  }, [_vm._m(0), _vm._v(" "), _c('div', {
+    staticClass: "col-sm-7 sim_log_datatable"
+  }, [_c('div', {
+    staticClass: "m-portlet m-portlet--mobile",
+    attrs: {
+      "id": "sm_datatable_inner"
+    }
+  }, [_c('div', {
+    staticClass: "m-portlet__body"
+  }, [_c('table', {
+    staticClass: "table table-striped  table-hover table-bordered  nowrap",
+    attrs: {
+      "id": "sim-datatable",
+      "cellspacing": "0",
+      "width": "100%"
+    }
+  }, [_c('thead', [_c('tr', _vm._l((_vm.SimHeadings), function(item, index) {
+    return _c('th', [_vm._v(_vm._s(item.column))])
+  }))])])])])]), _vm._v(" "), _c('div', {
+    staticClass: "modal fade",
+    attrs: {
+      "id": "m_modal_4",
+      "tabindex": "-1",
+      "role": "dialog",
+      "aria-labelledby": "exampleModalLabel",
+      "aria-hidden": "true",
+      "data-backdrop": "static",
+      "data-keyboard": "false"
+    }
+  }, [_c('div', {
+    staticClass: "modal-dialog modal-lg",
+    attrs: {
+      "role": "document"
+    }
+  }, [_c('div', {
+    staticClass: "modal-content"
+  }, [(_vm.show_loading) ? _c('img', {
+    attrs: {
+      "src": "/images/loading.gif",
+      "id": "api-wait"
+    }
+  }) : _vm._e(), _vm._v(" "), _vm._m(1)])])])]), _vm._v(" "), _c('div', {
+    staticClass: "m-portlet m-portlet--mobile",
+    staticStyle: {
+      "margin-bottom": "0"
+    }
+  }, [_c('div', {
+    staticClass: "m-portlet__body",
+    staticStyle: {
+      "padding": "10px"
+    }
+  }, [_c('div', {
+    staticClass: "m-portlet__body  m-portlet__body--no-padding"
+  }, [_vm._m(2), _vm._v(" "), _c('table', {
+    staticClass: "table table-striped  table-hover table-bordered display nowrap",
+    attrs: {
+      "id": "sms-datatable",
+      "cellspacing": "0",
+      "width": "100%"
+    }
+  }, [_c('thead', [_c('tr', _vm._l((_vm.SmsHeadings), function(item, index) {
+    return _c('th', [_vm._v(_vm._s(item.column))])
+  }))])])])])])]), _vm._v(" "), _c('div', {
+    ref: "addmodal",
+    staticClass: "modal fade",
+    staticStyle: {
+      "padding": "0px"
+    },
+    attrs: {
+      "id": "smsModal",
+      "tabindex": "-1",
+      "role": "dialog",
+      "aria-labelledby": "exampleModalLabel",
+      "aria-hidden": "true",
+      "data-backdrop": "static",
+      "data-keyboard": "false"
+    }
+  }, [_c('div', {
+    staticClass: "modal-dialog",
+    attrs: {
+      "role": "document"
+    }
+  }, [_c('div', {
+    staticClass: "modal-content"
+  }, [_c('div', {
+    staticClass: "modal-header"
+  }, [_c('h5', {
+    staticClass: "modal-title",
+    attrs: {
+      "id": "exampleModalLabel"
+    }
+  }, [_vm._v("\n                      " + _vm._s(_vm.form_labels.send_title) + " " + _vm._s(_vm.toNumber) + "\n                  ")]), _vm._v(" "), _c('div', {
+    staticClass: "cancel"
+  }, [_c('a', {
+    attrs: {
+      "href": "#",
+      "id": "discardModal",
+      "data-dismiss": "modal"
+    },
+    on: {
+      "click": _vm.clearForm
+    }
+  }, [_vm._v("X")])])]), _vm._v(" "), _c('div', {
+    staticClass: "modal-body",
+    attrs: {
+      "id": "body-sms-dis"
+    }
+  }, [(_vm.show_loading) ? _c('img', {
+    attrs: {
+      "src": "/images/loading.gif",
+      "id": "api-wait"
+    }
+  }) : _vm._e(), _vm._v(" "), _c('div', {
+    staticClass: "m-form m-form--fit m-form--label-align-left"
+  }, [_c('input', {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: (_vm.toNumber),
+      expression: "toNumber"
+    }],
+    attrs: {
+      "type": "hidden",
+      "id": "toNumber"
+    },
+    domProps: {
+      "value": (_vm.toNumber)
+    },
+    on: {
+      "input": function($event) {
+        if ($event.target.composing) { return; }
+        _vm.toNumber = $event.target.value
+      }
+    }
+  }), _vm._v(" "), _c('div', {
+    staticClass: "form-group m-form__group row"
+  }, [_c('label', {
+    staticClass: "col-3 col-form-label"
+  }, [_vm._v("\n                          " + _vm._s(_vm.form_labels.message) + "\n                      ")]), _vm._v(" "), _c('div', {
+    staticClass: "col-9",
+    attrs: {
+      "id": "input_container"
+    }
+  }, [_c('input', {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: (_vm.user_id),
+      expression: "user_id"
+    }],
+    attrs: {
+      "type": "hidden",
+      "id": "user_id"
+    },
+    domProps: {
+      "value": (_vm.user_id)
+    },
+    on: {
+      "input": function($event) {
+        if ($event.target.composing) { return; }
+        _vm.user_id = $event.target.value
+      }
+    }
+  }), _vm._v(" "), _vm._m(3)])])])]), _vm._v(" "), _c('div', {
+    staticClass: "modal-footer"
+  }, [_c('button', {
+    staticClass: "btn btn-default",
+    attrs: {
+      "type": "button",
+      "data-dismiss": "modal"
+    },
+    on: {
+      "click": _vm.sendSMS
+    }
+  }, [_vm._v(_vm._s(_vm.form_labels.send_button))])])])])])])
+},staticRenderFns: [function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('div', {
+    staticClass: "col-sm-5 sim_graph_panel"
+  }, [_c('div', {
+    staticClass: "m-portlet m-portlet--mobile"
+  }, [_c('div', {
+    staticClass: "m-portlet__body"
+  }, [_c('div', {
+    staticStyle: {
+      "width": "100%"
+    },
+    attrs: {
+      "id": "iam_canvas"
+    }
+  }, [_c('canvas', {
+    attrs: {
+      "id": "canvas"
+    }
+  })])])])])
+},function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('div', {
+    staticClass: "modal-body"
+  }, [_c('button', {
+    staticClass: "close",
+    attrs: {
+      "type": "button",
+      "data-dismiss": "modal",
+      "aria-label": "Close",
+      "id": "clear_chartsjs"
+    }
+  }, [_c('span', {
+    attrs: {
+      "aria-hidden": "true"
+    }
+  }, [_vm._v("\n                    ×\n                    ")])]), _vm._v(" "), _c('div', {
+    staticStyle: {
+      "width": "100%"
+    },
+    attrs: {
+      "id": "iam_canvas"
+    }
+  }, [_c('canvas', {
+    attrs: {
+      "id": "canvas"
+    }
+  })])])
+},function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('div', {
+    staticStyle: {
+      "margin": "10px 0"
+    }
+  }, [_c('h3', {
+    staticClass: "pull-left"
+  }, [_vm._v("\n                        SMS History "), _c('span', {
+    staticStyle: {
+      "font-size": "12px"
+    }
+  }, [_vm._v("(Last 10 SMS)"), _c('br'), _vm._v("\n                        Today SMS Count : ")]), _c('span', {
+    staticStyle: {
+      "font-size": "12px"
+    },
+    attrs: {
+      "id": "dailySMSCount"
+    }
+  }, [_vm._v("0")])]), _vm._v(" "), _c('div', {
+    staticClass: "pull-right"
+  }, [_c('button', {
+    staticClass: "btn btn-primary m-btn m-btn--icon",
+    attrs: {
+      "type": "button",
+      "data-toggle": "modal",
+      "data-target": "#smsModal"
+    }
+  }, [_c('span', [_c('i', {
+    staticClass: "fa fa fa-paper-plane-o"
+  }), _c('span', [_vm._v("Send SMS")])])])]), _vm._v(" "), _c('div', {
+    staticClass: "clearfix"
+  })])
+},function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('select', {
+    staticClass: "js-example-basic-single form-control m-input ",
+    staticStyle: {
+      "width": "95%"
+    },
+    attrs: {
+      "id": "smsMessage_text",
+      "multiple": "multiple",
+      "data-tags": "true"
+    }
+  }, [_c('option', {
+    attrs: {
+      "value": "Disconnect"
+    }
+  }, [_vm._v("Disconnect")]), _vm._v(" "), _c('option', {
+    attrs: {
+      "value": "Connect"
+    }
+  }, [_vm._v("Connect")]), _vm._v(" "), _c('option', {
+    attrs: {
+      "value": "Restart"
+    }
+  }, [_vm._v("Restart")]), _vm._v(" "), _c('option', {
+    attrs: {
+      "value": "Reconnect"
+    }
+  }, [_vm._v("Reconnect")]), _vm._v(" "), _c('option', {
+    attrs: {
+      "value": "Status"
+    }
+  }, [_vm._v("Status")]), _vm._v(" "), _c('option', {
+    attrs: {
+      "value": "VPN on"
+    }
+  }, [_vm._v("VPN on")]), _vm._v(" "), _c('option', {
+    attrs: {
+      "value": "VPN on"
+    }
+  }, [_vm._v("VPN off")]), _vm._v(" "), _c('option', {
+    attrs: {
+      "value": "Upgrade"
+    }
+  }, [_vm._v("Upgrade")]), _vm._v(" "), _c('option', {
+    attrs: {
+      "value": "Internet on"
+    }
+  }, [_vm._v("Internet on")]), _vm._v(" "), _c('option', {
+    attrs: {
+      "value": "Internet off"
+    }
+  }, [_vm._v("Internet off")]), _vm._v(" "), _c('option', {
+    attrs: {
+      "value": "WLAN on"
+    }
+  }, [_vm._v("WLAN on")]), _vm._v(" "), _c('option', {
+    attrs: {
+      "value": "WLAN off"
+    }
+  }, [_vm._v("WLAN off")]), _vm._v(" "), _c('option', {
+    attrs: {
+      "value": "On"
+    }
+  }, [_vm._v("On")]), _vm._v(" "), _c('option', {
+    attrs: {
+      "value": "Off"
+    }
+  }, [_vm._v("Off")]), _vm._v(" "), _c('option', {
+    attrs: {
+      "value": "#01#"
+    }
+  }, [_vm._v("#01#")]), _vm._v(" "), _c('option', {
+    attrs: {
+      "value": "#02#"
+    }
+  }, [_vm._v("#02#")])])
+}]}
+module.exports.render._withStripped = true
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+     require("vue-hot-reload-api").rerender("data-v-d7ecb246", module.exports)
+  }
+}
+
+/***/ }),
+/* 57 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
@@ -25284,7 +27124,7 @@ if (false) {
 }
 
 /***/ }),
-/* 50 */
+/* 58 */
 /***/ (function(module, exports) {
 
 /* (ignored) */
