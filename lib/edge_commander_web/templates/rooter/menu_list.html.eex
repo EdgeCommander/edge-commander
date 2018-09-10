@@ -92,18 +92,6 @@
     </ul>
     <ul class="m-menu__nav  m-menu__nav--dropdown-submenu-arrow bottom_links">
         <li class="m-menu__item bottom_link" aria-haspopup="true">
-            <a  href="/shares" class="m-menu__link">
-                <i class="m-menu__link-icon fa fa-slideshare"></i>
-                <span class="m-menu__link-title">
-                    <span class="m-menu__link-wrap">
-                        <span class="m-menu__link-text">
-                            Shares
-                        </span>
-                    </span>
-                </span>
-            </a>
-        </li>
-        <li class="m-menu__item bottom_link" aria-haspopup="true">
             <a  href="/api" class="m-menu__link">
                 <i class="m-menu__link-icon fa fa-paperclip"></i>
                 <span class="m-menu__link-title">
