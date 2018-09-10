@@ -106,7 +106,7 @@ defmodule EdgeCommanderWeb.Router do
     get "/get_shared_users", SharingController, :shared_users
     get "/get_other_users", SharingController, :get_other_users
 
-    get "/sims", RooterController, :common
+    get "/sims", RooterController, :main
     get "/nvrs", RooterController, :main
     get "/routers", RooterController, :main
     get "/commands", RooterController, :main
