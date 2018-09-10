@@ -527,6 +527,7 @@ module.exports = {
       {
         class: "text-center status",
         data: function(row, type, set, meta) {
+          let reason;
           if(row.nvr_status == false){
             reason  = row.reason;
             if(reason == ''){

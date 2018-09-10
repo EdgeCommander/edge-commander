@@ -18063,6 +18063,7 @@ module.exports = {
         }, {
           class: "text-center status",
           data: function data(row, type, set, meta) {
+            var reason = void 0;
             if (row.nvr_status == false) {
               reason = row.reason;
               if (reason == '') {
