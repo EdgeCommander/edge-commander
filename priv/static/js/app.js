@@ -63,7 +63,7 @@
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 29);
+/******/ 	return __webpack_require__(__webpack_require__.s = 31);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -469,13 +469,13 @@ process.umask = function() { return 0; };
 var disposed = false
 function injectStyle (ssrContext) {
   if (disposed) return
-  __webpack_require__(30)
+  __webpack_require__(32)
 }
 var Component = __webpack_require__(0)(
   /* script */
-  __webpack_require__(18),
+  __webpack_require__(19),
   /* template */
-  __webpack_require__(43),
+  __webpack_require__(46),
   /* styles */
   injectStyle,
   /* scopeId */
@@ -513,13 +513,13 @@ module.exports = Component.exports
 var disposed = false
 function injectStyle (ssrContext) {
   if (disposed) return
-  __webpack_require__(38)
+  __webpack_require__(40)
 }
 var Component = __webpack_require__(0)(
   /* script */
-  __webpack_require__(19),
+  __webpack_require__(20),
   /* template */
-  __webpack_require__(51),
+  __webpack_require__(54),
   /* styles */
   injectStyle,
   /* scopeId */
@@ -557,13 +557,13 @@ module.exports = Component.exports
 var disposed = false
 function injectStyle (ssrContext) {
   if (disposed) return
-  __webpack_require__(31)
+  __webpack_require__(33)
 }
 var Component = __webpack_require__(0)(
   /* script */
-  __webpack_require__(20),
+  __webpack_require__(21),
   /* template */
-  __webpack_require__(44),
+  __webpack_require__(47),
   /* styles */
   injectStyle,
   /* scopeId */
@@ -601,13 +601,13 @@ module.exports = Component.exports
 var disposed = false
 function injectStyle (ssrContext) {
   if (disposed) return
-  __webpack_require__(34)
+  __webpack_require__(36)
 }
 var Component = __webpack_require__(0)(
   /* script */
-  __webpack_require__(21),
+  __webpack_require__(22),
   /* template */
-  __webpack_require__(47),
+  __webpack_require__(50),
   /* styles */
   injectStyle,
   /* scopeId */
@@ -645,13 +645,13 @@ module.exports = Component.exports
 var disposed = false
 function injectStyle (ssrContext) {
   if (disposed) return
-  __webpack_require__(35)
+  __webpack_require__(37)
 }
 var Component = __webpack_require__(0)(
   /* script */
-  __webpack_require__(22),
+  __webpack_require__(23),
   /* template */
-  __webpack_require__(48),
+  __webpack_require__(51),
   /* styles */
   injectStyle,
   /* scopeId */
@@ -689,13 +689,13 @@ module.exports = Component.exports
 var disposed = false
 function injectStyle (ssrContext) {
   if (disposed) return
-  __webpack_require__(39)
+  __webpack_require__(41)
 }
 var Component = __webpack_require__(0)(
   /* script */
-  __webpack_require__(23),
+  __webpack_require__(24),
   /* template */
-  __webpack_require__(52),
+  __webpack_require__(55),
   /* styles */
   injectStyle,
   /* scopeId */
@@ -733,13 +733,13 @@ module.exports = Component.exports
 var disposed = false
 function injectStyle (ssrContext) {
   if (disposed) return
-  __webpack_require__(36)
+  __webpack_require__(38)
 }
 var Component = __webpack_require__(0)(
   /* script */
-  __webpack_require__(24),
+  __webpack_require__(25),
   /* template */
-  __webpack_require__(49),
+  __webpack_require__(52),
   /* styles */
   injectStyle,
   /* scopeId */
@@ -777,13 +777,13 @@ module.exports = Component.exports
 var disposed = false
 function injectStyle (ssrContext) {
   if (disposed) return
-  __webpack_require__(33)
+  __webpack_require__(35)
 }
 var Component = __webpack_require__(0)(
   /* script */
-  __webpack_require__(25),
+  __webpack_require__(26),
   /* template */
-  __webpack_require__(46),
+  __webpack_require__(49),
   /* styles */
   injectStyle,
   /* scopeId */
@@ -821,13 +821,13 @@ module.exports = Component.exports
 var disposed = false
 function injectStyle (ssrContext) {
   if (disposed) return
-  __webpack_require__(32)
+  __webpack_require__(34)
 }
 var Component = __webpack_require__(0)(
   /* script */
-  __webpack_require__(26),
+  __webpack_require__(27),
   /* template */
-  __webpack_require__(45),
+  __webpack_require__(48),
   /* styles */
   injectStyle,
   /* scopeId */
@@ -865,13 +865,57 @@ module.exports = Component.exports
 var disposed = false
 function injectStyle (ssrContext) {
   if (disposed) return
-  __webpack_require__(40)
+  __webpack_require__(42)
 }
 var Component = __webpack_require__(0)(
   /* script */
-  __webpack_require__(27),
+  __webpack_require__(28),
   /* template */
-  __webpack_require__(53),
+  __webpack_require__(56),
+  /* styles */
+  injectStyle,
+  /* scopeId */
+  null,
+  /* moduleIdentifier (server only) */
+  null
+)
+Component.options.__file = "/home/ali/edge-commander/assets/static/components/single_sims.vue"
+if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key.substr(0, 2) !== "__"})) {console.error("named exports are not supported in *.vue files.")}
+if (Component.options.functional) {console.error("[vue-loader] single_sims.vue: functional components are not supported with templates, they should use render functions.")}
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-d7ecb246", Component.options)
+  } else {
+    hotAPI.reload("data-v-d7ecb246", Component.options)
+  }
+  module.hot.dispose(function (data) {
+    disposed = true
+  })
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+/* 14 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var disposed = false
+function injectStyle (ssrContext) {
+  if (disposed) return
+  __webpack_require__(43)
+}
+var Component = __webpack_require__(0)(
+  /* script */
+  __webpack_require__(29),
+  /* template */
+  __webpack_require__(57),
   /* styles */
   injectStyle,
   /* scopeId */
@@ -903,19 +947,19 @@ module.exports = Component.exports
 
 
 /***/ }),
-/* 14 */
+/* 15 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var disposed = false
 function injectStyle (ssrContext) {
   if (disposed) return
-  __webpack_require__(37)
+  __webpack_require__(39)
 }
 var Component = __webpack_require__(0)(
   /* script */
-  __webpack_require__(28),
+  __webpack_require__(30),
   /* template */
-  __webpack_require__(50),
+  __webpack_require__(53),
   /* styles */
   injectStyle,
   /* scopeId */
@@ -947,7 +991,7 @@ module.exports = Component.exports
 
 
 /***/ }),
-/* 15 */
+/* 16 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -2046,7 +2090,7 @@ function xhrClient (request) {
 
 function nodeClient (request) {
 
-    var client = __webpack_require__(54);
+    var client = __webpack_require__(58);
 
     return new PromiseObj(function (resolve) {
 
@@ -2514,7 +2558,7 @@ if (typeof window !== 'undefined' && window.Vue) {
 
 
 /***/ }),
-/* 16 */
+/* 17 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -5146,7 +5190,7 @@ if (inBrowser && window.Vue) {
 /* WEBPACK VAR INJECTION */}.call(__webpack_exports__, __webpack_require__(2)))
 
 /***/ }),
-/* 17 */
+/* 18 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(global, setImmediate) {/*!
@@ -16097,10 +16141,10 @@ return Vue;
 
 })));
 
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1), __webpack_require__(42).setImmediate))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1), __webpack_require__(45).setImmediate))
 
 /***/ }),
-/* 18 */
+/* 19 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -16119,7 +16163,7 @@ exports.default = {
 };
 
 /***/ }),
-/* 19 */
+/* 20 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -16178,7 +16222,7 @@ module.exports = {
 };
 
 /***/ }),
-/* 20 */
+/* 21 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -16695,7 +16739,7 @@ module.exports = {
 };
 
 /***/ }),
-/* 21 */
+/* 22 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -17077,7 +17121,7 @@ module.exports = {
 };
 
 /***/ }),
-/* 22 */
+/* 23 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -17611,7 +17655,7 @@ module.exports = {
 };
 
 /***/ }),
-/* 23 */
+/* 24 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -18337,7 +18381,7 @@ module.exports = {
 };
 
 /***/ }),
-/* 24 */
+/* 25 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -18891,7 +18935,7 @@ module.exports = {
 };
 
 /***/ }),
-/* 25 */
+/* 26 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -19294,7 +19338,7 @@ module.exports = {
 };
 
 /***/ }),
-/* 26 */
+/* 27 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -19512,7 +19556,7 @@ module.exports = {
           class: "text-left number",
           data: function data(row, type, set, meta) {
             var link = "%2B" + row.number;
-            return '<a style="color: blue;text-decoration: underline;cursor: pointer;" href="javascript:void(0)" onclick="load_page(\'/sims/\' ' + row.number + ')" id="show-morris-graph" data-id="' + row.number + '">' + row.number + '</a>';
+            return '<a style="color: blue;text-decoration: underline;cursor: pointer;" href="' + '/sims/' + row.number + '" id="show-morris-graph" data-id="' + row.number + '">' + row.number + '</a>';
           }
         }, {
           class: "text-left name",
@@ -19757,7 +19801,503 @@ module.exports = {
 };
 
 /***/ }),
-/* 27 */
+/* 28 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+module.exports = {
+  name: 'single_sims',
+  data: function data() {
+    return {
+      dataTable: null,
+      m_form_search: "",
+      show_loading: false,
+      SimHeadings: [{ column: "DateTime" }, { column: "MB Allowance" }, { column: "MB Used (Today)" }, { column: "% Used" }],
+      SmsHeadings: [{ column: "Date" }, { column: "Type" }, { column: "Status" }, { column: "Message" }],
+      form_labels: {
+        message: "Message",
+        send_title: "SMS To",
+        send_button: "Send"
+      },
+      smsMessage: "",
+      toNumber: "",
+      user_id: "",
+      smsMessage_text: ""
+    };
+  },
+  methods: {
+    initializeSimsTable: function initializeSimsTable() {
+      var simsDataTable = $('#sim-datatable').DataTable({
+        ajax: {
+          url: "/sims/data/" + window.location.href.substring(window.location.href.lastIndexOf('/') + 1) + "",
+          dataSrc: function dataSrc(data) {
+            return data.logs;
+          },
+          error: function error(xhr, _error, thrown) {
+            if (xhr.responseJSON) {
+              console.log(xhr.responseJSON.message);
+            } else {
+              console.log("Something went wrong, Please try again.");
+            }
+          }
+        },
+        columns: [{
+          class: "text-left",
+          data: function data(row, type, set, meta) {
+            return "" + moment(row.date_of_use).format('MMMM Do YYYY, H:mm:ss') + "";
+          }
+        }, {
+          class: "text-center",
+          data: function data(row, type, set, meta) {
+            var allowance_value = row.allowance_in_number;
+            if (allowance_value == -1.0) {
+              allowance_value = "Unlimited";
+            }
+            return allowance_value;
+          }
+        }, {
+          class: "text-center",
+          data: function data(row, type, set, meta) {
+            var allowance_value = row.allowance_in_number;
+            var current_in_number = row.current_in_number;
+            if (allowance_value == -1.0) {
+              current_in_number = "-";
+            }
+            return current_in_number;
+          }
+        }, {
+          class: "text-center",
+          data: function data(row, type, set, meta) {
+            var allowance_value = row.allowance_in_number;
+            var percentage_used = row.percentage_used;
+            if (allowance_value == -1.0) {
+              percentage_used = "-";
+            }
+            return percentage_used;
+          }
+        }],
+        autoWidth: true,
+        info: false,
+        bPaginate: false,
+        lengthChange: false,
+        order: [[3, "desc"]],
+        scrollX: true
+      });
+    },
+    initializeSmsTable: function initializeSmsTable() {
+      var simsDataTable = $('#sms-datatable').DataTable({
+        ajax: {
+          url: "/sims/sms/" + window.location.href.substring(window.location.href.lastIndexOf('/') + 1) + "",
+          dataSrc: function dataSrc(data) {
+            return data.single_sim_sms;
+          },
+          error: function error(xhr, _error2, thrown) {
+            if (xhr.responseJSON) {
+              console.log(xhr.responseJSON.message);
+            } else {
+              console.log("Something went wrong, Please try again.");
+            }
+          }
+        },
+        columns: [{
+          class: "text-left",
+          data: function data(row, type, set, meta) {
+            return "" + moment(row.inserted_at).format('MMMM Do YYYY, H:mm:ss') + "";
+          }
+        }, {
+          class: "text-center",
+          data: function data(row, type, set, meta) {
+            if (row.type == "MO") {
+              return "<span class='m-badge m-badge--metal m-badge--wide'>Incoming</span>";
+            } else {
+              return "<span class='m-badge m-badge--success m-badge--wide'>Outgoing</span>";
+            }
+          }
+        }, {
+          class: "text-center",
+          data: function data(row, type, set, meta) {
+            return "<span style='text-transform:capitalize'>" + row.status + "</sapn>";
+          }
+        }, {
+          class: "text-left",
+          data: function data(row, type, set, meta) {
+            var str = row.text;
+            return str.split("\n").join("<br/>");
+          }
+        }],
+        autoWidth: false,
+        info: false,
+        bPaginate: false,
+        lengthChange: false,
+        ordering: false,
+        scrollX: true
+      });
+      this.dataTable = simsDataTable;
+    },
+    setSimNumber: function setSimNumber() {
+      var num = window.location.href.substring(window.location.href.lastIndexOf('/') + 1);
+      this.toNumber = num;
+      if (num.indexOf('+') == -1) {
+        this.toNumber = "+" + num;
+      }
+    },
+    sendSMS: function sendSMS() {
+      this.show_loading = true;
+      this.smsMessage_text = document.getElementById("smsMessage_text").value;
+      this.$http.post('/send_sms', {
+        sms_message: this.smsMessage_text,
+        sim_number: this.toNumber,
+        user_id: this.user_id
+      }).then(function (response) {
+        if (response.body.status != 0) {
+          $.notify({ message: response.body.error_text }, { type: 'danger' });
+        } else {
+          $.notify({ message: "Your message has been sent." }, { type: 'info' });
+        }
+        $(this.$refs.addmodal).modal("hide");
+        this.dataTable.ajax.reload();
+        this.show_loading = false;
+        this.clearForm();
+      }).catch(function (error) {
+        $.notify({ message: "Something went wrong." }, { type: 'danger' });
+        this.show_loading = false;
+        this.clearForm();
+      });
+    },
+    clearForm: function clearForm() {
+      this.smsMessage = "";
+      this.smsMessage_text = "";
+    },
+    onSendSMSFocus: function onSendSMSFocus() {
+      $('#smsModal').on('shown.bs.modal', function () {
+        $('#smsMessage').focus();
+      });
+    },
+    startMORRISChartJS: function startMORRISChartJS() {
+      var settingsForMorris = void 0;
+      var id = window.location.href.substring(window.location.href.lastIndexOf('/') + 1);
+      settingsForMorris = {
+        cache: false,
+        data: { sim_number: id },
+        dataType: 'json',
+        success: this.onMorrisSuccess,
+        contentType: "application/x-www-form-urlencoded",
+        type: "GET",
+        url: "/chartjs/data/" + id
+      };
+      $.ajax(settingsForMorris);
+    },
+    addZero: function addZero(i) {
+      if (i < 10) {
+        i = "0" + i;
+      }
+      return i;
+    },
+    getActualFullDate: function getActualFullDate() {
+      var d = new Date();
+      var day = this.addZero(d.getDate());
+      var month = this.addZero(d.getMonth() + 1);
+      var year = this.addZero(d.getFullYear());
+      var h = this.addZero(d.getHours());
+      var m = this.addZero(d.getMinutes());
+      var s = this.addZero(d.getSeconds());
+      return year + "-" + month + "-" + day;
+    },
+    dateExist: function dateExist(array, obj) {
+      var i = array.length;
+      while (i--) {
+        if (array[i]["datetime"] == obj) {
+          return true;
+        }
+      }
+      return false;
+    },
+    getUsageValue: function getUsageValue(array, obj) {
+      var i = array.length;
+      while (i--) {
+        if (array[i]["datetime"] == obj) {
+          return array[i]["percentage_used"];
+        }
+      }
+      return 0;
+    },
+    onMorrisSuccess: function onMorrisSuccess(result, status, jqXHR) {
+
+      var labelsZchartjs = [],
+          dataZChartsJS = [];
+      var todayDate = module.exports.methods.getActualFullDate();
+
+      var dateExist = module.exports.methods.dateExist(result.chartjs_data, todayDate);
+      if (dateExist == false) {
+        var val = module.exports.methods.getUsageValue(result.chartjs_data, todayDate);
+        var data = { percentage_used: val, datetime: todayDate };
+        result.chartjs_data.push(data);
+      }
+
+      $.each(result.chartjs_data, function (index, element) {
+        labelsZchartjs.push(element.datetime);
+        dataZChartsJS.push(element.percentage_used);
+      });
+
+      var chartColors = {
+        red: 'rgb(255, 99, 132)',
+        orange: 'rgb(255, 159, 64)',
+        yellow: 'rgb(255, 205, 86)',
+        green: 'rgb(75, 192, 192)',
+        blue: 'rgb(54, 162, 235)',
+        purple: 'rgb(153, 102, 255)',
+        grey: 'rgb(231,233,237)'
+      };
+
+      var randomScalingFactor = function randomScalingFactor() {
+        return (Math.random() > 0.5 ? 1.0 : -1.0) * Math.round(Math.random() * 100);
+      };
+      var config = {
+        type: 'line',
+        data: {
+          labels: labelsZchartjs,
+          datasets: [{
+            label: "",
+            fill: false,
+            backgroundColor: chartColors.blue,
+            borderColor: chartColors.blue,
+            data: dataZChartsJS
+          }]
+        },
+        options: {
+          legend: {
+            labels: {
+              boxWidth: 0,
+              fontStyle: "bold",
+              fontSize: 18
+            }
+          },
+          responsive: true,
+          tooltips: {
+            bodyFontStyle: "bold",
+            mode: 'label'
+          },
+          hover: {
+            mode: 'nearest',
+            intersect: true
+          },
+          scales: {
+            xAxes: [{
+              ticks: {
+                autoSkip: true,
+                callback: function callback(value, index, values) {
+                  return new moment(value).format('YYYY-MM-DD');
+                }
+              },
+              display: true,
+              fontStyle: "bold",
+              scaleLabel: {
+                fontStyle: "bold",
+                display: false,
+                labelString: 'Date & Time'
+              }
+            }],
+            yAxes: [{
+              ticks: {
+                min: 0,
+                max: 100,
+                stepSize: 20
+              },
+              display: true,
+              fontStyle: "bold",
+              scaleLabel: {
+                fontStyle: "bold",
+                display: true,
+                labelString: '% Allowance Used'
+              }
+            }]
+          }
+        }
+      };
+      $("#api-wait").addClass("hide_me");
+      var ctx = document.getElementById("canvas").getContext("2d");
+      var ctx_div = document.getElementById("canvas");
+      ctx_div.height = 200;
+      window.myLine = new Chart(ctx, config);
+      this.resizeTableDiv();
+    },
+    get_session: function get_session() {
+      var _this = this;
+
+      this.$http.get('/get_porfile').then(function (response) {
+        _this.user_id = response.body.id;
+      });
+    },
+    resizeTableDiv: function resizeTableDiv() {
+      var window_width = $(window).width();
+      var objDiv = document.getElementById("iam_canvas");
+      var convasHeight = objDiv.scrollHeight + 20;
+      $("#sm_datatable_inner").css("min-height", convasHeight).css("max-height", convasHeight).css("overflow-y", "auto");
+    },
+    resizeSMSTable: function resizeSMSTable() {
+      $('#double-scroll').doubleScroll();
+      var table_width = $("#sms-datatable").width();
+      $(".doubleScroll-scroll").width(table_width);
+    },
+    init_select: function init_select() {
+      $('.js-example-basic-single').select2({
+        closeOnSelect: true,
+        maximumSelectionLength: 1,
+        placeholder: "Choose or type"
+      });
+    },
+    count_daily_sms: function count_daily_sms() {
+      $.get("/daily_sms_count/" + window.location.href.substring(window.location.href.lastIndexOf('/') + 1), function (data) {
+        $("#dailySMSCount").html(data.result);
+      });
+    }
+  }, // end of methods
+  mounted: function mounted() {
+    this.initializeSimsTable();
+    this.initializeSmsTable();
+    this.onSendSMSFocus();
+    this.startMORRISChartJS();
+    this.count_daily_sms();
+    this.init_select();
+    this.get_session();
+    this.setSimNumber();
+    this.resizeTableDiv();
+    window.addEventListener('resize', this.startMORRISChartJS);
+    window.addEventListener('resize', this.resizeSMSTable);
+  }
+};
+
+/***/ }),
+/* 29 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -20565,7 +21105,7 @@ module.exports = {
 };
 
 /***/ }),
-/* 28 */
+/* 30 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -20696,7 +21236,7 @@ module.exports = {
 };
 
 /***/ }),
-/* 29 */
+/* 31 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -20704,15 +21244,15 @@ module.exports = {
 
 __webpack_require__(3);
 
-var _vue = __webpack_require__(17);
+var _vue = __webpack_require__(18);
 
 var _vue2 = _interopRequireDefault(_vue);
 
-var _vueResource = __webpack_require__(15);
+var _vueResource = __webpack_require__(16);
 
 var _vueResource2 = _interopRequireDefault(_vueResource);
 
-var _vueRouter = __webpack_require__(16);
+var _vueRouter = __webpack_require__(17);
 
 var _vueRouter2 = _interopRequireDefault(_vueRouter);
 
@@ -20736,11 +21276,11 @@ var _nvrs = __webpack_require__(9);
 
 var _nvrs2 = _interopRequireDefault(_nvrs);
 
-var _sites = __webpack_require__(13);
+var _sites = __webpack_require__(14);
 
 var _sites2 = _interopRequireDefault(_sites);
 
-var _status_report = __webpack_require__(14);
+var _status_report = __webpack_require__(15);
 
 var _status_report2 = _interopRequireDefault(_status_report);
 
@@ -20760,9 +21300,12 @@ var _sims = __webpack_require__(12);
 
 var _sims2 = _interopRequireDefault(_sims);
 
+var _single_sims = __webpack_require__(13);
+
+var _single_sims2 = _interopRequireDefault(_single_sims);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-_vue2.default.config.productionTip = false;
 // Import local files
 //
 // Local files can be imported directly using relative
@@ -20785,7 +21328,7 @@ _vue2.default.config.productionTip = false;
 //
 // If you no longer want to use a dependency, remember
 // to also remove its path from "config.paths.watched".
-
+_vue2.default.config.productionTip = false;
 _vue2.default.use(_vueResource2.default);
 _vue2.default.use(_vueRouter2.default);
 
@@ -20831,6 +21374,10 @@ var router = new _vueRouter2.default({
     path: '/sims',
     name: 'sims',
     component: _sims2.default
+  }, {
+    path: '/sims/:number',
+    name: 'single_sims',
+    component: _single_sims2.default
   }]
 });
 
@@ -20840,18 +21387,6 @@ new _vue2.default({
   template: '<App/>',
   components: { App: _App2.default }
 });
-
-/***/ }),
-/* 30 */
-/***/ (function(module, exports) {
-
-// removed by extract-text-webpack-plugin
-
-/***/ }),
-/* 31 */
-/***/ (function(module, exports) {
-
-// removed by extract-text-webpack-plugin
 
 /***/ }),
 /* 32 */
@@ -20909,6 +21444,24 @@ new _vue2.default({
 
 /***/ }),
 /* 41 */
+/***/ (function(module, exports) {
+
+// removed by extract-text-webpack-plugin
+
+/***/ }),
+/* 42 */
+/***/ (function(module, exports) {
+
+// removed by extract-text-webpack-plugin
+
+/***/ }),
+/* 43 */
+/***/ (function(module, exports) {
+
+// removed by extract-text-webpack-plugin
+
+/***/ }),
+/* 44 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(global, process) {(function (global, undefined) {
@@ -21101,7 +21654,7 @@ new _vue2.default({
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1), __webpack_require__(2)))
 
 /***/ }),
-/* 42 */
+/* 45 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(global) {var scope = (typeof global !== "undefined" && global) ||
@@ -21157,7 +21710,7 @@ exports._unrefActive = exports.active = function(item) {
 };
 
 // setimmediate attaches itself to the global object
-__webpack_require__(41);
+__webpack_require__(44);
 // On some exotic environments, it's not clear which object `setimmediate` was
 // able to install onto.  Search each possibility in the same order as the
 // `setimmediate` library.
@@ -21171,7 +21724,7 @@ exports.clearImmediate = (typeof self !== "undefined" && self.clearImmediate) ||
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1)))
 
 /***/ }),
-/* 43 */
+/* 46 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
@@ -21186,7 +21739,7 @@ if (false) {
 }
 
 /***/ }),
-/* 44 */
+/* 47 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
@@ -21786,7 +22339,7 @@ if (false) {
 }
 
 /***/ }),
-/* 45 */
+/* 48 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
@@ -22204,7 +22757,7 @@ if (false) {
 }
 
 /***/ }),
-/* 46 */
+/* 49 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
@@ -22568,7 +23121,7 @@ if (false) {
 }
 
 /***/ }),
-/* 47 */
+/* 50 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
@@ -22998,7 +23551,7 @@ if (false) {
 }
 
 /***/ }),
-/* 48 */
+/* 51 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
@@ -23816,7 +24369,7 @@ if (false) {
 }
 
 /***/ }),
-/* 49 */
+/* 52 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
@@ -24473,7 +25026,7 @@ if (false) {
 }
 
 /***/ }),
-/* 50 */
+/* 53 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
@@ -24543,7 +25096,7 @@ if (false) {
 }
 
 /***/ }),
-/* 51 */
+/* 54 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
@@ -24658,7 +25211,7 @@ if (false) {
 }
 
 /***/ }),
-/* 52 */
+/* 55 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
@@ -25442,7 +25995,354 @@ if (false) {
 }
 
 /***/ }),
-/* 53 */
+/* 56 */
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('div', [_c('div', {
+    staticClass: "m-content"
+  }, [_c('div', {
+    staticClass: "row"
+  }, [_vm._m(0), _vm._v(" "), _c('div', {
+    staticClass: "col-sm-7 sim_log_datatable"
+  }, [_c('div', {
+    staticClass: "m-portlet m-portlet--mobile",
+    attrs: {
+      "id": "sm_datatable_inner"
+    }
+  }, [_c('div', {
+    staticClass: "m-portlet__body"
+  }, [_c('table', {
+    staticClass: "table table-striped  table-hover table-bordered  nowrap",
+    attrs: {
+      "id": "sim-datatable",
+      "cellspacing": "0",
+      "width": "100%"
+    }
+  }, [_c('thead', [_c('tr', _vm._l((_vm.SimHeadings), function(item, index) {
+    return _c('th', [_vm._v(_vm._s(item.column))])
+  }))])])])])]), _vm._v(" "), _c('div', {
+    staticClass: "modal fade",
+    attrs: {
+      "id": "m_modal_4",
+      "tabindex": "-1",
+      "role": "dialog",
+      "aria-labelledby": "exampleModalLabel",
+      "aria-hidden": "true",
+      "data-backdrop": "static",
+      "data-keyboard": "false"
+    }
+  }, [_c('div', {
+    staticClass: "modal-dialog modal-lg",
+    attrs: {
+      "role": "document"
+    }
+  }, [_c('div', {
+    staticClass: "modal-content"
+  }, [(_vm.show_loading) ? _c('img', {
+    attrs: {
+      "src": "/images/loading.gif",
+      "id": "api-wait"
+    }
+  }) : _vm._e(), _vm._v(" "), _vm._m(1)])])])]), _vm._v(" "), _c('div', {
+    staticClass: "m-portlet m-portlet--mobile",
+    staticStyle: {
+      "margin-bottom": "0"
+    }
+  }, [_c('div', {
+    staticClass: "m-portlet__body",
+    staticStyle: {
+      "padding": "10px"
+    }
+  }, [_c('div', {
+    staticClass: "m-portlet__body  m-portlet__body--no-padding"
+  }, [_vm._m(2), _vm._v(" "), _c('table', {
+    staticClass: "table table-striped  table-hover table-bordered display nowrap",
+    attrs: {
+      "id": "sms-datatable",
+      "cellspacing": "0",
+      "width": "100%"
+    }
+  }, [_c('thead', [_c('tr', _vm._l((_vm.SmsHeadings), function(item, index) {
+    return _c('th', [_vm._v(_vm._s(item.column))])
+  }))])])])])])]), _vm._v(" "), _c('div', {
+    ref: "addmodal",
+    staticClass: "modal fade",
+    staticStyle: {
+      "padding": "0px"
+    },
+    attrs: {
+      "id": "smsModal",
+      "tabindex": "-1",
+      "role": "dialog",
+      "aria-labelledby": "exampleModalLabel",
+      "aria-hidden": "true",
+      "data-backdrop": "static",
+      "data-keyboard": "false"
+    }
+  }, [_c('div', {
+    staticClass: "modal-dialog",
+    attrs: {
+      "role": "document"
+    }
+  }, [_c('div', {
+    staticClass: "modal-content"
+  }, [_c('div', {
+    staticClass: "modal-header"
+  }, [_c('h5', {
+    staticClass: "modal-title",
+    attrs: {
+      "id": "exampleModalLabel"
+    }
+  }, [_vm._v("\n                      " + _vm._s(_vm.form_labels.send_title) + " " + _vm._s(_vm.toNumber) + "\n                  ")]), _vm._v(" "), _c('div', {
+    staticClass: "cancel"
+  }, [_c('a', {
+    attrs: {
+      "href": "#",
+      "id": "discardModal",
+      "data-dismiss": "modal"
+    },
+    on: {
+      "click": _vm.clearForm
+    }
+  }, [_vm._v("X")])])]), _vm._v(" "), _c('div', {
+    staticClass: "modal-body",
+    attrs: {
+      "id": "body-sms-dis"
+    }
+  }, [(_vm.show_loading) ? _c('img', {
+    attrs: {
+      "src": "/images/loading.gif",
+      "id": "api-wait"
+    }
+  }) : _vm._e(), _vm._v(" "), _c('div', {
+    staticClass: "m-form m-form--fit m-form--label-align-left"
+  }, [_c('input', {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: (_vm.toNumber),
+      expression: "toNumber"
+    }],
+    attrs: {
+      "type": "hidden",
+      "id": "toNumber"
+    },
+    domProps: {
+      "value": (_vm.toNumber)
+    },
+    on: {
+      "input": function($event) {
+        if ($event.target.composing) { return; }
+        _vm.toNumber = $event.target.value
+      }
+    }
+  }), _vm._v(" "), _c('div', {
+    staticClass: "form-group m-form__group row"
+  }, [_c('label', {
+    staticClass: "col-3 col-form-label"
+  }, [_vm._v("\n                          " + _vm._s(_vm.form_labels.message) + "\n                      ")]), _vm._v(" "), _c('div', {
+    staticClass: "col-9",
+    attrs: {
+      "id": "input_container"
+    }
+  }, [_c('input', {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: (_vm.user_id),
+      expression: "user_id"
+    }],
+    attrs: {
+      "type": "hidden",
+      "id": "user_id"
+    },
+    domProps: {
+      "value": (_vm.user_id)
+    },
+    on: {
+      "input": function($event) {
+        if ($event.target.composing) { return; }
+        _vm.user_id = $event.target.value
+      }
+    }
+  }), _vm._v(" "), _vm._m(3)])])])]), _vm._v(" "), _c('div', {
+    staticClass: "modal-footer"
+  }, [_c('button', {
+    staticClass: "btn btn-default",
+    attrs: {
+      "type": "button",
+      "data-dismiss": "modal"
+    },
+    on: {
+      "click": _vm.sendSMS
+    }
+  }, [_vm._v(_vm._s(_vm.form_labels.send_button))])])])])])])
+},staticRenderFns: [function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('div', {
+    staticClass: "col-sm-5 sim_graph_panel"
+  }, [_c('div', {
+    staticClass: "m-portlet m-portlet--mobile"
+  }, [_c('div', {
+    staticClass: "m-portlet__body"
+  }, [_c('div', {
+    staticStyle: {
+      "width": "100%"
+    },
+    attrs: {
+      "id": "iam_canvas"
+    }
+  }, [_c('canvas', {
+    attrs: {
+      "id": "canvas"
+    }
+  })])])])])
+},function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('div', {
+    staticClass: "modal-body"
+  }, [_c('button', {
+    staticClass: "close",
+    attrs: {
+      "type": "button",
+      "data-dismiss": "modal",
+      "aria-label": "Close",
+      "id": "clear_chartsjs"
+    }
+  }, [_c('span', {
+    attrs: {
+      "aria-hidden": "true"
+    }
+  }, [_vm._v("\n                    ×\n                    ")])]), _vm._v(" "), _c('div', {
+    staticStyle: {
+      "width": "100%"
+    },
+    attrs: {
+      "id": "iam_canvas"
+    }
+  }, [_c('canvas', {
+    attrs: {
+      "id": "canvas"
+    }
+  })])])
+},function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('div', {
+    staticStyle: {
+      "margin": "10px 0"
+    }
+  }, [_c('h3', {
+    staticClass: "pull-left"
+  }, [_vm._v("\n                        SMS History "), _c('span', {
+    staticStyle: {
+      "font-size": "12px"
+    }
+  }, [_vm._v("(Last 10 SMS)"), _c('br'), _vm._v("\n                        Today SMS Count : ")]), _c('span', {
+    staticStyle: {
+      "font-size": "12px"
+    },
+    attrs: {
+      "id": "dailySMSCount"
+    }
+  }, [_vm._v("0")])]), _vm._v(" "), _c('div', {
+    staticClass: "pull-right"
+  }, [_c('button', {
+    staticClass: "btn btn-primary m-btn m-btn--icon",
+    attrs: {
+      "type": "button",
+      "data-toggle": "modal",
+      "data-target": "#smsModal"
+    }
+  }, [_c('span', [_c('i', {
+    staticClass: "fa fa fa-paper-plane-o"
+  }), _c('span', [_vm._v("Send SMS")])])])]), _vm._v(" "), _c('div', {
+    staticClass: "clearfix"
+  })])
+},function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('select', {
+    staticClass: "js-example-basic-single form-control m-input ",
+    staticStyle: {
+      "width": "95%"
+    },
+    attrs: {
+      "id": "smsMessage_text",
+      "multiple": "multiple",
+      "data-tags": "true"
+    }
+  }, [_c('option', {
+    attrs: {
+      "value": "Disconnect"
+    }
+  }, [_vm._v("Disconnect")]), _vm._v(" "), _c('option', {
+    attrs: {
+      "value": "Connect"
+    }
+  }, [_vm._v("Connect")]), _vm._v(" "), _c('option', {
+    attrs: {
+      "value": "Restart"
+    }
+  }, [_vm._v("Restart")]), _vm._v(" "), _c('option', {
+    attrs: {
+      "value": "Reconnect"
+    }
+  }, [_vm._v("Reconnect")]), _vm._v(" "), _c('option', {
+    attrs: {
+      "value": "Status"
+    }
+  }, [_vm._v("Status")]), _vm._v(" "), _c('option', {
+    attrs: {
+      "value": "VPN on"
+    }
+  }, [_vm._v("VPN on")]), _vm._v(" "), _c('option', {
+    attrs: {
+      "value": "VPN on"
+    }
+  }, [_vm._v("VPN off")]), _vm._v(" "), _c('option', {
+    attrs: {
+      "value": "Upgrade"
+    }
+  }, [_vm._v("Upgrade")]), _vm._v(" "), _c('option', {
+    attrs: {
+      "value": "Internet on"
+    }
+  }, [_vm._v("Internet on")]), _vm._v(" "), _c('option', {
+    attrs: {
+      "value": "Internet off"
+    }
+  }, [_vm._v("Internet off")]), _vm._v(" "), _c('option', {
+    attrs: {
+      "value": "WLAN on"
+    }
+  }, [_vm._v("WLAN on")]), _vm._v(" "), _c('option', {
+    attrs: {
+      "value": "WLAN off"
+    }
+  }, [_vm._v("WLAN off")]), _vm._v(" "), _c('option', {
+    attrs: {
+      "value": "On"
+    }
+  }, [_vm._v("On")]), _vm._v(" "), _c('option', {
+    attrs: {
+      "value": "Off"
+    }
+  }, [_vm._v("Off")]), _vm._v(" "), _c('option', {
+    attrs: {
+      "value": "#01#"
+    }
+  }, [_vm._v("#01#")]), _vm._v(" "), _c('option', {
+    attrs: {
+      "value": "#02#"
+    }
+  }, [_vm._v("#02#")])])
+}]}
+module.exports.render._withStripped = true
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+     require("vue-hot-reload-api").rerender("data-v-d7ecb246", module.exports)
+  }
+}
+
+/***/ }),
+/* 57 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
@@ -26224,7 +27124,7 @@ if (false) {
 }
 
 /***/ }),
-/* 54 */
+/* 58 */
 /***/ (function(module, exports) {
 
 /* (ignored) */

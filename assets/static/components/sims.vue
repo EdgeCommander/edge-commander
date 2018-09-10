@@ -225,7 +225,7 @@ module.exports = {
         class: "text-left number",
         data: function(row, type, set, meta) {
           let link = "%2B" + row.number;
-          return '<a style="color: blue;text-decoration: underline;cursor: pointer;" href="javascript:void(0)" onclick="load_page(\'/sims/\' '+ row.number+')" id="show-morris-graph" data-id="' + row.number + '">' + row.number  + '</a>'
+          return '<a style="color: blue;text-decoration: underline;cursor: pointer;" href="'+'/sims/'+row.number+'" id="show-morris-graph" data-id="' + row.number + '">' + row.number  + '</a>'
         }
       },
       {

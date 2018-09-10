@@ -35,6 +35,7 @@ import api from "../components/api"
 import messages from "../components/messages"
 import shares from "../components/shares"
 import sims from "../components/sims"
+import single_sims from "../components/single_sims"
 
 Vue.config.productionTip = false
 Vue.use(VueResource)
@@ -92,6 +93,11 @@ const router = new VueRouter({
       path: '/sims',
       name: 'sims',
       component: sims,
+    },
+    {
+      path: '/sims/:number',
+      name: 'single_sims',
+      component: single_sims
     }
   ],
 });

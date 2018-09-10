@@ -58,13 +58,6 @@
   <script src="<%= static_path(@conn, "/assets/vendors/base/vendors.bundle.js") %>" type="text/javascript"></script>
 <%  end %>
 
-<%= if String.starts_with?(@conn.request_path, "/sims/") or String.starts_with?(@conn.request_path, "/sims_ajax/") do %>
-  <script src="<%= static_path(@conn, "/js/sim_graph_data.js") %>" type="text/javascript"></script>
-  <script type="text/javascript">
-    vm.autocompleteInputSms();
-  </script>
-<% end %>
-
 <%= if @conn.request_path == "/api" or @conn.request_path == "/api_ajax" do %>
   <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,700|Source+Code+Pro:300,600|Titillium+Web:400,600,700" rel="stylesheet">
   <link href="<%= static_path(@conn, "/swagger/swagger-ui.css") %>" rel="stylesheet" type="text/css" />

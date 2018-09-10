@@ -110,7 +110,7 @@ defmodule EdgeCommanderWeb.Router do
     get "/nvrs", RooterController, :main
     get "/routers", RooterController, :main
     get "/commands", RooterController, :main
-    get "/sims/:sim_number", RooterController, :common
+    get "/sims/:sim_number", RooterController, :main
     get "/my_profile", RooterController, :main
     get "/sites", RooterController, :main
     get "/messages", RooterController, :main
