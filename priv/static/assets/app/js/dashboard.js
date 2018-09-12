@@ -1294,6 +1294,7 @@ var Dashboard = function() {
     }
   }
 }();
+Dashboard.init()
 jQuery(document).ready(function() {
   Dashboard.init()
 });

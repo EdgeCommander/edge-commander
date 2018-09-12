@@ -227,6 +227,10 @@
 </template>
 
 <script>
+import Vue from 'vue'
+import App from './App.vue'
+const app = new Vue(App)
+
 module.exports = {
   name: 'commands',
   data: function(){
@@ -408,7 +412,7 @@ module.exports = {
       recipients: recipients,
       is_active: this.rule_is_active
     }).then(function (response) {
-      $.notify({message: 'Rule has been added.'},{type: 'info'});
+      app.$notify({group: 'notify', title: 'Rule has been added'});
       this.show_loading = false;
       this.dataTable.ajax.reload();
       this.clearForm();
@@ -439,7 +443,7 @@ module.exports = {
       active: $('#edit_rule_is_active').is(':checked'),
       id: ruleID
     }).then(function (response) {
-      $.notify({message: 'Rule has been updated.'},{type: 'info'});
+      app.$notify({group: 'notify', title: 'Rule has been updated'});
       this.show_loading = false;
       this.dataTable.ajax.reload();
       this.editClearFrom();
@@ -475,7 +479,7 @@ module.exports = {
       });
     },
     deleteRule: function(){
-    $(document).on("click", ".delRule", function(){
+    $(document).off("click").on("click", ".delRule", function(){
       let ruleRow, result;
       ruleRow = $(this).closest('tr');
       let ruleID = $(this).data("id");
@@ -485,36 +489,27 @@ module.exports = {
         return;
       }
 
-      let data = {};
-      data.id = ruleID;
-      let settings;
-
-      settings = {
-        cache: false,
-        data: data,
-        dataType: 'json',
-        error: function(){return false},
-        success: function(){
-          ruleRow.remove();
-          $.notify({message: 'Rule has been deleted.'},{type: 'info'});
-          return true;
-        },
-        contentType: "application/x-www-form-urlencoded",
-        context: {ruleRow: ruleRow},
-        type: "DELETE",
-        url: "/rules/" + ruleID
-      };
-      $.ajax(settings);
+      app.$http.delete("/rules/" + ruleID, {ruleRow: ruleRow}).then(function (response) {
+        ruleRow.remove();
+        app.$notify({group: 'notify', title: 'Rule has been deleted'});
+      }).catch(function (error) {
+         return false
+      });
     });
+   },
+   select_menu_link: function(){
+     $("li").removeClass(" m-menu__item--active");
+     $(".commands").addClass(" m-menu__item--active");
    }
   }, // end of methods
    mounted(){
+    this.deleteRule();
     let table = this.initializeTable();
     this.getUniqueIdentifier(table);
     this.get_session();
     this.initHideShow();
-    this.deleteRule();
     this.dataTable.search("");
+    this.select_menu_link();
    }
 }
 </script>

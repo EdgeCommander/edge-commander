@@ -41,10 +41,44 @@ module.exports = {
       this.api_key = "Key: "+response.body.api_key;
       this.api_id = "ID: "+response.body.api_id;
     });
-   }
+   },
+   swagger_api: function(){
+        var url = window.location.origin + '/swagger/swagger.json';
+      const swagger_url = new URL(window.location);
+      swagger_url.pathname = swagger_url.pathname.replace("index.html", "swagger.json");
+      swagger_url.hash = "";
+      const ui = SwaggerUIBundle({
+        url:  url,
+        dom_id: '#swagger-ui',
+        deepLinking: false,
+        presets: [
+          SwaggerUIBundle.presets.apis,
+          SwaggerUIStandalonePreset
+        ],
+        plugins: [
+          SwaggerUIBundle.plugins.DownloadUrl
+        ],
+        layout: "StandaloneLayout"
+      })
+      window.ui = ui
+    },
+    resizeScreen: function(){
+      $('#double-scroll').doubleScroll();
+      var table_width = $("#swagger-ui").width();
+      $(".doubleScroll-scroll").width(table_width);
+    },
+    select_menu_link: function(){
+      $("li").removeClass(" m-menu__item--active");
+      $(".api").addClass(" m-menu__item--active");
+    }
   },
   mounted(){
     this.get_session();
+    this.resizeScreen();
+    this.swagger_api();
+    window.addEventListener('load', this.swagger_api);
+    window.addEventListener('resize', this.resizeScreen);
+    this.select_menu_link();
   }
 }
 </script>
