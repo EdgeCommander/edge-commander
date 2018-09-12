@@ -159,6 +159,10 @@
 </template>
 
 <script>
+import Vue from 'vue'
+import App from './App.vue'
+const app = new Vue(App)
+
 module.exports = {
   name: 'messages',
   data: function(){
@@ -318,16 +322,16 @@ module.exports = {
         user_id: this.user_id
       }).then(function (response) {
         if (response.body.status != 0) {
-          $.notify({message: response.body.error_text},{type: 'danger'});
+          app.$notify({group: 'notify', title: response.body.error_text, type: 'error'});
         }else{
-          $.notify({message: "Your message has been sent."},{type: 'info'});
+          app.$notify({group: 'notify', title: 'Your message has been sent.'});
         }
         $(this.$refs.addmodal).modal("hide");
         this.dataTable.ajax.reload();
         this.show_loading = false;
         this.clearForm();
       }).catch(function (error) {
-        $.notify({ message: "Something went wrong."},{type: 'danger'});
+        app.$notify({group: 'notify', title: 'Something went wrong.', type: 'error'});
         this.show_loading = false;
         this.clearForm();
       });
@@ -373,6 +377,10 @@ module.exports = {
       this.$http.get('/sims/data/json').then(response => {
         this.sims_list = response.body.logs;
       });
+    },
+    select_menu_link: function(){
+      $("li").removeClass(" m-menu__item--active");
+      $(".messages").addClass(" m-menu__item--active");
     }
   }, // end of methods
    mounted(){
@@ -382,6 +390,8 @@ module.exports = {
     this.onSendSMSFocus();
     this.get_session();
     this.get_sims();
+    this.dataTable.search("");
+    this.select_menu_link();
    }
 }
 </script>

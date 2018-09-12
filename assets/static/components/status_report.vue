@@ -114,11 +114,24 @@ module.exports = {
           module.exports.methods.initializeReport(history_days);
         });
       });
+    },
+    init_Dashboard: function(){
+      Dashboard.init();
+      $(".range_inputs").css("display", "none");
+      $('.ranges > ul > li:last-child').remove();
+      $('.ranges > ul > li:last-child').remove();
+      $('.ranges > ul > li:last-child').remove();
+    },
+    select_menu_link: function(){
+      $("li").removeClass(" m-menu__item--active");
+      $(".status_report").addClass(" m-menu__item--active");
     }
   }, // end of methods
    mounted(){
     this.initializeReport(1);
     this.initializeDate();
+    this.init_Dashboard();
+    this.select_menu_link();
    }
 }
 </script>

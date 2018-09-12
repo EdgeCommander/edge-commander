@@ -147,6 +147,10 @@
 </template>
 
 <script>
+import Vue from 'vue'
+import App from './App.vue'
+const app = new Vue(App)
+
 module.exports = {
   name: 'sims',
   data: function(){
@@ -225,7 +229,7 @@ module.exports = {
         class: "text-left number",
         data: function(row, type, set, meta) {
           let link = "%2B" + row.number;
-          return '<a style="color: blue;text-decoration: underline;cursor: pointer;" href="'+'/sims/'+row.number+'" id="show-morris-graph" data-id="' + row.number + '">' + row.number  + '</a>'
+          return '<a style="color: blue;text-decoration: underline;cursor: pointer; link" href="'+'/sims/'+row.number+'" id="show-morris-graph" data-id="' + row.number + '">' + row.number  + '</a>'
         }
       },
       {
@@ -419,7 +423,7 @@ module.exports = {
         user_id: this.user_id,
         three_user_id: 0
       }).then(function (response) {
-        $.notify({message: 'SIM has been added.'},{type: 'info'});
+        app.$notify({group: 'notify', title: 'SIM has been added.'});
         this.show_loading = false;
         this.dataTable.ajax.reload();
         this.clearForm();
@@ -468,12 +472,17 @@ module.exports = {
           $(this).prop('checked', false);
         }
       });
+    },
+    select_menu_link: function(){
+      $("li").removeClass(" m-menu__item--active");
+      $(".sims").addClass(" m-menu__item--active");
     }
   }, // end of methods
   mounted(){
     this.initializeTable();
     this.get_session();
     this.initHideShow();
+    this.select_menu_link();
   }
 }
 </script>

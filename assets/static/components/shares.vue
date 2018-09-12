@@ -392,6 +392,10 @@ module.exports = {
     this.get_session();
     this.get_shared_users();
     this.get_other_users();
+   },
+   updated(){
+    $('div.alert .close').on('click', function() {$(this).parent().alert('close'); });
+    setTimeout(function() {$(".alert-info").alert('close')}, 6000)
    }
 }
 </script>

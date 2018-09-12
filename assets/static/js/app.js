@@ -15,6 +15,8 @@ import "phoenix_html"
 import Vue from 'vue'
 import VueResource from 'vue-resource'
 import VueRouter from 'vue-router'
+import Notifications from 'vue-notification'
+
 // Import local files
 //
 // Local files can be imported directly using relative
@@ -40,6 +42,7 @@ import single_sims from "../components/single_sims"
 Vue.config.productionTip = false
 Vue.use(VueResource)
 Vue.use(VueRouter)
+Vue.use(Notifications)
 
 const router = new VueRouter({
   mode: 'history',
@@ -107,4 +110,4 @@ new Vue({
   router,
   template: '<App/>',
   components: { App }
-});
+}).$mount('#app');

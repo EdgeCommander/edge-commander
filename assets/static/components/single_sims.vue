@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div id="single_sims">
     <div class="m-content">
         <div class="row">
             <div class="col-sm-5 sim_graph_panel">
@@ -125,6 +125,10 @@
 </template>
 
 <script>
+import Vue from 'vue'
+import App from './App.vue'
+const app = new Vue(App)
+
 module.exports = {
   name: 'single_sims',
   data: function(){
@@ -290,16 +294,16 @@ module.exports = {
         user_id: this.user_id
       }).then(function (response) {
         if (response.body.status != 0) {
-          $.notify({message: response.body.error_text},{type: 'danger'});
+          app.$notify({group: 'notify', title: response.body.error_text, type: 'error'});
         }else{
-          $.notify({message: "Your message has been sent."},{type: 'info'});
+          app.$notify({group: 'notify', title: 'Your message has been sent.'});
         }
         $(this.$refs.addmodal).modal("hide");
         this.dataTable.ajax.reload();
         this.show_loading = false;
         this.clearForm();
       }).catch(function (error) {
-        $.notify({ message: "Something went wrong."},{type: 'danger'});
+        app.$notify({group: 'notify', title: 'Something went wrong.',  type: 'error'});
         this.show_loading = false;
         this.clearForm();
       });
@@ -307,6 +311,8 @@ module.exports = {
     clearForm: function() {
       this.smsMessage = "";
       this.smsMessage_text = "";
+      $('.close').on('click', function() {$(this).parent().alert('close'); });
+      setTimeout(function() {$(".alert-danger").alert('close')}, 6000);
     },
     onSendSMSFocus: function() {
       $('#smsModal').on('shown.bs.modal', function () {
@@ -487,6 +493,10 @@ module.exports = {
       $.get("/daily_sms_count/" + window.location.href.substring(window.location.href.lastIndexOf('/') + 1), function(data) {
         $("#dailySMSCount").html(data.result)
       });
+    },
+    select_menu_link: function(){
+     $("li").removeClass(" m-menu__item--active");
+     $(".sims").addClass(" m-menu__item--active");
     }
   }, // end of methods
   mounted(){
@@ -501,6 +511,7 @@ module.exports = {
     this.resizeTableDiv();
     window.addEventListener('resize', this.startMORRISChartJS);
     window.addEventListener('resize', this.resizeSMSTable);
+    this.select_menu_link();
   }
 }
 </script>

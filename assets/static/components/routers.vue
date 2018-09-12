@@ -249,6 +249,10 @@
 </template>
 
 <script>
+import Vue from 'vue'
+import App from './App.vue'
+const app = new Vue(App)
+
 module.exports = {
   name: 'routers',
   data: function(){
@@ -417,7 +421,7 @@ module.exports = {
         is_monitoring: this.router_is_monitoring,
         user_id: this.user_id
       }).then(function (response) {
-        $.notify({message: 'Router has been added.'},{type: 'info'});
+        app.$notify({group: 'notify', title: 'Router has been added'});
         this.show_loading = false;
         this.dataTable.ajax.reload();
         this.clearForm();
@@ -478,7 +482,7 @@ module.exports = {
         is_monitoring: $('#edit_router_is_monitoring').is(':checked'),
         id: routerID
       }).then(function (response) {
-        $.notify({message: 'Router has been updated.'},{type: 'info'});
+        app.$notify({group: 'notify', title: 'Router has been updated'});
         this.show_loading = false;
         this.dataTable.ajax.reload();
         this.editClearFrom();
@@ -518,7 +522,7 @@ module.exports = {
       });
     },
     deleteRouter: function(){
-    $(document).on("click", ".delRouter", function(){
+    $(document).off("click").on("click", ".delRouter", function(){
       let routerRow, result;
       routerRow = $(this).closest('tr');
       let routerID = $(this).data("id");
@@ -526,35 +530,27 @@ module.exports = {
       if (result === false) {
         return;
       }
-      let data = {};
-      data.id = routerID;
-      let settings;
-      settings = {
-        cache: false,
-        data: data,
-        dataType: 'json',
-        error: function(){return false},
-        success: function(){
-          routerRow.remove();
-          $.notify({message: 'Router has been deleted.'},{type: 'info'});
-          return true;
-        },
-        contentType: "application/x-www-form-urlencoded",
-        context: {routerRow: routerRow},
-        type: "DELETE",
-        url: "/routers/" + routerID
-      };
-      $.ajax(settings);
+      app.$http.delete("/routers/" + routerID, {routerRow: routerRow}).then(function (response) {
+        routerRow.remove();
+          app.$notify({group: 'notify', title: 'Router has been deleted'});
+      }).catch(function (error) {
+         return false
+      });
     });
-   }
+   },
+    select_menu_link: function(){
+      $("li").removeClass(" m-menu__item--active");
+      $(".routers").addClass(" m-menu__item--active");
+    }
   },
   mounted(){
+    this.deleteRouter();
     let table = this.initializeTable();
     this.getUniqueIdentifier(table);
     this.get_session();
     this.dataTable.search("");
     this.initHideShow();
-    this.deleteRouter();
+    this.select_menu_link();
   }
 }
 </script>

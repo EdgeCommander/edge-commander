@@ -299,6 +299,10 @@
 </template>
 
 <script>
+import Vue from 'vue'
+import App from './App.vue'
+const app = new Vue(App)
+
 module.exports = {
   name: 'my_profile',
   data: function(){
@@ -391,7 +395,7 @@ module.exports = {
         this.my_profile.show_errors = false;
         this.my_profile.show_loading = false;
         this.my_profile.password = "";
-        $.notify({message: 'Profile Details has been updated.'},{type: 'info'});
+        app.$notify({group: 'notify', title: 'Profile has been updated.'});
       }).catch(function (error) {
         this.my_profile.show_message = error.body.errors;
         this.my_profile.show_errors = true;
@@ -424,7 +428,7 @@ module.exports = {
         user_id:  this.user_id,
         bill_day: this.three_user.bill_day
       }).then(function (response) {
-        $.notify({message: 'Three user has been added.'},{type: 'info'});
+        app.$notify({group: 'notify', title: 'Three user has been added.'});
         this.three_user.show_loading = false;
         this.initDatatable()
         this.clearForm();
@@ -460,7 +464,7 @@ module.exports = {
       data.id = threeID;
       this.$http.delete("/three_accounts/" + threeID, {threeRow: threeRow}).then(function (response) {
         threeRow.remove();
-        $.notify({message: 'Three user has been deleted.'},{type: 'info'});
+        app.$notify({group: 'notify', title: 'Three user has been deleted.'});
       }).catch(function (error) {
          return false
       });
@@ -476,7 +480,7 @@ module.exports = {
       bill_day: this.three_user.edit_bill_day,
       id: this.three_user.edit_three_three_id
     }).then(function (response) {
-      $.notify({message: 'Three user has been updated.'},{type: 'info'});
+      app.$notify({group: 'notify', title: 'Three user has been updated.'});
       this.three_user.show_loading = false;
       this.initDatatable()
       this.editClearFrom();
@@ -505,6 +509,10 @@ module.exports = {
     }else{
       column.visible(true);
     }
+   },
+   select_menu_link: function(){
+     $("li").removeClass(" m-menu__item--active");
+     $(".my_profile").addClass(" m-menu__item--active");
    }
   },
   created() {
@@ -512,6 +520,7 @@ module.exports = {
   },
   mounted(){
     this.get_my_prfile();
+    this.select_menu_link();
   },
   updated(){
     let dataTable = $('#data-table').DataTable({

@@ -309,6 +309,10 @@
 </template>
 
 <script>
+import Vue from 'vue'
+import App from './App.vue'
+const app = new Vue(App)
+
 module.exports = {
   name: 'sites',
   data: function(){
@@ -566,7 +570,7 @@ module.exports = {
         },
         user_id: this.user_id
       }).then(function (response) {
-        $.notify({message: 'Site has been added.'},{type: 'info'});
+        app.$notify({group: 'notify', title: 'Site has been added'});
         this.show_loading = false;
         this.dataTable.ajax.reload();
         this.clearForm();
@@ -704,7 +708,7 @@ module.exports = {
         },
         id: siteID
       }).then(function (response) {
-        $.notify({message: 'Site has been updated.'},{type: 'info'});
+        app.$notify({group: 'notify', title: 'Site has been updated'});
         this.show_loading = false;
         this.dataTable.ajax.reload();
         this.editClearFrom();
@@ -716,36 +720,20 @@ module.exports = {
       });
     },
     deleteSite: function(){
-    $(document).on("click", ".delSite", function(){
+    $(document).off("click").on("click", ".delSite", function(){
       let siteRow, result;
       siteRow = $(this).closest('tr');
       let siteID = $(this).data("id");
-
       result = confirm("Are you sure to delete this Site?");
       if (result === false) {
         return;
       }
-
-      let data = {};
-      data.id = siteID;
-      let settings;
-
-      settings = {
-        cache: false,
-        data: data,
-        dataType: 'json',
-        error: function(){return false},
-        success: function(){
-          siteRow.remove();
-          $.notify({message: 'Site has been deleted.'},{type: 'info'});
-          return true;
-        },
-        contentType: "application/x-www-form-urlencoded",
-        context: {siteRow: siteRow},
-        type: "DELETE",
-        url: "/sites/" + siteID
-      };
-      $.ajax(settings);
+      app.$http.delete("/sites/" + siteID, {siteRow: siteRow}).then(function (response) {
+        siteRow.remove();
+        app.$notify({group: 'notify', title: 'Site has been deleted'});
+      }).catch(function (error) {
+         return false
+      });
     });
    },
     editClearFrom: function() {
@@ -789,6 +777,10 @@ module.exports = {
       this.$http.get('/nvrs/data').then(response => {
         this.nvrs_list = response.body.nvrs;
       });
+    },
+    select_menu_link: function(){
+      $("li").removeClass(" m-menu__item--active");
+      $(".sites").addClass(" m-menu__item--active");
     }
    }, // end of methods\
   created() {
@@ -798,11 +790,12 @@ module.exports = {
     this.get_nvrs();
   },
    mounted(){
+    this.deleteSite();
     let table = this.initializeTable();
     this.getUniqueIdentifier(table);
     this.initHideShow();
-    this.deleteSite();
     this.dataTable.search("");
+    this.select_menu_link();
    }
 }
 </script>

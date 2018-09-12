@@ -298,6 +298,11 @@
 </template>
 
 <script>
+
+import Vue from 'vue'
+import App from './App.vue'
+const app = new Vue(App)
+
 module.exports = {
   name: 'nvrs',
   data: function(){
@@ -413,7 +418,7 @@ module.exports = {
       {
         class: "text-center reboot",
         data: function(row, type, set, meta) {
-          return '<div class="action_btn"><button class="btn btn-default cursor_to_pointer" data-id="'+ row.id +'" style="font-size:10px;padding: 5px;" onclick="vms.rebootNVR('+row.id+', this.parentNode.parentNode.parentNode)">Reboot</button></div>';
+          return '<div class="action_btn"><button class="btn btn-default cursor_to_pointer rebootNVR" data-id="'+ row.id +'" style="font-size:10px;padding: 5px;">Reboot</button></div>';
         }
       },
       {
@@ -602,7 +607,7 @@ module.exports = {
         is_monitoring: this.nvr_is_monitoring,
         user_id: this.user_id
       }).then(function (response) {
-        $.notify({message: 'NVR has been added.'},{type: 'info'});
+        app.$notify({group: 'notify', title: 'NVR has been added'});
         this.show_loading = false;
         this.dataTable.ajax.reload();
         this.clearForm();
@@ -668,7 +673,7 @@ module.exports = {
         rtsp_port: $("#edit_rtsp_nvr_port").val(),
         id: nvrID
       }).then(function (response) {
-        $.notify({message: 'NVR has been updated.'},{type: 'info'});
+        app.$notify({group: 'notify', title: 'NVR has been updated'});
         this.show_loading = false;
         this.dataTable.ajax.reload();
         this.editClearFrom();
@@ -707,9 +712,9 @@ module.exports = {
       });
     },
     get_session: function(){
-    this.$http.get('/get_porfile').then(response => {
-      this.user_id = response.body.id;
-    });
+      this.$http.get('/get_porfile').then(response => {
+        this.user_id = response.body.id;
+      });
    },
    deleteNvr: function(){
     $(document).on("click", ".delNVR", function(){
@@ -721,36 +726,50 @@ module.exports = {
       if (result === false) {
         return;
       }
-
-      let data = {};
-      data.id = nvrID;
-      let settings;
-
-      settings = {
-        cache: false,
-        data: data,
-        dataType: 'json',
-        error: function(){return false},
-        success: function(){
-          nvrRow.remove();
-          $.notify({message: 'NVR has been deleted.'},{type: 'info'});
-          return true;
-        },
-        contentType: "application/x-www-form-urlencoded",
-        context: {nvrRow: nvrRow},
-        type: "DELETE",
-        url: "/nvrs/" + nvrID
-      };
-      $.ajax(settings);
+      app.$http.delete("/nvrs/" + nvrID, {nvrRow: nvrRow}).then(function (response) {
+        nvrRow.remove();
+        app.$notify({group: 'notify', title: 'NVR has been deleted.'});
+      }).catch(function (error) {
+         return false
+      });
     });
-   }
+   },
+   rebootNVR: function(){
+    $(document).off("click").on("click", ".rebootNVR", function(){
+      let nvrRow, result;
+      nvrRow = $(this).closest('tr');
+      let nvrID = $(this).data("id");
+
+      result = confirm("Are you sure to delete this NVR?");
+      if (result === false) {
+        return;
+      }
+      app.$http.get("/nvrs/" + nvrID, {nvrRow: nvrRow}).then(function (response) {
+        if (response.body.status != 201) {
+          app.$notify({group: 'notify', title: response.body.message, type: 'error'});
+        }else{
+          app.$notify({group: 'notify', title: 'Nvr has been reboot successfully.'});
+        }
+      }).catch(function (error) {
+          app.$notify({group: 'notify', title: error.body.message, type: 'error'});
+        return false
+      });
+    });
+   },
+    active_menu_link: function(){
+      $("li").removeClass(" m-menu__item--active");
+      $(".nvrs").addClass(" m-menu__item--active");
+    }
   }, // end of methods
   mounted(){
-   this.get_session();
-   let table =  this.initializeTable();
-   this.getUniqueIdentifier(table);
-   this.deleteNvr();
-   this.initHideShow();
+    this.get_session();
+    this.rebootNVR();
+    this.deleteNvr();
+    let table =  this.initializeTable();
+    this.getUniqueIdentifier(table);
+    this.initHideShow();
+    this.dataTable.search("");
+    this.active_menu_link();
   }
 }
 </script>
