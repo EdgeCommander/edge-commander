@@ -544,6 +544,21 @@ select.form-control:not([size]):not([multiple]) {
   padding: 9px 15px;
 }
 
+.red_text{
+  color: red;
+  font-weight: bold;
+}
+
+.green_text{
+  color: green;
+  font-weight: bold;
+}
+
+.orange_text{
+  color: orange;
+  font-weight: bold;
+}
+
 @media (max-width: 992px){
   .m-brand{
     width: 100%;

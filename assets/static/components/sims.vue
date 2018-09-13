@@ -163,6 +163,7 @@ module.exports = {
       headings: [
         {column: "Number", id: "number"},
         {column: "Name", id: "name"},
+        {column: "Status", id: "status"},
         {column: "MB Allowance", id: "allowance"},
         {column: "MB Used (Today)", id: "mb_used_today"},
         {column: "MB Used (Yest.)", id: "mb_used_yesterday"},
@@ -202,12 +203,10 @@ module.exports = {
           // Sync TFOOT scrolling with TBODY
           $('.dataTables_scrollFoot').on('scroll', function () {
           $('.dataTables_scrollBody').scrollLeft($(this).scrollLeft());
-            let simsDataTable = $('#sims-datatable').DataTable();
             simsDataTable.columns.adjust().draw();
           });
           $('.dataTables_scrollHead').on('scroll', function () {
             $('.dataTables_scrollBody').scrollLeft($(this).scrollLeft());
-             let simsDataTable = $('#sims-datatable').DataTable();
             simsDataTable.columns.adjust().draw();
           });
       },
@@ -236,6 +235,31 @@ module.exports = {
         class: "text-left name",
         data: function(row, type, set, meta) {
           return row.name;
+        }
+      },
+      {
+        class: "text-left status",
+        data: function(row, type, set, meta) {
+          return row.last_sms;
+        },
+        createdCell: function (td, cellData, rowData, row, col) {
+          let number = rowData.number
+          if (cellData == "Loading....") {
+            $.get( "/sms/last/"+number+"/", function(data) {
+              let status = "Not Found."
+              let str = data.sms.last_sms
+              let res = str.toLowerCase();
+
+              if (res.indexOf('lost connection') > 1 || res.indexOf('disconnected') > 1 || res.indexOf('shutdown') > 1) {
+                status = "<span class='red_text'>Disconnected</span>"
+              }else if (res.indexOf('connected') > 1 || res.indexOf('restored') > 1 || res.indexOf('alive') > 1) {
+                status = "<span class='green_text'>Connected</span>"
+              }else if (res.indexOf('reboot') > 1 || res.indexOf('restart') > 1) {
+                status = "<span class='orange_text'>Restarted</span>"
+              }
+              $(td).html(status)
+            });
+          }
         }
       },
       {
@@ -330,6 +354,11 @@ module.exports = {
           let number = rowData.number
           if (cellData == "Loading....") {
             $.get( "/sms/last/"+number+"/", function(data) {
+              let resize = false;
+              if(resize == false){
+                simsDataTable.draw();
+                resize = true;
+              }
               $(td).html(data.sms.last_sms)
             });
           }

@@ -20953,7 +20953,7 @@ module.exports = {
       show_loading: false,
       show_errors: false,
       show_add_messages: "",
-      headings: [{ column: "Number", id: "number" }, { column: "Name", id: "name" }, { column: "MB Allowance", id: "allowance" }, { column: "MB Used (Today)", id: "mb_used_today" }, { column: "MB Used (Yest.)", id: "mb_used_yesterday" }, { column: "% Used", id: "mb_used_percentage" }, { column: "Remaning Days", id: "remaning_days" }, { column: "Sim Provider", id: "sim_provider" }, { column: "Last Reading", id: "last_reading" }, { column: "Last Bill Date", id: "last_bill_date" }, { column: "Last SMS", id: "last_sms" }, { column: "Last SMS DateTime", id: "last_sms_datetime" }, { column: "# SMS Since Last Bill", id: "sms_since_last_bill" }],
+      headings: [{ column: "Number", id: "number" }, { column: "Name", id: "name" }, { column: "Status", id: "status" }, { column: "MB Allowance", id: "allowance" }, { column: "MB Used (Today)", id: "mb_used_today" }, { column: "MB Used (Yest.)", id: "mb_used_yesterday" }, { column: "% Used", id: "mb_used_percentage" }, { column: "Remaning Days", id: "remaning_days" }, { column: "Sim Provider", id: "sim_provider" }, { column: "Last Reading", id: "last_reading" }, { column: "Last Bill Date", id: "last_bill_date" }, { column: "Last SMS", id: "last_sms" }, { column: "Last SMS DateTime", id: "last_sms_datetime" }, { column: "# SMS Since Last Bill", id: "sms_since_last_bill" }],
       form_labels: {
         name: "Name",
         number: "Number",
@@ -20981,12 +20981,10 @@ module.exports = {
           // Sync TFOOT scrolling with TBODY
           $('.dataTables_scrollFoot').on('scroll', function () {
             $('.dataTables_scrollBody').scrollLeft($(this).scrollLeft());
-            var simsDataTable = $('#sims-datatable').DataTable();
             simsDataTable.columns.adjust().draw();
           });
           $('.dataTables_scrollHead').on('scroll', function () {
             $('.dataTables_scrollBody').scrollLeft($(this).scrollLeft());
-            var simsDataTable = $('#sims-datatable').DataTable();
             simsDataTable.columns.adjust().draw();
           });
         },
@@ -21013,6 +21011,30 @@ module.exports = {
           class: "text-left name",
           data: function data(row, type, set, meta) {
             return row.name;
+          }
+        }, {
+          class: "text-left status",
+          data: function data(row, type, set, meta) {
+            return row.last_sms;
+          },
+          createdCell: function createdCell(td, cellData, rowData, row, col) {
+            var number = rowData.number;
+            if (cellData == "Loading....") {
+              $.get("/sms/last/" + number + "/", function (data) {
+                var status = "Not Found.";
+                var str = data.sms.last_sms;
+                var res = str.toLowerCase();
+
+                if (res.indexOf('lost connection') > 1 || res.indexOf('disconnected') > 1 || res.indexOf('shutdown') > 1) {
+                  status = "<span class='red_text'>Disconnected</span>";
+                } else if (res.indexOf('connected') > 1 || res.indexOf('restored') > 1 || res.indexOf('alive') > 1) {
+                  status = "<span class='green_text'>Connected</span>";
+                } else if (res.indexOf('reboot') > 1 || res.indexOf('restart') > 1) {
+                  status = "<span class='orange_text'>Restarted</span>";
+                }
+                $(td).html(status);
+              });
+            }
           }
         }, {
           class: "text-center allowance",
@@ -21101,6 +21123,11 @@ module.exports = {
             var number = rowData.number;
             if (cellData == "Loading....") {
               $.get("/sms/last/" + number + "/", function (data) {
+                var resize = false;
+                if (resize == false) {
+                  simsDataTable.draw();
+                  resize = true;
+                }
                 $(td).html(data.sms.last_sms);
               });
             }

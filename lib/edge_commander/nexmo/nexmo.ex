@@ -70,7 +70,7 @@ defmodule EdgeCommander.Nexmo do
 
   def get_last_message_details(number, user_id) do
     SimMessages
-    |> where([c], (c.from == ^number or c.to == ^number) and c.user_id == ^user_id)
+    |> where([c], (c.from == ^number or c.to == ^number) and (c.user_id == ^user_id) and (c.type == "MO"))
     |> order_by(desc: :inserted_at)
     |> limit(1)
     |> Repo.one
