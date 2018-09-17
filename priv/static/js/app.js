@@ -18297,7 +18297,7 @@ module.exports = {
       m_form_search: "",
       show_loading: false,
       sims_list: "",
-      headings: [{ column: "Message Date", visible: "checked", id: "inserted_at" }, { column: "From", visible: "checked", id: "from" }, { column: "To", visible: "checked", id: "to" }, { column: "Message ID", id: "message_id" }, { column: "Type", visible: "checked", id: "type" }, { column: "Text Message", visible: "checked", id: "text_message" }, { column: "Status", visible: "checked", id: "status" }],
+      headings: [{ column: "Message Date", visible: "checked", id: "inserted_at" }, { column: "From", visible: "checked", id: "from" }, { column: "From: Name", visible: "checked", id: "from_name" }, { column: "To", visible: "checked", id: "to" }, { column: "To: Name", visible: "checked", id: "to_name" }, { column: "Message ID", id: "message_id" }, { column: "Type", visible: "checked", id: "type" }, { column: "Text Message", visible: "checked", id: "text_message" }, { column: "Status", visible: "checked", id: "status" }],
       form_labels: {
         sim: "SIM",
         message: "Message",
@@ -18358,9 +18358,19 @@ module.exports = {
             return row.from;
           }
         }, {
+          class: "from_name",
+          data: function data(row, type, set, meta) {
+            return row.from_name;
+          }
+        }, {
           class: "to",
           data: function data(row, type, set, meta) {
             return row.to;
+          }
+        }, {
+          class: "to_name",
+          data: function data(row, type, set, meta) {
+            return row.to_name;
           }
         }, {
           class: "message_id",
