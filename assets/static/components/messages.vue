@@ -175,7 +175,9 @@ module.exports = {
       headings: [
         {column: "Message Date", visible: "checked", id: "inserted_at"},
         {column: "From", visible: "checked", id: "from"},
+        {column: "From: Name", visible: "checked", id: "from_name"},
         {column: "To", visible: "checked", id: "to"},
+        {column: "To: Name", visible: "checked", id: "to_name"},
         {column: "Message ID", id: "message_id"},
         {column: "Type", visible: "checked", id: "type"},
         {column: "Text Message", visible: "checked", id: "text_message"},
@@ -244,9 +246,21 @@ module.exports = {
           }
         },
         {
+          class: "from_name",
+          data: function(row, type, set, meta) {
+            return row.from_name;
+          }
+        },
+        {
           class: "to",
           data: function(row, type, set, meta) {
             return row.to;
+          }
+        },
+        {
+          class: "to_name",
+          data: function(row, type, set, meta) {
+            return row.to_name;
           }
         },
         {
