@@ -546,17 +546,14 @@ select.form-control:not([size]):not([multiple]) {
 
 .red_text{
   color: red;
-  font-weight: bold;
 }
 
 .green_text{
   color: green;
-  font-weight: bold;
 }
 
 .orange_text{
   color: orange;
-  font-weight: bold;
 }
 
 @media (max-width: 992px){
