@@ -40,8 +40,11 @@ defmodule EdgeCommanderWeb.SmsController do
       name = "EdgeCommander"
     else
      record =  get_last_record_for_number(number)
-     name = record.name
+     name = validate_sim_name(record)
     end
     name
   end
+
+  defp validate_sim_name(nil), do: "---"
+  defp validate_sim_name(record), do: record.name
 end
