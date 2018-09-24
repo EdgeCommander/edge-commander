@@ -5,7 +5,6 @@ defmodule EdgeCommanderWeb.SmsController do
   import EdgeCommander.Accounts, only: [current_user: 1]
   import EdgeCommander.ThreeScraper, only: [get_last_record_for_number: 1]
   alias EdgeCommander.Util
-  require IEx
 
   def get_all_sms(conn, params)  do
     current_user_id = Util.get_user_id(conn, params)
@@ -48,5 +47,4 @@ defmodule EdgeCommanderWeb.SmsController do
 
   defp validate_sim_name(nil), do: "---"
   defp validate_sim_name(record), do: record.name
-
 end
