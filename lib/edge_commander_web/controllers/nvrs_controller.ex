@@ -9,6 +9,7 @@ defmodule EdgeCommanderWeb.NvrsController do
   import EdgeCommander.Monitors
   import EdgeCommander.Devices, only: [update_nvr_ISAPI: 1, list_nvrs: 1, get_nvr!: 1]
   use PhoenixSwagger
+  import Plug.Conn
   require Logger
 
   def swagger_definitions do
@@ -213,8 +214,8 @@ defmodule EdgeCommanderWeb.NvrsController do
   end
 
   def update(conn, %{"id" => id} = params) do
-    user_ip_details = Util.get_user_ip()
-    Logger.info user_ip_details
+    x_real_ip = Plug.Conn.get_req_header(conn, "x-real-ip")
+    Logger.info x_real_ip
     get_nvr!(id)
     |> Nvr.changeset(params)
     |> Repo.update
