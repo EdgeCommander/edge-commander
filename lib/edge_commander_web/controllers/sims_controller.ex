@@ -9,6 +9,7 @@ defmodule EdgeCommanderWeb.SimsController do
   alias EdgeCommander.Util
   require Logger
   use PhoenixSwagger
+  import Plug.Conn
 
   swagger_path :get_sim_logs do
     get "/v1/sims"
@@ -137,8 +138,6 @@ defmodule EdgeCommanderWeb.SimsController do
 
   def get_sim_logs(conn, params)  do
     current_user_id = Util.get_user_id(conn, params)
-    user_ip_details = Util.get_user_ip()
-    Logger.info user_ip_details
     logs =
       get_sim_numbers(current_user_id)
       |> Enum.map(fn(sims) ->
@@ -185,6 +184,8 @@ defmodule EdgeCommanderWeb.SimsController do
   end
 
   def last_sms_details(conn, params) do
+    x_real_ip = Plug.Conn.get_req_header(conn, "x-real-ip")
+    Logger.info x_real_ip
     number = params["number"]
     current_user_id = Util.get_user_id(conn, params)
     last_sms_details = get_last_message_details(number, current_user_id)

@@ -65,17 +65,4 @@ defmodule EdgeCommander.Util do
       [Enum.random(@chars) | acc]
     end) |> Enum.join("")
   end
-
-  def get_user_ip() do
-    url = "https://ipapi.co/json/"
-    case HTTPoison.get(url) do
-      {:ok, %HTTPoison.Response{status_code: 200, body: body}} ->
-        return_value = body
-      {:ok, %HTTPoison.Response{status_code: 404}} ->
-        return_value = "Not found :("
-      {:error, %HTTPoison.Error{reason: reason}} ->
-        return_value = reason
-    end
-    return_value
-  end
 end
