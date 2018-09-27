@@ -148,6 +148,7 @@ defmodule EdgeCommanderWeb.NvrsController do
   end
 
   def get_all_nvrs(conn, params)  do
+    IO.inspect conn
     current_user = current_user(conn)
     current_user_id = Util.get_user_id(conn, params)
     nvrs = 
