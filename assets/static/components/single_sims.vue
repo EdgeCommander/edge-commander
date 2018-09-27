@@ -258,7 +258,11 @@ module.exports = {
           {
             class: "text-center",
             data: function(row, type, set, meta) {
-              return "<span style='text-transform:capitalize'>"+row.status+"</sapn>"
+              let status_value = row.status
+              if(status_value == "Accepted"){
+                  status_value = "Not Delivered"
+              }
+              return "<span style='text-transform:capitalize'>"+status_value+"</sapn>"
             }
           },
           {
