@@ -18402,7 +18402,7 @@ module.exports = {
               return '<span title="Delivered"><svg id="Layer_1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 18 18" width="18" height="18"><path fill="#4FC3F7" d="M17.394 5.035l-.57-.444a.434.434 0 0 0-.609.076l-6.39 8.198a.38.38 0 0 1-.577.039l-.427-.388a.381.381 0 0 0-.578.038l-.451.576a.497.497 0 0 0 .043.645l1.575 1.51a.38.38 0 0 0 .577-.039l7.483-9.602a.436.436 0 0 0-.076-.609zm-4.892 0l-.57-.444a.434.434 0 0 0-.609.076l-6.39 8.198a.38.38 0 0 1-.577.039l-2.614-2.556a.435.435 0 0 0-.614.007l-.505.516a.435.435 0 0 0 .007.614l3.887 3.8a.38.38 0 0 0 .577-.039l7.483-9.602a.435.435 0 0 0-.075-.609z"></path></svg></span>';
             } else if (status == "Failed") {
               return "<span title='Failed' style='color:#b51010;font-size:16px;font-weight:bold'>&#10005;</span>";
-            } else if (status == "Accepted") {
+            } else if (status == "accepted") {
               return '<span title="Not Delivered"><svg id="Layer_1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 15" width="18" height="18"><path fill="#92A58C" d="M10.91 3.316l-.478-.372a.365.365 0 0 0-.51.063L4.566 9.879a.32.32 0 0 1-.484.033L1.891 7.769a.366.366 0 0 0-.515.006l-.423.433a.364.364 0 0 0 .006.514l3.258 3.185c.143.14.361.125.484-.033l6.272-8.048a.365.365 0 0 0-.063-.51z"></path></svg></span>';
             } else {
               return "<span title='Pending'><i class='fa fa-clock-o' style='color:gray;font-size:16px'></i></span>";
@@ -21551,7 +21551,7 @@ module.exports = {
           class: "text-center",
           data: function data(row, type, set, meta) {
             var status_value = row.status;
-            if (status_value == "Accepted") {
+            if (status_value == "accepted") {
               status_value = "Not Delivered";
             }
             return "<span style='text-transform:capitalize'>" + status_value + "</sapn>";
