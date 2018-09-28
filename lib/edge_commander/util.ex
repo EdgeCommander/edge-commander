@@ -2,7 +2,6 @@ defmodule EdgeCommander.Util do
   require Record
   import EdgeCommander.Accounts, only: [current_user: 1, by_api_keys: 2]
   import Plug.Conn
-  require IEx
   Record.defrecord :xmlElement, Record.extract(:xmlElement, from_lib: "xmerl/include/xmerl.hrl")
   Record.defrecord :xmlText,    Record.extract(:xmlText,    from_lib: "xmerl/include/xmerl.hrl")
 
