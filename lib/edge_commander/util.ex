@@ -1,6 +1,8 @@
 defmodule EdgeCommander.Util do
   require Record
   import EdgeCommander.Accounts, only: [current_user: 1, by_api_keys: 2]
+  import Plug.Conn
+  require IEx
   Record.defrecord :xmlElement, Record.extract(:xmlElement, from_lib: "xmerl/include/xmerl.hrl")
   Record.defrecord :xmlText,    Record.extract(:xmlText,    from_lib: "xmerl/include/xmerl.hrl")
 
@@ -64,5 +66,28 @@ defmodule EdgeCommander.Util do
     Enum.reduce((1..length), [], fn (_i, acc) ->
       [Enum.random(@chars) | acc]
     end) |> Enum.join("")
+  end
+
+  def user_request_ip(conn) do
+    ip = case get_req_header(conn, "x-forwarded-for") do
+       [proxy_ip] -> proxy_ip |> first_ip |> valid_ip
+       _ -> conn.remote_ip |> Tuple.to_list |> Enum.join(".") |> valid_ip
+    end
+    ip
+  end
+
+  defp first_ip(ips) do
+    case String.split(ips, ",") do
+      [ip] -> ip
+      [ip, _proxy_ip] -> ip
+    end
+  end
+
+  defp valid_ip(ip) do
+    re = ~r/^(([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\.){3}([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])$/
+    case Regex.match?(re, ip) do
+      true -> ip
+      false -> nil
+    end
   end
 end
