@@ -18285,6 +18285,28 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 var app = new _vue2.default(_App2.default);
 
@@ -18515,6 +18537,7 @@ module.exports = {
     this.get_sims();
     this.dataTable.search("");
     this.select_menu_link();
+    $('[data-toggle="popover"]').popover({ trigger: "hover" });
   }
 };
 
@@ -21436,6 +21459,27 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 var app = new _vue2.default(_App2.default);
 
@@ -21813,6 +21857,7 @@ module.exports = {
     window.addEventListener('resize', this.startMORRISChartJS);
     window.addEventListener('resize', this.resizeSMSTable);
     this.select_menu_link();
+    $('[data-toggle="popover"]').popover({ trigger: "hover" });
   }
 };
 
@@ -25215,6 +25260,10 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       "multiple": "multiple",
       "data-tags": "true"
     }
+  }, [_c('optgroup', {
+    attrs: {
+      "label": "For Dovado Router"
+    }
   }, [_c('option', {
     attrs: {
       "value": "Disconnect"
@@ -25279,7 +25328,32 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     attrs: {
       "value": "#02#"
     }
-  }, [_vm._v("#02#")])])])
+  }, [_vm._v("#02#")])]), _vm._v(" "), _c('optgroup', {
+    attrs: {
+      "label": "For Teltonika Router"
+    }
+  }, [_c('option', {
+    attrs: {
+      "value": "Reboot"
+    }
+  }, [_vm._v("Reboot")]), _vm._v(" "), _c('option', {
+    attrs: {
+      "value": "Cellstatus"
+    }
+  }, [_vm._v("Cellstatus")])])]), _vm._v("\n                             \n                            "), _c('span', {
+    staticClass: "fa fa-info",
+    staticStyle: {
+      "cursor": "pointer"
+    },
+    attrs: {
+      "tabindex": "0",
+      "data-html": "true",
+      "data-toggle": "popover",
+      "data-trigger": "focus",
+      "title": "Commands help.",
+      "data-content": "<div>\n  <ul>\n      <li><b>Disconnect:</b> Shut down modem connection.</li>\n      <li><b>Connect:</b> Connect modem connection</li>\n      <li><b>Restart / Reboot:</b> Restarts the router</li>\n      <li><b>Reconnect:</b> Reset connection and connect</li>\n      <li><b>Status / Cellstatus:</b> Reports current connection status of the router.</li>\n      <li><b>Upgrade:</b> Upgrade to latest available firmware.</li>\n      <li><b>VPN on and VPN off:</b> Turn on or off VPN access in manual mode.</li>\n      <li><b>WLAN on and WLAN off:</b> Turn on or off WiFi. For 2.4 GHz use WLAN24 and WLAN5 for 5 GHz.</li>\n      <li><b>Internet on and Internet off:</b> Turn on or off LAN access to Internet.</li>\n  </ul>\n</div>"
+    }
+  })])
 }]}
 module.exports.render._withStripped = true
 if (false) {
@@ -27909,7 +27983,20 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         _vm.user_id = $event.target.value
       }
     }
-  }), _vm._v(" "), _vm._m(3)])])])]), _vm._v(" "), _c('div', {
+  }), _vm._v(" "), _vm._m(3), _vm._v("  \n                            "), _c('span', {
+    staticClass: "fa fa-info",
+    staticStyle: {
+      "cursor": "pointer"
+    },
+    attrs: {
+      "tabindex": "0",
+      "data-html": "true",
+      "data-toggle": "popover",
+      "data-trigger": "focus",
+      "title": "Commands help.",
+      "data-content": "<div>\n  <ul>\n      <li><b>Disconnect:</b> Shut down modem connection.</li>\n      <li><b>Connect:</b> Connect modem connection</li>\n      <li><b>Restart / Reboot:</b> Restarts the router</li>\n      <li><b>Reconnect:</b> Reset connection and connect</li>\n      <li><b>Status / Cellstatus:</b> Reports current connection status of the router.</li>\n      <li><b>Upgrade:</b> Upgrade to latest available firmware.</li>\n      <li><b>VPN on and VPN off:</b> Turn on or off VPN access in manual mode.</li>\n      <li><b>WLAN on and WLAN off:</b> Turn on or off WiFi. For 2.4 GHz use WLAN24 and WLAN5 for 5 GHz.</li>\n      <li><b>Internet on and Internet off:</b> Turn on or off LAN access to Internet.</li>\n  </ul>\n</div>"
+    }
+  })])])])]), _vm._v(" "), _c('div', {
     staticClass: "modal-footer"
   }, [_c('button', {
     staticClass: "btn btn-default",
@@ -28010,6 +28097,10 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       "multiple": "multiple",
       "data-tags": "true"
     }
+  }, [_c('optgroup', {
+    attrs: {
+      "label": "For Dovado Router"
+    }
   }, [_c('option', {
     attrs: {
       "value": "Disconnect"
@@ -28074,7 +28165,19 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     attrs: {
       "value": "#02#"
     }
-  }, [_vm._v("#02#")])])
+  }, [_vm._v("#02#")])]), _vm._v(" "), _c('optgroup', {
+    attrs: {
+      "label": "For Teltonika Router"
+    }
+  }, [_c('option', {
+    attrs: {
+      "value": "Reboot"
+    }
+  }, [_vm._v("Reboot")]), _vm._v(" "), _c('option', {
+    attrs: {
+      "value": "Cellstatus"
+    }
+  }, [_vm._v("Cellstatus")])])])
 }]}
 module.exports.render._withStripped = true
 if (false) {
