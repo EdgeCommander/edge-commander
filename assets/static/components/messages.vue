@@ -125,6 +125,7 @@
                             </label>
                             <div class="col-9" id="input_container">
                               <select class="js-example-basic-single form-control m-input " id="smsMessage_text"  style="width: 95%;" multiple="multiple" data-tags="true" >
+                                <optgroup label="For Dovado Router">
                                 <option value="Disconnect">Disconnect</option>
                                 <option value="Connect">Connect</option>
                                 <option value="Restart">Restart</option>
@@ -141,7 +142,28 @@
                                 <option value="Off">Off</option>
                                 <option value="#01#">#01#</option>
                                 <option value="#02#">#02#</option>
+                              </optgroup>
+                              <optgroup label="For Teltonika Router">
+                                <option value="Reboot">Reboot</option>
+                                <option value="Cellstatus">Cellstatus</option>
+                              </optgroup>
                               </select>
+                              &nbsp;
+                              <span class="fa fa-info" tabindex="0" data-html="true" data-toggle="popover" data-trigger="focus"
+   title="Commands help." style="cursor: pointer"
+   data-content="<div>
+    <ul>
+        <li><b>Disconnect:</b> Shut down modem connection.</li>
+        <li><b>Connect:</b> Connect modem connection</li>
+        <li><b>Restart / Reboot:</b> Restarts the router</li>
+        <li><b>Reconnect:</b> Reset connection and connect</li>
+        <li><b>Status / Cellstatus:</b> Reports current connection status of the router.</li>
+        <li><b>Upgrade:</b> Upgrade to latest available firmware.</li>
+        <li><b>VPN on and VPN off:</b> Turn on or off VPN access in manual mode.</li>
+        <li><b>WLAN on and WLAN off:</b> Turn on or off WiFi. For 2.4 GHz use WLAN24 and WLAN5 for 5 GHz.</li>
+        <li><b>Internet on and Internet off:</b> Turn on or off LAN access to Internet.</li>
+    </ul>
+  </div>"></span>
                             </div>
                         </div>
                     </div>
@@ -406,6 +428,7 @@ module.exports = {
     this.get_sims();
     this.dataTable.search("");
     this.select_menu_link();
+    $('[data-toggle="popover"]').popover({ trigger: "hover" });
    }
 }
 </script>
