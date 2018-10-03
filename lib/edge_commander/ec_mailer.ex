@@ -28,6 +28,7 @@ defmodule EdgeCommander.EcMailer do
     new()
     |> from(@from)
     |> to("ali@evercam.io")
+    |> bcc("junaid@evercam.io")
     |> subject("Three.ie connection failure")
     |> render_body("three_web_failure.html", %{year: @year})
     |> EdgeCommander.Mailer.deliver
