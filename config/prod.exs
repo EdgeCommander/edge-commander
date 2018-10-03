@@ -21,10 +21,10 @@ config :edge_commander, EdgeCommanderWeb.Endpoint,
 # Do not print debug messages in production
 config :logger, level: :info
 
-config :edge_commander, :mailgun,
-  domain: System.get_env("MAILGUN_DOMAIN"),
-  key: System.get_env("MAILGUN_KEY"),
-  mode: :prod
+config :edge_commander, EdgeCommander.Mailer,
+  adapter: Swoosh.Adapters.Mailgun,
+  api_key: System.get_env("MAILGUN_KEY"),
+  domain: System.get_env("MAILGUN_DOMAIN")
 
 config :edge_commander, :send_emails_for_usage, true
 config :edge_commander, :send_emails_for_raid, true
