@@ -1,7 +1,6 @@
 defmodule EdgeCommander.EcMailer do
   use Phoenix.Swoosh, view: EdgeCommanderWeb.EmailView
 
-  @config Application.get_env(:edge_commander, :mailgun)
   @from "support@edgecommander.com"
   @year Calendar.DateTime.now_utc |> Calendar.Strftime.strftime!("%Y")
 
