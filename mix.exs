@@ -43,7 +43,7 @@ defmodule EdgeCommander.Mixfile do
       {:cowboy, "~> 1.0"},
       {:comeonin, "~> 3.0"},
       {:dotenv, "~> 2.1.0"},
-      {:httpoison, "~> 0.13.0"},
+      {:httpoison, "~> 0.13.0", override: true},
       {:quantum, ">= 2.1.0"},
       {:timex, "~> 3.0"},
       {:floki, "~> 0.18"},
@@ -55,7 +55,9 @@ defmodule EdgeCommander.Mixfile do
       {:phoenix_swagger, "~> 0.7.0"},
       {:ex_json_schema, "~> 0.5"}, # optional
       {:uuid, "~> 1.1"},
-      {:guardian, github: "ueberauth/guardian"}
+      {:guardian, github: "ueberauth/guardian"},
+      {:geoip, "~> 0.2"},
+      {:browser, github: "danhper/elixir-browser"}
     ]
   end
 

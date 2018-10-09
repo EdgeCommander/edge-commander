@@ -4,6 +4,9 @@ defmodule EdgeCommander.Util do
   import Plug.Conn
   Record.defrecord :xmlElement, Record.extract(:xmlElement, from_lib: "xmerl/include/xmerl.hrl")
   Record.defrecord :xmlText,    Record.extract(:xmlText,    from_lib: "xmerl/include/xmerl.hrl")
+  alias EdgeCommander.Activity.Logs
+  alias EdgeCommander.Repo
+  import Plug.Conn
 
   def parse_changeset(changeset) do
     Ecto.Changeset.traverse_errors(changeset, fn
@@ -88,5 +91,60 @@ defmodule EdgeCommander.Util do
       true -> ip
       false -> nil
     end
+  end
+
+  def get_country_from_geoip(ip) do
+    case GeoIP.lookup(ip) do
+      {:ok, info} -> %{ip: ip, country: Map.get(info, :country_name), country_code: Map.get(info, :country_code)}
+      _ -> %{ip: ip, country: "", country_code: ""}
+    end
+  end
+
+  def get_user_agent(conn) do
+    case get_req_header(conn, "user-agent") do
+      [] -> ""
+      [user_agent|_rest] -> parse_user_agent(user_agent)
+    end
+  end
+
+  defp parse_user_agent(nil), do: ""
+  defp parse_user_agent(user_agent), do: user_agent
+
+  def create_log(conn, params) do
+    ip = user_request_ip(conn)
+    location_details = get_country_from_geoip(ip)
+    browser = get_user_agent(conn) |> Browser.name() 
+    platform = get_user_agent(conn) |> Browser.platform()  |> Atom.to_string()
+
+    params = %{
+      "browser" => browser,
+      "platform" => platform,
+      "ip" => location_details[:ip],
+      "country" => location_details[:country],
+      "country_code" => "PK",
+      "event" => params["event"],
+      "user_id" => params["user_id"]
+    }
+    changeset = Logs.changeset(%Logs{}, params)
+    case Repo.insert(changeset) do
+      {:ok, logs} ->
+        %EdgeCommander.Activity.Logs{
+          browser: browser,
+          ip: ip,
+          country: country,
+          event: event,
+          user_id: user_id
+        } = logs
+
+        conn
+        |> put_status(:created)
+      
+      {:error, changeset} ->
+        errors = parse_changeset(changeset)
+        traversed_errors = for {_key, values} <- errors, value <- values, do: "#{value}"
+        conn
+        |> put_status(400)
+    end
+
   end
 end

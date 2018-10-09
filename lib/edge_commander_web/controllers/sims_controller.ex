@@ -183,8 +183,6 @@ defmodule EdgeCommanderWeb.SimsController do
   end
 
   def last_sms_details(conn, params) do
-    user_ip = Util.user_request_ip(conn)
-    Logger.info user_ip
     number = params["number"]
     current_user_id = Util.get_user_id(conn, params)
     last_sms_details = get_last_message_details(number, current_user_id)

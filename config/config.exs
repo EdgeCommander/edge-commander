@@ -51,4 +51,6 @@ config :edge_commander, EdgeCommander.Accounts.Pipeline,
   module: EdgeCommander.Accounts.Guardian,
   error_handler: EdgeCommander.Accounts.ErrorHandler
 
+config :geoip, provider: :ipstack, use_https: :false, api_key: "f781e52f834db13d52f5d5d9374e3862"
+
 import_config "#{Mix.env}.exs"
