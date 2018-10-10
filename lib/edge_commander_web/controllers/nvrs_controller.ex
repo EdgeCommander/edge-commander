@@ -124,6 +124,14 @@ defmodule EdgeCommanderWeb.NvrsController do
 
         update_nvr_ISAPI(nvr)
 
+        name = params["name"]
+        current_user = current_user(conn)
+        logs_params = %{
+          "event" => "NVR: A new <span>#{name}</span> was created",
+          "user_id" => current_user.id
+        }
+        Util.create_log(conn, logs_params)
+
         conn
         |> put_status(:created)
         |> json(%{
@@ -193,7 +201,8 @@ defmodule EdgeCommanderWeb.NvrsController do
   defp get_extra_value(_, nvr, extra_field),  do: nvr.extra |> Map.get(extra_field)
 
   def delete(conn, %{"id" => id} = _params) do
-    get_nvr!(id)
+    records = get_nvr!(id)
+    records
     |> Repo.delete
     |> case do
       {:ok, %EdgeCommander.Devices.Nvr{}} ->
@@ -202,6 +211,13 @@ defmodule EdgeCommanderWeb.NvrsController do
         |> json(%{
           "deleted": true
         })
+        name = records.name
+        current_user = current_user(conn)
+        logs_params = %{
+          "event" => "NVR: <span>#{name}</span> was deleted",
+          "user_id" => current_user.id
+        }
+        Util.create_log(conn, logs_params)
       {:error, changeset} ->
         errors = Util.parse_changeset(changeset)
         traversed_errors = for {_key, values} <- errors, value <- values, do: "#{value}"
@@ -229,6 +245,14 @@ defmodule EdgeCommanderWeb.NvrsController do
           is_monitoring: is_monitoring,
           inserted_at: inserted_at
         } = nvr
+
+        name = params["name"]
+        current_user = current_user(conn)
+        logs_params = %{
+        "event" => "NVR: <span>#{name}</span>} was updated",
+        "user_id" => current_user.id
+        }
+        Util.create_log(conn, logs_params)
 
         conn
         |> put_status(:created)
@@ -276,6 +300,14 @@ defmodule EdgeCommanderWeb.NvrsController do
           |> Poison.decode
           |> elem(1)
           |> Map.get("message")
+
+          name = records.name
+          current_user = current_user(conn)
+          logs_params = %{
+            "event" => "NVR: <span>#{name}</span> was rebooted",
+            "user_id" => current_user.id
+          }
+          Util.create_log(conn, logs_params)
 
         conn
         |> put_status(status_code)

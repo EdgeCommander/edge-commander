@@ -2,7 +2,7 @@ defmodule EdgeCommanderWeb.SessionController do
   use EdgeCommanderWeb, :controller
   alias EdgeCommander.Repo
   import Plug.Conn
-  import EdgeCommander.Accounts, only: [login: 2, update_last_login: 2, authenticate_user: 2]
+  import EdgeCommander.Accounts, only: [login: 2, update_last_login: 2, authenticate_user: 2, current_user: 1]
   alias EdgeCommander.Accounts.User
   alias EdgeCommander.Accounts.Guardian
   alias EdgeCommander.Util
@@ -16,6 +16,12 @@ defmodule EdgeCommanderWeb.SessionController do
   end
 
   def delete(conn, _) do
+    current_user = current_user(conn)
+    params = %{
+      "event" => "Logout",
+      "user_id" => current_user.id
+    }
+    Util.create_log(conn, params)
     conn
     |> Guardian.Plug.sign_out()
     |> redirect(to: "/")

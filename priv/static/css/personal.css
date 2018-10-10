@@ -556,6 +556,18 @@ select.form-control:not([size]):not([multiple]) {
   color: orange;
 }
 
+.nav.nav-pills, .nav.nav-tabs {
+  margin-bottom: 0;
+}
+
+.heading_panel h4{
+  margin-top: 15px;
+}
+
+.event span{
+  font-weight: 500;
+}
+
 @media (max-width: 992px){
   .m-brand{
     width: 100%;

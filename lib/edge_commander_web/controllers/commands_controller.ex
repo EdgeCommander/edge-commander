@@ -60,6 +60,14 @@ defmodule EdgeCommanderWeb.CommandsController do
           inserted_at: created_at
         } = rule
 
+        rule_name = params["rule_name"]
+        current_user = current_user(conn)
+        logs_params = %{
+          "event" => "Rule: <span>#{rule_name}</span> was created in <span>commands</span>",
+          "user_id" => current_user.id
+        }
+        Util.create_log(conn, logs_params)
+
         conn
         |> put_status(:created)
         |> json(%{
@@ -110,6 +118,14 @@ defmodule EdgeCommanderWeb.CommandsController do
           inserted_at: inserted_at
         } = rule
 
+        rule_name = params["rule_name"]
+        current_user = current_user(conn)
+        logs_params = %{
+        "event" => "Rule: <span>#{rule_name}</span> was updated in <span>commands</span>",
+        "user_id" => current_user.id
+        }
+        Util.create_log(conn, logs_params)
+
         conn
         |> put_status(:created)
         |> json(%{
@@ -126,7 +142,8 @@ defmodule EdgeCommanderWeb.CommandsController do
   end
 
   def delete(conn, %{"id" => id} = _params) do
-    get_rule!(id)
+    records = get_rule!(id)
+    records
     |> Repo.delete
     |> case do
       {:ok, %EdgeCommander.Commands.Rule{}} ->
@@ -135,6 +152,13 @@ defmodule EdgeCommanderWeb.CommandsController do
         |> json(%{
           "deleted": true
         })
+        rule_name = records.rule_name
+        current_user = current_user(conn)
+        logs_params = %{
+          "event" => "Rule: <span>#{rule_name}</span> was deleted in <span>commands</span>",
+          "user_id" => current_user.id
+        }
+        Util.create_log(conn, logs_params)
       {:error, changeset} ->
         errors = Util.parse_changeset(changeset)
         traversed_errors = for {_key, values} <- errors, value <- values, do: "#{value}"

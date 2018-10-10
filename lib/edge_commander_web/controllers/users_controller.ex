@@ -159,6 +159,14 @@ defmodule EdgeCommanderWeb.UsersController do
           id: id
         } = user
 
+        email = params["email"]
+        current_user = current_user(conn)
+        logs_params = %{
+          "event" => "Account details of <span>#{email}</span> was updated.",
+          "user_id" => current_user.id
+        }
+        Util.create_log(conn, logs_params)
+
         conn
         |> put_status(:created)
         |> json(%{

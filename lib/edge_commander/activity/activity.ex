@@ -21,6 +21,14 @@ defmodule EdgeCommander.Activity do
     Repo.all(Logs)
   end
 
+  def get_list_logs(from_date, to_date, user_id) do
+    from = NaiveDateTime.from_iso8601!(from_date <> " 00:00:00")
+    to = NaiveDateTime.from_iso8601!(to_date <> " 23:59:59")
+    Logs
+    |> where([c],  c.user_id  == ^user_id and (c.inserted_at >= ^from or c.inserted_at == ^from))
+    |> Repo.all
+  end
+
   @doc """
   Gets a single logs.
 

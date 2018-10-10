@@ -121,7 +121,7 @@ defmodule EdgeCommander.Util do
       "platform" => platform,
       "ip" => location_details[:ip],
       "country" => location_details[:country],
-      "country_code" => "PK",
+      "country_code" => location_details[:country_code],
       "event" => params["event"],
       "user_id" => params["user_id"]
     }

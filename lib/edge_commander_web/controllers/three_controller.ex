@@ -19,6 +19,14 @@ defmodule EdgeCommanderWeb.ThreeController do
           bill_day: bill_day
         } = user
 
+        username = params["username"]
+        current_user = current_user(conn)
+        logs_params = %{
+          "event" => "Three: username <span>#{username}</span> was created.",
+          "user_id" => current_user.id
+        }
+        Util.create_log(conn, logs_params)
+
         spawn fn -> single_start_scraper(user.id) end
 
         conn
@@ -73,6 +81,14 @@ defmodule EdgeCommanderWeb.ThreeController do
           updated_at: updated_at
         } = user
 
+        username = params["username"]
+        current_user = current_user(conn)
+        logs_params = %{
+          "event" => "Three: username <span>#{username}</span> was updated.",
+          "user_id" => current_user.id
+        }
+        Util.create_log(conn, logs_params)
+
         spawn fn -> single_start_scraper(user.id) end
 
         conn
@@ -93,7 +109,8 @@ defmodule EdgeCommanderWeb.ThreeController do
   end
 
   def delete(conn, %{"id" => id} = _params) do
-    ThreeUsers.get_three_account!(id)
+    records = ThreeUsers.get_three_account!(id)
+    records
     |> Repo.delete
     |> case do
       {:ok, %EdgeCommander.ThreeScraper.ThreeUsers{}} ->
@@ -102,6 +119,13 @@ defmodule EdgeCommanderWeb.ThreeController do
         |> json(%{
           "deleted": true
         })
+        username = records.username
+        current_user = current_user(conn)
+        logs_params = %{
+          "event" => "Three: username <span>#{username}</span> was deleted.",
+          "user_id" => current_user.id
+        }
+        Util.create_log(conn, logs_params)
       {:error, changeset} ->
         errors = Util.parse_changeset(changeset)
         traversed_errors = for {_key, values} <- errors, value <- values, do: "#{value}"
