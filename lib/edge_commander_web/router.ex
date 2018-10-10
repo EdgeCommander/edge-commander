@@ -90,18 +90,6 @@ defmodule EdgeCommanderWeb.Router do
   scope "/", EdgeCommanderWeb do
     pipe_through [:browser, :auth, :ensure_auth]
 
-    get "/sims_ajax", RooterController, :sim_logs
-    get "/nvrs_ajax", RooterController, :nvrs
-    get "/routers_ajax", RooterController, :routers
-    get "/commands_ajax", RooterController, :commands
-    get "/my_profile_ajax", RooterController, :my_profile
-    get "/sites_ajax", RooterController, :sites
-    get "/messages_ajax", RooterController, :sms_messages
-    get "/status_report_ajax", RooterController, :status_report
-    get "/api_ajax", RooterController, :swagger
-    get "/sims_ajax/:sim_number/", RooterController, :sim_graph_and_details
-    get "/shares_ajax", RooterController, :sharing
-
     get "/get_porfile", UsersController, :get_porfile
     get "/get_shared_users", SharingController, :shared_users
     get "/get_other_users", SharingController, :get_other_users
@@ -111,7 +99,7 @@ defmodule EdgeCommanderWeb.Router do
     get "/routers", RooterController, :main
     get "/commands", RooterController, :main
     get "/sims/:sim_number", RooterController, :main
-    get "/my_profile", RooterController, :main
+    get "/settings", RooterController, :main
     get "/sites", RooterController, :main
     get "/messages", RooterController, :main
     get "/status_report", RooterController, :main

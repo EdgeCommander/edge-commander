@@ -27,7 +27,7 @@ import Notifications from 'vue-notification'
 
 // Import Vue components
 import App from "../components/App"
-import my_profile from "../components/my_profile"
+import settings from "../components/settings"
 import commands from "../components/commands"
 import routers from "../components/routers"
 import nvrs from "../components/nvrs"
@@ -48,9 +48,9 @@ const router = new VueRouter({
   mode: 'history',
   routes: [
     {
-      path: '/my_profile',
-      name: 'my_profile',
-      component: my_profile,
+      path: '/settings',
+      name: 'settings',
+      component: settings,
     },
     {
       path: '/commands',

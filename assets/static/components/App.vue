@@ -106,10 +106,10 @@
 								<span class="m-menu__link-text">API</span>
 							</router-link>
 				        </li>
-				        <li class="m-menu__item my_profile" aria-haspopup="true">
-							<router-link v-bind:to="'/my_profile'" class="m-menu__link">
-								<i class="m-menu__link-icon fa fa-user m-menu__link-text"></i>
-								<span class="m-menu__link-text">My Profile</span>
+				        <li class="m-menu__item settings" aria-haspopup="true">
+							<router-link v-bind:to="'/settings'" class="m-menu__link">
+								<i class="m-menu__link-icon fa fa-gear m-menu__link-text"></i>
+								<span class="m-menu__link-text">Settings</span>
 							</router-link>
 				        </li>
 				        <li class="m-menu__item bottom_link" aria-haspopup="true" style="border-top: solid 1px #333333;">
