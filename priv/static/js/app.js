@@ -11669,55 +11669,11 @@ module.exports = Component.exports
 var disposed = false
 function injectStyle (ssrContext) {
   if (disposed) return
-  __webpack_require__(39)
-}
-var Component = __webpack_require__(0)(
-  /* script */
-  __webpack_require__(25),
-  /* template */
-  __webpack_require__(52),
-  /* styles */
-  injectStyle,
-  /* scopeId */
-  null,
-  /* moduleIdentifier (server only) */
-  null
-)
-Component.options.__file = "/home/ali/edge-commander/assets/static/components/my_profile.vue"
-if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key.substr(0, 2) !== "__"})) {console.error("named exports are not supported in *.vue files.")}
-if (Component.options.functional) {console.error("[vue-loader] my_profile.vue: functional components are not supported with templates, they should use render functions.")}
-
-/* hot reload */
-if (false) {(function () {
-  var hotAPI = require("vue-hot-reload-api")
-  hotAPI.install(require("vue"), false)
-  if (!hotAPI.compatible) return
-  module.hot.accept()
-  if (!module.hot.data) {
-    hotAPI.createRecord("data-v-4e2955bc", Component.options)
-  } else {
-    hotAPI.reload("data-v-4e2955bc", Component.options)
-  }
-  module.hot.dispose(function (data) {
-    disposed = true
-  })
-})()}
-
-module.exports = Component.exports
-
-
-/***/ }),
-/* 11 */
-/***/ (function(module, exports, __webpack_require__) {
-
-var disposed = false
-function injectStyle (ssrContext) {
-  if (disposed) return
   __webpack_require__(43)
 }
 var Component = __webpack_require__(0)(
   /* script */
-  __webpack_require__(26),
+  __webpack_require__(25),
   /* template */
   __webpack_require__(56),
   /* styles */
@@ -11751,19 +11707,19 @@ module.exports = Component.exports
 
 
 /***/ }),
-/* 12 */
+/* 11 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var disposed = false
 function injectStyle (ssrContext) {
   if (disposed) return
-  __webpack_require__(40)
+  __webpack_require__(39)
 }
 var Component = __webpack_require__(0)(
   /* script */
-  __webpack_require__(27),
+  __webpack_require__(26),
   /* template */
-  __webpack_require__(53),
+  __webpack_require__(52),
   /* styles */
   injectStyle,
   /* scopeId */
@@ -11785,6 +11741,50 @@ if (false) {(function () {
     hotAPI.createRecord("data-v-998ba2d8", Component.options)
   } else {
     hotAPI.reload("data-v-998ba2d8", Component.options)
+  }
+  module.hot.dispose(function (data) {
+    disposed = true
+  })
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+/* 12 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var disposed = false
+function injectStyle (ssrContext) {
+  if (disposed) return
+  __webpack_require__(41)
+}
+var Component = __webpack_require__(0)(
+  /* script */
+  __webpack_require__(27),
+  /* template */
+  __webpack_require__(54),
+  /* styles */
+  injectStyle,
+  /* scopeId */
+  null,
+  /* moduleIdentifier (server only) */
+  null
+)
+Component.options.__file = "/home/ali/edge-commander/assets/static/components/settings.vue"
+if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key.substr(0, 2) !== "__"})) {console.error("named exports are not supported in *.vue files.")}
+if (Component.options.functional) {console.error("[vue-loader] settings.vue: functional components are not supported with templates, they should use render functions.")}
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-9cbbc66e", Component.options)
+  } else {
+    hotAPI.reload("data-v-9cbbc66e", Component.options)
   }
   module.hot.dispose(function (data) {
     disposed = true
@@ -11977,13 +11977,13 @@ module.exports = Component.exports
 var disposed = false
 function injectStyle (ssrContext) {
   if (disposed) return
-  __webpack_require__(41)
+  __webpack_require__(40)
 }
 var Component = __webpack_require__(0)(
   /* script */
   __webpack_require__(32),
   /* template */
-  __webpack_require__(54),
+  __webpack_require__(53),
   /* styles */
   injectStyle,
   /* scopeId */
@@ -18558,555 +18558,6 @@ var _App2 = _interopRequireDefault(_App);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; } //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-
-var app = new _vue2.default(_App2.default);
-
-module.exports = {
-  name: 'my_profile',
-  data: function data() {
-    var _form_labels;
-
-    return {
-      table_records: '',
-      dataTable: null,
-      add_button_label: "Add New",
-      my_profile: {
-        show_loading: false,
-        show_message: [],
-        show_errors: false,
-        firstname: "",
-        lastname: "",
-        email: "",
-        password: "",
-        api_key: "",
-        api_id: "",
-        username: "",
-        gravatar_url: "",
-        csrf_token: ""
-      },
-      three_user: {
-        show_loading: false,
-        show_add_errors: false,
-        show_edit_errors: false,
-        show_add_messages: [],
-        show_edit_messages: [],
-        username: "",
-        password: "",
-        bill_day: "",
-        edit_three_three_id: "",
-        edit_username: "",
-        edit_password: "",
-        edit_bill_day: ""
-      },
-      headings: [{ column: "Actions", id: "actions", class: "text-center" }, { column: "Username", id: "username" }, { column: "Password", id: "password" }, { column: "Bill Day", id: "bill_day", class: "text-center" }, { column: "Created At", id: "created_at", class: "text-center" }],
-      form_labels: (_form_labels = {
-        fname: "First Name",
-        lname: "Last Name",
-        email: "Email",
-        password: "Password",
-        api_key: "Api Key",
-        api_id: "Api Id",
-        title: "My Profile",
-        submit_button: "Save changes",
-        add_title: "Add new account (three.ie)",
-        username: "Username"
-      }, _defineProperty(_form_labels, 'password', "Password"), _defineProperty(_form_labels, 'day', "Bill Day"), _defineProperty(_form_labels, 'edit_title', "Edit account details"), _defineProperty(_form_labels, 'hide_show_title', "Show/Hide Columns"), _defineProperty(_form_labels, 'hide_show_button', "OK"), _form_labels),
-      user_id: ""
-    };
-  },
-  filters: {
-    formatDate: function formatDate(value) {
-      return moment(String(value)).format('DD/MM/YYYY HH:mm:ss');
-    }
-  },
-  methods: {
-    initDatatable: function initDatatable() {
-      var _this = this;
-
-      this.$http.get('/three_accounts').then(function (response) {
-        _this.table_records = response.body.users;
-        $("#data-table .dataTables_empty").hide();
-      }).catch(function (error) {
-        console.log(error);
-      });
-    },
-    updateMyProfile: function updateMyProfile() {
-      this.my_profile.show_loading = true;
-      this.my_profile.show_errors = true;
-
-      this.$http.patch('/update_profile', {
-        firstname: this.my_profile.firstname,
-        lastname: this.my_profile.lastname,
-        email: this.my_profile.email,
-        password: this.my_profile.password,
-        id: this.user_id
-      }).then(function (response) {
-        this.my_profile.show_message = "";
-        this.my_profile.show_errors = false;
-        this.my_profile.show_loading = false;
-        this.my_profile.password = "";
-        app.$notify({ group: 'notify', title: 'Profile has been updated.' });
-      }).catch(function (error) {
-        this.my_profile.show_message = error.body.errors;
-        this.my_profile.show_errors = true;
-        this.my_profile.show_loading = false;
-      });
-    },
-    get_my_prfile: function get_my_prfile() {
-      var _this2 = this;
-
-      this.$http.get('/get_porfile').then(function (response) {
-        _this2.my_profile.firstname = response.body.firstname;
-        _this2.my_profile.lastname = response.body.lastname;
-        _this2.my_profile.email = response.body.email;
-        _this2.my_profile.api_key = response.body.api_key;
-        _this2.my_profile.api_id = response.body.api_id;
-        _this2.user_id = response.body.id;
-        _this2.my_profile.username = response.body.username;
-        _this2.my_profile.gravatar_url = response.body.gravatar_url;
-        _this2.my_profile.csrf_token = response.body.csrf_token;
-      });
-    },
-    onUserButton: function onUserButton() {
-      $(this.$refs.addmodal).modal("show");
-    },
-    saveThreeModal: function saveThreeModal() {
-      this.three_user.show_loading = true;
-      this.three_user.show_add_errors = true;
-
-      this.$http.post('/three_accounts', {
-        username: this.three_user.username,
-        password: this.three_user.password,
-        user_id: this.user_id,
-        bill_day: this.three_user.bill_day
-      }).then(function (response) {
-        app.$notify({ group: 'notify', title: 'Three user has been added.' });
-        this.three_user.show_loading = false;
-        this.initDatatable();
-        this.clearForm();
-        $(this.$refs.addmodal).modal("hide");
-      }).catch(function (error) {
-        this.three_user.show_add_messages = error.body.errors;
-        this.three_user.show_add_errors = true;
-        this.three_user.show_loading = false;
-      });
-    },
-    clearForm: function clearForm() {
-      this.three_user.username = "";
-      this.three_user.password = "";
-      this.three_user.bill_day = "";
-      this.three_user.show_add_errors = false;
-      this.three_user.show_add_messages = "";
-    },
-    onThreeEditButton: function onThreeEditButton(data) {
-      this.three_user.edit_three_three_id = data.id;
-      this.three_user.edit_username = data.username;
-      this.three_user.edit_password = data.password;
-      this.three_user.edit_bill_day = data.bill_day;
-      $(this.$refs.editmodal).modal("show");
-    },
-    deleteThree: function deleteThree(threeID, event) {
-      var threeRow = void 0,
-          result = void 0;
-      threeRow = event.target.parentElement.parentElement;
-      result = confirm("Are you sure to delete this three user?");
-      if (result === false) {
-        return;
-      }
-      var data = {};
-      data.id = threeID;
-      this.$http.delete("/three_accounts/" + threeID, { threeRow: threeRow }).then(function (response) {
-        threeRow.remove();
-        app.$notify({ group: 'notify', title: 'Three user has been deleted.' });
-      }).catch(function (error) {
-        return false;
-      });
-    },
-    updateThree: function updateThree() {
-      this.three_user.show_edit_messages = "";
-      this.three_user.show_loading = true;
-      this.three_user.show_edit_errors = true;
-
-      this.$http.patch('/three_accounts', {
-        username: this.three_user.edit_username,
-        password: this.three_user.edit_password,
-        bill_day: this.three_user.edit_bill_day,
-        id: this.three_user.edit_three_three_id
-      }).then(function (response) {
-        app.$notify({ group: 'notify', title: 'Three user has been updated.' });
-        this.three_user.show_loading = false;
-        this.initDatatable();
-        this.editClearFrom();
-        $(this.$refs.editmodal).modal("hide");
-      }).catch(function (error) {
-        this.three_user.show_loading = false;
-        this.three_user.show_edit_messages = error.body.errors;
-        this.three_user.show_edit_errors = true;
-      });
-    },
-    editClearFrom: function editClearFrom() {
-      this.three_user.edit_username = "";
-      this.three_user.edit_password = "";
-      this.three_user.edit_bill_day = "";
-      this.three_user.show_edit_messages = "";
-      this.three_user.show_edit_errors = false;
-    },
-    onUserHideShowButton: function onUserHideShowButton() {
-      $(this.$refs.hideShow).modal("show");
-    },
-    showHideColumns: function showHideColumns(id) {
-      var column = this.dataTable.columns(id);
-      console.log(column.visible()[0]);
-      if (column.visible()[0] == true) {
-        column.visible(false);
-      } else {
-        column.visible(true);
-      }
-    },
-    select_menu_link: function select_menu_link() {
-      $("li").removeClass(" m-menu__item--active");
-      $(".my_profile").addClass(" m-menu__item--active");
-    }
-  },
-  created: function created() {
-    this.initDatatable();
-  },
-  mounted: function mounted() {
-    this.get_my_prfile();
-    this.select_menu_link();
-  },
-  updated: function updated() {
-    var dataTable = $('#data-table').DataTable({
-      autoWidth: false,
-      info: false,
-      bPaginate: false,
-      lengthChange: false,
-      searching: true,
-      scrollX: true,
-      colReorder: true,
-      retrieve: true
-    });
-    this.dataTable = dataTable;
-  }
-};
-
-/***/ }),
-/* 26 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-var _vue = __webpack_require__(2);
-
-var _vue2 = _interopRequireDefault(_vue);
-
-var _App = __webpack_require__(1);
-
-var _App2 = _interopRequireDefault(_App);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
 //
 //
 //
@@ -19843,7 +19294,7 @@ module.exports = {
 };
 
 /***/ }),
-/* 27 */
+/* 26 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -20395,6 +19846,748 @@ module.exports = {
     this.dataTable.search("");
     this.initHideShow();
     this.select_menu_link();
+  }
+};
+
+/***/ }),
+/* 27 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var _vue = __webpack_require__(2);
+
+var _vue2 = _interopRequireDefault(_vue);
+
+var _App = __webpack_require__(1);
+
+var _App2 = _interopRequireDefault(_App);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; } //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+var app = new _vue2.default(_App2.default);
+
+module.exports = {
+  name: 'settings',
+  data: function data() {
+    var _form_labels;
+
+    return {
+      table_records: '',
+      dataTable: null,
+      logsDataTable: null,
+      add_button_label: "Add New",
+      my_profile: {
+        show_loading: false,
+        show_message: [],
+        show_errors: false,
+        firstname: "",
+        lastname: "",
+        email: "",
+        password: "",
+        api_key: "",
+        api_id: "",
+        username: "",
+        gravatar_url: "",
+        csrf_token: ""
+      },
+      three_user: {
+        show_loading: false,
+        show_add_errors: false,
+        show_edit_errors: false,
+        show_add_messages: [],
+        show_edit_messages: [],
+        username: "",
+        password: "",
+        bill_day: "",
+        edit_three_three_id: "",
+        edit_username: "",
+        edit_password: "",
+        edit_bill_day: ""
+      },
+      headings: [{ column: "Actions", id: "actions", class: "text-center" }, { column: "Username", id: "username" }, { column: "Password", id: "password" }, { column: "Bill Day", id: "bill_day", class: "text-center" }, { column: "Created At", id: "created_at", class: "text-center" }],
+      headings_logs: [{ column: "Browser", id: "browser" }, { column: "IP address", id: "ip_address" }, { column: "Country", id: "country", class: "text-center" }, { column: "Date & Time", id: "created_at", class: "text-center" }, { column: "Event", id: "created_at" }],
+      form_labels: (_form_labels = {
+        fname: "First Name",
+        lname: "Last Name",
+        email: "Email",
+        password: "Password",
+        api_key: "Api Key",
+        api_id: "Api Id",
+        title: "My Profile",
+        submit_button: "Save changes",
+        add_title: "Add new account (three.ie)",
+        username: "Username"
+      }, _defineProperty(_form_labels, 'password', "Password"), _defineProperty(_form_labels, 'day', "Bill Day"), _defineProperty(_form_labels, 'edit_title', "Edit account details"), _defineProperty(_form_labels, 'hide_show_title', "Show/Hide Columns"), _defineProperty(_form_labels, 'hide_show_button', "OK"), _form_labels),
+      user_id: ""
+    };
+  },
+  filters: {
+    formatDate: function formatDate(value) {
+      return moment(String(value)).format('DD/MM/YYYY HH:mm:ss');
+    }
+  },
+  methods: {
+    initializeLogsTable: function initializeLogsTable() {
+      $("#m_sms_datepicker_from").datepicker({ autoclose: true, dateFormat: "yy-mm-dd" }).datepicker("setDate", new Date(new Date().getTime() - 48 * 60 * 60 * 1000));
+      $("#m_sms_datepicker_to").datepicker({ autoclose: true, dateFormat: "yy-mm-dd" }).datepicker("setDate", new Date());
+
+      var from_date = $("#m_sms_datepicker_from").val(),
+          to_date = $("#m_sms_datepicker_to").val();
+
+      var logsDataTable = $('#logs-datatable').DataTable({
+        fnInitComplete: function fnInitComplete() {
+          // Enable TFOOT scoll bars
+          $('.dataTables_scrollFoot').css('overflow', 'auto');
+          $('.dataTables_scrollHead').css('overflow', 'auto');
+          // Sync TFOOT scrolling with TBODY
+          $('.dataTables_scrollFoot').on('scroll', function () {
+            $('.dataTables_scrollBody').scrollLeft($(this).scrollLeft());
+          });
+          $('.dataTables_scrollHead').on('scroll', function () {
+            $('.dataTables_scrollBody').scrollLeft($(this).scrollLeft());
+          });
+        },
+        ajax: {
+          url: "/user_logs/" + from_date + "/" + to_date,
+          dataSrc: function dataSrc(data) {
+            return data.activity_logs;
+          },
+          error: function error(xhr, _error, thrown) {
+            if (xhr.responseJSON) {
+              console.log(xhr.responseJSON.message);
+            } else {
+              console.log("Something went wrong, Please try again.");
+            }
+          }
+        },
+        columns: [{
+          class: "text-left browser",
+          data: function data(row, type, set, meta) {
+            var browser = row.browser;
+            var platform = row.platform;
+            var browser_icon = void 0;
+            if (browser == 'IE') {
+              browser_icon = "internet-explorer";
+            } else {
+              browser_icon = browser.toLowerCase();
+            }
+            return '<i class="fa fa-' + browser_icon + '" aria-hidden="true"></i> ' + browser + ' on ' + platform;
+          }
+        }, {
+          class: "text-center ip",
+          data: function data(row, type, set, meta) {
+            return row.ip;
+          }
+        }, {
+          class: "country",
+          data: function data(row, type, set, meta) {
+            var country = row.country;
+            var country_code = row.country_code;
+            if (country != null) {
+              return '<img src="https://www.countryflags.io/' + country_code + '/shiny/16.png"> ' + row.country;
+            } else {
+              return "---";
+            }
+          }
+        }, {
+          class: "text-center inserted_at",
+          data: function data(row, type, set, meta) {
+            return moment(row.inserted_at).format('DD/MM/YYYY HH:mm:ss');
+          }
+        }, {
+          class: "text-left event",
+          data: function data(row, type, set, meta) {
+            return row.event;
+          }
+        }],
+        autoWidth: true,
+        info: false,
+        bPaginate: false,
+        lengthChange: false,
+        scrollX: true,
+        colReorder: true,
+        stateSave: true,
+        order: [[3, "desc"]]
+      });
+      this.logsDataTable = logsDataTable;
+    },
+    initializeTable: function initializeTable() {
+      var nvrDataTable = $('#nvr-datatable').DataTable({
+        fnInitComplete: function fnInitComplete() {
+          // Enable TFOOT scoll bars
+          $('.dataTables_scrollFoot').css('overflow', 'auto');
+          $('.dataTables_scrollHead').css('overflow', 'auto');
+          // Sync TFOOT scrolling with TBODY
+          $('.dataTables_scrollFoot').on('scroll', function () {
+            $('.dataTables_scrollBody').scrollLeft($(this).scrollLeft());
+          });
+          $('.dataTables_scrollHead').on('scroll', function () {
+            $('.dataTables_scrollBody').scrollLeft($(this).scrollLeft());
+          });
+        },
+        ajax: {
+          url: "/three_accounts",
+          dataSrc: function dataSrc(data) {
+            return data.users;
+          },
+          error: function error(xhr, _error2, thrown) {
+            if (xhr.responseJSON) {
+              console.log(xhr.responseJSON.message);
+            } else {
+              console.log("Something went wrong, Please try again.");
+            }
+          }
+        },
+        columns: [{
+          class: "text-center actions",
+          data: function data(row, type, set, meta) {
+            return '<div class="action_btn"><div id class="editNVR cursor_to_pointer fa fa-edit" data-id="' + row.id + '"></div> <div class="cursor_to_pointer fa fa-trash delNVR" data-id="' + row.id + '"></div></div>';
+          }
+        }, {
+          class: "text-left username",
+          data: function data(row, type, set, meta) {
+            return row.username;
+          }
+        }, {
+          class: "text-center password",
+          data: function data(row, type, set, meta) {
+            return row.password;
+          }
+        }, {
+          class: "text-center bill_day",
+          data: function data(row, type, set, meta) {
+            return row.bill_day;
+          }
+        }, {
+          class: "text-center created_at",
+          data: function data(row, type, set, meta) {
+            return moment(row.created_at).format('DD/MM/YYYY HH:mm:ss');
+          }
+        }],
+        autoWidth: true,
+        info: false,
+        bPaginate: false,
+        lengthChange: false,
+        scrollX: true,
+        colReorder: true,
+        stateSave: true
+      });
+      return this.dataTable = nvrDataTable;
+      this.dataTable.search("");
+    },
+    updateMyProfile: function updateMyProfile() {
+      this.my_profile.show_loading = true;
+      this.my_profile.show_errors = true;
+
+      this.$http.patch('/update_profile', {
+        firstname: this.my_profile.firstname,
+        lastname: this.my_profile.lastname,
+        email: this.my_profile.email,
+        password: this.my_profile.password,
+        id: this.user_id
+      }).then(function (response) {
+        this.my_profile.show_message = "";
+        this.my_profile.show_errors = false;
+        this.my_profile.show_loading = false;
+        this.my_profile.password = "";
+        app.$notify({ group: 'notify', title: 'Profile has been updated.' });
+      }).catch(function (error) {
+        this.my_profile.show_message = error.body.errors;
+        this.my_profile.show_errors = true;
+        this.my_profile.show_loading = false;
+      });
+    },
+    get_my_prfile: function get_my_prfile() {
+      var _this = this;
+
+      this.$http.get('/get_porfile').then(function (response) {
+        _this.my_profile.firstname = response.body.firstname;
+        _this.my_profile.lastname = response.body.lastname;
+        _this.my_profile.email = response.body.email;
+        _this.my_profile.api_key = response.body.api_key;
+        _this.my_profile.api_id = response.body.api_id;
+        _this.user_id = response.body.id;
+        _this.my_profile.username = response.body.username;
+        _this.my_profile.gravatar_url = response.body.gravatar_url;
+        _this.my_profile.csrf_token = response.body.csrf_token;
+      });
+    },
+    onUserButton: function onUserButton() {
+      $(this.$refs.addmodal).modal("show");
+    },
+    saveThreeModal: function saveThreeModal() {
+      this.three_user.show_loading = true;
+      this.three_user.show_add_errors = true;
+      this.$http.post('/three_accounts', {
+        username: this.three_user.username,
+        password: this.three_user.password,
+        user_id: this.user_id,
+        bill_day: this.three_user.bill_day
+      }).then(function (response) {
+        app.$notify({ group: 'notify', title: 'Three user has been added.' });
+        this.three_user.show_loading = false;
+        this.dataTable.ajax.reload();
+        this.clearForm();
+        $(this.$refs.addmodal).modal("hide");
+      }).catch(function (error) {
+        this.three_user.show_add_messages = error.body.errors;
+        this.three_user.show_add_errors = true;
+        this.three_user.show_loading = false;
+      });
+    },
+    clearForm: function clearForm() {
+      this.three_user.username = "";
+      this.three_user.password = "";
+      this.three_user.bill_day = "";
+      this.three_user.show_add_errors = false;
+      this.three_user.show_add_messages = "";
+    },
+    getUniqueIdentifier: function getUniqueIdentifier(nvrDataTable) {
+      $(document).on("click", ".editNVR", function () {
+        var tr = $(this).closest('tr');
+        var row = nvrDataTable.row(tr);
+        var data = row.data();
+        var nvr_id = $(this).data("id");
+        module.exports.methods.onThreeEditButton(nvr_id, data);
+      });
+    },
+    onThreeEditButton: function onThreeEditButton(nvr_id, data) {
+      $("#edit_three_three_id").val(nvr_id);
+      $("#edit_username").val(data.username);
+      $("#edit_password").val(data.password);
+      $("#edit_bill_day").val(data.bill_day);
+      $('#edit_three_user_to_db').modal('show');
+    },
+    deleteThree: function deleteThree() {
+      $(document).on("click", ".delNVR", function () {
+        var threeRow = void 0,
+            result = void 0;
+        threeRow = $(this).closest('tr');
+        var threeID = $(this).data("id");
+
+        result = confirm("Are you sure to delete this three user?");
+        if (result === false) {
+          return;
+        }
+        app.$http.delete("/three_accounts/" + threeID, { threeRow: threeRow }).then(function (response) {
+          threeRow.remove();
+          app.$notify({ group: 'notify', title: 'Three user has been deleted.' });
+        }).catch(function (error) {
+          return false;
+        });
+      });
+    },
+    dateFilterInitialize: function dateFilterInitialize() {
+      var table_data = this.logsDataTable;
+      $('#m_sms_datepicker_from, #m_sms_datepicker_to').change(function () {
+        var from_date = $("#m_sms_datepicker_from").val(),
+            to_date = $("#m_sms_datepicker_to").val();
+        var new_url = "/user_logs/" + from_date + "/" + to_date;
+        table_data.ajax.url(new_url).load();
+      });
+    },
+    updateThree: function updateThree() {
+      this.three_user.show_edit_messages = "";
+      this.three_user.show_loading = true;
+      this.three_user.show_edit_errors = true;
+      this.$http.patch('/three_accounts', {
+        username: $("#edit_username").val(),
+        password: $("#edit_password").val(),
+        bill_day: $("#edit_bill_day").val(),
+        id: $("#edit_three_three_id").val()
+      }).then(function (response) {
+        app.$notify({ group: 'notify', title: 'Three user has been updated.' });
+        this.three_user.show_loading = false;
+        this.dataTable.ajax.reload();
+        this.editClearFrom();
+        $(this.$refs.editmodal).modal("hide");
+      }).catch(function (error) {
+        this.three_user.show_loading = false;
+        this.three_user.show_edit_messages = error.body.errors;
+        this.three_user.show_edit_errors = true;
+      });
+    },
+    editClearFrom: function editClearFrom() {
+      this.three_user.edit_username = "";
+      this.three_user.edit_password = "";
+      this.three_user.edit_bill_day = "";
+      this.three_user.show_edit_messages = "";
+      this.three_user.show_edit_errors = false;
+    },
+    onUserHideShowButton: function onUserHideShowButton() {
+      $(this.$refs.hideShow).modal("show");
+    },
+    showHideColumns: function showHideColumns(id) {
+      var column = this.dataTable.columns(id);
+      console.log(column.visible()[0]);
+      if (column.visible()[0] == true) {
+        column.visible(false);
+      } else {
+        column.visible(true);
+      }
+    },
+    select_menu_link: function select_menu_link() {
+      $("li").removeClass(" m-menu__item--active");
+      $(".my_profile").addClass(" m-menu__item--active");
+    },
+    redraw_table: function redraw_table() {
+      this.dataTable.ajax.reload();
+      this.logsDataTable.ajax.reload();
+    }
+  },
+  mounted: function mounted() {
+    this.get_my_prfile();
+    this.select_menu_link();
+    var table = this.initializeTable();
+    this.getUniqueIdentifier(table);
+    this.deleteThree();
+    this.initializeLogsTable();
+    this.dateFilterInitialize();
   }
 };
 
@@ -22841,19 +23034,19 @@ var _App = __webpack_require__(1);
 
 var _App2 = _interopRequireDefault(_App);
 
-var _my_profile = __webpack_require__(10);
+var _settings = __webpack_require__(12);
 
-var _my_profile2 = _interopRequireDefault(_my_profile);
+var _settings2 = _interopRequireDefault(_settings);
 
 var _commands = __webpack_require__(8);
 
 var _commands2 = _interopRequireDefault(_commands);
 
-var _routers = __webpack_require__(12);
+var _routers = __webpack_require__(11);
 
 var _routers2 = _interopRequireDefault(_routers);
 
-var _nvrs = __webpack_require__(11);
+var _nvrs = __webpack_require__(10);
 
 var _nvrs2 = _interopRequireDefault(_nvrs);
 
@@ -22917,9 +23110,9 @@ _vue2.default.use(_vueNotification2.default);
 var router = new _vueRouter2.default({
   mode: 'history',
   routes: [{
-    path: '/my_profile',
-    name: 'my_profile',
-    component: _my_profile2.default
+    path: '/settings',
+    name: 'settings',
+    component: _settings2.default
   }, {
     path: '/commands',
     name: 'commands',
@@ -23382,20 +23575,20 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
   }), _vm._v(" "), _c('span', {
     staticClass: "m-menu__link-text"
   }, [_vm._v("API")])])], 1), _vm._v(" "), _c('li', {
-    staticClass: "m-menu__item my_profile",
+    staticClass: "m-menu__item settings",
     attrs: {
       "aria-haspopup": "true"
     }
   }, [_c('router-link', {
     staticClass: "m-menu__link",
     attrs: {
-      "to": '/my_profile'
+      "to": '/settings'
     }
   }, [_c('i', {
-    staticClass: "m-menu__link-icon fa fa-user m-menu__link-text"
+    staticClass: "m-menu__link-icon fa fa-gear m-menu__link-text"
   }), _vm._v(" "), _c('span', {
     staticClass: "m-menu__link-text"
-  }, [_vm._v("My Profile")])])], 1), _vm._v(" "), _vm._m(2)])])]), _vm._v(" "), _c('div', {
+  }, [_vm._v("Settings")])])], 1), _vm._v(" "), _vm._m(2)])])]), _vm._v(" "), _c('div', {
     staticClass: "m-grid__item m-grid__item--fluid m-wrapper content_right_panel",
     attrs: {
       "id": "remote_data"
@@ -25368,824 +25561,6 @@ if (false) {
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('div', {
-    staticClass: "m-content"
-  }, [(_vm.my_profile.show_loading) ? _c('img', {
-    attrs: {
-      "src": "/images/loading.gif",
-      "id": "api-wait"
-    }
-  }) : _vm._e(), _vm._v(" "), _c('div', {
-    staticClass: "row"
-  }, [_c('div', {
-    staticClass: "col-sm-12"
-  }, [_c('div', {
-    staticClass: "m-portlet m-portlet--tab",
-    staticStyle: {
-      "margin-bottom": "5px"
-    }
-  }, [_vm._m(0), _vm._v(" "), _c('div', {
-    staticClass: "col-sm-6"
-  }, [(_vm.my_profile.show_errors) ? _c('div', {
-    attrs: {
-      "id": "myProfileErrorDetail"
-    }
-  }, [_c('div', {
-    staticClass: "form-group m-form__group m--margin-top-10"
-  }, [_c('div', {
-    staticClass: "alert m-alert m-alert--default",
-    attrs: {
-      "role": "alert"
-    }
-  }, [_c('ul', {
-    staticStyle: {
-      "margin": "0px"
-    }
-  }, _vm._l((_vm.my_profile.show_message), function(message) {
-    return _c('li', [_vm._v(_vm._s(message))])
-  }))])])]) : _vm._e(), _vm._v(" "), _c('div', {
-    staticClass: "m--margin-top-20"
-  }, [_c('img', {
-    staticClass: "gravatar pull-left",
-    attrs: {
-      "src": _vm.my_profile.gravatar_url
-    }
-  }), _vm._v(" "), _c('div', {
-    staticClass: "username"
-  }, [_c('span', {
-    staticClass: "grey"
-  }, [_vm._v("Username ")]), _c('strong', [_c('span', {
-    domProps: {
-      "innerHTML": _vm._s(_vm.my_profile.username)
-    }
-  })])]), _vm._v(" "), _vm._m(1)]), _vm._v(" "), _c('div', {
-    staticClass: "clearfix"
-  }), _vm._v(" "), _c('div', {
-    staticClass: "m-form m-form--fit m-form--label-align-left",
-    staticStyle: {
-      "margin-left": "10px"
-    }
-  }, [_c('input', {
-    directives: [{
-      name: "model",
-      rawName: "v-model",
-      value: (_vm.user_id),
-      expression: "user_id"
-    }],
-    attrs: {
-      "type": "hidden",
-      "id": "id"
-    },
-    domProps: {
-      "value": (_vm.user_id)
-    },
-    on: {
-      "input": function($event) {
-        if ($event.target.composing) { return; }
-        _vm.user_id = $event.target.value
-      }
-    }
-  }), _vm._v(" "), _c('input', {
-    directives: [{
-      name: "model",
-      rawName: "v-model",
-      value: (_vm.my_profile.csrf_token),
-      expression: "my_profile.csrf_token"
-    }],
-    attrs: {
-      "type": "hidden"
-    },
-    domProps: {
-      "value": (_vm.my_profile.csrf_token)
-    },
-    on: {
-      "input": function($event) {
-        if ($event.target.composing) { return; }
-        _vm.$set(_vm.my_profile, "csrf_token", $event.target.value)
-      }
-    }
-  }), _vm._v(" "), _c('div', {
-    staticClass: "form-group m-form__group row"
-  }, [_c('label', {
-    staticClass: "col-3 col-form-label"
-  }, [_vm._v("\n                              " + _vm._s(_vm.form_labels.fname) + "\n                          ")]), _vm._v(" "), _c('div', {
-    staticClass: "col-9"
-  }, [_c('input', {
-    directives: [{
-      name: "model",
-      rawName: "v-model",
-      value: (_vm.my_profile.firstname),
-      expression: "my_profile.firstname"
-    }],
-    staticClass: "form-control m-input",
-    attrs: {
-      "type": "text"
-    },
-    domProps: {
-      "value": (_vm.my_profile.firstname)
-    },
-    on: {
-      "input": function($event) {
-        if ($event.target.composing) { return; }
-        _vm.$set(_vm.my_profile, "firstname", $event.target.value)
-      }
-    }
-  })])]), _vm._v(" "), _c('div', {
-    staticClass: "form-group m-form__group row"
-  }, [_c('label', {
-    staticClass: "col-3 col-form-label"
-  }, [_vm._v("\n                              " + _vm._s(_vm.form_labels.lname) + "\n                          ")]), _vm._v(" "), _c('div', {
-    staticClass: "col-9"
-  }, [_c('input', {
-    directives: [{
-      name: "model",
-      rawName: "v-model",
-      value: (_vm.my_profile.lastname),
-      expression: "my_profile.lastname"
-    }],
-    staticClass: "form-control m-input",
-    attrs: {
-      "type": "text"
-    },
-    domProps: {
-      "value": (_vm.my_profile.lastname)
-    },
-    on: {
-      "input": function($event) {
-        if ($event.target.composing) { return; }
-        _vm.$set(_vm.my_profile, "lastname", $event.target.value)
-      }
-    }
-  })])]), _vm._v(" "), _c('div', {
-    staticClass: "form-group m-form__group row"
-  }, [_c('label', {
-    staticClass: "col-3 col-form-label"
-  }, [_vm._v("\n                              " + _vm._s(_vm.form_labels.email) + "\n                          ")]), _vm._v(" "), _c('div', {
-    staticClass: "col-9"
-  }, [_c('input', {
-    directives: [{
-      name: "model",
-      rawName: "v-model",
-      value: (_vm.my_profile.email),
-      expression: "my_profile.email"
-    }],
-    staticClass: "form-control m-input",
-    attrs: {
-      "type": "email"
-    },
-    domProps: {
-      "value": (_vm.my_profile.email)
-    },
-    on: {
-      "input": function($event) {
-        if ($event.target.composing) { return; }
-        _vm.$set(_vm.my_profile, "email", $event.target.value)
-      }
-    }
-  })])]), _vm._v(" "), _c('div', {
-    staticClass: "form-group m-form__group row"
-  }, [_c('label', {
-    staticClass: "col-3 col-form-label"
-  }, [_vm._v("\n                              " + _vm._s(_vm.form_labels.password) + "\n                          ")]), _vm._v(" "), _c('div', {
-    staticClass: "col-9"
-  }, [_c('input', {
-    directives: [{
-      name: "model",
-      rawName: "v-model",
-      value: (_vm.my_profile.password),
-      expression: "my_profile.password"
-    }],
-    staticClass: "form-control m-input",
-    attrs: {
-      "type": "password"
-    },
-    domProps: {
-      "value": (_vm.my_profile.password)
-    },
-    on: {
-      "input": function($event) {
-        if ($event.target.composing) { return; }
-        _vm.$set(_vm.my_profile, "password", $event.target.value)
-      }
-    }
-  })])]), _vm._v(" "), _c('div', {
-    staticClass: "form-group m-form__group row"
-  }, [_c('label', {
-    staticClass: "col-3 col-form-label"
-  }, [_vm._v("\n                              " + _vm._s(_vm.form_labels.api_key) + "\n                          ")]), _vm._v(" "), _c('div', {
-    staticClass: "col-9",
-    staticStyle: {
-      "padding": "10px 15px"
-    },
-    domProps: {
-      "innerHTML": _vm._s(_vm.my_profile.api_key)
-    }
-  })]), _vm._v(" "), _c('div', {
-    staticClass: "form-group m-form__group row",
-    staticStyle: {
-      "padding-top": "0"
-    }
-  }, [_c('label', {
-    staticClass: "col-3 col-form-label"
-  }, [_vm._v("\n                              " + _vm._s(_vm.form_labels.api_id) + "\n                          ")]), _vm._v(" "), _c('div', {
-    staticClass: "col-9",
-    staticStyle: {
-      "padding": "10px 15px"
-    },
-    domProps: {
-      "innerHTML": _vm._s(_vm.my_profile.api_id)
-    }
-  })]), _vm._v(" "), _c('div', {
-    staticClass: "form-group m-form__group row"
-  }, [_c('label', {
-    staticClass: "col-3 col-form-label"
-  }), _vm._v(" "), _c('div', {
-    staticClass: "col-9"
-  }, [_c('button', {
-    staticClass: "btn btn-default",
-    attrs: {
-      "type": "button",
-      "id": "updateMyProfile"
-    },
-    on: {
-      "click": function($event) {
-        _vm.updateMyProfile()
-      }
-    }
-  }, [_vm._v("\n                              " + _vm._s(_vm.form_labels.submit_button) + "\n                            ")])])]), _vm._v(" "), _c('div', {
-    staticStyle: {
-      "height": "20px"
-    }
-  })])])])])]), _vm._v(" "), _c('div', {
-    staticClass: "m-portlet m-portlet--mobile",
-    staticStyle: {
-      "margin-bottom": "0"
-    }
-  }, [_c('div', {
-    staticClass: "m-portlet__body",
-    staticStyle: {
-      "padding": "10px"
-    }
-  }, [_c('div', {
-    staticClass: "m-form m-form--label-align-right m--margin-bottom-10"
-  }, [_c('div', {
-    staticClass: "row align-items-center"
-  }, [_vm._m(2), _vm._v(" "), _c('div', {
-    staticClass: "col-xl-4 order-1 order-xl-2 m--align-right"
-  }, [_c('a', {
-    staticClass: "btn btn-primary m-btn m-btn--icon",
-    attrs: {
-      "href": "javascript:void(0)"
-    },
-    on: {
-      "click": _vm.onUserButton
-    }
-  }, [_c('span', [_c('i', {
-    staticClass: "fa fa-plus-square"
-  }), _vm._v(" "), _c('span', [_vm._v("\n                              " + _vm._s(_vm.add_button_label) + "\n                          ")])])]), _vm._v(" "), _c('div', {
-    staticClass: "btn btn-default grey",
-    attrs: {
-      "href": "javascript:void(0)"
-    },
-    on: {
-      "click": _vm.onUserHideShowButton
-    }
-  }, [_c('i', {
-    staticClass: "fa fa-columns"
-  })])])])]), _vm._v(" "), _c('table', {
-    staticClass: "table table-striped  table-hover table-bordered display nowrap",
-    attrs: {
-      "id": "data-table",
-      "cellspacing": "0",
-      "width": "100%"
-    }
-  }, [_c('thead', [_c('tr', _vm._l((_vm.headings), function(item, index) {
-    return _c('th', {
-      class: item.class
-    }, [_vm._v(_vm._s(item.column))])
-  }))]), _vm._v(" "), _c('tbody', _vm._l((_vm.table_records), function(record) {
-    return _c('tr', [_c('td', {
-      staticClass: "text-center actions"
-    }, [_c('div', {
-      staticClass: "cursor_to_pointer fa fa-edit",
-      on: {
-        "click": function($event) {
-          _vm.onThreeEditButton(record)
-        }
-      }
-    }), _vm._v(" "), _c('div', {
-      staticClass: "cursor_to_pointer fa fa-trash",
-      on: {
-        "click": function($event) {
-          _vm.deleteThree(record.id, $event)
-        }
-      }
-    })]), _vm._v(" "), _c('td', {
-      staticClass: "username"
-    }, [_vm._v(_vm._s(record.username))]), _vm._v(" "), _c('td', {
-      staticClass: "password"
-    }, [_vm._v(_vm._s(record.password))]), _vm._v(" "), _c('td', {
-      staticClass: "text-center bill_day"
-    }, [_vm._v(_vm._s(record.bill_day))]), _vm._v(" "), _c('td', {
-      staticClass: "text-center created_at"
-    }, [_vm._v(_vm._s(_vm._f("formatDate")(record.created_at)))])])
-  }))])])]), _vm._v(" "), _c('div', {
-    ref: "addmodal",
-    staticClass: "modal fade add_user_to_db",
-    staticStyle: {
-      "padding": "0px"
-    },
-    attrs: {
-      "id": "m_modal_1",
-      "tabindex": "-1",
-      "role": "dialog",
-      "aria-labelledby": "exampleModalLabel",
-      "aria-hidden": "true",
-      "data-backdrop": "static",
-      "data-keyboard": "false"
-    }
-  }, [_c('div', {
-    staticClass: "modal-dialog",
-    attrs: {
-      "role": "document"
-    }
-  }, [_c('div', {
-    staticClass: "modal-content",
-    staticStyle: {
-      "padding": "0px"
-    }
-  }, [_c('div', {
-    staticClass: "modal-header"
-  }, [_c('h5', {
-    staticClass: "modal-title",
-    attrs: {
-      "id": "exampleModalLabel"
-    }
-  }, [_vm._v("\n                       " + _vm._s(_vm.form_labels.add_title) + "\n                    ")]), _vm._v(" "), _c('div', {
-    staticClass: "cancel"
-  }, [_c('a', {
-    attrs: {
-      "href": "#",
-      "id": "discardModal",
-      "data-dismiss": "modal"
-    },
-    on: {
-      "click": _vm.clearForm
-    }
-  }, [_vm._v("X")])])]), _vm._v(" "), _c('div', {
-    staticClass: "modal-body"
-  }, [(_vm.three_user.show_loading) ? _c('img', {
-    attrs: {
-      "src": "/images/loading.gif",
-      "id": "api-wait"
-    }
-  }) : _vm._e(), _vm._v(" "), (_vm.three_user.show_add_errors) ? _c('div', {
-    attrs: {
-      "id": "threeErrorDetails"
-    }
-  }, [_c('div', {
-    staticClass: "form-group m-form__group m--margin-top-10"
-  }, [_c('div', {
-    staticClass: "alert m-alert m-alert--default",
-    attrs: {
-      "role": "alert"
-    }
-  }, [_c('ul', {
-    staticStyle: {
-      "margin": "0px"
-    }
-  }, _vm._l((_vm.three_user.show_add_messages), function(message) {
-    return _c('li', [_vm._v(_vm._s(message))])
-  }))])])]) : _vm._e(), _vm._v(" "), _c('div', {
-    staticClass: "m-form m-form--fit m-form--label-align-left"
-  }, [_c('input', {
-    directives: [{
-      name: "model",
-      rawName: "v-model",
-      value: (_vm.user_id),
-      expression: "user_id"
-    }],
-    attrs: {
-      "type": "hidden"
-    },
-    domProps: {
-      "value": (_vm.user_id)
-    },
-    on: {
-      "input": function($event) {
-        if ($event.target.composing) { return; }
-        _vm.user_id = $event.target.value
-      }
-    }
-  }), _vm._v(" "), _c('div', {
-    staticClass: "form-group m-form__group row"
-  }, [_c('label', {
-    staticClass: "col-3 col-form-label"
-  }, [_vm._v("\n                                " + _vm._s(_vm.form_labels.username) + "\n                            ")]), _vm._v(" "), _c('div', {
-    staticClass: "col-9"
-  }, [_c('input', {
-    directives: [{
-      name: "model",
-      rawName: "v-model",
-      value: (_vm.three_user.username),
-      expression: "three_user.username"
-    }],
-    staticClass: "form-control m-input m-input--solid",
-    attrs: {
-      "type": "text"
-    },
-    domProps: {
-      "value": (_vm.three_user.username)
-    },
-    on: {
-      "input": function($event) {
-        if ($event.target.composing) { return; }
-        _vm.$set(_vm.three_user, "username", $event.target.value)
-      }
-    }
-  })])]), _vm._v(" "), _c('div', {
-    staticClass: "form-group m-form__group row"
-  }, [_c('label', {
-    staticClass: "col-3 col-form-label"
-  }, [_vm._v("\n                                " + _vm._s(_vm.form_labels.password) + "\n                            ")]), _vm._v(" "), _c('div', {
-    staticClass: "col-9"
-  }, [_c('input', {
-    directives: [{
-      name: "model",
-      rawName: "v-model",
-      value: (_vm.three_user.password),
-      expression: "three_user.password"
-    }],
-    staticClass: "form-control m-input m-input--solid",
-    attrs: {
-      "type": "text"
-    },
-    domProps: {
-      "value": (_vm.three_user.password)
-    },
-    on: {
-      "input": function($event) {
-        if ($event.target.composing) { return; }
-        _vm.$set(_vm.three_user, "password", $event.target.value)
-      }
-    }
-  })])]), _vm._v(" "), _c('div', {
-    staticClass: "form-group m-form__group row"
-  }, [_c('label', {
-    staticClass: "col-3 col-form-label"
-  }, [_vm._v("\n                           " + _vm._s(_vm.form_labels.day) + "\n                          ")]), _vm._v(" "), _c('div', {
-    staticClass: "col-9"
-  }, [_c('input', {
-    directives: [{
-      name: "model",
-      rawName: "v-model",
-      value: (_vm.three_user.bill_day),
-      expression: "three_user.bill_day"
-    }],
-    staticClass: "form-control m-input m-input--solid",
-    attrs: {
-      "type": "number",
-      "min": "1",
-      "max": "31"
-    },
-    domProps: {
-      "value": (_vm.three_user.bill_day)
-    },
-    on: {
-      "input": function($event) {
-        if ($event.target.composing) { return; }
-        _vm.$set(_vm.three_user, "bill_day", $event.target.value)
-      }
-    }
-  })])])])]), _vm._v(" "), _c('div', {
-    staticClass: "modal-footer",
-    staticStyle: {
-      "padding": "11px"
-    }
-  }, [_c('button', {
-    staticClass: "btn btn-default",
-    attrs: {
-      "id": "",
-      "type": "button"
-    },
-    on: {
-      "click": function($event) {
-        _vm.saveThreeModal()
-      }
-    }
-  }, [_vm._v("\n                        " + _vm._s(_vm.form_labels.submit_button) + "\n                    ")])])])])]), _vm._v(" "), _c('div', {
-    ref: "hideShow",
-    staticClass: "modal fade",
-    staticStyle: {
-      "padding": "0px"
-    },
-    attrs: {
-      "id": "toggle-datatable-columns"
-    }
-  }, [_c('div', {
-    staticClass: "modal-dialog",
-    staticStyle: {
-      "width": "300px"
-    }
-  }, [_c('div', {
-    staticClass: "modal-content",
-    staticStyle: {
-      "padding": "0px"
-    }
-  }, [_c('div', {
-    staticClass: "modal-header"
-  }, [_c('div', {
-    staticClass: "caption"
-  }, [_c('strong', [_vm._v(_vm._s(_vm.form_labels.hide_show_title))])]), _vm._v(" "), _vm._m(3)]), _vm._v(" "), _c('div', {
-    staticClass: "modal-body",
-    staticStyle: {
-      "padding": "15px",
-      "padding-bottom": "0px"
-    }
-  }, [_c('div', {
-    staticClass: "form-group"
-  }, _vm._l((_vm.headings), function(item, index) {
-    return _c('div', {
-      staticClass: "column-checkbox"
-    }, [_c('label', {
-      staticClass: "m-checkbox m-checkbox--single m-checkbox--solid m-checkbox--brand",
-      staticStyle: {
-        "width": "auto"
-      }
-    }, [_c('input', {
-      staticClass: "users-column",
-      attrs: {
-        "type": "checkbox",
-        "checked": "checked",
-        "id": index,
-        "name": item.id
-      },
-      on: {
-        "change": function($event) {
-          _vm.showHideColumns(index)
-        }
-      }
-    }), _c('span'), _vm._v(" " + _vm._s(item.column))])])
-  }))]), _vm._v(" "), _c('div', {
-    staticClass: "modal-footer",
-    staticStyle: {
-      "padding": "11px"
-    }
-  }, [_c('div', {
-    staticClass: "pull-right"
-  }, [_c('button', {
-    staticClass: "btn btn-default",
-    attrs: {
-      "type": "button",
-      "data-dismiss": "modal"
-    }
-  }, [_vm._v(_vm._s(_vm.form_labels.hide_show_button))])])])])])]), _vm._v(" "), _c('div', {
-    ref: "editmodal",
-    staticClass: "modal fade",
-    staticStyle: {
-      "padding": "0px"
-    },
-    attrs: {
-      "id": "edit_three_user_to_db",
-      "data-backdrop": "static",
-      "data-keyboard": "false"
-    }
-  }, [_c('div', {
-    staticClass: "modal-dialog",
-    attrs: {
-      "role": "document"
-    }
-  }, [_c('div', {
-    staticClass: "modal-content",
-    staticStyle: {
-      "padding": "0px"
-    }
-  }, [_c('div', {
-    staticClass: "modal-header"
-  }, [_c('h5', {
-    staticClass: "modal-title",
-    attrs: {
-      "id": "exampleModalLabel"
-    }
-  }, [_vm._v("\n                    " + _vm._s(_vm.form_labels.edit_title) + "\n                ")]), _vm._v(" "), _c('div', {
-    staticClass: "cancel"
-  }, [_c('a', {
-    attrs: {
-      "href": "#",
-      "id": "discardEditModal",
-      "data-dismiss": "modal"
-    },
-    on: {
-      "click": function($event) {
-        _vm.editClearFrom()
-      }
-    }
-  }, [_vm._v("X")])])]), _vm._v(" "), _c('div', {
-    staticClass: "modal-body",
-    attrs: {
-      "id": "body-three-edit-dis"
-    }
-  }, [(_vm.three_user.show_loading) ? _c('img', {
-    attrs: {
-      "src": "/images/loading.gif",
-      "id": "api-wait"
-    }
-  }) : _vm._e(), _vm._v(" "), (_vm.three_user.show_edit_errors) ? _c('div', {
-    attrs: {
-      "id": "threeEditErrorDetails"
-    }
-  }, [_c('div', {
-    staticClass: "form-group m-form__group m--margin-top-10"
-  }, [_c('div', {
-    staticClass: "alert m-alert m-alert--default",
-    attrs: {
-      "role": "alert"
-    }
-  }, [_c('ul', {
-    staticStyle: {
-      "margin": "0px"
-    }
-  }, _vm._l((_vm.three_user.show_edit_messages), function(message) {
-    return _c('li', [_vm._v(_vm._s(message))])
-  }))])])]) : _vm._e(), _vm._v(" "), _c('div', {
-    staticClass: "m-form m-form--fit m-form--label-align-left"
-  }, [_c('input', {
-    attrs: {
-      "type": "hidden",
-      "id": "user_id",
-      "value": "<%= @user.id %>"
-    }
-  }), _vm._v(" "), _c('input', {
-    directives: [{
-      name: "model",
-      rawName: "v-model",
-      value: (_vm.three_user.edit_three_three_id),
-      expression: "three_user.edit_three_three_id"
-    }],
-    attrs: {
-      "type": "hidden"
-    },
-    domProps: {
-      "value": (_vm.three_user.edit_three_three_id)
-    },
-    on: {
-      "input": function($event) {
-        if ($event.target.composing) { return; }
-        _vm.$set(_vm.three_user, "edit_three_three_id", $event.target.value)
-      }
-    }
-  }), _vm._v(" "), _c('div', {
-    staticClass: "form-group m-form__group row"
-  }, [_c('label', {
-    staticClass: "col-3 col-form-label"
-  }, [_vm._v("\n                            " + _vm._s(_vm.form_labels.username) + "\n                        ")]), _vm._v(" "), _c('div', {
-    staticClass: "col-9"
-  }, [_c('input', {
-    directives: [{
-      name: "model",
-      rawName: "v-model",
-      value: (_vm.three_user.edit_username),
-      expression: "three_user.edit_username"
-    }],
-    staticClass: "form-control m-input m-input--solid",
-    attrs: {
-      "type": "text"
-    },
-    domProps: {
-      "value": (_vm.three_user.edit_username)
-    },
-    on: {
-      "input": function($event) {
-        if ($event.target.composing) { return; }
-        _vm.$set(_vm.three_user, "edit_username", $event.target.value)
-      }
-    }
-  })])]), _vm._v(" "), _c('div', {
-    staticClass: "form-group m-form__group row"
-  }, [_c('label', {
-    staticClass: "col-3 col-form-label"
-  }, [_vm._v("\n                            " + _vm._s(_vm.form_labels.password) + "\n                        ")]), _vm._v(" "), _c('div', {
-    staticClass: "col-9"
-  }, [_c('input', {
-    directives: [{
-      name: "model",
-      rawName: "v-model",
-      value: (_vm.three_user.edit_password),
-      expression: "three_user.edit_password"
-    }],
-    staticClass: "form-control m-input m-input--solid",
-    attrs: {
-      "type": "text"
-    },
-    domProps: {
-      "value": (_vm.three_user.edit_password)
-    },
-    on: {
-      "input": function($event) {
-        if ($event.target.composing) { return; }
-        _vm.$set(_vm.three_user, "edit_password", $event.target.value)
-      }
-    }
-  })])]), _vm._v(" "), _c('div', {
-    staticClass: "form-group m-form__group row"
-  }, [_c('label', {
-    staticClass: "col-3 col-form-label"
-  }, [_vm._v("\n                       " + _vm._s(_vm.form_labels.day) + "\n                      ")]), _vm._v(" "), _c('div', {
-    staticClass: "col-9"
-  }, [_c('input', {
-    directives: [{
-      name: "model",
-      rawName: "v-model",
-      value: (_vm.three_user.edit_bill_day),
-      expression: "three_user.edit_bill_day"
-    }],
-    staticClass: "form-control m-input m-input--solid",
-    attrs: {
-      "type": "number",
-      "min": "1",
-      "max": "31"
-    },
-    domProps: {
-      "value": (_vm.three_user.edit_bill_day)
-    },
-    on: {
-      "input": function($event) {
-        if ($event.target.composing) { return; }
-        _vm.$set(_vm.three_user, "edit_bill_day", $event.target.value)
-      }
-    }
-  })])])])]), _vm._v(" "), _c('div', {
-    staticClass: "modal-footer",
-    staticStyle: {
-      "padding": "11px"
-    }
-  }, [_c('button', {
-    staticClass: "btn btn-default",
-    attrs: {
-      "id": "",
-      "type": "button"
-    },
-    on: {
-      "click": _vm.updateThree
-    }
-  }, [_vm._v("\n                    " + _vm._s(_vm.form_labels.submit_button) + "\n                ")])])])])])])
-},staticRenderFns: [function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('div', {
-    staticClass: "m-portlet__head"
-  }, [_c('div', {
-    staticClass: "m-portlet__head-caption"
-  }, [_c('div', {
-    staticClass: "m-portlet__head-title"
-  }, [_c('span', {
-    staticClass: "m-portlet__head-icon m--hide"
-  }, [_c('i', {
-    staticClass: "la la-gear"
-  })]), _vm._v(" "), _c('h3', {
-    staticClass: "m-portlet__head-text"
-  }, [_c('i', {
-    staticClass: "fa fa-user"
-  }), _vm._v(" My Profile\n                          ")])])])])
-},function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('p', {
-    staticClass: "small grey"
-  }, [_vm._v("Manage your avatar with "), _c('a', {
-    attrs: {
-      "href": "https://en.gravatar.com/",
-      "target": "_blank"
-    }
-  }, [_vm._v("Gravatar")])])
-},function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('div', {
-    staticClass: "col-xl-8 order-2 order-xl-1"
-  }, [_c('div', {
-    staticClass: "form-group m-form__group row align-items-center"
-  }, [_c('div', {
-    staticClass: "col-md-4"
-  }, [_c('h5', [_vm._v("Three Accounts")])])])])
-},function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('div', {
-    staticClass: "cancel"
-  }, [_c('a', {
-    staticClass: "cancel_link",
-    attrs: {
-      "href": "#",
-      "data-dismiss": "modal"
-    }
-  }, [_vm._v("X")])])
-}]}
-module.exports.render._withStripped = true
-if (false) {
-  module.hot.accept()
-  if (module.hot.data) {
-     require("vue-hot-reload-api").rerender("data-v-4e2955bc", module.exports)
-  }
-}
-
-/***/ }),
-/* 53 */
-/***/ (function(module, exports, __webpack_require__) {
-
-module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
   return _c('div', [_c('div', {
     staticClass: "m-content"
   }, [_c('div', {
@@ -26839,7 +26214,7 @@ if (false) {
 }
 
 /***/ }),
-/* 54 */
+/* 53 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
@@ -26905,6 +26280,860 @@ if (false) {
   module.hot.accept()
   if (module.hot.data) {
      require("vue-hot-reload-api").rerender("data-v-9b244d2a", module.exports)
+  }
+}
+
+/***/ }),
+/* 54 */
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('div', [_c('div', {
+    staticClass: "m-content"
+  }, [_c('div', {
+    staticClass: "m-portlet m-portlet--mobile",
+    staticStyle: {
+      "margin-bottom": "0"
+    }
+  }, [_c('div', {
+    staticClass: "m-portlet__body",
+    staticStyle: {
+      "padding": "10px"
+    }
+  }, [_c('div', {
+    staticClass: "m-form m-form--label-align-right m--margin-bottom-10"
+  }, [_c('div', {
+    staticClass: "row align-items-center"
+  }, [_c('div', {
+    staticClass: "col-md-12"
+  }, [_c('div', {
+    staticClass: "form-group m-form__group row align-items-center"
+  }, [_c('div', {
+    staticClass: "col-md-12"
+  }, [_c('div', {
+    staticClass: "m-input-icon m-input-icon--left"
+  }, [_c('ul', {
+    staticClass: "nav nav-tabs",
+    attrs: {
+      "role": "tablist"
+    }
+  }, [_vm._m(0), _vm._v(" "), _c('li', {
+    staticClass: "nav-item"
+  }, [_c('a', {
+    staticClass: "nav-link",
+    attrs: {
+      "data-toggle": "tab",
+      "href": "#m_tabs_1_2"
+    },
+    on: {
+      "click": _vm.redraw_table
+    }
+  }, [_vm._v("Three Users")])]), _vm._v(" "), _c('li', {
+    staticClass: "nav-item"
+  }, [_c('a', {
+    staticClass: "nav-link",
+    attrs: {
+      "data-toggle": "tab",
+      "href": "#m_tabs_1_3"
+    },
+    on: {
+      "click": _vm.redraw_table
+    }
+  }, [_vm._v("Activities")])])])])])])]), _vm._v(" "), _c('div', {
+    staticClass: "col-md-4 order-1 order-md-2 m--align-right"
+  })])]), _vm._v(" "), _c('div', {
+    staticClass: "tab-content"
+  }, [_c('div', {
+    staticClass: "tab-pane  active show",
+    attrs: {
+      "id": "m_tabs_1_1",
+      "role": "tabpanel"
+    }
+  }, [_vm._m(1), _vm._v(" "), _c('div', {
+    staticClass: "col-sm-6"
+  }, [(_vm.my_profile.show_errors) ? _c('div', {
+    attrs: {
+      "id": "myProfileErrorDetail"
+    }
+  }, [_c('div', {
+    staticClass: "form-group m-form__group m--margin-top-10"
+  }, [_c('div', {
+    staticClass: "alert m-alert m-alert--default",
+    attrs: {
+      "role": "alert"
+    }
+  }, [_c('ul', {
+    staticStyle: {
+      "margin": "0px"
+    }
+  }, _vm._l((_vm.my_profile.show_message), function(message) {
+    return _c('li', [_vm._v(_vm._s(message))])
+  }))])])]) : _vm._e(), _vm._v(" "), _c('div', {
+    staticClass: "m--margin-top-20"
+  }, [_c('img', {
+    staticClass: "gravatar pull-left",
+    attrs: {
+      "src": _vm.my_profile.gravatar_url
+    }
+  }), _vm._v(" "), _c('div', {
+    staticClass: "username"
+  }, [_c('span', {
+    staticClass: "grey"
+  }, [_vm._v("Username ")]), _c('strong', [_c('span', {
+    domProps: {
+      "innerHTML": _vm._s(_vm.my_profile.username)
+    }
+  })])]), _vm._v(" "), _vm._m(2)]), _vm._v(" "), _c('div', {
+    staticClass: "clearfix"
+  }), _vm._v(" "), _c('div', {
+    staticClass: "m-form m-form--fit m-form--label-align-left",
+    staticStyle: {
+      "margin-left": "10px"
+    }
+  }, [_c('input', {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: (_vm.user_id),
+      expression: "user_id"
+    }],
+    attrs: {
+      "type": "hidden",
+      "id": "id"
+    },
+    domProps: {
+      "value": (_vm.user_id)
+    },
+    on: {
+      "input": function($event) {
+        if ($event.target.composing) { return; }
+        _vm.user_id = $event.target.value
+      }
+    }
+  }), _vm._v(" "), _c('input', {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: (_vm.my_profile.csrf_token),
+      expression: "my_profile.csrf_token"
+    }],
+    attrs: {
+      "type": "hidden"
+    },
+    domProps: {
+      "value": (_vm.my_profile.csrf_token)
+    },
+    on: {
+      "input": function($event) {
+        if ($event.target.composing) { return; }
+        _vm.$set(_vm.my_profile, "csrf_token", $event.target.value)
+      }
+    }
+  }), _vm._v(" "), _c('div', {
+    staticClass: "form-group m-form__group row",
+    staticStyle: {
+      "margin-bottom": "0"
+    }
+  }, [_c('label', {
+    staticClass: "col-3 col-form-label"
+  }, [_vm._v("\n                              " + _vm._s(_vm.form_labels.fname) + "\n                          ")]), _vm._v(" "), _c('div', {
+    staticClass: "col-9"
+  }, [_c('input', {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: (_vm.my_profile.firstname),
+      expression: "my_profile.firstname"
+    }],
+    staticClass: "form-control m-input",
+    attrs: {
+      "type": "text"
+    },
+    domProps: {
+      "value": (_vm.my_profile.firstname)
+    },
+    on: {
+      "input": function($event) {
+        if ($event.target.composing) { return; }
+        _vm.$set(_vm.my_profile, "firstname", $event.target.value)
+      }
+    }
+  })])]), _vm._v(" "), _c('div', {
+    staticClass: "form-group m-form__group row",
+    staticStyle: {
+      "margin-bottom": "0"
+    }
+  }, [_c('label', {
+    staticClass: "col-3 col-form-label"
+  }, [_vm._v("\n                              " + _vm._s(_vm.form_labels.lname) + "\n                          ")]), _vm._v(" "), _c('div', {
+    staticClass: "col-9"
+  }, [_c('input', {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: (_vm.my_profile.lastname),
+      expression: "my_profile.lastname"
+    }],
+    staticClass: "form-control m-input",
+    attrs: {
+      "type": "text"
+    },
+    domProps: {
+      "value": (_vm.my_profile.lastname)
+    },
+    on: {
+      "input": function($event) {
+        if ($event.target.composing) { return; }
+        _vm.$set(_vm.my_profile, "lastname", $event.target.value)
+      }
+    }
+  })])]), _vm._v(" "), _c('div', {
+    staticClass: "form-group m-form__group row",
+    staticStyle: {
+      "margin-bottom": "0"
+    }
+  }, [_c('label', {
+    staticClass: "col-3 col-form-label"
+  }, [_vm._v("\n                              " + _vm._s(_vm.form_labels.email) + "\n                          ")]), _vm._v(" "), _c('div', {
+    staticClass: "col-9"
+  }, [_c('input', {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: (_vm.my_profile.email),
+      expression: "my_profile.email"
+    }],
+    staticClass: "form-control m-input",
+    attrs: {
+      "type": "email"
+    },
+    domProps: {
+      "value": (_vm.my_profile.email)
+    },
+    on: {
+      "input": function($event) {
+        if ($event.target.composing) { return; }
+        _vm.$set(_vm.my_profile, "email", $event.target.value)
+      }
+    }
+  })])]), _vm._v(" "), _c('div', {
+    staticClass: "form-group m-form__group row"
+  }, [_c('label', {
+    staticClass: "col-3 col-form-label"
+  }, [_vm._v("\n                              " + _vm._s(_vm.form_labels.password) + "\n                          ")]), _vm._v(" "), _c('div', {
+    staticClass: "col-9"
+  }, [_c('input', {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: (_vm.my_profile.password),
+      expression: "my_profile.password"
+    }],
+    staticClass: "form-control m-input",
+    attrs: {
+      "type": "password"
+    },
+    domProps: {
+      "value": (_vm.my_profile.password)
+    },
+    on: {
+      "input": function($event) {
+        if ($event.target.composing) { return; }
+        _vm.$set(_vm.my_profile, "password", $event.target.value)
+      }
+    }
+  })])]), _vm._v(" "), _c('div', {
+    staticClass: "form-group m-form__group row"
+  }, [_c('label', {
+    staticClass: "col-3 col-form-label"
+  }, [_vm._v("\n                              " + _vm._s(_vm.form_labels.api_key) + "\n                          ")]), _vm._v(" "), _c('div', {
+    staticClass: "col-9",
+    staticStyle: {
+      "padding": "10px 15px"
+    },
+    domProps: {
+      "innerHTML": _vm._s(_vm.my_profile.api_key)
+    }
+  })]), _vm._v(" "), _c('div', {
+    staticClass: "form-group m-form__group row",
+    staticStyle: {
+      "padding-top": "0"
+    }
+  }, [_c('label', {
+    staticClass: "col-3 col-form-label"
+  }, [_vm._v("\n                              " + _vm._s(_vm.form_labels.api_id) + "\n                          ")]), _vm._v(" "), _c('div', {
+    staticClass: "col-9",
+    staticStyle: {
+      "padding": "10px 15px"
+    },
+    domProps: {
+      "innerHTML": _vm._s(_vm.my_profile.api_id)
+    }
+  })]), _vm._v(" "), _c('div', {
+    staticClass: "form-group m-form__group row"
+  }, [_c('label', {
+    staticClass: "col-3 col-form-label"
+  }), _vm._v(" "), _c('div', {
+    staticClass: "col-9"
+  }, [_c('button', {
+    staticClass: "btn btn-default",
+    attrs: {
+      "type": "button",
+      "id": "updateMyProfile"
+    },
+    on: {
+      "click": function($event) {
+        _vm.updateMyProfile()
+      }
+    }
+  }, [_vm._v("\n                              " + _vm._s(_vm.form_labels.submit_button) + "\n                            ")])])]), _vm._v(" "), _c('div', {
+    staticStyle: {
+      "height": "20px"
+    }
+  })])])]), _vm._v(" "), _c('div', {
+    staticClass: "tab-pane",
+    attrs: {
+      "id": "m_tabs_1_2",
+      "role": "tabpanel"
+    }
+  }, [_c('div', {
+    staticClass: "heading_panel",
+    staticStyle: {
+      "margin-bottom": "10px"
+    }
+  }, [_vm._m(3), _vm._v(" "), _c('div', {
+    staticClass: "pull-right"
+  }, [_c('a', {
+    staticClass: "btn btn-primary m-btn m-btn--icon",
+    attrs: {
+      "href": "javascript:void(0)"
+    },
+    on: {
+      "click": _vm.onUserButton
+    }
+  }, [_c('span', [_c('i', {
+    staticClass: "fa fa-plus-square"
+  }), _vm._v(" "), _c('span', [_vm._v("\n                                  " + _vm._s(_vm.add_button_label) + "\n                              ")])])]), _vm._v(" "), _c('div', {
+    staticClass: "btn btn-default grey",
+    attrs: {
+      "href": "javascript:void(0)"
+    },
+    on: {
+      "click": _vm.onUserHideShowButton
+    }
+  }, [_c('i', {
+    staticClass: "fa fa-columns"
+  })])]), _vm._v(" "), _c('div', {
+    staticClass: "clearfix"
+  })]), _vm._v(" "), _c('table', {
+    staticClass: "table table-striped  table-hover table-bordered datatable display nowrap",
+    attrs: {
+      "id": "nvr-datatable",
+      "cellspacing": "0",
+      "width": "100%"
+    }
+  }, [_c('thead', [_c('tr', _vm._l((_vm.headings), function(item, index) {
+    return _c('th', [_vm._v(_vm._s(item.column))])
+  }))])])]), _vm._v(" "), _c('div', {
+    staticClass: "tab-pane",
+    attrs: {
+      "id": "m_tabs_1_3",
+      "role": "tabpanel"
+    }
+  }, [_vm._m(4), _vm._v(" "), _c('table', {
+    staticClass: "table table-striped  table-hover table-bordered datatable display nowrap",
+    attrs: {
+      "id": "logs-datatable",
+      "cellspacing": "0",
+      "width": "100%"
+    }
+  }, [_c('thead', [_c('tr', _vm._l((_vm.headings_logs), function(item, index) {
+    return _c('th', [_vm._v(_vm._s(item.column))])
+  }))])])])])])]), _vm._v(" "), _c('div', {
+    ref: "addmodal",
+    staticClass: "modal fade add_user_to_db",
+    staticStyle: {
+      "padding": "0px"
+    },
+    attrs: {
+      "id": "m_modal_1",
+      "tabindex": "-1",
+      "role": "dialog",
+      "aria-labelledby": "exampleModalLabel",
+      "aria-hidden": "true",
+      "data-backdrop": "static",
+      "data-keyboard": "false"
+    }
+  }, [_c('div', {
+    staticClass: "modal-dialog",
+    attrs: {
+      "role": "document"
+    }
+  }, [_c('div', {
+    staticClass: "modal-content",
+    staticStyle: {
+      "padding": "0px"
+    }
+  }, [_c('div', {
+    staticClass: "modal-header"
+  }, [_c('h5', {
+    staticClass: "modal-title",
+    attrs: {
+      "id": "exampleModalLabel"
+    }
+  }, [_vm._v("\n                       " + _vm._s(_vm.form_labels.add_title) + "\n                    ")]), _vm._v(" "), _c('div', {
+    staticClass: "cancel"
+  }, [_c('a', {
+    attrs: {
+      "href": "#",
+      "id": "discardModal",
+      "data-dismiss": "modal"
+    },
+    on: {
+      "click": _vm.clearForm
+    }
+  }, [_vm._v("X")])])]), _vm._v(" "), _c('div', {
+    staticClass: "modal-body"
+  }, [(_vm.three_user.show_loading) ? _c('img', {
+    attrs: {
+      "src": "/images/loading.gif",
+      "id": "api-wait"
+    }
+  }) : _vm._e(), _vm._v(" "), (_vm.three_user.show_add_errors) ? _c('div', {
+    attrs: {
+      "id": "threeErrorDetails"
+    }
+  }, [_c('div', {
+    staticClass: "form-group m-form__group m--margin-top-10"
+  }, [_c('div', {
+    staticClass: "alert m-alert m-alert--default",
+    attrs: {
+      "role": "alert"
+    }
+  }, [_c('ul', {
+    staticStyle: {
+      "margin": "0px"
+    }
+  }, _vm._l((_vm.three_user.show_add_messages), function(message) {
+    return _c('li', [_vm._v(_vm._s(message))])
+  }))])])]) : _vm._e(), _vm._v(" "), _c('div', {
+    staticClass: "m-form m-form--fit m-form--label-align-left"
+  }, [_c('input', {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: (_vm.user_id),
+      expression: "user_id"
+    }],
+    attrs: {
+      "type": "hidden"
+    },
+    domProps: {
+      "value": (_vm.user_id)
+    },
+    on: {
+      "input": function($event) {
+        if ($event.target.composing) { return; }
+        _vm.user_id = $event.target.value
+      }
+    }
+  }), _vm._v(" "), _c('div', {
+    staticClass: "form-group m-form__group row"
+  }, [_c('label', {
+    staticClass: "col-3 col-form-label"
+  }, [_vm._v("\n                                " + _vm._s(_vm.form_labels.username) + "\n                            ")]), _vm._v(" "), _c('div', {
+    staticClass: "col-9"
+  }, [_c('input', {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: (_vm.three_user.username),
+      expression: "three_user.username"
+    }],
+    staticClass: "form-control m-input m-input--solid",
+    attrs: {
+      "type": "text"
+    },
+    domProps: {
+      "value": (_vm.three_user.username)
+    },
+    on: {
+      "input": function($event) {
+        if ($event.target.composing) { return; }
+        _vm.$set(_vm.three_user, "username", $event.target.value)
+      }
+    }
+  })])]), _vm._v(" "), _c('div', {
+    staticClass: "form-group m-form__group row"
+  }, [_c('label', {
+    staticClass: "col-3 col-form-label"
+  }, [_vm._v("\n                                " + _vm._s(_vm.form_labels.password) + "\n                            ")]), _vm._v(" "), _c('div', {
+    staticClass: "col-9"
+  }, [_c('input', {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: (_vm.three_user.password),
+      expression: "three_user.password"
+    }],
+    staticClass: "form-control m-input m-input--solid",
+    attrs: {
+      "type": "text"
+    },
+    domProps: {
+      "value": (_vm.three_user.password)
+    },
+    on: {
+      "input": function($event) {
+        if ($event.target.composing) { return; }
+        _vm.$set(_vm.three_user, "password", $event.target.value)
+      }
+    }
+  })])]), _vm._v(" "), _c('div', {
+    staticClass: "form-group m-form__group row"
+  }, [_c('label', {
+    staticClass: "col-3 col-form-label"
+  }, [_vm._v("\n                           " + _vm._s(_vm.form_labels.day) + "\n                          ")]), _vm._v(" "), _c('div', {
+    staticClass: "col-9"
+  }, [_c('input', {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: (_vm.three_user.bill_day),
+      expression: "three_user.bill_day"
+    }],
+    staticClass: "form-control m-input m-input--solid",
+    attrs: {
+      "type": "number",
+      "min": "1",
+      "max": "31"
+    },
+    domProps: {
+      "value": (_vm.three_user.bill_day)
+    },
+    on: {
+      "input": function($event) {
+        if ($event.target.composing) { return; }
+        _vm.$set(_vm.three_user, "bill_day", $event.target.value)
+      }
+    }
+  })])])])]), _vm._v(" "), _c('div', {
+    staticClass: "modal-footer",
+    staticStyle: {
+      "padding": "11px"
+    }
+  }, [_c('button', {
+    staticClass: "btn btn-default",
+    attrs: {
+      "id": "",
+      "type": "button"
+    },
+    on: {
+      "click": function($event) {
+        _vm.saveThreeModal()
+      }
+    }
+  }, [_vm._v("\n                        " + _vm._s(_vm.form_labels.submit_button) + "\n                    ")])])])])]), _vm._v(" "), _c('div', {
+    ref: "hideShow",
+    staticClass: "modal fade",
+    staticStyle: {
+      "padding": "0px"
+    },
+    attrs: {
+      "id": "toggle-datatable-columns"
+    }
+  }, [_c('div', {
+    staticClass: "modal-dialog",
+    staticStyle: {
+      "width": "300px"
+    }
+  }, [_c('div', {
+    staticClass: "modal-content",
+    staticStyle: {
+      "padding": "0px"
+    }
+  }, [_c('div', {
+    staticClass: "modal-header"
+  }, [_c('div', {
+    staticClass: "caption"
+  }, [_c('strong', [_vm._v(_vm._s(_vm.form_labels.hide_show_title))])]), _vm._v(" "), _vm._m(5)]), _vm._v(" "), _c('div', {
+    staticClass: "modal-body",
+    staticStyle: {
+      "padding": "15px",
+      "padding-bottom": "0px"
+    }
+  }, [_c('div', {
+    staticClass: "form-group"
+  }, _vm._l((_vm.headings), function(item, index) {
+    return _c('div', {
+      staticClass: "column-checkbox"
+    }, [_c('label', {
+      staticClass: "m-checkbox m-checkbox--single m-checkbox--solid m-checkbox--brand",
+      staticStyle: {
+        "width": "auto"
+      }
+    }, [_c('input', {
+      staticClass: "users-column",
+      attrs: {
+        "type": "checkbox",
+        "checked": "checked",
+        "id": index,
+        "name": item.id
+      },
+      on: {
+        "change": function($event) {
+          _vm.showHideColumns(index)
+        }
+      }
+    }), _c('span'), _vm._v(" " + _vm._s(item.column))])])
+  }))]), _vm._v(" "), _c('div', {
+    staticClass: "modal-footer",
+    staticStyle: {
+      "padding": "11px"
+    }
+  }, [_c('div', {
+    staticClass: "pull-right"
+  }, [_c('button', {
+    staticClass: "btn btn-default",
+    attrs: {
+      "type": "button",
+      "data-dismiss": "modal"
+    }
+  }, [_vm._v(_vm._s(_vm.form_labels.hide_show_button))])])])])])]), _vm._v(" "), _c('div', {
+    ref: "editmodal",
+    staticClass: "modal fade",
+    staticStyle: {
+      "padding": "0px"
+    },
+    attrs: {
+      "id": "edit_three_user_to_db",
+      "data-backdrop": "static",
+      "data-keyboard": "false"
+    }
+  }, [_c('div', {
+    staticClass: "modal-dialog",
+    attrs: {
+      "role": "document"
+    }
+  }, [_c('div', {
+    staticClass: "modal-content",
+    staticStyle: {
+      "padding": "0px"
+    }
+  }, [_c('div', {
+    staticClass: "modal-header"
+  }, [_c('h5', {
+    staticClass: "modal-title",
+    attrs: {
+      "id": "exampleModalLabel"
+    }
+  }, [_vm._v("\n                    " + _vm._s(_vm.form_labels.edit_title) + "\n                ")]), _vm._v(" "), _c('div', {
+    staticClass: "cancel"
+  }, [_c('a', {
+    attrs: {
+      "href": "#",
+      "id": "discardEditModal",
+      "data-dismiss": "modal"
+    },
+    on: {
+      "click": function($event) {
+        _vm.editClearFrom()
+      }
+    }
+  }, [_vm._v("X")])])]), _vm._v(" "), _c('div', {
+    staticClass: "modal-body",
+    attrs: {
+      "id": "body-three-edit-dis"
+    }
+  }, [(_vm.three_user.show_loading) ? _c('img', {
+    attrs: {
+      "src": "/images/loading.gif",
+      "id": "api-wait"
+    }
+  }) : _vm._e(), _vm._v(" "), (_vm.three_user.show_edit_errors) ? _c('div', {
+    attrs: {
+      "id": "threeEditErrorDetails"
+    }
+  }, [_c('div', {
+    staticClass: "form-group m-form__group m--margin-top-10"
+  }, [_c('div', {
+    staticClass: "alert m-alert m-alert--default",
+    attrs: {
+      "role": "alert"
+    }
+  }, [_c('ul', {
+    staticStyle: {
+      "margin": "0px"
+    }
+  }, _vm._l((_vm.three_user.show_edit_messages), function(message) {
+    return _c('li', [_vm._v(_vm._s(message))])
+  }))])])]) : _vm._e(), _vm._v(" "), _c('div', {
+    staticClass: "m-form m-form--fit m-form--label-align-left"
+  }, [_c('input', {
+    attrs: {
+      "type": "hidden",
+      "id": "user_id",
+      "value": "<%= @user.id %>"
+    }
+  }), _vm._v(" "), _c('input', {
+    attrs: {
+      "type": "hidden",
+      "id": "edit_three_three_id"
+    }
+  }), _vm._v(" "), _c('div', {
+    staticClass: "form-group m-form__group row"
+  }, [_c('label', {
+    staticClass: "col-3 col-form-label"
+  }, [_vm._v("\n                            " + _vm._s(_vm.form_labels.username) + "\n                        ")]), _vm._v(" "), _vm._m(6)]), _vm._v(" "), _c('div', {
+    staticClass: "form-group m-form__group row"
+  }, [_c('label', {
+    staticClass: "col-3 col-form-label"
+  }, [_vm._v("\n                            " + _vm._s(_vm.form_labels.password) + "\n                        ")]), _vm._v(" "), _vm._m(7)]), _vm._v(" "), _c('div', {
+    staticClass: "form-group m-form__group row"
+  }, [_c('label', {
+    staticClass: "col-3 col-form-label"
+  }, [_vm._v("\n                       " + _vm._s(_vm.form_labels.day) + "\n                      ")]), _vm._v(" "), _vm._m(8)])])]), _vm._v(" "), _c('div', {
+    staticClass: "modal-footer",
+    staticStyle: {
+      "padding": "11px"
+    }
+  }, [_c('button', {
+    staticClass: "btn btn-default",
+    attrs: {
+      "id": "",
+      "type": "button"
+    },
+    on: {
+      "click": _vm.updateThree
+    }
+  }, [_vm._v("\n                    " + _vm._s(_vm.form_labels.submit_button) + "\n                ")])])])])])])])
+},staticRenderFns: [function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('li', {
+    staticClass: "nav-item"
+  }, [_c('a', {
+    staticClass: "nav-link  active show",
+    attrs: {
+      "data-toggle": "tab",
+      "href": "#m_tabs_1_1"
+    }
+  }, [_vm._v("My Profile")])])
+},function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('div', {
+    staticClass: "heading_panel"
+  }, [_c('div', {
+    staticClass: "pull-left"
+  }, [_c('h4', [_vm._v("My Profile Details "), _c('i', {
+    staticClass: "fa fa-long-arrow-right"
+  })])]), _vm._v(" "), _c('div', {
+    staticClass: "pull-right"
+  }), _vm._v(" "), _c('div', {
+    staticClass: "clearfix"
+  })])
+},function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('p', {
+    staticClass: "small grey"
+  }, [_vm._v("Manage your avatar with "), _c('a', {
+    attrs: {
+      "href": "https://en.gravatar.com/",
+      "target": "_blank"
+    }
+  }, [_vm._v("Gravatar")])])
+},function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('div', {
+    staticClass: "pull-left"
+  }, [_c('h4', [_vm._v("Three Users "), _c('i', {
+    staticClass: "fa fa-long-arrow-right"
+  })])])
+},function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('div', {
+    staticClass: "heading_panel"
+  }, [_c('div', {
+    staticClass: "pull-left"
+  }, [_c('h4', [_vm._v("Activity logs "), _c('i', {
+    staticClass: "fa fa-long-arrow-right"
+  })])]), _vm._v(" "), _c('div', {
+    staticClass: "pull-right"
+  }, [_c('div', {
+    staticClass: "row"
+  }, [_c('div', {
+    staticClass: "col-sm-6"
+  }, [_c('div', {
+    staticClass: "form-group m-form__group row"
+  }, [_c('label', {
+    staticClass: "col-lg-2 col-form-label"
+  }, [_vm._v("\n                                From:\n                            ")]), _vm._v(" "), _c('div', {
+    staticClass: "col-lg-10"
+  }, [_c('input', {
+    staticClass: "form-control m-input m-input--solid",
+    attrs: {
+      "type": "text",
+      "id": "m_sms_datepicker_from"
+    }
+  })])])]), _vm._v(" "), _c('div', {
+    staticClass: "col-sm-6"
+  }, [_c('div', {
+    staticClass: "form-group m-form__group row"
+  }, [_c('label', {
+    staticClass: "col-lg-1 col-form-label"
+  }, [_vm._v("\n                                To:\n                            ")]), _vm._v(" "), _c('div', {
+    staticClass: "col-lg-10"
+  }, [_c('input', {
+    staticClass: "form-control m-input m-input--solid",
+    attrs: {
+      "type": "text",
+      "id": "m_sms_datepicker_to"
+    }
+  })])])])])]), _vm._v(" "), _c('div', {
+    staticClass: "clearfix"
+  })])
+},function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('div', {
+    staticClass: "cancel"
+  }, [_c('a', {
+    staticClass: "cancel_link",
+    attrs: {
+      "href": "#",
+      "data-dismiss": "modal"
+    }
+  }, [_vm._v("X")])])
+},function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('div', {
+    staticClass: "col-9"
+  }, [_c('input', {
+    staticClass: "form-control m-input m-input--solid",
+    attrs: {
+      "type": "text",
+      "id": "edit_username"
+    }
+  })])
+},function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('div', {
+    staticClass: "col-9"
+  }, [_c('input', {
+    staticClass: "form-control m-input m-input--solid",
+    attrs: {
+      "type": "text",
+      "id": "edit_password"
+    }
+  })])
+},function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('div', {
+    staticClass: "col-9"
+  }, [_c('input', {
+    staticClass: "form-control m-input m-input--solid",
+    attrs: {
+      "type": "number",
+      "id": "edit_bill_day",
+      "min": "1",
+      "max": "31"
+    }
+  })])
+}]}
+module.exports.render._withStripped = true
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+     require("vue-hot-reload-api").rerender("data-v-9cbbc66e", module.exports)
   }
 }
 

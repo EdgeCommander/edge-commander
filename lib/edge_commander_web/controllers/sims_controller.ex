@@ -90,6 +90,15 @@ defmodule EdgeCommanderWeb.SimsController do
           three_user_id: three_user_id
         } = site
 
+        number = params["number"]
+        name = params["name"]
+        current_user = current_user(conn)
+        logs_params = %{
+          "event" => "SIM: <span>#{number}</span> with the name of <span>#{name}</span> was created.",
+          "user_id" => current_user.id
+        }
+        Util.create_log(conn, logs_params)
+
         conn
         |> put_status(:created)
         |> json(%{
@@ -183,8 +192,6 @@ defmodule EdgeCommanderWeb.SimsController do
   end
 
   def last_sms_details(conn, params) do
-    user_ip = Util.user_request_ip(conn)
-    Logger.info user_ip
     number = params["number"]
     current_user_id = Util.get_user_id(conn, params)
     last_sms_details = get_last_message_details(number, current_user_id)
@@ -251,6 +258,14 @@ defmodule EdgeCommanderWeb.SimsController do
 
         status_code = results |> Map.get("status")
         status_code |> save_send_sms(nexmo_number, results, sms_message, current_user)
+
+        sim_number = params["sim_number"]
+        current_user = current_user(conn)
+        logs_params = %{
+          "event" => "SMS: <span>#{sms_message}</span> command was sent to <span>#{sim_number}</span>",
+          "user_id" => current_user.id
+        }
+        Util.create_log(conn, logs_params)
 
         error_text = results |> Map.get("error-text")
         conn

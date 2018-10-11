@@ -70,6 +70,14 @@ defmodule EdgeCommanderWeb.SitesController do
           user_id: user_id
         } = site
 
+        name = params["name"]
+        current_user = current_user(conn)
+        logs_params = %{
+          "event" => "Site: <span>#{name}</span> was created",
+          "user_id" => current_user.id
+        }
+        Util.create_log(conn, logs_params)
+
         conn
         |> put_status(:created)
         |> json(%{
@@ -137,6 +145,14 @@ defmodule EdgeCommanderWeb.SitesController do
           inserted_at: inserted_at
         } = site
 
+        name = params["name"]
+        current_user = current_user(conn)
+        logs_params = %{
+        "event" => "Site: <span>#{name}</span> was updated",
+        "user_id" => current_user.id
+        }
+        Util.create_log(conn, logs_params)
+
         conn
         |> put_status(:created)
         |> json(%{
@@ -160,7 +176,8 @@ defmodule EdgeCommanderWeb.SitesController do
   end
 
   def delete(conn, %{"id" => id} = _params) do
-    get_records!(id)
+    records = get_records!(id)
+    records
     |> Repo.delete
     |> case do
       {:ok, %EdgeCommander.Sites.Records{}} ->
@@ -169,6 +186,13 @@ defmodule EdgeCommanderWeb.SitesController do
         |> json(%{
           "deleted": true
         })
+        name = records.name
+        current_user = current_user(conn)
+        logs_params = %{
+          "event" => "Site: <span>#{name}</span> was deleted",
+          "user_id" => current_user.id
+        }
+        Util.create_log(conn, logs_params)
       {:error, changeset} ->
         errors = Util.parse_changeset(changeset)
         traversed_errors = for {_key, values} <- errors, value <- values, do: "#{value}"
