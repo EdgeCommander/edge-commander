@@ -6,7 +6,6 @@ defmodule EdgeCommander.Util do
   Record.defrecord :xmlText,    Record.extract(:xmlText,    from_lib: "xmerl/include/xmerl.hrl")
   alias EdgeCommander.Activity.Logs
   alias EdgeCommander.Repo
-  import Plug.Conn
 
   def parse_changeset(changeset) do
     Ecto.Changeset.traverse_errors(changeset, fn
