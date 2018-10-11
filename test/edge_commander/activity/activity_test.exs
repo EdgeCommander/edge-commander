@@ -6,9 +6,9 @@ defmodule EdgeCommander.ActivityTest do
   describe "logs" do
     alias EdgeCommander.Activity.Logs
 
-    @valid_attrs %{browser: "some browser", country: "some country", country_code: "some country_code", event: "some event", ip: "some ip", platform: "some platform", user_id: 42}
-    @update_attrs %{browser: "some updated browser", country: "some updated country", country_code: "some updated country_code", event: "some updated event", ip: "some updated ip", platform: "some updated platform", user_id: 43}
-    @invalid_attrs %{browser: nil, country: nil, country_code: nil, event: nil, ip: nil, platform: nil, user_id: nil}
+    @valid_attrs %{browser: "some browser", country: "some country", country_code: "some country_code", event: "some event", ip: "some ip", platform: "some platform"}
+    @update_attrs %{browser: "some updated browser", country: "some updated country", country_code: "some updated country_code", event: "some updated event", ip: "some updated ip", platform: "some updated platform"}
+    @invalid_attrs %{browser: nil, country: nil, country_code: nil, event: nil, ip: nil, platform: nil}
 
     def logs_fixture(attrs \\ %{}) do
       {:ok, logs} =
@@ -37,7 +37,6 @@ defmodule EdgeCommander.ActivityTest do
       assert logs.event == "some event"
       assert logs.ip == "some ip"
       assert logs.platform == "some platform"
-      assert logs.user_id == 42
     end
 
     test "create_logs/1 with invalid data returns error changeset" do
@@ -54,7 +53,6 @@ defmodule EdgeCommander.ActivityTest do
       assert logs.event == "some updated event"
       assert logs.ip == "some updated ip"
       assert logs.platform == "some updated platform"
-      assert logs.user_id == 43
     end
 
     test "update_logs/2 with invalid data returns error changeset" do

@@ -19,7 +19,7 @@ defmodule EdgeCommander.Activity.Logs do
   def changeset(logs, attrs) do
     logs
     |> cast(attrs, [:browser, :platform, :country, :country_code, :event, :ip, :user_id])
-    |> validate_required([:browser, :platform, :event, :ip, :user_id])
+    |> validate_required([:browser, :platform, :event, :ip])
   end
 end
 
