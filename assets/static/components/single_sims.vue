@@ -164,10 +164,11 @@ module.exports = {
       {column: "% Used"},
       ],
       SmsHeadings: [
-        {column: "Date"},
+        {column: "Send at"},
         {column: "Type"},
         {column: "Status"},
         {column: "Message"},
+        {column: "Delivered at"}
       ],
       form_labels: {
         message: "Message",
@@ -261,9 +262,9 @@ module.exports = {
         },
         columns: [
           {
-            class: "text-left",
+            class: "text-center",
             data: function(row, type, set, meta) {
-              return "" + moment(row.inserted_at).format('MMMM Do YYYY, H:mm:ss') +"";
+              return "" + moment(row.inserted_at).format('DD/MM/YYYY HH:mm:ss') +"";
             }
           },
           {
@@ -293,6 +294,17 @@ module.exports = {
               return str.split("\n").join("<br/>");
             }
           },
+          {
+            class: "text-center",
+            data: function(row, type, set, meta) {
+              let delivery_datetime = row.delivery_datetime
+              if(delivery_datetime != ""){
+                return "" + moment(row.delivery_datetime).format('DD/MM/YYYY HH:mm:ss') +"";
+              }else{
+                return ""
+              }
+            }
+          }
         ],
         autoWidth: false,
         info: false,

@@ -333,7 +333,8 @@ defmodule EdgeCommanderWeb.SimsController do
         status: "Received",
         text: params["text"],
         type: "MO",
-        user_id: user_id
+        user_id: user_id,
+        delivery_datetime: NaiveDateTime.utc_now
       }
       changeset = SimMessages.changeset(%SimMessages{}, params)
       case Repo.insert(changeset) do
@@ -386,7 +387,8 @@ defmodule EdgeCommanderWeb.SimsController do
           inserted_at: sms.inserted_at |> Util.shift_zone(),
           type: sms.type,
           status: sms.status,
-          text: sms.text
+          text: sms.text,
+          delivery_datetime: sms.delivery_datetime |> validate_dateTime
         }
       end)
     conn
@@ -396,6 +398,9 @@ defmodule EdgeCommanderWeb.SimsController do
       })
   end
 
+  defp validate_dateTime(nil),  do: ""
+  defp validate_dateTime(delivery_datetime),  do: delivery_datetime |> Util.shift_zone()
+
   defp ensure_user_id(conn, nil), do: conn.assigns[:current_user] |> Map.get(:id)
   defp ensure_user_id(_conn, user_id), do: user_id
 
@@ -403,7 +408,8 @@ defmodule EdgeCommanderWeb.SimsController do
   defp ensure_message(message_id, params) do
     message_id
     |> SimMessages.changeset(%{
-      status: params["status"]
+      status: params["status"],
+      delivery_datetime: NaiveDateTime.utc_now
     })
     |> Repo.update
     |> case do

@@ -23,7 +23,8 @@ defmodule EdgeCommanderWeb.SmsController do
           status: sms.status,
           text: sms.text,
           type: sms.type,
-          inserted_at: sms.inserted_at |> Util.shift_zone()
+          inserted_at: sms.inserted_at |> Util.shift_zone(),
+          delivery_datetime: sms.delivery_datetime |> validate_dateTime
         }
       end)
     conn
@@ -47,4 +48,7 @@ defmodule EdgeCommanderWeb.SmsController do
 
   defp validate_sim_name(nil), do: "---"
   defp validate_sim_name(record), do: record.name
+
+  defp validate_dateTime(nil),  do: ""
+  defp validate_dateTime(delivery_datetime),  do: delivery_datetime |> Util.shift_zone()
 end

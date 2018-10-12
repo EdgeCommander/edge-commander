@@ -195,7 +195,7 @@ module.exports = {
       show_loading: false,
       sims_list: "",
       headings: [
-        {column: "Message Date", visible: "checked", id: "inserted_at"},
+        {column: "Send at", visible: "checked", id: "inserted_at"},
         {column: "From", visible: "checked", id: "from"},
         {column: "From: Name", visible: "checked", id: "from_name"},
         {column: "To", visible: "checked", id: "to"},
@@ -203,6 +203,7 @@ module.exports = {
         {column: "Message ID", id: "message_id"},
         {column: "Type", visible: "checked", id: "type"},
         {column: "Text Message", visible: "checked", id: "text_message"},
+        {column: "Delivered at", visible: "checked", id: "delivered_at"},
         {column: "Status", visible: "checked", id: "status"},
       ],
       form_labels: {
@@ -309,6 +310,17 @@ module.exports = {
           }
         },
         {
+          class: "text-left delivered_at",
+          data: function(row, type, set, meta) {
+            let delivery_datetime = row.delivery_datetime
+            if(delivery_datetime != ""){
+              return "" + moment(row.delivery_datetime).format('DD/MM/YYYY HH:mm:ss') +"";
+            }else{
+              return ""
+            }
+          }
+        },
+        {
           class: "text-center status",
           data: function(row, type, set, meta) {
             status = row.status;
@@ -323,7 +335,7 @@ module.exports = {
             }else{
               return "<span title='Pending'><i class='fa fa-clock-o' style='color:gray;font-size:16px'></i></span>"
             }
-          }
+          },
         }
         ],
         autoWidth: true,
