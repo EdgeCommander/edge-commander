@@ -18319,7 +18319,7 @@ module.exports = {
       m_form_search: "",
       show_loading: false,
       sims_list: "",
-      headings: [{ column: "Message Date", visible: "checked", id: "inserted_at" }, { column: "From", visible: "checked", id: "from" }, { column: "From: Name", visible: "checked", id: "from_name" }, { column: "To", visible: "checked", id: "to" }, { column: "To: Name", visible: "checked", id: "to_name" }, { column: "Message ID", id: "message_id" }, { column: "Type", visible: "checked", id: "type" }, { column: "Text Message", visible: "checked", id: "text_message" }, { column: "Status", visible: "checked", id: "status" }],
+      headings: [{ column: "Send at", visible: "checked", id: "inserted_at" }, { column: "From", visible: "checked", id: "from" }, { column: "From: Name", visible: "checked", id: "from_name" }, { column: "To", visible: "checked", id: "to" }, { column: "To: Name", visible: "checked", id: "to_name" }, { column: "Message ID", id: "message_id" }, { column: "Type", visible: "checked", id: "type" }, { column: "Text Message", visible: "checked", id: "text_message" }, { column: "Delivered at", visible: "checked", id: "delivered_at" }, { column: "Status", visible: "checked", id: "status" }],
       form_labels: {
         sim: "SIM",
         message: "Message",
@@ -18413,6 +18413,16 @@ module.exports = {
           class: "text_message",
           data: function data(row, type, set, meta) {
             return row.text;
+          }
+        }, {
+          class: "text-left delivered_at",
+          data: function data(row, type, set, meta) {
+            var delivery_datetime = row.delivery_datetime;
+            if (delivery_datetime != "") {
+              return "" + moment(row.delivery_datetime).format('DD/MM/YYYY HH:mm:ss') + "";
+            } else {
+              return "";
+            }
           }
         }, {
           class: "text-center status",
@@ -21684,7 +21694,7 @@ module.exports = {
       m_form_search: "",
       show_loading: false,
       SimHeadings: [{ column: "DateTime" }, { column: "MB Allowance" }, { column: "MB Used (Today)" }, { column: "% Used" }],
-      SmsHeadings: [{ column: "Date" }, { column: "Type" }, { column: "Status" }, { column: "Message" }],
+      SmsHeadings: [{ column: "Send at" }, { column: "Type" }, { column: "Status" }, { column: "Message" }, { column: "Delivered at" }],
       form_labels: {
         message: "Message",
         send_title: "SMS To",
@@ -21771,9 +21781,9 @@ module.exports = {
           }
         },
         columns: [{
-          class: "text-left",
+          class: "text-center",
           data: function data(row, type, set, meta) {
-            return "" + moment(row.inserted_at).format('MMMM Do YYYY, H:mm:ss') + "";
+            return "" + moment(row.inserted_at).format('DD/MM/YYYY HH:mm:ss') + "";
           }
         }, {
           class: "text-center",
@@ -21798,6 +21808,16 @@ module.exports = {
           data: function data(row, type, set, meta) {
             var str = row.text;
             return str.split("\n").join("<br/>");
+          }
+        }, {
+          class: "text-center",
+          data: function data(row, type, set, meta) {
+            var delivery_datetime = row.delivery_datetime;
+            if (delivery_datetime != "") {
+              return "" + moment(row.delivery_datetime).format('DD/MM/YYYY HH:mm:ss') + "";
+            } else {
+              return "";
+            }
           }
         }],
         autoWidth: false,
