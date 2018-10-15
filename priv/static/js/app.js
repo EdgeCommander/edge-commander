@@ -21683,6 +21683,19 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 var app = new _vue2.default(_App2.default);
 
@@ -21693,6 +21706,7 @@ module.exports = {
       dataTable: null,
       m_form_search: "",
       show_loading: false,
+      sim_name: "",
       SimHeadings: [{ column: "DateTime" }, { column: "MB Allowance" }, { column: "MB Used (Today)" }, { column: "% Used" }],
       SmsHeadings: [{ column: "Send at" }, { column: "Type" }, { column: "Status" }, { column: "Message" }, { column: "Delivered at" }],
       form_labels: {
@@ -22029,6 +22043,13 @@ module.exports = {
         _this.user_id = response.body.id;
       });
     },
+    get_sim_name: function get_sim_name() {
+      var _this2 = this;
+
+      this.$http.get('/sims/name/' + window.location.href.substring(window.location.href.lastIndexOf('/') + 1)).then(function (response) {
+        _this2.sim_name = response.body.sim_name;
+      });
+    },
     resizeTableDiv: function resizeTableDiv() {
       var window_width = $(window).width();
       var objDiv = document.getElementById("iam_canvas");
@@ -22065,6 +22086,7 @@ module.exports = {
     this.count_daily_sms();
     this.init_select();
     this.get_session();
+    this.get_sim_name();
     this.setSimNumber();
     this.resizeTableDiv();
     window.addEventListener('resize', this.startMORRISChartJS);
@@ -28069,7 +28091,28 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "m-content"
   }, [_c('div', {
     staticClass: "row"
-  }, [_vm._m(0), _vm._v(" "), _c('div', {
+  }, [_c('div', {
+    staticClass: "col-sm-12 "
+  }, [_c('div', {
+    staticClass: "m-portlet m-portlet--mobile",
+    staticStyle: {
+      "margin-bottom": "5px"
+    }
+  }, [_c('div', {
+    staticClass: "m-portlet__body",
+    staticStyle: {
+      "padding": "5px"
+    }
+  }, [_c('table', {
+    staticClass: "table table-bordered text-center",
+    staticStyle: {
+      "margin-bottom": "0"
+    }
+  }, [_vm._m(0), _vm._v(" "), _c('td', [_vm._v(_vm._s(_vm.sim_name))]), _vm._v(" "), _vm._m(1), _vm._v(" "), _c('td', [_vm._v(_vm._s(_vm.toNumber))]), _vm._v(" "), _vm._m(2), _vm._v(" "), _c('td', {
+    attrs: {
+      "id": "dailySMSCount"
+    }
+  })])])])]), _vm._v(" "), _vm._m(3), _vm._v(" "), _c('div', {
     staticClass: "col-sm-7 sim_log_datatable"
   }, [_c('div', {
     staticClass: "m-portlet m-portlet--mobile",
@@ -28110,7 +28153,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       "src": "/images/loading.gif",
       "id": "api-wait"
     }
-  }) : _vm._e(), _vm._v(" "), _vm._m(1)])])])]), _vm._v(" "), _c('div', {
+  }) : _vm._e(), _vm._v(" "), _vm._m(4)])])])]), _vm._v(" "), _c('div', {
     staticClass: "m-portlet m-portlet--mobile",
     staticStyle: {
       "margin-bottom": "0"
@@ -28122,7 +28165,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }
   }, [_c('div', {
     staticClass: "m-portlet__body  m-portlet__body--no-padding"
-  }, [_vm._m(2), _vm._v(" "), _c('table', {
+  }, [_vm._m(5), _vm._v(" "), _c('table', {
     staticClass: "table table-striped  table-hover table-bordered display nowrap",
     attrs: {
       "id": "sms-datatable",
@@ -28232,7 +28275,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         _vm.user_id = $event.target.value
       }
     }
-  }), _vm._v(" "), _vm._m(3), _vm._v("  \n                            "), _c('span', {
+  }), _vm._v(" "), _vm._m(6), _vm._v("  \n                            "), _c('span', {
     staticClass: "fa fa-info",
     staticStyle: {
       "cursor": "pointer"
@@ -28258,6 +28301,12 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }
   }, [_vm._v(_vm._s(_vm.form_labels.send_button))])])])])])])
 },staticRenderFns: [function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('td', [_c('strong', [_vm._v("Name:")])])
+},function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('td', [_c('strong', [_vm._v("Number:")])])
+},function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('td', [_c('strong', [_vm._v("Daily SMS Count")])])
+},function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
   return _c('div', {
     staticClass: "col-sm-5 sim_graph_panel"
   }, [_c('div', {
@@ -28314,14 +28363,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticStyle: {
       "font-size": "12px"
     }
-  }, [_vm._v("(Last 10 SMS)"), _c('br'), _vm._v("\n                        Today SMS Count : ")]), _c('span', {
-    staticStyle: {
-      "font-size": "12px"
-    },
-    attrs: {
-      "id": "dailySMSCount"
-    }
-  }, [_vm._v("0")])]), _vm._v(" "), _c('div', {
+  }, [_vm._v("(Last 10 SMS) ")])]), _vm._v(" "), _c('div', {
     staticClass: "pull-right"
   }, [_c('button', {
     staticClass: "btn btn-primary m-btn m-btn--icon",

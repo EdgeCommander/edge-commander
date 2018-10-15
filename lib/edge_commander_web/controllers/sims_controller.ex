@@ -144,6 +144,16 @@ defmodule EdgeCommanderWeb.SimsController do
       })
   end
 
+  def get_single_sim_name(conn, %{"sim_number" => sim_number } = params) do
+    name =
+      get_sim_name(sim_number)
+    conn
+    |> put_status(200)
+    |> json(%{
+        "sim_name": name
+      })
+  end
+
   def get_sim_logs(conn, params)  do
     current_user_id = Util.get_user_id(conn, params)
     logs =
@@ -409,7 +419,7 @@ defmodule EdgeCommanderWeb.SimsController do
     message_id
     |> SimMessages.changeset(%{
       status: params["status"],
-      delivery_datetime: NaiveDateTime.utc_now
+      delivery_datetime: params["status"] |> get_date_time
     })
     |> Repo.update
     |> case do
@@ -417,6 +427,9 @@ defmodule EdgeCommanderWeb.SimsController do
       {:error, changeset} -> Logger.info Util.parse_changeset(changeset)
     end
   end
+
+  defp get_date_time("delivered"), do: NaiveDateTime.utc_now
+  defp get_date_time(_), do: ""
 
   defp number_with_plus_code(number), do: "+#{number}"
   defp number_without_plus_code("+" <> number), do: "#{number}"
