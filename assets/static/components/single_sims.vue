@@ -2,6 +2,20 @@
   <div id="single_sims">
     <div class="m-content">
         <div class="row">
+          <div class="col-sm-12 ">
+                <div class="m-portlet m-portlet--mobile" style="margin-bottom: 5px">
+                    <div class="m-portlet__body" style="padding: 5px">
+                      <table class="table table-bordered text-center" style="margin-bottom: 0">
+                        <td><strong>Name:</strong></td>
+                        <td>{{sim_name}}</td>
+                        <td><strong>Number:</strong></td>
+                        <td>{{toNumber}}</td>
+                        <td><strong>Daily SMS Count</strong></td>
+                        <td id="dailySMSCount"></td>
+                      </table>
+                    </div>
+                </div>
+            </div>
             <div class="col-sm-5 sim_graph_panel">
                 <div class="m-portlet m-portlet--mobile">
                     <div class="m-portlet__body">
@@ -49,8 +63,7 @@
                 <div class="m-portlet__body  m-portlet__body--no-padding">
                     <div style="margin: 10px 0">
                         <h3 class="pull-left">
-                          SMS History <span style="font-size:12px">(Last 10 SMS)</br>
-                          Today SMS Count : </span><span style="font-size:12px" id="dailySMSCount">0</span>
+                          SMS History <span style="font-size:12px">(Last 10 SMS) </span>
                         </h3>
                         <div class="pull-right">
                             <button type="button" class="btn btn-primary m-btn m-btn--icon" data-toggle="modal" data-target="#smsModal">
@@ -157,6 +170,7 @@ module.exports = {
       dataTable: null,
       m_form_search: "",
       show_loading: false,
+      sim_name: "",
       SimHeadings: [
       {column: "DateTime"},
       {column: "MB Allowance"},
@@ -508,6 +522,11 @@ module.exports = {
         this.user_id = response.body.id;
       });
     },
+    get_sim_name: function(){
+      this.$http.get('/sims/name/'+ window.location.href.substring(window.location.href.lastIndexOf('/') + 1)).then(response => {
+        this.sim_name = response.body.sim_name;
+      });
+    },
     resizeTableDiv: function() {
       let window_width = $(window).width();
       let objDiv = document.getElementById("iam_canvas");
@@ -544,6 +563,7 @@ module.exports = {
     this.count_daily_sms();
     this.init_select();
     this.get_session();
+    this.get_sim_name();
     this.setSimNumber();
     this.resizeTableDiv();
     window.addEventListener('resize', this.startMORRISChartJS);
