@@ -21029,6 +21029,51 @@ var _App2 = _interopRequireDefault(_App);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; } //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -21183,29 +21228,25 @@ var app = new _vue2.default(_App2.default);
 module.exports = {
   name: 'sims',
   data: function data() {
-    return {
+    var _ref;
+
+    return _ref = {
       dataTable: null,
       m_form_search: "",
       show_loading: false,
       show_errors: false,
-      show_add_messages: "",
-      headings: [{ column: "Number", id: "number" }, { column: "Name", id: "name" }, { column: "Status", id: "status" }, { column: "MB Allowance", id: "allowance" }, { column: "MB Used (Today)", id: "mb_used_today" }, { column: "MB Used (Yest.)", id: "mb_used_yesterday" }, { column: "% Used", id: "mb_used_percentage" }, { column: "Remaning Days", id: "remaning_days" }, { column: "Sim Provider", id: "sim_provider" }, { column: "Last Reading", id: "last_reading" }, { column: "Last Bill Date", id: "last_bill_date" }, { column: "Last SMS", id: "last_sms" }, { column: "Last SMS DateTime", id: "last_sms_datetime" }, { column: "# SMS Since Last Bill", id: "sms_since_last_bill" }],
-      form_labels: {
-        name: "Name",
-        number: "Number",
-        sim_provider: "SIM Provider",
-        add_title: "Add SIM",
-        hide_show_title: "Show/Hide Columns",
-        add_sim_button: "Add SIM",
-        hide_show_button: "OK",
-        submit_button: "Save changes"
-      },
-      name: "",
-      number: "",
-      sim_provider: "",
-      other_sim_provider: "",
-      user_id: ""
-    };
+      show_add_messages: ""
+    }, _defineProperty(_ref, 'show_loading', false), _defineProperty(_ref, 'show_add_errors', false), _defineProperty(_ref, 'show_edit_errors', false), _defineProperty(_ref, 'show_edit_messages', ""), _defineProperty(_ref, 'headings', [{ column: "Action", id: "action" }, { column: "Number", id: "number" }, { column: "Name", id: "name" }, { column: "Status", id: "status" }, { column: "MB Allowance", id: "allowance" }, { column: "MB Used (Today)", id: "mb_used_today" }, { column: "MB Used (Yest.)", id: "mb_used_yesterday" }, { column: "% Used", id: "mb_used_percentage" }, { column: "Remaning Days", id: "remaning_days" }, { column: "Sim Provider", id: "sim_provider" }, { column: "Last Reading", id: "last_reading" }, { column: "Last Bill Date", id: "last_bill_date" }, { column: "Last SMS", id: "last_sms" }, { column: "Last SMS DateTime", id: "last_sms_datetime" }, { column: "# SMS Since Last Bill", id: "sms_since_last_bill" }]), _defineProperty(_ref, 'form_labels', {
+      name: "Name",
+      number: "Number",
+      sim_provider: "SIM Provider",
+      add_title: "Add SIM",
+      hide_show_title: "Show/Hide Columns",
+      edit_title: "Update Sim",
+      add_sim_button: "Add SIM",
+      hide_show_button: "OK",
+      submit_button: "Save changes"
+    }), _defineProperty(_ref, 'name', ""), _defineProperty(_ref, 'number', ""), _defineProperty(_ref, 'sim_provider', ""), _defineProperty(_ref, 'other_sim_provider', ""), _defineProperty(_ref, 'user_id', ""), _ref;
   },
   methods: {
     initializeTable: function initializeTable() {
@@ -21238,6 +21279,11 @@ module.exports = {
           }
         },
         columns: [{
+          class: "text-center action",
+          data: function data(row, type, set, meta) {
+            return '<div class="action_btn"><div id class="editSim cursor_to_pointer fa fa-edit" data-id="' + row.id + '"></div></div>';
+          }
+        }, {
           class: "text-left number",
           data: function data(row, type, set, meta) {
             var link = "%2B" + row.number;
@@ -21413,7 +21459,7 @@ module.exports = {
         colReorder: true,
         stateSave: true
       });
-      this.dataTable = simsDataTable;
+      return this.dataTable = simsDataTable;
       this.dataTable.search("");
     },
     search: function search() {
@@ -21430,6 +21476,48 @@ module.exports = {
     onSIMButton: function onSIMButton() {
       this.initializeInput();
       $(this.$refs.addmodal).modal("show");
+    },
+    getUniqueIdentifier: function getUniqueIdentifier(simsDataTable) {
+      $(document).on("click", ".editSim", function () {
+        var tr = $(this).closest('tr');
+        var row = simsDataTable.row(tr);
+        var data = row.data();
+        var sim_id = $(this).data("id");
+        module.exports.methods.onSimEditButton(sim_id, data);
+      });
+    },
+    updateSim: function updateSim() {
+      this.show_loading = true;
+      this.show_edit_errors = true;
+
+      var simID = $("#edit_sim_id").val();
+
+      this.$http.patch("/sim/" + simID, {
+        name: $("#edit_sim_name").val(),
+        id: simID
+      }).then(function (response) {
+        app.$notify({ group: 'notify', title: 'Sim name has been updated' });
+        this.show_loading = false;
+        this.dataTable.ajax.reload();
+        this.editClearFrom();
+        $(this.$refs.editmodal).modal("hide");
+      }).catch(function (error) {
+        this.show_loading = false;
+        this.show_edit_messages = error.body.errors;
+        this.show_edit_errors = true;
+      });
+    },
+    editClearFrom: function editClearFrom() {
+      this.edit_sim_id = "";
+      this.edit_sim_name = "";
+      this.show_loading = false;
+      this.show_edit_errors = false;
+      this.show_edit_messages = "";
+    },
+    onSimEditButton: function onSimEditButton(sim_id, data) {
+      $("#edit_sim_id").val(sim_id);
+      $("#edit_sim_name").val(data.name);
+      $('#edit_nvr_to_db').modal('show');
     },
     onSIMHideShowButton: function onSIMHideShowButton() {
       $(this.$refs.hideShow).modal("show");
@@ -21512,7 +21600,8 @@ module.exports = {
     }
   }, // end of methods
   mounted: function mounted() {
-    this.initializeTable();
+    var table = this.initializeTable();
+    this.getUniqueIdentifier(table);
     this.get_session();
     this.initHideShow();
     this.select_menu_link();
@@ -24759,13 +24848,123 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     on: {
       "click": _vm.saveModal
     }
-  }, [_vm._v("\n                        " + _vm._s(_vm.form_labels.submit_button) + "\n                    ")])])])])])])
+  }, [_vm._v("\n                        " + _vm._s(_vm.form_labels.submit_button) + "\n                    ")])])])])]), _vm._v(" "), _c('div', {
+    ref: "editmodal",
+    staticClass: "modal fade",
+    staticStyle: {
+      "padding": "0px"
+    },
+    attrs: {
+      "id": "edit_nvr_to_db",
+      "data-backdrop": "static",
+      "data-keyboard": "false"
+    }
+  }, [_c('div', {
+    staticClass: "modal-dialog",
+    attrs: {
+      "role": "document"
+    }
+  }, [_c('div', {
+    staticClass: "modal-content",
+    staticStyle: {
+      "padding": "0px"
+    }
+  }, [_c('div', {
+    staticClass: "modal-header"
+  }, [_c('h5', {
+    staticClass: "modal-title",
+    attrs: {
+      "id": "exampleModalLabel"
+    }
+  }, [_vm._v("\n                    " + _vm._s(_vm.form_labels.edit_title) + "\n                ")]), _vm._v(" "), _vm._m(1)]), _vm._v(" "), _c('div', {
+    staticClass: "modal-body"
+  }, [(_vm.show_loading) ? _c('img', {
+    attrs: {
+      "src": "/images/loading.gif",
+      "id": "api-wait"
+    }
+  }) : _vm._e(), _vm._v(" "), (_vm.show_edit_errors) ? _c('div', [_c('div', {
+    staticClass: "form-group m-form__group m--margin-top-10"
+  }, [_c('div', {
+    staticClass: "alert m-alert m-alert--default",
+    attrs: {
+      "role": "alert"
+    }
+  }, [_c('ul', {
+    staticStyle: {
+      "margin": "0px"
+    }
+  }, _vm._l((_vm.show_edit_messages), function(message) {
+    return _c('li', [_vm._v(_vm._s(message))])
+  }))])])]) : _vm._e(), _vm._v(" "), _c('div', {
+    staticClass: "m-form m-form--fit m-form--label-align-left"
+  }, [_c('input', {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: (_vm.user_id),
+      expression: "user_id"
+    }],
+    attrs: {
+      "type": "hidden",
+      "id": "user_id"
+    },
+    domProps: {
+      "value": (_vm.user_id)
+    },
+    on: {
+      "input": function($event) {
+        if ($event.target.composing) { return; }
+        _vm.user_id = $event.target.value
+      }
+    }
+  }), _vm._v(" "), _c('input', {
+    attrs: {
+      "type": "hidden",
+      "id": "edit_sim_id"
+    }
+  }), _vm._v(" "), _c('div', {
+    staticClass: "form-group m-form__group row"
+  }, [_c('label', {
+    staticClass: "col-3 col-form-label"
+  }, [_vm._v("\n                              " + _vm._s(_vm.form_labels.name) + "\n                          ")]), _vm._v(" "), _vm._m(2)])])]), _vm._v(" "), _c('div', {
+    staticClass: "modal-footer"
+  }, [_c('button', {
+    staticClass: "btn btn-default",
+    attrs: {
+      "id": "",
+      "type": "button"
+    },
+    on: {
+      "click": _vm.updateSim
+    }
+  }, [_vm._v("\n                    " + _vm._s(_vm.form_labels.submit_button) + "\n                ")])])])])])])
 },staticRenderFns: [function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
   return _c('span', {
     staticClass: "m-input-icon__icon m-input-icon__icon--left"
   }, [_c('span', [_c('i', {
     staticClass: "la la-search"
   })])])
+},function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('div', {
+    staticClass: "cancel"
+  }, [_c('a', {
+    attrs: {
+      "href": "#",
+      "id": "discardEditModal",
+      "data-dismiss": "modal"
+    }
+  }, [_vm._v("X")])])
+},function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('div', {
+    staticClass: "col-9"
+  }, [_c('input', {
+    staticClass: "form-control m-input m-input--solid",
+    attrs: {
+      "type": "text",
+      "id": "edit_sim_name"
+    }
+  })])
 }]}
 module.exports.render._withStripped = true
 if (false) {

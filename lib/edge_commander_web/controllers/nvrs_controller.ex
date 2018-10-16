@@ -249,7 +249,7 @@ defmodule EdgeCommanderWeb.NvrsController do
         name = params["name"]
         current_user = current_user(conn)
         logs_params = %{
-        "event" => "NVR: <span>#{name}</span>} was updated",
+        "event" => "NVR: <span>#{name}</span> was updated",
         "user_id" => current_user.id
         }
         Util.create_log(conn, logs_params)
