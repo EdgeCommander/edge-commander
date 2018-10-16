@@ -142,6 +142,51 @@
             </div>
         </div>
     </div>
+     <div class="modal fade" id="edit_nvr_to_db" ref="editmodal" style="padding: 0px;" data-backdrop="static" data-keyboard="false">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content" style="padding: 0px;">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">
+                    {{form_labels.edit_title}}
+                </h5>
+                <div class="cancel">
+                  <a href="#" id="discardEditModal" data-dismiss="modal">X</a>
+                </div>
+            </div>
+            <div class="modal-body">
+                <img src="/images/loading.gif" id="api-wait" v-if="show_loading">
+                 <div v-if="show_edit_errors">
+                    <div class="form-group m-form__group m--margin-top-10">
+                        <div class="alert m-alert m-alert--default" role="alert">
+                             <ul style="margin:0px">
+                               <li v-for="message in show_edit_messages">{{message}}</li>
+                            </ul>
+                        </div>
+                    </div>
+                 </div>
+
+                <div class="m-form m-form--fit m-form--label-align-left">
+                    <input type="hidden" id="user_id"  v-model="user_id">
+                    <input type="hidden" id="edit_sim_id" >
+                      <div class="form-group m-form__group row">
+                          <label class="col-3 col-form-label">
+                              {{form_labels.name}}
+                          </label>
+                          <div class="col-9">
+                             <input type="text" class="form-control m-input m-input--solid" id="edit_sim_name">
+                          </div>
+                      </div>
+                 </div>
+                <!--end::Form-->
+            </div>
+            <div class="modal-footer">
+                <button id="" type="button" class="btn btn-default" v-on:click="updateSim">
+                    {{form_labels.submit_button}}
+                </button>
+            </div>
+        </div>
+    </div>
+  </div>
     <!--end::Modal-->
 </div>
 </template>
@@ -160,7 +205,12 @@ module.exports = {
       show_loading: false,
       show_errors: false,
       show_add_messages: "",
+      show_loading: false,
+      show_add_errors: false,
+      show_edit_errors: false,
+      show_edit_messages: "",
       headings: [
+        {column: "Action", id: "action"},
         {column: "Number", id: "number"},
         {column: "Name", id: "name"},
         {column: "Status", id: "status"},
@@ -182,6 +232,7 @@ module.exports = {
         sim_provider: "SIM Provider",
         add_title: "Add SIM",
         hide_show_title: "Show/Hide Columns",
+        edit_title: "Update Sim",
         add_sim_button: "Add SIM",
         hide_show_button: "OK",
         submit_button: "Save changes"
@@ -224,6 +275,12 @@ module.exports = {
         }
       },
       columns: [
+      {
+        class: "text-center action",
+        data: function(row, type, set, meta) {
+          return '<div class="action_btn"><div id class="editSim cursor_to_pointer fa fa-edit" data-id="'+ row.id +'"></div></div>';
+        }
+      },
       {
         class: "text-left number",
         data: function(row, type, set, meta) {
@@ -411,7 +468,7 @@ module.exports = {
       colReorder: true,
       stateSave:  true
     });
-    this.dataTable = simsDataTable;
+    return this.dataTable = simsDataTable;
     this.dataTable.search("");
    },
    search: function(){
@@ -429,6 +486,48 @@ module.exports = {
     this.initializeInput();
     $(this.$refs.addmodal).modal("show");
    },
+    getUniqueIdentifier: function(simsDataTable){
+      $(document).on("click", ".editSim", function(){
+        let tr = $(this).closest('tr');
+        let row = simsDataTable.row(tr);
+        let data = row.data();
+        let sim_id = $(this).data("id");
+        module.exports.methods.onSimEditButton(sim_id, data);
+      });
+    },
+    updateSim: function(){
+      this.show_loading = true;
+      this.show_edit_errors = true;
+
+      let simID = $("#edit_sim_id").val();
+
+      this.$http.patch("/sim/" + simID, {
+        name: $("#edit_sim_name").val(),
+        id: simID
+      }).then(function (response) {
+        app.$notify({group: 'notify', title: 'Sim name has been updated'});
+        this.show_loading = false;
+        this.dataTable.ajax.reload();
+        this.editClearFrom();
+        $(this.$refs.editmodal).modal("hide");
+      }).catch(function (error) {
+        this.show_loading = false;
+        this.show_edit_messages = error.body.errors;
+        this.show_edit_errors = true;
+      });
+    },
+    editClearFrom: function() {
+      this.edit_sim_id = "";
+      this.edit_sim_name = "";
+      this.show_loading = false;
+      this.show_edit_errors = false;
+      this.show_edit_messages = "";
+    },
+    onSimEditButton: function(sim_id, data) {
+      $("#edit_sim_id").val(sim_id);
+      $("#edit_sim_name").val(data.name);
+      $('#edit_nvr_to_db').modal('show');
+    },
    onSIMHideShowButton: function() {
     $(this.$refs.hideShow).modal("show");
    },
@@ -508,7 +607,8 @@ module.exports = {
     }
   }, // end of methods
   mounted(){
-    this.initializeTable();
+    let table =  this.initializeTable();
+    this.getUniqueIdentifier(table);
     this.get_session();
     this.initHideShow();
     this.select_menu_link();

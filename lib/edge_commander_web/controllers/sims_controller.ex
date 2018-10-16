@@ -121,6 +121,41 @@ defmodule EdgeCommanderWeb.SimsController do
     end
   end
 
+  def update(conn, %{"id" => id} = params) do
+    new_name = params["name"]
+    records = get_sim_logs!(id)
+    old_name = records.name
+    records
+    |> SimLogs.changeset(params)
+    |> Repo.update
+    |> case do
+      {:ok, sim} ->
+        %EdgeCommander.ThreeScraper.SimLogs{
+          name: name
+        } = sim
+
+        name = params["name"]
+        current_user = current_user(conn)
+        logs_params = %{
+        "event" => "Sim name was changed from <span>#{old_name}</span> to <span>#{new_name}</span>",
+        "user_id" => current_user.id
+        }
+        Util.create_log(conn, logs_params)
+
+        conn
+        |> put_status(:created)
+        |> json(%{
+          "name" => name
+        })
+      {:error, changeset} ->
+        errors = Util.parse_changeset(changeset)
+        traversed_errors = for {_key, values} <- errors, value <- values, do: "#{value}"
+        conn
+        |> put_status(400)
+        |> json(%{ errors: traversed_errors })   
+    end
+  end
+
   def get_single_sim_data(conn, %{"sim_number" => sim_number } = params) do
     current_user_id = Util.get_user_id(conn, params)
     logs =
@@ -159,6 +194,7 @@ defmodule EdgeCommanderWeb.SimsController do
     logs =
       get_sim_numbers(current_user_id)
       |> Enum.map(fn(sims) ->
+        id = sims.id
         number = sims.number
         name = sims.name
         bill_day = sims.bill_day
@@ -176,6 +212,7 @@ defmodule EdgeCommanderWeb.SimsController do
         last_bill_date = get_bill_date(bill_day)
 
         %{
+          "id" => id,
           "number" => number,
           "name" => name,
           "allowance" => allowance,
