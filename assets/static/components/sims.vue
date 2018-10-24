@@ -296,6 +296,7 @@ module.exports = {
       },
       {
         class: "text-left status",
+        orderDataType: "dom-span",
         data: function(row, type, set, meta) {
           return row.last_sms;
         },
@@ -303,7 +304,7 @@ module.exports = {
           let number = rowData.number
           if (cellData == "Loading....") {
             $.get( "/sms/last/"+number+"/", function(data) {
-              let status = "Not Found."
+              let status = "<span>Not Found.</span>"
               let str = data.sms.last_sms
               let res = str.toLowerCase();
 
@@ -404,6 +405,7 @@ module.exports = {
       },
       {
         class: "last_sms",
+        orderDataType: "dom-text",
         data: function(row, type, set, meta) {
           return row.last_sms;
         },
@@ -423,6 +425,7 @@ module.exports = {
       },
       {
         class: "text-center last_sms_datetime",
+        orderDataType: "dom-text",
         data: function(row, type, set, meta) {
           let last_sms_date = row.last_sms_date
           return last_sms_date
@@ -445,6 +448,7 @@ module.exports = {
       },
       {
         class: "text-center sms_since_last_bill",
+        orderDataType: "dom-text",
         data: function(row, type, set, meta) {
           return row.total_sms_send;
         },
@@ -466,7 +470,7 @@ module.exports = {
       order: [[ 5, "desc" ]],
       scrollX: true,
       colReorder: true,
-      stateSave:  true
+      stateSave:  true,
     });
     return this.dataTable = simsDataTable;
     this.dataTable.search("");
@@ -607,6 +611,16 @@ module.exports = {
     }
   }, // end of methods
   mounted(){
+    $.fn.dataTable.ext.order['dom-span'] = function  (settings, col){
+      return this.api().column(col, {order:'index'}).nodes().map( function (td, i) {
+        return $('span', td).text();
+      });
+    }
+    $.fn.dataTable.ext.order['dom-text'] = function  (settings, col){
+      return this.api().column(col, {order:'index'}).nodes().map( function (td, i) {
+        return $(td).text();
+      });
+    }
     let table =  this.initializeTable();
     this.getUniqueIdentifier(table);
     this.get_session();

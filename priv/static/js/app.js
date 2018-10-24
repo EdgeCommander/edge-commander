@@ -21296,6 +21296,7 @@ module.exports = {
           }
         }, {
           class: "text-left status",
+          orderDataType: "dom-span",
           data: function data(row, type, set, meta) {
             return row.last_sms;
           },
@@ -21303,7 +21304,7 @@ module.exports = {
             var number = rowData.number;
             if (cellData == "Loading....") {
               $.get("/sms/last/" + number + "/", function (data) {
-                var status = "Not Found.";
+                var status = "<span>Not Found.</span>";
                 var str = data.sms.last_sms;
                 var res = str.toLowerCase();
 
@@ -21398,6 +21399,7 @@ module.exports = {
           }
         }, {
           class: "last_sms",
+          orderDataType: "dom-text",
           data: function data(row, type, set, meta) {
             return row.last_sms;
           },
@@ -21416,6 +21418,7 @@ module.exports = {
           }
         }, {
           class: "text-center last_sms_datetime",
+          orderDataType: "dom-text",
           data: function data(row, type, set, meta) {
             var last_sms_date = row.last_sms_date;
             return last_sms_date;
@@ -21437,6 +21440,7 @@ module.exports = {
           }
         }, {
           class: "text-center sms_since_last_bill",
+          orderDataType: "dom-text",
           data: function data(row, type, set, meta) {
             return row.total_sms_send;
           },
@@ -21600,6 +21604,16 @@ module.exports = {
     }
   }, // end of methods
   mounted: function mounted() {
+    $.fn.dataTable.ext.order['dom-span'] = function (settings, col) {
+      return this.api().column(col, { order: 'index' }).nodes().map(function (td, i) {
+        return $('span', td).text();
+      });
+    };
+    $.fn.dataTable.ext.order['dom-text'] = function (settings, col) {
+      return this.api().column(col, { order: 'index' }).nodes().map(function (td, i) {
+        return $(td).text();
+      });
+    };
     var table = this.initializeTable();
     this.getUniqueIdentifier(table);
     this.get_session();
