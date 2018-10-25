@@ -77,6 +77,8 @@
   <script src="<%= static_path(@conn, "/swagger/swagger-ui-standalone-preset.js") %>" type="text/javascript"></script>
   <script src="<%= static_path(@conn, "/js/d3.min.js") %>"> type="text/javascript"></script>
   <script src="<%= static_path(@conn, "/js/visavail.js") %>"> type="text/javascript"></script>
+  <script src="<%= static_path(@conn, "/js/moment.min.js") %>"> type="text/javascript"></script>
+  <script src="<%= static_path(@conn, "/js/datetime-moment.js") %>"> type="text/javascript"></script>
   <script type="text/javascript">
   $( document ).ready(function() {
     $(".range_inputs").css("display", "none");
