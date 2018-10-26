@@ -21250,6 +21250,24 @@ module.exports = {
   },
   methods: {
     initializeTable: function initializeTable() {
+      $.fn.dataTable.ext.order['dom-span'] = function (settings, col) {
+        return this.api().column(col, { order: 'index' }).nodes().map(function (td, i) {
+          return $('span', td).text();
+        });
+      };
+      $.fn.dataTable.ext.order['dom-text-numeric'] = function (settings, col) {
+        return this.api().column(col, { order: 'index' }).nodes().map(function (td, i) {
+          return $('span', td).text() * 1;
+        });
+      };
+      $.fn.dataTable.ext.order['dom-text'] = function (settings, col) {
+        return this.api().column(col, { order: 'index' }).nodes().map(function (td, i) {
+          return $(td).text();
+        });
+      };
+
+      $.fn.dataTable.moment("DD/MM/YYYY HH:mm:ss");
+
       var simsDataTable = $('#sims-datatable').DataTable({
         fnInitComplete: function fnInitComplete() {
           // Enable TFOOT scoll bars
@@ -21400,6 +21418,7 @@ module.exports = {
         }, {
           class: "last_sms",
           orderDataType: "dom-text",
+          type: "string",
           data: function data(row, type, set, meta) {
             return row.last_sms;
           },
@@ -21419,6 +21438,7 @@ module.exports = {
         }, {
           class: "text-center last_sms_datetime",
           orderDataType: "dom-text",
+          type: "dateTime",
           data: function data(row, type, set, meta) {
             var last_sms_date = row.last_sms_date;
             return last_sms_date;
@@ -21440,7 +21460,8 @@ module.exports = {
           }
         }, {
           class: "text-center sms_since_last_bill",
-          orderDataType: "dom-text",
+          orderDataType: "dom-text-numeric",
+          type: "numeric",
           data: function data(row, type, set, meta) {
             return row.total_sms_send;
           },
@@ -21449,7 +21470,7 @@ module.exports = {
             var number = rowData.number;
             if (cellData == "Loading....") {
               $.get("/sims/" + number + "/" + bill_day, function (data) {
-                $(td).html(data.result);
+                $(td).html("<span>" + data.result + "</span>");
               });
             }
           }
@@ -21604,21 +21625,14 @@ module.exports = {
     }
   }, // end of methods
   mounted: function mounted() {
-    $.fn.dataTable.ext.order['dom-span'] = function (settings, col) {
-      return this.api().column(col, { order: 'index' }).nodes().map(function (td, i) {
-        return $('span', td).text();
-      });
-    };
-    $.fn.dataTable.ext.order['dom-text'] = function (settings, col) {
-      return this.api().column(col, { order: 'index' }).nodes().map(function (td, i) {
-        return $(td).text();
-      });
-    };
     var table = this.initializeTable();
     this.getUniqueIdentifier(table);
     this.get_session();
     this.initHideShow();
     this.select_menu_link();
+    table.on("column-reorder", function () {
+      table.ajax.reload();
+    });
   }
 };
 
