@@ -17497,6 +17497,8 @@ Object.defineProperty(exports, "__esModule", {
 //
 //
 //
+//
+//
 
 exports.default = {
   name: 'app'
@@ -23773,6 +23775,8 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
   }, [_c('div', {
     staticClass: "m-stack m-stack--ver m-stack--general"
   }, [_c('div', {
+    staticClass: "menu_head"
+  }, [_c('div', {
     staticClass: "m-stack__item m-stack__item--middle m-brand__logo"
   }, [_c('a', {
     staticClass: "m-brand__logo-wrapper menu_collapse",
@@ -23784,7 +23788,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       "alt": "",
       "src": "https://app.edgecommander.com/assets/demo/default/media/img/logo/logo_default_dark.png"
     }
-  })])]), _vm._v(" "), _c('div', {
+  })])])]), _vm._v(" "), _c('div', {
     staticClass: "m-stack__item m-stack__item--middle m-brand__tools"
   }, [_c('a', {
     staticClass: "menu_expand",

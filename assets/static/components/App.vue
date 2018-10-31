@@ -10,11 +10,13 @@
 				        <!-- BEGIN: Brand -->
 				        <div class="m-stack__item m-brand  m-brand--skin-dark ">
 				            <div class="m-stack m-stack--ver m-stack--general">
-				                <div class="m-stack__item m-stack__item--middle m-brand__logo">
-				                     <a href="javascript:;" class="m-brand__logo-wrapper menu_collapse">
-				                        <img alt="" src="https://app.edgecommander.com/assets/demo/default/media/img/logo/logo_default_dark.png" />
-				                    </a>
-				                </div>
+								<div class="menu_head">
+									<div class="m-stack__item m-stack__item--middle m-brand__logo">
+										<a href="javascript:;" class="m-brand__logo-wrapper menu_collapse">
+											<img alt="" src="https://app.edgecommander.com/assets/demo/default/media/img/logo/logo_default_dark.png" />
+										</a>
+									</div>
+								</div>
 				                <div class="m-stack__item m-stack__item--middle m-brand__tools">
 									<a href="javascript:;" class="menu_expand">
 									<img alt="" src="https://app.edgecommander.com/images/fav-icons/favicon-32x32.png" />
