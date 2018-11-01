@@ -17498,7 +17498,6 @@ Object.defineProperty(exports, "__esModule", {
 //
 //
 //
-//
 
 exports.default = {
   name: 'app'
@@ -23622,7 +23621,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
   }, [_c('ul', {
     staticClass: "m-menu__nav  m-menu__nav--dropdown-submenu-arrow "
   }, [_c('li', {
-    staticClass: "m-menu__item sims",
+    staticClass: "m-menu__item vue_links sims",
     attrs: {
       "aria-haspopup": "true"
     }
@@ -23636,7 +23635,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
   }), _vm._v(" "), _c('span', {
     staticClass: "m-menu__link-text"
   }, [_vm._v("SIMs")])])], 1), _vm._v(" "), _c('li', {
-    staticClass: "m-menu__item nvrs",
+    staticClass: "m-menu__item vue_links nvrs",
     attrs: {
       "aria-haspopup": "true"
     }
@@ -23650,7 +23649,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
   }), _vm._v(" "), _c('span', {
     staticClass: "m-menu__link-text"
   }, [_vm._v("NVRs")])])], 1), _vm._v(" "), _c('li', {
-    staticClass: "m-menu__item status_report",
+    staticClass: "m-menu__item vue_links status_report",
     attrs: {
       "aria-haspopup": "true"
     }
@@ -23664,7 +23663,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
   }), _vm._v(" "), _c('span', {
     staticClass: "m-menu__link-text"
   }, [_vm._v("Status Report")])])], 1), _vm._v(" "), _c('li', {
-    staticClass: "m-menu__item routers",
+    staticClass: "m-menu__item vue_links routers",
     attrs: {
       "aria-haspopup": "true"
     }
@@ -23678,7 +23677,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
   }), _vm._v(" "), _c('span', {
     staticClass: "m-menu__link-text"
   }, [_vm._v("Routers")])])], 1), _vm._v(" "), _c('li', {
-    staticClass: "m-menu__item sites",
+    staticClass: "m-menu__item vue_links sites",
     attrs: {
       "aria-haspopup": "true"
     }
@@ -23692,7 +23691,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
   }), _vm._v(" "), _c('span', {
     staticClass: "m-menu__link-text"
   }, [_vm._v("Sites")])])], 1), _vm._v(" "), _c('li', {
-    staticClass: "m-menu__item commands",
+    staticClass: "m-menu__item vue_links commands",
     attrs: {
       "aria-haspopup": "true"
     }
@@ -23706,7 +23705,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
   }), _vm._v(" "), _c('span', {
     staticClass: "m-menu__link-text"
   }, [_vm._v("Commands")])])], 1), _vm._v(" "), _c('li', {
-    staticClass: "m-menu__item messages",
+    staticClass: "m-menu__item vue_links messages",
     attrs: {
       "aria-haspopup": "true"
     }
@@ -23722,7 +23721,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
   }, [_vm._v("Messages")])])], 1)]), _vm._v(" "), _c('ul', {
     staticClass: "m-menu__nav  m-menu__nav--dropdown-submenu-arrow bottom_links"
   }, [_c('li', {
-    staticClass: "m-menu__item api",
+    staticClass: "m-menu__item vue_links api",
     attrs: {
       "aria-haspopup": "true"
     }
@@ -23736,7 +23735,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
   }), _vm._v(" "), _c('span', {
     staticClass: "m-menu__link-text"
   }, [_vm._v("API")])])], 1), _vm._v(" "), _c('li', {
-    staticClass: "m-menu__item settings",
+    staticClass: "m-menu__item vue_links settings",
     attrs: {
       "aria-haspopup": "true"
     }
@@ -23796,6 +23795,9 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       "href": "javascript:;"
     }
   }, [_c('img', {
+    staticStyle: {
+      "margin": "0 20px"
+    },
     attrs: {
       "alt": "",
       "src": "https://app.edgecommander.com/images/fav-icons/favicon-32x32.png"

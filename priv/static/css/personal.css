@@ -647,3 +647,7 @@ select.form-control:not([size]):not([multiple]) {
   }
 }
 
+.m-menu__link .m-menu__link-icon{
+  color: red
+}
+
