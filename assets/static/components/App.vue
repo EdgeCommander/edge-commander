@@ -1,5 +1,4 @@
 <template>
-
 	<body class="m-page--fluid m--skin- m-content--skin-light2 m-header--fixed m-header--fixed-mobile m-aside-left--enabled m-aside-left--skin-dark m-aside-left--offcanvas m-footer--push m-aside--offcanvas-default"  id="app">
     <!-- begin:: Page -->
         <div class="m-grid m-grid--hor m-grid--root m-page" id="page_content_main">
@@ -10,14 +9,16 @@
 				        <!-- BEGIN: Brand -->
 				        <div class="m-stack__item m-brand  m-brand--skin-dark ">
 				            <div class="m-stack m-stack--ver m-stack--general">
-				                <div class="m-stack__item m-stack__item--middle m-brand__logo">
-				                     <a href="javascript:;" class="m-brand__logo-wrapper menu_collapse">
-				                        <img alt="" src="https://app.edgecommander.com/assets/demo/default/media/img/logo/logo_default_dark.png" />
-				                    </a>
-				                </div>
+								<div class="menu_head">
+									<div class="m-stack__item m-stack__item--middle m-brand__logo">
+										<a href="javascript:;" class="m-brand__logo-wrapper menu_collapse">
+											<img alt="" src="https://app.edgecommander.com/assets/demo/default/media/img/logo/logo_default_dark.png" />
+										</a>
+									</div>
+								</div>
 				                <div class="m-stack__item m-stack__item--middle m-brand__tools">
 									<a href="javascript:;" class="menu_expand">
-									<img alt="" src="https://app.edgecommander.com/images/fav-icons/favicon-32x32.png" />
+									<img alt="" src="https://app.edgecommander.com/images/fav-icons/favicon-32x32.png" style="margin: 0 20px;" />
 									</a>
 				                    <!-- END -->
 				                    <!-- BEGIN: Responsive Aside Left Menu Toggler -->
@@ -56,43 +57,43 @@
 				  <!-- BEGIN: Aside Menu -->
 				  <div id="m_ver_menu" class="m-aside-menu  m-aside-menu--skin-dark  m-aside-menu--submenu-skin-dark " data-menu-vertical="true" data-menu-scrollable="false" data-menu-dropdown-timeout="500">
 				     <ul class="m-menu__nav  m-menu__nav--dropdown-submenu-arrow ">
-				         <li class="m-menu__item sims" aria-haspopup="true">
+				         <li class="m-menu__item vue_links sims" aria-haspopup="true">
 							<router-link v-bind:to="'/sims'" class="m-menu__link">
 								<i class="m-menu__link-icon fa fa-newspaper-o m-menu__link-text"></i>
 								<span class="m-menu__link-text">SIMs</span>
 							</router-link>
 				        </li>
-				        <li class="m-menu__item nvrs" aria-haspopup="true">
+				        <li class="m-menu__item vue_links nvrs" aria-haspopup="true">
 							<router-link v-bind:to="'/nvrs'" class="m-menu__link">
 								<i class="m-menu__link-icon la  la-building m-menu__link-text"></i>
 								<span class="m-menu__link-text">NVRs</span>
 							</router-link>
 				        </li>
-				        <li class="m-menu__item status_report" aria-haspopup="true">
+				        <li class="m-menu__item vue_links status_report" aria-haspopup="true">
 							<router-link v-bind:to="'/status_report'" class="m-menu__link">
 								<i class="m-menu__link-icon fa  fa-barcode m-menu__link-text"></i>
 								<span class="m-menu__link-text">Status Report</span>
 							</router-link>
 				        </li>
-				        <li class="m-menu__item routers" aria-haspopup="true">
+				        <li class="m-menu__item vue_links routers" aria-haspopup="true">
 							<router-link v-bind:to="'/routers'" class="m-menu__link">
 								<i class="m-menu__link-icon fa fa-registered m-menu__link-text"></i>
 								<span class="m-menu__link-text">Routers</span>
 							</router-link>
 				        </li>
-				        <li class="m-menu__item sites" aria-haspopup="true">
+				        <li class="m-menu__item vue_links sites" aria-haspopup="true">
 							<router-link v-bind:to="'/sites'" class="m-menu__link">
 								<i class="m-menu__link-icon fa fa-registered m-menu__link-text"></i>
 								<span class="m-menu__link-text">Sites</span>
 							</router-link>
 				        </li>
-				        <li class="m-menu__item commands" aria-haspopup="true">
+				        <li class="m-menu__item vue_links commands" aria-haspopup="true">
 							<router-link v-bind:to="'/commands'" class="m-menu__link">
 								<i class="m-menu__link-icon fa fa-bullhorn m-menu__link-text"></i>
 								<span class="m-menu__link-text">Commands</span>
 							</router-link>
 				        </li>
-				        <li class="m-menu__item messages" aria-haspopup="true">
+				        <li class="m-menu__item vue_links messages" aria-haspopup="true">
 							<router-link v-bind:to="'/messages'" class="m-menu__link">
 								<i class="m-menu__link-icon fa fa-envelope-open m-menu__link-text"></i>
 								<span class="m-menu__link-text">Messages</span>
@@ -100,13 +101,13 @@
 				        </li>
 				    </ul>
 				    <ul class="m-menu__nav  m-menu__nav--dropdown-submenu-arrow bottom_links">
-						<li class="m-menu__item api" aria-haspopup="true">
+						<li class="m-menu__item vue_links api" aria-haspopup="true">
 							<router-link v-bind:to="'/api'" class="m-menu__link">
 								<i class="m-menu__link-icon fa fa-paperclip m-menu__link-text"></i>
 								<span class="m-menu__link-text">API</span>
 							</router-link>
 				        </li>
-				        <li class="m-menu__item settings" aria-haspopup="true">
+				        <li class="m-menu__item vue_links settings" aria-haspopup="true">
 							<router-link v-bind:to="'/settings'" class="m-menu__link">
 								<i class="m-menu__link-icon fa fa-gear m-menu__link-text"></i>
 								<span class="m-menu__link-text">Settings</span>

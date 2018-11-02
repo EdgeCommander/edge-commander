@@ -75,25 +75,22 @@
   <link href="<%= static_path(@conn, "/swagger/swagger-ui.css") %>" rel="stylesheet" type="text/css" />
   <script src="<%= static_path(@conn, "/swagger/swagger-ui-bundle.js") %>" type="text/javascript"></script>
   <script src="<%= static_path(@conn, "/swagger/swagger-ui-standalone-preset.js") %>" type="text/javascript"></script>
+  <script src="<%= static_path(@conn, "/js/datetime-moment.js") %>"> type="text/javascript"></script>
   <script src="<%= static_path(@conn, "/js/d3.min.js") %>"> type="text/javascript"></script>
   <script src="<%= static_path(@conn, "/js/visavail.js") %>"> type="text/javascript"></script>
-  <script src="<%= static_path(@conn, "/js/moment.min.js") %>"> type="text/javascript"></script>
-  <script src="<%= static_path(@conn, "/js/datetime-moment.js") %>"> type="text/javascript"></script>
   <script type="text/javascript">
   $( document ).ready(function() {
-    $(".range_inputs").css("display", "none");
-    $('.ranges > ul > li:last-child').remove();
-    $('.ranges > ul > li:last-child').remove();
-    $('.ranges > ul > li:last-child').remove();
-  });
-  $(".menu_collapse").click(function(){
-    $("#body_pannel").addClass("m-brand--minimize m-aside-left--minimize")
-    $(".menu_expand").css("display", "block")
-  });
+    $(".menu_collapse").click(function(){
+      $("#app").addClass("m-brand--minimize m-aside-left--minimize")
+      $(".menu_expand").css("display", "block")
+      $(".vue_links .m-menu__link-icon").css("display", "inline")
+    });
 
-  $(".menu_expand").click(function(){
-    $("#body_pannel").removeClass("m-brand--minimize m-aside-left--minimize")
-    $(".menu_expand").css("display", "none")
+    $(".menu_expand").click(function(){
+      $("#app").removeClass("m-brand--minimize m-aside-left--minimize")
+      $(".menu_expand").css("display", "none")
+      $(".vue_links .m-menu__link-icon").css("display", "")
+    });
   });
   </script>
   <script src="<%= static_path(@conn, "/assets/app/js/dashboard.js") %>" type="text/javascript"></script>

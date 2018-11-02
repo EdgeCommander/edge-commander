@@ -51,13 +51,6 @@
                   </button>
                 </div>
                 <div class="row m-login__form-sub">
-                  <div class="col m--align-left m-login__form-left" style="padding-left:0">
-                    <label class="m-checkbox  m-checkbox--focus">
-                      <input type="checkbox" name="remember">
-                      Remember me
-                      <span></span>
-                    </label>
-                  </div>
                   <div class="col m--align-right m-login__form-right" style="padding-right:0">
                     <a href="/users/forgot_password" id="m_login_forget_password" class="m-link">
                       Forgot Password ?
