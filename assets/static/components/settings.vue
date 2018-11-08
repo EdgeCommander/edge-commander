@@ -422,8 +422,8 @@ module.exports = {
   },
   methods: {
     initializeLogsTable: function(){
-      $( "#m_sms_datepicker_from").datepicker({autoclose:true, dateFormat:"yy-mm-dd"}).datepicker("setDate", new Date(new Date().getTime() - (48 * 60 * 60 * 1000)));
-      $( "#m_sms_datepicker_to" ).datepicker({autoclose:true, dateFormat:"yy-mm-dd"}).datepicker("setDate", new Date());
+      $("#m_sms_datepicker_from").datepicker({autoclose:true, dateFormat:"yy-mm-dd"}).datepicker("setDate", new Date(new Date().getTime() - (48 * 60 * 60 * 1000)));
+      $("#m_sms_datepicker_to").datepicker({autoclose:true, dateFormat:"yy-mm-dd"}).datepicker("setDate", new Date());
 
       let from_date = $("#m_sms_datepicker_from").val(),
       to_date = $("#m_sms_datepicker_to").val();
