@@ -651,3 +651,10 @@ select.form-control:not([size]):not([multiple]) {
   color: red
 }
 
+.m-widget24 .m-widget24__item .m-widget24__title {
+  margin-left: 1.8rem;
+  margin-top: 0.20rem;
+}
+.bold_text{
+  font-weight: 500;
+}

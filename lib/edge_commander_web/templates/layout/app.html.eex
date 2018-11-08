@@ -94,5 +94,7 @@
   });
   </script>
   <script src="<%= static_path(@conn, "/assets/app/js/dashboard.js") %>" type="text/javascript"></script>
+  <script src="https://code.highcharts.com/highcharts.js"></script>
+
   <script src="<%= static_path(@conn, "/js/app.js") %>"></script>
 </html>
