@@ -25,7 +25,7 @@ defmodule EdgeCommander.Activity do
     from = NaiveDateTime.from_iso8601!(from_date <> " 00:00:00")
     to = NaiveDateTime.from_iso8601!(to_date <> " 23:59:59")
     Logs
-    |> where([c],  c.user_id  == ^user_id and (c.inserted_at >= ^from or c.inserted_at == ^from))
+    |> where([c],  c.user_id  == ^user_id and (c.inserted_at >= ^from and c.inserted_at <= ^to))
     |> Repo.all
   end
 

@@ -11,7 +11,7 @@ defmodule EdgeCommanderWeb.LogsController do
     from_date = params["from_date"]
     to_date = params["to_date"]
     activity_logs = 
-      get_list_logs(from_date, from_date, current_user_id)
+      get_list_logs(from_date, to_date, current_user_id)
       |> Enum.map(fn(log) ->
         %{
           id: log.id,
