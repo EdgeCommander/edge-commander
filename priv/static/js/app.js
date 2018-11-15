@@ -18951,7 +18951,8 @@ module.exports = {
         lengthChange: false,
         scrollX: true,
         colReorder: true,
-        sort: false
+        sort: true,
+        order: [[0, "desc"]]
       });
       this.dataTable = smsDataTable;
       this.dataTable.search("");
