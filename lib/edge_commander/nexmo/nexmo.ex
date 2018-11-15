@@ -26,7 +26,18 @@ defmodule EdgeCommander.Nexmo do
       where: (m.member_id == ^user_id or l.user_id == ^user_id) and (l.inserted_at >= ^from and l.inserted_at <= ^to)
     query
     |> order_by(desc: :inserted_at)
-    |>  Repo.all
+    |> Repo.all
+  end
+
+  def get_total_messages(from_date, to_date, user_id, status) do
+    from = NaiveDateTime.from_iso8601!(from_date <> " 00:00:00")
+    to = NaiveDateTime.from_iso8601!(to_date <> " 23:59:59")
+    query = from l in SimMessages,
+      left_join: m in Member, on: l.user_id == m.account_id,
+      where: (m.member_id == ^user_id or l.user_id == ^user_id) and (l.inserted_at >= ^from and l.inserted_at <= ^to) and (l.status == ^status)
+    query
+    |> Repo.all
+    |> Enum.count
   end
 
   @doc """

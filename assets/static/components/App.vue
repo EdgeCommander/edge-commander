@@ -57,7 +57,13 @@
 				  <!-- BEGIN: Aside Menu -->
 				  <div id="m_ver_menu" class="m-aside-menu  m-aside-menu--skin-dark  m-aside-menu--submenu-skin-dark " data-menu-vertical="true" data-menu-scrollable="false" data-menu-dropdown-timeout="500">
 				     <ul class="m-menu__nav  m-menu__nav--dropdown-submenu-arrow ">
-				         <li class="m-menu__item vue_links sims" aria-haspopup="true">
+				         <li class="m-menu__item vue_links dashboard" aria-haspopup="true">
+							<router-link v-bind:to="'/dashboard'" class="m-menu__link">
+								<i class="m-menu__link-icon fa fa-dashboard m-menu__link-text"></i>
+								<span class="m-menu__link-text">Dashboard</span>
+							</router-link>
+				        </li>
+				        <li class="m-menu__item vue_links sims" aria-haspopup="true">
 							<router-link v-bind:to="'/sims'" class="m-menu__link">
 								<i class="m-menu__link-icon fa fa-newspaper-o m-menu__link-text"></i>
 								<span class="m-menu__link-text">SIMs</span>

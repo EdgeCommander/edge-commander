@@ -38,6 +38,7 @@ import messages from "../components/messages"
 import shares from "../components/shares"
 import sims from "../components/sims"
 import single_sims from "../components/single_sims"
+import dashboard from "../components/dashboard"
 
 Vue.config.productionTip = false
 Vue.use(VueResource)
@@ -101,6 +102,11 @@ const router = new VueRouter({
       path: '/sims/:number',
       name: 'single_sims',
       component: single_sims
+    },
+    {
+      path: '/dashboard',
+      name: 'dashboard',
+      component: dashboard
     }
   ],
 });

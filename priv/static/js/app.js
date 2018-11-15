@@ -63,7 +63,7 @@
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 33);
+/******/ 	return __webpack_require__(__webpack_require__.s = 35);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -170,13 +170,13 @@ module.exports = function normalizeComponent (
 var disposed = false
 function injectStyle (ssrContext) {
   if (disposed) return
-  __webpack_require__(34)
+  __webpack_require__(36)
 }
 var Component = __webpack_require__(0)(
   /* script */
-  __webpack_require__(21),
+  __webpack_require__(22),
   /* template */
-  __webpack_require__(47),
+  __webpack_require__(50),
   /* styles */
   injectStyle,
   /* scopeId */
@@ -11435,7 +11435,7 @@ exports._unrefActive = exports.active = function(item) {
 };
 
 // setimmediate attaches itself to the global object
-__webpack_require__(46);
+__webpack_require__(49);
 // On some exotic environments, it's not clear which object `setimmediate` was
 // able to install onto.  Search each possibility in the same order as the
 // `setimmediate` library.
@@ -11537,13 +11537,13 @@ exports.clearImmediate = (typeof self !== "undefined" && self.clearImmediate) ||
 var disposed = false
 function injectStyle (ssrContext) {
   if (disposed) return
-  __webpack_require__(42)
+  __webpack_require__(45)
 }
 var Component = __webpack_require__(0)(
   /* script */
-  __webpack_require__(22),
+  __webpack_require__(23),
   /* template */
-  __webpack_require__(55),
+  __webpack_require__(59),
   /* styles */
   injectStyle,
   /* scopeId */
@@ -11581,13 +11581,13 @@ module.exports = Component.exports
 var disposed = false
 function injectStyle (ssrContext) {
   if (disposed) return
-  __webpack_require__(35)
+  __webpack_require__(37)
 }
 var Component = __webpack_require__(0)(
   /* script */
-  __webpack_require__(23),
+  __webpack_require__(24),
   /* template */
-  __webpack_require__(48),
+  __webpack_require__(51),
   /* styles */
   injectStyle,
   /* scopeId */
@@ -11625,13 +11625,57 @@ module.exports = Component.exports
 var disposed = false
 function injectStyle (ssrContext) {
   if (disposed) return
-  __webpack_require__(38)
+  __webpack_require__(41)
 }
 var Component = __webpack_require__(0)(
   /* script */
-  __webpack_require__(24),
+  __webpack_require__(25),
   /* template */
-  __webpack_require__(51),
+  __webpack_require__(55),
+  /* styles */
+  injectStyle,
+  /* scopeId */
+  null,
+  /* moduleIdentifier (server only) */
+  null
+)
+Component.options.__file = "/home/ali/edge-commander/assets/static/components/dashboard.vue"
+if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key.substr(0, 2) !== "__"})) {console.error("named exports are not supported in *.vue files.")}
+if (Component.options.functional) {console.error("[vue-loader] dashboard.vue: functional components are not supported with templates, they should use render functions.")}
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-7f97ad5e", Component.options)
+  } else {
+    hotAPI.reload("data-v-7f97ad5e", Component.options)
+  }
+  module.hot.dispose(function (data) {
+    disposed = true
+  })
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+/* 10 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var disposed = false
+function injectStyle (ssrContext) {
+  if (disposed) return
+  __webpack_require__(40)
+}
+var Component = __webpack_require__(0)(
+  /* script */
+  __webpack_require__(26),
+  /* template */
+  __webpack_require__(54),
   /* styles */
   injectStyle,
   /* scopeId */
@@ -11663,19 +11707,19 @@ module.exports = Component.exports
 
 
 /***/ }),
-/* 10 */
+/* 11 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var disposed = false
 function injectStyle (ssrContext) {
   if (disposed) return
-  __webpack_require__(43)
+  __webpack_require__(46)
 }
 var Component = __webpack_require__(0)(
   /* script */
-  __webpack_require__(25),
+  __webpack_require__(27),
   /* template */
-  __webpack_require__(56),
+  __webpack_require__(60),
   /* styles */
   injectStyle,
   /* scopeId */
@@ -11707,19 +11751,19 @@ module.exports = Component.exports
 
 
 /***/ }),
-/* 11 */
+/* 12 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var disposed = false
 function injectStyle (ssrContext) {
   if (disposed) return
-  __webpack_require__(39)
+  __webpack_require__(42)
 }
 var Component = __webpack_require__(0)(
   /* script */
-  __webpack_require__(26),
+  __webpack_require__(28),
   /* template */
-  __webpack_require__(52),
+  __webpack_require__(56),
   /* styles */
   injectStyle,
   /* scopeId */
@@ -11751,19 +11795,19 @@ module.exports = Component.exports
 
 
 /***/ }),
-/* 12 */
+/* 13 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var disposed = false
 function injectStyle (ssrContext) {
   if (disposed) return
-  __webpack_require__(41)
+  __webpack_require__(44)
 }
 var Component = __webpack_require__(0)(
   /* script */
-  __webpack_require__(27),
+  __webpack_require__(29),
   /* template */
-  __webpack_require__(54),
+  __webpack_require__(58),
   /* styles */
   injectStyle,
   /* scopeId */
@@ -11795,19 +11839,19 @@ module.exports = Component.exports
 
 
 /***/ }),
-/* 13 */
+/* 14 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var disposed = false
 function injectStyle (ssrContext) {
   if (disposed) return
-  __webpack_require__(37)
+  __webpack_require__(39)
 }
 var Component = __webpack_require__(0)(
   /* script */
-  __webpack_require__(28),
+  __webpack_require__(30),
   /* template */
-  __webpack_require__(50),
+  __webpack_require__(53),
   /* styles */
   injectStyle,
   /* scopeId */
@@ -11839,19 +11883,19 @@ module.exports = Component.exports
 
 
 /***/ }),
-/* 14 */
+/* 15 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var disposed = false
 function injectStyle (ssrContext) {
   if (disposed) return
-  __webpack_require__(36)
+  __webpack_require__(38)
 }
 var Component = __webpack_require__(0)(
   /* script */
-  __webpack_require__(29),
+  __webpack_require__(31),
   /* template */
-  __webpack_require__(49),
+  __webpack_require__(52),
   /* styles */
   injectStyle,
   /* scopeId */
@@ -11883,19 +11927,19 @@ module.exports = Component.exports
 
 
 /***/ }),
-/* 15 */
+/* 16 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var disposed = false
 function injectStyle (ssrContext) {
   if (disposed) return
-  __webpack_require__(44)
+  __webpack_require__(47)
 }
 var Component = __webpack_require__(0)(
   /* script */
-  __webpack_require__(30),
+  __webpack_require__(32),
   /* template */
-  __webpack_require__(57),
+  __webpack_require__(61),
   /* styles */
   injectStyle,
   /* scopeId */
@@ -11927,19 +11971,19 @@ module.exports = Component.exports
 
 
 /***/ }),
-/* 16 */
+/* 17 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var disposed = false
 function injectStyle (ssrContext) {
   if (disposed) return
-  __webpack_require__(45)
+  __webpack_require__(48)
 }
 var Component = __webpack_require__(0)(
   /* script */
-  __webpack_require__(31),
+  __webpack_require__(33),
   /* template */
-  __webpack_require__(58),
+  __webpack_require__(62),
   /* styles */
   injectStyle,
   /* scopeId */
@@ -11971,19 +12015,19 @@ module.exports = Component.exports
 
 
 /***/ }),
-/* 17 */
+/* 18 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var disposed = false
 function injectStyle (ssrContext) {
   if (disposed) return
-  __webpack_require__(40)
+  __webpack_require__(43)
 }
 var Component = __webpack_require__(0)(
   /* script */
-  __webpack_require__(32),
+  __webpack_require__(34),
   /* template */
-  __webpack_require__(53),
+  __webpack_require__(57),
   /* styles */
   injectStyle,
   /* scopeId */
@@ -12015,7 +12059,7 @@ module.exports = Component.exports
 
 
 /***/ }),
-/* 18 */
+/* 19 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -13114,7 +13158,7 @@ function xhrClient (request) {
 
 function nodeClient (request) {
 
-    var client = __webpack_require__(60);
+    var client = __webpack_require__(64);
 
     return new PromiseObj(function (resolve) {
 
@@ -13582,7 +13626,7 @@ if (typeof window !== 'undefined' && window.Vue) {
 
 
 /***/ }),
-/* 19 */
+/* 20 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -16214,12 +16258,12 @@ if (inBrowser && window.Vue) {
 /* WEBPACK VAR INJECTION */}.call(__webpack_exports__, __webpack_require__(4)))
 
 /***/ }),
-/* 20 */
+/* 21 */
 /***/ (function(module, exports, __webpack_require__) {
 
 (function webpackUniversalModuleDefinition(root, factory) {
 	if(true)
-		module.exports = factory(__webpack_require__(59));
+		module.exports = factory(__webpack_require__(63));
 	else if(typeof define === 'function' && define.amd)
 		define(["vue"], factory);
 	else if(typeof exports === 'object')
@@ -17340,7 +17384,7 @@ module.exports = __WEBPACK_EXTERNAL_MODULE_20__;
 //# sourceMappingURL=index.js.map
 
 /***/ }),
-/* 21 */
+/* 22 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -17498,13 +17542,19 @@ Object.defineProperty(exports, "__esModule", {
 //
 //
 //
+//
+//
+//
+//
+//
+//
 
 exports.default = {
   name: 'app'
 };
 
 /***/ }),
-/* 22 */
+/* 23 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -17592,7 +17642,7 @@ module.exports = {
 };
 
 /***/ }),
-/* 23 */
+/* 24 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -18110,7 +18160,460 @@ module.exports = {
 };
 
 /***/ }),
-/* 24 */
+/* 25 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+module.exports = {
+  name: 'dashboard',
+  data: function data() {
+    return {
+      total_sims: 0,
+      total_nvrs: 0,
+      total_routers: 0,
+      total_sites: 0,
+      logsDataTable: null,
+      activity_logs: [],
+      categories_dates: [],
+      delivered_sms: [],
+      received_sms: [],
+      pending_sms: []
+    };
+  },
+  filters: {
+    date_format: function date_format(date) {
+      return moment(date).format('DD/MM/YYYY HH:mm:ss');
+    }
+  },
+  methods: {
+    initializeTable: function initializeTable() {
+      $.fn.dataTable.ext.order['dom-span'] = function (settings, col) {
+        return this.api().column(col, { order: 'index' }).nodes().map(function (td, i) {
+          return $('span', td).text();
+        });
+      };
+      $.fn.dataTable.ext.order['dom-text-numeric'] = function (settings, col) {
+        return this.api().column(col, { order: 'index' }).nodes().map(function (td, i) {
+          return $('span', td).text() * 1;
+        });
+      };
+      $.fn.dataTable.ext.order['dom-text'] = function (settings, col) {
+        return this.api().column(col, { order: 'index' }).nodes().map(function (td, i) {
+          return $(td).text();
+        });
+      };
+
+      $.fn.dataTable.moment("DD/MM/YYYY HH:mm:ss");
+      var simsDataTable = $('#sms_summary').DataTable({
+        fnInitComplete: function fnInitComplete() {
+          // Enable TFOOT scoll bars
+          $('.dataTables_scrollFoot').css('overflow', 'auto');
+          $('.dataTables_scrollHead').css('overflow', 'auto');
+          // Sync TFOOT scrolling with TBODY
+          $('.dataTables_scrollFoot').on('scroll', function () {
+            $('.dataTables_scrollBody').scrollLeft($(this).scrollLeft());
+            simsDataTable.columns.adjust().draw();
+          });
+          $('.dataTables_scrollHead').on('scroll', function () {
+            $('.dataTables_scrollBody').scrollLeft($(this).scrollLeft());
+            simsDataTable.columns.adjust().draw();
+          });
+        },
+        ajax: {
+          url: "/sims/data/json",
+          dataSrc: function dataSrc(data) {
+            return data.logs;
+          },
+          error: function error(xhr, _error, thrown) {
+            if (xhr.responseJSON) {
+              console.log(xhr.responseJSON.message);
+            } else {
+              console.log("Something went wrong, Please try again.");
+            }
+          }
+        },
+        columns: [{
+          class: "text-left number",
+          data: function data(row, type, set, meta) {
+            var link = "%2B" + row.number;
+            return row.number;
+          }
+        }, {
+          class: "text-left name",
+          data: function data(row, type, set, meta) {
+            return row.name;
+          }
+        }, {
+          class: "text-center last_sms_datetime",
+          orderDataType: "dom-text",
+          type: "dateTime",
+          data: function data(row, type, set, meta) {
+            var last_sms_date = row.last_sms_date;
+            return last_sms_date;
+          },
+          createdCell: function createdCell(td, cellData, rowData, row, col) {
+            var date_value = void 0;
+            var number = rowData.number;
+            if (cellData == "Loading....") {
+              $.get("/sms/last/" + number + "/", function (data) {
+                var last_sms_date = data.sms.last_sms_date;
+                if (last_sms_date == '-') {
+                  date_value = last_sms_date;
+                } else {
+                  date_value = moment(last_sms_date).format('DD/MM/YYYY HH:mm:ss');
+                }
+                $(td).html(date_value);
+              });
+            }
+          }
+        }, {
+          class: "last_sms",
+          orderDataType: "dom-text",
+          type: "string",
+          data: function data(row, type, set, meta) {
+            return row.last_sms;
+          },
+          createdCell: function createdCell(td, cellData, rowData, row, col) {
+            var number = rowData.number;
+            if (cellData == "Loading....") {
+              $.get("/sms/last/" + number + "/", function (data) {
+                var resize = false;
+                if (resize == false) {
+                  simsDataTable.draw();
+                  resize = true;
+                }
+                $(td).html(data.sms.last_sms);
+              });
+            }
+          }
+        }, {
+          class: "text-center last_bill_date",
+          data: function data(row, type, set, meta) {
+            var last_bill_date = void 0;
+            last_bill_date = row.last_bill_date;
+            if (last_bill_date == null) {
+              return "-";
+            } else {
+              return moment(row.last_bill_date).format('DD/MM/YYYY');
+            }
+          }
+        }, {
+          class: "text-center sms_since_last_bill",
+          orderDataType: "dom-text-numeric",
+          type: "numeric",
+          data: function data(row, type, set, meta) {
+            return row.total_sms_send;
+          },
+          createdCell: function createdCell(td, cellData, rowData, row, col) {
+            var bill_day = rowData.bill_day;
+            var number = rowData.number;
+            if (cellData == "Loading....") {
+              $.get("/sims/" + number + "/" + bill_day, function (data) {
+                $(td).html("<span>" + data.result + "</span>");
+              });
+            }
+          }
+        }],
+        info: false,
+        bPaginate: false,
+        lengthChange: false,
+        order: [[2, "desc"]],
+        scrollX: true,
+        scrollY: false
+      });
+      return this.dataTable = simsDataTable;
+      this.dataTable.search("");
+    },
+    init_chart: function init_chart() {
+      mApp.block("#sms_history_content", {
+        overlayColor: "#000000",
+        type: "loader",
+        state: "success",
+        message: "Loading..."
+      });
+      Highcharts.chart('container', {
+        chart: {
+          type: 'column'
+        },
+        colors: ['#363636', '#47bcfa', '#9c2a3d'],
+        credits: {
+          enabled: false
+        },
+        title: {
+          text: 'Last Week SMS Overview'
+        },
+        subtitle: {
+          text: ''
+        },
+        xAxis: {
+          categories: this.categories_dates,
+          crosshair: true
+        },
+        yAxis: {
+          min: 0,
+          title: {
+            text: 'Messages to router'
+          }
+        },
+        tooltip: {
+          headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
+          pointFormat: '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' + '<td style="padding:0"><b>{point.y:1f} </b></td></tr>',
+          footerFormat: '</table>',
+          shared: true,
+          useHTML: true
+        },
+        plotOptions: {
+          column: {
+            pointPadding: 0.2,
+            borderWidth: 0
+          }
+        },
+        series: [{
+          name: 'Send',
+          data: this.delivered_sms
+        }, {
+          name: 'Received',
+          data: this.received_sms
+        }, {
+          name: 'Not Delivered',
+          data: this.pending_sms
+        }]
+      });
+    },
+    initializeLogsTable: function initializeLogsTable() {
+      var _this = this;
+
+      mApp.block("#activity_content", {
+        overlayColor: "#000000",
+        type: "loader",
+        state: "success",
+        message: "Loading..."
+      });
+      var from_date = $.datepicker.formatDate('yy-mm-dd', new Date(new Date().getTime() - 168 * 60 * 60 * 1000));
+      var to_date = $.datepicker.formatDate('yy-mm-dd', new Date());
+      this.$http.get("/user_logs/" + from_date + "/" + to_date).then(function (response) {
+        _this.activity_logs = response.body.activity_logs;
+        mApp.unblock("#activity_content");
+      });
+    },
+    get_total_sims: function get_total_sims() {
+      var _this2 = this;
+
+      this.$http.get('/dashboard/total_sims').then(function (response) {
+        _this2.total_sims = response.body.total_sims;
+      });
+    },
+    get_total_nvrs: function get_total_nvrs() {
+      var _this3 = this;
+
+      this.$http.get('/dashboard/total_nvrs').then(function (response) {
+        _this3.total_nvrs = response.body.total_nvrs;
+      });
+    },
+    get_total_routers: function get_total_routers() {
+      var _this4 = this;
+
+      this.$http.get('/dashboard/total_routers').then(function (response) {
+        _this4.total_routers = response.body.total_routers;
+      });
+    },
+    get_total_sites: function get_total_sites() {
+      var _this5 = this;
+
+      this.$http.get('/dashboard/total_sites').then(function (response) {
+        _this5.total_sites = response.body.total_sites;
+      });
+    },
+    get_sms_history: function get_sms_history() {
+      var _this6 = this;
+
+      this.$http.get('/dashboard/weekly_sms_overview').then(function (response) {
+        var history = response.body.sms_history;
+        var i;
+        for (i = 0; i < history.length; i++) {
+          _this6.categories_dates.push(history[i].date);
+          _this6.delivered_sms.push(history[i].delivered_sms);
+          _this6.received_sms.push(history[i].received_sms);
+          _this6.pending_sms.push(history[i].pending_sms);
+        }
+        _this6.init_chart();
+        mApp.unblock("#sms_history_content");
+      });
+    },
+    select_menu_link: function select_menu_link() {
+      $("li").removeClass(" m-menu__item--active");
+      $(".dashboard").addClass(" m-menu__item--active");
+    }
+  },
+  mounted: function mounted() {
+    this.get_sms_history();
+    this.init_chart();
+    this.select_menu_link();
+    this.initializeTable();
+    this.get_total_sims();
+    this.get_total_nvrs();
+    this.get_total_routers();
+    this.get_total_sites();
+    this.initializeLogsTable();
+  }
+};
+
+/***/ }),
+/* 26 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -18554,7 +19057,7 @@ module.exports = {
 };
 
 /***/ }),
-/* 25 */
+/* 27 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -19306,7 +19809,7 @@ module.exports = {
 };
 
 /***/ }),
-/* 26 */
+/* 28 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -19862,7 +20365,7 @@ module.exports = {
 };
 
 /***/ }),
-/* 27 */
+/* 29 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -20604,7 +21107,7 @@ module.exports = {
 };
 
 /***/ }),
-/* 28 */
+/* 30 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -21015,7 +21518,7 @@ module.exports = {
 };
 
 /***/ }),
-/* 29 */
+/* 31 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -21639,7 +22142,7 @@ module.exports = {
 };
 
 /***/ }),
-/* 30 */
+/* 32 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -22216,7 +22719,7 @@ module.exports = {
 };
 
 /***/ }),
-/* 31 */
+/* 33 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -23023,7 +23526,7 @@ module.exports = {
 };
 
 /***/ }),
-/* 32 */
+/* 34 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -23167,7 +23670,7 @@ module.exports = {
 };
 
 /***/ }),
-/* 33 */
+/* 35 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -23179,15 +23682,15 @@ var _vue = __webpack_require__(2);
 
 var _vue2 = _interopRequireDefault(_vue);
 
-var _vueResource = __webpack_require__(18);
+var _vueResource = __webpack_require__(19);
 
 var _vueResource2 = _interopRequireDefault(_vueResource);
 
-var _vueRouter = __webpack_require__(19);
+var _vueRouter = __webpack_require__(20);
 
 var _vueRouter2 = _interopRequireDefault(_vueRouter);
 
-var _vueNotification = __webpack_require__(20);
+var _vueNotification = __webpack_require__(21);
 
 var _vueNotification2 = _interopRequireDefault(_vueNotification);
 
@@ -23195,7 +23698,7 @@ var _App = __webpack_require__(1);
 
 var _App2 = _interopRequireDefault(_App);
 
-var _settings = __webpack_require__(12);
+var _settings = __webpack_require__(13);
 
 var _settings2 = _interopRequireDefault(_settings);
 
@@ -23203,19 +23706,19 @@ var _commands = __webpack_require__(8);
 
 var _commands2 = _interopRequireDefault(_commands);
 
-var _routers = __webpack_require__(11);
+var _routers = __webpack_require__(12);
 
 var _routers2 = _interopRequireDefault(_routers);
 
-var _nvrs = __webpack_require__(10);
+var _nvrs = __webpack_require__(11);
 
 var _nvrs2 = _interopRequireDefault(_nvrs);
 
-var _sites = __webpack_require__(16);
+var _sites = __webpack_require__(17);
 
 var _sites2 = _interopRequireDefault(_sites);
 
-var _status_report = __webpack_require__(17);
+var _status_report = __webpack_require__(18);
 
 var _status_report2 = _interopRequireDefault(_status_report);
 
@@ -23223,34 +23726,29 @@ var _api = __webpack_require__(7);
 
 var _api2 = _interopRequireDefault(_api);
 
-var _messages = __webpack_require__(9);
+var _messages = __webpack_require__(10);
 
 var _messages2 = _interopRequireDefault(_messages);
 
-var _shares = __webpack_require__(13);
+var _shares = __webpack_require__(14);
 
 var _shares2 = _interopRequireDefault(_shares);
 
-var _sims = __webpack_require__(14);
+var _sims = __webpack_require__(15);
 
 var _sims2 = _interopRequireDefault(_sims);
 
-var _single_sims = __webpack_require__(15);
+var _single_sims = __webpack_require__(16);
 
 var _single_sims2 = _interopRequireDefault(_single_sims);
 
+var _dashboard = __webpack_require__(9);
+
+var _dashboard2 = _interopRequireDefault(_dashboard);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-// Import local files
-//
-// Local files can be imported directly using relative
-// paths "./socket" or full ones "web/static/js/socket".
-
-// import socket from "./socket"
-
-
-// Import Vue components
-_vue2.default.config.productionTip = false; // Brunch automatically concatenates all files in your
+// Brunch automatically concatenates all files in your
 // watched paths. Those paths can be configured at
 // config.paths.watched in "brunch-config.js".
 //
@@ -23263,6 +23761,17 @@ _vue2.default.config.productionTip = false; // Brunch automatically concatenates
 //
 // If you no longer want to use a dependency, remember
 // to also remove its path from "config.paths.watched".
+_vue2.default.config.productionTip = false;
+
+// Import local files
+//
+// Local files can be imported directly using relative
+// paths "./socket" or full ones "web/static/js/socket".
+
+// import socket from "./socket"
+
+
+// Import Vue components
 
 _vue2.default.use(_vueResource2.default);
 _vue2.default.use(_vueRouter2.default);
@@ -23314,6 +23823,10 @@ var router = new _vueRouter2.default({
     path: '/sims/:number',
     name: 'single_sims',
     component: _single_sims2.default
+  }, {
+    path: '/dashboard',
+    name: 'dashboard',
+    component: _dashboard2.default
   }]
 });
 
@@ -23323,18 +23836,6 @@ new _vue2.default({
   template: '<App/>',
   components: { App: _App2.default }
 }).$mount('#app');
-
-/***/ }),
-/* 34 */
-/***/ (function(module, exports) {
-
-// removed by extract-text-webpack-plugin
-
-/***/ }),
-/* 35 */
-/***/ (function(module, exports) {
-
-// removed by extract-text-webpack-plugin
 
 /***/ }),
 /* 36 */
@@ -23398,6 +23899,24 @@ new _vue2.default({
 
 /***/ }),
 /* 46 */
+/***/ (function(module, exports) {
+
+// removed by extract-text-webpack-plugin
+
+/***/ }),
+/* 47 */
+/***/ (function(module, exports) {
+
+// removed by extract-text-webpack-plugin
+
+/***/ }),
+/* 48 */
+/***/ (function(module, exports) {
+
+// removed by extract-text-webpack-plugin
+
+/***/ }),
+/* 49 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(global, process) {(function (global, undefined) {
@@ -23590,7 +24109,7 @@ new _vue2.default({
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(3), __webpack_require__(4)))
 
 /***/ }),
-/* 47 */
+/* 50 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
@@ -23622,6 +24141,20 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
   }, [_c('ul', {
     staticClass: "m-menu__nav  m-menu__nav--dropdown-submenu-arrow "
   }, [_c('li', {
+    staticClass: "m-menu__item vue_links dashboard",
+    attrs: {
+      "aria-haspopup": "true"
+    }
+  }, [_c('router-link', {
+    staticClass: "m-menu__link",
+    attrs: {
+      "to": '/dashboard'
+    }
+  }, [_c('i', {
+    staticClass: "m-menu__link-icon fa fa-dashboard m-menu__link-text"
+  }), _vm._v(" "), _c('span', {
+    staticClass: "m-menu__link-text"
+  }, [_vm._v("Dashboard")])])], 1), _vm._v(" "), _c('li', {
     staticClass: "m-menu__item vue_links sims",
     attrs: {
       "aria-haspopup": "true"
@@ -23882,7 +24415,7 @@ if (false) {
 }
 
 /***/ }),
-/* 48 */
+/* 51 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
@@ -24482,7 +25015,7 @@ if (false) {
 }
 
 /***/ }),
-/* 49 */
+/* 52 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
@@ -25010,7 +25543,7 @@ if (false) {
 }
 
 /***/ }),
-/* 50 */
+/* 53 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
@@ -25374,7 +25907,7 @@ if (false) {
 }
 
 /***/ }),
-/* 51 */
+/* 54 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
@@ -25833,7 +26366,203 @@ if (false) {
 }
 
 /***/ }),
-/* 52 */
+/* 55 */
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('div', {
+    attrs: {
+      "id": "dashboard_main"
+    }
+  }, [_c('div', {
+    staticClass: "m-content"
+  }, [_c('div', {
+    staticClass: "row"
+  }, [_c('div', {
+    staticClass: "col-sm-12"
+  }, [_c('div', {
+    staticClass: "m-portlet m-portlet--mobile",
+    staticStyle: {
+      "margin-bottom": "5px"
+    }
+  }, [_c('div', {
+    staticClass: "m-portlet__body",
+    staticStyle: {
+      "padding": "5px"
+    }
+  }, [_c('div', {
+    staticClass: "row m-row--no-padding m-row--col-separator-xl"
+  }, [_c('div', {
+    staticClass: "col-md-12 col-lg-6 col-xl-3"
+  }, [_c('div', {
+    staticClass: "m-widget24"
+  }, [_c('div', {
+    staticClass: "m-widget24__item"
+  }, [_c('h4', {
+    staticClass: "m-widget24__title"
+  }, [_vm._v("\n                            Total SIMs\n                        ")]), _c('br'), _vm._v(" "), _c('span', {
+    staticClass: "m-widget24__desc"
+  }, [_vm._v("\n                            SIMs for routers\n                        ")]), _vm._v(" "), _c('span', {
+    staticClass: "m-widget24__stats m--font-brand"
+  }, [_vm._v("\n                            " + _vm._s(_vm.total_sims) + "\n                        ")])])])]), _vm._v(" "), _c('div', {
+    staticClass: "col-md-12 col-lg-6 col-xl-3"
+  }, [_c('div', {
+    staticClass: "m-widget24"
+  }, [_c('div', {
+    staticClass: "m-widget24__item"
+  }, [_c('h4', {
+    staticClass: "m-widget24__title"
+  }, [_vm._v("\n                            NVR\n                        ")]), _c('br'), _vm._v(" "), _c('span', {
+    staticClass: "m-widget24__desc"
+  }, [_vm._v("\n                            All NVRs\n                        ")]), _vm._v(" "), _c('span', {
+    staticClass: "m-widget24__stats m--font-info"
+  }, [_vm._v("\n                            " + _vm._s(_vm.total_nvrs) + "\n                        ")])])])]), _vm._v(" "), _c('div', {
+    staticClass: "col-md-12 col-lg-6 col-xl-3"
+  }, [_c('div', {
+    staticClass: "m-widget24"
+  }, [_c('div', {
+    staticClass: "m-widget24__item"
+  }, [_c('h4', {
+    staticClass: "m-widget24__title"
+  }, [_vm._v("\n                            Total Routers\n                        ")]), _c('br'), _vm._v(" "), _c('span', {
+    staticClass: "m-widget24__desc"
+  }, [_vm._v("\n                            Routers count\n                        ")]), _vm._v(" "), _c('span', {
+    staticClass: "m-widget24__stats m--font-danger"
+  }, [_vm._v("\n                            " + _vm._s(_vm.total_routers) + "\n                        ")])])])]), _vm._v(" "), _c('div', {
+    staticClass: "col-md-12 col-lg-6 col-xl-3"
+  }, [_c('div', {
+    staticClass: "m-widget24"
+  }, [_c('div', {
+    staticClass: "m-widget24__item"
+  }, [_c('h4', {
+    staticClass: "m-widget24__title"
+  }, [_vm._v("\n                            Total Sites\n                        ")]), _c('br'), _vm._v(" "), _c('span', {
+    staticClass: "m-widget24__desc"
+  }, [_vm._v("\n                            Place of deployment\n                        ")]), _vm._v(" "), _c('span', {
+    staticClass: "m-widget24__stats m--font-success"
+  }, [_vm._v("\n                            " + _vm._s(_vm.total_sites) + "\n                        ")])])])])])])])]), _vm._v(" "), _vm._m(0), _vm._v(" "), _c('div', {
+    staticClass: "col-sm-4 sim_log_datatable",
+    staticStyle: {
+      "padding-left": "0"
+    }
+  }, [_c('div', {
+    staticClass: "m-portlet m-portlet--mobile",
+    staticStyle: {
+      "min-height": "410px",
+      "max-height": "410px",
+      "overflow-y": "auto"
+    },
+    attrs: {
+      "id": "activity_content"
+    }
+  }, [_vm._m(1), _vm._v(" "), _c('div', {
+    staticClass: "m-portlet__body"
+  }, [_c('div', {
+    staticClass: "m-demo__preview"
+  }, [_c('div', {
+    staticClass: "m-list-timeline"
+  }, [_c('div', {
+    staticClass: "m-list-timeline__items"
+  }, _vm._l((_vm.activity_logs), function(log) {
+    return _c('div', {
+      staticClass: "m-list-timeline__item"
+    }, [(log.event === 'Login') ? _c('span', {
+      staticClass: "m-list-timeline__badge m-list-timeline__badge--success"
+    }) : (log.event === 'Logout') ? _c('span', {
+      staticClass: "m-list-timeline__badge m-list-timeline__badge--danger"
+    }) : (log.event.includes('Site') == true) ? _c('span', {
+      staticClass: "m-list-timeline__badge m-list-timeline__badge--brand"
+    }) : (log.event.includes('SMS') == true) ? _c('span', {
+      staticClass: "m-list-timeline__badge m-list-timeline__badge--warning"
+    }) : (log.event.includes('SIM') == true || log.event.includes('Sim') == true) ? _c('span', {
+      staticClass: "m-list-timeline__badge m-list-timeline__badge--info"
+    }) : _c('span', {
+      staticClass: "m-list-timeline__badge "
+    }), _vm._v(" "), _c('span', {
+      staticClass: "m-list-timeline__text",
+      domProps: {
+        "innerHTML": _vm._s(log.event)
+      }
+    }), _vm._v(" "), _c('span', {
+      staticClass: "m-list-timeline__time"
+    }, [_vm._v(_vm._s(_vm._f("date_format")(log.inserted_at)) + " ")])])
+  }))])])])])]), _vm._v(" "), _vm._m(2)])])])
+},staticRenderFns: [function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('div', {
+    staticClass: "col-sm-8",
+    staticStyle: {
+      "padding-right": "5px"
+    }
+  }, [_c('div', {
+    staticClass: "m-portlet m-portlet--mobile",
+    staticStyle: {
+      "margin-bottom": "5px"
+    }
+  }, [_c('div', {
+    staticClass: "m-portlet__body",
+    staticStyle: {
+      "padding": "5px"
+    },
+    attrs: {
+      "id": "sms_history_content"
+    }
+  }, [_c('div', {
+    staticStyle: {
+      "min-width": "310px",
+      "height": "400px",
+      "margin": "0 auto"
+    },
+    attrs: {
+      "id": "container"
+    }
+  })])])])
+},function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('div', {
+    staticClass: "m-portlet__head"
+  }, [_c('div', {
+    staticClass: "m-portlet__head-caption"
+  }, [_c('div', {
+    staticClass: "m-portlet__head-title"
+  }, [_c('h3', {
+    staticClass: "m-portlet__head-text"
+  }, [_vm._v("\n                    Recent User Activity\n                  ")])])])])
+},function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('div', {
+    staticClass: "col-sm-12"
+  }, [_c('div', {
+    staticClass: "m-portlet m-portlet--full-height "
+  }, [_c('div', {
+    staticClass: "m-portlet__head"
+  }, [_c('div', {
+    staticClass: "m-portlet__head-caption"
+  }, [_c('div', {
+    staticClass: "m-portlet__head-title"
+  }, [_c('h3', {
+    staticClass: "m-portlet__head-text"
+  }, [_vm._v("\n                    Quick SIMs Overview\n                  ")])])])]), _vm._v(" "), _c('div', {
+    staticClass: "m-portlet__body",
+    staticStyle: {
+      "padding": "15px"
+    }
+  }, [_c('table', {
+    staticClass: "table table-striped  table-hover table-bordered datatable display nowrap",
+    attrs: {
+      "cellspacing": "0",
+      "width": "100%",
+      "id": "sms_summary"
+    }
+  }, [_c('thead', [_c('tr', [_c('th', [_vm._v("Number")]), _vm._v(" "), _c('th', [_vm._v("Name")]), _vm._v(" "), _c('th', [_vm._v("Last SMS DateTime")]), _vm._v(" "), _c('th', [_vm._v("Last SMS")]), _vm._v(" "), _c('th', [_vm._v("Bill Date")]), _vm._v(" "), _c('th', [_vm._v("SMS since Last bill")])])])])])])])
+}]}
+module.exports.render._withStripped = true
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+     require("vue-hot-reload-api").rerender("data-v-7f97ad5e", module.exports)
+  }
+}
+
+/***/ }),
+/* 56 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
@@ -26490,7 +27219,7 @@ if (false) {
 }
 
 /***/ }),
-/* 53 */
+/* 57 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
@@ -26560,7 +27289,7 @@ if (false) {
 }
 
 /***/ }),
-/* 54 */
+/* 58 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
@@ -27414,7 +28143,7 @@ if (false) {
 }
 
 /***/ }),
-/* 55 */
+/* 59 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
@@ -27529,7 +28258,7 @@ if (false) {
 }
 
 /***/ }),
-/* 56 */
+/* 60 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
@@ -28313,7 +29042,7 @@ if (false) {
 }
 
 /***/ }),
-/* 57 */
+/* 61 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
@@ -28713,7 +29442,7 @@ if (false) {
 }
 
 /***/ }),
-/* 58 */
+/* 62 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
@@ -29495,7 +30224,7 @@ if (false) {
 }
 
 /***/ }),
-/* 59 */
+/* 63 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(global, setImmediate) {/*!
@@ -40449,7 +41178,7 @@ return Vue;
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(3), __webpack_require__(5).setImmediate))
 
 /***/ }),
-/* 60 */
+/* 64 */
 /***/ (function(module, exports) {
 
 /* (ignored) */

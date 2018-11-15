@@ -26,6 +26,7 @@ defmodule EdgeCommander.Activity do
     to = NaiveDateTime.from_iso8601!(to_date <> " 23:59:59")
     Logs
     |> where([c],  c.user_id  == ^user_id and (c.inserted_at >= ^from and c.inserted_at <= ^to))
+    |> order_by(desc: :inserted_at)
     |> Repo.all
   end
 

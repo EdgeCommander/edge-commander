@@ -105,6 +105,7 @@ defmodule EdgeCommanderWeb.Router do
     get "/status_report", RooterController, :main
     get "/api", RooterController, :main
     get "/shares", RooterController, :main
+    get "/dashboard", RooterController, :main
 
     get "/sims/data/json", SimsController, :get_sim_logs
     get "/sims/data/:sim_number", SimsController, :get_single_sim_data
@@ -155,6 +156,13 @@ defmodule EdgeCommanderWeb.Router do
     post "/three_accounts", ThreeController, :create
     patch "/three_accounts", ThreeController, :update
     delete "/three_accounts/:id", ThreeController, :delete
+
+    get "/dashboard/total_sims", DashboardController, :total_sims
+    get "/dashboard/total_nvrs", DashboardController, :total_nvrs
+    get "/dashboard/total_routers", DashboardController, :total_routers
+    get "/dashboard/total_sites", DashboardController, :total_sites
+    get "/dashboard/weekly_sms_overview", DashboardController, :weekly_sms_overview
+
 
   end
 
