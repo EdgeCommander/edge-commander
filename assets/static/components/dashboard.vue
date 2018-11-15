@@ -1,6 +1,5 @@
 <template>
   <div id="dashboard_main">
-
     <div class="m-content">
       <div class="row">
         <div class="col-sm-12">
@@ -18,8 +17,8 @@
                             SIMs for routers
                         </span>
                         <span class="m-widget24__stats m--font-brand">
-                            78 
-                        </span>   
+                            {{total_sims}}
+                        </span>
                     </div>              
                 </div>
                 <!--end::Total Profit-->
@@ -32,10 +31,10 @@
                             NVR
                         </h4><br>
                         <span class="m-widget24__desc">
-                            All connected NVRs
+                            All NVRs
                         </span>
                         <span class="m-widget24__stats m--font-info">
-                            1349
+                            {{total_nvrs}}
                         </span>   
                     </div>    
                 </div>
@@ -52,7 +51,7 @@
                             Routers count
                         </span>
                         <span class="m-widget24__stats m--font-danger">
-                            567
+                            {{total_routers}}
                         </span>   
                     </div>    
                 </div>
@@ -69,7 +68,7 @@
                             Place of deployment
                         </span>
                         <span class="m-widget24__stats m--font-success">
-                            276 
+                            {{total_sites}}
                         </span>   
                     </div>    
                 </div>
@@ -79,157 +78,68 @@
             </div>
           </div>
         </div>
-
         <div class="col-sm-8" style="padding-right: 5px">
           <div class="m-portlet m-portlet--mobile" style="margin-bottom: 5px;">
-            <div class="m-portlet__body" style="padding: 5px;">
+            <div class="m-portlet__body" style="padding: 5px;" id="sms_history_content">
               <div id="container" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
             </div>
           </div>
         </div>
-        <div class="col-sm-4" style="padding-left: 0">
-          <div class="m-portlet m-portlet--mobile" style="margin-bottom: 5px;">
-            <div class="m-portlet__head">
+        <div class="col-sm-4 sim_log_datatable" style="padding-left: 0">
+                <div class="m-portlet m-portlet--mobile" id="activity_content" style="min-height: 410px;max-height: 410px; overflow-y: auto;">
+                  <div class="m-portlet__head">
               <div class="m-portlet__head-caption">
                 <div class="m-portlet__head-title">
                   <h3 class="m-portlet__head-text">
-                    User activities
+                    Recent User Activity
                   </h3>
                 </div>
               </div>
             </div>
-            <div class="m-portlet__body" >
-              <div class="m-scrollable m-scrollable--track m-scroller ps ps--active-y" data-scrollable="true" style="height: 295px; overflow: hidden;">
+              <div class="m-portlet__body">
                   <div class="m-demo__preview">
                     <div class="m-list-timeline">
                         <div class="m-list-timeline__items">
-                            <div class="m-list-timeline__item">
-                                <span class="m-list-timeline__badge m-list-timeline__badge--success"></span>
-                                <span class="m-list-timeline__text">Rule: Daily SMS Alert was updated in commands
-                                </span>
-                                <span class="m-list-timeline__time">2018-06-10 10:20 PM</span>
-                            </div>
-                            <div class="m-list-timeline__item">
-                                <span class="m-list-timeline__badge m-list-timeline__badge--danger"></span>
-                                <span class="m-list-timeline__text">Login </span>
-                                <span class="m-list-timeline__time">2018-06-10 10:20 PM</span>
-                            </div>
-                            <div class="m-list-timeline__item">
-                                <span class="m-list-timeline__badge m-list-timeline__badge--warning"></span>
-                                <span class="m-list-timeline__text">SMS: <span class="bold_text">Restart</span> command was sent to <span>+353867802458</span>
-                                </span>
-                                <span class="m-list-timeline__time">2018-06-10 10:20 PM</span>
-                            </div>
-                            <div class="m-list-timeline__item">
-                                <span class="m-list-timeline__badge m-list-timeline__badge--primary"></span>
-                                <span class="m-list-timeline__text">Account details of junaid@evercam.io was updated.
-                                </span>
-                                <span class="m-list-timeline__time">2018-06-10 10:20 PM</span>
-                            </div>
-                            <div class="m-list-timeline__item">
-                                <span class="m-list-timeline__badge m-list-timeline__badge--brand"></span>
-                                <span class="m-list-timeline__text">Logout</span>
-                                <span class="m-list-timeline__time">2018-06-10 10:20 PM</span>
-                            </div>
-                            <div class="m-list-timeline__item">
-                                <span class="m-list-timeline__badge m-list-timeline__badge--success"></span>
-                                <span class="m-list-timeline__text">SMS: Status command was sent to +353860418034
-                                </span>
-                                <span class="m-list-timeline__time">2018-06-10 10:20 PM</span>
-                            </div>
-                            <div class="m-list-timeline__item">
-                                <span class="m-list-timeline__badge m-list-timeline__badge--success"></span>
-                                <span class="m-list-timeline__text">SMS: Status command was sent to +353860418034
-                                </span>
-                                <span class="m-list-timeline__time">2018-06-10 10:20 PM</span>
-                            </div>
-                            <div class="m-list-timeline__item">
-                                <span class="m-list-timeline__badge m-list-timeline__badge--success"></span>
-                                <span class="m-list-timeline__text">SMS: Status command was sent to +353860418034
-                                </span>
-                                <span class="m-list-timeline__time">2018-06-10 10:20 PM</span>
-                            </div>
-                            <div class="m-list-timeline__item">
-                                <span class="m-list-timeline__badge m-list-timeline__badge--success"></span>
-                                <span class="m-list-timeline__text">SMS: Status command was sent to +353860418034
-                                </span>
-                                <span class="m-list-timeline__time">2018-06-10 10:20 PM</span>
-                            </div>
-                            <div class="m-list-timeline__item">
-                                <span class="m-list-timeline__badge m-list-timeline__badge--success"></span>
-                                <span class="m-list-timeline__text">SMS: Status command was sent to +353860418034
-                                </span>
-                                <span class="m-list-timeline__time">2018-06-10 10:20 PM</span>
+                            <div class="m-list-timeline__item" v-for="log in activity_logs">
+                              <span class="m-list-timeline__badge m-list-timeline__badge--success" v-if="log.event === 'Login'"></span>
+                              <span class="m-list-timeline__badge m-list-timeline__badge--danger" v-else-if="log.event === 'Logout'"></span>
+                              <span class="m-list-timeline__badge m-list-timeline__badge--brand" v-else-if="log.event.includes('Site') == true"></span>
+                              <span class="m-list-timeline__badge m-list-timeline__badge--warning" v-else-if="log.event.includes('SMS') == true"></span>
+                              <span class="m-list-timeline__badge m-list-timeline__badge--info" v-else-if="log.event.includes('SIM') == true || log.event.includes('Sim') == true"></span>
+                              <span class="m-list-timeline__badge " v-else></span>
+                              <span class="m-list-timeline__text" v-html="log.event"></span>
+                              <span class="m-list-timeline__time">{{log.inserted_at | date_format}} </span>
                             </div>
                         </div>
                     </div>
                   </div>
-                </div>
+              </div>
             </div>
-          </div>
         </div>
-
-
-
-
-
-
-
-
-
-
-
         <div class="col-sm-12" >
           <!--begin:: Widgets/Sales States-->
           <div class="m-portlet m-portlet--full-height ">
-            
             <div class="m-portlet__head">
               <div class="m-portlet__head-caption">
                 <div class="m-portlet__head-title">
                   <h3 class="m-portlet__head-text">
-                    Qucik Overview SIMs
+                    Quick SIMs Overview
                   </h3>
                 </div>
               </div>
             </div>
             <div class="m-portlet__body" style="padding: 15px">
-              <table class="table table-striped  table-hover table-bordered datatable display nowrap" cellspacing="0" width="100%" id="sms_summary">
+              <table  class="table table-striped  table-hover table-bordered datatable display nowrap" cellspacing="0" width="100%" id="sms_summary">
                   <thead>
                     <tr>
-                      <td>Number</td>
-                      <td>Name</td>
-                      <td>Last SMS</td>
-                      <td>Last SMS DateTime</td>
-                      <td>Bill Date</td>
-                      <td>SMS since Last bill</td>
+                      <th>Number</th>
+                      <th>Name</th>
+                      <th>Last SMS DateTime</th>
+                      <th>Last SMS</th>
+                      <th>Bill Date</th>
+                      <th>SMS since Last bill</th>
                     </tr>
                   </thead>
-                  <tbody>
-                    <tr>
-                      <td>+447365269083</td>
-                      <td>Cromer Road UK </td>
-                      <td>testing message received. </td>
-                      <td>25/10/2018 07:20:03   </td>
-                      <td>05/10/2018  </td>
-                      <td>10 </td>
-                    </tr>
-                    <tr>
-                      <td>+447365269083</td>
-                      <td>Cromer Road UK </td>
-                      <td>testing message received. </td>
-                      <td>25/10/2018 07:20:03   </td>
-                      <td>05/10/2018  </td>
-                      <td>10 </td>
-                    </tr>
-                    <tr>
-                      <td>+447365269083</td>
-                      <td>Cromer Road UK </td>
-                      <td>testing message received. </td>
-                      <td>25/10/2018 07:20:03   </td>
-                      <td>05/10/2018  </td>
-                      <td>10 </td>
-                    </tr>
-                  </tbody>
               </table>
             </div>
           </div>
@@ -237,7 +147,6 @@
         </div>
       </div>
     </div>
-  
 </div>
 </template>
 <script>
@@ -245,76 +154,272 @@ module.exports = {
   name: 'dashboard',
   data: function(){
     return{
+      total_sims: 0,
+      total_nvrs: 0,
+      total_routers: 0,
+      total_sites: 0,
+      logsDataTable: null,
+      activity_logs: [],
+      categories_dates: [],
+      delivered_sms: [],
+      received_sms: [],
+      pending_sms: [],
+    }
+  },
+  filters: {
+    date_format: function(date){
+     return moment(date).format('DD/MM/YYYY HH:mm:ss');
     }
   },
   methods: {
-    init_dattable: function(){
-      $("#sms_summary").DataTable({
-        autoWidth: true,
-        info: false,
-        bPaginate: false,
-        lengthChange: false,
-        scrollX: true,
-        colReorder: true,
-        stateSave:  true
+    initializeTable: function(){
+      $.fn.dataTable.ext.order['dom-span'] = function  (settings, col){
+        return this.api().column(col, {order:'index'}).nodes().map( function (td, i) {
+          return $('span', td).text();
+        });
+      }
+      $.fn.dataTable.ext.order['dom-text-numeric'] = function  (settings, col){
+        return this.api().column(col, {order:'index'}).nodes().map( function (td, i) {
+          return $('span', td).text() * 1;
+        });
+      }
+      $.fn.dataTable.ext.order['dom-text'] = function  (settings, col){
+        return this.api().column(col, {order:'index'}).nodes().map( function (td, i) {
+          return $(td).text();
+        });
+      }
+
+      $.fn.dataTable.moment("DD/MM/YYYY HH:mm:ss");
+      let simsDataTable = $('#sms_summary').DataTable({
+      fnInitComplete: function(){
+          // Enable TFOOT scoll bars
+          $('.dataTables_scrollFoot').css('overflow', 'auto');
+          $('.dataTables_scrollHead').css('overflow', 'auto');
+          // Sync TFOOT scrolling with TBODY
+          $('.dataTables_scrollFoot').on('scroll', function () {
+          $('.dataTables_scrollBody').scrollLeft($(this).scrollLeft());
+            simsDataTable.columns.adjust().draw();
+          });
+          $('.dataTables_scrollHead').on('scroll', function () {
+            $('.dataTables_scrollBody').scrollLeft($(this).scrollLeft());
+            simsDataTable.columns.adjust().draw();
+          });
+      },
+      ajax: {
+      url: "/sims/data/json",
+        dataSrc: function(data) {
+          return data.logs;
+        },
+        error: function(xhr, error, thrown) {
+          if (xhr.responseJSON) {
+            console.log(xhr.responseJSON.message);
+          } else {
+            console.log("Something went wrong, Please try again.");
+          }
+        }
+      },
+      columns: [
+      {
+        class: "text-left number",
+        data: function(row, type, set, meta) {
+          let link = "%2B" + row.number;
+          return row.number
+        }
+      },
+      {
+        class: "text-left name",
+        data: function(row, type, set, meta) {
+          return row.name;
+        }
+      },
+      {
+        class: "text-center last_sms_datetime",
+        orderDataType: "dom-text",
+        type: "dateTime",
+        data: function(row, type, set, meta) {
+          let last_sms_date = row.last_sms_date
+          return last_sms_date
+        },
+        createdCell: function (td, cellData, rowData, row, col) {
+          let date_value;
+          let number = rowData.number
+          if (cellData == "Loading....") {
+            $.get( "/sms/last/"+number+"/", function(data) {
+              let last_sms_date = data.sms.last_sms_date
+              if (last_sms_date == '-') {
+                  date_value = last_sms_date
+              }else{
+               date_value = moment(last_sms_date).format('DD/MM/YYYY HH:mm:ss');
+              }
+              $(td).html(date_value)
+            });
+          }
+        }
+      },
+      {
+        class: "last_sms",
+        orderDataType: "dom-text",
+        type: "string",
+        data: function(row, type, set, meta) {
+          return row.last_sms;
+        },
+        createdCell: function (td, cellData, rowData, row, col) {
+          let number = rowData.number
+          if (cellData == "Loading....") {
+            $.get( "/sms/last/"+number+"/", function(data) {
+              let resize = false;
+              if(resize == false){
+                simsDataTable.draw();
+                resize = true;
+              }
+              $(td).html(data.sms.last_sms)
+            });
+          }
+        }
+      },
+      {
+        class: "text-center last_bill_date",
+        data: function(row, type, set, meta) {
+          let last_bill_date;
+          last_bill_date = row.last_bill_date
+          if(last_bill_date == null){
+            return "-"
+          }else{
+            return moment(row.last_bill_date).format('DD/MM/YYYY');
+          }
+        }
+      },
+      {
+        class: "text-center sms_since_last_bill",
+        orderDataType: "dom-text-numeric",
+        type: "numeric",
+        data: function(row, type, set, meta) {
+          return row.total_sms_send;
+        },
+        createdCell: function (td, cellData, rowData, row, col) {
+          let bill_day = rowData.bill_day
+          let number = rowData.number
+          if (cellData == "Loading....") {
+            $.get( "/sims/"+number+"/"+bill_day, function(data) {
+              $(td).html("<span>"+data.result+"</span>")
+            });
+          }
+        }
+      }
+      ],
+      info: false,
+      bPaginate: false,
+      lengthChange: false,
+      order: [[ 2, "desc" ]],
+      scrollX: true,
+      scrollY: false
+    });
+    return this.dataTable = simsDataTable;
+    this.dataTable.search("");
+   },
+    init_chart: function(){
+    mApp.block("#sms_history_content", {
+      overlayColor: "#000000",
+      type: "loader",
+      state: "success",
+      message: "Loading..."
+    })
+      Highcharts.chart('container', {
+        chart: {
+          type: 'column'
+        },
+        colors: ['#363636', '#47bcfa', '#9c2a3d'],
+        credits: {
+          enabled: false
+        },
+        title: {
+          text: 'Last Week SMS Overview'
+        },
+        subtitle: {
+            text: ''
+        },
+        xAxis: {
+          categories: this.categories_dates,
+          crosshair: true
+        },
+        yAxis: {
+          min: 0,
+          title: {
+            text: 'Messages to router'
+          }
+        },
+        tooltip: {
+          headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
+          pointFormat: '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' +
+              '<td style="padding:0"><b>{point.y:1f} </b></td></tr>',
+          footerFormat: '</table>',
+          shared: true,
+          useHTML: true
+        },
+        plotOptions: {
+          column: {
+            pointPadding: 0.2,
+            borderWidth: 0
+          }
+        },
+        series: [{
+          name: 'Send',
+          data: this.delivered_sms
+        }, {
+          name: 'Received',
+          data: this.received_sms
+        }, {
+          name: 'Not Delivered',
+          data: this.pending_sms
+        }]
       });
     },
-    init_chart: function(){
-      Highcharts.chart('container', {
-          chart: {
-            type: 'column'
-          },
-          credits: {
-            enabled: false
-          },
-          title: {
-            text: 'Last Week SMS Overview'
-          },
-          subtitle: {
-              text: ''
-          },
-          xAxis: {
-            categories: [
-              'Nov-01',
-              'Nov-02',
-              'Nov-03',
-              'Nov-04',
-              'Nov-05',
-              'Nov-06',
-              'Nov-07'
-            ],
-            crosshair: true
-          },
-          yAxis: {
-            min: 0,
-            title: {
-              text: 'Rainfall (mm)'
-            }
-          },
-          tooltip: {
-            headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
-            pointFormat: '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' +
-                '<td style="padding:0"><b>{point.y:1f} </b></td></tr>',
-            footerFormat: '</table>',
-            shared: true,
-            useHTML: true
-          },
-          plotOptions: {
-            column: {
-              pointPadding: 0.2,
-              borderWidth: 0
-            }
-          },
-          series: [{
-            name: 'Delivered',
-            data: [49, 71, 106, 129, 144, 176, 135]
-          }, {
-            name: 'Received',
-            data: [83, 78, 98, 93, 106, 84, 105]
-          }, {
-            name: 'Pending',
-            data: [83, 78, 98, 93, 106, 84, 105]
-          }]
+    initializeLogsTable: function(){
+      mApp.block("#activity_content", {
+        overlayColor: "#000000",
+        type: "loader",
+        state: "success",
+        message: "Loading..."
+      })
+     var from_date = $.datepicker.formatDate('yy-mm-dd', new Date(new Date().getTime() - (168 * 60 * 60 * 1000)));
+     var to_date = $.datepicker.formatDate('yy-mm-dd', new Date());
+      this.$http.get("/user_logs/" + from_date + "/" + to_date).then(response => {
+        this.activity_logs = response.body.activity_logs;
+        mApp.unblock("#activity_content")
+      });
+    },
+    get_total_sims: function(){
+      this.$http.get('/dashboard/total_sims').then(response => {
+        this.total_sims = response.body.total_sims;
+      });
+    },
+    get_total_nvrs: function(){
+      this.$http.get('/dashboard/total_nvrs').then(response => {
+        this.total_nvrs = response.body.total_nvrs;
+      });
+    },
+    get_total_routers: function(){
+      this.$http.get('/dashboard/total_routers').then(response => {
+        this.total_routers = response.body.total_routers;
+      });
+    },
+    get_total_sites: function(){
+      this.$http.get('/dashboard/total_sites').then(response => {
+          this.total_sites = response.body.total_sites;
+      });
+    },
+    get_sms_history: function(){
+      this.$http.get('/dashboard/weekly_sms_overview').then(response => {
+       let history = response.body.sms_history
+        var i;
+        for (i = 0; i < history.length; i++) {
+          this.categories_dates.push(history[i].date);
+          this.delivered_sms.push(history[i].delivered_sms);
+          this.received_sms.push(history[i].received_sms);
+          this.pending_sms.push(history[i].pending_sms);
+        }
+          this.init_chart();
+          mApp.unblock("#sms_history_content")
       });
     },
     select_menu_link: function(){
@@ -323,10 +428,15 @@ module.exports = {
     }
   },
   mounted(){
+    this.get_sms_history();
+    this.init_chart();
     this.select_menu_link();
-    this.init_chart();
-    this.init_chart();
-    this.init_dattable();
+    this.initializeTable();
+    this.get_total_sims();
+    this.get_total_nvrs();
+    this.get_total_routers();
+    this.get_total_sites();
+    this.initializeLogsTable();
   }
 }
 </script>

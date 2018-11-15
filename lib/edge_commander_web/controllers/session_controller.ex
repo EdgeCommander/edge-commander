@@ -43,6 +43,6 @@ defmodule EdgeCommanderWeb.SessionController do
     conn
     |> put_flash(:info, "You have logged in.")
     |> Guardian.Plug.sign_in(user)
-    |> redirect(to: "/sims")
+    |> redirect(to: "/dashboard")
   end
 end

@@ -18317,120 +18317,179 @@ module.exports = {
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 
 module.exports = {
   name: 'dashboard',
   data: function data() {
-    return {};
+    return {
+      total_sims: 0,
+      total_nvrs: 0,
+      total_routers: 0,
+      total_sites: 0,
+      logsDataTable: null,
+      activity_logs: [],
+      categories_dates: [],
+      delivered_sms: [],
+      received_sms: [],
+      pending_sms: []
+    };
+  },
+  filters: {
+    date_format: function date_format(date) {
+      return moment(date).format('DD/MM/YYYY HH:mm:ss');
+    }
   },
   methods: {
-    init_dattable: function init_dattable() {
-      $("#sms_summary").DataTable({
-        autoWidth: true,
+    initializeTable: function initializeTable() {
+      $.fn.dataTable.ext.order['dom-span'] = function (settings, col) {
+        return this.api().column(col, { order: 'index' }).nodes().map(function (td, i) {
+          return $('span', td).text();
+        });
+      };
+      $.fn.dataTable.ext.order['dom-text-numeric'] = function (settings, col) {
+        return this.api().column(col, { order: 'index' }).nodes().map(function (td, i) {
+          return $('span', td).text() * 1;
+        });
+      };
+      $.fn.dataTable.ext.order['dom-text'] = function (settings, col) {
+        return this.api().column(col, { order: 'index' }).nodes().map(function (td, i) {
+          return $(td).text();
+        });
+      };
+
+      $.fn.dataTable.moment("DD/MM/YYYY HH:mm:ss");
+      var simsDataTable = $('#sms_summary').DataTable({
+        fnInitComplete: function fnInitComplete() {
+          // Enable TFOOT scoll bars
+          $('.dataTables_scrollFoot').css('overflow', 'auto');
+          $('.dataTables_scrollHead').css('overflow', 'auto');
+          // Sync TFOOT scrolling with TBODY
+          $('.dataTables_scrollFoot').on('scroll', function () {
+            $('.dataTables_scrollBody').scrollLeft($(this).scrollLeft());
+            simsDataTable.columns.adjust().draw();
+          });
+          $('.dataTables_scrollHead').on('scroll', function () {
+            $('.dataTables_scrollBody').scrollLeft($(this).scrollLeft());
+            simsDataTable.columns.adjust().draw();
+          });
+        },
+        ajax: {
+          url: "/sims/data/json",
+          dataSrc: function dataSrc(data) {
+            return data.logs;
+          },
+          error: function error(xhr, _error, thrown) {
+            if (xhr.responseJSON) {
+              console.log(xhr.responseJSON.message);
+            } else {
+              console.log("Something went wrong, Please try again.");
+            }
+          }
+        },
+        columns: [{
+          class: "text-left number",
+          data: function data(row, type, set, meta) {
+            var link = "%2B" + row.number;
+            return row.number;
+          }
+        }, {
+          class: "text-left name",
+          data: function data(row, type, set, meta) {
+            return row.name;
+          }
+        }, {
+          class: "text-center last_sms_datetime",
+          orderDataType: "dom-text",
+          type: "dateTime",
+          data: function data(row, type, set, meta) {
+            var last_sms_date = row.last_sms_date;
+            return last_sms_date;
+          },
+          createdCell: function createdCell(td, cellData, rowData, row, col) {
+            var date_value = void 0;
+            var number = rowData.number;
+            if (cellData == "Loading....") {
+              $.get("/sms/last/" + number + "/", function (data) {
+                var last_sms_date = data.sms.last_sms_date;
+                if (last_sms_date == '-') {
+                  date_value = last_sms_date;
+                } else {
+                  date_value = moment(last_sms_date).format('DD/MM/YYYY HH:mm:ss');
+                }
+                $(td).html(date_value);
+              });
+            }
+          }
+        }, {
+          class: "last_sms",
+          orderDataType: "dom-text",
+          type: "string",
+          data: function data(row, type, set, meta) {
+            return row.last_sms;
+          },
+          createdCell: function createdCell(td, cellData, rowData, row, col) {
+            var number = rowData.number;
+            if (cellData == "Loading....") {
+              $.get("/sms/last/" + number + "/", function (data) {
+                var resize = false;
+                if (resize == false) {
+                  simsDataTable.draw();
+                  resize = true;
+                }
+                $(td).html(data.sms.last_sms);
+              });
+            }
+          }
+        }, {
+          class: "text-center last_bill_date",
+          data: function data(row, type, set, meta) {
+            var last_bill_date = void 0;
+            last_bill_date = row.last_bill_date;
+            if (last_bill_date == null) {
+              return "-";
+            } else {
+              return moment(row.last_bill_date).format('DD/MM/YYYY');
+            }
+          }
+        }, {
+          class: "text-center sms_since_last_bill",
+          orderDataType: "dom-text-numeric",
+          type: "numeric",
+          data: function data(row, type, set, meta) {
+            return row.total_sms_send;
+          },
+          createdCell: function createdCell(td, cellData, rowData, row, col) {
+            var bill_day = rowData.bill_day;
+            var number = rowData.number;
+            if (cellData == "Loading....") {
+              $.get("/sims/" + number + "/" + bill_day, function (data) {
+                $(td).html("<span>" + data.result + "</span>");
+              });
+            }
+          }
+        }],
         info: false,
         bPaginate: false,
         lengthChange: false,
+        order: [[2, "desc"]],
         scrollX: true,
-        colReorder: true,
-        stateSave: true
+        scrollY: false
       });
+      return this.dataTable = simsDataTable;
+      this.dataTable.search("");
     },
     init_chart: function init_chart() {
+      mApp.block("#sms_history_content", {
+        overlayColor: "#000000",
+        type: "loader",
+        state: "success",
+        message: "Loading..."
+      });
       Highcharts.chart('container', {
         chart: {
           type: 'column'
         },
+        colors: ['#363636', '#47bcfa', '#9c2a3d'],
         credits: {
           enabled: false
         },
@@ -18441,13 +18500,13 @@ module.exports = {
           text: ''
         },
         xAxis: {
-          categories: ['Nov-01', 'Nov-02', 'Nov-03', 'Nov-04', 'Nov-05', 'Nov-06', 'Nov-07'],
+          categories: this.categories_dates,
           crosshair: true
         },
         yAxis: {
           min: 0,
           title: {
-            text: 'Rainfall (mm)'
+            text: 'Messages to router'
           }
         },
         tooltip: {
@@ -18464,15 +18523,75 @@ module.exports = {
           }
         },
         series: [{
-          name: 'Delivered',
-          data: [49, 71, 106, 129, 144, 176, 135]
+          name: 'Send',
+          data: this.delivered_sms
         }, {
           name: 'Received',
-          data: [83, 78, 98, 93, 106, 84, 105]
+          data: this.received_sms
         }, {
-          name: 'Pending',
-          data: [83, 78, 98, 93, 106, 84, 105]
+          name: 'Not Delivered',
+          data: this.pending_sms
         }]
+      });
+    },
+    initializeLogsTable: function initializeLogsTable() {
+      var _this = this;
+
+      mApp.block("#activity_content", {
+        overlayColor: "#000000",
+        type: "loader",
+        state: "success",
+        message: "Loading..."
+      });
+      var from_date = $.datepicker.formatDate('yy-mm-dd', new Date(new Date().getTime() - 168 * 60 * 60 * 1000));
+      var to_date = $.datepicker.formatDate('yy-mm-dd', new Date());
+      this.$http.get("/user_logs/" + from_date + "/" + to_date).then(function (response) {
+        _this.activity_logs = response.body.activity_logs;
+        mApp.unblock("#activity_content");
+      });
+    },
+    get_total_sims: function get_total_sims() {
+      var _this2 = this;
+
+      this.$http.get('/dashboard/total_sims').then(function (response) {
+        _this2.total_sims = response.body.total_sims;
+      });
+    },
+    get_total_nvrs: function get_total_nvrs() {
+      var _this3 = this;
+
+      this.$http.get('/dashboard/total_nvrs').then(function (response) {
+        _this3.total_nvrs = response.body.total_nvrs;
+      });
+    },
+    get_total_routers: function get_total_routers() {
+      var _this4 = this;
+
+      this.$http.get('/dashboard/total_routers').then(function (response) {
+        _this4.total_routers = response.body.total_routers;
+      });
+    },
+    get_total_sites: function get_total_sites() {
+      var _this5 = this;
+
+      this.$http.get('/dashboard/total_sites').then(function (response) {
+        _this5.total_sites = response.body.total_sites;
+      });
+    },
+    get_sms_history: function get_sms_history() {
+      var _this6 = this;
+
+      this.$http.get('/dashboard/weekly_sms_overview').then(function (response) {
+        var history = response.body.sms_history;
+        var i;
+        for (i = 0; i < history.length; i++) {
+          _this6.categories_dates.push(history[i].date);
+          _this6.delivered_sms.push(history[i].delivered_sms);
+          _this6.received_sms.push(history[i].received_sms);
+          _this6.pending_sms.push(history[i].pending_sms);
+        }
+        _this6.init_chart();
+        mApp.unblock("#sms_history_content");
       });
     },
     select_menu_link: function select_menu_link() {
@@ -18481,10 +18600,15 @@ module.exports = {
     }
   },
   mounted: function mounted() {
+    this.get_sms_history();
+    this.init_chart();
     this.select_menu_link();
-    this.init_chart();
-    this.init_chart();
-    this.init_dattable();
+    this.initializeTable();
+    this.get_total_sims();
+    this.get_total_nvrs();
+    this.get_total_routers();
+    this.get_total_sites();
+    this.initializeLogsTable();
   }
 };
 
@@ -26245,8 +26369,6 @@ if (false) {
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _vm._m(0)
-},staticRenderFns: [function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
   return _c('div', {
     attrs: {
       "id": "dashboard_main"
@@ -26281,7 +26403,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "m-widget24__desc"
   }, [_vm._v("\n                            SIMs for routers\n                        ")]), _vm._v(" "), _c('span', {
     staticClass: "m-widget24__stats m--font-brand"
-  }, [_vm._v("\n                            78 \n                        ")])])])]), _vm._v(" "), _c('div', {
+  }, [_vm._v("\n                            " + _vm._s(_vm.total_sims) + "\n                        ")])])])]), _vm._v(" "), _c('div', {
     staticClass: "col-md-12 col-lg-6 col-xl-3"
   }, [_c('div', {
     staticClass: "m-widget24"
@@ -26291,9 +26413,9 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "m-widget24__title"
   }, [_vm._v("\n                            NVR\n                        ")]), _c('br'), _vm._v(" "), _c('span', {
     staticClass: "m-widget24__desc"
-  }, [_vm._v("\n                            All connected NVRs\n                        ")]), _vm._v(" "), _c('span', {
+  }, [_vm._v("\n                            All NVRs\n                        ")]), _vm._v(" "), _c('span', {
     staticClass: "m-widget24__stats m--font-info"
-  }, [_vm._v("\n                            1349\n                        ")])])])]), _vm._v(" "), _c('div', {
+  }, [_vm._v("\n                            " + _vm._s(_vm.total_nvrs) + "\n                        ")])])])]), _vm._v(" "), _c('div', {
     staticClass: "col-md-12 col-lg-6 col-xl-3"
   }, [_c('div', {
     staticClass: "m-widget24"
@@ -26305,7 +26427,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "m-widget24__desc"
   }, [_vm._v("\n                            Routers count\n                        ")]), _vm._v(" "), _c('span', {
     staticClass: "m-widget24__stats m--font-danger"
-  }, [_vm._v("\n                            567\n                        ")])])])]), _vm._v(" "), _c('div', {
+  }, [_vm._v("\n                            " + _vm._s(_vm.total_routers) + "\n                        ")])])])]), _vm._v(" "), _c('div', {
     staticClass: "col-md-12 col-lg-6 col-xl-3"
   }, [_c('div', {
     staticClass: "m-widget24"
@@ -26317,7 +26439,55 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "m-widget24__desc"
   }, [_vm._v("\n                            Place of deployment\n                        ")]), _vm._v(" "), _c('span', {
     staticClass: "m-widget24__stats m--font-success"
-  }, [_vm._v("\n                            276 \n                        ")])])])])])])])]), _vm._v(" "), _c('div', {
+  }, [_vm._v("\n                            " + _vm._s(_vm.total_sites) + "\n                        ")])])])])])])])]), _vm._v(" "), _vm._m(0), _vm._v(" "), _c('div', {
+    staticClass: "col-sm-4 sim_log_datatable",
+    staticStyle: {
+      "padding-left": "0"
+    }
+  }, [_c('div', {
+    staticClass: "m-portlet m-portlet--mobile",
+    staticStyle: {
+      "min-height": "410px",
+      "max-height": "410px",
+      "overflow-y": "auto"
+    },
+    attrs: {
+      "id": "activity_content"
+    }
+  }, [_vm._m(1), _vm._v(" "), _c('div', {
+    staticClass: "m-portlet__body"
+  }, [_c('div', {
+    staticClass: "m-demo__preview"
+  }, [_c('div', {
+    staticClass: "m-list-timeline"
+  }, [_c('div', {
+    staticClass: "m-list-timeline__items"
+  }, _vm._l((_vm.activity_logs), function(log) {
+    return _c('div', {
+      staticClass: "m-list-timeline__item"
+    }, [(log.event === 'Login') ? _c('span', {
+      staticClass: "m-list-timeline__badge m-list-timeline__badge--success"
+    }) : (log.event === 'Logout') ? _c('span', {
+      staticClass: "m-list-timeline__badge m-list-timeline__badge--danger"
+    }) : (log.event.includes('Site') == true) ? _c('span', {
+      staticClass: "m-list-timeline__badge m-list-timeline__badge--brand"
+    }) : (log.event.includes('SMS') == true) ? _c('span', {
+      staticClass: "m-list-timeline__badge m-list-timeline__badge--warning"
+    }) : (log.event.includes('SIM') == true || log.event.includes('Sim') == true) ? _c('span', {
+      staticClass: "m-list-timeline__badge m-list-timeline__badge--info"
+    }) : _c('span', {
+      staticClass: "m-list-timeline__badge "
+    }), _vm._v(" "), _c('span', {
+      staticClass: "m-list-timeline__text",
+      domProps: {
+        "innerHTML": _vm._s(log.event)
+      }
+    }), _vm._v(" "), _c('span', {
+      staticClass: "m-list-timeline__time"
+    }, [_vm._v(_vm._s(_vm._f("date_format")(log.inserted_at)) + " ")])])
+  }))])])])])]), _vm._v(" "), _vm._m(2)])])])
+},staticRenderFns: [function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('div', {
     staticClass: "col-sm-8",
     staticStyle: {
       "padding-right": "5px"
@@ -26331,6 +26501,9 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "m-portlet__body",
     staticStyle: {
       "padding": "5px"
+    },
+    attrs: {
+      "id": "sms_history_content"
     }
   }, [_c('div', {
     staticStyle: {
@@ -26341,17 +26514,9 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     attrs: {
       "id": "container"
     }
-  })])])]), _vm._v(" "), _c('div', {
-    staticClass: "col-sm-4",
-    staticStyle: {
-      "padding-left": "0"
-    }
-  }, [_c('div', {
-    staticClass: "m-portlet m-portlet--mobile",
-    staticStyle: {
-      "margin-bottom": "5px"
-    }
-  }, [_c('div', {
+  })])])])
+},function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('div', {
     staticClass: "m-portlet__head"
   }, [_c('div', {
     staticClass: "m-portlet__head-caption"
@@ -26359,106 +26524,9 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "m-portlet__head-title"
   }, [_c('h3', {
     staticClass: "m-portlet__head-text"
-  }, [_vm._v("\n                    User activities\n                  ")])])])]), _vm._v(" "), _c('div', {
-    staticClass: "m-portlet__body"
-  }, [_c('div', {
-    staticClass: "m-scrollable m-scrollable--track m-scroller ps ps--active-y",
-    staticStyle: {
-      "height": "295px",
-      "overflow": "hidden"
-    },
-    attrs: {
-      "data-scrollable": "true"
-    }
-  }, [_c('div', {
-    staticClass: "m-demo__preview"
-  }, [_c('div', {
-    staticClass: "m-list-timeline"
-  }, [_c('div', {
-    staticClass: "m-list-timeline__items"
-  }, [_c('div', {
-    staticClass: "m-list-timeline__item"
-  }, [_c('span', {
-    staticClass: "m-list-timeline__badge m-list-timeline__badge--success"
-  }), _vm._v(" "), _c('span', {
-    staticClass: "m-list-timeline__text"
-  }, [_vm._v("Rule: Daily SMS Alert was updated in commands\n                                ")]), _vm._v(" "), _c('span', {
-    staticClass: "m-list-timeline__time"
-  }, [_vm._v("2018-06-10 10:20 PM")])]), _vm._v(" "), _c('div', {
-    staticClass: "m-list-timeline__item"
-  }, [_c('span', {
-    staticClass: "m-list-timeline__badge m-list-timeline__badge--danger"
-  }), _vm._v(" "), _c('span', {
-    staticClass: "m-list-timeline__text"
-  }, [_vm._v("Login ")]), _vm._v(" "), _c('span', {
-    staticClass: "m-list-timeline__time"
-  }, [_vm._v("2018-06-10 10:20 PM")])]), _vm._v(" "), _c('div', {
-    staticClass: "m-list-timeline__item"
-  }, [_c('span', {
-    staticClass: "m-list-timeline__badge m-list-timeline__badge--warning"
-  }), _vm._v(" "), _c('span', {
-    staticClass: "m-list-timeline__text"
-  }, [_vm._v("SMS: "), _c('span', {
-    staticClass: "bold_text"
-  }, [_vm._v("Restart")]), _vm._v(" command was sent to "), _c('span', [_vm._v("+353867802458")])]), _vm._v(" "), _c('span', {
-    staticClass: "m-list-timeline__time"
-  }, [_vm._v("2018-06-10 10:20 PM")])]), _vm._v(" "), _c('div', {
-    staticClass: "m-list-timeline__item"
-  }, [_c('span', {
-    staticClass: "m-list-timeline__badge m-list-timeline__badge--primary"
-  }), _vm._v(" "), _c('span', {
-    staticClass: "m-list-timeline__text"
-  }, [_vm._v("Account details of junaid@evercam.io was updated.\n                                ")]), _vm._v(" "), _c('span', {
-    staticClass: "m-list-timeline__time"
-  }, [_vm._v("2018-06-10 10:20 PM")])]), _vm._v(" "), _c('div', {
-    staticClass: "m-list-timeline__item"
-  }, [_c('span', {
-    staticClass: "m-list-timeline__badge m-list-timeline__badge--brand"
-  }), _vm._v(" "), _c('span', {
-    staticClass: "m-list-timeline__text"
-  }, [_vm._v("Logout")]), _vm._v(" "), _c('span', {
-    staticClass: "m-list-timeline__time"
-  }, [_vm._v("2018-06-10 10:20 PM")])]), _vm._v(" "), _c('div', {
-    staticClass: "m-list-timeline__item"
-  }, [_c('span', {
-    staticClass: "m-list-timeline__badge m-list-timeline__badge--success"
-  }), _vm._v(" "), _c('span', {
-    staticClass: "m-list-timeline__text"
-  }, [_vm._v("SMS: Status command was sent to +353860418034\n                                ")]), _vm._v(" "), _c('span', {
-    staticClass: "m-list-timeline__time"
-  }, [_vm._v("2018-06-10 10:20 PM")])]), _vm._v(" "), _c('div', {
-    staticClass: "m-list-timeline__item"
-  }, [_c('span', {
-    staticClass: "m-list-timeline__badge m-list-timeline__badge--success"
-  }), _vm._v(" "), _c('span', {
-    staticClass: "m-list-timeline__text"
-  }, [_vm._v("SMS: Status command was sent to +353860418034\n                                ")]), _vm._v(" "), _c('span', {
-    staticClass: "m-list-timeline__time"
-  }, [_vm._v("2018-06-10 10:20 PM")])]), _vm._v(" "), _c('div', {
-    staticClass: "m-list-timeline__item"
-  }, [_c('span', {
-    staticClass: "m-list-timeline__badge m-list-timeline__badge--success"
-  }), _vm._v(" "), _c('span', {
-    staticClass: "m-list-timeline__text"
-  }, [_vm._v("SMS: Status command was sent to +353860418034\n                                ")]), _vm._v(" "), _c('span', {
-    staticClass: "m-list-timeline__time"
-  }, [_vm._v("2018-06-10 10:20 PM")])]), _vm._v(" "), _c('div', {
-    staticClass: "m-list-timeline__item"
-  }, [_c('span', {
-    staticClass: "m-list-timeline__badge m-list-timeline__badge--success"
-  }), _vm._v(" "), _c('span', {
-    staticClass: "m-list-timeline__text"
-  }, [_vm._v("SMS: Status command was sent to +353860418034\n                                ")]), _vm._v(" "), _c('span', {
-    staticClass: "m-list-timeline__time"
-  }, [_vm._v("2018-06-10 10:20 PM")])]), _vm._v(" "), _c('div', {
-    staticClass: "m-list-timeline__item"
-  }, [_c('span', {
-    staticClass: "m-list-timeline__badge m-list-timeline__badge--success"
-  }), _vm._v(" "), _c('span', {
-    staticClass: "m-list-timeline__text"
-  }, [_vm._v("SMS: Status command was sent to +353860418034\n                                ")]), _vm._v(" "), _c('span', {
-    staticClass: "m-list-timeline__time"
-  }, [_vm._v("2018-06-10 10:20 PM")])])])])])])])])]), _vm._v(" "), _c('div', {
+  }, [_vm._v("\n                    Recent User Activity\n                  ")])])])])
+},function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('div', {
     staticClass: "col-sm-12"
   }, [_c('div', {
     staticClass: "m-portlet m-portlet--full-height "
@@ -26470,7 +26538,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "m-portlet__head-title"
   }, [_c('h3', {
     staticClass: "m-portlet__head-text"
-  }, [_vm._v("\n                    Qucik Overview SIMs\n                  ")])])])]), _vm._v(" "), _c('div', {
+  }, [_vm._v("\n                    Quick SIMs Overview\n                  ")])])])]), _vm._v(" "), _c('div', {
     staticClass: "m-portlet__body",
     staticStyle: {
       "padding": "15px"
@@ -26482,7 +26550,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       "width": "100%",
       "id": "sms_summary"
     }
-  }, [_c('thead', [_c('tr', [_c('td', [_vm._v("Number")]), _vm._v(" "), _c('td', [_vm._v("Name")]), _vm._v(" "), _c('td', [_vm._v("Last SMS")]), _vm._v(" "), _c('td', [_vm._v("Last SMS DateTime")]), _vm._v(" "), _c('td', [_vm._v("Bill Date")]), _vm._v(" "), _c('td', [_vm._v("SMS since Last bill")])])]), _vm._v(" "), _c('tbody', [_c('tr', [_c('td', [_vm._v("+447365269083")]), _vm._v(" "), _c('td', [_vm._v("Cromer Road UK ")]), _vm._v(" "), _c('td', [_vm._v("testing message received. ")]), _vm._v(" "), _c('td', [_vm._v("25/10/2018 07:20:03   ")]), _vm._v(" "), _c('td', [_vm._v("05/10/2018  ")]), _vm._v(" "), _c('td', [_vm._v("10 ")])]), _vm._v(" "), _c('tr', [_c('td', [_vm._v("+447365269083")]), _vm._v(" "), _c('td', [_vm._v("Cromer Road UK ")]), _vm._v(" "), _c('td', [_vm._v("testing message received. ")]), _vm._v(" "), _c('td', [_vm._v("25/10/2018 07:20:03   ")]), _vm._v(" "), _c('td', [_vm._v("05/10/2018  ")]), _vm._v(" "), _c('td', [_vm._v("10 ")])]), _vm._v(" "), _c('tr', [_c('td', [_vm._v("+447365269083")]), _vm._v(" "), _c('td', [_vm._v("Cromer Road UK ")]), _vm._v(" "), _c('td', [_vm._v("testing message received. ")]), _vm._v(" "), _c('td', [_vm._v("25/10/2018 07:20:03   ")]), _vm._v(" "), _c('td', [_vm._v("05/10/2018  ")]), _vm._v(" "), _c('td', [_vm._v("10 ")])])])])])])])])])])
+  }, [_c('thead', [_c('tr', [_c('th', [_vm._v("Number")]), _vm._v(" "), _c('th', [_vm._v("Name")]), _vm._v(" "), _c('th', [_vm._v("Last SMS DateTime")]), _vm._v(" "), _c('th', [_vm._v("Last SMS")]), _vm._v(" "), _c('th', [_vm._v("Bill Date")]), _vm._v(" "), _c('th', [_vm._v("SMS since Last bill")])])])])])])])
 }]}
 module.exports.render._withStripped = true
 if (false) {

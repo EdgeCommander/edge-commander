@@ -157,6 +157,13 @@ defmodule EdgeCommanderWeb.Router do
     patch "/three_accounts", ThreeController, :update
     delete "/three_accounts/:id", ThreeController, :delete
 
+    get "/dashboard/total_sims", DashboardController, :total_sims
+    get "/dashboard/total_nvrs", DashboardController, :total_nvrs
+    get "/dashboard/total_routers", DashboardController, :total_routers
+    get "/dashboard/total_sites", DashboardController, :total_sites
+    get "/dashboard/weekly_sms_overview", DashboardController, :weekly_sms_overview
+
+
   end
 
   # Other scopes may use custom stacks.

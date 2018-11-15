@@ -480,11 +480,14 @@ select.form-control:not([size]):not([multiple]) {
   padding: 0px;
   margin: 0px;
   width: 30% !important;
-  top: 10% !important;
   left: 35%;
   right: 35%;
   font-size: 12px !important;
   z-index: 1600 !important;
+}
+
+.m-list-timeline .m-list-timeline__items .m-list-timeline__item .m-list-timeline__badge:before {
+  background-color: #7b7b7b;
 }
 
 .blockElement h1{
@@ -656,5 +659,8 @@ select.form-control:not([size]):not([multiple]) {
   margin-top: 0.20rem;
 }
 .bold_text{
+}
+
+.m-list-timeline__text span{
   font-weight: 500;
 }
