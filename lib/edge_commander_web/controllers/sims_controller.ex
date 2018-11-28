@@ -407,20 +407,61 @@ defmodule EdgeCommanderWeb.SimsController do
 
   defp check_sms_command(false, _conn, _body, _number), do: :noop
   defp check_sms_command(true, conn, body, number) do
+
     sim_name = String.replace(Enum.at(body, 0), "add ", "")
     sim_provider = Enum.at(body, 1)
+    addon = "Unknown"
+    allowance = "0"
+    volume_used = "0"
+    user_id = 1
+    three_user_id = 0
+    datetime = NaiveDateTime.utc_now
     params = %{
       "sim_provider" => sim_provider,
       "number" => number,
       "name" => sim_name,
-      "addon" => "Unknown",
-      "allowance" => "0",
-      "volume_used" => "0",
-      "user_id" => 1,
-      "three_user_id" => 0
+      "addon" => addon,
+      "allowance" => allowance,
+      "volume_used" => volume_used,
+      "user_id" => user_id,
+      "three_user_id" => three_user_id,
+      "datetime" => datetime
     }
-    create(conn, params)
+    number_exist = get_last_record_for_number(number)
+    ensure_number_exist(number_exist, conn, params)
   end
+
+  defp ensure_number_exist(nil, conn, params) do
+    changeset = SimLogs.changeset(%SimLogs{}, params)
+    case Repo.insert(changeset) do
+      {:ok, _site} ->
+        %EdgeCommander.ThreeScraper.SimLogs{
+          sim_provider: params["sim_provider"],
+          number: params["number"],
+          name: params["name"],
+          addon: params["addon"],
+          allowance: params["allowance"],
+          volume_used: params["volume_used"],
+          datetime: params["datetime"],
+          user_id: params["user_id"],
+          three_user_id: params["three_user_id"]
+        }
+        number = params["number"]
+        name = params["name"]
+        current_user = current_user(conn)
+        logs_params = %{
+          "event" => "SIM: <span>#{number}</span> with the name of <span>#{name}</span> was created using SMS command.",
+          "user_id" => current_user.id
+        }
+        Util.create_log(conn, logs_params)
+        conn
+        |> json(%{void: 0})
+      {:error, _changeset} ->
+        conn
+        |> put_status(400)
+    end
+  end
+  defp ensure_number_exist(_, _conn, _params), do: :noop
 
   defp send_daily_sms_alert(number, current_user_id) do
     current_day_date = get_current_date()
