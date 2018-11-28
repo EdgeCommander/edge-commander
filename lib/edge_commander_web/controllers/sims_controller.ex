@@ -369,7 +369,10 @@ defmodule EdgeCommanderWeb.SimsController do
   defp save_send_sms(_status, nexmo_number, _results, _sms_message, _user_id), do: :noop
 
   def receive_sms(conn, params) do
+    text = params["text"]
     from_number = params["msisdn"] |> number_with_plus_code
+
+    is_new_sim(conn, text, from_number)
     to_number = params["to"] |> number_with_plus_code
     users = get_all_users_by_number(from_number)
     Enum.each(users, fn(user_id) ->
@@ -383,6 +386,7 @@ defmodule EdgeCommanderWeb.SimsController do
         user_id: user_id,
         delivery_datetime: NaiveDateTime.utc_now
       }
+
       changeset = SimMessages.changeset(%SimMessages{}, params)
       case Repo.insert(changeset) do
         {:ok, _} -> Logger.info "SMS has been saved"
@@ -393,6 +397,29 @@ defmodule EdgeCommanderWeb.SimsController do
     end)
     conn
     |> json(%{void: 0})
+  end
+
+  defp is_new_sim(conn, message, number) do
+    body = String.split(message , ",")
+    is_add = Enum.at(body, 0) =~ "add"
+    check_sms_command(is_add, conn, body, number)
+  end
+
+  defp check_sms_command(false, _conn, _body, _number), do: :noop
+  defp check_sms_command(true, conn, body, number) do
+    sim_name = String.replace(Enum.at(body, 0), "add ", "")
+    sim_provider = Enum.at(body, 1)
+    params = %{
+      "sim_provider" => sim_provider,
+      "number" => number,
+      "name" => sim_name,
+      "addon" => "Unknown",
+      "allowance" => "0",
+      "volume_used" => "0",
+      "user_id" => 1,
+      "three_user_id" => 0
+    }
+    create(conn, params)
   end
 
   defp send_daily_sms_alert(number, current_user_id) do
