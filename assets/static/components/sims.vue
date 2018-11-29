@@ -494,7 +494,6 @@ module.exports = {
       stateSave:  true
     });
     return this.dataTable = simsDataTable;
-    this.dataTable.search("");
    },
    search: function(){
     this.dataTable.search(this.m_form_search).draw();
@@ -626,17 +625,21 @@ module.exports = {
         }
       });
     },
-    select_menu_link: function(){
+    active_menu_link: function(){
       $("li").removeClass(" m-menu__item--active");
       $(".sims").addClass(" m-menu__item--active");
+      $("#m_aside_left").removeClass("m-aside-left--on");
+      $("body").removeClass("m-aside-left--on");
+      $(".m-aside-left-overlay").removeClass("m-aside-left-overlay");
     }
   }, // end of methods
   mounted(){
     let table =  this.initializeTable();
     this.getUniqueIdentifier(table);
+    this.search();
     this.get_session();
     this.initHideShow();
-    this.select_menu_link();
+    this.active_menu_link();
     table.on("column-reorder", function() {
       table.ajax.reload();
     });

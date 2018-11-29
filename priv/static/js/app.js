@@ -17629,6 +17629,9 @@ module.exports = {
     select_menu_link: function select_menu_link() {
       $("li").removeClass(" m-menu__item--active");
       $(".api").addClass(" m-menu__item--active");
+      $("#m_aside_left").removeClass("m-aside-left--on");
+      $("body").removeClass("m-aside-left--on");
+      $(".m-aside-left-overlay").removeClass("m-aside-left-overlay");
     }
   },
   mounted: function mounted() {
@@ -17993,7 +17996,6 @@ module.exports = {
         stateSave: true
       });
       return this.dataTable = commandsDataTable;
-      this.dataTable.search("");
     },
     search: function search() {
       this.dataTable.search(this.m_form_search).draw();
@@ -18143,19 +18145,22 @@ module.exports = {
         });
       });
     },
-    select_menu_link: function select_menu_link() {
+    active_menu_link: function active_menu_link() {
       $("li").removeClass(" m-menu__item--active");
       $(".commands").addClass(" m-menu__item--active");
+      $("#m_aside_left").removeClass("m-aside-left--on");
+      $("body").removeClass("m-aside-left--on");
+      $(".m-aside-left-overlay").removeClass("m-aside-left-overlay");
     }
   }, // end of methods
   mounted: function mounted() {
     this.deleteRule();
     var table = this.initializeTable();
     this.getUniqueIdentifier(table);
+    this.search();
     this.get_session();
     this.initHideShow();
-    this.dataTable.search("");
-    this.select_menu_link();
+    this.active_menu_link();
   }
 };
 
@@ -18587,15 +18592,18 @@ module.exports = {
         mApp.unblock("#sms_history_content");
       });
     },
-    select_menu_link: function select_menu_link() {
+    active_menu_link: function active_menu_link() {
       $("li").removeClass(" m-menu__item--active");
       $(".dashboard").addClass(" m-menu__item--active");
+      $("#m_aside_left").removeClass("m-aside-left--on");
+      $("body").removeClass("m-aside-left--on");
+      $(".m-aside-left-overlay").removeClass("m-aside-left-overlay");
     }
   },
   mounted: function mounted() {
     this.get_sms_history();
     this.init_chart();
-    this.select_menu_link();
+    this.active_menu_link();
     this.initializeTable();
     this.get_total_sims();
     this.get_total_nvrs();
@@ -18948,7 +18956,6 @@ module.exports = {
         order: [[0, "desc"]]
       });
       this.dataTable = smsDataTable;
-      this.dataTable.search("");
     },
     search: function search() {
       this.dataTable.search(this.m_form_search).draw();
@@ -19031,9 +19038,12 @@ module.exports = {
         _this2.sims_list = response.body.logs;
       });
     },
-    select_menu_link: function select_menu_link() {
+    active_menu_link: function active_menu_link() {
       $("li").removeClass(" m-menu__item--active");
       $(".messages").addClass(" m-menu__item--active");
+      $("#m_aside_left").removeClass("m-aside-left--on");
+      $("body").removeClass("m-aside-left--on");
+      $(".m-aside-left-overlay").removeClass("m-aside-left-overlay");
     }
   }, // end of methods
   mounted: function mounted() {
@@ -19043,8 +19053,8 @@ module.exports = {
     this.onSendSMSFocus();
     this.get_session();
     this.get_sims();
-    this.dataTable.search("");
-    this.select_menu_link();
+    this.search();
+    this.active_menu_link();
     $('[data-toggle="popover"]').popover({ trigger: "hover" });
   }
 };
@@ -19596,7 +19606,6 @@ module.exports = {
         stateSave: true
       });
       return this.dataTable = nvrDataTable;
-      this.dataTable.search("");
     },
     search: function search() {
       this.dataTable.search(this.m_form_search).draw();
@@ -19787,6 +19796,9 @@ module.exports = {
     active_menu_link: function active_menu_link() {
       $("li").removeClass(" m-menu__item--active");
       $(".nvrs").addClass(" m-menu__item--active");
+      $("#m_aside_left").removeClass("m-aside-left--on");
+      $("body").removeClass("m-aside-left--on");
+      $(".m-aside-left-overlay").removeClass("m-aside-left-overlay");
     }
   }, // end of methods
   mounted: function mounted() {
@@ -19795,8 +19807,8 @@ module.exports = {
     this.deleteNvr();
     var table = this.initializeTable();
     this.getUniqueIdentifier(table);
+    this.search();
     this.initHideShow();
-    this.dataTable.search("");
     this.active_menu_link();
   }
 };
@@ -20190,7 +20202,6 @@ module.exports = {
         stateSave: true
       });
       return this.dataTable = routersDataTable;
-      this.dataTable.search("");
     },
     search: function search() {
       this.dataTable.search(this.m_form_search).draw();
@@ -20341,9 +20352,12 @@ module.exports = {
         });
       });
     },
-    select_menu_link: function select_menu_link() {
+    active_menu_link: function active_menu_link() {
       $("li").removeClass(" m-menu__item--active");
       $(".routers").addClass(" m-menu__item--active");
+      $(".m-aside-left-overlay").removeClass("m-aside-left-overlay");
+      $("#m_aside_left").removeClass("m-aside-left--on");
+      $("body").removeClass("m-aside-left--on");
     }
   },
   mounted: function mounted() {
@@ -20351,9 +20365,9 @@ module.exports = {
     var table = this.initializeTable();
     this.getUniqueIdentifier(table);
     this.get_session();
-    this.dataTable.search("");
+    this.search();
     this.initHideShow();
-    this.select_menu_link();
+    this.active_menu_link();
   }
 };
 
@@ -21079,9 +21093,12 @@ module.exports = {
         column.visible(true);
       }
     },
-    select_menu_link: function select_menu_link() {
+    active_menu_link: function active_menu_link() {
       $("li").removeClass(" m-menu__item--active");
-      $(".my_profile").addClass(" m-menu__item--active");
+      $(".settings").addClass(" m-menu__item--active");
+      $("#m_aside_left").removeClass("m-aside-left--on");
+      $("body").removeClass("m-aside-left--on");
+      $(".m-aside-left-overlay").removeClass("m-aside-left-overlay");
     },
     redraw_table: function redraw_table() {
       this.dataTable.ajax.reload();
@@ -21090,7 +21107,7 @@ module.exports = {
   },
   mounted: function mounted() {
     this.get_my_prfile();
-    this.select_menu_link();
+    this.active_menu_link();
     var table = this.initializeTable();
     this.getUniqueIdentifier(table);
     this.deleteThree();
@@ -21983,7 +22000,6 @@ module.exports = {
         stateSave: true
       });
       return this.dataTable = simsDataTable;
-      this.dataTable.search("");
     },
     search: function search() {
       this.dataTable.search(this.m_form_search).draw();
@@ -22117,17 +22133,21 @@ module.exports = {
         }
       });
     },
-    select_menu_link: function select_menu_link() {
+    active_menu_link: function active_menu_link() {
       $("li").removeClass(" m-menu__item--active");
       $(".sims").addClass(" m-menu__item--active");
+      $("#m_aside_left").removeClass("m-aside-left--on");
+      $("body").removeClass("m-aside-left--on");
+      $(".m-aside-left-overlay").removeClass("m-aside-left-overlay");
     }
   }, // end of methods
   mounted: function mounted() {
     var table = this.initializeTable();
     this.getUniqueIdentifier(table);
+    this.search();
     this.get_session();
     this.initHideShow();
-    this.select_menu_link();
+    this.active_menu_link();
     table.on("column-reorder", function () {
       table.ajax.reload();
     });
@@ -23167,7 +23187,6 @@ module.exports = {
         stateSave: true
       });
       return this.dataTable = sitesDataTable;
-      this.dataTable.search("");
     },
     search: function search() {
       this.dataTable.search(this.m_form_search).draw();
@@ -23497,9 +23516,12 @@ module.exports = {
         _this4.nvrs_list = response.body.nvrs;
       });
     },
-    select_menu_link: function select_menu_link() {
+    active_menu_link: function active_menu_link() {
       $("li").removeClass(" m-menu__item--active");
       $(".sites").addClass(" m-menu__item--active");
+      $("#m_aside_left").removeClass("m-aside-left--on");
+      $("body").removeClass("m-aside-left--on");
+      $(".m-aside-left-overlay").removeClass("m-aside-left-overlay");
     }
   }, // end of methods\
   created: function created() {
@@ -23512,9 +23534,9 @@ module.exports = {
     this.deleteSite();
     var table = this.initializeTable();
     this.getUniqueIdentifier(table);
+    this.search();
     this.initHideShow();
-    this.dataTable.search("");
-    this.select_menu_link();
+    this.active_menu_link();
   }
 };
 
@@ -23649,16 +23671,19 @@ module.exports = {
       $('.ranges > ul > li:last-child').remove();
       $('.ranges > ul > li:last-child').remove();
     },
-    select_menu_link: function select_menu_link() {
+    active_menu_link: function active_menu_link() {
       $("li").removeClass(" m-menu__item--active");
       $(".status_report").addClass(" m-menu__item--active");
+      $("#m_aside_left").removeClass("m-aside-left--on");
+      $("body").removeClass("m-aside-left--on");
+      $(".m-aside-left-overlay").removeClass("m-aside-left-overlay");
     }
   }, // end of methods
   mounted: function mounted() {
     this.initializeReport(1);
     this.initializeDate();
     this.init_Dashboard();
-    this.select_menu_link();
+    this.active_menu_link();
   }
 };
 

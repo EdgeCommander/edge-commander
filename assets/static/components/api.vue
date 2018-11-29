@@ -70,6 +70,9 @@ module.exports = {
     select_menu_link: function(){
       $("li").removeClass(" m-menu__item--active");
       $(".api").addClass(" m-menu__item--active");
+      $("#m_aside_left").removeClass("m-aside-left--on");
+      $("body").removeClass("m-aside-left--on");
+      $(".m-aside-left-overlay").removeClass("m-aside-left-overlay");
     }
   },
   mounted(){
