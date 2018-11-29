@@ -572,7 +572,6 @@ module.exports = {
       stateSave:  true
     });
       return this.dataTable = nvrDataTable;
-      this.dataTable.search("");
    },
    search: function(){
     this.dataTable.search(this.m_form_search).draw();
@@ -756,9 +755,12 @@ module.exports = {
       });
     });
    },
-    active_menu_link: function(){
+   active_menu_link: function(){
       $("li").removeClass(" m-menu__item--active");
       $(".nvrs").addClass(" m-menu__item--active");
+      $("#m_aside_left").removeClass("m-aside-left--on");
+      $("body").removeClass("m-aside-left--on");
+      $(".m-aside-left-overlay").removeClass("m-aside-left-overlay");
     }
   }, // end of methods
   mounted(){
@@ -767,8 +769,8 @@ module.exports = {
     this.deleteNvr();
     let table =  this.initializeTable();
     this.getUniqueIdentifier(table);
+    this.search();
     this.initHideShow();
-    this.dataTable.search("");
     this.active_menu_link();
   }
 }

@@ -348,7 +348,6 @@ module.exports = {
         order: [[ 0, "desc" ]],
       });
       this.dataTable = smsDataTable;
-      this.dataTable.search("");
     },
     search: function(){
       this.dataTable.search(this.m_form_search).draw();
@@ -427,9 +426,12 @@ module.exports = {
         this.sims_list = response.body.logs;
       });
     },
-    select_menu_link: function(){
+    active_menu_link: function(){
       $("li").removeClass(" m-menu__item--active");
       $(".messages").addClass(" m-menu__item--active");
+      $("#m_aside_left").removeClass("m-aside-left--on");
+      $("body").removeClass("m-aside-left--on");
+      $(".m-aside-left-overlay").removeClass("m-aside-left-overlay");
     }
   }, // end of methods
    mounted(){
@@ -439,8 +441,8 @@ module.exports = {
     this.onSendSMSFocus();
     this.get_session();
     this.get_sims();
-    this.dataTable.search("");
-    this.select_menu_link();
+    this.search();
+    this.active_menu_link();
     $('[data-toggle="popover"]').popover({ trigger: "hover" });
    }
 }

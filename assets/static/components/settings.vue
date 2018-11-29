@@ -729,9 +729,12 @@ module.exports = {
       column.visible(true);
     }
    },
-   select_menu_link: function(){
-     $("li").removeClass(" m-menu__item--active");
-     $(".my_profile").addClass(" m-menu__item--active");
+   active_menu_link: function(){
+    $("li").removeClass(" m-menu__item--active");
+    $(".settings").addClass(" m-menu__item--active");
+    $("#m_aside_left").removeClass("m-aside-left--on");
+    $("body").removeClass("m-aside-left--on");
+    $(".m-aside-left-overlay").removeClass("m-aside-left-overlay");
    },
    redraw_table: function(){
     this.dataTable.ajax.reload();
@@ -740,7 +743,7 @@ module.exports = {
   },
   mounted(){
     this.get_my_prfile();
-    this.select_menu_link();
+    this.active_menu_link();
     let table =  this.initializeTable();
     this.getUniqueIdentifier(table)
     this.deleteThree();

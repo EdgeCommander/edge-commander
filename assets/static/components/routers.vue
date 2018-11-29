@@ -390,7 +390,6 @@ module.exports = {
         stateSave:  true
       });
       return this.dataTable = routersDataTable;
-      this.dataTable.search("");
     },
     search: function(){
       this.dataTable.search(this.m_form_search).draw();
@@ -538,9 +537,12 @@ module.exports = {
       });
     });
    },
-    select_menu_link: function(){
+    active_menu_link: function(){
       $("li").removeClass(" m-menu__item--active");
       $(".routers").addClass(" m-menu__item--active");
+      $(".m-aside-left-overlay").removeClass("m-aside-left-overlay");
+      $("#m_aside_left").removeClass("m-aside-left--on");
+      $("body").removeClass("m-aside-left--on");
     }
   },
   mounted(){
@@ -548,9 +550,9 @@ module.exports = {
     let table = this.initializeTable();
     this.getUniqueIdentifier(table);
     this.get_session();
-    this.dataTable.search("");
+    this.search();
     this.initHideShow();
-    this.select_menu_link();
+    this.active_menu_link();
   }
 }
 </script>

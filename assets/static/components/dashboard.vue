@@ -414,15 +414,18 @@ module.exports = {
           mApp.unblock("#sms_history_content")
       });
     },
-    select_menu_link: function(){
+    active_menu_link: function(){
       $("li").removeClass(" m-menu__item--active");
       $(".dashboard").addClass(" m-menu__item--active");
+      $("#m_aside_left").removeClass("m-aside-left--on");
+      $("body").removeClass("m-aside-left--on");
+      $(".m-aside-left-overlay").removeClass("m-aside-left-overlay");
     }
   },
   mounted(){
     this.get_sms_history();
     this.init_chart();
-    this.select_menu_link();
+    this.active_menu_link();
     this.initializeTable();
     this.get_total_sims();
     this.get_total_nvrs();

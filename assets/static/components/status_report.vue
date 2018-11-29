@@ -122,16 +122,19 @@ module.exports = {
       $('.ranges > ul > li:last-child').remove();
       $('.ranges > ul > li:last-child').remove();
     },
-    select_menu_link: function(){
+    active_menu_link: function(){
       $("li").removeClass(" m-menu__item--active");
       $(".status_report").addClass(" m-menu__item--active");
+      $("#m_aside_left").removeClass("m-aside-left--on");
+      $("body").removeClass("m-aside-left--on");
+      $(".m-aside-left-overlay").removeClass("m-aside-left-overlay");
     }
   }, // end of methods
    mounted(){
     this.initializeReport(1);
     this.initializeDate();
     this.init_Dashboard();
-    this.select_menu_link();
+    this.active_menu_link();
    }
 }
 </script>
