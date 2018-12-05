@@ -106,6 +106,7 @@ defmodule EdgeCommanderWeb.Router do
     get "/api", RooterController, :main
     get "/shares", RooterController, :main
     get "/dashboard", RooterController, :main
+    get "/battery_status", RooterController, :main
 
     get "/sims/data/json", SimsController, :get_sim_logs
     get "/sims/data/:sim_number", SimsController, :get_single_sim_data
@@ -163,6 +164,7 @@ defmodule EdgeCommanderWeb.Router do
     get "/dashboard/total_sites", DashboardController, :total_sites
     get "/dashboard/weekly_sms_overview", DashboardController, :weekly_sms_overview
 
+    get "/battery/data", BatteryController, :get_battery_record
   end
 
   # Other scopes may use custom stacks.
