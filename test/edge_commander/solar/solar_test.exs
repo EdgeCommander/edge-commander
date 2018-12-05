@@ -6,9 +6,9 @@ defmodule EdgeCommander.SolarTest do
   describe "battery" do
     alias EdgeCommander.Solar.Battery
 
-    @valid_attrs %{datetime: "some datetime", err_value: 42, fw: "some fw", h19_value: 42, h20_value: 42, h21_value: 42, h22_value: 42, h23_value: 42, i_value: 42, integer: 42, pid: "some pid", ppv_value: 42, serial_no: "some serial_no", voltage: 42, vpn_value: 42}
-    @update_attrs %{datetime: "some updated datetime", err_value: 43, fw: "some updated fw", h19_value: 43, h20_value: 43, h21_value: 43, h22_value: 43, h23_value: 43, i_value: 43, integer: 43, pid: "some updated pid", ppv_value: 43, serial_no: "some updated serial_no", voltage: 43, vpn_value: 43}
-    @invalid_attrs %{datetime: nil, err_value: nil, fw: nil, h19_value: nil, h20_value: nil, h21_value: nil, h22_value: nil, h23_value: nil, i_value: nil, integer: nil, pid: nil, ppv_value: nil, serial_no: nil, voltage: nil, vpn_value: nil}
+    @valid_attrs %{datetime: "some datetime", err_value: 42, fw: "some fw", h19_value: 42, h20_value: 42, h21_value: 42, h22_value: 42, h23_value: 42, i_value: 42, cs_value: 42, pid: "some pid", ppv_value: 42, serial_no: "some serial_no", voltage: 42, vpv_value: 42}
+    @update_attrs %{datetime: "some updated datetime", err_value: 43, fw: "some updated fw", h19_value: 43, h20_value: 43, h21_value: 43, h22_value: 43, h23_value: 43, i_value: 43, cs_value: 43, pid: "some updated pid", ppv_value: 43, serial_no: "some updated serial_no", voltage: 43, vpv_value: 43}
+    @invalid_attrs %{datetime: nil, err_value: nil, fw: nil, h19_value: nil, h20_value: nil, h21_value: nil, h22_value: nil, h23_value: nil, i_value: nil, cs_value: nil, pid: nil, ppv_value: nil, serial_no: nil, voltage: nil, vpv_value: nil}
 
     def battery_fixture(attrs \\ %{}) do
       {:ok, battery} =
@@ -40,12 +40,12 @@ defmodule EdgeCommander.SolarTest do
       assert battery.h22_value == 42
       assert battery.h23_value == 42
       assert battery.i_value == 42
-      assert battery.integer == 42
+      assert battery.cs_value == 42
       assert battery.pid == "some pid"
       assert battery.ppv_value == 42
       assert battery.serial_no == "some serial_no"
       assert battery.voltage == 42
-      assert battery.vpn_value == 42
+      assert battery.vpv_value == 42
     end
 
     test "create_battery/1 with invalid data returns error changeset" do
@@ -65,12 +65,12 @@ defmodule EdgeCommander.SolarTest do
       assert battery.h22_value == 43
       assert battery.h23_value == 43
       assert battery.i_value == 43
-      assert battery.integer == 43
+      assert battery.cs_value == 43
       assert battery.pid == "some updated pid"
       assert battery.ppv_value == 43
       assert battery.serial_no == "some updated serial_no"
       assert battery.voltage == 43
-      assert battery.vpn_value == 43
+      assert battery.vpv_value == 43
     end
 
     test "update_battery/2 with invalid data returns error changeset" do
