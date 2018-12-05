@@ -105,6 +105,12 @@
 								<span class="m-menu__link-text">Messages</span>
 							</router-link>
 				        </li>
+				        <li class="m-menu__item vue_links status" aria-haspopup="true">
+							<router-link v-bind:to="'/battery_status'" class="m-menu__link">
+								<i class="m-menu__link-icon fa fa-battery-full m-menu__link-text"></i>
+								<span class="m-menu__link-text">Battery Status</span>
+							</router-link>
+				        </li>
 				    </ul>
 				    <ul class="m-menu__nav  m-menu__nav--dropdown-submenu-arrow bottom_links">
 						<li class="m-menu__item vue_links api" aria-haspopup="true">

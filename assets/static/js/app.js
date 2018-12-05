@@ -39,6 +39,7 @@ import shares from "../components/shares"
 import sims from "../components/sims"
 import single_sims from "../components/single_sims"
 import dashboard from "../components/dashboard"
+import battery_status from "../components/battery_status"
 
 Vue.config.productionTip = false
 Vue.use(VueResource)
@@ -107,6 +108,11 @@ const router = new VueRouter({
       path: '/dashboard',
       name: 'dashboard',
       component: dashboard
+    },
+    {
+      path: '/battery_status',
+      name: 'battery_status',
+      component: battery_status
     }
   ],
 });

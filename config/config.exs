@@ -33,6 +33,7 @@ config :edge_commander, EdgeCommander.Scheduler,
     {"@daily",   {EdgeCommander.Raid, :check_failed_drives, []}},
     # Every 6 hour on zero minute
     {"0 */6 * * *",  {ThreeScraper.Cookie, :email_alert, [0]}},
+    {"*/5 * * * *",      {EdgeCommanderWeb.BatteryController, :save_status_data, []}},
   ]
 
 config :edge_commander, :phoenix_swagger,
