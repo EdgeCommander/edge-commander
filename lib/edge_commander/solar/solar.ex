@@ -17,6 +17,17 @@ defmodule EdgeCommander.Solar do
       [%Battery{}, ...]
 
   """
+
+  def list_battery_records(date) do
+    from = date <> " 00:00:00"
+    to = date <> " 23:59:59"
+    query = from l in Battery,
+      where: l.datetime >= ^from and l.datetime <= ^to
+    query
+    |> order_by(asc: :datetime)
+    |> Repo.all
+  end
+
   def list_battery do
     Repo.all(Battery)
   end

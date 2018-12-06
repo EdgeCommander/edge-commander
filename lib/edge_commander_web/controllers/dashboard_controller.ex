@@ -9,9 +9,10 @@ defmodule EdgeCommanderWeb.DashboardController do
   import EdgeCommander.Accounts, only: [current_user: 1]
   import EdgeCommander.Sharing, only: [member_by_token: 1]
   import EdgeCommander.Nexmo, only: [get_total_messages: 4]
+  import EdgeCommander.Solar, only: [list_battery_records: 1]
 
   def sign_up(conn, _params) do
-  with %User{} <- current_user(conn) do
+    with %User{} <- current_user(conn) do
     conn
     |> redirect(to: "/dashboard")
     else
@@ -143,6 +144,34 @@ defmodule EdgeCommanderWeb.DashboardController do
     |> json(%{
       "sms_history" => sms_history
     })
+  end
+
+  def daily_batery_voltages(conn, params) do
+    date = params["date"]
+      time_list =
+        list_battery_records(date)
+        |> Enum.map(fn(data) ->
+          [_, time] = String.split(data.datetime, " ")
+          time
+      end)
+
+      voltage_list =
+        list_battery_records(date)
+        |> Enum.map(fn(data) ->
+          data.voltage
+        end)
+
+      voltages_history = %{
+        "date" => date,
+        "time_list" => time_list,
+        "voltage_list" => voltage_list
+      }
+
+      conn
+      |> put_status(:ok)
+      |> json(%{
+        "voltages_history" => voltages_history
+      })
   end
 
   defp ensure_number(number) when number >= 1 and number <= 9, do: "0#{number}"

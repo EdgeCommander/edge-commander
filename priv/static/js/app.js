@@ -17778,6 +17778,23 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 var app = new _vue2.default(_App2.default);
 
@@ -17792,7 +17809,7 @@ module.exports = {
       show_edit_errors: false,
       show_edit_messages: "",
       show_add_messages: "",
-      headings: [{ column: "DateTime", id: "datetime" }, { column: "Voltage", id: "voltage" }, { column: "Serial#", id: "serial_no" }],
+      headings: [{ column: "Reading DateTime", id: "datetime" }, { column: "Battery voltage", id: "voltage" }, { column: "Battery current", id: "i_value" }, { column: "Panel voltage", id: "vpv_value" }, { column: "Panel power", id: "ppv_value" }, { column: "Serial#", id: "serial_no" }, { column: "State of operation", id: "cs_value" }, { column: "Error code", id: "err_value" }, { column: "Yield total", id: "h19_value" }, { column: "Yield today", id: "h20_value" }, { column: "Maximum power today", id: "h21_value" }, { column: "Yield yesterday", id: "h22_value" }, { column: "Maximum power yesterday", id: "h23_value" }],
       form_labels: {
         hide_show_title: "Show/Hide Columns",
         hide_show_button: "OK"
@@ -17801,6 +17818,9 @@ module.exports = {
   },
   methods: {
     initializeTable: function initializeTable() {
+      $("#m_sms_datepicker").datepicker({ autoclose: true, dateFormat: "yy-mm-dd" }).datepicker("setDate", new Date(new Date().getTime()));
+      var date = $("#m_sms_datepicker").val();
+
       var statusDataTable = $('#status-datatable').DataTable({
         fnInitComplete: function fnInitComplete() {
           // Enable TFOOT scoll bars
@@ -17815,7 +17835,7 @@ module.exports = {
           });
         },
         ajax: {
-          url: "/battery/data",
+          url: "/battery/data/" + date,
           dataSrc: function dataSrc(data) {
             return data.records;
           },
@@ -17838,9 +17858,59 @@ module.exports = {
             return row.voltage;
           }
         }, {
+          class: "text-center i_value",
+          data: function data(row, type, set, meta) {
+            return row.i_value;
+          }
+        }, {
+          class: "text-center vpv_value",
+          data: function data(row, type, set, meta) {
+            return row.vpv_value;
+          }
+        }, {
+          class: "text-center ppv_value",
+          data: function data(row, type, set, meta) {
+            return row.ppv_value;
+          }
+        }, {
           class: "text-center serial_no",
           data: function data(row, type, set, meta) {
             return row.serial_no;
+          }
+        }, {
+          class: "text-center cs_value",
+          data: function data(row, type, set, meta) {
+            return row.cs_value;
+          }
+        }, {
+          class: "text-center err_value",
+          data: function data(row, type, set, meta) {
+            return row.err_value;
+          }
+        }, {
+          class: "text-center h19_value",
+          data: function data(row, type, set, meta) {
+            return row.h19_value;
+          }
+        }, {
+          class: "text-center h20_value",
+          data: function data(row, type, set, meta) {
+            return row.h20_value;
+          }
+        }, {
+          class: "text-center h21_value",
+          data: function data(row, type, set, meta) {
+            return row.h21_value;
+          }
+        }, {
+          class: "text-center h22_value",
+          data: function data(row, type, set, meta) {
+            return row.h22_value;
+          }
+        }, {
+          class: "text-center h23_value",
+          data: function data(row, type, set, meta) {
+            return row.h23_value;
           }
         }],
         autoWidth: true,
@@ -17865,7 +17935,7 @@ module.exports = {
         column.visible(true);
       }
     },
-    onRuleHideShowButton: function onRuleHideShowButton() {
+    onHideShowButton: function onHideShowButton() {
       $(this.$refs.hideShow).modal("show");
     },
     initHideShow: function initHideShow() {
@@ -17893,10 +17963,19 @@ module.exports = {
       $("#m_aside_left").removeClass("m-aside-left--on");
       $("body").removeClass("m-aside-left--on");
       $(".m-aside-left-overlay").removeClass("m-aside-left-overlay");
+    },
+    dateFilterInitialize: function dateFilterInitialize() {
+      var table_data = this.dataTable;
+      $('#m_sms_datepicker').change(function () {
+        var date = $("#m_sms_datepicker").val();
+        var new_url = "/battery/data/" + date;
+        table_data.ajax.url(new_url).load();
+      });
     }
   }, // end of methods
   mounted: function mounted() {
     this.initializeTable();
+    this.dateFilterInitialize();
     this.search();
     this.get_session();
     this.initHideShow();
@@ -18582,6 +18661,15 @@ module.exports = {
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 module.exports = {
   name: 'dashboard',
@@ -18596,7 +18684,10 @@ module.exports = {
       categories_dates: [],
       delivered_sms: [],
       received_sms: [],
-      pending_sms: []
+      pending_sms: [],
+      voltage_list: [],
+      time_list: null,
+      status_date_list: null
     };
   },
   filters: {
@@ -18858,10 +18949,83 @@ module.exports = {
       $("#m_aside_left").removeClass("m-aside-left--on");
       $("body").removeClass("m-aside-left--on");
       $(".m-aside-left-overlay").removeClass("m-aside-left-overlay");
+    },
+    battery_voltages_graph: function battery_voltages_graph() {
+      mApp.block("#voltages_graph_content", {
+        overlayColor: "#000000",
+        type: "loader",
+        state: "success",
+        message: "Loading..."
+      });
+      Highcharts.setOptions({
+        lang: {
+          thousandsSep: ','
+        }
+      });
+      Highcharts.chart('voltages_graph', {
+        chart: {
+          type: 'line'
+        },
+        credits: {
+          enabled: false
+        },
+        title: {
+          text: 'Solar Battery Voltage'
+        },
+        subtitle: {
+          text: this.status_date_list + " (Time vs. Voltage)"
+        },
+        xAxis: {
+          categories: this.time_list
+        },
+        yAxis: {
+          title: {
+            text: 'Voltages'
+          }
+        },
+        plotOptions: {
+          line: {
+            dataLabels: {
+              enabled: true
+            }
+          }
+        },
+        tooltip: {
+          pointFormat: "{point.y:,.0f}"
+        },
+        series: [{
+          name: 'Voltage',
+          data: this.voltage_list
+        }]
+      });
+    },
+    get_voltages_history: function get_voltages_history() {
+      var _this7 = this;
+
+      var today = new Date();
+      var dd = today.getDate();
+      var mm = today.getMonth() + 1;
+      var yyyy = today.getFullYear();
+      if (dd < 10) {
+        dd = '0' + dd;
+      }
+      if (mm < 10) {
+        mm = '0' + mm;
+      }
+      var date = yyyy + '-' + mm + '-' + dd;
+      this.$http.get('/daily_battery/data/' + date).then(function (response) {
+        var history = response.body.voltages_history;
+        _this7.time_list = history.time_list;
+        _this7.voltage_list = history.voltage_list;
+        _this7.status_date_list = history.date;
+        _this7.battery_voltages_graph();
+        mApp.unblock("#voltages_graph_content");
+      });
     }
   },
   mounted: function mounted() {
     this.get_sms_history();
+    this.get_voltages_history();
     this.init_chart();
     this.active_menu_link();
     this.initializeTable();
@@ -18870,6 +19034,7 @@ module.exports = {
     this.get_total_routers();
     this.get_total_sites();
     this.initializeLogsTable();
+    this.battery_voltages_graph();
   }
 };
 
@@ -26724,8 +26889,28 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       }
     }
   }), _vm._v(" "), _vm._m(0)])])])]), _vm._v(" "), _c('div', {
-    staticClass: "col-md-4 order-1 order-md-2 m--align-right"
-  })])]), _vm._v(" "), _c('div'), _vm._v(" "), _c('table', {
+    staticClass: "col-md-4 order-1 order-md-2 m--align-right",
+    staticStyle: {
+      "padding-right": "0"
+    }
+  }, [_c('div', {
+    staticClass: "row"
+  }, [_vm._m(1), _vm._v(" "), _c('div', {
+    staticClass: "col-lg-2",
+    staticStyle: {
+      "padding-right": "0"
+    }
+  }, [_c('div', {
+    staticClass: "btn btn-default grey",
+    attrs: {
+      "href": "javascript:void(0)"
+    },
+    on: {
+      "click": _vm.onHideShowButton
+    }
+  }, [_c('i', {
+    staticClass: "fa fa-columns"
+  })])])])])])]), _vm._v(" "), _c('div'), _vm._v(" "), _c('table', {
     staticClass: "table table-striped  table-hover table-bordered display nowrap",
     attrs: {
       "id": "status-datatable",
@@ -26765,18 +26950,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     attrs: {
       "id": "exampleModalLabel"
     }
-  }, [_vm._v("\n                    " + _vm._s(_vm.form_labels.hide_show_title) + "\n                ")]), _vm._v(" "), _c('div', {
-    staticClass: "cancel"
-  }, [_c('a', {
-    attrs: {
-      "href": "#",
-      "id": "discardModal",
-      "data-dismiss": "modal"
-    },
-    on: {
-      "click": _vm.clearForm
-    }
-  }, [_vm._v("X")])])]), _vm._v(" "), _c('div', {
+  }, [_vm._v("\n                    " + _vm._s(_vm.form_labels.hide_show_title) + "\n                ")]), _vm._v(" "), _vm._m(2)]), _vm._v(" "), _c('div', {
     staticClass: "modal-body",
     attrs: {
       "id": "body-sim-dis"
@@ -26818,6 +26992,35 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
   }, [_c('span', [_c('i', {
     staticClass: "la la-search"
   })])])
+},function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('div', {
+    staticClass: "col-sm-9"
+  }, [_c('div', {
+    staticClass: "form-group m-form__group row"
+  }, [_c('label', {
+    staticClass: "col-lg-2 col-form-label"
+  }, [_vm._v("\n                          Date:\n                      ")]), _vm._v(" "), _c('div', {
+    staticClass: "col-lg-10",
+    staticStyle: {
+      "padding-right": "0"
+    }
+  }, [_c('input', {
+    staticClass: "form-control m-input m-input--solid",
+    attrs: {
+      "type": "text",
+      "id": "m_sms_datepicker"
+    }
+  })])])])
+},function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('div', {
+    staticClass: "cancel"
+  }, [_c('a', {
+    attrs: {
+      "href": "#",
+      "id": "discardModal",
+      "data-dismiss": "modal"
+    }
+  }, [_vm._v("X")])])
 }]}
 module.exports.render._withStripped = true
 if (false) {
@@ -26948,7 +27151,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }), _vm._v(" "), _c('span', {
       staticClass: "m-list-timeline__time"
     }, [_vm._v(_vm._s(_vm._f("date_format")(log.inserted_at)) + " ")])])
-  }))])])])])]), _vm._v(" "), _vm._m(2)])])])
+  }))])])])])]), _vm._v(" "), _vm._m(2), _vm._v(" "), _vm._m(3)])])])
 },staticRenderFns: [function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
   return _c('div', {
     staticClass: "col-sm-8",
@@ -26988,6 +27191,32 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
   }, [_c('h3', {
     staticClass: "m-portlet__head-text"
   }, [_vm._v("\n                    Recent User Activity\n                  ")])])])])
+},function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('div', {
+    staticClass: "col-sm-12",
+    staticStyle: {
+      "padding-bottom": "0"
+    }
+  }, [_c('div', {
+    staticClass: "m-portlet m-portlet--mobile",
+    staticStyle: {
+      "margin-bottom": "5px"
+    }
+  }, [_c('div', {
+    staticClass: "m-portlet__body",
+    staticStyle: {
+      "padding": "5px"
+    }
+  }, [_c('div', {
+    staticClass: "m-demo__preview",
+    attrs: {
+      "id": "voltages_graph_content"
+    }
+  }, [_c('div', {
+    attrs: {
+      "id": "voltages_graph"
+    }
+  })])])])])
 },function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
   return _c('div', {
     staticClass: "col-sm-12"

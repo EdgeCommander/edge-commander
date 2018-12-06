@@ -3,7 +3,7 @@ defmodule EdgeCommanderWeb.BatteryController do
   alias EdgeCommander.Solar.Battery
   alias EdgeCommander.Repo
   alias EdgeCommander.Util
-  import EdgeCommander.Solar, only: [list_battery: 0]
+  import EdgeCommander.Solar, only: [list_battery: 0, list_battery_records: 1]
   import Ecto.Query, warn: false
   require Logger
 
@@ -44,14 +44,25 @@ defmodule EdgeCommanderWeb.BatteryController do
   end
 
   def get_battery_record(conn, params)  do
+    date = params["date"]
     records =
-      list_battery()
+      list_battery_records(date)
       |> Enum.map(fn(data) ->
         %{
           id: data.id,
           voltage: data.voltage,
           datetime: data.datetime,
-          serial_no: data.serial_no
+          serial_no: data.serial_no,
+          i_value: data.i_value,
+          vpv_value: data.vpv_value,
+          ppv_value: data.ppv_value,
+          cs_value: data.cs_value,
+          err_value: data.err_value,
+          h19_value: data.h19_value,
+          h20_value: data.h20_value,
+          h21_value: data.h21_value,
+          h22_value: data.h22_value,
+          h23_value: data.h23_value
         }
       end)
     conn
