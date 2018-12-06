@@ -20,7 +20,24 @@
                   </div>
                 </div>
               </div>
-              <div class="col-md-4 order-1 order-md-2 m--align-right">
+                <div class="col-md-4 order-1 order-md-2 m--align-right" style="padding-right: 0">
+                  <div class="row">
+                    <div class="col-sm-9">
+                         <div class="form-group m-form__group row">
+                        <label class="col-lg-2 col-form-label">
+                            Date:
+                        </label>
+                        <div class="col-lg-10" style="padding-right: 0">
+                            <input type="text" class="form-control m-input m-input--solid" id="m_sms_datepicker">
+                        </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-2" style="padding-right: 0">
+                      <div href="javascript:void(0)" class="btn btn-default grey" v-on:click="onHideShowButton">
+                        <i class="fa fa-columns"></i>
+                      </div>
+                    </div>
+                  </div>
               </div>
             </div>
           </div>
@@ -46,7 +63,7 @@
                       {{form_labels.hide_show_title}}
                   </h5>
                   <div class="cancel">
-                    <a href="#" id="discardModal" data-dismiss="modal" v-on:click="clearForm">X</a>
+                    <a href="#" id="discardModal" data-dismiss="modal">X</a>
                   </div>
               </div>
               <div class="modal-body" id="body-sim-dis">
@@ -82,9 +99,19 @@ module.exports = {
       show_edit_messages: "",
       show_add_messages: "",
       headings: [
-        {column: "DateTime", id: "datetime"},
-        {column: "Voltage", id: "voltage"},
-        {column: "Serial#", id: "serial_no"}
+        {column: "Reading DateTime", id: "datetime"},
+        {column: "Battery voltage", id: "voltage"},
+        {column: "Battery current", id: "i_value"},
+        {column: "Panel voltage", id: "vpv_value"},
+        {column: "Panel power", id: "ppv_value"},
+        {column: "Serial#", id: "serial_no"},
+        {column: "State of operation", id: "cs_value"},
+        {column: "Error code", id: "err_value"},
+        {column: "Yield total", id: "h19_value"},
+        {column: "Yield today", id: "h20_value"},
+        {column: "Maximum power today", id: "h21_value"},
+        {column: "Yield yesterday", id: "h22_value"},
+        {column: "Maximum power yesterday", id: "h23_value"}
       ],
       form_labels: {
         hide_show_title: "Show/Hide Columns",
@@ -94,6 +121,9 @@ module.exports = {
   },
   methods: {
     initializeTable: function(){
+      $( "#m_sms_datepicker").datepicker({autoclose:true, dateFormat:"yy-mm-dd"}).datepicker("setDate", new Date(new Date().getTime()));
+      let date = $("#m_sms_datepicker").val();
+
       let statusDataTable = $('#status-datatable').DataTable({
         fnInitComplete: function(){
           // Enable TFOOT scoll bars
@@ -108,7 +138,7 @@ module.exports = {
         });
       },
       ajax: {
-      url: "/battery/data",
+      url: "/battery/data/"+date,
         dataSrc: function(data) {
           return data.records;
         },
@@ -134,11 +164,71 @@ module.exports = {
         }
       },
       {
+        class: "text-center i_value",
+        data: function(row, type, set, meta) {
+          return row.i_value;
+        }
+      },
+      {
+        class: "text-center vpv_value",
+        data: function(row, type, set, meta) {
+          return row.vpv_value;
+        }
+      },
+      {
+        class: "text-center ppv_value",
+        data: function(row, type, set, meta) {
+          return row.ppv_value;
+        }
+      },
+      {
         class: "text-center serial_no",
         data: function(row, type, set, meta) {
           return row.serial_no;
         }
-      }
+      },
+      {
+        class: "text-center cs_value",
+        data: function(row, type, set, meta) {
+          return row.cs_value;
+        }
+      },
+      {
+        class: "text-center err_value",
+        data: function(row, type, set, meta) {
+          return row.err_value;
+        }
+      },
+      {
+        class: "text-center h19_value",
+        data: function(row, type, set, meta) {
+          return row.h19_value;
+        }
+      },
+      {
+        class: "text-center h20_value",
+        data: function(row, type, set, meta) {
+          return row.h20_value;
+        }
+      },
+      {
+        class: "text-center h21_value",
+        data: function(row, type, set, meta) {
+          return row.h21_value;
+        }
+      },
+      {
+        class: "text-center h22_value",
+        data: function(row, type, set, meta) {
+          return row.h22_value;
+        }
+      },
+      {
+        class: "text-center h23_value",
+        data: function(row, type, set, meta) {
+          return row.h23_value;
+        }
+      },
       ],
       autoWidth: true,
       info: false,
@@ -162,7 +252,7 @@ module.exports = {
       column.visible(true);
     }
    },
-   onRuleHideShowButton: function(){
+   onHideShowButton: function(){
     $(this.$refs.hideShow).modal("show");
    },
     initHideShow: function(){
@@ -188,10 +278,19 @@ module.exports = {
     $("#m_aside_left").removeClass("m-aside-left--on");
     $("body").removeClass("m-aside-left--on");
     $(".m-aside-left-overlay").removeClass("m-aside-left-overlay");
-   }
+   },
+   dateFilterInitialize: function() {
+      let table_data = this.dataTable;
+      $('#m_sms_datepicker').change(function(){
+        let date = $("#m_sms_datepicker").val()
+          let new_url = "/battery/data/" + date
+          table_data.ajax.url(new_url).load();
+      });
+    }
   }, // end of methods
    mounted(){
     this.initializeTable();
+    this.dateFilterInitialize();
     this.search();
     this.get_session();
     this.initHideShow();

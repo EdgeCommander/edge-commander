@@ -116,6 +116,15 @@
               </div>
             </div>
         </div>
+        <div class="col-sm-12" style="padding-bottom: 0">
+                <div class="m-portlet m-portlet--mobile" style="margin-bottom: 5px;">
+              <div class="m-portlet__body" style="padding: 5px">
+                  <div class="m-demo__preview" id="voltages_graph_content">
+                     <div id="voltages_graph"></div>
+                  </div>
+              </div>
+            </div>
+        </div>
         <div class="col-sm-12" >
           <!--begin:: Widgets/Sales States-->
           <div class="m-portlet m-portlet--full-height ">
@@ -164,6 +173,9 @@ module.exports = {
       delivered_sms: [],
       received_sms: [],
       pending_sms: [],
+      voltage_list: [],
+      time_list: null,
+      status_date_list: null
     }
   },
   filters: {
@@ -420,10 +432,82 @@ module.exports = {
       $("#m_aside_left").removeClass("m-aside-left--on");
       $("body").removeClass("m-aside-left--on");
       $(".m-aside-left-overlay").removeClass("m-aside-left-overlay");
+    },
+    battery_voltages_graph: function(){
+      mApp.block("#voltages_graph_content", {
+      overlayColor: "#000000",
+      type: "loader",
+      state: "success",
+      message: "Loading..."
+    })
+      Highcharts.setOptions({
+        lang: {
+          thousandsSep: ','
+        }
+      });
+      Highcharts.chart('voltages_graph', {
+        chart: {
+          type: 'line'
+        },
+        credits: {
+          enabled: false
+        },
+        title: {
+          text: 'Solar Battery Voltage'
+        },
+        subtitle: {
+          text: this.status_date_list + " (Time vs. Voltage)"
+        },
+        xAxis: {
+          categories: this.time_list
+        },
+        yAxis: {
+          title: {
+            text: 'Voltages'
+          }
+        },
+        plotOptions: {
+          line: {
+            dataLabels: {
+              enabled: true
+            },
+          }
+        },
+        tooltip: {
+          pointFormat: "{point.y:,.0f}"
+        },
+        series: [{
+          name: 'Voltage',
+          data: this.voltage_list
+        }]
+      });
+    },
+    get_voltages_history: function(){
+      let today = new Date();
+      let dd = today.getDate();
+      let mm = today.getMonth() + 1;
+      let yyyy = today.getFullYear();
+      if(dd < 10) {
+        dd = '0' + dd
+      }
+      if(mm < 10) {
+        mm = '0' + mm
+      }
+      // let date = yyyy + '-' + mm + '-' + dd;
+      let date = "2018-12-05";
+      this.$http.get('/daily_battery/data/' + date).then(response => {
+         let history = response.body.voltages_history
+         this.time_list = history.time_list
+         this.voltage_list = history.voltage_list;
+         this.status_date_list = history.date;
+         this.battery_voltages_graph();
+         mApp.unblock("#voltages_graph_content")
+      });
     }
   },
   mounted(){
     this.get_sms_history();
+    this.get_voltages_history();
     this.init_chart();
     this.active_menu_link();
     this.initializeTable();
@@ -432,6 +516,7 @@ module.exports = {
     this.get_total_routers();
     this.get_total_sites();
     this.initializeLogsTable();
+    this.battery_voltages_graph();
   }
 }
 </script>
