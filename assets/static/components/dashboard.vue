@@ -473,9 +473,6 @@ module.exports = {
             },
           }
         },
-        tooltip: {
-          pointFormat: "{point.y:,.0f}"
-        },
         series: [{
           name: 'Voltage',
           data: this.voltage_list
