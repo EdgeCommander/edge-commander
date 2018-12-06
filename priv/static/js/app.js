@@ -19012,8 +19012,7 @@ module.exports = {
       if (mm < 10) {
         mm = '0' + mm;
       }
-      // let date = yyyy + '-' + mm + '-' + dd;
-      var date = "2018-12-05";
+      var date = yyyy + '-' + mm + '-' + dd;
       this.$http.get('/daily_battery/data/' + date).then(function (response) {
         var history = response.body.voltages_history;
         _this7.time_list = history.time_list;

@@ -493,8 +493,7 @@ module.exports = {
       if(mm < 10) {
         mm = '0' + mm
       }
-      // let date = yyyy + '-' + mm + '-' + dd;
-      let date = "2018-12-05";
+      let date = yyyy + '-' + mm + '-' + dd;
       this.$http.get('/daily_battery/data/' + date).then(response => {
          let history = response.body.voltages_history
          this.time_list = history.time_list

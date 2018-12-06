@@ -138,7 +138,7 @@ module.exports = {
         });
       },
       ajax: {
-      url: "/battery/data/"+date,
+      url: "/battery/data/" + date,
         dataSrc: function(data) {
           return data.records;
         },

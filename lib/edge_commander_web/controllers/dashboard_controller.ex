@@ -10,10 +10,9 @@ defmodule EdgeCommanderWeb.DashboardController do
   import EdgeCommander.Sharing, only: [member_by_token: 1]
   import EdgeCommander.Nexmo, only: [get_total_messages: 4]
   import EdgeCommander.Solar, only: [list_battery_records: 1]
-  require IEx
 
   def sign_up(conn, _params) do
-  with %User{} <- current_user(conn) do
+    with %User{} <- current_user(conn) do
     conn
     |> redirect(to: "/dashboard")
     else
