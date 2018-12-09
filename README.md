@@ -9,9 +9,9 @@ That includes:
 + Solar Controller (Victron MPTT)
 
 Functionality includes:
-+ Online Status Monitoring / Alerts
++ Status Polling & Alerts
 + Graphical representation of Device Online / Offline status using [Visavail](https://github.com/flrs/visavail)
-+ If This Then That alerts (e.g. If SIM usage is > X then Notify)
++ If This Then That functionality (e.g. If SIM usage is > X then Notify)
 
 It is designed to be an extensible platform for system integrators to monitor client-side equipment.
 
