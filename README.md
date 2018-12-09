@@ -4,8 +4,9 @@ This is an open source application written in Phoenix that allows monitoring & m
 
 That includes:
 + NVRs (Hikvision or OnVIF)
-+ Routers (Dovado)
-+ SIMs (From Three (Ireland))
++ Routers (Dovado & Teltonika)
++ SIMs (From Three (Ireland & UK))
++ Solar Controller (Victron MPTT)
 
 Functionality includes:
 + Online Status Monitoring / Alerts
