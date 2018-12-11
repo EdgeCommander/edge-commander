@@ -18670,6 +18670,36 @@ module.exports = {
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 module.exports = {
   name: 'dashboard',
@@ -18951,6 +18981,7 @@ module.exports = {
       $(".m-aside-left-overlay").removeClass("m-aside-left-overlay");
     },
     battery_voltages_graph: function battery_voltages_graph() {
+
       mApp.block("#voltages_graph_content", {
         overlayColor: "#000000",
         type: "loader",
@@ -18964,16 +18995,14 @@ module.exports = {
       });
       Highcharts.chart('voltages_graph', {
         chart: {
-          type: 'line'
+          type: 'line',
+          zoomType: 'x'
         },
         credits: {
           enabled: false
         },
         title: {
-          text: 'Solar Battery Voltage'
-        },
-        subtitle: {
-          text: this.status_date_list + " (Time vs. Voltage)"
+          text: ''
         },
         xAxis: {
           categories: this.time_list
@@ -18999,24 +19028,78 @@ module.exports = {
     get_voltages_history: function get_voltages_history() {
       var _this7 = this;
 
-      var today = new Date();
-      var dd = today.getDate();
-      var mm = today.getMonth() + 1;
-      var yyyy = today.getFullYear();
-      if (dd < 10) {
-        dd = '0' + dd;
-      }
-      if (mm < 10) {
-        mm = '0' + mm;
-      }
-      var date = yyyy + '-' + mm + '-' + dd;
-      this.$http.get('/daily_battery/data/' + date).then(function (response) {
+      $("#m_sms_datepicker_from").datepicker({ autoclose: true, dateFormat: "yy-mm-dd" }).datepicker("setDate", new Date(new Date().getTime() - 48 * 60 * 60 * 1000));
+      $("#m_sms_datepicker_to").datepicker({ autoclose: true, dateFormat: "yy-mm-dd" }).datepicker("setDate", new Date());
+
+      var from_date = $("#m_sms_datepicker_from").val(),
+          to_date = $("#m_sms_datepicker_to").val();
+
+      this.$http.get('/daily_battery/data/' + from_date + "/" + to_date).then(function (response) {
         var history = response.body.voltages_history;
         _this7.time_list = history.time_list;
         _this7.voltage_list = history.voltage_list;
         _this7.status_date_list = history.date;
         _this7.battery_voltages_graph();
         mApp.unblock("#voltages_graph_content");
+      });
+    },
+    dateFilterInitialize: function dateFilterInitialize() {
+      var time_list = this.time_list;
+      var voltage_list = this.voltage_list;
+      var status_date_list = this.status_date_list;
+      $('#m_sms_datepicker_from, #m_sms_datepicker_to').change(function () {
+        var from_date = $("#m_sms_datepicker_from").val(),
+            to_date = $("#m_sms_datepicker_to").val();
+        $.get('/daily_battery/data/' + from_date + "/" + to_date, function (data) {
+          var history = data.voltages_history;
+          time_list = history.time_list;
+          voltage_list = history.voltage_list;
+          status_date_list = history.date;
+
+          mApp.block("#voltages_graph_content", {
+            overlayColor: "#000000",
+            type: "loader",
+            state: "success",
+            message: "Loading..."
+          });
+          Highcharts.setOptions({
+            lang: {
+              thousandsSep: ','
+            }
+          });
+          Highcharts.chart('voltages_graph', {
+            chart: {
+              type: 'line',
+              zoomType: 'x'
+            },
+            credits: {
+              enabled: false
+            },
+            title: {
+              text: ''
+            },
+            xAxis: {
+              categories: time_list
+            },
+            yAxis: {
+              title: {
+                text: 'Voltages'
+              }
+            },
+            plotOptions: {
+              line: {
+                dataLabels: {
+                  enabled: true
+                }
+              }
+            },
+            series: [{
+              name: 'Voltage',
+              data: voltage_list
+            }]
+          });
+          mApp.unblock("#voltages_graph_content");
+        });
       });
     }
   },
@@ -19032,6 +19115,7 @@ module.exports = {
     this.get_total_sites();
     this.initializeLogsTable();
     this.battery_voltages_graph();
+    this.dateFilterInitialize();
   }
 };
 
@@ -27202,9 +27286,49 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
   }, [_c('div', {
     staticClass: "m-portlet__body",
     staticStyle: {
-      "padding": "5px"
+      "padding": "15px"
     }
   }, [_c('div', {
+    staticClass: "pull-left"
+  }, [_c('h4', [_vm._v("Solar Better Voltages")]), _vm._v(" "), _c('p', [_vm._v("Time Vs. Voltages")]), _vm._v(" "), _c('div', {
+    staticStyle: {
+      "height": "10px"
+    }
+  })]), _vm._v(" "), _c('div', {
+    staticClass: "pull-right"
+  }, [_c('div', {
+    staticClass: "row"
+  }, [_c('div', {
+    staticClass: "col-sm-6"
+  }, [_c('div', {
+    staticClass: "form-group m-form__group row"
+  }, [_c('label', {
+    staticClass: "col-lg-2 col-form-label"
+  }, [_vm._v("\n                                From:\n                            ")]), _vm._v(" "), _c('div', {
+    staticClass: "col-lg-10"
+  }, [_c('input', {
+    staticClass: "form-control m-input m-input--solid",
+    attrs: {
+      "type": "text",
+      "id": "m_sms_datepicker_from"
+    }
+  })])])]), _vm._v(" "), _c('div', {
+    staticClass: "col-sm-6"
+  }, [_c('div', {
+    staticClass: "form-group m-form__group row"
+  }, [_c('label', {
+    staticClass: "col-lg-1 col-form-label"
+  }, [_vm._v("\n                                To:\n                            ")]), _vm._v(" "), _c('div', {
+    staticClass: "col-lg-10"
+  }, [_c('input', {
+    staticClass: "form-control m-input m-input--solid",
+    attrs: {
+      "type": "text",
+      "id": "m_sms_datepicker_to"
+    }
+  })])])])])]), _vm._v(" "), _c('div', {
+    staticClass: "clearfix"
+  }), _vm._v(" "), _c('div', {
     staticClass: "m-demo__preview",
     attrs: {
       "id": "voltages_graph_content"
