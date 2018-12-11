@@ -48,8 +48,8 @@ config :edge_commander, :send_emails_for_raid, true
 # We also recommend setting `force_ssl`, ensuring no data is
 # ever sent via http, always redirecting to https:
 #
-#     config :edge_commander, EdgeCommanderWeb.Endpoint,
-#       force_ssl: [hsts: true]
+config :edge_commander, EdgeCommanderWeb.Endpoint,
+  force_ssl: [rewrite_on: [:x_forwarded_proto], hsts: true, host: nil]
 #
 # Check `Plug.SSL` for all available options in `force_ssl`.
 
