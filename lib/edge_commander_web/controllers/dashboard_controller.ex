@@ -9,7 +9,7 @@ defmodule EdgeCommanderWeb.DashboardController do
   import EdgeCommander.Accounts, only: [current_user: 1]
   import EdgeCommander.Sharing, only: [member_by_token: 1]
   import EdgeCommander.Nexmo, only: [get_total_messages: 4]
-  import EdgeCommander.Solar, only: [list_battery_records: 1]
+  import EdgeCommander.Solar, only: [list_battery_records: 2]
 
   def sign_up(conn, _params) do
     with %User{} <- current_user(conn) do
@@ -147,22 +147,22 @@ defmodule EdgeCommanderWeb.DashboardController do
   end
 
   def daily_batery_voltages(conn, params) do
-    date = params["date"]
+    from_date = params["from_date"]
+    to_date = params["to_date"]
       time_list =
-        list_battery_records(date)
+        list_battery_records(from_date, to_date)
         |> Enum.map(fn(data) ->
-          [_, time] = String.split(data.datetime, " ")
-          time
+         data.datetime
       end)
 
       voltage_list =
-        list_battery_records(date)
+        list_battery_records(from_date, to_date)
         |> Enum.map(fn(data) ->
           data.voltage
         end)
 
       voltages_history = %{
-        "date" => date,
+        "date" => "",
         "time_list" => time_list,
         "voltage_list" => voltage_list
       }

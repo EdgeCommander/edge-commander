@@ -18,9 +18,9 @@ defmodule EdgeCommander.Solar do
 
   """
 
-  def list_battery_records(date) do
-    from = date <> " 00:00:00"
-    to = date <> " 23:59:59"
+  def list_battery_records(from_date, to_date) do
+    from = from_date <> " 00:00:00"
+    to = to_date <> " 23:59:59"
     query = from l in Battery,
       where: l.datetime >= ^from and l.datetime <= ^to
     query
