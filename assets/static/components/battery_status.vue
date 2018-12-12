@@ -4,7 +4,7 @@
       <div class="m-portlet m-portlet--mobile" style="margin-bottom: 0">
         <div class="m-portlet__body" style="padding: 10px;">
           <!--begin: Search Form -->
-          <div class="m-form m-form--label-align-right m--margin-bottom-10">
+          <div class="m-form m-form--label-align-right">
             <div class="row align-items-center">
               <div class="col-md-6">
                 <div class="form-group m-form__group row align-items-center">
@@ -56,23 +56,40 @@
           <!--end: Search Form -->
           <div>
           </div>
-          <div class="tab-content">
-                <div class="tab-pane  active show" id="m_tabs_1_1" role="tabpanel">
-                  <table id="status-datatable" class="table table-striped  table-hover table-bordered display nowrap" cellspacing="0" width="100%">
-                      <thead>
-                          <tr>
-                              <th v-for="(item, index) in headings" style="vertical-align: middle;">{{item.column}} </br> {{item.unit}}</th>
-                          </tr>
-                      </thead>
-                  </table>
-              </div>
-               <div class="tab-pane" id="m_tabs_1_2" role="tabpanel">
-                  <div id="voltages_graph_content">
-                    <div id="voltages_graph" style="height:90vh"></div>
-                  </div>
-              </div>
+        </div>
+      </div>
+    </div>
+    <div class="tab-content">
+      <div class="tab-pane  active show" id="m_tabs_1_1" role="tabpanel">
+        <div class="m-content">
+          <div class="m-portlet m-portlet--mobile" style="margin-bottom: 0">
+            <div class="m-portlet__body" style="padding: 10px;">
+              <table id="status-datatable" class="table table-striped  table-hover table-bordered display nowrap" cellspacing="0" width="100%">
+                  <thead>
+                      <tr>
+                          <th v-for="(item, index) in headings" style="vertical-align: middle;">{{item.column}} </br> {{item.unit}}</th>
+                      </tr>
+                  </thead>
+              </table>
+            </div>
           </div>
         </div>
+      </div>
+       <div class="tab-pane" id="m_tabs_1_2" role="tabpanel">
+          <div class="m-content">
+              <div class="m-portlet m-portlet--mobile" style="margin-bottom: 0">
+                <div class="m-portlet__body" style="padding: 10px;" id="voltages_graph_content">
+                     <div id="voltages_graph" style="height:80vh"></div>
+                </div>
+              </div>
+          </div>
+          <div class="m-content">
+              <div class="m-portlet m-portlet--mobile" style="margin-bottom: 0">
+                <div class="m-portlet__body" style="padding: 10px;" id="voltages_graph_content">
+                     <div id="voltages_graph_other" style="height:80vh"></div>
+                </div>
+              </div>
+          </div>
       </div>
     </div>
     <!-- begin::modal -->
@@ -113,15 +130,15 @@ module.exports = {
   data: function(){
     return{
       dataTable: null,
-      m_form_search: "",
       show_loading: false,
       show_add_errors: false,
       show_edit_errors: false,
       show_edit_messages: "",
       show_add_messages: "",
-      voltage_list: [],
+      battery_voltages: [],
       time_list: null,
       status_date_list: null,
+      panel_voltages: [],
       headings: [
         {column: "Reading DateTime", id: "datetime", unit: ""},
         {column: "Battery voltage", id: "voltage", unit: "mV"},
@@ -268,9 +285,6 @@ module.exports = {
     });
       return this.dataTable = statusDataTable;
    },
-   search: function(){
-      this.dataTable.search(this.m_form_search).draw();
-   },
    showHideColumns: function(id){
     var column = this.dataTable.columns("." +id);
     if(column.visible()[0] == true){
@@ -309,7 +323,8 @@ module.exports = {
    dateFilterInitialize: function() {
       let table_data = this.dataTable;
       let time_list = this.time_list;
-      let voltage_list = this.voltage_list;
+      let battery_voltages = this.battery_voltages;
+      let panel_voltages = this.panel_voltages;
       let status_date_list = this.status_date_list;
       $('#m_sms_datepicker_from, #m_sms_datepicker_to').change(function(){
        let from_date = $("#m_sms_datepicker_from").val(),
@@ -320,8 +335,9 @@ module.exports = {
           $.get('/daily_battery/data/' + from_date + "/" + to_date, function( data ) {
           let history = data.voltages_history
           time_list = history.time_list
-          voltage_list = history.voltage_list;
+          battery_voltages = history.battery_voltages;
           status_date_list = history.date;
+          panel_voltages = history.panel_voltages;
 
           mApp.block("#voltages_graph_content", {
             overlayColor: "#000000",
@@ -398,7 +414,79 @@ module.exports = {
             },
             series: [{
               name: 'Voltage',
-              data: voltage_list
+              data: battery_voltages
+            }]
+          });
+          Highcharts.chart('voltages_graph_other', {
+            chart: {
+              type: 'line',
+              zoomType: 'x'
+            },
+            credits: {
+              enabled: false
+            },
+            title: {
+              text: 'Voltage Summary'
+            },
+            subtitle: {
+              text: 'Battery Vs. Solar panel'
+            },
+            xAxis: {
+              categories: time_list,
+              labels: {
+                style: {
+                  fontSize: '12px',
+                  fontFamily: 'proxima-nova,helvetica,arial,sans-seri',
+                  whiteSpace: 'nowrap',
+                  paddingLeft: '10px',
+                  paddingRight: '10px',
+                  paddingTop: '10px',
+                  paddingBottom: '10px',
+                }
+              }
+            },
+            yAxis: {
+              title: {
+                text: 'Voltages'
+              }
+            },
+            tooltip: {
+              valueSuffix: ' mV',
+              shared: true
+            },
+            plotOptions: {
+              area: {
+                fillColor: {
+                  linearGradient: {
+                    x1: 0,
+                    y1: 0,
+                    x2: 0,
+                    y2: 1
+                  },
+                  stops: [
+                    [0, Highcharts.getOptions().colors[0]],
+                    [1, Highcharts.Color(Highcharts.getOptions().colors[0]).setOpacity(0).get('rgba')]
+                  ]
+                },
+                marker: {
+                  radius: 2
+                },
+                lineWidth: 1,
+                states: {
+                  hover: {
+                    lineWidth: 1
+                  }
+                },
+                threshold: null
+              }
+            },
+            series: [{
+              name: 'Battery Voltage',
+              data: battery_voltages
+            },
+            {
+              name: 'Panel Voltage',
+              data: panel_voltages
             }]
           });
           mApp.unblock("#voltages_graph_content")
@@ -482,7 +570,79 @@ module.exports = {
         },
         series: [{
           name: 'Voltage',
-          data: this.voltage_list
+          data: this.battery_voltages
+        }]
+      });
+      Highcharts.chart('voltages_graph_other', {
+        chart: {
+          type: 'line',
+          zoomType: 'x'
+        },
+        credits: {
+          enabled: false
+        },
+        title: {
+          text: 'Voltage Summary'
+        },
+        subtitle: {
+          text: 'Battery Vs. Solar panel'
+        },
+        xAxis: {
+          categories: this.time_list,
+          labels: {
+            style: {
+              fontSize: '12px',
+              fontFamily: 'proxima-nova,helvetica,arial,sans-seri',
+              whiteSpace: 'nowrap',
+              paddingLeft: '10px',
+              paddingRight: '10px',
+              paddingTop: '10px',
+              paddingBottom: '10px',
+            }
+          }
+        },
+        yAxis: {
+          title: {
+            text: 'Voltages'
+          }
+        },
+        tooltip: {
+          valueSuffix: ' mV',
+          shared: true
+        },
+        plotOptions: {
+          area: {
+            fillColor: {
+              linearGradient: {
+                x1: 0,
+                y1: 0,
+                x2: 0,
+                y2: 1
+              },
+              stops: [
+                [0, Highcharts.getOptions().colors[0]],
+                [1, Highcharts.Color(Highcharts.getOptions().colors[0]).setOpacity(0).get('rgba')]
+              ]
+            },
+            marker: {
+              radius: 2
+            },
+            lineWidth: 1,
+            states: {
+              hover: {
+                lineWidth: 1
+              }
+            },
+            threshold: null
+          }
+        },
+        series: [{
+          name: 'Battery Voltage',
+          data: this.battery_voltages
+        },
+        {
+          name: 'Panel Voltage',
+          data: this.panel_voltages
         }]
       });
     },
@@ -496,8 +656,9 @@ module.exports = {
       this.$http.get('/daily_battery/data/' + from_date + "/" + to_date).then(response => {
          let history = response.body.voltages_history
          this.time_list = history.time_list
-         this.voltage_list = history.voltage_list;
+         this.battery_voltages = history.battery_voltages;
          this.status_date_list = history.date;
+         this.panel_voltages = history.panel_voltages;
          this.battery_voltages_graph();
          mApp.unblock("#voltages_graph_content")
       });
@@ -507,7 +668,6 @@ module.exports = {
     this.initializeTable();
     this.get_voltages_history();
     this.dateFilterInitialize();
-    this.search();
     this.get_session();
     this.initHideShow();
     this.active_menu_link();

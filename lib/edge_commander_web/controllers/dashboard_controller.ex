@@ -155,16 +155,23 @@ defmodule EdgeCommanderWeb.DashboardController do
          data.datetime
       end)
 
-      voltage_list =
+      battery_voltages =
         list_battery_records(from_date, to_date)
         |> Enum.map(fn(data) ->
           data.voltage
         end)
 
+        panel_voltages =
+        list_battery_records(from_date, to_date)
+        |> Enum.map(fn(data) ->
+          data.vpv_value
+        end)
+
       voltages_history = %{
         "date" => "",
         "time_list" => time_list,
-        "voltage_list" => voltage_list
+        "battery_voltages" => battery_voltages,
+        "panel_voltages" => panel_voltages
       }
 
       conn
