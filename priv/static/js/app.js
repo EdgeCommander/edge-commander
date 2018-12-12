@@ -17824,6 +17824,15 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 var app = new _vue2.default(_App2.default);
 
@@ -17832,7 +17841,6 @@ module.exports = {
   data: function data() {
     return {
       dataTable: null,
-      m_form_search: "",
       show_loading: false,
       show_add_errors: false,
       show_edit_errors: false,
@@ -17959,9 +17967,6 @@ module.exports = {
         order: [[0, "desc"]]
       });
       return this.dataTable = statusDataTable;
-    },
-    search: function search() {
-      this.dataTable.search(this.m_form_search).draw();
     },
     showHideColumns: function showHideColumns(id) {
       var column = this.dataTable.columns("." + id);
@@ -18336,7 +18341,6 @@ module.exports = {
     this.initializeTable();
     this.get_voltages_history();
     this.dateFilterInitialize();
-    this.search();
     this.get_session();
     this.initHideShow();
     this.active_menu_link();
@@ -27127,7 +27131,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       "padding": "10px"
     }
   }, [_c('div', {
-    staticClass: "m-form m-form--label-align-right m--margin-bottom-10"
+    staticClass: "m-form m-form--label-align-right"
   }, [_c('div', {
     staticClass: "row align-items-center"
   }, [_vm._m(0), _vm._v(" "), _c('div', {
@@ -27146,13 +27150,25 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }
   }, [_c('i', {
     staticClass: "fa fa-columns"
-  })])])])])])]), _vm._v(" "), _c('div'), _vm._v(" "), _c('div', {
+  })])])])])])]), _vm._v(" "), _c('div')])])]), _vm._v(" "), _c('div', {
     staticClass: "tab-content"
   }, [_c('div', {
     staticClass: "tab-pane  active show",
     attrs: {
       "id": "m_tabs_1_1",
       "role": "tabpanel"
+    }
+  }, [_c('div', {
+    staticClass: "m-content"
+  }, [_c('div', {
+    staticClass: "m-portlet m-portlet--mobile",
+    staticStyle: {
+      "margin-bottom": "0"
+    }
+  }, [_c('div', {
+    staticClass: "m-portlet__body",
+    staticStyle: {
+      "padding": "10px"
     }
   }, [_c('table', {
     staticClass: "table table-striped  table-hover table-bordered display nowrap",
@@ -27167,7 +27183,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         "vertical-align": "middle"
       }
     }, [_vm._v(_vm._s(item.column) + " "), _c('br'), _vm._v(" " + _vm._s(item.unit))])
-  }))])])]), _vm._v(" "), _vm._m(3)])])])]), _vm._v(" "), _vm._m(4), _vm._v(" "), _c('div', {
+  }))])])])])])]), _vm._v(" "), _vm._m(3)]), _vm._v(" "), _c('div', {
     ref: "hideShow",
     staticClass: "modal fade toggle-datatable-columns",
     staticStyle: {
@@ -27198,7 +27214,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     attrs: {
       "id": "exampleModalLabel"
     }
-  }, [_vm._v("\n                    " + _vm._s(_vm.form_labels.hide_show_title) + "\n                ")]), _vm._v(" "), _vm._m(5)]), _vm._v(" "), _c('div', {
+  }, [_vm._v("\n                    " + _vm._s(_vm.form_labels.hide_show_title) + "\n                ")]), _vm._v(" "), _vm._m(4)]), _vm._v(" "), _c('div', {
     staticClass: "modal-body",
     attrs: {
       "id": "body-sim-dis"
@@ -27305,19 +27321,6 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       "role": "tabpanel"
     }
   }, [_c('div', {
-    attrs: {
-      "id": "voltages_graph_content"
-    }
-  }, [_c('div', {
-    staticStyle: {
-      "height": "80vh"
-    },
-    attrs: {
-      "id": "voltages_graph"
-    }
-  })])])
-},function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('div', {
     staticClass: "m-content"
   }, [_c('div', {
     staticClass: "m-portlet m-portlet--mobile",
@@ -27328,6 +27331,31 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "m-portlet__body",
     staticStyle: {
       "padding": "10px"
+    },
+    attrs: {
+      "id": "voltages_graph_content"
+    }
+  }, [_c('div', {
+    staticStyle: {
+      "height": "80vh"
+    },
+    attrs: {
+      "id": "voltages_graph"
+    }
+  })])])]), _vm._v(" "), _c('div', {
+    staticClass: "m-content"
+  }, [_c('div', {
+    staticClass: "m-portlet m-portlet--mobile",
+    staticStyle: {
+      "margin-bottom": "0"
+    }
+  }, [_c('div', {
+    staticClass: "m-portlet__body",
+    staticStyle: {
+      "padding": "10px"
+    },
+    attrs: {
+      "id": "voltages_graph_content"
     }
   }, [_c('div', {
     staticStyle: {
@@ -27336,7 +27364,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     attrs: {
       "id": "voltages_graph_other"
     }
-  })])])])
+  })])])])])
 },function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
   return _c('div', {
     staticClass: "cancel"
