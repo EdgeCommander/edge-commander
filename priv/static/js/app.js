@@ -17795,6 +17795,27 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 var app = new _vue2.default(_App2.default);
 
@@ -17809,7 +17830,10 @@ module.exports = {
       show_edit_errors: false,
       show_edit_messages: "",
       show_add_messages: "",
-      headings: [{ column: "Reading DateTime", id: "datetime" }, { column: "Battery voltage", id: "voltage" }, { column: "Battery current", id: "i_value" }, { column: "Panel voltage", id: "vpv_value" }, { column: "Panel power", id: "ppv_value" }, { column: "Serial#", id: "serial_no" }, { column: "State of operation", id: "cs_value" }, { column: "Error code", id: "err_value" }, { column: "Yield total", id: "h19_value" }, { column: "Yield today", id: "h20_value" }, { column: "Maximum power today", id: "h21_value" }, { column: "Yield yesterday", id: "h22_value" }, { column: "Maximum power yesterday", id: "h23_value" }],
+      voltage_list: [],
+      time_list: null,
+      status_date_list: null,
+      headings: [{ column: "Reading DateTime", id: "datetime", unit: "" }, { column: "Battery voltage", id: "voltage", unit: "mV" }, { column: "Battery current", id: "i_value", unit: "mA" }, { column: "Panel voltage", id: "vpv_value", unit: "mV" }, { column: "Panel power", id: "ppv_value", unit: "W" }, { column: "Serial#", id: "serial_no", unit: "" }, { column: "State of operation", id: "cs_value", unit: "" }, { column: "Error code", id: "err_value", unit: "" }, { column: "Yield total", id: "h19_value", unit: "0.01 kWh" }, { column: "Yield today", id: "h20_value", unit: "0.01 kWh" }, { column: "Maximum power today", id: "h21_value", unit: "W" }, { column: "Yield yesterday", id: "h22_value", unit: "0.01 kWh" }, { column: "Maximum power yesterday", id: "h23_value", unit: "W" }],
       form_labels: {
         hide_show_title: "Show/Hide Columns",
         hide_show_button: "OK"
@@ -17818,8 +17842,11 @@ module.exports = {
   },
   methods: {
     initializeTable: function initializeTable() {
-      $("#m_sms_datepicker").datepicker({ autoclose: true, dateFormat: "yy-mm-dd" }).datepicker("setDate", new Date(new Date().getTime()));
-      var date = $("#m_sms_datepicker").val();
+      $("#m_sms_datepicker_from").datepicker({ autoclose: true, dateFormat: "yy-mm-dd" }).datepicker("setDate", new Date(new Date().getTime() - 48 * 60 * 60 * 1000));
+      $("#m_sms_datepicker_to").datepicker({ autoclose: true, dateFormat: "yy-mm-dd" }).datepicker("setDate", new Date());
+
+      var from_date = $("#m_sms_datepicker_from").val(),
+          to_date = $("#m_sms_datepicker_to").val();
 
       var statusDataTable = $('#status-datatable').DataTable({
         fnInitComplete: function fnInitComplete() {
@@ -17835,7 +17862,7 @@ module.exports = {
           });
         },
         ajax: {
-          url: "/battery/data/" + date,
+          url: "/battery/data/" + from_date + "/" + to_date,
           dataSrc: function dataSrc(data) {
             return data.records;
           },
@@ -17966,20 +17993,206 @@ module.exports = {
     },
     dateFilterInitialize: function dateFilterInitialize() {
       var table_data = this.dataTable;
-      $('#m_sms_datepicker').change(function () {
-        var date = $("#m_sms_datepicker").val();
-        var new_url = "/battery/data/" + date;
+      var time_list = this.time_list;
+      var voltage_list = this.voltage_list;
+      var status_date_list = this.status_date_list;
+      $('#m_sms_datepicker_from, #m_sms_datepicker_to').change(function () {
+        var from_date = $("#m_sms_datepicker_from").val(),
+            to_date = $("#m_sms_datepicker_to").val();
+        var new_url = "/battery/data/" + from_date + "/" + to_date;
         table_data.ajax.url(new_url).load();
+
+        $.get('/daily_battery/data/' + from_date + "/" + to_date, function (data) {
+          var history = data.voltages_history;
+          time_list = history.time_list;
+          voltage_list = history.voltage_list;
+          status_date_list = history.date;
+
+          mApp.block("#voltages_graph_content", {
+            overlayColor: "#000000",
+            type: "loader",
+            state: "success",
+            message: "Loading..."
+          });
+          Highcharts.setOptions({
+            lang: {
+              thousandsSep: ','
+            }
+          });
+          Highcharts.chart('voltages_graph', {
+            chart: {
+              type: 'area',
+              zoomType: 'x'
+            },
+            credits: {
+              enabled: false
+            },
+            title: {
+              text: 'Battery Voltage'
+            },
+            subtitle: {
+              text: 'Time Vs. Voltage'
+            },
+            xAxis: {
+              categories: time_list,
+              labels: {
+                style: {
+                  fontSize: '12px',
+                  fontFamily: 'proxima-nova,helvetica,arial,sans-seri',
+                  whiteSpace: 'nowrap',
+                  paddingLeft: '10px',
+                  paddingRight: '10px',
+                  paddingTop: '10px',
+                  paddingBottom: '10px'
+                }
+              }
+            },
+            yAxis: {
+              title: {
+                text: 'Voltages'
+              }
+            },
+            tooltip: {
+              valueSuffix: ' mV'
+            },
+            plotOptions: {
+              area: {
+                fillColor: {
+                  linearGradient: {
+                    x1: 0,
+                    y1: 0,
+                    x2: 0,
+                    y2: 1
+                  },
+                  stops: [[0, Highcharts.getOptions().colors[0]], [1, Highcharts.Color(Highcharts.getOptions().colors[0]).setOpacity(0).get('rgba')]]
+                },
+                marker: {
+                  radius: 2
+                },
+                lineWidth: 1,
+                states: {
+                  hover: {
+                    lineWidth: 1
+                  }
+                },
+                threshold: null
+              }
+            },
+            series: [{
+              name: 'Voltage',
+              data: voltage_list
+            }]
+          });
+          mApp.unblock("#voltages_graph_content");
+        });
+      });
+    },
+    battery_voltages_graph: function battery_voltages_graph() {
+
+      mApp.block("#voltages_graph_content", {
+        overlayColor: "#000000",
+        type: "loader",
+        state: "success",
+        message: "Loading..."
+      });
+      Highcharts.setOptions({
+        lang: {
+          thousandsSep: ','
+        }
+      });
+      Highcharts.chart('voltages_graph', {
+        chart: {
+          type: 'area',
+          zoomType: 'x'
+        },
+        credits: {
+          enabled: false
+        },
+        title: {
+          text: 'Battery Voltage'
+        },
+        subtitle: {
+          text: 'Time Vs. Voltage'
+        },
+        xAxis: {
+          categories: this.time_list,
+          labels: {
+            style: {
+              fontSize: '12px',
+              fontFamily: 'proxima-nova,helvetica,arial,sans-seri',
+              whiteSpace: 'nowrap',
+              paddingLeft: '10px',
+              paddingRight: '10px',
+              paddingTop: '10px',
+              paddingBottom: '10px'
+            }
+          }
+        },
+        yAxis: {
+          title: {
+            text: 'Voltages'
+          }
+        },
+        tooltip: {
+          valueSuffix: ' mV'
+        },
+        plotOptions: {
+          area: {
+            fillColor: {
+              linearGradient: {
+                x1: 0,
+                y1: 0,
+                x2: 0,
+                y2: 1
+              },
+              stops: [[0, Highcharts.getOptions().colors[0]], [1, Highcharts.Color(Highcharts.getOptions().colors[0]).setOpacity(0).get('rgba')]]
+            },
+            marker: {
+              radius: 2
+            },
+            lineWidth: 1,
+            states: {
+              hover: {
+                lineWidth: 1
+              }
+            },
+            threshold: null
+          }
+        },
+        series: [{
+          name: 'Voltage',
+          data: this.voltage_list
+        }]
+      });
+    },
+    get_voltages_history: function get_voltages_history() {
+      var _this2 = this;
+
+      $("#m_sms_datepicker_from").datepicker({ autoclose: true, dateFormat: "yy-mm-dd" }).datepicker("setDate", new Date(new Date().getTime() - 48 * 60 * 60 * 1000));
+      $("#m_sms_datepicker_to").datepicker({ autoclose: true, dateFormat: "yy-mm-dd" }).datepicker("setDate", new Date());
+
+      var from_date = $("#m_sms_datepicker_from").val(),
+          to_date = $("#m_sms_datepicker_to").val();
+
+      this.$http.get('/daily_battery/data/' + from_date + "/" + to_date).then(function (response) {
+        var history = response.body.voltages_history;
+        _this2.time_list = history.time_list;
+        _this2.voltage_list = history.voltage_list;
+        _this2.status_date_list = history.date;
+        _this2.battery_voltages_graph();
+        mApp.unblock("#voltages_graph_content");
       });
     }
   }, // end of methods
   mounted: function mounted() {
     this.initializeTable();
+    this.get_voltages_history();
     this.dateFilterInitialize();
     this.search();
     this.get_session();
     this.initHideShow();
     this.active_menu_link();
+    this.battery_voltages_graph();
   }
 };
 
@@ -18661,45 +18874,6 @@ module.exports = {
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 
 module.exports = {
   name: 'dashboard',
@@ -18714,10 +18888,7 @@ module.exports = {
       categories_dates: [],
       delivered_sms: [],
       received_sms: [],
-      pending_sms: [],
-      voltage_list: [],
-      time_list: null,
-      status_date_list: null
+      pending_sms: []
     };
   },
   filters: {
@@ -18979,165 +19150,10 @@ module.exports = {
       $("#m_aside_left").removeClass("m-aside-left--on");
       $("body").removeClass("m-aside-left--on");
       $(".m-aside-left-overlay").removeClass("m-aside-left-overlay");
-    },
-    battery_voltages_graph: function battery_voltages_graph() {
-
-      mApp.block("#voltages_graph_content", {
-        overlayColor: "#000000",
-        type: "loader",
-        state: "success",
-        message: "Loading..."
-      });
-      Highcharts.setOptions({
-        lang: {
-          thousandsSep: ','
-        }
-      });
-      Highcharts.chart('voltages_graph', {
-        chart: {
-          type: 'area',
-          zoomType: 'x'
-        },
-        credits: {
-          enabled: false
-        },
-        title: {
-          text: ''
-        },
-        xAxis: {
-          categories: this.time_list
-        },
-        yAxis: {
-          title: {
-            text: 'Voltages'
-          }
-        },
-        plotOptions: {
-          area: {
-            fillColor: {
-              linearGradient: {
-                x1: 0,
-                y1: 0,
-                x2: 0,
-                y2: 1
-              },
-              stops: [[0, Highcharts.getOptions().colors[0]], [1, Highcharts.Color(Highcharts.getOptions().colors[0]).setOpacity(0).get('rgba')]]
-            },
-            marker: {
-              radius: 2
-            },
-            lineWidth: 1,
-            states: {
-              hover: {
-                lineWidth: 1
-              }
-            },
-            threshold: null
-          }
-        },
-        series: [{
-          name: 'Voltage',
-          data: this.voltage_list
-        }]
-      });
-    },
-    get_voltages_history: function get_voltages_history() {
-      var _this7 = this;
-
-      $("#m_sms_datepicker_from").datepicker({ autoclose: true, dateFormat: "yy-mm-dd" }).datepicker("setDate", new Date(new Date().getTime() - 48 * 60 * 60 * 1000));
-      $("#m_sms_datepicker_to").datepicker({ autoclose: true, dateFormat: "yy-mm-dd" }).datepicker("setDate", new Date());
-
-      var from_date = $("#m_sms_datepicker_from").val(),
-          to_date = $("#m_sms_datepicker_to").val();
-
-      this.$http.get('/daily_battery/data/' + from_date + "/" + to_date).then(function (response) {
-        var history = response.body.voltages_history;
-        _this7.time_list = history.time_list;
-        _this7.voltage_list = history.voltage_list;
-        _this7.status_date_list = history.date;
-        _this7.battery_voltages_graph();
-        mApp.unblock("#voltages_graph_content");
-      });
-    },
-    dateFilterInitialize: function dateFilterInitialize() {
-      var time_list = this.time_list;
-      var voltage_list = this.voltage_list;
-      var status_date_list = this.status_date_list;
-      $('#m_sms_datepicker_from, #m_sms_datepicker_to').change(function () {
-        var from_date = $("#m_sms_datepicker_from").val(),
-            to_date = $("#m_sms_datepicker_to").val();
-        $.get('/daily_battery/data/' + from_date + "/" + to_date, function (data) {
-          var history = data.voltages_history;
-          time_list = history.time_list;
-          voltage_list = history.voltage_list;
-          status_date_list = history.date;
-
-          mApp.block("#voltages_graph_content", {
-            overlayColor: "#000000",
-            type: "loader",
-            state: "success",
-            message: "Loading..."
-          });
-          Highcharts.setOptions({
-            lang: {
-              thousandsSep: ','
-            }
-          });
-          Highcharts.chart('voltages_graph', {
-            chart: {
-              type: 'area',
-              zoomType: 'x'
-            },
-            credits: {
-              enabled: false
-            },
-            title: {
-              text: ''
-            },
-            xAxis: {
-              categories: time_list
-            },
-            yAxis: {
-              title: {
-                text: 'Voltages'
-              }
-            },
-            plotOptions: {
-              area: {
-                fillColor: {
-                  linearGradient: {
-                    x1: 0,
-                    y1: 0,
-                    x2: 0,
-                    y2: 1
-                  },
-                  stops: [[0, Highcharts.getOptions().colors[0]], [1, Highcharts.Color(Highcharts.getOptions().colors[0]).setOpacity(0).get('rgba')]]
-                },
-                marker: {
-                  radius: 2
-                },
-                lineWidth: 1,
-                states: {
-                  hover: {
-                    lineWidth: 1
-                  }
-                },
-                threshold: null
-              }
-            },
-            series: [{
-              name: 'Voltage',
-              data: voltage_list
-            }]
-          });
-          mApp.unblock("#voltages_graph_content");
-        });
-      });
     }
   },
   mounted: function mounted() {
     this.get_sms_history();
-    this.get_voltages_history();
     this.init_chart();
     this.active_menu_link();
     this.initializeTable();
@@ -19146,8 +19162,6 @@ module.exports = {
     this.get_total_routers();
     this.get_total_sites();
     this.initializeLogsTable();
-    this.battery_voltages_graph();
-    this.dateFilterInitialize();
   }
 };
 
@@ -26968,51 +26982,12 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "m-form m-form--label-align-right m--margin-bottom-10"
   }, [_c('div', {
     staticClass: "row align-items-center"
-  }, [_c('div', {
-    staticClass: "col-md-8 order-2 order-md-1"
-  }, [_c('div', {
-    staticClass: "form-group m-form__group row align-items-center"
-  }, [_c('div', {
-    staticClass: "col-md-5"
-  }, [_c('div', {
-    staticClass: "m-input-icon m-input-icon--left"
-  }, [_c('input', {
-    directives: [{
-      name: "model",
-      rawName: "v-model",
-      value: (_vm.m_form_search),
-      expression: "m_form_search"
-    }],
-    staticClass: "form-control m-input m-input--solid",
-    attrs: {
-      "type": "text",
-      "placeholder": "Search...",
-      "id": "m_form_search"
-    },
-    domProps: {
-      "value": (_vm.m_form_search)
-    },
-    on: {
-      "keyup": function($event) {
-        _vm.search()
-      },
-      "input": function($event) {
-        if ($event.target.composing) { return; }
-        _vm.m_form_search = $event.target.value
-      }
-    }
-  }), _vm._v(" "), _vm._m(0)])])])]), _vm._v(" "), _c('div', {
-    staticClass: "col-md-4 order-1 order-md-2 m--align-right",
-    staticStyle: {
-      "padding-right": "0"
-    }
+  }, [_vm._m(0), _vm._v(" "), _c('div', {
+    staticClass: "col-md-6 order-1 order-md-2 m--align-right"
   }, [_c('div', {
     staticClass: "row"
-  }, [_vm._m(1), _vm._v(" "), _c('div', {
-    staticClass: "col-lg-2",
-    staticStyle: {
-      "padding-right": "0"
-    }
+  }, [_vm._m(1), _vm._v(" "), _vm._m(2), _vm._v(" "), _c('div', {
+    staticClass: "col-sm-2"
   }, [_c('div', {
     staticClass: "btn btn-default grey",
     attrs: {
@@ -27023,7 +26998,15 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }
   }, [_c('i', {
     staticClass: "fa fa-columns"
-  })])])])])])]), _vm._v(" "), _c('div'), _vm._v(" "), _c('table', {
+  })])])])])])]), _vm._v(" "), _c('div'), _vm._v(" "), _c('div', {
+    staticClass: "tab-content"
+  }, [_c('div', {
+    staticClass: "tab-pane  active show",
+    attrs: {
+      "id": "m_tabs_1_1",
+      "role": "tabpanel"
+    }
+  }, [_c('table', {
     staticClass: "table table-striped  table-hover table-bordered display nowrap",
     attrs: {
       "id": "status-datatable",
@@ -27031,8 +27014,12 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       "width": "100%"
     }
   }, [_c('thead', [_c('tr', _vm._l((_vm.headings), function(item, index) {
-    return _c('th', [_vm._v(_vm._s(item.column))])
-  }))])])])])]), _vm._v(" "), _c('div', {
+    return _c('th', {
+      staticStyle: {
+        "vertical-align": "middle"
+      }
+    }, [_vm._v(_vm._s(item.column) + " "), _c('br'), _vm._v(" " + _vm._s(item.unit))])
+  }))])])]), _vm._v(" "), _vm._m(3)])])])]), _vm._v(" "), _c('div', {
     ref: "hideShow",
     staticClass: "modal fade toggle-datatable-columns",
     staticStyle: {
@@ -27063,7 +27050,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     attrs: {
       "id": "exampleModalLabel"
     }
-  }, [_vm._v("\n                    " + _vm._s(_vm.form_labels.hide_show_title) + "\n                ")]), _vm._v(" "), _vm._m(2)]), _vm._v(" "), _c('div', {
+  }, [_vm._v("\n                    " + _vm._s(_vm.form_labels.hide_show_title) + "\n                ")]), _vm._v(" "), _vm._m(4)]), _vm._v(" "), _c('div', {
     staticClass: "modal-body",
     attrs: {
       "id": "body-sim-dis"
@@ -27100,30 +27087,87 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }
   }, [_vm._v(_vm._s(_vm.form_labels.hide_show_button))])])])])])])
 },staticRenderFns: [function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('span', {
-    staticClass: "m-input-icon__icon m-input-icon__icon--left"
-  }, [_c('span', [_c('i', {
-    staticClass: "la la-search"
-  })])])
+  return _c('div', {
+    staticClass: "col-md-6"
+  }, [_c('div', {
+    staticClass: "form-group m-form__group row align-items-center"
+  }, [_c('div', {
+    staticClass: "col-md-12"
+  }, [_c('div', {
+    staticClass: "m-input-icon m-input-icon--left"
+  }, [_c('ul', {
+    staticClass: "nav nav-pills",
+    attrs: {
+      "role": "tablist"
+    }
+  }, [_c('li', {
+    staticClass: "nav-item"
+  }, [_c('a', {
+    staticClass: "nav-link  active show",
+    attrs: {
+      "data-toggle": "tab",
+      "href": "#m_tabs_1_1"
+    }
+  }, [_vm._v("Table")])]), _vm._v(" "), _c('li', {
+    staticClass: "nav-item"
+  }, [_c('a', {
+    staticClass: "nav-link",
+    attrs: {
+      "data-toggle": "tab",
+      "href": "#m_tabs_1_2"
+    }
+  }, [_vm._v("Graph")])])])])])])])
 },function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
   return _c('div', {
-    staticClass: "col-sm-9"
+    staticClass: "col-sm-5"
   }, [_c('div', {
     staticClass: "form-group m-form__group row"
   }, [_c('label', {
     staticClass: "col-lg-2 col-form-label"
-  }, [_vm._v("\n                          Date:\n                      ")]), _vm._v(" "), _c('div', {
-    staticClass: "col-lg-10",
-    staticStyle: {
-      "padding-right": "0"
-    }
+  }, [_vm._v("\n                          From:\n                      ")]), _vm._v(" "), _c('div', {
+    staticClass: "col-lg-10"
   }, [_c('input', {
     staticClass: "form-control m-input m-input--solid",
     attrs: {
       "type": "text",
-      "id": "m_sms_datepicker"
+      "id": "m_sms_datepicker_from"
     }
   })])])])
+},function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('div', {
+    staticClass: "col-sm-5"
+  }, [_c('div', {
+    staticClass: "form-group m-form__group row"
+  }, [_c('label', {
+    staticClass: "col-lg-2 col-form-label"
+  }, [_vm._v("\n                          To:\n                      ")]), _vm._v(" "), _c('div', {
+    staticClass: "col-lg-10"
+  }, [_c('input', {
+    staticClass: "form-control m-input m-input--solid",
+    attrs: {
+      "type": "text",
+      "id": "m_sms_datepicker_to"
+    }
+  })])])])
+},function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('div', {
+    staticClass: "tab-pane",
+    attrs: {
+      "id": "m_tabs_1_2",
+      "role": "tabpanel"
+    }
+  }, [_c('div', {
+    attrs: {
+      "id": "voltages_graph_content"
+    }
+  }, [_c('div', {
+    staticStyle: {
+      "height": "90vh"
+    },
+    attrs: {
+      "id": "voltages_graph"
+    }
+  })])])
 },function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
   return _c('div', {
     staticClass: "cancel"
@@ -27264,7 +27308,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }), _vm._v(" "), _c('span', {
       staticClass: "m-list-timeline__time"
     }, [_vm._v(_vm._s(_vm._f("date_format")(log.inserted_at)) + " ")])])
-  }))])])])])]), _vm._v(" "), _vm._m(2), _vm._v(" "), _vm._m(3)])])])
+  }))])])])])]), _vm._v(" "), _vm._m(2)])])])
 },staticRenderFns: [function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
   return _c('div', {
     staticClass: "col-sm-8",
@@ -27304,72 +27348,6 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
   }, [_c('h3', {
     staticClass: "m-portlet__head-text"
   }, [_vm._v("\n                    Recent User Activity\n                  ")])])])])
-},function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('div', {
-    staticClass: "col-sm-12",
-    staticStyle: {
-      "padding-bottom": "0"
-    }
-  }, [_c('div', {
-    staticClass: "m-portlet m-portlet--mobile",
-    staticStyle: {
-      "margin-bottom": "5px"
-    }
-  }, [_c('div', {
-    staticClass: "m-portlet__body",
-    staticStyle: {
-      "padding": "15px"
-    }
-  }, [_c('div', {
-    staticClass: "pull-left"
-  }, [_c('h4', [_vm._v("Solar Better Voltages")]), _vm._v(" "), _c('p', [_vm._v("Time Vs. Voltages")]), _vm._v(" "), _c('div', {
-    staticStyle: {
-      "height": "10px"
-    }
-  })]), _vm._v(" "), _c('div', {
-    staticClass: "pull-right"
-  }, [_c('div', {
-    staticClass: "row"
-  }, [_c('div', {
-    staticClass: "col-sm-6"
-  }, [_c('div', {
-    staticClass: "form-group m-form__group row"
-  }, [_c('label', {
-    staticClass: "col-lg-2 col-form-label"
-  }, [_vm._v("\n                                From:\n                            ")]), _vm._v(" "), _c('div', {
-    staticClass: "col-lg-10"
-  }, [_c('input', {
-    staticClass: "form-control m-input m-input--solid",
-    attrs: {
-      "type": "text",
-      "id": "m_sms_datepicker_from"
-    }
-  })])])]), _vm._v(" "), _c('div', {
-    staticClass: "col-sm-6"
-  }, [_c('div', {
-    staticClass: "form-group m-form__group row"
-  }, [_c('label', {
-    staticClass: "col-lg-1 col-form-label"
-  }, [_vm._v("\n                                To:\n                            ")]), _vm._v(" "), _c('div', {
-    staticClass: "col-lg-10"
-  }, [_c('input', {
-    staticClass: "form-control m-input m-input--solid",
-    attrs: {
-      "type": "text",
-      "id": "m_sms_datepicker_to"
-    }
-  })])])])])]), _vm._v(" "), _c('div', {
-    staticClass: "clearfix"
-  }), _vm._v(" "), _c('div', {
-    staticClass: "m-demo__preview",
-    attrs: {
-      "id": "voltages_graph_content"
-    }
-  }, [_c('div', {
-    attrs: {
-      "id": "voltages_graph"
-    }
-  })])])])])
 },function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
   return _c('div', {
     staticClass: "col-sm-12"

@@ -571,6 +571,12 @@ select.form-control:not([size]):not([multiple]) {
   font-weight: 500;
 }
 
+.form-control.m-input--solid {
+  background-color: #e4e4e4;
+  border-color: #f4f5f8;
+  color: #575962;
+}
+
 @media (max-width: 992px){
   .m-brand{
     width: 100%;
