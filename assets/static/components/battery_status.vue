@@ -6,33 +6,45 @@
           <!--begin: Search Form -->
           <div class="m-form m-form--label-align-right m--margin-bottom-10">
             <div class="row align-items-center">
-              <div class="col-md-8 order-2 order-md-1">
+              <div class="col-md-6">
                 <div class="form-group m-form__group row align-items-center">
-                  <div class="col-md-5">
+                  <div class="col-md-12">
                     <div class="m-input-icon m-input-icon--left">
-                      <input type="text" class="form-control m-input m-input--solid" placeholder="Search..." id="m_form_search" v-model="m_form_search" v-on:keyup="search()">
-                      <span class="m-input-icon__icon m-input-icon__icon--left">
-                        <span>
-                          <i class="la la-search"></i>
-                        </span>
-                      </span>
+                      <ul class="nav nav-pills" role="tablist">
+                        <li class="nav-item">
+                            <a class="nav-link  active show" data-toggle="tab" href="#m_tabs_1_1">Table</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" data-toggle="tab" href="#m_tabs_1_2" >Graph</a>
+                        </li>
+                      </ul>
                     </div>
                   </div>
                 </div>
               </div>
-                <div class="col-md-4 order-1 order-md-2 m--align-right" style="padding-right: 0">
+                <div class="col-md-6 order-1 order-md-2 m--align-right">
                   <div class="row">
-                    <div class="col-sm-9">
+                    <div class="col-sm-5">
                          <div class="form-group m-form__group row">
                         <label class="col-lg-2 col-form-label">
-                            Date:
+                            From:
                         </label>
-                        <div class="col-lg-10" style="padding-right: 0">
-                            <input type="text" class="form-control m-input m-input--solid" id="m_sms_datepicker">
+                        <div class="col-lg-10">
+                            <input type="text" class="form-control m-input m-input--solid" id="m_sms_datepicker_from">
                         </div>
                         </div>
                     </div>
-                    <div class="col-lg-2" style="padding-right: 0">
+                    <div class="col-sm-5">
+                         <div class="form-group m-form__group row">
+                        <label class="col-lg-2 col-form-label">
+                            To:
+                        </label>
+                        <div class="col-lg-10">
+                            <input type="text" class="form-control m-input m-input--solid" id="m_sms_datepicker_to">
+                        </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-2">
                       <div href="javascript:void(0)" class="btn btn-default grey" v-on:click="onHideShowButton">
                         <i class="fa fa-columns"></i>
                       </div>
@@ -44,13 +56,22 @@
           <!--end: Search Form -->
           <div>
           </div>
-            <table id="status-datatable" class="table table-striped  table-hover table-bordered display nowrap" cellspacing="0" width="100%">
-                <thead>
-                    <tr>
-                        <th v-for="(item, index) in headings">{{item.column}}</th>
-                    </tr>
-                </thead>
-            </table>
+          <div class="tab-content">
+                <div class="tab-pane  active show" id="m_tabs_1_1" role="tabpanel">
+                  <table id="status-datatable" class="table table-striped  table-hover table-bordered display nowrap" cellspacing="0" width="100%">
+                      <thead>
+                          <tr>
+                              <th v-for="(item, index) in headings" style="vertical-align: middle;">{{item.column}} </br> {{item.unit}}</th>
+                          </tr>
+                      </thead>
+                  </table>
+              </div>
+               <div class="tab-pane" id="m_tabs_1_2" role="tabpanel">
+                  <div id="voltages_graph_content">
+                    <div id="voltages_graph" style="height:90vh"></div>
+                  </div>
+              </div>
+          </div>
         </div>
       </div>
     </div>
@@ -98,20 +119,23 @@ module.exports = {
       show_edit_errors: false,
       show_edit_messages: "",
       show_add_messages: "",
+      voltage_list: [],
+      time_list: null,
+      status_date_list: null,
       headings: [
-        {column: "Reading DateTime", id: "datetime"},
-        {column: "Battery voltage", id: "voltage"},
-        {column: "Battery current", id: "i_value"},
-        {column: "Panel voltage", id: "vpv_value"},
-        {column: "Panel power", id: "ppv_value"},
-        {column: "Serial#", id: "serial_no"},
-        {column: "State of operation", id: "cs_value"},
-        {column: "Error code", id: "err_value"},
-        {column: "Yield total", id: "h19_value"},
-        {column: "Yield today", id: "h20_value"},
-        {column: "Maximum power today", id: "h21_value"},
-        {column: "Yield yesterday", id: "h22_value"},
-        {column: "Maximum power yesterday", id: "h23_value"}
+        {column: "Reading DateTime", id: "datetime", unit: ""},
+        {column: "Battery voltage", id: "voltage", unit: "mV"},
+        {column: "Battery current", id: "i_value", unit: "mA"},
+        {column: "Panel voltage", id: "vpv_value", unit: "mV"},
+        {column: "Panel power", id: "ppv_value", unit: "W"},
+        {column: "Serial#", id: "serial_no", unit: ""},
+        {column: "State of operation", id: "cs_value", unit: ""},
+        {column: "Error code", id: "err_value", unit: ""},
+        {column: "Yield total", id: "h19_value", unit: "0.01 kWh"},
+        {column: "Yield today", id: "h20_value", unit: "0.01 kWh"},
+        {column: "Maximum power today", id: "h21_value", unit: "W"},
+        {column: "Yield yesterday", id: "h22_value", unit: "0.01 kWh"},
+        {column: "Maximum power yesterday", id: "h23_value", unit: "W"}
       ],
       form_labels: {
         hide_show_title: "Show/Hide Columns",
@@ -121,8 +145,11 @@ module.exports = {
   },
   methods: {
     initializeTable: function(){
-      $( "#m_sms_datepicker").datepicker({autoclose:true, dateFormat:"yy-mm-dd"}).datepicker("setDate", new Date(new Date().getTime()));
-      let date = $("#m_sms_datepicker").val();
+      $( "#m_sms_datepicker_from").datepicker({autoclose:true, dateFormat:"yy-mm-dd"}).datepicker("setDate", new Date(new Date().getTime() - (48 * 60 * 60 * 1000)));
+      $( "#m_sms_datepicker_to" ).datepicker({autoclose:true, dateFormat:"yy-mm-dd"}).datepicker("setDate", new Date());
+
+      let from_date = $("#m_sms_datepicker_from").val(),
+      to_date = $("#m_sms_datepicker_to").val();
 
       let statusDataTable = $('#status-datatable').DataTable({
         fnInitComplete: function(){
@@ -138,7 +165,7 @@ module.exports = {
         });
       },
       ajax: {
-      url: "/battery/data/" + date,
+      url: "/battery/data/" + from_date + "/" + to_date,
         dataSrc: function(data) {
           return data.records;
         },
@@ -281,20 +308,211 @@ module.exports = {
    },
    dateFilterInitialize: function() {
       let table_data = this.dataTable;
-      $('#m_sms_datepicker').change(function(){
-        let date = $("#m_sms_datepicker").val()
-          let new_url = "/battery/data/" + date
+      let time_list = this.time_list;
+      let voltage_list = this.voltage_list;
+      let status_date_list = this.status_date_list;
+      $('#m_sms_datepicker_from, #m_sms_datepicker_to').change(function(){
+       let from_date = $("#m_sms_datepicker_from").val(),
+        to_date = $("#m_sms_datepicker_to").val();
+          let new_url = "/battery/data/" + from_date + "/" + to_date
           table_data.ajax.url(new_url).load();
+
+          $.get('/daily_battery/data/' + from_date + "/" + to_date, function( data ) {
+          let history = data.voltages_history
+          time_list = history.time_list
+          voltage_list = history.voltage_list;
+          status_date_list = history.date;
+
+          mApp.block("#voltages_graph_content", {
+            overlayColor: "#000000",
+            type: "loader",
+            state: "success",
+            message: "Loading..."
+          })
+          Highcharts.setOptions({
+            lang: {
+              thousandsSep: ','
+            }
+          });
+          Highcharts.chart('voltages_graph', {
+            chart: {
+              type: 'area',
+              zoomType: 'x'
+            },
+            credits: {
+              enabled: false
+            },
+            title: {
+              text: 'Battery Voltage'
+            },
+            subtitle: {
+              text: 'Time Vs. Voltage'
+            },
+            xAxis: {
+              categories: time_list,
+              labels: {
+                style: {
+                  fontSize: '12px',
+                  fontFamily: 'proxima-nova,helvetica,arial,sans-seri',
+                  whiteSpace: 'nowrap',
+                  paddingLeft: '10px',
+                  paddingRight: '10px',
+                  paddingTop: '10px',
+                  paddingBottom: '10px',
+                }
+              }
+            },
+            yAxis: {
+              title: {
+                text: 'Voltages'
+              }
+            },
+            tooltip: {
+              valueSuffix: ' mV'
+            },
+            plotOptions: {
+              area: {
+                fillColor: {
+                  linearGradient: {
+                    x1: 0,
+                    y1: 0,
+                    x2: 0,
+                    y2: 1
+                  },
+                  stops: [
+                    [0, Highcharts.getOptions().colors[0]],
+                    [1, Highcharts.Color(Highcharts.getOptions().colors[0]).setOpacity(0).get('rgba')]
+                  ]
+                },
+                marker: {
+                  radius: 2
+                },
+                lineWidth: 1,
+                states: {
+                  hover: {
+                    lineWidth: 1
+                  }
+                },
+                threshold: null
+              }
+            },
+            series: [{
+              name: 'Voltage',
+              data: voltage_list
+            }]
+          });
+          mApp.unblock("#voltages_graph_content")
+        });
+      });
+    },
+    battery_voltages_graph: function(){
+
+      mApp.block("#voltages_graph_content", {
+        overlayColor: "#000000",
+        type: "loader",
+        state: "success",
+        message: "Loading..."
+      })
+      Highcharts.setOptions({
+        lang: {
+          thousandsSep: ','
+        }
+      });
+      Highcharts.chart('voltages_graph', {
+        chart: {
+          type: 'area',
+          zoomType: 'x'
+        },
+        credits: {
+          enabled: false
+        },
+        title: {
+          text: 'Battery Voltage'
+        },
+        subtitle: {
+          text: 'Time Vs. Voltage'
+        },
+        xAxis: {
+          categories: this.time_list,
+          labels: {
+            style: {
+              fontSize: '12px',
+              fontFamily: 'proxima-nova,helvetica,arial,sans-seri',
+              whiteSpace: 'nowrap',
+              paddingLeft: '10px',
+              paddingRight: '10px',
+              paddingTop: '10px',
+              paddingBottom: '10px',
+            }
+          }
+        },
+        yAxis: {
+          title: {
+            text: 'Voltages'
+          }
+        },
+        tooltip: {
+          valueSuffix: ' mV'
+        },
+        plotOptions: {
+          area: {
+            fillColor: {
+              linearGradient: {
+                x1: 0,
+                y1: 0,
+                x2: 0,
+                y2: 1
+              },
+              stops: [
+                [0, Highcharts.getOptions().colors[0]],
+                [1, Highcharts.Color(Highcharts.getOptions().colors[0]).setOpacity(0).get('rgba')]
+              ]
+            },
+            marker: {
+              radius: 2
+            },
+            lineWidth: 1,
+            states: {
+              hover: {
+                lineWidth: 1
+              }
+            },
+            threshold: null
+          }
+        },
+        series: [{
+          name: 'Voltage',
+          data: this.voltage_list
+        }]
+      });
+    },
+    get_voltages_history: function(){
+      $( "#m_sms_datepicker_from").datepicker({autoclose:true, dateFormat:"yy-mm-dd"}).datepicker("setDate", new Date(new Date().getTime() - (48 * 60 * 60 * 1000)));
+      $( "#m_sms_datepicker_to" ).datepicker({autoclose:true, dateFormat:"yy-mm-dd"}).datepicker("setDate", new Date());
+
+      let from_date = $("#m_sms_datepicker_from").val(),
+      to_date = $("#m_sms_datepicker_to").val();
+
+      this.$http.get('/daily_battery/data/' + from_date + "/" + to_date).then(response => {
+         let history = response.body.voltages_history
+         this.time_list = history.time_list
+         this.voltage_list = history.voltage_list;
+         this.status_date_list = history.date;
+         this.battery_voltages_graph();
+         mApp.unblock("#voltages_graph_content")
       });
     }
   }, // end of methods
    mounted(){
     this.initializeTable();
+    this.get_voltages_history();
     this.dateFilterInitialize();
     this.search();
     this.get_session();
     this.initHideShow();
     this.active_menu_link();
+    this.battery_voltages_graph();
+
    }
 }
 </script>

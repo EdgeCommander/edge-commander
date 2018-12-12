@@ -44,9 +44,10 @@ defmodule EdgeCommanderWeb.BatteryController do
   end
 
   def get_battery_record(conn, params)  do
-    date = params["date"]
+    from_date = params["from_date"]
+    to_date = params["to_date"]
     records =
-      list_battery_records(date, date)
+      list_battery_records(from_date, to_date)
       |> Enum.map(fn(data) ->
         %{
           id: data.id,
