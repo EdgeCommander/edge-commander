@@ -12,21 +12,23 @@ defmodule EdgeCommanderWeb.BatteryController do
     case HTTPoison.get(url) do
       {:ok, %HTTPoison.Response{status_code: 200, body: body}} ->
         data = String.split(body, "\n")
+
+
         params = %{
-          "pid" => get_column_value(data, 2, "PID"),
-          "fw" => get_column_value(data, 4, "FW"),
-          "serial_no" => get_column_value(data, 6, "SER#"),
-          "voltage" => get_column_value(data, 8, "V"),
-          "i_value" => get_column_value(data, 10, "I"),
-          "vpv_value" => get_column_value(data, 12, "VPV"),
-          "ppv_value" => get_column_value(data, 14, "PPV"),
-          "cs_value" => get_column_value(data, 16, "CS"),
-          "err_value" => get_column_value(data, 18, "ERR"),
-          "h19_value" => get_column_value(data, 20, "H19"),
-          "h20_value" => get_column_value(data, 22, "H20"),
-          "h21_value" => get_column_value(data, 24, "H21"),
-          "h22_value" => get_column_value(data, 26, "H22"),
-          "h23_value" => get_column_value(data, 28, "H23"),
+          "pid" => get_column_value(data, 2, "PID\t"),
+          "fw" => get_column_value(data, 4, "FW\t"),
+          "serial_no" => get_column_value(data, 6, "SER#\t"),
+          "voltage" => get_column_value(data, 8, "V\t"),
+          "i_value" => get_column_value(data, 10, "I\t"),
+          "vpv_value" => get_column_value(data, 12, "VPV\t"),
+          "ppv_value" => get_column_value(data, 14, "PPV\t"),
+          "cs_value" => get_column_value(data, 16, "CS\t"),
+          "err_value" => get_column_value(data, 20, "ERR\t"),
+          "h19_value" => get_column_value(data, 24, "H19\t"),
+          "h20_value" => get_column_value(data, 26, "H20\t"),
+          "h21_value" => get_column_value(data, 28, "H21\t"),
+          "h22_value" => 0,
+          "h23_value" => 0,
           "datetime" => Enum.at(data, 30)
         }
         changeset = Battery.changeset(%Battery{}, params)
