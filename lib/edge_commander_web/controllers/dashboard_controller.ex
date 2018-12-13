@@ -9,7 +9,7 @@ defmodule EdgeCommanderWeb.DashboardController do
   import EdgeCommander.Accounts, only: [current_user: 1]
   import EdgeCommander.Sharing, only: [member_by_token: 1]
   import EdgeCommander.Nexmo, only: [get_total_messages: 4]
-  import EdgeCommander.Solar, only: [list_battery_records: 2]
+  import EdgeCommander.Solar, only: [list_battery_records: 2, get_maximum_voltage: 1, get_minimum_voltage: 1]
 
   def sign_up(conn, _params) do
     with %User{} <- current_user(conn) do
@@ -139,6 +139,7 @@ defmodule EdgeCommanderWeb.DashboardController do
           received_sms: received_sms
         }
       end)
+
     conn
     |> put_status(:ok)
     |> json(%{
@@ -161,7 +162,7 @@ defmodule EdgeCommanderWeb.DashboardController do
           data.voltage
         end)
 
-        panel_voltages =
+      panel_voltages =
         list_battery_records(from_date, to_date)
         |> Enum.map(fn(data) ->
           data.vpv_value
@@ -179,6 +180,34 @@ defmodule EdgeCommanderWeb.DashboardController do
       |> json(%{
         "voltages_history" => voltages_history
       })
+  end
+
+
+  def battery_voltages_summary(conn, params) do
+    from_date = Date.from_iso8601!(params["from_date"])
+    to_date = Date.from_iso8601!(params["to_date"])
+
+    range = Date.range(from_date, to_date)
+    dates = Enum.to_list(range)
+    records =
+      dates
+      |> Enum.map(fn(value) ->
+        year = value.year
+        month = value.month |> ensure_number
+        day = value.day |> ensure_number
+        date = "#{year}-#{month}-#{day}"
+        %{
+          date: date,
+          max_value: get_maximum_voltage(date),
+          min_value: get_minimum_voltage(date)
+        }
+      end)
+
+    conn
+    |> put_status(:ok)
+    |> json(%{
+      "records" => records
+    })
   end
 
   defp ensure_number(number) when number >= 1 and number <= 9, do: "0#{number}"
