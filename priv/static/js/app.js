@@ -17833,6 +17833,13 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
 
 var app = new _vue2.default(_App2.default);
 
@@ -17848,8 +17855,10 @@ module.exports = {
       show_add_messages: "",
       battery_voltages: [],
       time_list: null,
-      status_date_list: null,
       panel_voltages: [],
+      categories_dates: [],
+      maximum_voltages: [],
+      minimum_voltages: [],
       headings: [{ column: "Reading DateTime", id: "datetime", unit: "" }, { column: "Battery voltage", id: "voltage", unit: "mV" }, { column: "Battery current", id: "i_value", unit: "mA" }, { column: "Panel voltage", id: "vpv_value", unit: "mV" }, { column: "Panel power", id: "ppv_value", unit: "W" }, { column: "Serial#", id: "serial_no", unit: "" }, { column: "State of operation", id: "cs_value", unit: "" }, { column: "Error code", id: "err_value", unit: "" }, { column: "Yield total", id: "h19_value", unit: "0.01 kWh" }, { column: "Yield today", id: "h20_value", unit: "0.01 kWh" }, { column: "Maximum power today", id: "h21_value", unit: "W" }, { column: "Yield yesterday", id: "h22_value", unit: "0.01 kWh" }, { column: "Maximum power yesterday", id: "h23_value", unit: "W" }],
       form_labels: {
         hide_show_title: "Show/Hide Columns",
@@ -18005,15 +18014,60 @@ module.exports = {
       $("body").removeClass("m-aside-left--on");
       $(".m-aside-left-overlay").removeClass("m-aside-left-overlay");
     },
-    dateFilterInitialize: function dateFilterInitialize() {
+    init_graphs_data: function init_graphs_data() {
+      var _this2 = this;
+
+      $("#m_sms_datepicker_from").datepicker({ autoclose: true, dateFormat: "yy-mm-dd" }).datepicker("setDate", new Date(new Date().getTime() - 48 * 60 * 60 * 1000));
+      $("#m_sms_datepicker_to").datepicker({ autoclose: true, dateFormat: "yy-mm-dd" }).datepicker("setDate", new Date());
+
+      var from_date = $("#m_sms_datepicker_from").val(),
+          to_date = $("#m_sms_datepicker_to").val();
+
+      this.$http.get('/daily_battery/data/' + from_date + "/" + to_date).then(function (response) {
+        var history = response.body.voltages_history;
+        _this2.time_list = history.time_list;
+        _this2.battery_voltages = history.battery_voltages;
+        _this2.panel_voltages = history.panel_voltages;
+        _this2.graph_one(_this2.time_list, _this2.battery_voltages);
+        _this2.graph_two(_this2.time_list, _this2.battery_voltages, _this2.panel_voltages);
+      });
+
+      this.$http.get('/battery_voltages_summary/data/' + from_date + "/" + to_date).then(function (response) {
+        var history = response.body.records;
+        var i = void 0;
+        for (i = 0; i < history.length; i++) {
+          var min_value = history[i].min_value;
+          if (min_value == null) {
+            min_value = 0;
+          }
+          var max_value = history[i].max_value;
+          if (max_value == null) {
+            max_value = 0;
+          }
+          _this2.categories_dates.push(history[i].date);
+          _this2.maximum_voltages.push(min_value);
+          _this2.minimum_voltages.push(max_value);
+        }
+        _this2.graph_three(_this2.categories_dates, _this2.maximum_voltages, _this2.minimum_voltages);
+      });
+    },
+    show_loading_animation: function show_loading_animation(selector) {
+      mApp.block("#" + selector, {
+        overlayColor: "#000000",
+        type: "loader",
+        state: "success",
+        message: "Loading..."
+      });
+    },
+    on_date_change: function on_date_change() {
       var table_data = this.dataTable;
       var time_list = this.time_list;
       var battery_voltages = this.battery_voltages;
       var panel_voltages = this.panel_voltages;
-      var status_date_list = this.status_date_list;
+
       $('#m_sms_datepicker_from, #m_sms_datepicker_to').change(function () {
-        var from_date = $("#m_sms_datepicker_from").val(),
-            to_date = $("#m_sms_datepicker_to").val();
+        var from_date = $("#m_sms_datepicker_from").val();
+        var to_date = $("#m_sms_datepicker_to").val();
         var new_url = "/battery/data/" + from_date + "/" + to_date;
         table_data.ajax.url(new_url).load();
 
@@ -18021,170 +18075,43 @@ module.exports = {
           var history = data.voltages_history;
           time_list = history.time_list;
           battery_voltages = history.battery_voltages;
-          status_date_list = history.date;
           panel_voltages = history.panel_voltages;
+          module.exports.methods.graph_one(time_list, battery_voltages);
+          module.exports.methods.graph_two(time_list, battery_voltages, panel_voltages);
+        });
 
-          mApp.block("#voltages_graph_content", {
-            overlayColor: "#000000",
-            type: "loader",
-            state: "success",
-            message: "Loading..."
-          });
-          Highcharts.setOptions({
-            lang: {
-              thousandsSep: ','
+        $.get('/battery_voltages_summary/data/' + from_date + "/" + to_date, function (data) {
+          var history = data.records;
+          var category_dates = [];
+          var maximum_voltages = [];
+          var minimum_voltages = [];
+          var i = void 0;
+          for (i = 0; i < history.length; i++) {
+            var min_value = history[i].min_value;
+            if (min_value == null) {
+              min_value = 0;
             }
-          });
-          Highcharts.chart('voltages_graph', {
-            chart: {
-              type: 'area',
-              zoomType: 'x'
-            },
-            credits: {
-              enabled: false
-            },
-            title: {
-              text: 'Battery Voltage'
-            },
-            subtitle: {
-              text: 'Time Vs. Voltage'
-            },
-            xAxis: {
-              categories: time_list,
-              labels: {
-                style: {
-                  fontSize: '12px',
-                  fontFamily: 'proxima-nova,helvetica,arial,sans-seri',
-                  whiteSpace: 'nowrap',
-                  paddingLeft: '10px',
-                  paddingRight: '10px',
-                  paddingTop: '10px',
-                  paddingBottom: '10px'
-                }
-              }
-            },
-            yAxis: {
-              title: {
-                text: 'Voltages'
-              }
-            },
-            tooltip: {
-              valueSuffix: ' mV'
-            },
-            plotOptions: {
-              area: {
-                fillColor: {
-                  linearGradient: {
-                    x1: 0,
-                    y1: 0,
-                    x2: 0,
-                    y2: 1
-                  },
-                  stops: [[0, Highcharts.getOptions().colors[0]], [1, Highcharts.Color(Highcharts.getOptions().colors[0]).setOpacity(0).get('rgba')]]
-                },
-                marker: {
-                  radius: 2
-                },
-                lineWidth: 1,
-                states: {
-                  hover: {
-                    lineWidth: 1
-                  }
-                },
-                threshold: null
-              }
-            },
-            series: [{
-              name: 'Voltage',
-              data: battery_voltages
-            }]
-          });
-          Highcharts.chart('voltages_graph_other', {
-            chart: {
-              type: 'line',
-              zoomType: 'x'
-            },
-            credits: {
-              enabled: false
-            },
-            title: {
-              text: 'Voltage Summary'
-            },
-            subtitle: {
-              text: 'Battery Vs. Solar panel'
-            },
-            xAxis: {
-              categories: time_list,
-              labels: {
-                style: {
-                  fontSize: '12px',
-                  fontFamily: 'proxima-nova,helvetica,arial,sans-seri',
-                  whiteSpace: 'nowrap',
-                  paddingLeft: '10px',
-                  paddingRight: '10px',
-                  paddingTop: '10px',
-                  paddingBottom: '10px'
-                }
-              }
-            },
-            yAxis: {
-              title: {
-                text: 'Voltages'
-              }
-            },
-            tooltip: {
-              valueSuffix: ' mV',
-              shared: true
-            },
-            plotOptions: {
-              area: {
-                fillColor: {
-                  linearGradient: {
-                    x1: 0,
-                    y1: 0,
-                    x2: 0,
-                    y2: 1
-                  },
-                  stops: [[0, Highcharts.getOptions().colors[0]], [1, Highcharts.Color(Highcharts.getOptions().colors[0]).setOpacity(0).get('rgba')]]
-                },
-                marker: {
-                  radius: 2
-                },
-                lineWidth: 1,
-                states: {
-                  hover: {
-                    lineWidth: 1
-                  }
-                },
-                threshold: null
-              }
-            },
-            series: [{
-              name: 'Battery Voltage',
-              data: battery_voltages
-            }, {
-              name: 'Panel Voltage',
-              data: panel_voltages
-            }]
-          });
-          mApp.unblock("#voltages_graph_content");
+            var max_value = history[i].max_value;
+            if (max_value == null) {
+              max_value = 0;
+            }
+            category_dates.push(history[i].date);
+            maximum_voltages.push(min_value);
+            minimum_voltages.push(max_value);
+          }
+          module.exports.methods.graph_three(category_dates, maximum_voltages, minimum_voltages);
         });
       });
     },
-    battery_voltages_graph: function battery_voltages_graph() {
-
-      mApp.block("#voltages_graph_content", {
-        overlayColor: "#000000",
-        type: "loader",
-        state: "success",
-        message: "Loading..."
-      });
+    graph_one: function graph_one(time_list, battery_voltages) {
+      this.show_loading_animation("graph_one_loading");
       Highcharts.setOptions({
         lang: {
           thousandsSep: ','
         }
       });
-      Highcharts.chart('voltages_graph', {
+
+      Highcharts.chart('battery_graph_one', {
         chart: {
           type: 'area',
           zoomType: 'x'
@@ -18199,7 +18126,7 @@ module.exports = {
           text: 'Time Vs. Voltage'
         },
         xAxis: {
-          categories: this.time_list,
+          categories: time_list,
           labels: {
             style: {
               fontSize: '12px',
@@ -18245,10 +18172,20 @@ module.exports = {
         },
         series: [{
           name: 'Voltage',
-          data: this.battery_voltages
+          data: battery_voltages
         }]
       });
-      Highcharts.chart('voltages_graph_other', {
+      mApp.unblock("#graph_one_loading");
+    },
+    graph_two: function graph_two(time_list, battery_voltages, panel_voltages) {
+      this.show_loading_animation("graph_two_loading");
+      Highcharts.setOptions({
+        lang: {
+          thousandsSep: ','
+        }
+      });
+
+      Highcharts.chart('battery_graph_two', {
         chart: {
           type: 'line',
           zoomType: 'x'
@@ -18263,7 +18200,7 @@ module.exports = {
           text: 'Battery Vs. Solar panel'
         },
         xAxis: {
-          categories: this.time_list,
+          categories: time_list,
           labels: {
             style: {
               fontSize: '12px',
@@ -18310,41 +18247,69 @@ module.exports = {
         },
         series: [{
           name: 'Battery Voltage',
-          data: this.battery_voltages
+          data: battery_voltages
         }, {
           name: 'Panel Voltage',
-          data: this.panel_voltages
+          data: panel_voltages
         }]
       });
+      mApp.unblock("#graph_two_loading");
     },
-    get_voltages_history: function get_voltages_history() {
-      var _this2 = this;
-
-      $("#m_sms_datepicker_from").datepicker({ autoclose: true, dateFormat: "yy-mm-dd" }).datepicker("setDate", new Date(new Date().getTime() - 48 * 60 * 60 * 1000));
-      $("#m_sms_datepicker_to").datepicker({ autoclose: true, dateFormat: "yy-mm-dd" }).datepicker("setDate", new Date());
-
-      var from_date = $("#m_sms_datepicker_from").val(),
-          to_date = $("#m_sms_datepicker_to").val();
-
-      this.$http.get('/daily_battery/data/' + from_date + "/" + to_date).then(function (response) {
-        var history = response.body.voltages_history;
-        _this2.time_list = history.time_list;
-        _this2.battery_voltages = history.battery_voltages;
-        _this2.status_date_list = history.date;
-        _this2.panel_voltages = history.panel_voltages;
-        _this2.battery_voltages_graph();
-        mApp.unblock("#voltages_graph_content");
+    graph_three: function graph_three(categories_dates, maximum_voltages, minimum_voltages) {
+      this.show_loading_animation("graph_three_loading");
+      Highcharts.setOptions({
+        lang: {
+          thousandsSep: ','
+        }
       });
+
+      Highcharts.chart('battery_graph_three', {
+        chart: {
+          type: 'line'
+        },
+        colors: ['#363636', '#47bcfa', '#9c2a3d'],
+        credits: {
+          enabled: false
+        },
+        title: {
+          text: 'Battery Voltages Summary'
+        },
+        subtitle: {
+          text: 'Date wise'
+        },
+        xAxis: {
+          categories: categories_dates,
+          crosshair: true
+        },
+        yAxis: {
+          title: {
+            text: 'Voltages'
+          }
+        },
+        tooltip: {
+          shared: true
+        },
+        series: [{
+          name: 'Maximum Voltages',
+          data: maximum_voltages
+        }, {
+          name: 'Minimum Voltages',
+          data: minimum_voltages
+        }]
+      });
+      mApp.unblock("#graph_three_loading");
     }
   }, // end of methods
   mounted: function mounted() {
     this.initializeTable();
-    this.get_voltages_history();
-    this.dateFilterInitialize();
+    this.init_graphs_data();
+    this.on_date_change();
     this.get_session();
     this.initHideShow();
     this.active_menu_link();
-    this.battery_voltages_graph();
+    this.graph_one(this.time_list, this.battery_voltages);
+    this.graph_two(this.time_list, this.battery_voltages, this.panel_voltages);
+    this.graph_three(this.categories_dates, this.maximum_voltages, this.minimum_voltages);
   }
 };
 
@@ -27333,14 +27298,14 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       "padding": "10px"
     },
     attrs: {
-      "id": "voltages_graph_content"
+      "id": "graph_one_loading"
     }
   }, [_c('div', {
     staticStyle: {
       "height": "80vh"
     },
     attrs: {
-      "id": "voltages_graph"
+      "id": "battery_graph_one"
     }
   })])])]), _vm._v(" "), _c('div', {
     staticClass: "m-content"
@@ -27355,14 +27320,36 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       "padding": "10px"
     },
     attrs: {
-      "id": "voltages_graph_content"
+      "id": "graph_two_loading"
     }
   }, [_c('div', {
     staticStyle: {
       "height": "80vh"
     },
     attrs: {
-      "id": "voltages_graph_other"
+      "id": "battery_graph_two"
+    }
+  })])])]), _vm._v(" "), _c('div', {
+    staticClass: "m-content"
+  }, [_c('div', {
+    staticClass: "m-portlet m-portlet--mobile",
+    staticStyle: {
+      "margin-bottom": "0"
+    }
+  }, [_c('div', {
+    staticClass: "m-portlet__body",
+    staticStyle: {
+      "padding": "10px"
+    },
+    attrs: {
+      "id": "graph_three_loading"
+    }
+  }, [_c('div', {
+    staticStyle: {
+      "height": "80vh"
+    },
+    attrs: {
+      "id": "battery_graph_three"
     }
   })])])])])
 },function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;

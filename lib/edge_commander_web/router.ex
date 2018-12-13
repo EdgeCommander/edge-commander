@@ -166,6 +166,9 @@ defmodule EdgeCommanderWeb.Router do
 
     get "/battery/data/:from_date/:to_date", BatteryController, :get_battery_record
     get "/daily_battery/data/:from_date/:to_date", DashboardController, :daily_batery_voltages
+
+    get "/battery_voltages_summary/data/:from_date/:to_date", DashboardController, :battery_voltages_summary
+    
   end
 
   # Other scopes may use custom stacks.
