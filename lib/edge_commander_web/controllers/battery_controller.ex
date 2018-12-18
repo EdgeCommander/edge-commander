@@ -6,14 +6,13 @@ defmodule EdgeCommanderWeb.BatteryController do
   import EdgeCommander.Solar, only: [list_battery: 0, list_battery_records: 2]
   import Ecto.Query, warn: false
   require Logger
+  require IEx
 
   def save_status_data() do
-    url = "http://solarcam2-fullrec.ddns.net/battery.html"
+    url = "http://lidlnewbridgebox2.ddns.net/battery.html"
     case HTTPoison.get(url) do
       {:ok, %HTTPoison.Response{status_code: 200, body: body}} ->
         data = String.split(body, "\n")
-
-
         params = %{
           "pid" => get_column_value(data, 2, "PID\t"),
           "fw" => get_column_value(data, 4, "FW\t"),
