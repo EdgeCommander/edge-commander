@@ -159,13 +159,13 @@ defmodule EdgeCommanderWeb.DashboardController do
       battery_voltages =
         list_battery_records(from_date, to_date)
         |> Enum.map(fn(data) ->
-          data.voltage
+          data.voltage |> convert_units
         end)
 
       panel_voltages =
         list_battery_records(from_date, to_date)
         |> Enum.map(fn(data) ->
-          data.vpv_value
+          data.vpv_value |> convert_units
         end)
 
       voltages_history = %{
@@ -196,10 +196,12 @@ defmodule EdgeCommanderWeb.DashboardController do
         month = value.month |> ensure_number
         day = value.day |> ensure_number
         date = "#{year}-#{month}-#{day}"
+        max_value = get_maximum_voltage(date) |> convert_units
+        min_value = get_minimum_voltage(date) |> convert_units
         %{
           date: date,
-          max_value: get_maximum_voltage(date),
-          min_value: get_minimum_voltage(date)
+          max_value: max_value,
+          min_value: min_value
         }
       end)
 
@@ -212,4 +214,9 @@ defmodule EdgeCommanderWeb.DashboardController do
 
   defp ensure_number(number) when number >= 1 and number <= 9, do: "0#{number}"
   defp ensure_number(number), do: number
+
+  defp convert_units(nil), do: 0
+  defp convert_units(value) do
+    value / 1000
+  end
 end
