@@ -6,7 +6,6 @@ defmodule EdgeCommanderWeb.BatteryController do
   import EdgeCommander.Solar, only: [list_battery: 0, list_battery_records: 2]
   import Ecto.Query, warn: false
   require Logger
-  require IEx
 
   def save_status_data() do
     url = "http://lidlnewbridgebox2.ddns.net/battery.html"

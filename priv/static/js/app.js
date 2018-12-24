@@ -18145,7 +18145,7 @@ module.exports = {
           }
         },
         tooltip: {
-          valueSuffix: ' mV'
+          valueSuffix: ' V'
         },
         plotOptions: {
           area: {
@@ -18219,7 +18219,7 @@ module.exports = {
           }
         },
         tooltip: {
-          valueSuffix: ' mV',
+          valueSuffix: ' V',
           shared: true
         },
         plotOptions: {
@@ -18287,6 +18287,7 @@ module.exports = {
           }
         },
         tooltip: {
+          valueSuffix: ' V',
           shared: true
         },
         series: [{
