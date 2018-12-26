@@ -18559,6 +18559,8 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 //
 //
 //
+//
+//
 
 var app = new _vue2.default(_App2.default);
 
@@ -25452,7 +25454,11 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     attrs: {
       "value": "monthly_sms_usage_command"
     }
-  }, [_vm._v("Monthy SMS > 190")])])])]), _vm._v(" "), _c('div', {
+  }, [_vm._v("Monthy SMS > 190")]), _vm._v(" "), _c('option', {
+    attrs: {
+      "value": "battery_voltages_command"
+    }
+  }, [_vm._v("Battery Voltage < 12V")])])])]), _vm._v(" "), _c('div', {
     staticClass: "form-group m-form__group row"
   }, [_c('label', {
     staticClass: "col-3 col-form-label"
@@ -25706,7 +25712,11 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     attrs: {
       "value": "monthly_sms_usage_command"
     }
-  }, [_vm._v("Monthy SMS > 190")])])])
+  }, [_vm._v("Monthy SMS > 190")]), _vm._v(" "), _c('option', {
+    attrs: {
+      "value": "battery_voltages_command"
+    }
+  }, [_vm._v("Battery Voltage < 12V")])])])
 },function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
   return _c('div', {
     staticClass: "col-9"

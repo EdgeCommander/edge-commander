@@ -12,6 +12,7 @@ defmodule EdgeCommanderWeb.BatteryController do
     case HTTPoison.get(url) do
       {:ok, %HTTPoison.Response{status_code: 200, body: body}} ->
         data = String.split(body, "\n")
+        voltage = get_column_value(data, 8, "V\t")
         params = %{
           "pid" => get_column_value(data, 2, "PID\t"),
           "fw" => get_column_value(data, 4, "FW\t"),
@@ -33,6 +34,7 @@ defmodule EdgeCommanderWeb.BatteryController do
         case Repo.insert(changeset) do
         {:ok, _data} ->
           Logger.info "Battery status has been saved."
+          ensure_voltage_value(voltage)
         {:error, _changeset} ->
           Logger.error "Battery status did not save."
         end
@@ -78,4 +80,21 @@ defmodule EdgeCommanderWeb.BatteryController do
     [_, value] = String.split(string, column)
     value |> String.trim()
   end
+
+  defp ensure_voltage_value(value) do
+    voltage =
+      Decimal.new(value)
+      |> Decimal.to_integer
+    value_in_volt = voltage / 1000
+    send_voltage_alert_email(value_in_volt)
+  end
+
+  defp send_voltage_alert_email(volt) when volt < 13  do
+    EdgeCommander.Commands.get_battery_voltages_rules()
+    |> Enum.map(fn(recipients) ->
+      EdgeCommander.EcMailer.battery_voltage_alert(recipients, volt)
+      Logger.info "Email has been sent."
+    end)
+  end
+  defp send_voltage_alert_email(volt), do: :noop
 end
