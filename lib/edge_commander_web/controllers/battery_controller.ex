@@ -11,24 +11,27 @@ defmodule EdgeCommanderWeb.BatteryController do
     url = "http://lidlnewbridgebox2.ddns.net/battery.html"
     case HTTPoison.get(url) do
       {:ok, %HTTPoison.Response{status_code: 200, body: body}} ->
-        data = String.split(body, "\n")
-        voltage = get_column_value(data, 8, "V\t")
+        data =
+          String.split(body, "\n")
+          |> Enum.sort(&(&2 > &1))
+          |> Enum.drop_while(fn(x) -> x == "" end)
+        voltage = get_column_value(data, 13, "V\t")
         params = %{
-          "pid" => get_column_value(data, 2, "PID\t"),
-          "fw" => get_column_value(data, 4, "FW\t"),
-          "serial_no" => get_column_value(data, 6, "SER#\t"),
-          "voltage" => get_column_value(data, 8, "V\t"),
-          "i_value" => get_column_value(data, 10, "I\t"),
-          "vpv_value" => get_column_value(data, 12, "VPV\t"),
-          "ppv_value" => get_column_value(data, 14, "PPV\t"),
-          "cs_value" => get_column_value(data, 16, "CS\t"),
-          "err_value" => get_column_value(data, 20, "ERR\t"),
-          "h19_value" => get_column_value(data, 24, "H19\t"),
-          "h20_value" => get_column_value(data, 26, "H20\t"),
-          "h21_value" => get_column_value(data, 28, "H21\t"),
+          "pid" => get_column_value(data, 10, "PID\t"),
+          "fw" => get_column_value(data, 3, "FW\t"),
+          "serial_no" => get_column_value(data, 12, "SER#\t"),
+          "voltage" => voltage,
+          "i_value" => get_column_value(data, 7, "I\t"),
+          "vpv_value" => get_column_value(data, 14, "VPV\t"),
+          "ppv_value" => get_column_value(data, 11, "PPV\t"),
+          "cs_value" => get_column_value(data, 1, "CS\t"),
+          "err_value" => get_column_value(data, 2, "ERR\t"),
+          "h19_value" => get_column_value(data, 4, "H19\t"),
+          "h20_value" => get_column_value(data, 5, "H20\t"),
+          "h21_value" => get_column_value(data, 6, "H21\t"),
           "h22_value" => 0,
           "h23_value" => 0,
-          "datetime" => Enum.at(data, 30)
+          "datetime" => Enum.at(data, 0)
         }
         changeset = Battery.changeset(%Battery{}, params)
         case Repo.insert(changeset) do
