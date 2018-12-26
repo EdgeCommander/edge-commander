@@ -114,6 +114,7 @@
                                     <option value="usage_command">Internet usage > 90%</option>
                                     <option value="daily_sms_usage_command">Daily SMS > 6</option>
                                     <option value="monthly_sms_usage_command">Monthy SMS > 190</option>
+                                    <option value="battery_voltages_command">Battery Voltage < 12V</option>
                                 </select>
                             </div>
                         </div>
@@ -189,6 +190,7 @@
                                     <option value="usage_command">Internet usage > 90%</option>
                                     <option value="daily_sms_usage_command">Daily SMS > 6</option>
                                     <option value="monthly_sms_usage_command">Monthy SMS > 190</option>
+                                    <option value="battery_voltages_command">Battery Voltage < 12V</option>
                                 </select>
                             </div>
                         </div>

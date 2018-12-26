@@ -68,4 +68,13 @@ defmodule EdgeCommander.EcMailer do
     |> render_body("monthly_sms_alert.html", %{number: number, total_sms: total_sms, last_bill_date: last_bill_date})
     |> EdgeCommander.Mailer.deliver
   end
+
+  def battery_voltage_alert(senders, voltage) do
+    new()
+    |> from(@from)
+    |> to(senders)
+    |> subject("Low battery voltage < 12V")
+    |> render_body("battery_voltages.html", %{voltage: voltage})
+    |> EdgeCommander.Mailer.deliver
+  end
 end

@@ -101,4 +101,14 @@ defmodule EdgeCommander.Commands do
       rule.recipients
     end)
   end
+
+  def get_battery_voltages_rules do
+    Rule
+    |> where(active: true)
+    |> where(category: "battery_voltages_command")
+    |> Repo.all
+    |> Enum.map(fn(rule) ->
+      rule.recipients
+    end)
+  end
 end
