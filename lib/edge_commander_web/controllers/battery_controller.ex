@@ -89,7 +89,7 @@ defmodule EdgeCommanderWeb.BatteryController do
     send_voltage_alert_email(value_in_volt)
   end
 
-  defp send_voltage_alert_email(volt) when volt < 13  do
+  defp send_voltage_alert_email(volt) when volt < 12  do
     EdgeCommander.Commands.get_battery_voltages_rules()
     |> Enum.map(fn(recipients) ->
       EdgeCommander.EcMailer.battery_voltage_alert(recipients, volt)
