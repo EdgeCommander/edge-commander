@@ -358,8 +358,8 @@ module.exports = {
             max_value = 0;
           }
           this.categories_dates.push(history[i].date);
-          this.maximum_voltages.push(min_value);
-          this.minimum_voltages.push(max_value);
+          this.maximum_voltages.push(max_value);
+          this.minimum_voltages.push(min_value);
         }
           this.graph_three(this.categories_dates, this.maximum_voltages, this.minimum_voltages);
       });
