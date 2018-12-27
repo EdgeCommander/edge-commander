@@ -577,6 +577,10 @@ select.form-control:not([size]):not([multiple]) {
   color: #575962;
 }
 
+.modal-lg {
+  max-width: 650px !important;
+}
+
 @media (max-width: 992px){
   .m-brand{
     width: 100%;

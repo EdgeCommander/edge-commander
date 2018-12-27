@@ -18561,6 +18561,30 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 var app = new _vue2.default(_App2.default);
 
@@ -18575,7 +18599,7 @@ module.exports = {
       show_edit_errors: false,
       show_edit_messages: "",
       show_add_messages: "",
-      headings: [{ column: "Actions", id: "actions" }, { column: "Rule Name", id: "rule_name" }, { column: "Active", id: "active" }, { column: "Category", id: "category" }, { column: "Recipients", id: "recipients" }, { column: "Created At", id: "created_at" }],
+      headings: [{ column: "Actions", visible: "checked", id: "actions" }, { column: "Rule Name", visible: "checked", id: "rule_name" }, { column: "Active", visible: "checked", id: "active" }, { column: "Category", id: "category" }, { column: "Variable", id: "variable" }, { column: "Value", id: "value" }, { column: "Recipients", visible: "checked", id: "recipients" }, { column: "Created At", visible: "checked", id: "created_at" }],
       form_labels: {
         name: "Rule Name",
         category: "Category",
@@ -18591,10 +18615,14 @@ module.exports = {
       edit_rule_name: "",
       edit_rule_id: "",
       edit_rule_category: "",
+      edit_rule_variable: "",
+      edit_rule_value: "",
       edit_rule_recipients: "",
       edit_rule_is_active: false,
       rule_name: "",
       rule_category: "",
+      rule_variable: "",
+      rule_value: "",
       rule_recipients: "",
       rule_is_active: false,
       user_id: ""
@@ -18645,8 +18673,21 @@ module.exports = {
           }
         }, {
           class: "text-center category",
+          visible: false,
           data: function data(row, type, set, meta) {
             return row.category;
+          }
+        }, {
+          class: "text-center variable",
+          visible: false,
+          data: function data(row, type, set, meta) {
+            return row.variable;
+          }
+        }, {
+          class: "text-center value",
+          visible: false,
+          data: function data(row, type, set, meta) {
+            return row.value;
           }
         }, {
           class: "recipients",
@@ -18664,8 +18705,7 @@ module.exports = {
         bPaginate: false,
         lengthChange: false,
         scrollX: true,
-        colReorder: true,
-        stateSave: true
+        colReorder: true
       });
       return this.dataTable = commandsDataTable;
     },
@@ -18685,6 +18725,8 @@ module.exports = {
       $("#edit_rule_name").val(data.rule_name);
       $("#edit_rule_id").val(rule_id);
       $("#edit_rule_category").val(data.category);
+      $("#edit_rule_variable").val(data.variable);
+      $("#edit_rule_value").val(data.value);
       $("#edit_rule_recipients").val(data.recipients);
       if (data.active == true) {
         $("#edit_rule_is_active").prop("checked", true);
@@ -18708,6 +18750,8 @@ module.exports = {
     clearForm: function clearForm() {
       this.rule_name = "";
       this.rule_category = "";
+      this.rule_variable = "";
+      this.rule_value = "";
       this.rule_recipients = "";
       this.rule_is_active = false;
       this.show_add_errors = false;
@@ -18727,6 +18771,8 @@ module.exports = {
         rule_name: this.rule_name,
         user_id: this.user_id,
         category: this.rule_category,
+        variable: this.rule_variable,
+        value: this.rule_value,
         recipients: recipients,
         is_active: this.rule_is_active
       }).then(function (response) {
@@ -18757,6 +18803,8 @@ module.exports = {
       this.$http.patch('/rules/update', {
         rule_name: $("#edit_rule_name").val(),
         category: $("#edit_rule_category").val(),
+        variable: $("#edit_rule_variable").val(),
+        value: $("#edit_rule_value").val(),
         recipients: recipients,
         active: $('#edit_rule_is_active').is(':checked'),
         id: ruleID
@@ -25274,10 +25322,13 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         "width": "auto"
       }
     }, [_c('input', {
-      staticClass: "rule-column",
+      staticClass: "sms-column",
       attrs: {
         "type": "checkbox",
         "data-id": item.id
+      },
+      domProps: {
+        "checked": item.visible
       },
       on: {
         "change": function($event) {
@@ -25309,7 +25360,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       "data-keyboard": "false"
     }
   }, [_c('div', {
-    staticClass: "modal-dialog",
+    staticClass: "modal-dialog modal-lg",
     attrs: {
       "role": "document"
     }
@@ -25388,9 +25439,9 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
   }), _vm._v(" "), _c('div', {
     staticClass: "form-group m-form__group row"
   }, [_c('label', {
-    staticClass: "col-3 col-form-label"
+    staticClass: "col-2 col-form-label"
   }, [_vm._v("\n                              " + _vm._s(_vm.form_labels.name) + "\n                          ")]), _vm._v(" "), _c('div', {
-    staticClass: "col-9"
+    staticClass: "col-10"
   }, [_c('input', {
     directives: [{
       name: "model",
@@ -25417,9 +25468,9 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
   })])]), _vm._v(" "), _c('div', {
     staticClass: "form-group m-form__group row"
   }, [_c('label', {
-    staticClass: "col-3 col-form-label"
+    staticClass: "col-2 col-form-label"
   }, [_vm._v("\n                              " + _vm._s(_vm.form_labels.category) + "\n                          ")]), _vm._v(" "), _c('div', {
-    staticClass: "col-9"
+    staticClass: "col-4"
   }, [_c('select', {
     directives: [{
       name: "model",
@@ -25428,6 +25479,9 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       expression: "rule_category"
     }],
     staticClass: "form-control m-input",
+    staticStyle: {
+      "height": "33px !important"
+    },
     attrs: {
       "id": "rule_category"
     },
@@ -25446,24 +25500,97 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     attrs: {
       "value": "usage_command"
     }
-  }, [_vm._v("Internet usage > 90%")]), _vm._v(" "), _c('option', {
+  }, [_vm._v("Internet usage in %")]), _vm._v(" "), _c('option', {
     attrs: {
       "value": "daily_sms_usage_command"
     }
-  }, [_vm._v("Daily SMS > 6")]), _vm._v(" "), _c('option', {
+  }, [_vm._v("Total SMS in a day")]), _vm._v(" "), _c('option', {
     attrs: {
       "value": "monthly_sms_usage_command"
     }
-  }, [_vm._v("Monthy SMS > 190")]), _vm._v(" "), _c('option', {
+  }, [_vm._v("Total SMS in a monthly")]), _vm._v(" "), _c('option', {
     attrs: {
       "value": "battery_voltages_command"
     }
-  }, [_vm._v("Battery Voltage < 12V")])])])]), _vm._v(" "), _c('div', {
+  }, [_vm._v("Battery voltage in volts")])])]), _vm._v(" "), _c('div', {
+    staticClass: "col-4"
+  }, [_c('select', {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: (_vm.rule_variable),
+      expression: "rule_variable"
+    }],
+    staticClass: "form-control m-input",
+    staticStyle: {
+      "height": "33px !important"
+    },
+    attrs: {
+      "id": "rule_variable"
+    },
+    on: {
+      "change": function($event) {
+        var $$selectedVal = Array.prototype.filter.call($event.target.options, function(o) {
+          return o.selected
+        }).map(function(o) {
+          var val = "_value" in o ? o._value : o.value;
+          return val
+        });
+        _vm.rule_variable = $event.target.multiple ? $$selectedVal : $$selectedVal[0]
+      }
+    }
+  }, [_c('option', {
+    attrs: {
+      "value": "greater_than"
+    }
+  }, [_vm._v("Greater than (>)")]), _vm._v(" "), _c('option', {
+    attrs: {
+      "value": "greater_than_equal_to"
+    }
+  }, [_vm._v("Greater than or equal to (>=)")]), _vm._v(" "), _c('option', {
+    attrs: {
+      "value": "less_than"
+    }
+  }, [_vm._v("Less than (<)")]), _vm._v(" "), _c('option', {
+    attrs: {
+      "value": "less_than_equal_to"
+    }
+  }, [_vm._v("Less than or equal to (<=)")]), _vm._v(" "), _c('option', {
+    attrs: {
+      "value": "equals"
+    }
+  }, [_vm._v("Equals to (==)")])])]), _vm._v(" "), _c('div', {
+    staticClass: "col-2"
+  }, [_c('input', {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: (_vm.rule_value),
+      expression: "rule_value"
+    }],
+    staticClass: "form-control m-input m-input--solid",
+    attrs: {
+      "type": "number",
+      "min": "0",
+      "id": "rule_value",
+      "aria-describedby": "emailHelp",
+      "placeholder": "10"
+    },
+    domProps: {
+      "value": (_vm.rule_value)
+    },
+    on: {
+      "input": function($event) {
+        if ($event.target.composing) { return; }
+        _vm.rule_value = $event.target.value
+      }
+    }
+  })])]), _vm._v(" "), _c('div', {
     staticClass: "form-group m-form__group row"
   }, [_c('label', {
-    staticClass: "col-3 col-form-label"
+    staticClass: "col-2 col-form-label"
   }, [_vm._v("\n                              " + _vm._s(_vm.form_labels.recipients) + "\n                          ")]), _vm._v(" "), _c('div', {
-    staticClass: "col-9"
+    staticClass: "col-10"
   }, [_c('input', {
     directives: [{
       name: "model",
@@ -25490,9 +25617,9 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
   })])]), _vm._v(" "), _c('div', {
     staticClass: "form-group m-form__group row"
   }, [_c('label', {
-    staticClass: "col-3 col-form-label"
+    staticClass: "col-2 col-form-label"
   }), _vm._v(" "), _c('div', {
-    staticClass: "col-9"
+    staticClass: "col-10"
   }, [_c('label', {
     staticClass: "m-checkbox"
   }, [_c('input', {
@@ -25553,7 +25680,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       "data-keyboard": "false"
     }
   }, [_c('div', {
-    staticClass: "modal-dialog",
+    staticClass: "modal-dialog modal-lg",
     attrs: {
       "role": "document"
     }
@@ -25637,21 +25764,21 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
   }), _vm._v(" "), _c('div', {
     staticClass: "form-group m-form__group row"
   }, [_c('label', {
-    staticClass: "col-3 col-form-label"
+    staticClass: "col-2 col-form-label"
   }, [_vm._v("\n                              " + _vm._s(_vm.form_labels.name) + "\n                          ")]), _vm._v(" "), _vm._m(1)]), _vm._v(" "), _c('div', {
     staticClass: "form-group m-form__group row"
   }, [_c('label', {
-    staticClass: "col-3 col-form-label"
-  }, [_vm._v("\n                              " + _vm._s(_vm.form_labels.category) + "\n                          ")]), _vm._v(" "), _vm._m(2)]), _vm._v(" "), _c('div', {
+    staticClass: "col-2 col-form-label"
+  }, [_vm._v("\n                              " + _vm._s(_vm.form_labels.category) + "\n                          ")]), _vm._v(" "), _vm._m(2), _vm._v(" "), _vm._m(3), _vm._v(" "), _vm._m(4)]), _vm._v(" "), _c('div', {
     staticClass: "form-group m-form__group row"
   }, [_c('label', {
-    staticClass: "col-3 col-form-label"
-  }, [_vm._v("\n                              " + _vm._s(_vm.form_labels.recipients) + "\n                          ")]), _vm._v(" "), _vm._m(3)]), _vm._v(" "), _c('div', {
+    staticClass: "col-2 col-form-label"
+  }, [_vm._v("\n                              " + _vm._s(_vm.form_labels.recipients) + "\n                          ")]), _vm._v(" "), _vm._m(5)]), _vm._v(" "), _c('div', {
     staticClass: "form-group m-form__group row"
   }, [_c('label', {
-    staticClass: "col-3 col-form-label"
+    staticClass: "col-2 col-form-label"
   }), _vm._v(" "), _c('div', {
-    staticClass: "col-9"
+    staticClass: "col-10"
   }, [_c('label', {
     staticClass: "m-checkbox"
   }, [_c('input', {
@@ -25682,7 +25809,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
   })])])
 },function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
   return _c('div', {
-    staticClass: "col-9"
+    staticClass: "col-10"
   }, [_c('input', {
     staticClass: "form-control m-input m-input--solid",
     attrs: {
@@ -25694,9 +25821,12 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
   })])
 },function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
   return _c('div', {
-    staticClass: "col-9"
+    staticClass: "col-4"
   }, [_c('select', {
     staticClass: "form-control m-input",
+    staticStyle: {
+      "height": "33px !important"
+    },
     attrs: {
       "id": "edit_rule_category"
     }
@@ -25704,22 +25834,67 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     attrs: {
       "value": "usage_command"
     }
-  }, [_vm._v("Internet usage > 90%")]), _vm._v(" "), _c('option', {
+  }, [_vm._v("Internet usage in %")]), _vm._v(" "), _c('option', {
     attrs: {
       "value": "daily_sms_usage_command"
     }
-  }, [_vm._v("Daily SMS > 6")]), _vm._v(" "), _c('option', {
+  }, [_vm._v("Total SMS in a day")]), _vm._v(" "), _c('option', {
     attrs: {
       "value": "monthly_sms_usage_command"
     }
-  }, [_vm._v("Monthy SMS > 190")]), _vm._v(" "), _c('option', {
+  }, [_vm._v("Total SMS in a monthly")]), _vm._v(" "), _c('option', {
     attrs: {
       "value": "battery_voltages_command"
     }
-  }, [_vm._v("Battery Voltage < 12V")])])])
+  }, [_vm._v("Battery voltage in volts")])])])
 },function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
   return _c('div', {
-    staticClass: "col-9"
+    staticClass: "col-4"
+  }, [_c('select', {
+    staticClass: "form-control m-input",
+    staticStyle: {
+      "height": "33px !important"
+    },
+    attrs: {
+      "id": "edit_rule_variable"
+    }
+  }, [_c('option', {
+    attrs: {
+      "value": "greater_than"
+    }
+  }, [_vm._v("Greater than (>)")]), _vm._v(" "), _c('option', {
+    attrs: {
+      "value": "greater_than_equal_to"
+    }
+  }, [_vm._v("Greater than or equal to (>=)")]), _vm._v(" "), _c('option', {
+    attrs: {
+      "value": "less_than"
+    }
+  }, [_vm._v("Less than (<)")]), _vm._v(" "), _c('option', {
+    attrs: {
+      "value": "less_than_equal_to"
+    }
+  }, [_vm._v("Less than or equal to (<=)")]), _vm._v(" "), _c('option', {
+    attrs: {
+      "value": "equals"
+    }
+  }, [_vm._v("Equals to (==)")])])])
+},function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('div', {
+    staticClass: "col-2"
+  }, [_c('input', {
+    staticClass: "form-control m-input m-input--solid",
+    attrs: {
+      "type": "number",
+      "min": "0",
+      "id": "edit_rule_value",
+      "aria-describedby": "emailHelp",
+      "placeholder": "10"
+    }
+  })])
+},function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('div', {
+    staticClass: "col-10"
   }, [_c('input', {
     staticClass: "form-control m-input m-input--solid",
     attrs: {

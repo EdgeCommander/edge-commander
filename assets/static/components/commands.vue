@@ -61,9 +61,9 @@
                   </div>
               </div>
               <div class="modal-body" id="body-sim-dis">
-                  <div class="form-group">
+                   <div class="form-group">
                     <div class="column-checkbox" v-for="(item, index) in headings">
-                        <label class="m-checkbox m-checkbox--single m-checkbox--solid m-checkbox--brand" style="width: auto;"><input type="checkbox" class="rule-column" v-bind:data-id="item.id" v-on:change="showHideColumns(item.id)"><span></span> {{item.column}}</label>
+                        <label class="m-checkbox m-checkbox--single m-checkbox--solid m-checkbox--brand" style="width: auto;"><input type="checkbox" class="sms-column" v-bind:data-id="item.id" v-bind:checked = "item.visible" v-on:change="showHideColumns(item.id)" ><span></span> {{item.column}}</label>
                     </div>
                   </div>
               </div>
@@ -74,7 +74,7 @@
       </div>
     </div>
     <div class="modal fade add_rule_to_db"  ref="addmodal" style="padding: 0px;" id="m_modal_1" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" data-backdrop="static" data-keyboard="false">
-        <div class="modal-dialog" role="document">
+        <div class="modal-dialog modal-lg" role="document">
             <div class="modal-content" style="padding: 0px;">
                 <div class="modal-header">
                     <h5 class="modal-title" id="exampleModalLabel">
@@ -98,38 +98,50 @@
                     <div class="m-form m-form--fit m-form--label-align-left">
                         <input type="hidden" id="user_id" v-model="user_id">
                         <div class="form-group m-form__group row">
-                            <label class="col-3 col-form-label">
+                            <label class="col-2 col-form-label">
                                 {{form_labels.name}}
                             </label>
-                            <div class="col-9">
+                            <div class="col-10">
                                 <input type="text" class="form-control m-input m-input--solid" id="rule_name" aria-describedby="emailHelp" placeholder="Test Usage." v-model="rule_name">
                             </div>
                         </div>
                         <div class="form-group m-form__group row">
-                            <label class="col-3 col-form-label">
+                            <label class="col-2 col-form-label">
                                 {{form_labels.category}}
                             </label>
-                            <div class="col-9">
-                                <select class="form-control m-input" id="rule_category" v-model="rule_category">
-                                    <option value="usage_command">Internet usage > 90%</option>
-                                    <option value="daily_sms_usage_command">Daily SMS > 6</option>
-                                    <option value="monthly_sms_usage_command">Monthy SMS > 190</option>
-                                    <option value="battery_voltages_command">Battery Voltage < 12V</option>
+                            <div class="col-4">
+                                <select class="form-control m-input" id="rule_category" v-model="rule_category" style="height: 33px !important;">
+                                    <option value="usage_command">Internet usage in %</option>
+                                    <option value="daily_sms_usage_command">Total SMS in a day</option>
+                                    <option value="monthly_sms_usage_command">Total SMS in a monthly</option>
+                                    <option value="battery_voltages_command">Battery voltage in volts</option>
                                 </select>
+                            </div>
+                            <div class="col-4">
+                              <select class="form-control m-input" id="rule_variable" v-model="rule_variable" style="height: 33px !important;">
+                                <option value="greater_than">Greater than (>)</option>
+                                <option value="greater_than_equal_to">Greater than or equal to (>=)</option>
+                                <option value="less_than">Less than (<)</option>
+                                <option value="less_than_equal_to">Less than or equal to (<=)</option>
+                                <option value="equals">Equals to (==)</option>
+                              </select>
+                            </div>
+                            <div class="col-2">
+                              <input type="number" min="0" class="form-control m-input m-input--solid" id="rule_value"  aria-describedby="emailHelp" placeholder="10" v-model="rule_value">
                             </div>
                         </div>
                         <div class="form-group m-form__group row">
-                            <label class="col-3 col-form-label">
+                            <label class="col-2 col-form-label">
                                 {{form_labels.recipients}}
                             </label>
-                            <div class="col-9">
+                            <div class="col-10">
                                 <input type="text" class="form-control m-input m-input--solid" id="rule_recipients" aria-describedby="emailHelp" placeholder="test@user.com,who@am.io" v-model="rule_recipients">
                             </div>
                         </div>
                         <div class="form-group m-form__group row">
-                            <label class="col-3 col-form-label">
+                            <label class="col-2 col-form-label">
                             </label>
-                            <div class="col-9">
+                            <div class="col-10">
                                 <label class="m-checkbox">
                                     <input type="checkbox" id="rule_is_active" v-model="rule_is_active">
                                         {{form_labels.status}}
@@ -149,7 +161,7 @@
         </div>
     </div>
     <div class="modal fade" id="edit_rule_to_db" ref="editmodal" style="padding: 0px;" data-backdrop="static" data-keyboard="false">
-        <div class="modal-dialog" role="document">
+        <div class="modal-dialog modal-lg" role="document">
             <div class="modal-content" style="padding: 0px;">
                 <div class="modal-header">
                     <h5 class="modal-title" id="exampleModalLabel">
@@ -174,38 +186,50 @@
                         <input type="hidden" id="user_id" v-model="user_id">
                         <input type="hidden" id="edit_rule_id" >
                         <div class="form-group m-form__group row">
-                            <label class="col-3 col-form-label">
+                            <label class="col-2 col-form-label">
                                 {{form_labels.name}}
                             </label>
-                            <div class="col-9">
+                            <div class="col-10">
                                 <input type="text" class="form-control m-input m-input--solid" id="edit_rule_name" aria-describedby="emailHelp" placeholder="Test Usage.">
                             </div>
                         </div>
                         <div class="form-group m-form__group row">
-                            <label class="col-3 col-form-label">
+                            <label class="col-2 col-form-label">
                                 {{form_labels.category}}
                             </label>
-                            <div class="col-9">
-                                <select class="form-control m-input" id="edit_rule_category">
-                                    <option value="usage_command">Internet usage > 90%</option>
-                                    <option value="daily_sms_usage_command">Daily SMS > 6</option>
-                                    <option value="monthly_sms_usage_command">Monthy SMS > 190</option>
-                                    <option value="battery_voltages_command">Battery Voltage < 12V</option>
+                            <div class="col-4">
+                                <select class="form-control m-input" id="edit_rule_category" style="height: 33px !important;">
+                                    <option value="usage_command">Internet usage in %</option>
+                                    <option value="daily_sms_usage_command">Total SMS in a day</option>
+                                    <option value="monthly_sms_usage_command">Total SMS in a monthly</option>
+                                    <option value="battery_voltages_command">Battery voltage in volts</option>
                                 </select>
+                            </div>
+                            <div class="col-4">
+                              <select class="form-control m-input" id="edit_rule_variable"  style="height: 33px !important;">
+                                <option value="greater_than">Greater than (>)</option>
+                                <option value="greater_than_equal_to">Greater than or equal to (>=)</option>
+                                <option value="less_than">Less than (<)</option>
+                                <option value="less_than_equal_to">Less than or equal to (<=)</option>
+                                <option value="equals">Equals to (==)</option>
+                              </select>
+                            </div>
+                            <div class="col-2">
+                              <input type="number" min="0" class="form-control m-input m-input--solid" id="edit_rule_value"  aria-describedby="emailHelp" placeholder="10">
                             </div>
                         </div>
                         <div class="form-group m-form__group row">
-                            <label class="col-3 col-form-label">
+                            <label class="col-2 col-form-label">
                                 {{form_labels.recipients}}
                             </label>
-                            <div class="col-9">
+                            <div class="col-10">
                                 <input type="text" class="form-control m-input m-input--solid" id="edit_rule_recipients"aria-describedby="emailHelp" placeholder="test@user.com,who@am.io">
                             </div>
                         </div>
                         <div class="form-group m-form__group row">
-                            <label class="col-3 col-form-label">
+                            <label class="col-2 col-form-label">
                             </label>
-                            <div class="col-9">
+                            <div class="col-10">
                                 <label class="m-checkbox">
                                     <input type="checkbox" id="edit_rule_is_active">
                                     {{form_labels.status}}
@@ -245,12 +269,14 @@ module.exports = {
       show_edit_messages: "",
       show_add_messages: "",
       headings: [
-        {column: "Actions", id: "actions"},
-        {column: "Rule Name", id: "rule_name"},
-        {column: "Active", id: "active"},
+        {column: "Actions", visible: "checked", id: "actions"},
+        {column: "Rule Name", visible: "checked", id: "rule_name"},
+        {column: "Active", visible: "checked", id: "active"},
         {column: "Category", id: "category"},
-        {column: "Recipients", id: "recipients"},
-        {column: "Created At", id: "created_at"}
+        {column: "Variable", id: "variable"},
+        {column: "Value", id: "value"},
+        {column: "Recipients", visible: "checked", id: "recipients"},
+        {column: "Created At", visible: "checked", id: "created_at"}
       ],
       form_labels: {
         name: "Rule Name",
@@ -267,10 +293,14 @@ module.exports = {
       edit_rule_name: "",
       edit_rule_id: "",
       edit_rule_category: "",
+      edit_rule_variable: "",
+      edit_rule_value: "",
       edit_rule_recipients: "",
       edit_rule_is_active: false,
       rule_name: "",
       rule_category: "",
+      rule_variable: "",
+      rule_value: "",
       rule_recipients: "",
       rule_is_active: false,
       user_id: ""
@@ -325,8 +355,23 @@ module.exports = {
       },
       {
         class: "text-center category",
+        visible: false,
         data: function(row, type, set, meta) {
           return row.category;
+        }
+      },
+      {
+        class: "text-center variable",
+        visible: false,
+        data: function(row, type, set, meta) {
+          return row.variable;
+        }
+      },
+      {
+        class: "text-center value",
+        visible: false,
+        data: function(row, type, set, meta) {
+          return row.value;
         }
       },
       {
@@ -347,8 +392,7 @@ module.exports = {
       bPaginate: false,
       lengthChange: false,
       scrollX: true,
-      colReorder: true,
-      stateSave:  true
+      colReorder: true
     });
       return this.dataTable = commandsDataTable;
    },
@@ -368,6 +412,8 @@ module.exports = {
       $("#edit_rule_name").val(data.rule_name)
       $("#edit_rule_id").val(rule_id)
       $("#edit_rule_category").val(data.category)
+      $("#edit_rule_variable").val(data.variable)
+      $("#edit_rule_value").val(data.value)
       $("#edit_rule_recipients").val(data.recipients)
       if (data.active == true) {
         $("#edit_rule_is_active").prop( "checked", true );
@@ -391,6 +437,8 @@ module.exports = {
    clearForm: function(){
     this.rule_name = "";
     this.rule_category = "";
+    this.rule_variable = "";
+    this.rule_value = "";
     this.rule_recipients = "";
     this.rule_is_active = false;
     this.show_add_errors = false;
@@ -410,6 +458,8 @@ module.exports = {
       rule_name: this.rule_name,
       user_id:  this.user_id,
       category: this.rule_category,
+      variable: this.rule_variable,
+      value: this.rule_value,
       recipients: recipients,
       is_active: this.rule_is_active
     }).then(function (response) {
@@ -440,6 +490,8 @@ module.exports = {
     this.$http.patch('/rules/update', {
       rule_name: $("#edit_rule_name").val(),
       category: $("#edit_rule_category").val(),
+      variable: $("#edit_rule_variable").val(),
+      value: $("#edit_rule_value").val(),
       recipients: recipients,
       active: $('#edit_rule_is_active').is(':checked'),
       id: ruleID

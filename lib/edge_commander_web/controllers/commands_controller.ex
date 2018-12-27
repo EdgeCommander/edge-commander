@@ -56,6 +56,8 @@ defmodule EdgeCommanderWeb.CommandsController do
           rule_name: rule_name,
           active: active,
           category: category,
+          variable: variable,
+          value: value,
           recipients: recipients,
           inserted_at: created_at
         } = rule
@@ -74,6 +76,8 @@ defmodule EdgeCommanderWeb.CommandsController do
           "rule_name" => rule_name,
           "active" => active,
           "category" => category,
+          "variable" => variable,
+          "value" => value,
           "recipients" => recipients,
           "created_at" => created_at
         })
@@ -96,6 +100,8 @@ defmodule EdgeCommanderWeb.CommandsController do
           rule_name: rule.rule_name,
           active: rule.active,
           category: rule.category,
+          variable: rule.variable,
+          value: rule.value,
           recipients: rule.recipients,
           created_at: rule.inserted_at |> Util.shift_zone()
         }
