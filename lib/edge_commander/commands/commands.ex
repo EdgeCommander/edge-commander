@@ -92,14 +92,23 @@ defmodule EdgeCommander.Commands do
     end)
   end
 
-  def get_monthly_sms_usage_rules do
+  def get_monthly_sms_usage_rules(variable, value) do
     Rule
     |> where(active: true)
     |> where(category: "monthly_sms_usage_command")
+    |> where(variable: ^variable)
+    |> where(value: ^value)
     |> Repo.all
     |> Enum.map(fn(rule) ->
       rule.recipients
     end)
+  end
+
+  def get_monthly_sms_usage_rules_list do
+    Rule
+    |> where(active: true)
+    |> where(category: "monthly_sms_usage_command")
+    |> Repo.all
   end
 
   def get_battery_voltages_rules do

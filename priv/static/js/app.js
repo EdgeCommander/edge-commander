@@ -25557,7 +25557,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }
   }, [_vm._v("Less than or equal to (<=)")]), _vm._v(" "), _c('option', {
     attrs: {
-      "value": "equals"
+      "value": "equals_to"
     }
   }, [_vm._v("Equals to (==)")])])]), _vm._v(" "), _c('div', {
     staticClass: "col-2"
@@ -25876,7 +25876,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }
   }, [_vm._v("Less than or equal to (<=)")]), _vm._v(" "), _c('option', {
     attrs: {
-      "value": "equals"
+      "value": "equals_to"
     }
   }, [_vm._v("Equals to (==)")])])])
 },function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;

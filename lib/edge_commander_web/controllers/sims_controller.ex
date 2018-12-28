@@ -473,8 +473,67 @@ defmodule EdgeCommanderWeb.SimsController do
     bill_day = get_sim_bill_day(number) |> Map.get(:bill_day)
     last_bill_date = get_bill_date(bill_day)
     total_monthly_sms = get_total_sms(number, last_bill_date, current_user_id)
-    send_monthly_alert_email(number, total_monthly_sms, last_bill_date)
+     monthly_rules = EdgeCommander.Commands.get_monthly_sms_usage_rules_list()
+     Enum.each(monthly_rules, fn(rule) ->
+      variable = rule.variable
+      value = rule.value
+      params = %{
+        number: number,
+        total_monthly_sms: total_monthly_sms,
+        last_bill_date: last_bill_date,
+        variable: variable,
+        value: value,
+      }
+      ensure_monthly_conditions(params)
+     end)
   end
+
+  defp ensure_monthly_conditions(%{variable: variable} = params) when variable == "less_than", do: monthly_less_than(params)
+  defp ensure_monthly_conditions(%{variable: variable} = params) when variable == "less_than_equal_to", do: monthly_less_than_equal_to(params)
+  defp ensure_monthly_conditions(%{variable: variable} = params) when variable == "greater_than", do: monthly_greater_than(params)
+  defp ensure_monthly_conditions(%{variable: variable} = params) when variable == "greater_than_equal_to", do: monthly_greater_than_equal_to(params)
+  defp ensure_monthly_conditions(%{variable: variable} = params) when variable == "equals_to", do: monthly_equals_to(params)
+
+  defp monthly_less_than(%{total_monthly_sms: total_sms, value: value} = params) when total_sms < value  do
+    send_monthly_alert_email(params)
+  end
+  defp monthly_less_than(_params), do: :noop
+
+  defp monthly_less_than_equal_to(%{total_monthly_sms: total_sms, value: value} = params) when total_sms <= value  do
+    send_monthly_alert_email(params)
+  end
+  defp monthly_less_than_equal_to(_params), do: :noop
+
+  defp monthly_greater_than(%{total_monthly_sms: total_sms, value: value} = params) when total_sms > value  do
+    send_monthly_alert_email(params)
+  end
+  defp monthly_greater_than(_params), do: :noop
+
+  defp monthly_greater_than_equal_to(%{total_monthly_sms: total_sms, value: value} = params) when total_sms >= value  do
+    send_monthly_alert_email(params)
+  end
+  defp monthly_greater_than_equal_to(_params), do: :noop
+
+  defp monthly_equals_to(%{total_monthly_sms: total_sms, value: value} = params) when total_sms == value  do
+    send_monthly_alert_email(params)
+  end
+  defp monthly_equals_to(_params), do: :noop
+
+  defp send_monthly_alert_email(%{number: number, total_monthly_sms: total_sms, last_bill_date: bill_date, variable: variable, value: value} = params) do
+    last_bill_date = convert_date_format(bill_date)
+    EdgeCommander.Commands.get_monthly_sms_usage_rules(variable, value)
+    |> Enum.map(fn(recipients) ->
+        variable = variable |> get_variable
+        EdgeCommander.EcMailer.monthly_sms_usage_alert(last_bill_date, recipients, number, total_sms, variable, value)
+        Logger.info "Monthly SMS usage email alert has been sent. #{recipients}"
+    end)
+  end
+
+  defp get_variable("less_than"), do: "<"
+  defp get_variable("less_than_equal_to"), do: "<="
+  defp get_variable("greater_than"), do: ">"
+  defp get_variable("greater_than_equal_to"), do: ">="
+  defp get_variable("equals_to"), do: "=="
 
   def daily_sms_count(conn, params) do
     number = params["number"]
@@ -630,14 +689,4 @@ defmodule EdgeCommanderWeb.SimsController do
   end)
   end
   defp send_daily_alert_email(_number, _total_sms), do: :noop
-
-  defp send_monthly_alert_email(number, total_sms, bill_date) when total_sms > 190 do
-    last_bill_date = convert_date_format(bill_date)
-    EdgeCommander.Commands.get_monthly_sms_usage_rules()
-    |> Enum.map(fn(recipients) ->
-        EdgeCommander.EcMailer.monthly_sms_usage_alert(last_bill_date, recipients, number, total_sms)
-        Logger.info "Monthly SMS usage email alert has been sent."
-    end)
-  end
-  defp send_monthly_alert_email(_number, _total_sms, _last_bill_date), do: :noop
 end

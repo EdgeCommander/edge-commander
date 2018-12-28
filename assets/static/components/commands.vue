@@ -123,7 +123,7 @@
                                 <option value="greater_than_equal_to">Greater than or equal to (>=)</option>
                                 <option value="less_than">Less than (<)</option>
                                 <option value="less_than_equal_to">Less than or equal to (<=)</option>
-                                <option value="equals">Equals to (==)</option>
+                                <option value="equals_to">Equals to (==)</option>
                               </select>
                             </div>
                             <div class="col-2">
@@ -211,7 +211,7 @@
                                 <option value="greater_than_equal_to">Greater than or equal to (>=)</option>
                                 <option value="less_than">Less than (<)</option>
                                 <option value="less_than_equal_to">Less than or equal to (<=)</option>
-                                <option value="equals">Equals to (==)</option>
+                                <option value="equals_to">Equals to (==)</option>
                               </select>
                             </div>
                             <div class="col-2">

@@ -60,12 +60,12 @@ defmodule EdgeCommander.EcMailer do
     |> EdgeCommander.Mailer.deliver
   end
 
-  def monthly_sms_usage_alert(last_bill_date, senders, number, total_sms) do
+  def monthly_sms_usage_alert(last_bill_date, senders, number, total_sms, variable, value) do
     new()
     |> from(@from)
     |> to(senders)
     |> subject("Monthly SMS usage alert of #{number}")
-    |> render_body("monthly_sms_alert.html", %{number: number, total_sms: total_sms, last_bill_date: last_bill_date})
+    |> render_body("monthly_sms_alert.html", %{number: number, total_sms: total_sms, last_bill_date: last_bill_date, variable: variable, value: value})
     |> EdgeCommander.Mailer.deliver
   end
 
