@@ -6,9 +6,9 @@ defmodule EdgeCommander.CommandsTest do
   describe "rules" do
     alias EdgeCommander.Commands.Rule
 
-    @valid_attrs %{active: true, category: "some category", recipients: ["test@user.com"], rule_name: "some rule_name"}
-    @update_attrs %{active: false, category: "some updated category", recipients: ["who@am.io"], rule_name: "some updated rule_name"}
-    @invalid_attrs %{active: nil, category: nil, recipients: [], rule_name: nil}
+    @valid_attrs %{active: true, category: "some category", recipients: ["test@user.com"], rule_name: "some rule_name", variable: "less_than", value: 42}
+    @update_attrs %{active: false, category: "some updated category", recipients: ["who@am.io"], rule_name: "some updated rule_name", variable: "less_than", value: 43}
+    @invalid_attrs %{active: nil, category: nil, recipients: [], rule_name: nil, variable: nil, value: nil}
 
     def rule_fixture(attrs \\ %{}) do
       {:ok, rule} =
@@ -29,6 +29,8 @@ defmodule EdgeCommander.CommandsTest do
       assert rule.category == "some category"
       assert rule.recipients == ["test@user.com"]
       assert rule.rule_name == "some rule_name"
+      assert rule.variable == "less_than"
+      assert rule.value == 42
     end
 
     test "create_rule/1 with invalid data returns error changeset" do
@@ -43,6 +45,8 @@ defmodule EdgeCommander.CommandsTest do
       assert rule.category == "some updated category"
       assert rule.recipients == ["who@am.io"]
       assert rule.rule_name == "some updated rule_name"
+      assert rule.variable == "less_than"
+      assert rule.value == 43
     end
 
     test "update_rule/2 with invalid data returns error changeset" do
