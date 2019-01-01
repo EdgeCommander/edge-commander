@@ -1,5 +1,6 @@
 defmodule EdgeCommander.Util do
   require Record
+  require Logger
   import EdgeCommander.Accounts, only: [current_user: 1, by_api_keys: 2]
   import Plug.Conn
   Record.defrecord :xmlElement, Record.extract(:xmlElement, from_lib: "xmerl/include/xmerl.hrl")
@@ -144,6 +145,98 @@ defmodule EdgeCommander.Util do
         conn
         |> put_status(400)
     end
-
   end
+
+  def condition_for_sms_alert(%{variable: variable} = params) when variable == "less_than", do: sms_less_than(params)
+  def condition_for_sms_alert(%{variable: variable} = params) when variable == "less_than_equal_to", do: sms_less_than_equal_to(params)
+  def condition_for_sms_alert(%{variable: variable} = params) when variable == "greater_than", do: sms_greater_than(params)
+  def condition_for_sms_alert(%{variable: variable} = params) when variable == "greater_than_equal_to", do: sms_greater_than_equal_to(params)
+  def condition_for_sms_alert(%{variable: variable} = params) when variable == "equals_to", do: sms_equals_to(params)
+
+  defp sms_less_than(%{total_sms: total_sms, value: value} = params) when total_sms < value  do
+    send_sms_alert_email(params)
+  end
+  defp sms_less_than(_params), do: :noop
+
+  defp sms_less_than_equal_to(%{total_sms: total_sms, value: value} = params) when total_sms <= value  do
+    send_sms_alert_email(params)
+  end
+  defp sms_less_than_equal_to(_params), do: :noop
+
+  defp sms_greater_than(%{total_sms: total_sms, value: value} = params) when total_sms > value  do
+    send_sms_alert_email(params)
+  end
+  defp sms_greater_than(_params), do: :noop
+
+  defp sms_greater_than_equal_to(%{total_sms: total_sms, value: value} = params) when total_sms >= value  do
+    send_sms_alert_email(params)
+  end
+  defp sms_greater_than_equal_to(_params), do: :noop
+
+  defp sms_equals_to(%{total_sms: total_sms, value: value} = params) when total_sms == value  do
+    send_sms_alert_email(params)
+  end
+  defp sms_equals_to(_params), do: :noop
+
+  defp send_sms_alert_email(params) do
+    alert_for = params.alert_for
+    ensure_and_send_alert(alert_for, params)
+  end
+
+  defp get_variable("less_than"), do: "<"
+  defp get_variable("less_than_equal_to"), do: "<="
+  defp get_variable("greater_than"), do: ">"
+  defp get_variable("greater_than_equal_to"), do: ">="
+  defp get_variable("equals_to"), do: "=="
+
+  defp ensure_and_send_alert("monthly_sms_alert", %{number: number, total_sms: total_sms, variable: variable, value: value, last_bill_date: bill_date} = _params) do
+    last_bill_date = convert_date_format(bill_date)
+    EdgeCommander.Commands.get_monthly_sms_usage_rules(variable, value)
+    |> Enum.map(fn(recipients) ->
+      variable = variable |> get_variable
+      EdgeCommander.EcMailer.monthly_sms_usage_alert(last_bill_date, recipients, number, total_sms, variable, value)
+      Logger.info "Monthly SMS usage email alert has been sent."
+    end)
+  end
+
+  defp ensure_and_send_alert("daily_sms_alert", %{number: number, total_sms: total_sms, variable: variable, value: value} = _params) do
+    current_day_date = get_current_date()
+    current_date = convert_date_format(current_day_date)
+    EdgeCommander.Commands.get_active_sms_usage_rules(variable, value)
+    |> Enum.map(fn(recipients) ->
+      variable = variable |> get_variable
+      EdgeCommander.EcMailer.daily_sms_usage_alert(current_date, recipients, number, total_sms, variable, value)
+      Logger.info "Daily SMS usage email alert has been sent."
+    end)
+  end
+
+  defp ensure_and_send_alert("battery_voltage_alert", %{total_sms: total_volt, variable: variable, value: value} = _params) do
+    EdgeCommander.Commands.get_battery_voltages_rules(variable, value)
+    |> Enum.map(fn(recipients) ->
+      variable = variable |> get_variable
+      EdgeCommander.EcMailer.battery_voltage_alert(recipients, total_volt, variable, value)
+      Logger.info "Battery voltage alert has been sent."
+    end)
+  end
+
+  defp convert_date_format(date) do
+    year = date.year
+    month = date.month |> ensure_number
+    day = date.day |> ensure_number
+    date = "#{day}-#{month}-#{year}"
+  end
+
+  def get_current_date() do
+    current_year = DateTime.utc_now |> Map.fetch!(:year)
+    month = DateTime.utc_now |> Map.fetch!(:month)
+    day = DateTime.utc_now |> Map.fetch!(:day)
+    current_month = ensure_number(month)
+    current_day = ensure_number(day)
+    date_time = "#{current_year}-#{current_month}-#{current_day} 00:00:00"
+    {:ok, date} = NaiveDateTime.from_iso8601(date_time)
+    date
+  end
+
+  def ensure_number(number) when number >= 1 and number <= 9, do: "0#{number}"
+  def ensure_number(number), do: number
 end

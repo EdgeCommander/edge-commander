@@ -49,7 +49,7 @@ defmodule EdgeCommander.Commands do
 
   defp send_email(false, _senders, _usage, _number, _volume_used, _allowance, _name, _addon), do: Logger.info "Application is in dev mode."
   defp send_email(true, senders, usage, number, volume_used, allowance, name, addon) do
-    EdgeCommander.EcMailer.usage_monitoring(senders, usage, number, volume_used, allowance, name, addon)
+    # EdgeCommander.EcMailer.usage_monitoring(senders, usage, number, volume_used, allowance, name, addon)
   end
 
   def list_rules(user_id) do
@@ -82,30 +82,57 @@ defmodule EdgeCommander.Commands do
     Rule.changeset(rule, %{})
   end
 
-  def get_active_sms_usage_rules do
+  def get_active_sms_usage_rules(variable, value) do
     Rule
     |> where(active: true)
     |> where(category: "daily_sms_usage_command")
+    |> where(variable: ^variable)
+    |> where(value: ^value)
     |> Repo.all
     |> Enum.map(fn(rule) ->
       rule.recipients
     end)
   end
 
-  def get_monthly_sms_usage_rules do
+  def get_monthly_sms_usage_rules(variable, value) do
+    Rule
+    |> where(active: true)
+    |> where(category: "monthly_sms_usage_command")
+    |> where(variable: ^variable)
+    |> where(value: ^value)
+    |> Repo.all
+    |> Enum.map(fn(rule) ->
+      rule.recipients
+    end)
+  end
+
+  def get_monthly_sms_usage_rules_list do
     Rule
     |> where(active: true)
     |> where(category: "monthly_sms_usage_command")
     |> Repo.all
-    |> Enum.map(fn(rule) ->
-      rule.recipients
-    end)
   end
 
-  def get_battery_voltages_rules do
+  def get_daily_sms_usage_rules_list do
+    Rule
+    |> where(active: true)
+    |> where(category: "daily_sms_usage_command")
+    |> Repo.all
+  end
+
+  def get_battery_voltages_rule_list do
     Rule
     |> where(active: true)
     |> where(category: "battery_voltages_command")
+    |> Repo.all
+  end
+
+  def get_battery_voltages_rules(variable, value) do
+    Rule
+    |> where(active: true)
+    |> where(category: "battery_voltages_command")
+    |> where(variable: ^variable)
+    |> where(value: ^value)
     |> Repo.all
     |> Enum.map(fn(rule) ->
       rule.recipients

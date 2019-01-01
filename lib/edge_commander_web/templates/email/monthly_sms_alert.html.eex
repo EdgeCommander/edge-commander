@@ -16,7 +16,7 @@
         </div>
         <div>
           <p>
-          <%= "Monthly wise SMS limit of this number is near to end (Total SMS count > 190)." %>
+          Monthly wise SMS limit of this number is near to end (Total SMS count <%= @variable %> <%= @value %>).
           </p>
           <p><strong>Number: </strong> <%= @number %></p>
           <p><strong>Total incoming SMS count: </strong> <%= @total_sms %></p>

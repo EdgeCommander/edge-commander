@@ -12,6 +12,8 @@ defmodule EdgeCommander.Commands.Rule do
     field :category, :string
     field :recipients, {:array, :string}
     field :rule_name, :string
+    field :variable, :string
+    field :value, :integer
 
     timestamps()
   end
@@ -40,10 +42,12 @@ defmodule EdgeCommander.Commands.Rule do
   @doc false
   def changeset(%Rule{} = rule, attrs) do
     rule
-    |> cast(attrs, [:rule_name, :category, :recipients, :active, :user_id])
+    |> cast(attrs, [:rule_name, :category, :recipients, :active, :user_id, :variable, :value])
     |> validate_recipients()
     |> validate_required(:rule_name, [message: "Rule Name cannot be empty."])
     |> validate_required(:category, [message: "Category cannot be empty."])
+    |> validate_required(:variable, [message: "Variable cannot be empty."])
+    |> validate_required(:value, [message: "Value cannot be empty."])
     |> validate_required(:recipients, [message: "Recipients cannot be empty."])
     |> validate_length(:rule_name, [min: 3, message: "Rule Name should be at least 2 character(s)."])
   end

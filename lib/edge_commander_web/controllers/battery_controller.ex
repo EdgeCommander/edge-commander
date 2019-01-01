@@ -150,7 +150,18 @@ defmodule EdgeCommanderWeb.BatteryController do
       Decimal.new(value)
       |> Decimal.to_integer
     value_in_volt = voltage / 1000
-    send_voltage_alert_email(value_in_volt)
+    voltage_rules = EdgeCommander.Commands.get_battery_voltages_rule_list()
+    Enum.each(voltage_rules, fn(rule) ->
+      variable = rule.variable
+      value = rule.value
+      params = %{
+        total_sms: value_in_volt,
+        variable: variable,
+        value: value,
+        alert_for: "battery_voltage_alert"
+      }
+      Util.condition_for_sms_alert(params)
+     end)
   end
 
   defp send_voltage_alert_email(volt) when volt < 12  do
