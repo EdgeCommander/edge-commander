@@ -10,12 +10,12 @@
           <img src="https://www.rawshorts.com/freeicons/wp-content/uploads/2017/01/red_garagepictbattery_1484335569-1-300x300.png" width="60px">
           </div> 
           <div style="float: left;">
-          <h2 style="margin: 18px 10px">Low battery Voltage Alert</h2>
+          <h2 style="margin: 18px 10px">Solar battery Voltage Alert</h2>
           </div> 
           <div style="clear: both;"></div>
       </div>
       <div style="text-align: center;">
-        <p>Your solar battery voltage is currently recorded:  <%= @voltage %> V. which is less than 12 volts.</p>
+        <p>Your solar battery voltage is currently recorded:  <%= @voltage %> V. which is <%= @variable %> <%= @value %> volts.</p>
         <div style="height: 10px"></div>
       </div>
       </div>
