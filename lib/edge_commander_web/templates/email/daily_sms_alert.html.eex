@@ -16,7 +16,7 @@
         </div>
         <div>
           <p>
-          <%= "Today, SMS to this number has been received greater than 6." %>
+         Today, total SMS to this number has been received <%= @variable %> <%= @value %>.
           </p>
           <p><strong>Number: </strong> <%= @number %></p>
           <p><strong>Total incoming SMS count: </strong> <%= @total_sms %></p>

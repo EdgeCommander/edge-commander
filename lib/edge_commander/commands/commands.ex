@@ -82,10 +82,12 @@ defmodule EdgeCommander.Commands do
     Rule.changeset(rule, %{})
   end
 
-  def get_active_sms_usage_rules do
+  def get_active_sms_usage_rules(variable, value) do
     Rule
     |> where(active: true)
     |> where(category: "daily_sms_usage_command")
+    |> where(variable: ^variable)
+    |> where(value: ^value)
     |> Repo.all
     |> Enum.map(fn(rule) ->
       rule.recipients
@@ -108,6 +110,13 @@ defmodule EdgeCommander.Commands do
     Rule
     |> where(active: true)
     |> where(category: "monthly_sms_usage_command")
+    |> Repo.all
+  end
+
+  def get_daily_sms_usage_rules_list do
+    Rule
+    |> where(active: true)
+    |> where(category: "daily_sms_usage_command")
     |> Repo.all
   end
 
