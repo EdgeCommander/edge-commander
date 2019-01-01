@@ -15,24 +15,85 @@ defmodule EdgeCommanderWeb.BatteryController do
           String.split(body, "\n")
           |> Enum.sort(&(&2 > &1))
           |> Enum.drop_while(fn(x) -> x == "" end)
-        voltage = get_column_value(data, 13, "V\t")
+
+        pid_record = element_value_and_remainng_data(data, "PID\t")
+        pid = pid_record.value
+        data = pid_record.remain_data
+
+        fw_record = element_value_and_remainng_data(data, "FW\t")
+        fw = fw_record.value
+        data = fw_record.remain_data
+
+        sr_record = element_value_and_remainng_data(data, "SER#\t")
+        serial_no = sr_record.value
+        data = sr_record.remain_data
+
+        i_record = element_value_and_remainng_data(data, "I\t")
+        i_value = i_record.value
+        data = i_record.remain_data
+
+        vpv_record = element_value_and_remainng_data(data, "VPV\t")
+        vpv_value = vpv_record.value
+        data = vpv_record.remain_data
+
+        ppv_record = element_value_and_remainng_data(data, "PPV\t")
+        ppv_value = ppv_record.value
+        data = ppv_record.remain_data
+
+        cs_record = element_value_and_remainng_data(data, "CS\t")
+        cs_value = cs_record.value
+        data = cs_record.remain_data
+
+        err_record = element_value_and_remainng_data(data, "ERR\t")
+        err_value = err_record.value
+        data = err_record.remain_data
+
+        h19_record = element_value_and_remainng_data(data, "H19\t")
+        h19_value = h19_record.value
+        data = h19_record.remain_data
+
+        h20_record = element_value_and_remainng_data(data, "H20\t")
+        h20_value = h20_record.value
+        data = h20_record.remain_data
+
+        h21_record = element_value_and_remainng_data(data, "H21\t")
+        h21_value = h21_record.value
+        data = h21_record.remain_data
+
+        h22_record = element_value_and_remainng_data(data, "H22\t")
+        h22_value = h22_record.value
+        data = h22_record.remain_data
+
+        h23_record = element_value_and_remainng_data(data, "H23\t")
+        h23_value = h23_record.value
+        data = h23_record.remain_data
+
+        voltage_record = element_value_and_remainng_data(data, "V\t")
+        voltage = voltage_record.value
+        data = voltage_record.remain_data
+
+        date_record = element_value_and_remainng_data(data, ":")
+        datetime = date_record.value
+        data = date_record.remain_data
+
         params = %{
-          "pid" => get_column_value(data, 10, "PID\t"),
-          "fw" => get_column_value(data, 3, "FW\t"),
-          "serial_no" => get_column_value(data, 12, "SER#\t"),
+          "pid" => pid,
+          "fw" => fw,
+          "serial_no" => serial_no,
           "voltage" => voltage,
-          "i_value" => get_column_value(data, 7, "I\t"),
-          "vpv_value" => get_column_value(data, 14, "VPV\t"),
-          "ppv_value" => get_column_value(data, 11, "PPV\t"),
-          "cs_value" => get_column_value(data, 1, "CS\t"),
-          "err_value" => get_column_value(data, 2, "ERR\t"),
-          "h19_value" => get_column_value(data, 4, "H19\t"),
-          "h20_value" => get_column_value(data, 5, "H20\t"),
-          "h21_value" => get_column_value(data, 6, "H21\t"),
-          "h22_value" => 0,
-          "h23_value" => 0,
-          "datetime" => Enum.at(data, 0)
+          "i_value" => i_value,
+          "vpv_value" => vpv_value,
+          "ppv_value" => ppv_value,
+          "cs_value" => cs_value,
+          "err_value" => err_value,
+          "h19_value" => h19_value,
+          "h20_value" => h20_value,
+          "h21_value" => h21_value,
+          "h22_value" => h22_value,
+          "h23_value" => h23_value,
+          "datetime" => datetime,
         }
+
         changeset = Battery.changeset(%Battery{}, params)
         case Repo.insert(changeset) do
         {:ok, _data} ->
@@ -111,4 +172,39 @@ defmodule EdgeCommanderWeb.BatteryController do
     end)
   end
   defp send_voltage_alert_email(volt), do: :noop
+
+  defp element_value_and_remainng_data(list_data, column) do
+    value =
+      list_data
+      |> Enum.map(fn(element) ->
+        existence = element =~ column
+        check_element_existence(existence, element)
+      end)
+      |> Enum.sort(&(&2 > &1))
+      |> Enum.drop_while(fn(x) -> x == "" end)
+
+    column_value = List.first(value) |> is_list_empty(column)
+
+    remain_data = list_data |> Enum.reject(fn(x) -> x == column_value end)
+
+    %{
+      value: column_value |> get_column_value(column),
+      remain_data: remain_data
+    }
+  end
+
+  defp check_element_existence(true, element), do: element
+  defp check_element_existence(false, _element), do: ""
+
+  defp is_list_empty(nil, column), do: "#{column}0"
+  defp is_list_empty(value, _column), do: value
+
+  defp get_column_value(string, column) do
+    if column != ":" do
+      [_, value] = String.split(string, column)
+      else
+        value = string
+    end
+    value |> String.trim()
+  end
 end
