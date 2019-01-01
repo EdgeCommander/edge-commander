@@ -565,8 +565,12 @@ defmodule EdgeCommanderWeb.SimsController do
   defp ensure_number(number) when number >= 1 and number <= 9, do: "0#{number}"
   defp ensure_number(number), do: number
 
+  defp get_month(current_day, bill_day, current_month) when current_month == 1, do: 12
   defp get_month(current_day, bill_day, current_month) when current_day > bill_day, do: ensure_number(current_month)
   defp get_month(_current_day, _bill_day, current_month), do: ensure_number(current_month - 1)
+
+  defp get_year(year, current_month) when current_month == 1, do: year - 1
+  defp get_year(year, _current_month), do: year
 
   defp get_last_sms_date(nil), do: "-"
   defp get_last_sms_date(last_sms_details), do: last_sms_details |> Map.get(:inserted_at) |> Util.shift_zone()
@@ -578,11 +582,12 @@ defmodule EdgeCommanderWeb.SimsController do
   defp get_bill_date("null"), do: nil
   defp get_bill_date(day) do
     day = check_data_type(day)
-    bill_day = day  |> ensure_number
-    year = DateTime.utc_now |> Map.fetch!(:year)
+    bill_day = day |> ensure_number
+    current_year = DateTime.utc_now |> Map.fetch!(:year)
     current_month = DateTime.utc_now |> Map.fetch!(:month)
     current_day = DateTime.utc_now |> Map.fetch!(:day)
     month = get_month(current_day, bill_day, current_month)
+    year = get_year(current_year, current_month)
     date_time = "#{year}-#{month}-#{bill_day} 00:00:00"
     {:ok, date} = NaiveDateTime.from_iso8601(date_time)
     date
