@@ -165,15 +165,6 @@ defmodule EdgeCommanderWeb.BatteryController do
      end)
   end
 
-  defp send_voltage_alert_email(volt) when volt < 12  do
-    EdgeCommander.Commands.get_battery_voltages_rules()
-    |> Enum.map(fn(recipients) ->
-      EdgeCommander.EcMailer.battery_voltage_alert(recipients, volt)
-      Logger.info "Email has been sent."
-    end)
-  end
-  defp send_voltage_alert_email(volt), do: :noop
-
   defp element_value_and_remainng_data(list_data, column) do
     value =
       list_data
