@@ -17867,12 +17867,16 @@ module.exports = {
     };
   },
   methods: {
+    date_format: function date_format(id) {
+      var string = $("#" + id).val().split("-");
+      return string[2] + "-" + string[1] + "-" + string[0];
+    },
     initializeTable: function initializeTable() {
-      $("#m_sms_datepicker_from").datepicker({ autoclose: true, dateFormat: "yy-mm-dd" }).datepicker("setDate", new Date(new Date().getTime() - 48 * 60 * 60 * 1000));
-      $("#m_sms_datepicker_to").datepicker({ autoclose: true, dateFormat: "yy-mm-dd" }).datepicker("setDate", new Date());
+      $("#m_sms_datepicker_from").datepicker({ autoclose: true, dateFormat: "dd-mm-yy" }).datepicker("setDate", new Date(new Date().getTime() - 48 * 60 * 60 * 1000));
+      $("#m_sms_datepicker_to").datepicker({ autoclose: true, dateFormat: "dd-mm-yy" }).datepicker("setDate", new Date());
 
-      var from_date = $("#m_sms_datepicker_from").val(),
-          to_date = $("#m_sms_datepicker_to").val();
+      var from_date = this.date_format("m_sms_datepicker_from");
+      var to_date = this.date_format("m_sms_datepicker_to");
 
       var statusDataTable = $('#status-datatable').DataTable({
         fnInitComplete: function fnInitComplete() {
@@ -17903,7 +17907,7 @@ module.exports = {
         columns: [{
           class: "text-center datetime",
           data: function data(row, type, set, meta) {
-            return row.datetime;
+            return moment(row.datetime).format('DD-MM-YYYY HH:mm:ss');
           }
         }, {
           class: "text-center voltage",
@@ -18014,18 +18018,29 @@ module.exports = {
       $("body").removeClass("m-aside-left--on");
       $(".m-aside-left-overlay").removeClass("m-aside-left-overlay");
     },
+    convert_date_time_format: function convert_date_time_format(times) {
+      var times_array = [];
+      for (var i = 0; i < times.length; i++) {
+        var times_data = times[i].split(" ");
+        var time = times_data[1];
+        var date = times_data[0].split("-");
+        var full_date_time = date[2] + "-" + date[1] + "-" + date[0] + " " + times_data[1];
+        times_array.push(full_date_time);
+      }
+      return times_array;
+    },
     init_graphs_data: function init_graphs_data() {
       var _this2 = this;
 
-      $("#m_sms_datepicker_from").datepicker({ autoclose: true, dateFormat: "yy-mm-dd" }).datepicker("setDate", new Date(new Date().getTime() - 48 * 60 * 60 * 1000));
-      $("#m_sms_datepicker_to").datepicker({ autoclose: true, dateFormat: "yy-mm-dd" }).datepicker("setDate", new Date());
+      $("#m_sms_datepicker_from").datepicker({ autoclose: true, dateFormat: "dd-mm-yy" }).datepicker("setDate", new Date(new Date().getTime() - 48 * 60 * 60 * 1000));
+      $("#m_sms_datepicker_to").datepicker({ autoclose: true, dateFormat: "dd-mm-yy" }).datepicker("setDate", new Date());
 
-      var from_date = $("#m_sms_datepicker_from").val(),
-          to_date = $("#m_sms_datepicker_to").val();
+      var from_date = this.date_format("m_sms_datepicker_from");
+      var to_date = this.date_format("m_sms_datepicker_to");
 
       this.$http.get('/daily_battery/data/' + from_date + "/" + to_date).then(function (response) {
         var history = response.body.voltages_history;
-        _this2.time_list = history.time_list;
+        _this2.time_list = _this2.convert_date_time_format(history.time_list);
         _this2.battery_voltages = history.battery_voltages;
         _this2.panel_voltages = history.panel_voltages;
         _this2.graph_one(_this2.time_list, _this2.battery_voltages);
@@ -18044,7 +18059,11 @@ module.exports = {
           if (max_value == null) {
             max_value = 0;
           }
-          _this2.categories_dates.push(history[i].date);
+
+          var string = history[i].date.split("-");
+          var date = string[2] + "-" + string[1] + "-" + string[0];
+
+          _this2.categories_dates.push(date);
           _this2.maximum_voltages.push(max_value);
           _this2.minimum_voltages.push(min_value);
         }
@@ -18066,14 +18085,14 @@ module.exports = {
       var panel_voltages = this.panel_voltages;
 
       $('#m_sms_datepicker_from, #m_sms_datepicker_to').change(function () {
-        var from_date = $("#m_sms_datepicker_from").val();
-        var to_date = $("#m_sms_datepicker_to").val();
+        var from_date = module.exports.methods.date_format("m_sms_datepicker_from");
+        var to_date = module.exports.methods.date_format("m_sms_datepicker_to");
         var new_url = "/battery/data/" + from_date + "/" + to_date;
         table_data.ajax.url(new_url).load();
 
         $.get('/daily_battery/data/' + from_date + "/" + to_date, function (data) {
           var history = data.voltages_history;
-          time_list = history.time_list;
+          time_list = module.exports.methods.convert_date_time_format(history.time_list);
           battery_voltages = history.battery_voltages;
           panel_voltages = history.panel_voltages;
           module.exports.methods.graph_one(time_list, battery_voltages);
@@ -18095,7 +18114,9 @@ module.exports = {
             if (max_value == null) {
               max_value = 0;
             }
-            category_dates.push(history[i].date);
+            var string = history[i].date.split("-");
+            var date = string[2] + "-" + string[1] + "-" + string[0];
+            category_dates.push(date);
             maximum_voltages.push(min_value);
             minimum_voltages.push(max_value);
           }
@@ -18697,7 +18718,7 @@ module.exports = {
         }, {
           class: "text-center created_at",
           data: function data(row, type, set, meta) {
-            return moment(row.created_at).format('DD/MM/YYYY HH:mm:ss');
+            return moment(row.created_at).format('DD-MM-YYYY HH:mm:ss');
           }
         }],
         autoWidth: true,
@@ -19061,7 +19082,7 @@ module.exports = {
   },
   filters: {
     date_format: function date_format(date) {
-      return moment(date).format('DD/MM/YYYY HH:mm:ss');
+      return moment(date).format('DD-MM-YYYY HH:mm:ss');
     }
   },
   methods: {
@@ -19082,7 +19103,7 @@ module.exports = {
         });
       };
 
-      $.fn.dataTable.moment("DD/MM/YYYY HH:mm:ss");
+      $.fn.dataTable.moment("DD-MM-YYYY HH:mm:ss");
       var simsDataTable = $('#sms_summary').DataTable({
         fnInitComplete: function fnInitComplete() {
           // Enable TFOOT scoll bars
@@ -19139,7 +19160,7 @@ module.exports = {
                 if (last_sms_date == '-') {
                   date_value = last_sms_date;
                 } else {
-                  date_value = moment(last_sms_date).format('DD/MM/YYYY HH:mm:ss');
+                  date_value = moment(last_sms_date).format('DD-MM-YYYY HH:mm:ss');
                 }
                 $(td).html(date_value);
               });
@@ -19173,7 +19194,7 @@ module.exports = {
             if (last_bill_date == null) {
               return "-";
             } else {
-              return moment(row.last_bill_date).format('DD/MM/YYYY');
+              return moment(row.last_bill_date).format('DD-MM-YYYY');
             }
           }
         }, {
@@ -19202,6 +19223,10 @@ module.exports = {
       });
       return this.dataTable = simsDataTable;
       this.dataTable.search("");
+    },
+    convert_date_time_format: function convert_date_time_format(times) {
+      var date = times.split("-");
+      return date[2] + "-" + date[1] + "-" + date[0];
     },
     init_chart: function init_chart() {
       mApp.block("#sms_history_content", {
@@ -19303,7 +19328,8 @@ module.exports = {
         var history = response.body.sms_history;
         var i;
         for (i = 0; i < history.length; i++) {
-          _this6.categories_dates.push(history[i].date);
+          var dates = _this6.convert_date_time_format(history[i].date);
+          _this6.categories_dates.push(dates);
           _this6.delivered_sms.push(history[i].delivered_sms);
           _this6.received_sms.push(history[i].received_sms);
           _this6.pending_sms.push(history[i].pending_sms);
@@ -19561,12 +19587,16 @@ module.exports = {
     };
   },
   methods: {
+    date_format: function date_format(id) {
+      var string = $("#" + id).val().split("-");
+      return string[2] + "-" + string[1] + "-" + string[0];
+    },
     initializeTable: function initializeTable() {
-      $("#m_sms_datepicker_from").datepicker({ autoclose: true, dateFormat: "yy-mm-dd" }).datepicker("setDate", new Date(new Date().getTime() - 48 * 60 * 60 * 1000));
-      $("#m_sms_datepicker_to").datepicker({ autoclose: true, dateFormat: "yy-mm-dd" }).datepicker("setDate", new Date());
+      $("#m_sms_datepicker_from").datepicker({ autoclose: true, dateFormat: "dd-mm-yy" }).datepicker("setDate", new Date(new Date().getTime() - 48 * 60 * 60 * 1000));
+      $("#m_sms_datepicker_to").datepicker({ autoclose: true, dateFormat: "dd-mm-yy" }).datepicker("setDate", new Date());
 
-      var from_date = $("#m_sms_datepicker_from").val(),
-          to_date = $("#m_sms_datepicker_to").val();
+      var from_date = this.date_format("m_sms_datepicker_from");
+      var to_date = this.date_format("m_sms_datepicker_to");
 
       var smsDataTable = $('#sms-datatable').DataTable({
         fnInitComplete: function fnInitComplete() {
@@ -19597,7 +19627,7 @@ module.exports = {
         columns: [{
           class: "text-center inserted_at",
           data: function data(row, type, set, meta) {
-            return moment(row.inserted_at).format('DD/MM/YYYY HH:mm:ss');
+            return moment(row.inserted_at).format('DD-MM-YYYY HH:mm:ss');
           }
         }, {
           class: "from",
@@ -19644,7 +19674,7 @@ module.exports = {
           data: function data(row, type, set, meta) {
             var delivery_datetime = row.delivery_datetime;
             if (delivery_datetime != "") {
-              return "" + moment(row.delivery_datetime).format('DD/MM/YYYY HH:mm:ss') + "";
+              return "" + moment(row.delivery_datetime).format('DD-MM-YYYY HH:mm:ss') + "";
             } else {
               return "";
             }
@@ -19720,8 +19750,8 @@ module.exports = {
     dateFilterInitialize: function dateFilterInitialize() {
       var table_data = this.dataTable;
       $('#m_sms_datepicker_from, #m_sms_datepicker_to').change(function () {
-        var from_date = $("#m_sms_datepicker_from").val(),
-            to_date = $("#m_sms_datepicker_to").val();
+        var from_date = module.exports.methods.date_format("m_sms_datepicker_from");
+        var to_date = module.exports.methods.date_format("m_sms_datepicker_to");
         var new_url = "/get_all_sms/" + from_date + "/" + to_date;
         table_data.ajax.url(new_url).load();
       });
@@ -20314,7 +20344,7 @@ module.exports = {
           visible: false,
           class: "text-center created_at",
           data: function data(row, type, set, meta) {
-            return moment(row.created_at).format('DD/MM/YYYY HH:mm:ss');
+            return moment(row.created_at).format('DD-MM-YYYY HH:mm:ss');
           }
         }],
         autoWidth: true,
@@ -20910,7 +20940,7 @@ module.exports = {
         }, {
           class: "text-center created_at",
           data: function data(row, type, set, meta) {
-            return moment(row.created_at).format('DD/MM/YYYY HH:mm:ss');
+            return moment(row.created_at).format('DD-MM-YYYY HH:mm:ss');
           }
         }],
         autoWidth: true,
@@ -21508,18 +21538,17 @@ module.exports = {
       user_id: ""
     };
   },
-  filters: {
-    formatDate: function formatDate(value) {
-      return moment(String(value)).format('DD/MM/YYYY HH:mm:ss');
-    }
-  },
   methods: {
+    date_format: function date_format(id) {
+      var string = $("#" + id).val().split("-");
+      return string[2] + "-" + string[1] + "-" + string[0];
+    },
     initializeLogsTable: function initializeLogsTable() {
-      $("#m_sms_datepicker_from").datepicker({ autoclose: true, dateFormat: "yy-mm-dd" }).datepicker("setDate", new Date(new Date().getTime() - 48 * 60 * 60 * 1000));
-      $("#m_sms_datepicker_to").datepicker({ autoclose: true, dateFormat: "yy-mm-dd" }).datepicker("setDate", new Date());
+      $("#m_sms_datepicker_from").datepicker({ autoclose: true, dateFormat: "dd-mm-yy" }).datepicker("setDate", new Date(new Date().getTime() - 48 * 60 * 60 * 1000));
+      $("#m_sms_datepicker_to").datepicker({ autoclose: true, dateFormat: "dd-mm-yy" }).datepicker("setDate", new Date());
 
-      var from_date = $("#m_sms_datepicker_from").val(),
-          to_date = $("#m_sms_datepicker_to").val();
+      var from_date = this.date_format("m_sms_datepicker_from");
+      var to_date = this.date_format("m_sms_datepicker_to");
 
       var logsDataTable = $('#logs-datatable').DataTable({
         fnInitComplete: function fnInitComplete() {
@@ -21579,7 +21608,7 @@ module.exports = {
         }, {
           class: "text-center inserted_at",
           data: function data(row, type, set, meta) {
-            return moment(row.inserted_at).format('DD/MM/YYYY HH:mm:ss');
+            return moment(row.inserted_at).format('DD-MM-YYYY HH:mm:ss');
           }
         }, {
           class: "text-left event",
@@ -21648,7 +21677,7 @@ module.exports = {
         }, {
           class: "text-center created_at",
           data: function data(row, type, set, meta) {
-            return moment(row.created_at).format('DD/MM/YYYY HH:mm:ss');
+            return moment(row.created_at).format('DD-MM-YYYY HH:mm:ss');
           }
         }],
         autoWidth: true,
@@ -21767,8 +21796,8 @@ module.exports = {
     dateFilterInitialize: function dateFilterInitialize() {
       var table_data = this.logsDataTable;
       $('#m_sms_datepicker_from, #m_sms_datepicker_to').change(function () {
-        var from_date = $("#m_sms_datepicker_from").val(),
-            to_date = $("#m_sms_datepicker_to").val();
+        var from_date = module.exports.methods.date_format("m_sms_datepicker_from");
+        var to_date = module.exports.methods.date_format("m_sms_datepicker_to");
         var new_url = "/user_logs/" + from_date + "/" + to_date;
         table_data.ajax.url(new_url).load();
       });
@@ -22637,7 +22666,7 @@ module.exports = {
         }, {
           class: "text-center last_reading",
           data: function data(row, type, set, meta) {
-            return moment(row.date_of_use).format('DD/MM/YYYY HH:mm:ss');
+            return moment(row.date_of_use).format('DD-MM-YYYY HH:mm:ss');
           }
         }, {
           class: "text-center last_bill_date",
@@ -22647,7 +22676,7 @@ module.exports = {
             if (last_bill_date == null) {
               return "-";
             } else {
-              return moment(row.last_bill_date).format('DD/MM/YYYY');
+              return moment(row.last_bill_date).format('DD-MM-YYYY');
             }
           }
         }, {
@@ -22687,7 +22716,7 @@ module.exports = {
                 if (last_sms_date == '-') {
                   date_value = last_sms_date;
                 } else {
-                  date_value = moment(last_sms_date).format('DD/MM/YYYY HH:mm:ss');
+                  date_value = moment(last_sms_date).format('DD-MM-YYYY HH:mm:ss');
                 }
                 $(td).html(date_value);
               });
@@ -23895,7 +23924,7 @@ module.exports = {
         }, {
           class: "text-center created_at",
           data: function data(row, type, set, meta) {
-            return moment(row.created_at).format('DD/MM/YYYY HH:mm:ss');
+            return moment(row.created_at).format('DD-MM-YYYY HH:mm:ss');
           }
         }],
         autoWidth: true,

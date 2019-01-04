@@ -406,7 +406,7 @@ module.exports = {
       {
         class: "text-center last_reading",
         data: function(row, type, set, meta) {
-          return moment(row.date_of_use).format('DD/MM/YYYY HH:mm:ss');
+          return moment(row.date_of_use).format('DD-MM-YYYY HH:mm:ss');
         }
       },
       {
@@ -417,7 +417,7 @@ module.exports = {
           if(last_bill_date == null){
             return "-"
           }else{
-            return moment(row.last_bill_date).format('DD/MM/YYYY');
+            return moment(row.last_bill_date).format('DD-MM-YYYY');
           }
         }
       },
@@ -459,7 +459,7 @@ module.exports = {
               if (last_sms_date == '-') {
                   date_value = last_sms_date
               }else{
-               date_value = moment(last_sms_date).format('DD/MM/YYYY HH:mm:ss');
+               date_value = moment(last_sms_date).format('DD-MM-YYYY HH:mm:ss');
               }
               $(td).html(date_value)
             });
