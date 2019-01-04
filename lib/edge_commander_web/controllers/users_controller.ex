@@ -10,7 +10,7 @@ defmodule EdgeCommanderWeb.UsersController do
   import EdgeCommander.Sharing, only: [user_already_exist: 1]
   import Gravatar
 
-  def get_porfile(conn, params) do
+  def get_porfile(conn, _params) do
     current_user = current_user(conn)
     current_user_id = current_user.id
 
@@ -59,8 +59,8 @@ defmodule EdgeCommanderWeb.UsersController do
         {:ok, user} ->
           Logger.info "[POST /create_user] [#{user.email}] [#{user.last_signed_in}]"
 
-          user_exist = user_already_exist(email)
-          |> update_sharing_record(email, user)
+          user_already_exist(email)
+          |> update_sharing_record(user)
 
           conn
           |> put_flash(:info, "Your account has been created.")
@@ -94,7 +94,7 @@ defmodule EdgeCommanderWeb.UsersController do
       |> User.changeset(params)
       |> Repo.update
       |> case do
-      {:ok, user} ->
+      {:ok, _user} ->
           EdgeCommander.EcMailer.forgot_password(email, reset_token)
           conn
           |> put_flash(:info, "Password reset link has been sent to your email address.")
@@ -127,7 +127,7 @@ defmodule EdgeCommanderWeb.UsersController do
         |> User.changeset(params)
         |> Repo.update
         |> case do
-          {:ok, user} ->
+          {:ok, _user} ->
             conn
             |> redirect(to: "/users/reset_password_success")
           {:error, errors} ->
@@ -159,10 +159,10 @@ defmodule EdgeCommanderWeb.UsersController do
           id: id
         } = user
 
-        email = params["email"]
+        user_email = params["email"]
         current_user = current_user(conn)
         logs_params = %{
-          "event" => "Account details of <span>#{email}</span> was updated.",
+          "event" => "Account details of <span>#{user_email}</span> was updated.",
           "user_id" => current_user.id
         }
         Util.create_log(conn, logs_params)
@@ -203,8 +203,8 @@ defmodule EdgeCommanderWeb.UsersController do
     end
   end
 
-  defp update_sharing_record(nil, _email, _user), do: :noop
-  defp update_sharing_record(member_details, email, user)  do
+  defp update_sharing_record(nil, _user), do: :noop
+  defp update_sharing_record(member_details, user)  do
     sharing_params = %{"member_id" => user.id}
     member_details
     |> Member.changeset(sharing_params)

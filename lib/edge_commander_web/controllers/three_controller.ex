@@ -13,7 +13,6 @@ defmodule EdgeCommanderWeb.ThreeController do
     case Repo.insert(changeset) do
       {:ok, user} ->
         %EdgeCommander.ThreeScraper.ThreeUsers{
-          username: username,
           password: password,
           user_id: user_id,
           bill_day: bill_day
@@ -75,7 +74,6 @@ defmodule EdgeCommanderWeb.ThreeController do
     |> case do
       {:ok, user} ->
         %EdgeCommander.ThreeScraper.ThreeUsers{
-          username: username,
           password: password,
           bill_day: bill_day,
           updated_at: updated_at

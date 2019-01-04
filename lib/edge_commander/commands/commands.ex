@@ -48,7 +48,7 @@ defmodule EdgeCommander.Commands do
   end
 
   defp send_email(false, _senders, _usage, _number, _volume_used, _allowance, _name, _addon), do: Logger.info "Application is in dev mode."
-  defp send_email(true, senders, usage, number, volume_used, allowance, name, addon) do
+  defp send_email(true, _senders, _usage, _number, _volume_used, _allowance, _name, _addon) do
     # EdgeCommander.EcMailer.usage_monitoring(senders, usage, number, volume_used, allowance, name, addon)
   end
 

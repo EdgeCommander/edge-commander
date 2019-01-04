@@ -144,8 +144,6 @@ defmodule ThreeScraper.Scraper do
   end
 
   defp get_sim_data(%Scraper{number: sim_number} = sim, cookie) do
-    post_form = [{"ctn", sim_number}]
-    
     url = @base_url <> "/NASApp/MyAccount/PostpaidManageDataUsageServlet.htm"
     body = Poison.encode!(%{
       "ctn": sim_number
@@ -220,11 +218,11 @@ defmodule ThreeScraper.Scraper do
 
   defp set_addon_value(addon) do
     if is_binary(addon) == true  do
-      addon_value = addon
+      addon
     else
       {"b", _, [addon_value]}  =  addon
+      addon_value
     end
-    addon_value
   end
 
   defp set_allowance_value("Unlimited"), do: -1
@@ -246,11 +244,11 @@ defmodule ThreeScraper.Scraper do
 
   defp ensure_addon_value(addon) do
     if is_binary(addon) == true  do
-        new_addon = addon
+        addon
       else
         {new_addon, _} = addon |> String.replace(",", "") |> Float.parse()
+        new_addon
     end
-    new_addon
   end
 
   defp ensure_old_record(nil), do: [nil, nil, nil, nil]

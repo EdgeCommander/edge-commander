@@ -106,11 +106,11 @@ defmodule ThreeScraper.SIM do
 
   defp set_addon_value(addon) do
     if is_binary(addon) == true  do
-        addon_value = addon
+        addon
       else
         {"b", _, [addon_value]}  =  addon
+        addon_value
     end
-    addon_value
   end
   defp set_allowance_value("Unlimited"), do: -1
   defp set_allowance_value(allowance), do: allowance

@@ -110,7 +110,6 @@ defmodule EdgeCommanderWeb.NvrsController do
     case Repo.insert(changeset) do
       {:ok, nvr} ->
         %EdgeCommander.Devices.Nvr{
-          name: name,
           username: username,
           password: password,
           ip: ip,
@@ -156,7 +155,6 @@ defmodule EdgeCommanderWeb.NvrsController do
   end
 
   def get_all_nvrs(conn, params)  do
-    current_user = current_user(conn)
     current_user_id = Util.get_user_id(conn, params)
     nvrs = 
       list_nvrs(current_user_id)
@@ -234,7 +232,6 @@ defmodule EdgeCommanderWeb.NvrsController do
     |> case do
       {:ok, nvr} ->
         %EdgeCommander.Devices.Nvr{
-          name: name,
           username: username,
           password: password,
           ip: ip,

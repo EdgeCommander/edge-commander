@@ -57,7 +57,6 @@ defmodule EdgeCommanderWeb.SitesController do
     case Repo.insert(changeset) do
       {:ok, site} ->
         %EdgeCommander.Sites.Records{
-          name: name,
           location: %{
             "lat" => latitude,
             "lng" => longitude,
@@ -132,7 +131,6 @@ defmodule EdgeCommanderWeb.SitesController do
     |> case do
       {:ok, site} ->
         %EdgeCommander.Sites.Records{
-          name: name,
           location: %{
             "lat" => latitude,
             "lng" => longitude,

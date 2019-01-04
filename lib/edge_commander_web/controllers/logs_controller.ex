@@ -1,8 +1,6 @@
 defmodule EdgeCommanderWeb.LogsController do
   use EdgeCommanderWeb, :controller
   import Ecto.Query, warn: false
-  import EdgeCommander.Nexmo, only: [list_sms_messages: 3]
-  import EdgeCommander.Accounts, only: [current_user: 1]
   import EdgeCommander.Activity, only: [get_list_logs: 3]
   alias EdgeCommander.Util
 

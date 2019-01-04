@@ -3,7 +3,7 @@ defmodule EdgeCommanderWeb.BatteryController do
   alias EdgeCommander.Solar.Battery
   alias EdgeCommander.Repo
   alias EdgeCommander.Util
-  import EdgeCommander.Solar, only: [list_battery: 0, list_battery_records: 2]
+  import EdgeCommander.Solar, only: [list_battery_records: 2]
   import Ecto.Query, warn: false
   require Logger
 
@@ -74,7 +74,6 @@ defmodule EdgeCommanderWeb.BatteryController do
 
         date_record = element_value_and_remainng_data(data, ":")
         datetime = date_record.value
-        data = date_record.remain_data
 
         params = %{
           "pid" => pid,

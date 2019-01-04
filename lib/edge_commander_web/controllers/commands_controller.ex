@@ -53,7 +53,6 @@ defmodule EdgeCommanderWeb.CommandsController do
     case Repo.insert(changeset) do
       {:ok, rule} ->
         %EdgeCommander.Commands.Rule{
-          rule_name: rule_name,
           active: active,
           category: category,
           variable: variable,
@@ -120,7 +119,6 @@ defmodule EdgeCommanderWeb.CommandsController do
     |> case do
       {:ok, rule} ->
         %EdgeCommander.Commands.Rule{
-          rule_name: rule_name,
           inserted_at: inserted_at
         } = rule
 

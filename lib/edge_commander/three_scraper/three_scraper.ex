@@ -64,7 +64,7 @@ defmodule EdgeCommander.ThreeScraper do
       case Repo.insert(changeset) do
        {:ok, _logs} ->
           Logger.info "Inserting SIM data for #{number}"
-        {:error, changeset} ->
+        {:error, _changeset} ->
           Logger.error "Inserting SIM data failed for #{number}"
         end
       else
@@ -240,11 +240,11 @@ defmodule EdgeCommander.ThreeScraper do
 
   defp ensure_addon_value(addon) do
     if is_binary(addon) == true  do
-        new_addon = addon
+        addon
       else
         {new_addon, _} = addon |> String.replace(",", "") |> Float.parse()
+        new_addon
     end
-    new_addon
   end
 
   defp ensure_old_record(nil), do: [nil, nil, nil]

@@ -90,7 +90,6 @@ defmodule EdgeCommanderWeb.RoutersController do
     case Repo.insert(changeset) do
       {:ok, router} ->
         %EdgeCommander.Devices.Router{
-          name: name,
           username: username,
           password: password,
           ip: ip,
@@ -158,7 +157,6 @@ defmodule EdgeCommanderWeb.RoutersController do
     |> case do
       {:ok, router} ->
         %EdgeCommander.Devices.Router{
-          name: name,
           username: username,
           password: password,
           ip: ip,

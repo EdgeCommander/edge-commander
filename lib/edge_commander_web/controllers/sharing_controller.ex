@@ -5,7 +5,7 @@ defmodule EdgeCommanderWeb.SharingController do
   alias EdgeCommander.Util
   import Ecto.Query, warn: false
   import EdgeCommander.Sharing, only: [list_sharing: 1, get_member!: 1, already_sharing: 2, all_shared_users: 1]
-  import EdgeCommander.Accounts, only: [current_user: 1, email_exist: 1, get_user!: 1, get_other_users: 1]
+  import EdgeCommander.Accounts, only: [email_exist: 1, get_user!: 1, get_other_users: 1]
 
   def create(conn, params) do
     member_id = params["member_email"] |> email_exist |> get_member_id
@@ -102,7 +102,6 @@ defmodule EdgeCommanderWeb.SharingController do
   end
 
    def get_other_users(conn, params) do
-    current_user = current_user(conn)
     current_user_id = Util.get_user_id(conn, params)
     users =
       get_other_users(current_user_id)
@@ -120,7 +119,6 @@ defmodule EdgeCommanderWeb.SharingController do
   end
 
   def shared_users(conn, params)  do
-    current_user = current_user(conn)
     current_user_id = Util.get_user_id(conn, params)
     users =
       all_shared_users(current_user_id)
@@ -152,7 +150,7 @@ defmodule EdgeCommanderWeb.SharingController do
   defp get_member_name(0),  do: "Pending...."
   defp get_member_name(member_id) do
     member_details = member_id |> get_user_details
-    member_name = member_details.full_name
+    member_details.full_name
   end
 
   defp ensure_already_shared(conn, nil, params) do
@@ -197,7 +195,7 @@ defmodule EdgeCommanderWeb.SharingController do
         |> json(%{ errors: traversed_errors })
     end
   end
-  defp ensure_already_shared(conn, _, params)  do
+  defp ensure_already_shared(conn, _, _params)  do
     conn
     |> put_status(400)
     |> json(%{ errors: ["Rights have been already given to that email address."]})
