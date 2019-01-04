@@ -168,7 +168,7 @@ module.exports = {
   },
   filters: {
     date_format: function(date){
-     return moment(date).format('DD/MM/YYYY HH:mm:ss');
+     return moment(date).format('DD-MM-YYYY HH:mm:ss');
     }
   },
   methods: {
@@ -189,7 +189,7 @@ module.exports = {
         });
       }
 
-      $.fn.dataTable.moment("DD/MM/YYYY HH:mm:ss");
+      $.fn.dataTable.moment("DD-MM-YYYY HH:mm:ss");
       let simsDataTable = $('#sms_summary').DataTable({
       fnInitComplete: function(){
           // Enable TFOOT scoll bars
@@ -249,7 +249,7 @@ module.exports = {
               if (last_sms_date == '-') {
                   date_value = last_sms_date
               }else{
-               date_value = moment(last_sms_date).format('DD/MM/YYYY HH:mm:ss');
+               date_value = moment(last_sms_date).format('DD-MM-YYYY HH:mm:ss');
               }
               $(td).html(date_value)
             });
@@ -285,7 +285,7 @@ module.exports = {
           if(last_bill_date == null){
             return "-"
           }else{
-            return moment(row.last_bill_date).format('DD/MM/YYYY');
+            return moment(row.last_bill_date).format('DD-MM-YYYY');
           }
         }
       },
@@ -317,7 +317,11 @@ module.exports = {
     return this.dataTable = simsDataTable;
     this.dataTable.search("");
    },
-    init_chart: function(){
+   convert_date_time_format: function(times){
+    let date = times.split("-")
+    return date[2] +"-"+ date[1]  +"-"+ date[0]
+   },
+   init_chart: function(){
     mApp.block("#sms_history_content", {
       overlayColor: "#000000",
       type: "loader",
@@ -405,7 +409,8 @@ module.exports = {
        let history = response.body.sms_history
         var i;
         for (i = 0; i < history.length; i++) {
-          this.categories_dates.push(history[i].date);
+          let dates = this.convert_date_time_format(history[i].date)
+          this.categories_dates.push(dates);
           this.delivered_sms.push(history[i].delivered_sms);
           this.received_sms.push(history[i].received_sms);
           this.pending_sms.push(history[i].pending_sms);

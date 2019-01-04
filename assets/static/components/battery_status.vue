@@ -170,12 +170,16 @@ module.exports = {
     }
   },
   methods: {
+    date_format: function(id){
+      let string = $("#" + id).val().split("-")
+      return string[2] +"-"+ string[1]  +"-"+ string[0]
+    },
     initializeTable: function(){
-      $( "#m_sms_datepicker_from").datepicker({autoclose:true, dateFormat:"yy-mm-dd"}).datepicker("setDate", new Date(new Date().getTime() - (48 * 60 * 60 * 1000)));
-      $( "#m_sms_datepicker_to" ).datepicker({autoclose:true, dateFormat:"yy-mm-dd"}).datepicker("setDate", new Date());
+      $( "#m_sms_datepicker_from").datepicker({autoclose:true, dateFormat:"dd-mm-yy"}).datepicker("setDate", new Date(new Date().getTime() - (48 * 60 * 60 * 1000)));
+      $( "#m_sms_datepicker_to" ).datepicker({autoclose:true, dateFormat:"dd-mm-yy"}).datepicker("setDate", new Date());
 
-      let from_date = $("#m_sms_datepicker_from").val(),
-      to_date = $("#m_sms_datepicker_to").val();
+      let from_date = this.date_format("m_sms_datepicker_from");
+      let to_date = this.date_format("m_sms_datepicker_to");
 
       let statusDataTable = $('#status-datatable').DataTable({
         fnInitComplete: function(){
@@ -207,7 +211,7 @@ module.exports = {
       {
         class: "text-center datetime",
         data: function(row, type, set, meta) {
-          return row.datetime;
+          return moment(row.datetime).format('DD-MM-YYYY HH:mm:ss');
         }
       },
       {
@@ -329,20 +333,31 @@ module.exports = {
     $("body").removeClass("m-aside-left--on");
     $(".m-aside-left-overlay").removeClass("m-aside-left-overlay");
    },
+   convert_date_time_format: function(times){
+    let times_array = []
+    for (let i = 0; i < times.length; i++) {
+      let times_data = times[i].split(" ")
+      let time = times_data[1]
+      let date = times_data[0].split("-")
+      let full_date_time = date[2] +"-"+ date[1]  +"-"+ date[0] + " " + times_data[1]
+      times_array.push(full_date_time)
+    }
+    return times_array
+   },
    init_graphs_data: function(){
-      $( "#m_sms_datepicker_from").datepicker({autoclose:true, dateFormat:"yy-mm-dd"}).datepicker("setDate", new Date(new Date().getTime() - (48 * 60 * 60 * 1000)));
-      $( "#m_sms_datepicker_to" ).datepicker({autoclose:true, dateFormat:"yy-mm-dd"}).datepicker("setDate", new Date());
+      $( "#m_sms_datepicker_from").datepicker({autoclose:true, dateFormat:"dd-mm-yy"}).datepicker("setDate", new Date(new Date().getTime() - (48 * 60 * 60 * 1000)));
+      $( "#m_sms_datepicker_to" ).datepicker({autoclose:true, dateFormat:"dd-mm-yy"}).datepicker("setDate", new Date());
 
-      let from_date = $("#m_sms_datepicker_from").val(),
-      to_date = $("#m_sms_datepicker_to").val();
+      let from_date = this.date_format("m_sms_datepicker_from");
+      let to_date = this.date_format("m_sms_datepicker_to");
 
       this.$http.get('/daily_battery/data/' + from_date + "/" + to_date).then(response => {
-         let history = response.body.voltages_history
-         this.time_list = history.time_list
-         this.battery_voltages = history.battery_voltages;
-         this.panel_voltages = history.panel_voltages;
-         this.graph_one(this.time_list, this.battery_voltages);
-         this.graph_two(this.time_list, this.battery_voltages, this.panel_voltages);
+        let history = response.body.voltages_history
+        this.time_list = this.convert_date_time_format(history.time_list)
+        this.battery_voltages = history.battery_voltages;
+        this.panel_voltages = history.panel_voltages;
+        this.graph_one(this.time_list, this.battery_voltages);
+        this.graph_two(this.time_list, this.battery_voltages, this.panel_voltages);
       });
 
       this.$http.get('/battery_voltages_summary/data/' + from_date + "/" + to_date).then(response => {
@@ -357,7 +372,11 @@ module.exports = {
           if(max_value == null){
             max_value = 0;
           }
-          this.categories_dates.push(history[i].date);
+
+          let string = history[i].date.split("-")
+          let date = string[2] +"-"+ string[1]  +"-"+ string[0]
+
+          this.categories_dates.push(date);
           this.maximum_voltages.push(max_value);
           this.minimum_voltages.push(min_value);
         }
@@ -379,14 +398,14 @@ module.exports = {
       let panel_voltages = this.panel_voltages;
 
       $('#m_sms_datepicker_from, #m_sms_datepicker_to').change(function(){
-          let from_date = $("#m_sms_datepicker_from").val();
-          let to_date = $("#m_sms_datepicker_to").val();
+          let from_date = module.exports.methods.date_format("m_sms_datepicker_from");
+          let to_date = module.exports.methods.date_format("m_sms_datepicker_to");
           let new_url = "/battery/data/" + from_date + "/" + to_date
           table_data.ajax.url(new_url).load();
 
           $.get('/daily_battery/data/' + from_date + "/" + to_date, function( data ) {
             let history = data.voltages_history
-            time_list = history.time_list
+            time_list = module.exports.methods.convert_date_time_format(history.time_list)
             battery_voltages = history.battery_voltages;
             panel_voltages = history.panel_voltages;
             module.exports.methods.graph_one(time_list, battery_voltages);
@@ -408,7 +427,9 @@ module.exports = {
               if(max_value == null){
                 max_value = 0;
               }
-              category_dates.push(history[i].date);
+              let string = history[i].date.split("-")
+              let date = string[2] +"-"+ string[1]  +"-"+ string[0]
+              category_dates.push(date);
               maximum_voltages.push(min_value);
               minimum_voltages.push(max_value);
             }

@@ -415,18 +415,17 @@ module.exports = {
       user_id: ""
     }
   },
-  filters:{
-    formatDate: function(value){
-      return moment(String(value)).format('DD/MM/YYYY HH:mm:ss')
-    }
-  },
   methods: {
+    date_format: function(id){
+      let string = $("#" + id).val().split("-")
+      return string[2] +"-"+ string[1]  +"-"+ string[0]
+    },
     initializeLogsTable: function(){
-      $("#m_sms_datepicker_from").datepicker({autoclose:true, dateFormat:"yy-mm-dd"}).datepicker("setDate", new Date(new Date().getTime() - (48 * 60 * 60 * 1000)));
-      $("#m_sms_datepicker_to").datepicker({autoclose:true, dateFormat:"yy-mm-dd"}).datepicker("setDate", new Date());
+      $("#m_sms_datepicker_from").datepicker({autoclose:true, dateFormat:"dd-mm-yy"}).datepicker("setDate", new Date(new Date().getTime() - (48 * 60 * 60 * 1000)));
+      $("#m_sms_datepicker_to").datepicker({autoclose:true, dateFormat:"dd-mm-yy"}).datepicker("setDate", new Date());
 
-      let from_date = $("#m_sms_datepicker_from").val(),
-      to_date = $("#m_sms_datepicker_to").val();
+      let from_date = this.date_format("m_sms_datepicker_from");
+      let to_date = this.date_format("m_sms_datepicker_to");
 
       let logsDataTable = $('#logs-datatable').DataTable({
         fnInitComplete: function(){
@@ -490,7 +489,7 @@ module.exports = {
       {
         class: "text-center inserted_at",
         data: function(row, type, set, meta) {
-          return moment(row.inserted_at).format('DD/MM/YYYY HH:mm:ss');
+          return moment(row.inserted_at).format('DD-MM-YYYY HH:mm:ss');
         }
       },
       {
@@ -566,7 +565,7 @@ module.exports = {
       {
         class: "text-center created_at",
         data: function(row, type, set, meta) {
-          return moment(row.created_at).format('DD/MM/YYYY HH:mm:ss');
+          return moment(row.created_at).format('DD-MM-YYYY HH:mm:ss');
         }
       },
       ],
@@ -683,10 +682,10 @@ module.exports = {
    dateFilterInitialize: function() {
     let table_data = this.logsDataTable;
     $('#m_sms_datepicker_from, #m_sms_datepicker_to').change(function(){
-      let from_date = $("#m_sms_datepicker_from").val(),
-        to_date = $("#m_sms_datepicker_to").val();
-        let new_url = "/user_logs/" + from_date + "/" + to_date
-        table_data.ajax.url(new_url).load();
+      let from_date = module.exports.methods.date_format("m_sms_datepicker_from");
+      let to_date = module.exports.methods.date_format("m_sms_datepicker_to");
+      let new_url = "/user_logs/" + from_date + "/" + to_date
+      table_data.ajax.url(new_url).load();
     });
   },
    updateThree: function(){

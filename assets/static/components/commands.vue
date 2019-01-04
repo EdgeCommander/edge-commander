@@ -383,7 +383,7 @@ module.exports = {
       {
         class: "text-center created_at",
         data: function(row, type, set, meta) {
-          return moment(row.created_at).format('DD/MM/YYYY HH:mm:ss');
+          return moment(row.created_at).format('DD-MM-YYYY HH:mm:ss');
         },
       },
       ],
