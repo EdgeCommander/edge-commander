@@ -63,7 +63,7 @@ defmodule EdgeCommanderWeb.ThreeController do
     conn
     |> put_status(200)
     |> json(%{
-        "users": users
+        users: users
       })
   end
 
@@ -115,7 +115,7 @@ defmodule EdgeCommanderWeb.ThreeController do
         conn
         |> put_status(200)
         |> json(%{
-          "deleted": true
+          deleted: true
         })
         username = records.username
         current_user = current_user(conn)

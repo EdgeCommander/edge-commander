@@ -141,7 +141,7 @@ defmodule EdgeCommanderWeb.BatteryController do
     conn
     |> put_status(200)
     |> json(%{
-        "records": records
+        records: records
       })
   end
 

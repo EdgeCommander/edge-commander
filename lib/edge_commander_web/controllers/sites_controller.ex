@@ -40,7 +40,7 @@ defmodule EdgeCommanderWeb.SitesController do
     response 200, "Success"
   end
 
-  swagger_path :delete do
+  swagger_path :delete_site do
     delete "/v1/sites/{id}"
     summary "Delete site by ID"
     parameters do
@@ -120,7 +120,7 @@ defmodule EdgeCommanderWeb.SitesController do
     conn
     |> put_status(200)
     |> json(%{
-        "sites": sites
+        sites: sites
       })
   end
 
@@ -173,7 +173,7 @@ defmodule EdgeCommanderWeb.SitesController do
     end
   end
 
-  def delete(conn, %{"id" => id} = _params) do
+  def delete_site(conn, %{"id" => id} = _params) do
     records = get_records!(id)
     records
     |> Repo.delete
@@ -182,7 +182,7 @@ defmodule EdgeCommanderWeb.SitesController do
         conn
         |> put_status(200)
         |> json(%{
-          "deleted": true
+          deleted: true
         })
         name = records.name
         current_user = current_user(conn)

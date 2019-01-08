@@ -146,7 +146,7 @@ defmodule ThreeScraper.Scraper do
   defp get_sim_data(%Scraper{number: sim_number} = sim, cookie) do
     url = @base_url <> "/NASApp/MyAccount/PostpaidManageDataUsageServlet.htm"
     body = Poison.encode!(%{
-      "ctn": sim_number
+      ctn: sim_number
     })
     headers = [{"Content-type", "application/json"}]
 

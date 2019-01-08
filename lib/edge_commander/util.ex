@@ -56,10 +56,10 @@ defmodule EdgeCommander.Util do
 
     if api_key == nil or api_id == nil do
       current_user = current_user(conn)
-      current_user_id = current_user.id
+      current_user.id
     else
       users = by_api_keys(api_id, api_key)
-      current_user_id = users.id
+      users.id
     end
   end
   @chars "ABCDEFGHIJKLMNOPQRSTUVWXYZ" |> String.split("")

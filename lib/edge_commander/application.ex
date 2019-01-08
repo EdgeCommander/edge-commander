@@ -4,12 +4,13 @@ defmodule EdgeCommander.Application do
   # See https://hexdocs.pm/elixir/Application.html
   # for more information on OTP Applications
   def start(_type, _args) do
-    import Supervisor.Spec
+    import Supervisor.Spec, warn: false
 
     # Define workers and child supervisors to be supervised
     children = [
-      supervisor(ConCache, [[], [name: :current_nvr_status]], id: :current_nvr_status),
-      worker(ConCache, [[ttl_check: :timer.seconds(1), ttl: :timer.hours(1)], [name: :users]], id: :users),
+      {ConCache,[ttl_check_interval: :timer.seconds(0.1), global_ttl: :timer.seconds(2.5), name: :cache]},
+      Supervisor.child_spec({ConCache, [ttl_check_interval: :timer.seconds(1), global_ttl: :timer.hours(1), name: :current_nvr_status]}, id: :current_nvr_status),
+      Supervisor.child_spec({ConCache, [ttl_check_interval: :timer.seconds(1), global_ttl: :timer.hours(1), name: :users]}, id: :users),
       # Start the Ecto repository
       supervisor(EdgeCommander.Repo, []),
       # Start the endpoint when the application starts

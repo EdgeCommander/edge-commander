@@ -169,7 +169,7 @@ defmodule EdgeCommanderWeb.SimsController do
     conn
     |> put_status(200)
     |> json(%{
-        "logs": logs
+        logs: logs
       })
   end
 
@@ -179,7 +179,7 @@ defmodule EdgeCommanderWeb.SimsController do
     conn
     |> put_status(200)
     |> json(%{
-        "sim_name": name
+        sim_name: name
       })
   end
 
@@ -227,7 +227,7 @@ defmodule EdgeCommanderWeb.SimsController do
     conn
     |> put_status(200)
     |> json(%{
-        "logs": logs
+        logs: logs
       })
   end
 
@@ -244,7 +244,7 @@ defmodule EdgeCommanderWeb.SimsController do
     conn
     |> put_status(200)
     |> json(%{
-        "sms": sms_details
+        sms: sms_details
       })
   end
 
@@ -266,7 +266,7 @@ defmodule EdgeCommanderWeb.SimsController do
     conn
     |> put_status(200)
     |> json(%{
-      "chartjs_data": chartjs_data
+      chartjs_data: chartjs_data
     })
   end
 
@@ -278,11 +278,11 @@ defmodule EdgeCommanderWeb.SimsController do
     current_user = ensure_user_id(conn, user_id)
     url = "https://rest.nexmo.com/sms/json"
     body = Poison.encode!(%{
-      "api_key": System.get_env("NEXMO_API_KEY"),
-      "api_secret": System.get_env("NEXMO_API_SECRET"),
-      "to": to_number |> number_without_plus_code,
-      "from": nexmo_number,
-      "text": sms_message
+      api_key: System.get_env("NEXMO_API_KEY"),
+      api_secret: System.get_env("NEXMO_API_SECRET"),
+      to: to_number |> number_without_plus_code,
+      from: nexmo_number,
+      text: sms_message
     })
     headers = [{"Content-type", "application/json"}]
     
@@ -527,7 +527,7 @@ defmodule EdgeCommanderWeb.SimsController do
     conn
     |> put_status(200)
     |> json(%{
-        "single_sim_sms": single_sim_sms
+        single_sim_sms: single_sim_sms
       })
   end
 

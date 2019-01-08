@@ -66,7 +66,7 @@ defmodule EdgeCommanderWeb.SharingController do
     conn
     |> put_status(200)
     |> json(%{
-        "members": members
+        members: members
       })
   end
 
@@ -90,7 +90,7 @@ defmodule EdgeCommanderWeb.SharingController do
         conn
         |> put_status(200)
         |> json(%{
-          "deleted": true
+          deleted: true
         })
       {:error, changeset} ->
         errors = Util.parse_changeset(changeset)
@@ -114,7 +114,7 @@ defmodule EdgeCommanderWeb.SharingController do
       conn
       |> put_status(200)
       |> json(%{
-        "users": users
+        users: users
       })
   end
 
@@ -131,7 +131,7 @@ defmodule EdgeCommanderWeb.SharingController do
     conn
     |> put_status(200)
     |> json(%{
-        "users": users
+        users: users
       })
   end
 
@@ -163,15 +163,7 @@ defmodule EdgeCommanderWeb.SharingController do
 
     changeset = Member.changeset(%Member{}, params)
     case Repo.insert(changeset) do
-      {:ok, member} ->
-        %EdgeCommander.Sharing.Member{
-          user_id: user_id,
-          member_id: member_id,
-          role: role,
-          member_email: member_email,
-          account_id: account_id,
-          token: token
-        } = member
+      {:ok, _member} ->
 
         share_account = account_id |> get_user!
         user_info =  share_account.firstname <> " " <> share_account.lastname <> " (" <> share_account.email <> ")"

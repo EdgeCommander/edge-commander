@@ -62,7 +62,8 @@ defmodule EdgeCommander.Accounts do
 
   def update_last_login(params, repo) do
     user = repo.get_by(User, email: String.downcase(params["email"]))
-    case user |> User.changeset(%{"last_signed_in" => Ecto.DateTime.utc }) |> Repo.insert_or_update do
+    utc_datetime = Calendar.DateTime.now_utc |> DateTime.truncate(:second)
+    case user |> User.changeset(%{"last_signed_in" => utc_datetime }) |> Repo.insert_or_update do
       {:ok, _user} ->
         Logger.info "Last signed in updated!"
       {:error, _changeset} ->

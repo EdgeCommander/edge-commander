@@ -25,7 +25,7 @@ defmodule EdgeCommanderWeb.LogsController do
     conn
     |> put_status(200)
     |> json(%{
-        "activity_logs": activity_logs
+        activity_logs: activity_logs
       })
   end
 end
