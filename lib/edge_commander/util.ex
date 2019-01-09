@@ -215,7 +215,7 @@ defmodule EdgeCommander.Util do
     year = date.year
     month = date.month |> ensure_number
     day = date.day |> ensure_number
-    _date = "#{day}-#{month}-#{year}"
+    "#{day}-#{month}-#{year}"
   end
 
   def get_current_date() do
