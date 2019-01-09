@@ -36,7 +36,7 @@ defmodule EdgeCommanderWeb.CommandsController do
     response 200, "Success"
   end
 
-  swagger_path :delete do
+  swagger_path :delete_rule do
     delete "/v1/rules/{id}"
     summary "Delete rule by ID"
     parameters do
@@ -53,7 +53,6 @@ defmodule EdgeCommanderWeb.CommandsController do
     case Repo.insert(changeset) do
       {:ok, rule} ->
         %EdgeCommander.Commands.Rule{
-          rule_name: rule_name,
           active: active,
           category: category,
           variable: variable,
@@ -109,7 +108,7 @@ defmodule EdgeCommanderWeb.CommandsController do
     conn
     |> put_status(200)
     |> json(%{
-        "rules": rules
+        rules: rules
       })
   end
 
@@ -120,7 +119,6 @@ defmodule EdgeCommanderWeb.CommandsController do
     |> case do
       {:ok, rule} ->
         %EdgeCommander.Commands.Rule{
-          rule_name: rule_name,
           inserted_at: inserted_at
         } = rule
 
@@ -147,7 +145,7 @@ defmodule EdgeCommanderWeb.CommandsController do
     end
   end
 
-  def delete(conn, %{"id" => id} = _params) do
+  def delete_rule(conn, %{"id" => id} = _params) do
     records = get_rule!(id)
     records
     |> Repo.delete
@@ -156,7 +154,7 @@ defmodule EdgeCommanderWeb.CommandsController do
         conn
         |> put_status(200)
         |> json(%{
-          "deleted": true
+          deleted: true
         })
         rule_name = records.rule_name
         current_user = current_user(conn)

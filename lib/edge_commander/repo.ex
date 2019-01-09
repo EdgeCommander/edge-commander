@@ -1,5 +1,7 @@
 defmodule EdgeCommander.Repo do
-  use Ecto.Repo, otp_app: :edge_commander
+  use Ecto.Repo,
+    otp_app: :edge_commander,
+    adapter: Ecto.Adapters.Postgres
 
   @doc """
   Dynamically loads the repository url from the

@@ -72,7 +72,6 @@ defmodule EdgeCommanderWeb.DashboardController do
   end
 
   def total_sims(conn, params) do
-    current_user = current_user(conn)
     current_user_id = Util.get_user_id(conn, params)
     total_sims = ThreeScraper.get_sim_numbers(current_user_id) |> Enum.count
     conn
@@ -83,7 +82,6 @@ defmodule EdgeCommanderWeb.DashboardController do
   end
 
   def total_nvrs(conn, params) do
-    current_user = current_user(conn)
     current_user_id = Util.get_user_id(conn, params)
     total_nvrs = Devices.list_nvrs(current_user_id) |> Enum.count
     conn
@@ -94,7 +92,6 @@ defmodule EdgeCommanderWeb.DashboardController do
   end
 
   def total_routers(conn, params) do
-    current_user = current_user(conn)
     current_user_id = Util.get_user_id(conn, params)
     total_routers = Devices.list_routers(current_user_id) |> Enum.count
     conn
@@ -105,7 +102,6 @@ defmodule EdgeCommanderWeb.DashboardController do
   end
 
   def total_sites(conn, params) do
-    current_user = current_user(conn)
     current_user_id = Util.get_user_id(conn, params)
     total_sites = Sites.list_sites(current_user_id) |> Enum.count
     conn
@@ -116,7 +112,6 @@ defmodule EdgeCommanderWeb.DashboardController do
   end
 
   def weekly_sms_overview(conn, params) do
-    current_user = current_user(conn)
     current_user_id = Util.get_user_id(conn, params)
     to_date = Date.utc_today
     from_date = Date.add(to_date, -7)

@@ -5,7 +5,7 @@ defmodule EdgeCommanderWeb.SharingController do
   alias EdgeCommander.Util
   import Ecto.Query, warn: false
   import EdgeCommander.Sharing, only: [list_sharing: 1, get_member!: 1, already_sharing: 2, all_shared_users: 1]
-  import EdgeCommander.Accounts, only: [current_user: 1, email_exist: 1, get_user!: 1, get_other_users: 1]
+  import EdgeCommander.Accounts, only: [email_exist: 1, get_user!: 1, get_other_users: 1]
 
   def create(conn, params) do
     member_id = params["member_email"] |> email_exist |> get_member_id
@@ -66,7 +66,7 @@ defmodule EdgeCommanderWeb.SharingController do
     conn
     |> put_status(200)
     |> json(%{
-        "members": members
+        members: members
       })
   end
 
@@ -90,7 +90,7 @@ defmodule EdgeCommanderWeb.SharingController do
         conn
         |> put_status(200)
         |> json(%{
-          "deleted": true
+          deleted: true
         })
       {:error, changeset} ->
         errors = Util.parse_changeset(changeset)
@@ -102,7 +102,6 @@ defmodule EdgeCommanderWeb.SharingController do
   end
 
    def get_other_users(conn, params) do
-    current_user = current_user(conn)
     current_user_id = Util.get_user_id(conn, params)
     users =
       get_other_users(current_user_id)
@@ -115,12 +114,11 @@ defmodule EdgeCommanderWeb.SharingController do
       conn
       |> put_status(200)
       |> json(%{
-        "users": users
+        users: users
       })
   end
 
   def shared_users(conn, params)  do
-    current_user = current_user(conn)
     current_user_id = Util.get_user_id(conn, params)
     users =
       all_shared_users(current_user_id)
@@ -133,7 +131,7 @@ defmodule EdgeCommanderWeb.SharingController do
     conn
     |> put_status(200)
     |> json(%{
-        "users": users
+        users: users
       })
   end
 
@@ -152,7 +150,7 @@ defmodule EdgeCommanderWeb.SharingController do
   defp get_member_name(0),  do: "Pending...."
   defp get_member_name(member_id) do
     member_details = member_id |> get_user_details
-    member_name = member_details.full_name
+    member_details.full_name
   end
 
   defp ensure_already_shared(conn, nil, params) do
@@ -165,15 +163,7 @@ defmodule EdgeCommanderWeb.SharingController do
 
     changeset = Member.changeset(%Member{}, params)
     case Repo.insert(changeset) do
-      {:ok, member} ->
-        %EdgeCommander.Sharing.Member{
-          user_id: user_id,
-          member_id: member_id,
-          role: role,
-          member_email: member_email,
-          account_id: account_id,
-          token: token
-        } = member
+      {:ok, _member} ->
 
         share_account = account_id |> get_user!
         user_info =  share_account.firstname <> " " <> share_account.lastname <> " (" <> share_account.email <> ")"
@@ -197,7 +187,7 @@ defmodule EdgeCommanderWeb.SharingController do
         |> json(%{ errors: traversed_errors })
     end
   end
-  defp ensure_already_shared(conn, _, params)  do
+  defp ensure_already_shared(conn, _, _params)  do
     conn
     |> put_status(400)
     |> json(%{ errors: ["Rights have been already given to that email address."]})

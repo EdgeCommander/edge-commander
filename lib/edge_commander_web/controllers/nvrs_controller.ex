@@ -72,7 +72,7 @@ defmodule EdgeCommanderWeb.NvrsController do
     response 201, "Success"
   end
 
-  swagger_path :delete do
+  swagger_path :delete_nvr do
     delete "/v1/nvrs/{id}"
     summary "Delete nvr by ID"
     parameters do
@@ -110,7 +110,6 @@ defmodule EdgeCommanderWeb.NvrsController do
     case Repo.insert(changeset) do
       {:ok, nvr} ->
         %EdgeCommander.Devices.Nvr{
-          name: name,
           username: username,
           password: password,
           ip: ip,
@@ -156,7 +155,6 @@ defmodule EdgeCommanderWeb.NvrsController do
   end
 
   def get_all_nvrs(conn, params)  do
-    current_user = current_user(conn)
     current_user_id = Util.get_user_id(conn, params)
     nvrs = 
       list_nvrs(current_user_id)
@@ -188,7 +186,7 @@ defmodule EdgeCommanderWeb.NvrsController do
     conn
     |> put_status(200)
     |> json(%{
-        "nvrs": nvrs
+        nvrs: nvrs
       })
   end
   
@@ -200,7 +198,7 @@ defmodule EdgeCommanderWeb.NvrsController do
   defp get_extra_value(nil, _, _), do: ""
   defp get_extra_value(_, nvr, extra_field),  do: nvr.extra |> Map.get(extra_field)
 
-  def delete(conn, %{"id" => id} = _params) do
+  def delete_nvr(conn, %{"id" => id} = _params) do
     records = get_nvr!(id)
     records
     |> Repo.delete
@@ -209,7 +207,7 @@ defmodule EdgeCommanderWeb.NvrsController do
         conn
         |> put_status(200)
         |> json(%{
-          "deleted": true
+          deleted: true
         })
         name = records.name
         current_user = current_user(conn)
@@ -234,7 +232,6 @@ defmodule EdgeCommanderWeb.NvrsController do
     |> case do
       {:ok, nvr} ->
         %EdgeCommander.Devices.Nvr{
-          name: name,
           username: username,
           password: password,
           ip: ip,
@@ -285,12 +282,12 @@ defmodule EdgeCommanderWeb.NvrsController do
     password = records.password
     url = "https://#{System.get_env("SERVER_HOST")}/v1/sdk/nvr/reboot"
     body = Poison.encode!(%{
-      "api_id": System.get_env("SERVER_API_ID"),
-      "api_key": System.get_env("SERVER_API_KEY"),
-      "ip": ip,
-      "port": sdk_port,
-      "user": username,
-      "password": password
+      api_id: System.get_env("SERVER_API_ID"),
+      api_key: System.get_env("SERVER_API_KEY"),
+      ip: ip,
+      port: sdk_port,
+      user: username,
+      password: password
     })
     headers = [{"Content-type", "application/json"}]
     case HTTPoison.post(url, body, headers, []) do
@@ -353,7 +350,7 @@ defmodule EdgeCommanderWeb.NvrsController do
     conn
     |> put_status(200)
     |> json(%{
-      "data": formated_data
+      data: formated_data
     })
   end
 

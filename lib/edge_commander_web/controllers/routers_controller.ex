@@ -73,7 +73,7 @@ defmodule EdgeCommanderWeb.RoutersController do
     response 201, "Success"
   end
 
-  swagger_path :delete do
+  swagger_path :delete_router do
     delete "/v1/routers/{id}"
     summary "Delete router by ID"
     parameters do
@@ -90,7 +90,6 @@ defmodule EdgeCommanderWeb.RoutersController do
     case Repo.insert(changeset) do
       {:ok, router} ->
         %EdgeCommander.Devices.Router{
-          name: name,
           username: username,
           password: password,
           ip: ip,
@@ -147,7 +146,7 @@ defmodule EdgeCommanderWeb.RoutersController do
     conn
     |> put_status(200)
     |> json(%{
-        "routers": routers
+        routers: routers
       })
   end
 
@@ -158,7 +157,6 @@ defmodule EdgeCommanderWeb.RoutersController do
     |> case do
       {:ok, router} ->
         %EdgeCommander.Devices.Router{
-          name: name,
           username: username,
           password: password,
           ip: ip,
@@ -195,7 +193,7 @@ defmodule EdgeCommanderWeb.RoutersController do
     end
   end
 
-  def delete(conn, %{"id" => id} = _params) do
+  def delete_router(conn, %{"id" => id} = _params) do
     records = get_router!(id)
     records
     |> Repo.delete
@@ -204,7 +202,7 @@ defmodule EdgeCommanderWeb.RoutersController do
         conn
         |> put_status(200)
         |> json(%{
-          "deleted": true
+          deleted: true
         })
         name = records.name
         current_user = current_user(conn)

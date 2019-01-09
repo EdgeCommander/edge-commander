@@ -2,7 +2,7 @@ defmodule EdgeCommanderWeb.SimsController do
   use EdgeCommanderWeb, :controller
   import EdgeCommander.ThreeScraper
   import EdgeCommander.Nexmo, only: [get_message: 1, get_single_sim_messages: 2, get_last_message_details: 2, get_sms_since_last_bill: 3]
-  import EdgeCommander.Accounts, only: [current_user: 1, by_api_keys: 2]
+  import EdgeCommander.Accounts, only: [current_user: 1]
   alias EdgeCommander.Nexmo.SimMessages
   alias EdgeCommander.ThreeScraper.SimLogs
   alias EdgeCommander.Repo
@@ -80,8 +80,6 @@ defmodule EdgeCommanderWeb.SimsController do
       {:ok, site} ->
         %EdgeCommander.ThreeScraper.SimLogs{
           sim_provider: sim_provider,
-          number: number,
-          name: name,
           addon: addon,
           allowance: allowance,
           volume_used: volume_used,
@@ -129,11 +127,7 @@ defmodule EdgeCommanderWeb.SimsController do
     |> SimLogs.changeset(params)
     |> Repo.update
     |> case do
-      {:ok, sim} ->
-        %EdgeCommander.ThreeScraper.SimLogs{
-          name: name
-        } = sim
-
+      {:ok, _sim} ->
         name = params["name"]
         current_user = current_user(conn)
         logs_params = %{
@@ -175,17 +169,17 @@ defmodule EdgeCommanderWeb.SimsController do
     conn
     |> put_status(200)
     |> json(%{
-        "logs": logs
+        logs: logs
       })
   end
 
-  def get_single_sim_name(conn, %{"sim_number" => sim_number } = params) do
+  def get_single_sim_name(conn, %{"sim_number" => sim_number } = _params) do
     name =
       get_sim_name(sim_number)
     conn
     |> put_status(200)
     |> json(%{
-        "sim_name": name
+        sim_name: name
       })
   end
 
@@ -201,7 +195,6 @@ defmodule EdgeCommanderWeb.SimsController do
         allowance = sims.allowance
         today_volume_used = validate_value(sims.today_volume_used)
         yesterday_volume_used = validate_value(sims.yesterday_volume_used)
-        three_user_id = sims.three_user_id
         datetime = sims.datetime
         sim_provider = sims.sim_provider
 
@@ -234,7 +227,7 @@ defmodule EdgeCommanderWeb.SimsController do
     conn
     |> put_status(200)
     |> json(%{
-        "logs": logs
+        logs: logs
       })
   end
 
@@ -251,7 +244,7 @@ defmodule EdgeCommanderWeb.SimsController do
     conn
     |> put_status(200)
     |> json(%{
-        "sms": sms_details
+        sms: sms_details
       })
   end
 
@@ -273,7 +266,7 @@ defmodule EdgeCommanderWeb.SimsController do
     conn
     |> put_status(200)
     |> json(%{
-      "chartjs_data": chartjs_data
+      chartjs_data: chartjs_data
     })
   end
 
@@ -285,11 +278,11 @@ defmodule EdgeCommanderWeb.SimsController do
     current_user = ensure_user_id(conn, user_id)
     url = "https://rest.nexmo.com/sms/json"
     body = Poison.encode!(%{
-      "api_key": System.get_env("NEXMO_API_KEY"),
-      "api_secret": System.get_env("NEXMO_API_SECRET"),
-      "to": to_number |> number_without_plus_code,
-      "from": nexmo_number,
-      "text": sms_message
+      api_key: System.get_env("NEXMO_API_KEY"),
+      api_secret: System.get_env("NEXMO_API_SECRET"),
+      to: to_number |> number_without_plus_code,
+      from: nexmo_number,
+      text: sms_message
     })
     headers = [{"Content-type", "application/json"}]
     
@@ -365,8 +358,7 @@ defmodule EdgeCommanderWeb.SimsController do
       {:error, changeset} -> Logger.info Util.parse_changeset(changeset)
     end
   end
-
-  defp save_send_sms(_status, nexmo_number, _results, _sms_message, _user_id), do: :noop
+  defp save_send_sms(_status, _nexmo_number, _results, _sms_message, _user_id), do: :noop
 
   def receive_sms(conn, params) do
     text = params["text"]
@@ -535,7 +527,7 @@ defmodule EdgeCommanderWeb.SimsController do
     conn
     |> put_status(200)
     |> json(%{
-        "single_sim_sms": single_sim_sms
+        single_sim_sms: single_sim_sms
       })
   end
 
@@ -580,15 +572,11 @@ defmodule EdgeCommanderWeb.SimsController do
     log.volume_used
   end
 
-  defp get_name(log) do
-    log.name
-  end
-
   defp get_allowance(log) do
     log.allowance
   end
 
-  defp get_month(current_day, bill_day, current_month) when current_month == 1, do: 12
+  defp get_month(_current_day, _bill_day, current_month) when current_month == 1, do: 12
   defp get_month(current_day, bill_day, current_month) when current_day > bill_day, do: Util.ensure_number(current_month)
   defp get_month(_current_day, _bill_day, current_month), do: Util.ensure_number(current_month - 1)
 

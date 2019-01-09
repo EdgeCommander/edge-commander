@@ -54,4 +54,7 @@ config :edge_commander, EdgeCommander.Accounts.Pipeline,
 
 config :geoip, provider: :ipstack, use_https: :false, api_key: System.get_env("IPSTACK_ACCESS_KEY")
 
+config :edge_commander, EdgeCommander.Scheduler,
+  debug_logging: false
+
 import_config "#{Mix.env}.exs"

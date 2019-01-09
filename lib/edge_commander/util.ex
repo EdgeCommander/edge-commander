@@ -31,7 +31,7 @@ defmodule EdgeCommander.Util do
   end
 
   def port_open?(address, port) do
-    case :gen_tcp.connect(to_char_list(address), port, [:binary, active: false], 1000) do
+    case :gen_tcp.connect(to_charlist(address), port, [:binary, active: false], 1000) do
       {:ok, socket} ->
         :gen_tcp.close(socket)
         true
@@ -56,10 +56,10 @@ defmodule EdgeCommander.Util do
 
     if api_key == nil or api_id == nil do
       current_user = current_user(conn)
-      current_user_id = current_user.id
+      current_user.id
     else
       users = by_api_keys(api_id, api_key)
-      current_user_id = users.id
+      users.id
     end
   end
   @chars "ABCDEFGHIJKLMNOPQRSTUVWXYZ" |> String.split("")
@@ -127,21 +127,13 @@ defmodule EdgeCommander.Util do
     }
     changeset = Logs.changeset(%Logs{}, params)
     case Repo.insert(changeset) do
-      {:ok, logs} ->
-        %EdgeCommander.Activity.Logs{
-          browser: browser,
-          ip: ip,
-          country: country,
-          event: event,
-          user_id: user_id
-        } = logs
-
+      {:ok, _logs} ->
         conn
         |> put_status(:created)
       
       {:error, changeset} ->
         errors = parse_changeset(changeset)
-        traversed_errors = for {_key, values} <- errors, value <- values, do: "#{value}"
+        _traversed_errors = for {_key, values} <- errors, value <- values, do: "#{value}"
         conn
         |> put_status(400)
     end
@@ -223,7 +215,7 @@ defmodule EdgeCommander.Util do
     year = date.year
     month = date.month |> ensure_number
     day = date.day |> ensure_number
-    date = "#{day}-#{month}-#{year}"
+    "#{day}-#{month}-#{year}"
   end
 
   def get_current_date() do

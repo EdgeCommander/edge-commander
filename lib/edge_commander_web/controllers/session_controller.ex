@@ -1,9 +1,7 @@
 defmodule EdgeCommanderWeb.SessionController do
   use EdgeCommanderWeb, :controller
   alias EdgeCommander.Repo
-  import Plug.Conn
-  import EdgeCommander.Accounts, only: [login: 2, update_last_login: 2, authenticate_user: 2, current_user: 1]
-  alias EdgeCommander.Accounts.User
+  import EdgeCommander.Accounts, only: [update_last_login: 2, authenticate_user: 2, current_user: 1]
   alias EdgeCommander.Accounts.Guardian
   alias EdgeCommander.Util
 

@@ -31,9 +31,10 @@ defmodule EdgeCommander.Accounts.User do
   end
 
   defp update_last_signed_in(changeset) do
+    utc_datetime = Calendar.DateTime.now_utc |> DateTime.truncate(:second)
     case changeset do
       %Ecto.Changeset{valid?: true} ->
-        put_change(changeset, :last_signed_in, Ecto.DateTime.utc)
+        put_change(changeset, :last_signed_in, utc_datetime)
       _ ->
         changeset
     end

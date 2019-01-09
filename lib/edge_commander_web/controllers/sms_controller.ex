@@ -2,7 +2,6 @@ defmodule EdgeCommanderWeb.SmsController do
   use EdgeCommanderWeb, :controller
   import Ecto.Query, warn: false
   import EdgeCommander.Nexmo, only: [list_sms_messages: 3]
-  import EdgeCommander.Accounts, only: [current_user: 1]
   import EdgeCommander.ThreeScraper, only: [get_last_record_for_number: 1]
   alias EdgeCommander.Util
 
@@ -30,7 +29,7 @@ defmodule EdgeCommanderWeb.SmsController do
     conn
     |> put_status(200)
     |> json(%{
-        "sms_messages": sms_messages
+        sms_messages: sms_messages
       })
   end
 
@@ -38,12 +37,10 @@ defmodule EdgeCommanderWeb.SmsController do
     ir_nexmo_number = "+" <> System.get_env("NEXMO_API_IR_NUMBER")
     uk_nexmo_number = "+" <> System.get_env("NEXMO_API_UK_NUMBER")
     if number == ir_nexmo_number or  number == uk_nexmo_number do
-      name = "EdgeCommander"
+      "EdgeCommander"
     else
-     record =  get_last_record_for_number(number)
-     name = validate_sim_name(record)
+     get_last_record_for_number(number) |> validate_sim_name
     end
-    name
   end
 
   defp validate_sim_name(nil), do: "---"

@@ -73,7 +73,6 @@ defmodule EdgeCommanderWeb.Router do
     get "/", DashboardController, :sign_in
     post "/users/session", SessionController, :create
     get "/users/session", SessionController, :delete
-    get "/users/sign_up", DashboardController, :sign_up
     post "/users/sign_up", UsersController, :sign_up
     get "/users/sign_up", DashboardController, :sign_up
     get "/users/forgot_password", DashboardController, :forgot_password
@@ -121,11 +120,11 @@ defmodule EdgeCommanderWeb.Router do
     get "/routers/data", RoutersController, :get_all_routers
     post "/routers", RoutersController, :create
     patch "/routers/:id", RoutersController, :update
-    delete "/routers/:id", RoutersController, :delete
+    delete "/routers/:id", RoutersController, :delete_router
 
     get "/nvrs/data", NvrsController, :get_all_nvrs
     post "/nvrs", NvrsController, :create
-    delete "/nvrs/:id", NvrsController, :delete
+    delete "/nvrs/:id", NvrsController, :delete_nvr
     patch "/nvrs/:id", NvrsController, :update
     get "/nvrs/:id", NvrsController, :reboot
 
@@ -136,12 +135,12 @@ defmodule EdgeCommanderWeb.Router do
     get "/rules", CommandsController, :get_all_rules
     post "/rules/new", CommandsController, :create
     patch "/rules/update", CommandsController, :update
-    delete "/rules/:id", CommandsController, :delete
+    delete "/rules/:id", CommandsController, :delete_rule
 
     get "/sites/data", SitesController, :get_all_sites
     post "/sites/new", SitesController, :create
     patch "/sites/update", SitesController, :update
-    delete "/sites/:id", SitesController, :delete
+    delete "/sites/:id", SitesController, :delete_site
 
     get "/update_status_report", NvrsController, :update_status_report
 
