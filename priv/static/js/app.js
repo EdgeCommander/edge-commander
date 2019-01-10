@@ -19558,6 +19558,8 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 //
 //
 //
+//
+//
 
 var app = new _vue2.default(_App2.default);
 
@@ -19720,7 +19722,7 @@ module.exports = {
       this.dataTable.draw();
     },
     sendSMS: function sendSMS() {
-      this.smsMessage_text = document.getElementById("smsMessage_text").value;
+      this.smsMessage_text = $(".custom-combobox-input").val();
       this.show_loading = true;
       this.$http.post('/send_sms', {
         sms_message: this.smsMessage_text,
@@ -19746,6 +19748,7 @@ module.exports = {
       this.smsMessage = "";
       this.toNumber = "";
       this.smsMessage_text = "";
+      $(".custom-combobox-input").val("");
     },
     dateFilterInitialize: function dateFilterInitialize() {
       var table_data = this.dataTable;
@@ -19794,6 +19797,88 @@ module.exports = {
       $("#m_aside_left").removeClass("m-aside-left--on");
       $("body").removeClass("m-aside-left--on");
       $(".m-aside-left-overlay").removeClass("m-aside-left-overlay");
+    },
+    messages_input_init: function messages_input_init() {
+      $.widget("custom.combobox", {
+        _create: function _create() {
+          this.wrapper = $("<span>").addClass("custom-combobox").insertAfter(this.element);
+          this.element.hide();
+          this._createAutocomplete();
+          this._createShowAllButton();
+        },
+        _createAutocomplete: function _createAutocomplete() {
+          var selected = this.element.children(":selected"),
+              value = selected.val() ? selected.text() : "";
+          this.input = $("<input>").appendTo(this.wrapper).val(value).attr("title", "").addClass("custom-combobox-input ui-widget ui-widget-content ui-state-default ui-corner-left").autocomplete({
+            delay: 0,
+            minLength: 0,
+            source: $.proxy(this, "_source")
+          }).tooltip({
+            classes: {
+              "ui-tooltip": "ui-state-highlight"
+            }
+          });
+          this._on(this.input, {
+            autocompleteselect: function autocompleteselect(event, ui) {
+              ui.item.option.selected = true;
+              this._trigger("select", event, {
+                item: ui.item.option
+              });
+            },
+            autocompletechange: "_removeIfInvalid"
+          });
+        },
+        _createShowAllButton: function _createShowAllButton() {
+          var input = this.input,
+              wasOpen = false;
+          $("<a>").attr("tabIndex", -1).attr("title", "Show All Items").tooltip().appendTo(this.wrapper).button({
+            icons: {
+              primary: "ui-icon-triangle-1-s"
+            },
+            text: false
+          }).removeClass("ui-corner-all").addClass("custom-combobox-toggle ui-corner-right").on("mousedown", function () {
+            wasOpen = input.autocomplete("widget").is(":visible");
+          }).on("click", function () {
+            input.trigger("focus");
+            if (wasOpen) {
+              return;
+            }
+            input.autocomplete("search", "");
+          });
+        },
+        _source: function _source(request, response) {
+          var matcher = new RegExp($.ui.autocomplete.escapeRegex(request.term), "i");
+          var aa = response(this.element.children("option").map(function () {
+            var text = $(this).text();
+            if (this.value && (!request.term || matcher.test(text))) return {
+              label: text,
+              value: text,
+              option: this
+            };
+          }));
+        },
+        _removeIfInvalid: function _removeIfInvalid(event, ui) {
+          if (ui.item) {
+            return;
+          }
+          var value = this.input.val(),
+              valueLowerCase = value.toLowerCase(),
+              valid = false;
+          this.selected = valid = true;
+          console.log(this.element);
+          this.element.val(value);
+          this._delay(function () {
+            this.input.tooltip("close").attr("title", "");
+          }, 2500);
+          this.input.autocomplete("instance").term = "";
+        },
+        _destroy: function _destroy() {
+          this.wrapper.remove();
+          this.element.show();
+        }
+      });
+      $("#smsMessage_text").combobox();
+      $('.ui-button').tooltip('disable');
     }
   }, // end of methods
   mounted: function mounted() {
@@ -19806,6 +19891,7 @@ module.exports = {
     this.search();
     this.active_menu_link();
     $('[data-toggle="popover"]').popover({ trigger: "hover" });
+    this.messages_input_init();
   }
 };
 
@@ -23080,6 +23166,8 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 //
 //
 //
+//
+//
 
 var app = new _vue2.default(_App2.default);
 
@@ -23236,7 +23324,7 @@ module.exports = {
     },
     sendSMS: function sendSMS() {
       this.show_loading = true;
-      this.smsMessage_text = document.getElementById("smsMessage_text").value;
+      this.smsMessage_text = $(".custom-combobox-input").val();
       this.$http.post('/send_sms', {
         sms_message: this.smsMessage_text,
         sim_number: this.toNumber,
@@ -23260,6 +23348,7 @@ module.exports = {
     clearForm: function clearForm() {
       this.smsMessage = "";
       this.smsMessage_text = "";
+      $(".custom-combobox-input").val("");
       $('.close').on('click', function () {
         $(this).parent().alert('close');
       });
@@ -23460,6 +23549,88 @@ module.exports = {
     select_menu_link: function select_menu_link() {
       $("li").removeClass(" m-menu__item--active");
       $(".sims").addClass(" m-menu__item--active");
+    },
+    messages_input_init: function messages_input_init() {
+      $.widget("custom.combobox", {
+        _create: function _create() {
+          this.wrapper = $("<span>").addClass("custom-combobox").insertAfter(this.element);
+          this.element.hide();
+          this._createAutocomplete();
+          this._createShowAllButton();
+        },
+        _createAutocomplete: function _createAutocomplete() {
+          var selected = this.element.children(":selected"),
+              value = selected.val() ? selected.text() : "";
+          this.input = $("<input>").appendTo(this.wrapper).val(value).attr("title", "").addClass("custom-combobox-input ui-widget ui-widget-content ui-state-default ui-corner-left").autocomplete({
+            delay: 0,
+            minLength: 0,
+            source: $.proxy(this, "_source")
+          }).tooltip({
+            classes: {
+              "ui-tooltip": "ui-state-highlight"
+            }
+          });
+          this._on(this.input, {
+            autocompleteselect: function autocompleteselect(event, ui) {
+              ui.item.option.selected = true;
+              this._trigger("select", event, {
+                item: ui.item.option
+              });
+            },
+            autocompletechange: "_removeIfInvalid"
+          });
+        },
+        _createShowAllButton: function _createShowAllButton() {
+          var input = this.input,
+              wasOpen = false;
+          $("<a>").attr("tabIndex", -1).attr("title", "Show All Items").tooltip().appendTo(this.wrapper).button({
+            icons: {
+              primary: "ui-icon-triangle-1-s"
+            },
+            text: false
+          }).removeClass("ui-corner-all").addClass("custom-combobox-toggle ui-corner-right").on("mousedown", function () {
+            wasOpen = input.autocomplete("widget").is(":visible");
+          }).on("click", function () {
+            input.trigger("focus");
+            if (wasOpen) {
+              return;
+            }
+            input.autocomplete("search", "");
+          });
+        },
+        _source: function _source(request, response) {
+          var matcher = new RegExp($.ui.autocomplete.escapeRegex(request.term), "i");
+          var aa = response(this.element.children("option").map(function () {
+            var text = $(this).text();
+            if (this.value && (!request.term || matcher.test(text))) return {
+              label: text,
+              value: text,
+              option: this
+            };
+          }));
+        },
+        _removeIfInvalid: function _removeIfInvalid(event, ui) {
+          if (ui.item) {
+            return;
+          }
+          var value = this.input.val(),
+              valueLowerCase = value.toLowerCase(),
+              valid = false;
+          this.selected = valid = true;
+          console.log(this.element);
+          this.element.val(value);
+          this._delay(function () {
+            this.input.tooltip("close").attr("title", "");
+          }, 2500);
+          this.input.autocomplete("instance").term = "";
+        },
+        _destroy: function _destroy() {
+          this.wrapper.remove();
+          this.element.show();
+        }
+      });
+      $("#smsMessage_text").combobox();
+      $('.ui-button').tooltip('disable');
     }
   }, // end of methods
   mounted: function mounted() {
@@ -23473,6 +23644,7 @@ module.exports = {
     this.get_sim_name();
     this.setSimNumber();
     this.resizeTableDiv();
+    this.messages_input_init();
     window.addEventListener('resize', this.startMORRISChartJS);
     window.addEventListener('resize', this.resizeSMSTable);
     this.select_menu_link();
@@ -27181,7 +27353,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       "id": "input_container"
     }
   }, [_c('select', {
-    staticClass: "js-example-basic-single form-control m-input ",
+    staticClass: "form-control m-input ",
     staticStyle: {
       "width": "95%"
     },
@@ -27189,10 +27361,6 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       "id": "smsMessage_text",
       "multiple": "multiple",
       "data-tags": "true"
-    }
-  }, [_c('optgroup', {
-    attrs: {
-      "label": "For Dovado Router"
     }
   }, [_c('option', {
     attrs: {
@@ -27258,11 +27426,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     attrs: {
       "value": "#02#"
     }
-  }, [_vm._v("#02#")])]), _vm._v(" "), _c('optgroup', {
-    attrs: {
-      "label": "For Teltonika Router"
-    }
-  }, [_c('option', {
+  }, [_vm._v("#02#")]), _vm._v(" "), _c('option', {
     attrs: {
       "value": "Reboot"
     }
@@ -27270,7 +27434,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     attrs: {
       "value": "Cellstatus"
     }
-  }, [_vm._v("Cellstatus")])])]), _vm._v("\n                             \n                            "), _c('span', {
+  }, [_vm._v("Cellstatus")])]), _vm._v("\n                             \n                            "), _c('span', {
     staticClass: "fa fa-info",
     staticStyle: {
       "cursor": "pointer"
@@ -27281,7 +27445,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       "data-toggle": "popover",
       "data-trigger": "focus",
       "title": "Commands help.",
-      "data-content": "<div>\n  <ul>\n      <li><b>Disconnect:</b> Shut down modem connection.</li>\n      <li><b>Connect:</b> Connect modem connection</li>\n      <li><b>Restart / Reboot:</b> Restarts the router</li>\n      <li><b>Reconnect:</b> Reset connection and connect</li>\n      <li><b>Status / Cellstatus:</b> Reports current connection status of the router.</li>\n      <li><b>Upgrade:</b> Upgrade to latest available firmware.</li>\n      <li><b>VPN on and VPN off:</b> Turn on or off VPN access in manual mode.</li>\n      <li><b>WLAN on and WLAN off:</b> Turn on or off WiFi. For 2.4 GHz use WLAN24 and WLAN5 for 5 GHz.</li>\n      <li><b>Internet on and Internet off:</b> Turn on or off LAN access to Internet.</li>\n  </ul>\n</div>"
+      "data-content": "<div>\n  <strong>For Dovado Router</strong>\n  <ul>\n      <li><b>Disconnect:</b> Shut down modem connection.</li>\n      <li><b>Connect:</b> Connect modem connection</li>\n      <li><b>Restart:</b> Restarts the router</li>\n      <li><b>Reconnect:</b> Reset connection and connect</li>\n      <li><b>Status:</b> Reports current connection status of the router.</li>\n      <li><b>Upgrade:</b> Upgrade to latest available firmware.</li>\n      <li><b>VPN on and VPN off:</b> Turn on or off VPN access in manual mode.</li>\n      <li><b>WLAN on and WLAN off:</b> Turn on or off WiFi. For 2.4 GHz use WLAN24 and WLAN5 for 5 GHz.</li>\n      <li><b>Internet on and Internet off:</b> Turn on or off LAN access to Internet.</li>\n  </ul>\n  <strong>For Teltonika Router</strong>\n  <ul>\n      <li><b>Reboot:</b> Restarts the router</li>\n      <li><b>Cellstatus:</b> Reports current connection status of the router.</li>\n  </ul>\n</div>"
     }
   })])
 }]}
@@ -30470,7 +30634,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       "data-toggle": "popover",
       "data-trigger": "focus",
       "title": "Commands help.",
-      "data-content": "<div>\n  <ul>\n      <li><b>Disconnect:</b> Shut down modem connection.</li>\n      <li><b>Connect:</b> Connect modem connection</li>\n      <li><b>Restart / Reboot:</b> Restarts the router</li>\n      <li><b>Reconnect:</b> Reset connection and connect</li>\n      <li><b>Status / Cellstatus:</b> Reports current connection status of the router.</li>\n      <li><b>Upgrade:</b> Upgrade to latest available firmware.</li>\n      <li><b>VPN on and VPN off:</b> Turn on or off VPN access in manual mode.</li>\n      <li><b>WLAN on and WLAN off:</b> Turn on or off WiFi. For 2.4 GHz use WLAN24 and WLAN5 for 5 GHz.</li>\n      <li><b>Internet on and Internet off:</b> Turn on or off LAN access to Internet.</li>\n  </ul>\n</div>"
+      "data-content": "<div>\n  <strong>For Dovado Router</strong>\n  <ul>\n      <li><b>Disconnect:</b> Shut down modem connection.</li>\n      <li><b>Connect:</b> Connect modem connection</li>\n      <li><b>Restart:</b> Restarts the router</li>\n      <li><b>Reconnect:</b> Reset connection and connect</li>\n      <li><b>Status:</b> Reports current connection status of the router.</li>\n      <li><b>Upgrade:</b> Upgrade to latest available firmware.</li>\n      <li><b>VPN on and VPN off:</b> Turn on or off VPN access in manual mode.</li>\n      <li><b>WLAN on and WLAN off:</b> Turn on or off WiFi. For 2.4 GHz use WLAN24 and WLAN5 for 5 GHz.</li>\n      <li><b>Internet on and Internet off:</b> Turn on or off LAN access to Internet.</li>\n  </ul>\n  <strong>For Teltonika Router</strong>\n  <ul>\n      <li><b>Reboot:</b> Restarts the router</li>\n      <li><b>Cellstatus:</b> Reports current connection status of the router.</li>\n  </ul>\n</div>"
     }
   })])])])]), _vm._v(" "), _c('div', {
     staticClass: "modal-footer"
@@ -30563,7 +30727,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
   })])
 },function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
   return _c('select', {
-    staticClass: "js-example-basic-single form-control m-input ",
+    staticClass: "form-control m-input ",
     staticStyle: {
       "width": "95%"
     },
@@ -30571,10 +30735,6 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       "id": "smsMessage_text",
       "multiple": "multiple",
       "data-tags": "true"
-    }
-  }, [_c('optgroup', {
-    attrs: {
-      "label": "For Dovado Router"
     }
   }, [_c('option', {
     attrs: {
@@ -30640,11 +30800,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     attrs: {
       "value": "#02#"
     }
-  }, [_vm._v("#02#")])]), _vm._v(" "), _c('optgroup', {
-    attrs: {
-      "label": "For Teltonika Router"
-    }
-  }, [_c('option', {
+  }, [_vm._v("#02#")]), _vm._v(" "), _c('option', {
     attrs: {
       "value": "Reboot"
     }
@@ -30652,7 +30808,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     attrs: {
       "value": "Cellstatus"
     }
-  }, [_vm._v("Cellstatus")])])])
+  }, [_vm._v("Cellstatus")])])
 }]}
 module.exports.render._withStripped = true
 if (false) {
