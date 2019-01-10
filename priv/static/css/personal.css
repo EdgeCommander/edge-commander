@@ -634,6 +634,42 @@ select.form-control:not([size]):not([multiple]) {
   }
 }
 
+.custom-combobox input{
+  width: 302px;
+  height: 40px;
+  margin: 0;
+  background:none;
+  padding-left: 10px
+}
+
+.custom-combobox input:focus{
+  border: 1px solid #343434 !important;
+  outline: none;
+}
+
+.custom-combobox a{
+  height: 40px;
+  margin-top: -3px !important;
+}
+
+.ui-menu .ui-menu-item-wrapper {
+  padding: 5px 10px !important;
+}
+
+.ui-menu .ui-menu-item-wrapper:hover{
+  background:none !important;
+  background-color: #ededec !important;
+  border-color: #ededec !important;
+}
+
+#input_container {
+  padding-left: 14px;
+}
+
+.ui-widget.ui-widget-content {
+  border: 1px solid #ebedf2 !important;
+}
+
 @media (max-width: 575px){
   .sim_log_datatable{
     padding-left: 15px;

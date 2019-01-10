@@ -105,8 +105,7 @@
                         </label>
                         <div class="col-9" id="input_container">
                           <input type="hidden" id="user_id" v-model="user_id">
-                          <select class="js-example-basic-single form-control m-input " id="smsMessage_text"  style="width: 95%;" multiple="multiple" data-tags="true" >
-                                <optgroup label="For Dovado Router">
+                          <select class="form-control m-input " id="smsMessage_text"  style="width: 95%;" multiple="multiple" data-tags="true" >
                                 <option value="Disconnect">Disconnect</option>
                                 <option value="Connect">Connect</option>
                                 <option value="Restart">Restart</option>
@@ -123,25 +122,28 @@
                                 <option value="Off">Off</option>
                                 <option value="#01#">#01#</option>
                                 <option value="#02#">#02#</option>
-                              </optgroup>
-                              <optgroup label="For Teltonika Router">
                                 <option value="Reboot">Reboot</option>
                                 <option value="Cellstatus">Cellstatus</option>
-                              </optgroup>
                               </select> &nbsp;
                               <span class="fa fa-info" tabindex="0" data-html="true" data-toggle="popover" data-trigger="focus"
    title="Commands help." style="cursor: pointer"
    data-content="<div>
+    <strong>For Dovado Router</strong>
     <ul>
         <li><b>Disconnect:</b> Shut down modem connection.</li>
         <li><b>Connect:</b> Connect modem connection</li>
-        <li><b>Restart / Reboot:</b> Restarts the router</li>
+        <li><b>Restart:</b> Restarts the router</li>
         <li><b>Reconnect:</b> Reset connection and connect</li>
-        <li><b>Status / Cellstatus:</b> Reports current connection status of the router.</li>
+        <li><b>Status:</b> Reports current connection status of the router.</li>
         <li><b>Upgrade:</b> Upgrade to latest available firmware.</li>
         <li><b>VPN on and VPN off:</b> Turn on or off VPN access in manual mode.</li>
         <li><b>WLAN on and WLAN off:</b> Turn on or off WiFi. For 2.4 GHz use WLAN24 and WLAN5 for 5 GHz.</li>
         <li><b>Internet on and Internet off:</b> Turn on or off LAN access to Internet.</li>
+    </ul>
+    <strong>For Teltonika Router</strong>
+    <ul>
+        <li><b>Reboot:</b> Restarts the router</li>
+        <li><b>Cellstatus:</b> Reports current connection status of the router.</li>
     </ul>
   </div>"></span>
                         </div>
@@ -338,7 +340,7 @@ module.exports = {
     },
     sendSMS: function() {
       this.show_loading = true;
-      this.smsMessage_text = document.getElementById("smsMessage_text").value;
+      this.smsMessage_text = $(".custom-combobox-input").val();
       this.$http.post('/send_sms', {
         sms_message: this.smsMessage_text,
         sim_number:  this.toNumber,
@@ -362,6 +364,7 @@ module.exports = {
     clearForm: function() {
       this.smsMessage = "";
       this.smsMessage_text = "";
+      $(".custom-combobox-input").val("");
       $('.close').on('click', function() {$(this).parent().alert('close'); });
       setTimeout(function() {$(".alert-danger").alert('close')}, 6000);
     },
@@ -553,6 +556,106 @@ module.exports = {
     select_menu_link: function(){
      $("li").removeClass(" m-menu__item--active");
      $(".sims").addClass(" m-menu__item--active");
+    },
+    messages_input_init: function(){
+      $.widget( "custom.combobox", {
+        _create: function() {
+          this.wrapper = $( "<span>" )
+            .addClass( "custom-combobox" )
+            .insertAfter( this.element );
+          this.element.hide();
+          this._createAutocomplete();
+          this._createShowAllButton();
+        },
+        _createAutocomplete: function() {
+          var selected = this.element.children( ":selected" ),
+            value = selected.val() ? selected.text() : "";
+          this.input = $( "<input>" )
+            .appendTo( this.wrapper )
+            .val( value )
+            .attr( "title", "" )
+            .addClass( "custom-combobox-input ui-widget ui-widget-content ui-state-default ui-corner-left" )
+            .autocomplete({
+              delay: 0,
+              minLength: 0,
+              source: $.proxy( this, "_source" )
+            })
+            .tooltip({
+              classes: {
+                "ui-tooltip": "ui-state-highlight"
+              }
+            });
+          this._on( this.input, {
+            autocompleteselect: function( event, ui ) {
+              ui.item.option.selected = true;
+              this._trigger( "select", event, {
+                item: ui.item.option
+              });
+            },
+            autocompletechange: "_removeIfInvalid"
+          });
+        },
+        _createShowAllButton: function() {
+          var input = this.input,
+            wasOpen = false;
+          $( "<a>" )
+            .attr( "tabIndex", -1 )
+            .attr( "title", "Show All Items" )
+            .tooltip()
+            .appendTo( this.wrapper )
+            .button({
+              icons: {
+                primary: "ui-icon-triangle-1-s"
+              },
+              text: false
+            })
+            .removeClass( "ui-corner-all" )
+            .addClass( "custom-combobox-toggle ui-corner-right" )
+            .on( "mousedown", function() {
+              wasOpen = input.autocomplete( "widget" ).is( ":visible" );
+            })
+            .on( "click", function() {
+              input.trigger( "focus" );
+              if ( wasOpen ) {
+                return;
+              }
+              input.autocomplete( "search", "" );
+            });
+        },
+        _source: function( request, response ) {
+          var matcher = new RegExp( $.ui.autocomplete.escapeRegex(request.term), "i" );
+          var aa = response( this.element.children( "option" ).map(function() {
+            var text = $( this ).text();
+            if ( this.value && ( !request.term || matcher.test(text) ) )
+              return {
+                label: text,
+                value: text,
+                option: this,
+              };
+          }) );
+        },
+        _removeIfInvalid: function( event, ui ) {
+          if ( ui.item ) {
+            return;
+          }
+          var value = this.input.val(),
+            valueLowerCase = value.toLowerCase(),
+            valid = false;
+         this.selected = valid = true;
+         console.log(this.element)
+          this.element.val( value );
+          this._delay(function() {
+            this.input.tooltip( "close" ).attr( "title", "" );
+          }, 2500 );
+          this.input.autocomplete( "instance" ).term = "";
+        },
+        _destroy: function() {
+          this.wrapper.remove();
+          this.element.show();
+        }
+      });
+      $( "#smsMessage_text" ).combobox();
+      $('.ui-button').tooltip('disable');
     }
   }, // end of methods
   mounted(){
@@ -566,6 +669,7 @@ module.exports = {
     this.get_sim_name();
     this.setSimNumber();
     this.resizeTableDiv();
+    this.messages_input_init();
     window.addEventListener('resize', this.startMORRISChartJS);
     window.addEventListener('resize', this.resizeSMSTable);
     this.select_menu_link();
