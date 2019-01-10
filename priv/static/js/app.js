@@ -18117,8 +18117,8 @@ module.exports = {
             var string = history[i].date.split("-");
             var date = string[2] + "-" + string[1] + "-" + string[0];
             category_dates.push(date);
-            maximum_voltages.push(min_value);
-            minimum_voltages.push(max_value);
+            maximum_voltages.push(max_value);
+            minimum_voltages.push(min_value);
           }
           module.exports.methods.graph_three(category_dates, maximum_voltages, minimum_voltages);
         });
@@ -18286,7 +18286,7 @@ module.exports = {
 
       Highcharts.chart('battery_graph_three', {
         chart: {
-          type: 'line'
+          type: 'column'
         },
         colors: ['#363636', '#47bcfa', '#9c2a3d'],
         credits: {
@@ -18312,10 +18312,10 @@ module.exports = {
           shared: true
         },
         series: [{
-          name: 'Maximum Voltages',
+          name: 'Maximum Voltage',
           data: maximum_voltages
         }, {
-          name: 'Minimum Voltages',
+          name: 'Minimum Voltage',
           data: minimum_voltages
         }]
       });
