@@ -1,6 +1,21 @@
 <template>
   <div>
-    <div class="m-content">
+    <div class="m-content" style="position: relative; width: 100%">
+      <div class="m-portlet m-portlet--mobile" style="margin-bottom: 0;">
+        <div class="m-portlet__body" style="padding: 5px;">
+        <table class="table text-center" style="margin-bottom: 0px;">
+          <td><strong>Name:</strong></td> 
+          <td class="text-left">{{battery_name}}</td> 
+          <td><strong>Source URL:</strong></td>
+           <td class="text-left">{{source_url}} </td> 
+           <td class="text-right">
+            <router-link v-bind:to="'/batteries'" class="btn btn-default">Back to batteries</router-link>
+           </td> 
+         </table>
+         </div>
+       </div>
+    </div>
+    <div class="m-content"  style="padding-bottom: 0">
       <div class="m-portlet m-portlet--mobile" style="margin-bottom: 0">
         <div class="m-portlet__body" style="padding: 10px;">
           <!--begin: Search Form -->
@@ -61,7 +76,7 @@
     </div>
     <div class="tab-content">
       <div class="tab-pane  active show" id="m_tabs_1_1" role="tabpanel">
-        <div class="m-content">
+        <div class="m-content" style="padding-top:0">
           <div class="m-portlet m-portlet--mobile" style="margin-bottom: 0">
             <div class="m-portlet__body" style="padding: 10px;">
               <table id="status-datatable" class="table table-striped  table-hover table-bordered display nowrap" cellspacing="0" width="100%">
@@ -76,7 +91,7 @@
         </div>
       </div>
        <div class="tab-pane" id="m_tabs_1_2" role="tabpanel">
-          <div class="m-content">
+          <div class="m-content" style="padding-top:0">
               <div class="m-portlet m-portlet--mobile" style="margin-bottom: 0">
                 <div class="m-portlet__body" style="padding: 10px;" id="graph_one_loading">
                      <div id="battery_graph_one" style="height:80vh"></div>
@@ -133,7 +148,7 @@ import App from './App.vue'
 const app = new Vue(App)
 
 module.exports = {
-  name: 'battery_status',
+  name: 'single_battery',
   data: function(){
     return{
       dataTable: null,
@@ -148,6 +163,8 @@ module.exports = {
       categories_dates: [],
       maximum_voltages: [],
       minimum_voltages: [],
+      source_url: "",
+      battery_name: "",
       headings: [
         {column: "Reading DateTime", id: "datetime", unit: ""},
         {column: "Battery voltage", id: "voltage", unit: "V"},
@@ -157,6 +174,9 @@ module.exports = {
         {column: "Serial#", id: "serial_no", unit: ""},
         {column: "State of operation", id: "cs_value", unit: ""},
         {column: "Error code", id: "err_value", unit: ""},
+        {column: "Load current", id: "il_value", unit: "Ah"},
+        {column: "MPPT", id: "mppt_value", unit: ""},
+        {column: "Load", id: "load_value", unit: ""},
         {column: "Yield total", id: "h19_value", unit: "Wh"},
         {column: "Yield today", id: "h20_value", unit: "Wh"},
         {column: "Maximum power today", id: "h21_value", unit: "W"},
@@ -195,7 +215,7 @@ module.exports = {
         });
       },
       ajax: {
-      url: "/battery/data/" + from_date + "/" + to_date,
+      url: "/battery/data/" + window.location.href.substring(window.location.href.lastIndexOf('/') + 1) + "/" + from_date + "/" + to_date,
         dataSrc: function(data) {
           return data.records;
         },
@@ -254,6 +274,24 @@ module.exports = {
         class: "text-center err_value",
         data: function(row, type, set, meta) {
           return row.err_value;
+        }
+      },
+      {
+        class: "text-center il_value",
+        data: function(row, type, set, meta) {
+          return row.il_value/1000;
+        }
+      },
+      {
+        class: "text-center mppt_value",
+        data: function(row, type, set, meta) {
+          return row.mppt_value;
+        }
+      },
+      {
+        class: "text-center load_value",
+        data: function(row, type, set, meta) {
+          return row.load_value;
         }
       },
       {
@@ -351,7 +389,7 @@ module.exports = {
       let from_date = this.date_format("m_sms_datepicker_from");
       let to_date = this.date_format("m_sms_datepicker_to");
 
-      this.$http.get('/daily_battery/data/' + from_date + "/" + to_date).then(response => {
+      this.$http.get('/daily_battery/data/' + window.location.href.substring(window.location.href.lastIndexOf('/') + 1) + "/" + from_date + "/" + to_date).then(response => {
         let history = response.body.voltages_history
         this.time_list = this.convert_date_time_format(history.time_list)
         this.battery_voltages = history.battery_voltages;
@@ -360,7 +398,7 @@ module.exports = {
         this.graph_two(this.time_list, this.battery_voltages, this.panel_voltages);
       });
 
-      this.$http.get('/battery_voltages_summary/data/' + from_date + "/" + to_date).then(response => {
+      this.$http.get('/battery_voltages_summary/data/' + window.location.href.substring(window.location.href.lastIndexOf('/') + 1) + "/" + from_date + "/" + to_date).then(response => {
        let history = response.body.records
         let i;
         for (i = 0; i < history.length; i++) {
@@ -403,7 +441,7 @@ module.exports = {
           let new_url = "/battery/data/" + from_date + "/" + to_date
           table_data.ajax.url(new_url).load();
 
-          $.get('/daily_battery/data/' + from_date + "/" + to_date, function( data ) {
+          $.get('/daily_battery/data/' + window.location.href.substring(window.location.href.lastIndexOf('/') + 1) + "/" + from_date + "/" + to_date, function( data ) {
             let history = data.voltages_history
             time_list = module.exports.methods.convert_date_time_format(history.time_list)
             battery_voltages = history.battery_voltages;
@@ -412,7 +450,7 @@ module.exports = {
             module.exports.methods.graph_two(time_list, battery_voltages, panel_voltages);
           });
          
-          $.get('/battery_voltages_summary/data/' + from_date + "/" + to_date, function( data ) {
+          $.get('/battery_voltages_summary/data/' + window.location.href.substring(window.location.href.lastIndexOf('/') + 1) + "/" + from_date + "/" + to_date, function( data ) {
             let history = data.records
             let category_dates = [];
             let maximum_voltages = [];
@@ -640,7 +678,13 @@ module.exports = {
         }]
       });
       mApp.unblock("#graph_three_loading")
-   }
+   },
+   get_single_battery: function(){
+      this.$http.get('/battery/data/'+ window.location.href.substring(window.location.href.lastIndexOf('/') + 1)).then(response => {
+        this.battery_name = response.body.name;
+        this.source_url = response.body.source_url;
+      });
+    }
   }, // end of methods
    mounted(){
     this.initializeTable();
@@ -649,6 +693,7 @@ module.exports = {
     this.get_session();
     this.initHideShow();
     this.active_menu_link();
+    this.get_single_battery();
     this.graph_one(this.time_list, this.battery_voltages);
     this.graph_two(this.time_list, this.battery_voltages, this.panel_voltages);
     this.graph_three(this.categories_dates, this.maximum_voltages, this.minimum_voltages);

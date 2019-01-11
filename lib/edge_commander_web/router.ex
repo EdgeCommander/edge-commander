@@ -105,7 +105,8 @@ defmodule EdgeCommanderWeb.Router do
     get "/api", RooterController, :main
     get "/shares", RooterController, :main
     get "/dashboard", RooterController, :main
-    get "/battery_status", RooterController, :main
+    get "/battery/:id", RooterController, :main
+    get "/batteries", RooterController, :main
 
     get "/sims/data/json", SimsController, :get_sim_logs
     get "/sims/data/:sim_number", SimsController, :get_single_sim_data
@@ -163,10 +164,16 @@ defmodule EdgeCommanderWeb.Router do
     get "/dashboard/total_sites", DashboardController, :total_sites
     get "/dashboard/weekly_sms_overview", DashboardController, :weekly_sms_overview
 
-    get "/battery/data/:from_date/:to_date", BatteryController, :get_battery_record
-    get "/daily_battery/data/:from_date/:to_date", DashboardController, :daily_batery_voltages
-    get "/battery_voltages_summary/data/:from_date/:to_date", DashboardController, :battery_voltages_summary
-    
+    get "/battery/data/:battery_id/:from_date/:to_date", BatteryReadingController, :get_battery_record
+    get "/daily_battery/data/:battery_id/:from_date/:to_date", DashboardController, :daily_batery_voltages
+    get "/battery_voltages_summary/data/:battery_id/:from_date/:to_date", DashboardController, :battery_voltages_summary
+
+    get "/battery", BatteryController, :get_all_batteries
+    post "/battery/new", BatteryController, :create
+    patch "/battery/update", BatteryController, :update
+    delete "/battery/:id", BatteryController, :delete_battery
+    get "/battery/data/:battery_id", BatteryController, :get_single_battery
+
   end
 
   # Other scopes may use custom stacks.
@@ -212,7 +219,7 @@ defmodule EdgeCommanderWeb.Router do
       get "/daily_sms_count/:number", SimsController, :daily_sms_count
 
       get "/get_all_sms/:from_date/:to_date", SmsController, :get_all_sms
-      get "/battery/data/:date", BatteryController, :get_battery_record
+      get "/battery/data/:date", BatteryReadingController, :get_battery_record
     end
   end
 end

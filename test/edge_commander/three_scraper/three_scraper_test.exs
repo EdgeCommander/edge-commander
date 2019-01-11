@@ -33,7 +33,7 @@ defmodule EdgeCommander.ThreeScraperTest do
       assert {:ok, %SimLogs{} = sim_logs} = ThreeScraper.create_sim_logs(@valid_attrs)
       assert sim_logs.addon == "some addon"
       assert sim_logs.allowance == "some allowance"
-      assert sim_logs.datetime == ~N[2010-04-17 14:00:00.000000]
+      assert sim_logs.datetime == ~N[2010-04-17 14:00:00]
       assert sim_logs.name == "some name"
       assert sim_logs.number == "some number"
       assert sim_logs.volume_used == "some volume_used"
@@ -50,7 +50,7 @@ defmodule EdgeCommander.ThreeScraperTest do
       assert %SimLogs{} = sim_logs
       assert sim_logs.addon == "some updated addon"
       assert sim_logs.allowance == "some updated allowance"
-      assert sim_logs.datetime == ~N[2011-05-18 15:01:01.000000]
+      assert sim_logs.datetime == ~N[2011-05-18 15:01:01]
       assert sim_logs.name == "some updated name"
       assert sim_logs.number == "some updated number"
       assert sim_logs.volume_used == "some updated volume_used"
