@@ -29,20 +29,20 @@ defmodule EdgeCommander.Solar do
     |> Repo.all
   end
 
-  def get_maximum_voltage(date) do
+  def get_maximum_voltage(date, battery_id) do
     from = date <> " 00:00:00"
     to = date <> " 23:59:59"
     query = from l in Reading,
-      where: l.datetime >= ^from and l.datetime <= ^to, select: max(l.voltage)
+      where: l.datetime >= ^from and l.datetime <= ^to and (l.battery_id == ^battery_id), select: max(l.voltage)
     query
     |> Repo.one
   end
 
-  def get_minimum_voltage(date) do
+  def get_minimum_voltage(date, battery_id) do
     from = date <> " 00:00:00"
     to = date <> " 23:59:59"
     query = from l in Reading,
-      where: l.datetime >= ^from and l.datetime <= ^to, select: min(l.voltage)
+      where: l.datetime >= ^from and l.datetime <= ^to and (l.battery_id == ^battery_id), select: min(l.voltage)
     query
     |> Repo.one
   end

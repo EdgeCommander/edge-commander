@@ -9,7 +9,7 @@ defmodule EdgeCommanderWeb.DashboardController do
   import EdgeCommander.Accounts, only: [current_user: 1]
   import EdgeCommander.Sharing, only: [member_by_token: 1]
   import EdgeCommander.Nexmo, only: [get_total_messages: 4]
-  import EdgeCommander.Solar, only: [get_readings: 3, get_maximum_voltage: 1, get_minimum_voltage: 1]
+  import EdgeCommander.Solar, only: [get_readings: 3, get_maximum_voltage: 2, get_minimum_voltage: 2]
 
   def sign_up(conn, _params) do
     with %User{} <- current_user(conn) do
@@ -182,6 +182,7 @@ defmodule EdgeCommanderWeb.DashboardController do
   def battery_voltages_summary(conn, params) do
     from_date = Date.from_iso8601!(params["from_date"])
     to_date = Date.from_iso8601!(params["to_date"])
+    battery_id = params["battery_id"]
 
     range = Date.range(from_date, to_date)
     dates = Enum.to_list(range)
@@ -192,8 +193,8 @@ defmodule EdgeCommanderWeb.DashboardController do
         month = value.month |> ensure_number
         day = value.day |> ensure_number
         date = "#{year}-#{month}-#{day}"
-        max_value = get_maximum_voltage(date) |> convert_units
-        min_value = get_minimum_voltage(date) |> convert_units
+        max_value = get_maximum_voltage(date, battery_id) |> convert_units
+        min_value = get_minimum_voltage(date, battery_id) |> convert_units
         %{
           date: date,
           max_value: max_value,
