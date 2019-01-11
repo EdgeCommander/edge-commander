@@ -174,6 +174,9 @@ module.exports = {
         {column: "Serial#", id: "serial_no", unit: ""},
         {column: "State of operation", id: "cs_value", unit: ""},
         {column: "Error code", id: "err_value", unit: ""},
+        {column: "Load current", id: "il_value", unit: "Ah"},
+        {column: "MPPT", id: "mppt_value", unit: ""},
+        {column: "Load", id: "load_value", unit: ""},
         {column: "Yield total", id: "h19_value", unit: "Wh"},
         {column: "Yield today", id: "h20_value", unit: "Wh"},
         {column: "Maximum power today", id: "h21_value", unit: "W"},
@@ -271,6 +274,24 @@ module.exports = {
         class: "text-center err_value",
         data: function(row, type, set, meta) {
           return row.err_value;
+        }
+      },
+      {
+        class: "text-center il_value",
+        data: function(row, type, set, meta) {
+          return row.il_value/1000;
+        }
+      },
+      {
+        class: "text-center mppt_value",
+        data: function(row, type, set, meta) {
+          return row.mppt_value;
+        }
+      },
+      {
+        class: "text-center load_value",
+        data: function(row, type, set, meta) {
+          return row.load_value;
         }
       },
       {

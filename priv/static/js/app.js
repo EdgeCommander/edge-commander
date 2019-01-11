@@ -23042,7 +23042,7 @@ module.exports = {
       minimum_voltages: [],
       source_url: "",
       battery_name: "",
-      headings: [{ column: "Reading DateTime", id: "datetime", unit: "" }, { column: "Battery voltage", id: "voltage", unit: "V" }, { column: "Battery current", id: "i_value", unit: "Ah" }, { column: "Panel voltage", id: "vpv_value", unit: "V" }, { column: "Panel power", id: "ppv_value", unit: "W" }, { column: "Serial#", id: "serial_no", unit: "" }, { column: "State of operation", id: "cs_value", unit: "" }, { column: "Error code", id: "err_value", unit: "" }, { column: "Yield total", id: "h19_value", unit: "Wh" }, { column: "Yield today", id: "h20_value", unit: "Wh" }, { column: "Maximum power today", id: "h21_value", unit: "W" }, { column: "Yield yesterday", id: "h22_value", unit: "Wh" }, { column: "Maximum power yesterday", id: "h23_value", unit: "W" }],
+      headings: [{ column: "Reading DateTime", id: "datetime", unit: "" }, { column: "Battery voltage", id: "voltage", unit: "V" }, { column: "Battery current", id: "i_value", unit: "Ah" }, { column: "Panel voltage", id: "vpv_value", unit: "V" }, { column: "Panel power", id: "ppv_value", unit: "W" }, { column: "Serial#", id: "serial_no", unit: "" }, { column: "State of operation", id: "cs_value", unit: "" }, { column: "Error code", id: "err_value", unit: "" }, { column: "Load current", id: "il_value", unit: "Ah" }, { column: "MPPT", id: "mppt_value", unit: "" }, { column: "Load", id: "load_value", unit: "" }, { column: "Yield total", id: "h19_value", unit: "Wh" }, { column: "Yield today", id: "h20_value", unit: "Wh" }, { column: "Maximum power today", id: "h21_value", unit: "W" }, { column: "Yield yesterday", id: "h22_value", unit: "Wh" }, { column: "Maximum power yesterday", id: "h23_value", unit: "W" }],
       form_labels: {
         hide_show_title: "Show/Hide Columns",
         hide_show_button: "OK"
@@ -23126,6 +23126,21 @@ module.exports = {
           class: "text-center err_value",
           data: function data(row, type, set, meta) {
             return row.err_value;
+          }
+        }, {
+          class: "text-center il_value",
+          data: function data(row, type, set, meta) {
+            return row.il_value / 1000;
+          }
+        }, {
+          class: "text-center mppt_value",
+          data: function data(row, type, set, meta) {
+            return row.mppt_value;
+          }
+        }, {
+          class: "text-center load_value",
+          data: function data(row, type, set, meta) {
+            return row.load_value;
           }
         }, {
           class: "text-center h19_value",

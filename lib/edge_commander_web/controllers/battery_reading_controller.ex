@@ -160,7 +160,10 @@ defmodule EdgeCommanderWeb.BatteryReadingController do
           h20_value: data.h20_value,
           h21_value: data.h21_value,
           h22_value: data.h22_value,
-          h23_value: data.h23_value
+          h23_value: data.h23_value,
+          il_value: data.il_value,
+          mppt_value: data.mppt_value,
+          load_value: data.load_value
         }
       end)
     conn
