@@ -31,7 +31,7 @@ defmodule EdgeCommander.MonitorsTest do
 
     test "create_nvr_ports/1 with valid data creates a nvr_ports" do
       assert {:ok, %NvrPorts{} = nvr_ports} = Monitors.create_nvr_ports(@valid_attrs)
-      assert nvr_ports.done_at == DateTime.from_naive!(~N[2010-04-17 14:00:00.000000Z], "Etc/UTC")
+      assert nvr_ports.done_at == DateTime.from_naive!(~N[2010-04-17 14:00:00], "Etc/UTC")
       assert nvr_ports.extra == %{}
       assert nvr_ports.nvr_id == 42
       assert nvr_ports.nvr_name == "some nvr_name"
@@ -46,7 +46,7 @@ defmodule EdgeCommander.MonitorsTest do
       nvr_ports = nvr_ports_fixture()
       assert {:ok, nvr_ports} = Monitors.update_nvr_ports(nvr_ports, @update_attrs)
       assert %NvrPorts{} = nvr_ports
-      assert nvr_ports.done_at == DateTime.from_naive!(~N[2011-05-18 15:01:01.000000Z], "Etc/UTC")
+      assert nvr_ports.done_at == DateTime.from_naive!(~N[2011-05-18 15:01:01], "Etc/UTC")
       assert nvr_ports.extra == %{}
       assert nvr_ports.nvr_id == 43
       assert nvr_ports.nvr_name == "some updated nvr_name"

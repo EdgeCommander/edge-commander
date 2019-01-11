@@ -63,7 +63,7 @@
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 37);
+/******/ 	return __webpack_require__(__webpack_require__.s = 39);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -170,13 +170,13 @@ module.exports = function normalizeComponent (
 var disposed = false
 function injectStyle (ssrContext) {
   if (disposed) return
-  __webpack_require__(38)
+  __webpack_require__(40)
 }
 var Component = __webpack_require__(0)(
   /* script */
-  __webpack_require__(23),
+  __webpack_require__(24),
   /* template */
-  __webpack_require__(53),
+  __webpack_require__(56),
   /* styles */
   injectStyle,
   /* scopeId */
@@ -11435,7 +11435,7 @@ exports._unrefActive = exports.active = function(item) {
 };
 
 // setimmediate attaches itself to the global object
-__webpack_require__(52);
+__webpack_require__(55);
 // On some exotic environments, it's not clear which object `setimmediate` was
 // able to install onto.  Search each possibility in the same order as the
 // `setimmediate` library.
@@ -11537,13 +11537,13 @@ exports.clearImmediate = (typeof self !== "undefined" && self.clearImmediate) ||
 var disposed = false
 function injectStyle (ssrContext) {
   if (disposed) return
-  __webpack_require__(48)
+  __webpack_require__(50)
 }
 var Component = __webpack_require__(0)(
   /* script */
-  __webpack_require__(24),
+  __webpack_require__(25),
   /* template */
-  __webpack_require__(63),
+  __webpack_require__(66),
   /* styles */
   injectStyle,
   /* scopeId */
@@ -11585,9 +11585,9 @@ function injectStyle (ssrContext) {
 }
 var Component = __webpack_require__(0)(
   /* script */
-  __webpack_require__(25),
+  __webpack_require__(26),
   /* template */
-  __webpack_require__(58),
+  __webpack_require__(59),
   /* styles */
   injectStyle,
   /* scopeId */
@@ -11595,9 +11595,9 @@ var Component = __webpack_require__(0)(
   /* moduleIdentifier (server only) */
   null
 )
-Component.options.__file = "/home/ali/edge-commander/assets/static/components/battery_status.vue"
+Component.options.__file = "/home/ali/edge-commander/assets/static/components/batteries.vue"
 if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key.substr(0, 2) !== "__"})) {console.error("named exports are not supported in *.vue files.")}
-if (Component.options.functional) {console.error("[vue-loader] battery_status.vue: functional components are not supported with templates, they should use render functions.")}
+if (Component.options.functional) {console.error("[vue-loader] batteries.vue: functional components are not supported with templates, they should use render functions.")}
 
 /* hot reload */
 if (false) {(function () {
@@ -11606,9 +11606,9 @@ if (false) {(function () {
   if (!hotAPI.compatible) return
   module.hot.accept()
   if (!module.hot.data) {
-    hotAPI.createRecord("data-v-6b799c0a", Component.options)
+    hotAPI.createRecord("data-v-312eaeb5", Component.options)
   } else {
-    hotAPI.reload("data-v-6b799c0a", Component.options)
+    hotAPI.reload("data-v-312eaeb5", Component.options)
   }
   module.hot.dispose(function (data) {
     disposed = true
@@ -11625,13 +11625,13 @@ module.exports = Component.exports
 var disposed = false
 function injectStyle (ssrContext) {
   if (disposed) return
-  __webpack_require__(39)
+  __webpack_require__(41)
 }
 var Component = __webpack_require__(0)(
   /* script */
-  __webpack_require__(26),
+  __webpack_require__(27),
   /* template */
-  __webpack_require__(54),
+  __webpack_require__(57),
   /* styles */
   injectStyle,
   /* scopeId */
@@ -11669,13 +11669,13 @@ module.exports = Component.exports
 var disposed = false
 function injectStyle (ssrContext) {
   if (disposed) return
-  __webpack_require__(44)
+  __webpack_require__(46)
 }
 var Component = __webpack_require__(0)(
   /* script */
-  __webpack_require__(27),
+  __webpack_require__(28),
   /* template */
-  __webpack_require__(59),
+  __webpack_require__(62),
   /* styles */
   injectStyle,
   /* scopeId */
@@ -11713,13 +11713,13 @@ module.exports = Component.exports
 var disposed = false
 function injectStyle (ssrContext) {
   if (disposed) return
-  __webpack_require__(42)
+  __webpack_require__(45)
 }
 var Component = __webpack_require__(0)(
   /* script */
-  __webpack_require__(28),
+  __webpack_require__(29),
   /* template */
-  __webpack_require__(57),
+  __webpack_require__(61),
   /* styles */
   injectStyle,
   /* scopeId */
@@ -11757,13 +11757,13 @@ module.exports = Component.exports
 var disposed = false
 function injectStyle (ssrContext) {
   if (disposed) return
-  __webpack_require__(49)
+  __webpack_require__(51)
 }
 var Component = __webpack_require__(0)(
   /* script */
-  __webpack_require__(29),
+  __webpack_require__(30),
   /* template */
-  __webpack_require__(64),
+  __webpack_require__(67),
   /* styles */
   injectStyle,
   /* scopeId */
@@ -11801,13 +11801,13 @@ module.exports = Component.exports
 var disposed = false
 function injectStyle (ssrContext) {
   if (disposed) return
-  __webpack_require__(45)
+  __webpack_require__(47)
 }
 var Component = __webpack_require__(0)(
   /* script */
-  __webpack_require__(30),
+  __webpack_require__(31),
   /* template */
-  __webpack_require__(60),
+  __webpack_require__(63),
   /* styles */
   injectStyle,
   /* scopeId */
@@ -11845,13 +11845,13 @@ module.exports = Component.exports
 var disposed = false
 function injectStyle (ssrContext) {
   if (disposed) return
-  __webpack_require__(47)
+  __webpack_require__(49)
 }
 var Component = __webpack_require__(0)(
   /* script */
-  __webpack_require__(31),
+  __webpack_require__(32),
   /* template */
-  __webpack_require__(62),
+  __webpack_require__(65),
   /* styles */
   injectStyle,
   /* scopeId */
@@ -11889,13 +11889,13 @@ module.exports = Component.exports
 var disposed = false
 function injectStyle (ssrContext) {
   if (disposed) return
-  __webpack_require__(41)
+  __webpack_require__(44)
 }
 var Component = __webpack_require__(0)(
   /* script */
-  __webpack_require__(32),
+  __webpack_require__(33),
   /* template */
-  __webpack_require__(56),
+  __webpack_require__(60),
   /* styles */
   injectStyle,
   /* scopeId */
@@ -11933,13 +11933,13 @@ module.exports = Component.exports
 var disposed = false
 function injectStyle (ssrContext) {
   if (disposed) return
-  __webpack_require__(40)
+  __webpack_require__(42)
 }
 var Component = __webpack_require__(0)(
   /* script */
-  __webpack_require__(33),
+  __webpack_require__(34),
   /* template */
-  __webpack_require__(55),
+  __webpack_require__(58),
   /* styles */
   injectStyle,
   /* scopeId */
@@ -11977,13 +11977,57 @@ module.exports = Component.exports
 var disposed = false
 function injectStyle (ssrContext) {
   if (disposed) return
-  __webpack_require__(50)
+  __webpack_require__(52)
 }
 var Component = __webpack_require__(0)(
   /* script */
-  __webpack_require__(34),
+  __webpack_require__(35),
   /* template */
-  __webpack_require__(65),
+  __webpack_require__(68),
+  /* styles */
+  injectStyle,
+  /* scopeId */
+  null,
+  /* moduleIdentifier (server only) */
+  null
+)
+Component.options.__file = "/home/ali/edge-commander/assets/static/components/single_battery.vue"
+if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key.substr(0, 2) !== "__"})) {console.error("named exports are not supported in *.vue files.")}
+if (Component.options.functional) {console.error("[vue-loader] single_battery.vue: functional components are not supported with templates, they should use render functions.")}
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-d38b4488", Component.options)
+  } else {
+    hotAPI.reload("data-v-d38b4488", Component.options)
+  }
+  module.hot.dispose(function (data) {
+    disposed = true
+  })
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+/* 18 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var disposed = false
+function injectStyle (ssrContext) {
+  if (disposed) return
+  __webpack_require__(53)
+}
+var Component = __webpack_require__(0)(
+  /* script */
+  __webpack_require__(36),
+  /* template */
+  __webpack_require__(69),
   /* styles */
   injectStyle,
   /* scopeId */
@@ -12015,19 +12059,19 @@ module.exports = Component.exports
 
 
 /***/ }),
-/* 18 */
+/* 19 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var disposed = false
 function injectStyle (ssrContext) {
   if (disposed) return
-  __webpack_require__(51)
+  __webpack_require__(54)
 }
 var Component = __webpack_require__(0)(
   /* script */
-  __webpack_require__(35),
+  __webpack_require__(37),
   /* template */
-  __webpack_require__(66),
+  __webpack_require__(70),
   /* styles */
   injectStyle,
   /* scopeId */
@@ -12059,19 +12103,19 @@ module.exports = Component.exports
 
 
 /***/ }),
-/* 19 */
+/* 20 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var disposed = false
 function injectStyle (ssrContext) {
   if (disposed) return
-  __webpack_require__(46)
+  __webpack_require__(48)
 }
 var Component = __webpack_require__(0)(
   /* script */
-  __webpack_require__(36),
+  __webpack_require__(38),
   /* template */
-  __webpack_require__(61),
+  __webpack_require__(64),
   /* styles */
   injectStyle,
   /* scopeId */
@@ -12103,7 +12147,7 @@ module.exports = Component.exports
 
 
 /***/ }),
-/* 20 */
+/* 21 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -13202,7 +13246,7 @@ function xhrClient (request) {
 
 function nodeClient (request) {
 
-    var client = __webpack_require__(68);
+    var client = __webpack_require__(72);
 
     return new PromiseObj(function (resolve) {
 
@@ -13670,7 +13714,7 @@ if (typeof window !== 'undefined' && window.Vue) {
 
 
 /***/ }),
-/* 21 */
+/* 22 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -16302,12 +16346,12 @@ if (inBrowser && window.Vue) {
 /* WEBPACK VAR INJECTION */}.call(__webpack_exports__, __webpack_require__(4)))
 
 /***/ }),
-/* 22 */
+/* 23 */
 /***/ (function(module, exports, __webpack_require__) {
 
 (function webpackUniversalModuleDefinition(root, factory) {
 	if(true)
-		module.exports = factory(__webpack_require__(67));
+		module.exports = factory(__webpack_require__(71));
 	else if(typeof define === 'function' && define.amd)
 		define(["vue"], factory);
 	else if(typeof exports === 'object')
@@ -17428,7 +17472,7 @@ module.exports = __WEBPACK_EXTERNAL_MODULE_20__;
 //# sourceMappingURL=index.js.map
 
 /***/ }),
-/* 23 */
+/* 24 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -17604,7 +17648,7 @@ exports.default = {
 };
 
 /***/ }),
-/* 24 */
+/* 25 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -17695,7 +17739,7 @@ module.exports = {
 };
 
 /***/ }),
-/* 25 */
+/* 26 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -17711,6 +17755,81 @@ var _App2 = _interopRequireDefault(_App);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; } //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -17844,41 +17963,41 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 var app = new _vue2.default(_App2.default);
 
 module.exports = {
-  name: 'battery_status',
+  name: 'batteries',
   data: function data() {
     return {
       dataTable: null,
+      m_form_search: "",
       show_loading: false,
       show_add_errors: false,
       show_edit_errors: false,
       show_edit_messages: "",
       show_add_messages: "",
-      battery_voltages: [],
-      time_list: null,
-      panel_voltages: [],
-      categories_dates: [],
-      maximum_voltages: [],
-      minimum_voltages: [],
-      headings: [{ column: "Reading DateTime", id: "datetime", unit: "" }, { column: "Battery voltage", id: "voltage", unit: "V" }, { column: "Battery current", id: "i_value", unit: "Ah" }, { column: "Panel voltage", id: "vpv_value", unit: "V" }, { column: "Panel power", id: "ppv_value", unit: "W" }, { column: "Serial#", id: "serial_no", unit: "" }, { column: "State of operation", id: "cs_value", unit: "" }, { column: "Error code", id: "err_value", unit: "" }, { column: "Yield total", id: "h19_value", unit: "Wh" }, { column: "Yield today", id: "h20_value", unit: "Wh" }, { column: "Maximum power today", id: "h21_value", unit: "W" }, { column: "Yield yesterday", id: "h22_value", unit: "Wh" }, { column: "Maximum power yesterday", id: "h23_value", unit: "W" }],
+      headings: [{ column: "Actions", visible: "checked", id: "actions" }, { column: "Name", visible: "checked", id: "name" }, { column: "URL", visible: "checked", id: "source_url" }, { column: "Active", visible: "checked", id: "active" }, { column: "Created At", visible: "checked", id: "created_at" }],
       form_labels: {
+        name: "Name",
+        battery_source_url: "Source URL",
+        submit_button: "Save changes",
+        edit_title: "Edit Battery",
+        add_title: "Add Battery",
         hide_show_title: "Show/Hide Columns",
-        hide_show_button: "OK"
-      }
+        add_battery_button: "Add Battery",
+        hide_show_button: "OK",
+        status: "Active"
+      },
+      edit_battery_name: "",
+      edit_battery_id: "",
+      edit_battery_source_url: "",
+      battery_name: "",
+      battery_source_url: "",
+      user_id: "",
+      battery_is_active: false,
+      edit_battery_is_active: false
     };
   },
   methods: {
-    date_format: function date_format(id) {
-      var string = $("#" + id).val().split("-");
-      return string[2] + "-" + string[1] + "-" + string[0];
-    },
     initializeTable: function initializeTable() {
-      $("#m_sms_datepicker_from").datepicker({ autoclose: true, dateFormat: "dd-mm-yy" }).datepicker("setDate", new Date(new Date().getTime() - 48 * 60 * 60 * 1000));
-      $("#m_sms_datepicker_to").datepicker({ autoclose: true, dateFormat: "dd-mm-yy" }).datepicker("setDate", new Date());
-
-      var from_date = this.date_format("m_sms_datepicker_from");
-      var to_date = this.date_format("m_sms_datepicker_to");
-
-      var statusDataTable = $('#status-datatable').DataTable({
+      var batteryDataTable = $('#battery-datatable').DataTable({
         fnInitComplete: function fnInitComplete() {
           // Enable TFOOT scoll bars
           $('.dataTables_scrollFoot').css('overflow', 'auto');
@@ -17892,9 +18011,9 @@ module.exports = {
           });
         },
         ajax: {
-          url: "/battery/data/" + from_date + "/" + to_date,
+          url: "/battery",
           dataSrc: function dataSrc(data) {
-            return data.records;
+            return data.batteries;
           },
           error: function error(xhr, _error, thrown) {
             if (xhr.responseJSON) {
@@ -17905,69 +18024,29 @@ module.exports = {
           }
         },
         columns: [{
-          class: "text-center datetime",
+          class: "text-center actions",
           data: function data(row, type, set, meta) {
-            return moment(row.datetime).format('DD-MM-YYYY HH:mm:ss');
+            return '<div id="action_btn"><div class="editRecord cursor_to_pointer fa fa-edit" data-id="' + row.id + '"></div> <div class="cursor_to_pointer fa fa-trash delBattery" data-id="' + row.id + '"></div></div>';
           }
         }, {
-          class: "text-center voltage",
+          class: "name",
           data: function data(row, type, set, meta) {
-            return row.voltage / 1000;
+            return "<a href='/battery/" + row.id + "'style='color: blue;text-decoration: underline;cursor: pointer; link'>" + row.name + "</a>";
           }
         }, {
-          class: "text-center i_value",
+          class: "source_url",
           data: function data(row, type, set, meta) {
-            return row.i_value / 1000;
+            return row.source_url;
           }
         }, {
-          class: "text-center vpv_value",
+          class: "text-center active",
           data: function data(row, type, set, meta) {
-            return row.vpv_value / 1000;
+            return row.active;
           }
         }, {
-          class: "text-center ppv_value",
+          class: "text-center created_at",
           data: function data(row, type, set, meta) {
-            return row.ppv_value;
-          }
-        }, {
-          class: "text-center serial_no",
-          data: function data(row, type, set, meta) {
-            return row.serial_no;
-          }
-        }, {
-          class: "text-center cs_value",
-          data: function data(row, type, set, meta) {
-            return row.cs_value;
-          }
-        }, {
-          class: "text-center err_value",
-          data: function data(row, type, set, meta) {
-            return row.err_value;
-          }
-        }, {
-          class: "text-center h19_value",
-          data: function data(row, type, set, meta) {
-            return row.h19_value * 1000;
-          }
-        }, {
-          class: "text-center h20_value",
-          data: function data(row, type, set, meta) {
-            return row.h20_value * 1000;
-          }
-        }, {
-          class: "text-center h21_value",
-          data: function data(row, type, set, meta) {
-            return row.h21_value;
-          }
-        }, {
-          class: "text-center h22_value",
-          data: function data(row, type, set, meta) {
-            return row.h22_value * 1000;
-          }
-        }, {
-          class: "text-center h23_value",
-          data: function data(row, type, set, meta) {
-            return row.h23_value;
+            return moment(row.created_at).format('DD-MM-YYYY HH:mm:ss');
           }
         }],
         autoWidth: true,
@@ -17975,11 +18054,30 @@ module.exports = {
         bPaginate: false,
         lengthChange: false,
         scrollX: true,
-        colReorder: true,
-        stateSave: true,
-        order: [[0, "desc"]]
+        colReorder: true
       });
-      return this.dataTable = statusDataTable;
+      return this.dataTable = batteryDataTable;
+    },
+    search: function search() {
+      this.dataTable.search(this.m_form_search).draw();
+    },
+    getUniqueIdentifier: function getUniqueIdentifier(batteryDataTable) {
+      $(document).on("click", ".editRecord", function () {
+        var tr = $(this).closest('tr');
+        var row = batteryDataTable.row(tr);
+        var data = row.data();
+        var battery_id = $(this).data("id");
+        module.exports.methods.onRuleEditButton(battery_id, data);
+      });
+    },
+    onRuleEditButton: function onRuleEditButton(battery_id, data) {
+      $("#edit_battery_name").val(data.name);
+      $("#edit_battery_id").val(battery_id);
+      $("#edit_battery_source_url").val(data.source_url);
+      if (data.active == true) {
+        $("#edit_battery_is_active").prop("checked", true);
+      }
+      $('#edit_battery_to_db').modal('show');
     },
     showHideColumns: function showHideColumns(id) {
       var column = this.dataTable.columns("." + id);
@@ -17989,14 +18087,72 @@ module.exports = {
         column.visible(true);
       }
     },
+    onBatteryButton: function onBatteryButton() {
+      $(this.$refs.addmodal).modal("show");
+    },
     onHideShowButton: function onHideShowButton() {
       $(this.$refs.hideShow).modal("show");
+    },
+    clearForm: function clearForm() {
+      this.battery_name = "";
+      this.battery_source_url = "";
+      this.show_add_errors = false;
+    },
+    saveModal: function saveModal() {
+      var _$http$post;
+
+      this.show_loading = true;
+      this.show_add_errors = true;
+
+      this.$http.post('/battery/new', (_$http$post = {
+        name: this.battery_name,
+        user_id: this.user_id,
+        source_url: this.battery_source_url
+      }, _defineProperty(_$http$post, 'user_id', this.user_id), _defineProperty(_$http$post, 'active', this.battery_is_active), _$http$post)).then(function (response) {
+        app.$notify({ group: 'notify', title: 'Battery has been added' });
+        this.show_loading = false;
+        this.dataTable.ajax.reload();
+        this.clearForm();
+        $(this.$refs.addmodal).modal("hide");
+      }).catch(function (error) {
+        this.show_add_messages = error.body.errors;
+        this.show_add_errors = true;
+        this.show_loading = false;
+      });
+    },
+    updateBattery: function updateBattery() {
+      this.show_loading = true;
+      this.show_edit_errors = true;
+
+      var recordID = $("#edit_battery_id").val();
+
+      this.$http.patch('/battery/update', {
+        name: $("#name").val(),
+        source_url: $("#source_url").val(),
+        active: $('#edit_battery_is_active').is(':checked'),
+        id: recordID
+      }).then(function (response) {
+        app.$notify({ group: 'notify', title: 'Rule has been updated' });
+        this.show_loading = false;
+        this.dataTable.ajax.reload();
+        this.editClearFrom();
+        $(this.$refs.editmodal).modal("hide");
+      }).catch(function (error) {
+        this.show_loading = false;
+        this.show_edit_messages = error.body.errors;
+        this.show_edit_errors = true;
+      });
+    },
+    editClearFrom: function editClearFrom() {
+      this.show_edit_errors = false;
+      this.edit_battery_name = "";
+      this.edit_battery_source_url = "";
     },
     initHideShow: function initHideShow() {
       $(".rule-column").each(function () {
         var that = $(this).attr("data-id");
-        var statusDataTable = $('#status-datatable').DataTable();
-        var column = statusDataTable.columns("." + that);
+        var batteryDataTable = $('#battery-datatable').DataTable();
+        var column = batteryDataTable.columns("." + that);
         if (column.visible()[0] == true) {
           $(this).prop('checked', true);
         } else {
@@ -18011,332 +18167,47 @@ module.exports = {
         _this.user_id = response.body.id;
       });
     },
+    deleteBattery: function deleteBattery() {
+      $(document).off("click").on("click", ".delBattery", function () {
+        var recordRow = void 0,
+            result = void 0;
+        recordRow = $(this).closest('tr');
+        var recordID = $(this).data("id");
+
+        result = confirm("Are you sure to delete this Battery?");
+        if (result === false) {
+          return;
+        }
+
+        app.$http.delete("/battery/" + recordID, { recordRow: recordRow }).then(function (response) {
+          recordRow.remove();
+          app.$notify({ group: 'notify', title: 'Battery has been deleted' });
+        }).catch(function (error) {
+          return false;
+        });
+      });
+    },
     active_menu_link: function active_menu_link() {
       $("li").removeClass(" m-menu__item--active");
-      $(".status").addClass(" m-menu__item--active");
+      $(".batteries").addClass(" m-menu__item--active");
       $("#m_aside_left").removeClass("m-aside-left--on");
       $("body").removeClass("m-aside-left--on");
       $(".m-aside-left-overlay").removeClass("m-aside-left-overlay");
-    },
-    convert_date_time_format: function convert_date_time_format(times) {
-      var times_array = [];
-      for (var i = 0; i < times.length; i++) {
-        var times_data = times[i].split(" ");
-        var time = times_data[1];
-        var date = times_data[0].split("-");
-        var full_date_time = date[2] + "-" + date[1] + "-" + date[0] + " " + times_data[1];
-        times_array.push(full_date_time);
-      }
-      return times_array;
-    },
-    init_graphs_data: function init_graphs_data() {
-      var _this2 = this;
-
-      $("#m_sms_datepicker_from").datepicker({ autoclose: true, dateFormat: "dd-mm-yy" }).datepicker("setDate", new Date(new Date().getTime() - 48 * 60 * 60 * 1000));
-      $("#m_sms_datepicker_to").datepicker({ autoclose: true, dateFormat: "dd-mm-yy" }).datepicker("setDate", new Date());
-
-      var from_date = this.date_format("m_sms_datepicker_from");
-      var to_date = this.date_format("m_sms_datepicker_to");
-
-      this.$http.get('/daily_battery/data/' + from_date + "/" + to_date).then(function (response) {
-        var history = response.body.voltages_history;
-        _this2.time_list = _this2.convert_date_time_format(history.time_list);
-        _this2.battery_voltages = history.battery_voltages;
-        _this2.panel_voltages = history.panel_voltages;
-        _this2.graph_one(_this2.time_list, _this2.battery_voltages);
-        _this2.graph_two(_this2.time_list, _this2.battery_voltages, _this2.panel_voltages);
-      });
-
-      this.$http.get('/battery_voltages_summary/data/' + from_date + "/" + to_date).then(function (response) {
-        var history = response.body.records;
-        var i = void 0;
-        for (i = 0; i < history.length; i++) {
-          var min_value = history[i].min_value;
-          if (min_value == null) {
-            min_value = 0;
-          }
-          var max_value = history[i].max_value;
-          if (max_value == null) {
-            max_value = 0;
-          }
-
-          var string = history[i].date.split("-");
-          var date = string[2] + "-" + string[1] + "-" + string[0];
-
-          _this2.categories_dates.push(date);
-          _this2.maximum_voltages.push(max_value);
-          _this2.minimum_voltages.push(min_value);
-        }
-        _this2.graph_three(_this2.categories_dates, _this2.maximum_voltages, _this2.minimum_voltages);
-      });
-    },
-    show_loading_animation: function show_loading_animation(selector) {
-      mApp.block("#" + selector, {
-        overlayColor: "#000000",
-        type: "loader",
-        state: "success",
-        message: "Loading..."
-      });
-    },
-    on_date_change: function on_date_change() {
-      var table_data = this.dataTable;
-      var time_list = this.time_list;
-      var battery_voltages = this.battery_voltages;
-      var panel_voltages = this.panel_voltages;
-
-      $('#m_sms_datepicker_from, #m_sms_datepicker_to').change(function () {
-        var from_date = module.exports.methods.date_format("m_sms_datepicker_from");
-        var to_date = module.exports.methods.date_format("m_sms_datepicker_to");
-        var new_url = "/battery/data/" + from_date + "/" + to_date;
-        table_data.ajax.url(new_url).load();
-
-        $.get('/daily_battery/data/' + from_date + "/" + to_date, function (data) {
-          var history = data.voltages_history;
-          time_list = module.exports.methods.convert_date_time_format(history.time_list);
-          battery_voltages = history.battery_voltages;
-          panel_voltages = history.panel_voltages;
-          module.exports.methods.graph_one(time_list, battery_voltages);
-          module.exports.methods.graph_two(time_list, battery_voltages, panel_voltages);
-        });
-
-        $.get('/battery_voltages_summary/data/' + from_date + "/" + to_date, function (data) {
-          var history = data.records;
-          var category_dates = [];
-          var maximum_voltages = [];
-          var minimum_voltages = [];
-          var i = void 0;
-          for (i = 0; i < history.length; i++) {
-            var min_value = history[i].min_value;
-            if (min_value == null) {
-              min_value = 0;
-            }
-            var max_value = history[i].max_value;
-            if (max_value == null) {
-              max_value = 0;
-            }
-            var string = history[i].date.split("-");
-            var date = string[2] + "-" + string[1] + "-" + string[0];
-            category_dates.push(date);
-            maximum_voltages.push(max_value);
-            minimum_voltages.push(min_value);
-          }
-          module.exports.methods.graph_three(category_dates, maximum_voltages, minimum_voltages);
-        });
-      });
-    },
-    graph_one: function graph_one(time_list, battery_voltages) {
-      this.show_loading_animation("graph_one_loading");
-      Highcharts.setOptions({
-        lang: {
-          thousandsSep: ','
-        }
-      });
-
-      Highcharts.chart('battery_graph_one', {
-        chart: {
-          type: 'area',
-          zoomType: 'x'
-        },
-        credits: {
-          enabled: false
-        },
-        title: {
-          text: 'Battery Voltage'
-        },
-        subtitle: {
-          text: 'Time Vs. Voltage'
-        },
-        xAxis: {
-          categories: time_list,
-          labels: {
-            style: {
-              fontSize: '12px',
-              fontFamily: 'proxima-nova,helvetica,arial,sans-seri',
-              whiteSpace: 'nowrap',
-              paddingLeft: '10px',
-              paddingRight: '10px',
-              paddingTop: '10px',
-              paddingBottom: '10px'
-            }
-          }
-        },
-        yAxis: {
-          title: {
-            text: 'Voltages'
-          }
-        },
-        tooltip: {
-          valueSuffix: ' V'
-        },
-        plotOptions: {
-          area: {
-            fillColor: {
-              linearGradient: {
-                x1: 0,
-                y1: 0,
-                x2: 0,
-                y2: 1
-              },
-              stops: [[0, Highcharts.getOptions().colors[0]], [1, Highcharts.Color(Highcharts.getOptions().colors[0]).setOpacity(0).get('rgba')]]
-            },
-            marker: {
-              radius: 2
-            },
-            lineWidth: 1,
-            states: {
-              hover: {
-                lineWidth: 1
-              }
-            },
-            threshold: null
-          }
-        },
-        series: [{
-          name: 'Voltage',
-          data: battery_voltages
-        }]
-      });
-      mApp.unblock("#graph_one_loading");
-    },
-    graph_two: function graph_two(time_list, battery_voltages, panel_voltages) {
-      this.show_loading_animation("graph_two_loading");
-      Highcharts.setOptions({
-        lang: {
-          thousandsSep: ','
-        }
-      });
-
-      Highcharts.chart('battery_graph_two', {
-        chart: {
-          type: 'line',
-          zoomType: 'x'
-        },
-        credits: {
-          enabled: false
-        },
-        title: {
-          text: 'Voltage Summary'
-        },
-        subtitle: {
-          text: 'Battery Vs. Solar panel'
-        },
-        xAxis: {
-          categories: time_list,
-          labels: {
-            style: {
-              fontSize: '12px',
-              fontFamily: 'proxima-nova,helvetica,arial,sans-seri',
-              whiteSpace: 'nowrap',
-              paddingLeft: '10px',
-              paddingRight: '10px',
-              paddingTop: '10px',
-              paddingBottom: '10px'
-            }
-          }
-        },
-        yAxis: {
-          title: {
-            text: 'Voltages'
-          }
-        },
-        tooltip: {
-          valueSuffix: ' V',
-          shared: true
-        },
-        plotOptions: {
-          area: {
-            fillColor: {
-              linearGradient: {
-                x1: 0,
-                y1: 0,
-                x2: 0,
-                y2: 1
-              },
-              stops: [[0, Highcharts.getOptions().colors[0]], [1, Highcharts.Color(Highcharts.getOptions().colors[0]).setOpacity(0).get('rgba')]]
-            },
-            marker: {
-              radius: 2
-            },
-            lineWidth: 1,
-            states: {
-              hover: {
-                lineWidth: 1
-              }
-            },
-            threshold: null
-          }
-        },
-        series: [{
-          name: 'Battery Voltage',
-          data: battery_voltages
-        }, {
-          name: 'Panel Voltage',
-          data: panel_voltages
-        }]
-      });
-      mApp.unblock("#graph_two_loading");
-    },
-    graph_three: function graph_three(categories_dates, maximum_voltages, minimum_voltages) {
-      this.show_loading_animation("graph_three_loading");
-      Highcharts.setOptions({
-        lang: {
-          thousandsSep: ','
-        }
-      });
-
-      Highcharts.chart('battery_graph_three', {
-        chart: {
-          type: 'column'
-        },
-        colors: ['#363636', '#47bcfa', '#9c2a3d'],
-        credits: {
-          enabled: false
-        },
-        title: {
-          text: 'Battery Voltages Summary'
-        },
-        subtitle: {
-          text: 'Date wise'
-        },
-        xAxis: {
-          categories: categories_dates,
-          crosshair: true
-        },
-        yAxis: {
-          title: {
-            text: 'Voltages'
-          }
-        },
-        tooltip: {
-          valueSuffix: ' V',
-          shared: true
-        },
-        series: [{
-          name: 'Maximum Voltage',
-          data: maximum_voltages
-        }, {
-          name: 'Minimum Voltage',
-          data: minimum_voltages
-        }]
-      });
-      mApp.unblock("#graph_three_loading");
     }
   }, // end of methods
   mounted: function mounted() {
-    this.initializeTable();
-    this.init_graphs_data();
-    this.on_date_change();
+    this.deleteBattery();
+    var table = this.initializeTable();
+    this.getUniqueIdentifier(table);
+    this.search();
     this.get_session();
     this.initHideShow();
     this.active_menu_link();
-    this.graph_one(this.time_list, this.battery_voltages);
-    this.graph_two(this.time_list, this.battery_voltages, this.panel_voltages);
-    this.graph_three(this.categories_dates, this.maximum_voltages, this.minimum_voltages);
   }
 };
 
 /***/ }),
-/* 26 */
+/* 27 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -18906,7 +18777,7 @@ module.exports = {
 };
 
 /***/ }),
-/* 27 */
+/* 28 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -19360,7 +19231,7 @@ module.exports = {
 };
 
 /***/ }),
-/* 28 */
+/* 29 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -19896,7 +19767,7 @@ module.exports = {
 };
 
 /***/ }),
-/* 29 */
+/* 30 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -20650,7 +20521,7 @@ module.exports = {
 };
 
 /***/ }),
-/* 30 */
+/* 31 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -21208,7 +21079,7 @@ module.exports = {
 };
 
 /***/ }),
-/* 31 */
+/* 32 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -21952,7 +21823,7 @@ module.exports = {
 };
 
 /***/ }),
-/* 32 */
+/* 33 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -22363,7 +22234,7 @@ module.exports = {
 };
 
 /***/ }),
-/* 33 */
+/* 34 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -22990,7 +22861,674 @@ module.exports = {
 };
 
 /***/ }),
-/* 34 */
+/* 35 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var _vue = __webpack_require__(2);
+
+var _vue2 = _interopRequireDefault(_vue);
+
+var _App = __webpack_require__(1);
+
+var _App2 = _interopRequireDefault(_App);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+var app = new _vue2.default(_App2.default);
+
+module.exports = {
+  name: 'single_battery',
+  data: function data() {
+    return {
+      dataTable: null,
+      show_loading: false,
+      show_add_errors: false,
+      show_edit_errors: false,
+      show_edit_messages: "",
+      show_add_messages: "",
+      battery_voltages: [],
+      time_list: null,
+      panel_voltages: [],
+      categories_dates: [],
+      maximum_voltages: [],
+      minimum_voltages: [],
+      source_url: "",
+      battery_name: "",
+      headings: [{ column: "Reading DateTime", id: "datetime", unit: "" }, { column: "Battery voltage", id: "voltage", unit: "V" }, { column: "Battery current", id: "i_value", unit: "Ah" }, { column: "Panel voltage", id: "vpv_value", unit: "V" }, { column: "Panel power", id: "ppv_value", unit: "W" }, { column: "Serial#", id: "serial_no", unit: "" }, { column: "State of operation", id: "cs_value", unit: "" }, { column: "Error code", id: "err_value", unit: "" }, { column: "Yield total", id: "h19_value", unit: "Wh" }, { column: "Yield today", id: "h20_value", unit: "Wh" }, { column: "Maximum power today", id: "h21_value", unit: "W" }, { column: "Yield yesterday", id: "h22_value", unit: "Wh" }, { column: "Maximum power yesterday", id: "h23_value", unit: "W" }],
+      form_labels: {
+        hide_show_title: "Show/Hide Columns",
+        hide_show_button: "OK"
+      }
+    };
+  },
+  methods: {
+    date_format: function date_format(id) {
+      var string = $("#" + id).val().split("-");
+      return string[2] + "-" + string[1] + "-" + string[0];
+    },
+    initializeTable: function initializeTable() {
+      $("#m_sms_datepicker_from").datepicker({ autoclose: true, dateFormat: "dd-mm-yy" }).datepicker("setDate", new Date(new Date().getTime() - 48 * 60 * 60 * 1000));
+      $("#m_sms_datepicker_to").datepicker({ autoclose: true, dateFormat: "dd-mm-yy" }).datepicker("setDate", new Date());
+
+      var from_date = this.date_format("m_sms_datepicker_from");
+      var to_date = this.date_format("m_sms_datepicker_to");
+
+      var statusDataTable = $('#status-datatable').DataTable({
+        fnInitComplete: function fnInitComplete() {
+          // Enable TFOOT scoll bars
+          $('.dataTables_scrollFoot').css('overflow', 'auto');
+          $('.dataTables_scrollHead').css('overflow', 'auto');
+          // Sync TFOOT scrolling with TBODY
+          $('.dataTables_scrollFoot').on('scroll', function () {
+            $('.dataTables_scrollBody').scrollLeft($(this).scrollLeft());
+          });
+          $('.dataTables_scrollHead').on('scroll', function () {
+            $('.dataTables_scrollBody').scrollLeft($(this).scrollLeft());
+          });
+        },
+        ajax: {
+          url: "/battery/data/" + window.location.href.substring(window.location.href.lastIndexOf('/') + 1) + "/" + from_date + "/" + to_date,
+          dataSrc: function dataSrc(data) {
+            return data.records;
+          },
+          error: function error(xhr, _error, thrown) {
+            if (xhr.responseJSON) {
+              console.log(xhr.responseJSON.message);
+            } else {
+              console.log("Something went wrong, Please try again.");
+            }
+          }
+        },
+        columns: [{
+          class: "text-center datetime",
+          data: function data(row, type, set, meta) {
+            return moment(row.datetime).format('DD-MM-YYYY HH:mm:ss');
+          }
+        }, {
+          class: "text-center voltage",
+          data: function data(row, type, set, meta) {
+            return row.voltage / 1000;
+          }
+        }, {
+          class: "text-center i_value",
+          data: function data(row, type, set, meta) {
+            return row.i_value / 1000;
+          }
+        }, {
+          class: "text-center vpv_value",
+          data: function data(row, type, set, meta) {
+            return row.vpv_value / 1000;
+          }
+        }, {
+          class: "text-center ppv_value",
+          data: function data(row, type, set, meta) {
+            return row.ppv_value;
+          }
+        }, {
+          class: "text-center serial_no",
+          data: function data(row, type, set, meta) {
+            return row.serial_no;
+          }
+        }, {
+          class: "text-center cs_value",
+          data: function data(row, type, set, meta) {
+            return row.cs_value;
+          }
+        }, {
+          class: "text-center err_value",
+          data: function data(row, type, set, meta) {
+            return row.err_value;
+          }
+        }, {
+          class: "text-center h19_value",
+          data: function data(row, type, set, meta) {
+            return row.h19_value * 1000;
+          }
+        }, {
+          class: "text-center h20_value",
+          data: function data(row, type, set, meta) {
+            return row.h20_value * 1000;
+          }
+        }, {
+          class: "text-center h21_value",
+          data: function data(row, type, set, meta) {
+            return row.h21_value;
+          }
+        }, {
+          class: "text-center h22_value",
+          data: function data(row, type, set, meta) {
+            return row.h22_value * 1000;
+          }
+        }, {
+          class: "text-center h23_value",
+          data: function data(row, type, set, meta) {
+            return row.h23_value;
+          }
+        }],
+        autoWidth: true,
+        info: false,
+        bPaginate: false,
+        lengthChange: false,
+        scrollX: true,
+        colReorder: true,
+        stateSave: true,
+        order: [[0, "desc"]]
+      });
+      return this.dataTable = statusDataTable;
+    },
+    showHideColumns: function showHideColumns(id) {
+      var column = this.dataTable.columns("." + id);
+      if (column.visible()[0] == true) {
+        column.visible(false);
+      } else {
+        column.visible(true);
+      }
+    },
+    onHideShowButton: function onHideShowButton() {
+      $(this.$refs.hideShow).modal("show");
+    },
+    initHideShow: function initHideShow() {
+      $(".rule-column").each(function () {
+        var that = $(this).attr("data-id");
+        var statusDataTable = $('#status-datatable').DataTable();
+        var column = statusDataTable.columns("." + that);
+        if (column.visible()[0] == true) {
+          $(this).prop('checked', true);
+        } else {
+          $(this).prop('checked', false);
+        }
+      });
+    },
+    get_session: function get_session() {
+      var _this = this;
+
+      this.$http.get('/get_porfile').then(function (response) {
+        _this.user_id = response.body.id;
+      });
+    },
+    active_menu_link: function active_menu_link() {
+      $("li").removeClass(" m-menu__item--active");
+      $(".status").addClass(" m-menu__item--active");
+      $("#m_aside_left").removeClass("m-aside-left--on");
+      $("body").removeClass("m-aside-left--on");
+      $(".m-aside-left-overlay").removeClass("m-aside-left-overlay");
+    },
+    convert_date_time_format: function convert_date_time_format(times) {
+      var times_array = [];
+      for (var i = 0; i < times.length; i++) {
+        var times_data = times[i].split(" ");
+        var time = times_data[1];
+        var date = times_data[0].split("-");
+        var full_date_time = date[2] + "-" + date[1] + "-" + date[0] + " " + times_data[1];
+        times_array.push(full_date_time);
+      }
+      return times_array;
+    },
+    init_graphs_data: function init_graphs_data() {
+      var _this2 = this;
+
+      $("#m_sms_datepicker_from").datepicker({ autoclose: true, dateFormat: "dd-mm-yy" }).datepicker("setDate", new Date(new Date().getTime() - 48 * 60 * 60 * 1000));
+      $("#m_sms_datepicker_to").datepicker({ autoclose: true, dateFormat: "dd-mm-yy" }).datepicker("setDate", new Date());
+
+      var from_date = this.date_format("m_sms_datepicker_from");
+      var to_date = this.date_format("m_sms_datepicker_to");
+
+      this.$http.get('/daily_battery/data/' + window.location.href.substring(window.location.href.lastIndexOf('/') + 1) + "/" + from_date + "/" + to_date).then(function (response) {
+        var history = response.body.voltages_history;
+        _this2.time_list = _this2.convert_date_time_format(history.time_list);
+        _this2.battery_voltages = history.battery_voltages;
+        _this2.panel_voltages = history.panel_voltages;
+        _this2.graph_one(_this2.time_list, _this2.battery_voltages);
+        _this2.graph_two(_this2.time_list, _this2.battery_voltages, _this2.panel_voltages);
+      });
+
+      this.$http.get('/battery_voltages_summary/data/' + window.location.href.substring(window.location.href.lastIndexOf('/') + 1) + "/" + from_date + "/" + to_date).then(function (response) {
+        var history = response.body.records;
+        var i = void 0;
+        for (i = 0; i < history.length; i++) {
+          var min_value = history[i].min_value;
+          if (min_value == null) {
+            min_value = 0;
+          }
+          var max_value = history[i].max_value;
+          if (max_value == null) {
+            max_value = 0;
+          }
+
+          var string = history[i].date.split("-");
+          var date = string[2] + "-" + string[1] + "-" + string[0];
+
+          _this2.categories_dates.push(date);
+          _this2.maximum_voltages.push(max_value);
+          _this2.minimum_voltages.push(min_value);
+        }
+        _this2.graph_three(_this2.categories_dates, _this2.maximum_voltages, _this2.minimum_voltages);
+      });
+    },
+    show_loading_animation: function show_loading_animation(selector) {
+      mApp.block("#" + selector, {
+        overlayColor: "#000000",
+        type: "loader",
+        state: "success",
+        message: "Loading..."
+      });
+    },
+    on_date_change: function on_date_change() {
+      var table_data = this.dataTable;
+      var time_list = this.time_list;
+      var battery_voltages = this.battery_voltages;
+      var panel_voltages = this.panel_voltages;
+
+      $('#m_sms_datepicker_from, #m_sms_datepicker_to').change(function () {
+        var from_date = module.exports.methods.date_format("m_sms_datepicker_from");
+        var to_date = module.exports.methods.date_format("m_sms_datepicker_to");
+        var new_url = "/battery/data/" + from_date + "/" + to_date;
+        table_data.ajax.url(new_url).load();
+
+        $.get('/daily_battery/data/' + window.location.href.substring(window.location.href.lastIndexOf('/') + 1) + "/" + from_date + "/" + to_date, function (data) {
+          var history = data.voltages_history;
+          time_list = module.exports.methods.convert_date_time_format(history.time_list);
+          battery_voltages = history.battery_voltages;
+          panel_voltages = history.panel_voltages;
+          module.exports.methods.graph_one(time_list, battery_voltages);
+          module.exports.methods.graph_two(time_list, battery_voltages, panel_voltages);
+        });
+
+        $.get('/battery_voltages_summary/data/' + window.location.href.substring(window.location.href.lastIndexOf('/') + 1) + "/" + from_date + "/" + to_date, function (data) {
+          var history = data.records;
+          var category_dates = [];
+          var maximum_voltages = [];
+          var minimum_voltages = [];
+          var i = void 0;
+          for (i = 0; i < history.length; i++) {
+            var min_value = history[i].min_value;
+            if (min_value == null) {
+              min_value = 0;
+            }
+            var max_value = history[i].max_value;
+            if (max_value == null) {
+              max_value = 0;
+            }
+            var string = history[i].date.split("-");
+            var date = string[2] + "-" + string[1] + "-" + string[0];
+            category_dates.push(date);
+            maximum_voltages.push(max_value);
+            minimum_voltages.push(min_value);
+          }
+          module.exports.methods.graph_three(category_dates, maximum_voltages, minimum_voltages);
+        });
+      });
+    },
+    graph_one: function graph_one(time_list, battery_voltages) {
+      this.show_loading_animation("graph_one_loading");
+      Highcharts.setOptions({
+        lang: {
+          thousandsSep: ','
+        }
+      });
+
+      Highcharts.chart('battery_graph_one', {
+        chart: {
+          type: 'area',
+          zoomType: 'x'
+        },
+        credits: {
+          enabled: false
+        },
+        title: {
+          text: 'Battery Voltage'
+        },
+        subtitle: {
+          text: 'Time Vs. Voltage'
+        },
+        xAxis: {
+          categories: time_list,
+          labels: {
+            style: {
+              fontSize: '12px',
+              fontFamily: 'proxima-nova,helvetica,arial,sans-seri',
+              whiteSpace: 'nowrap',
+              paddingLeft: '10px',
+              paddingRight: '10px',
+              paddingTop: '10px',
+              paddingBottom: '10px'
+            }
+          }
+        },
+        yAxis: {
+          title: {
+            text: 'Voltages'
+          }
+        },
+        tooltip: {
+          valueSuffix: ' V'
+        },
+        plotOptions: {
+          area: {
+            fillColor: {
+              linearGradient: {
+                x1: 0,
+                y1: 0,
+                x2: 0,
+                y2: 1
+              },
+              stops: [[0, Highcharts.getOptions().colors[0]], [1, Highcharts.Color(Highcharts.getOptions().colors[0]).setOpacity(0).get('rgba')]]
+            },
+            marker: {
+              radius: 2
+            },
+            lineWidth: 1,
+            states: {
+              hover: {
+                lineWidth: 1
+              }
+            },
+            threshold: null
+          }
+        },
+        series: [{
+          name: 'Voltage',
+          data: battery_voltages
+        }]
+      });
+      mApp.unblock("#graph_one_loading");
+    },
+    graph_two: function graph_two(time_list, battery_voltages, panel_voltages) {
+      this.show_loading_animation("graph_two_loading");
+      Highcharts.setOptions({
+        lang: {
+          thousandsSep: ','
+        }
+      });
+
+      Highcharts.chart('battery_graph_two', {
+        chart: {
+          type: 'line',
+          zoomType: 'x'
+        },
+        credits: {
+          enabled: false
+        },
+        title: {
+          text: 'Voltage Summary'
+        },
+        subtitle: {
+          text: 'Battery Vs. Solar panel'
+        },
+        xAxis: {
+          categories: time_list,
+          labels: {
+            style: {
+              fontSize: '12px',
+              fontFamily: 'proxima-nova,helvetica,arial,sans-seri',
+              whiteSpace: 'nowrap',
+              paddingLeft: '10px',
+              paddingRight: '10px',
+              paddingTop: '10px',
+              paddingBottom: '10px'
+            }
+          }
+        },
+        yAxis: {
+          title: {
+            text: 'Voltages'
+          }
+        },
+        tooltip: {
+          valueSuffix: ' V',
+          shared: true
+        },
+        plotOptions: {
+          area: {
+            fillColor: {
+              linearGradient: {
+                x1: 0,
+                y1: 0,
+                x2: 0,
+                y2: 1
+              },
+              stops: [[0, Highcharts.getOptions().colors[0]], [1, Highcharts.Color(Highcharts.getOptions().colors[0]).setOpacity(0).get('rgba')]]
+            },
+            marker: {
+              radius: 2
+            },
+            lineWidth: 1,
+            states: {
+              hover: {
+                lineWidth: 1
+              }
+            },
+            threshold: null
+          }
+        },
+        series: [{
+          name: 'Battery Voltage',
+          data: battery_voltages
+        }, {
+          name: 'Panel Voltage',
+          data: panel_voltages
+        }]
+      });
+      mApp.unblock("#graph_two_loading");
+    },
+    graph_three: function graph_three(categories_dates, maximum_voltages, minimum_voltages) {
+      this.show_loading_animation("graph_three_loading");
+      Highcharts.setOptions({
+        lang: {
+          thousandsSep: ','
+        }
+      });
+
+      Highcharts.chart('battery_graph_three', {
+        chart: {
+          type: 'column'
+        },
+        colors: ['#363636', '#47bcfa', '#9c2a3d'],
+        credits: {
+          enabled: false
+        },
+        title: {
+          text: 'Battery Voltages Summary'
+        },
+        subtitle: {
+          text: 'Date wise'
+        },
+        xAxis: {
+          categories: categories_dates,
+          crosshair: true
+        },
+        yAxis: {
+          title: {
+            text: 'Voltages'
+          }
+        },
+        tooltip: {
+          valueSuffix: ' V',
+          shared: true
+        },
+        series: [{
+          name: 'Maximum Voltage',
+          data: maximum_voltages
+        }, {
+          name: 'Minimum Voltage',
+          data: minimum_voltages
+        }]
+      });
+      mApp.unblock("#graph_three_loading");
+    },
+    get_single_battery: function get_single_battery() {
+      var _this3 = this;
+
+      this.$http.get('/battery/data/' + window.location.href.substring(window.location.href.lastIndexOf('/') + 1)).then(function (response) {
+        _this3.battery_name = response.body.name;
+        _this3.source_url = response.body.source_url;
+      });
+    }
+  }, // end of methods
+  mounted: function mounted() {
+    this.initializeTable();
+    this.init_graphs_data();
+    this.on_date_change();
+    this.get_session();
+    this.initHideShow();
+    this.active_menu_link();
+    this.get_single_battery();
+    this.graph_one(this.time_list, this.battery_voltages);
+    this.graph_two(this.time_list, this.battery_voltages, this.panel_voltages);
+    this.graph_three(this.categories_dates, this.maximum_voltages, this.minimum_voltages);
+  }
+};
+
+/***/ }),
+/* 36 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -23653,7 +24191,7 @@ module.exports = {
 };
 
 /***/ }),
-/* 35 */
+/* 37 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -24462,7 +25000,7 @@ module.exports = {
 };
 
 /***/ }),
-/* 36 */
+/* 38 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -24609,7 +25147,7 @@ module.exports = {
 };
 
 /***/ }),
-/* 37 */
+/* 39 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -24621,15 +25159,15 @@ var _vue = __webpack_require__(2);
 
 var _vue2 = _interopRequireDefault(_vue);
 
-var _vueResource = __webpack_require__(20);
+var _vueResource = __webpack_require__(21);
 
 var _vueResource2 = _interopRequireDefault(_vueResource);
 
-var _vueRouter = __webpack_require__(21);
+var _vueRouter = __webpack_require__(22);
 
 var _vueRouter2 = _interopRequireDefault(_vueRouter);
 
-var _vueNotification = __webpack_require__(22);
+var _vueNotification = __webpack_require__(23);
 
 var _vueNotification2 = _interopRequireDefault(_vueNotification);
 
@@ -24653,11 +25191,11 @@ var _nvrs = __webpack_require__(12);
 
 var _nvrs2 = _interopRequireDefault(_nvrs);
 
-var _sites = __webpack_require__(18);
+var _sites = __webpack_require__(19);
 
 var _sites2 = _interopRequireDefault(_sites);
 
-var _status_report = __webpack_require__(19);
+var _status_report = __webpack_require__(20);
 
 var _status_report2 = _interopRequireDefault(_status_report);
 
@@ -24677,7 +25215,7 @@ var _sims = __webpack_require__(16);
 
 var _sims2 = _interopRequireDefault(_sims);
 
-var _single_sims = __webpack_require__(17);
+var _single_sims = __webpack_require__(18);
 
 var _single_sims2 = _interopRequireDefault(_single_sims);
 
@@ -24685,22 +25223,17 @@ var _dashboard = __webpack_require__(10);
 
 var _dashboard2 = _interopRequireDefault(_dashboard);
 
-var _battery_status = __webpack_require__(8);
+var _single_battery = __webpack_require__(17);
 
-var _battery_status2 = _interopRequireDefault(_battery_status);
+var _single_battery2 = _interopRequireDefault(_single_battery);
+
+var _batteries = __webpack_require__(8);
+
+var _batteries2 = _interopRequireDefault(_batteries);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-// Import local files
-//
-// Local files can be imported directly using relative
-// paths "./socket" or full ones "web/static/js/socket".
-
-// import socket from "./socket"
-
-
-// Import Vue components
-_vue2.default.config.productionTip = false; // Brunch automatically concatenates all files in your
+// Brunch automatically concatenates all files in your
 // watched paths. Those paths can be configured at
 // config.paths.watched in "brunch-config.js".
 //
@@ -24713,6 +25246,17 @@ _vue2.default.config.productionTip = false; // Brunch automatically concatenates
 //
 // If you no longer want to use a dependency, remember
 // to also remove its path from "config.paths.watched".
+_vue2.default.config.productionTip = false;
+
+// Import local files
+//
+// Local files can be imported directly using relative
+// paths "./socket" or full ones "web/static/js/socket".
+
+// import socket from "./socket"
+
+
+// Import Vue components
 
 _vue2.default.use(_vueResource2.default);
 _vue2.default.use(_vueRouter2.default);
@@ -24769,9 +25313,13 @@ var router = new _vueRouter2.default({
     name: 'dashboard',
     component: _dashboard2.default
   }, {
-    path: '/battery_status',
-    name: 'battery_status',
-    component: _battery_status2.default
+    path: '/battery/:id',
+    name: 'single_battery',
+    component: _single_battery2.default
+  }, {
+    path: '/batteries',
+    name: 'batteries',
+    component: _batteries2.default
   }]
 });
 
@@ -24781,18 +25329,6 @@ new _vue2.default({
   template: '<App/>',
   components: { App: _App2.default }
 }).$mount('#app');
-
-/***/ }),
-/* 38 */
-/***/ (function(module, exports) {
-
-// removed by extract-text-webpack-plugin
-
-/***/ }),
-/* 39 */
-/***/ (function(module, exports) {
-
-// removed by extract-text-webpack-plugin
 
 /***/ }),
 /* 40 */
@@ -24868,6 +25404,24 @@ new _vue2.default({
 
 /***/ }),
 /* 52 */
+/***/ (function(module, exports) {
+
+// removed by extract-text-webpack-plugin
+
+/***/ }),
+/* 53 */
+/***/ (function(module, exports) {
+
+// removed by extract-text-webpack-plugin
+
+/***/ }),
+/* 54 */
+/***/ (function(module, exports) {
+
+// removed by extract-text-webpack-plugin
+
+/***/ }),
+/* 55 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(global, process) {(function (global, undefined) {
@@ -25060,7 +25614,7 @@ new _vue2.default({
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(3), __webpack_require__(4)))
 
 /***/ }),
-/* 53 */
+/* 56 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
@@ -25211,13 +25765,13 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
   }, [_c('router-link', {
     staticClass: "m-menu__link",
     attrs: {
-      "to": '/battery_status'
+      "to": '/batteries'
     }
   }, [_c('i', {
     staticClass: "m-menu__link-icon fa fa-battery-full m-menu__link-text"
   }), _vm._v(" "), _c('span', {
     staticClass: "m-menu__link-text"
-  }, [_vm._v("Battery Status")])])], 1)]), _vm._v(" "), _c('ul', {
+  }, [_vm._v("Batteries")])])], 1)]), _vm._v(" "), _c('ul', {
     staticClass: "m-menu__nav  m-menu__nav--dropdown-submenu-arrow bottom_links"
   }, [_c('li', {
     staticClass: "m-menu__item vue_links api",
@@ -25380,7 +25934,7 @@ if (false) {
 }
 
 /***/ }),
-/* 54 */
+/* 57 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
@@ -26115,7 +26669,7 @@ if (false) {
 }
 
 /***/ }),
-/* 55 */
+/* 58 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
@@ -26643,7 +27197,537 @@ if (false) {
 }
 
 /***/ }),
-/* 56 */
+/* 59 */
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('div', [_c('div', {
+    staticClass: "m-content"
+  }, [_c('div', {
+    staticClass: "m-portlet m-portlet--mobile",
+    staticStyle: {
+      "margin-bottom": "0"
+    }
+  }, [_c('div', {
+    staticClass: "m-portlet__body",
+    staticStyle: {
+      "padding": "10px"
+    }
+  }, [_c('div', {
+    staticClass: "m-form m-form--label-align-right m--margin-bottom-10"
+  }, [_c('div', {
+    staticClass: "row align-items-center"
+  }, [_c('div', {
+    staticClass: "col-md-8 order-2 order-md-1"
+  }, [_c('div', {
+    staticClass: "form-group m-form__group row align-items-center"
+  }, [_c('div', {
+    staticClass: "col-md-5"
+  }, [_c('div', {
+    staticClass: "m-input-icon m-input-icon--left"
+  }, [_c('input', {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: (_vm.m_form_search),
+      expression: "m_form_search"
+    }],
+    staticClass: "form-control m-input m-input--solid",
+    attrs: {
+      "type": "text",
+      "placeholder": "Search...",
+      "id": "m_form_search"
+    },
+    domProps: {
+      "value": (_vm.m_form_search)
+    },
+    on: {
+      "keyup": function($event) {
+        _vm.search()
+      },
+      "input": function($event) {
+        if ($event.target.composing) { return; }
+        _vm.m_form_search = $event.target.value
+      }
+    }
+  }), _vm._v(" "), _vm._m(0)])])])]), _vm._v(" "), _c('div', {
+    staticClass: "col-md-4 order-1 order-md-2 m--align-right"
+  }, [_c('a', {
+    staticClass: "btn btn-primary m-btn m-btn--icon",
+    attrs: {
+      "href": "javascript:void(0)",
+      "id": "addRULE"
+    },
+    on: {
+      "click": _vm.onBatteryButton
+    }
+  }, [_c('span', [_c('i', {
+    staticClass: "fa fa-plus-square"
+  }), _vm._v(" "), _c('span', [_vm._v("\n                            " + _vm._s(_vm.form_labels.add_battery_button) + "\n                        ")])])]), _vm._v(" "), _c('div', {
+    staticClass: "btn btn-default grey",
+    attrs: {
+      "href": "javascript:void(0)"
+    },
+    on: {
+      "click": _vm.onHideShowButton
+    }
+  }, [_c('i', {
+    staticClass: "fa fa-columns"
+  })])])])]), _vm._v(" "), _c('div'), _vm._v(" "), _c('table', {
+    staticClass: "table table-striped  table-hover table-bordered display nowrap",
+    attrs: {
+      "id": "battery-datatable",
+      "cellspacing": "0",
+      "width": "100%"
+    }
+  }, [_c('thead', [_c('tr', _vm._l((_vm.headings), function(item, index) {
+    return _c('th', [_vm._v(_vm._s(item.column))])
+  }))])])])])]), _vm._v(" "), _c('div', {
+    ref: "hideShow",
+    staticClass: "modal fade toggle-datatable-columns",
+    staticStyle: {
+      "padding": "0px"
+    },
+    attrs: {
+      "tabindex": "-1",
+      "role": "dialog",
+      "aria-labelledby": "exampleModalLabel",
+      "aria-hidden": "true",
+      "data-backdrop": "static",
+      "data-keyboard": "false"
+    }
+  }, [_c('div', {
+    staticClass: "modal-dialog modal-sm",
+    attrs: {
+      "role": "document"
+    }
+  }, [_c('div', {
+    staticClass: "modal-content",
+    staticStyle: {
+      "padding": "0px"
+    }
+  }, [_c('div', {
+    staticClass: "modal-header"
+  }, [_c('h5', {
+    staticClass: "modal-title",
+    attrs: {
+      "id": "exampleModalLabel"
+    }
+  }, [_vm._v("\n                    " + _vm._s(_vm.form_labels.hide_show_title) + "\n                ")]), _vm._v(" "), _c('div', {
+    staticClass: "cancel"
+  }, [_c('a', {
+    attrs: {
+      "href": "#",
+      "id": "discardModal",
+      "data-dismiss": "modal"
+    },
+    on: {
+      "click": _vm.clearForm
+    }
+  }, [_vm._v("X")])])]), _vm._v(" "), _c('div', {
+    staticClass: "modal-body",
+    attrs: {
+      "id": "body-sim-dis"
+    }
+  }, [_c('div', {
+    staticClass: "form-group"
+  }, _vm._l((_vm.headings), function(item, index) {
+    return _c('div', {
+      staticClass: "column-checkbox"
+    }, [_c('label', {
+      staticClass: "m-checkbox m-checkbox--single m-checkbox--solid m-checkbox--brand",
+      staticStyle: {
+        "width": "auto"
+      }
+    }, [_c('input', {
+      staticClass: "sms-column",
+      attrs: {
+        "type": "checkbox",
+        "data-id": item.id
+      },
+      domProps: {
+        "checked": item.visible
+      },
+      on: {
+        "change": function($event) {
+          _vm.showHideColumns(item.id)
+        }
+      }
+    }), _c('span'), _vm._v(" " + _vm._s(item.column))])])
+  }))]), _vm._v(" "), _c('div', {
+    staticClass: "modal-footer"
+  }, [_c('button', {
+    staticClass: "btn btn-default",
+    attrs: {
+      "type": "button",
+      "data-dismiss": "modal"
+    }
+  }, [_vm._v(_vm._s(_vm.form_labels.hide_show_button))])])])])]), _vm._v(" "), _c('div', {
+    ref: "addmodal",
+    staticClass: "modal fade add_rule_to_db",
+    staticStyle: {
+      "padding": "0px"
+    },
+    attrs: {
+      "id": "m_modal_1",
+      "tabindex": "-1",
+      "role": "dialog",
+      "aria-labelledby": "exampleModalLabel",
+      "aria-hidden": "true",
+      "data-backdrop": "static",
+      "data-keyboard": "false"
+    }
+  }, [_c('div', {
+    staticClass: "modal-dialog modal-lg",
+    attrs: {
+      "role": "document"
+    }
+  }, [_c('div', {
+    staticClass: "modal-content",
+    staticStyle: {
+      "padding": "0px"
+    }
+  }, [_c('div', {
+    staticClass: "modal-header"
+  }, [_c('h5', {
+    staticClass: "modal-title",
+    attrs: {
+      "id": "exampleModalLabel"
+    }
+  }, [_vm._v("\n                     " + _vm._s(_vm.form_labels.add_title) + "\n                  ")]), _vm._v(" "), _c('div', {
+    staticClass: "cancel"
+  }, [_c('a', {
+    attrs: {
+      "href": "#",
+      "id": "discardModal",
+      "data-dismiss": "modal"
+    },
+    on: {
+      "click": _vm.clearForm
+    }
+  }, [_vm._v("X")])])]), _vm._v(" "), _c('div', {
+    staticClass: "modal-body",
+    attrs: {
+      "id": "body-rule-dis"
+    }
+  }, [(_vm.show_loading) ? _c('img', {
+    attrs: {
+      "src": "/images/loading.gif",
+      "id": "api-wait"
+    }
+  }) : _vm._e(), _vm._v(" "), (_vm.show_add_errors) ? _c('div', {
+    attrs: {
+      "id": "ruleErrorDetails"
+    }
+  }, [_c('div', {
+    staticClass: "form-group m-form__group m--margin-top-10"
+  }, [_c('div', {
+    staticClass: "alert m-alert m-alert--default",
+    attrs: {
+      "role": "alert"
+    }
+  }, [_c('ul', {
+    staticStyle: {
+      "margin": "0px"
+    }
+  }, _vm._l((_vm.show_add_messages), function(message) {
+    return _c('li', [_vm._v(_vm._s(message))])
+  }))])])]) : _vm._e(), _vm._v(" "), _c('div', {
+    staticClass: "m-form m-form--fit m-form--label-align-left"
+  }, [_c('input', {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: (_vm.user_id),
+      expression: "user_id"
+    }],
+    attrs: {
+      "type": "hidden",
+      "id": "user_id"
+    },
+    domProps: {
+      "value": (_vm.user_id)
+    },
+    on: {
+      "input": function($event) {
+        if ($event.target.composing) { return; }
+        _vm.user_id = $event.target.value
+      }
+    }
+  }), _vm._v(" "), _c('div', {
+    staticClass: "form-group m-form__group row"
+  }, [_c('label', {
+    staticClass: "col-2 col-form-label"
+  }, [_vm._v("\n                              " + _vm._s(_vm.form_labels.name) + "\n                          ")]), _vm._v(" "), _c('div', {
+    staticClass: "col-10"
+  }, [_c('input', {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: (_vm.battery_name),
+      expression: "battery_name"
+    }],
+    staticClass: "form-control m-input m-input--solid",
+    attrs: {
+      "type": "text",
+      "id": "battery_name"
+    },
+    domProps: {
+      "value": (_vm.battery_name)
+    },
+    on: {
+      "input": function($event) {
+        if ($event.target.composing) { return; }
+        _vm.battery_name = $event.target.value
+      }
+    }
+  })])]), _vm._v(" "), _c('div', {
+    staticClass: "form-group m-form__group row"
+  }, [_c('label', {
+    staticClass: "col-2 col-form-label"
+  }, [_vm._v("\n                              " + _vm._s(_vm.form_labels.battery_source_url) + "\n                          ")]), _vm._v(" "), _c('div', {
+    staticClass: "col-10"
+  }, [_c('input', {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: (_vm.battery_source_url),
+      expression: "battery_source_url"
+    }],
+    staticClass: "form-control m-input m-input--solid",
+    attrs: {
+      "type": "text",
+      "id": "battery_source_url"
+    },
+    domProps: {
+      "value": (_vm.battery_source_url)
+    },
+    on: {
+      "input": function($event) {
+        if ($event.target.composing) { return; }
+        _vm.battery_source_url = $event.target.value
+      }
+    }
+  })])]), _vm._v(" "), _c('div', {
+    staticClass: "form-group m-form__group row"
+  }, [_c('label', {
+    staticClass: "col-2 col-form-label"
+  }), _vm._v(" "), _c('div', {
+    staticClass: "col-10"
+  }, [_c('label', {
+    staticClass: "m-checkbox"
+  }, [_c('input', {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: (_vm.battery_is_active),
+      expression: "battery_is_active"
+    }],
+    attrs: {
+      "type": "checkbox",
+      "id": "battery_is_active"
+    },
+    domProps: {
+      "checked": Array.isArray(_vm.battery_is_active) ? _vm._i(_vm.battery_is_active, null) > -1 : (_vm.battery_is_active)
+    },
+    on: {
+      "change": function($event) {
+        var $$a = _vm.battery_is_active,
+          $$el = $event.target,
+          $$c = $$el.checked ? (true) : (false);
+        if (Array.isArray($$a)) {
+          var $$v = null,
+            $$i = _vm._i($$a, $$v);
+          if ($$el.checked) {
+            $$i < 0 && (_vm.battery_is_active = $$a.concat([$$v]))
+          } else {
+            $$i > -1 && (_vm.battery_is_active = $$a.slice(0, $$i).concat($$a.slice($$i + 1)))
+          }
+        } else {
+          _vm.battery_is_active = $$c
+        }
+      }
+    }
+  }), _vm._v("\n                                      " + _vm._s(_vm.form_labels.status) + "\n                                  "), _c('span')])])])])]), _vm._v(" "), _c('div', {
+    staticClass: "modal-footer",
+    staticStyle: {
+      "padding": "11px"
+    }
+  }, [_c('button', {
+    staticClass: "btn btn-default",
+    attrs: {
+      "id": "",
+      "type": "button"
+    },
+    on: {
+      "click": _vm.saveModal
+    }
+  }, [_vm._v("\n                      " + _vm._s(_vm.form_labels.submit_button) + "\n                  ")])])])])]), _vm._v(" "), _c('div', {
+    ref: "editmodal",
+    staticClass: "modal fade",
+    staticStyle: {
+      "padding": "0px"
+    },
+    attrs: {
+      "id": "edit_battery_to_db",
+      "data-backdrop": "static",
+      "data-keyboard": "false"
+    }
+  }, [_c('div', {
+    staticClass: "modal-dialog modal-lg",
+    attrs: {
+      "role": "document"
+    }
+  }, [_c('div', {
+    staticClass: "modal-content",
+    staticStyle: {
+      "padding": "0px"
+    }
+  }, [_c('div', {
+    staticClass: "modal-header"
+  }, [_c('h5', {
+    staticClass: "modal-title",
+    attrs: {
+      "id": "exampleModalLabel"
+    }
+  }, [_vm._v("\n                      " + _vm._s(_vm.form_labels.edit_title) + "\n                  ")]), _vm._v(" "), _c('div', {
+    staticClass: "cancel"
+  }, [_c('a', {
+    attrs: {
+      "href": "#",
+      "id": "discardEditModal",
+      "data-dismiss": "modal"
+    },
+    on: {
+      "click": _vm.editClearFrom
+    }
+  }, [_vm._v("X")])])]), _vm._v(" "), _c('div', {
+    staticClass: "modal-body",
+    attrs: {
+      "id": "body-rule-edit-dis"
+    }
+  }, [(_vm.show_loading) ? _c('img', {
+    attrs: {
+      "src": "/images/loading.gif",
+      "id": "api-wait"
+    }
+  }) : _vm._e(), _vm._v(" "), (_vm.show_edit_errors) ? _c('div', {
+    attrs: {
+      "id": "ruleEditErrorDetails"
+    }
+  }, [_c('div', {
+    staticClass: "form-group m-form__group m--margin-top-10"
+  }, [_c('div', {
+    staticClass: "alert m-alert m-alert--default",
+    attrs: {
+      "role": "alert"
+    }
+  }, [_c('ul', {
+    staticStyle: {
+      "margin": "0px"
+    }
+  }, _vm._l((_vm.show_edit_messages), function(message) {
+    return _c('li', [_vm._v(_vm._s(message))])
+  }))])])]) : _vm._e(), _vm._v(" "), _c('div', {
+    staticClass: "m-form m-form--fit m-form--label-align-left"
+  }, [_c('input', {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: (_vm.user_id),
+      expression: "user_id"
+    }],
+    attrs: {
+      "type": "hidden",
+      "id": "user_id"
+    },
+    domProps: {
+      "value": (_vm.user_id)
+    },
+    on: {
+      "input": function($event) {
+        if ($event.target.composing) { return; }
+        _vm.user_id = $event.target.value
+      }
+    }
+  }), _vm._v(" "), _c('input', {
+    attrs: {
+      "type": "hidden",
+      "id": "edit_battery_id"
+    }
+  }), _vm._v(" "), _c('div', {
+    staticClass: "form-group m-form__group row"
+  }, [_c('label', {
+    staticClass: "col-2 col-form-label"
+  }, [_vm._v("\n                              " + _vm._s(_vm.form_labels.name) + "\n                          ")]), _vm._v(" "), _vm._m(1)]), _vm._v(" "), _c('div', {
+    staticClass: "form-group m-form__group row"
+  }, [_c('label', {
+    staticClass: "col-2 col-form-label"
+  }, [_vm._v("\n                              " + _vm._s(_vm.form_labels.battery_source_url) + "\n                          ")]), _vm._v(" "), _vm._m(2)]), _vm._v(" "), _c('div', {
+    staticClass: "form-group m-form__group row"
+  }, [_c('label', {
+    staticClass: "col-2 col-form-label"
+  }), _vm._v(" "), _c('div', {
+    staticClass: "col-10"
+  }, [_c('label', {
+    staticClass: "m-checkbox"
+  }, [_c('input', {
+    attrs: {
+      "type": "checkbox",
+      "id": "edit_battery_is_active"
+    }
+  }), _vm._v("\n                                  " + _vm._s(_vm.form_labels.status) + "\n                                  "), _c('span')])])])])]), _vm._v(" "), _c('div', {
+    staticClass: "modal-footer",
+    staticStyle: {
+      "padding": "11px"
+    }
+  }, [_c('button', {
+    staticClass: "btn btn-default",
+    attrs: {
+      "id": "",
+      "type": "button"
+    },
+    on: {
+      "click": _vm.updateBattery
+    }
+  }, [_vm._v("\n                      " + _vm._s(_vm.form_labels.submit_button) + "\n                  ")])])])])])])
+},staticRenderFns: [function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('span', {
+    staticClass: "m-input-icon__icon m-input-icon__icon--left"
+  }, [_c('span', [_c('i', {
+    staticClass: "la la-search"
+  })])])
+},function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('div', {
+    staticClass: "col-10"
+  }, [_c('input', {
+    staticClass: "form-control m-input m-input--solid",
+    attrs: {
+      "type": "text",
+      "id": "edit_battery_name"
+    }
+  })])
+},function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('div', {
+    staticClass: "col-10"
+  }, [_c('input', {
+    staticClass: "form-control m-input m-input--solid",
+    attrs: {
+      "type": "text",
+      "id": "edit_battery_source_url"
+    }
+  })])
+}]}
+module.exports.render._withStripped = true
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+     require("vue-hot-reload-api").rerender("data-v-312eaeb5", module.exports)
+  }
+}
+
+/***/ }),
+/* 60 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
@@ -27007,7 +28091,7 @@ if (false) {
 }
 
 /***/ }),
-/* 57 */
+/* 61 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
@@ -27458,300 +28542,7 @@ if (false) {
 }
 
 /***/ }),
-/* 58 */
-/***/ (function(module, exports, __webpack_require__) {
-
-module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('div', [_c('div', {
-    staticClass: "m-content"
-  }, [_c('div', {
-    staticClass: "m-portlet m-portlet--mobile",
-    staticStyle: {
-      "margin-bottom": "0"
-    }
-  }, [_c('div', {
-    staticClass: "m-portlet__body",
-    staticStyle: {
-      "padding": "10px"
-    }
-  }, [_c('div', {
-    staticClass: "m-form m-form--label-align-right"
-  }, [_c('div', {
-    staticClass: "row align-items-center"
-  }, [_vm._m(0), _vm._v(" "), _c('div', {
-    staticClass: "col-md-6 order-1 order-md-2 m--align-right"
-  }, [_c('div', {
-    staticClass: "row"
-  }, [_vm._m(1), _vm._v(" "), _vm._m(2), _vm._v(" "), _c('div', {
-    staticClass: "col-sm-2"
-  }, [_c('div', {
-    staticClass: "btn btn-default grey",
-    attrs: {
-      "href": "javascript:void(0)"
-    },
-    on: {
-      "click": _vm.onHideShowButton
-    }
-  }, [_c('i', {
-    staticClass: "fa fa-columns"
-  })])])])])])]), _vm._v(" "), _c('div')])])]), _vm._v(" "), _c('div', {
-    staticClass: "tab-content"
-  }, [_c('div', {
-    staticClass: "tab-pane  active show",
-    attrs: {
-      "id": "m_tabs_1_1",
-      "role": "tabpanel"
-    }
-  }, [_c('div', {
-    staticClass: "m-content"
-  }, [_c('div', {
-    staticClass: "m-portlet m-portlet--mobile",
-    staticStyle: {
-      "margin-bottom": "0"
-    }
-  }, [_c('div', {
-    staticClass: "m-portlet__body",
-    staticStyle: {
-      "padding": "10px"
-    }
-  }, [_c('table', {
-    staticClass: "table table-striped  table-hover table-bordered display nowrap",
-    attrs: {
-      "id": "status-datatable",
-      "cellspacing": "0",
-      "width": "100%"
-    }
-  }, [_c('thead', [_c('tr', _vm._l((_vm.headings), function(item, index) {
-    return _c('th', {
-      staticStyle: {
-        "vertical-align": "middle"
-      }
-    }, [_vm._v(_vm._s(item.column) + " "), _c('br'), _vm._v(" " + _vm._s(item.unit))])
-  }))])])])])])]), _vm._v(" "), _vm._m(3)]), _vm._v(" "), _c('div', {
-    ref: "hideShow",
-    staticClass: "modal fade toggle-datatable-columns",
-    staticStyle: {
-      "padding": "0px"
-    },
-    attrs: {
-      "tabindex": "-1",
-      "role": "dialog",
-      "aria-labelledby": "exampleModalLabel",
-      "aria-hidden": "true",
-      "data-backdrop": "static",
-      "data-keyboard": "false"
-    }
-  }, [_c('div', {
-    staticClass: "modal-dialog modal-sm",
-    attrs: {
-      "role": "document"
-    }
-  }, [_c('div', {
-    staticClass: "modal-content",
-    staticStyle: {
-      "padding": "0px"
-    }
-  }, [_c('div', {
-    staticClass: "modal-header"
-  }, [_c('h5', {
-    staticClass: "modal-title",
-    attrs: {
-      "id": "exampleModalLabel"
-    }
-  }, [_vm._v("\n                    " + _vm._s(_vm.form_labels.hide_show_title) + "\n                ")]), _vm._v(" "), _vm._m(4)]), _vm._v(" "), _c('div', {
-    staticClass: "modal-body",
-    attrs: {
-      "id": "body-sim-dis"
-    }
-  }, [_c('div', {
-    staticClass: "form-group"
-  }, _vm._l((_vm.headings), function(item, index) {
-    return _c('div', {
-      staticClass: "column-checkbox"
-    }, [_c('label', {
-      staticClass: "m-checkbox m-checkbox--single m-checkbox--solid m-checkbox--brand",
-      staticStyle: {
-        "width": "auto"
-      }
-    }, [_c('input', {
-      staticClass: "rule-column",
-      attrs: {
-        "type": "checkbox",
-        "data-id": item.id
-      },
-      on: {
-        "change": function($event) {
-          _vm.showHideColumns(item.id)
-        }
-      }
-    }), _c('span'), _vm._v(" " + _vm._s(item.column))])])
-  }))]), _vm._v(" "), _c('div', {
-    staticClass: "modal-footer"
-  }, [_c('button', {
-    staticClass: "btn btn-default",
-    attrs: {
-      "type": "button",
-      "data-dismiss": "modal"
-    }
-  }, [_vm._v(_vm._s(_vm.form_labels.hide_show_button))])])])])])])
-},staticRenderFns: [function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('div', {
-    staticClass: "col-md-6"
-  }, [_c('div', {
-    staticClass: "form-group m-form__group row align-items-center"
-  }, [_c('div', {
-    staticClass: "col-md-12"
-  }, [_c('div', {
-    staticClass: "m-input-icon m-input-icon--left"
-  }, [_c('ul', {
-    staticClass: "nav nav-pills",
-    attrs: {
-      "role": "tablist"
-    }
-  }, [_c('li', {
-    staticClass: "nav-item"
-  }, [_c('a', {
-    staticClass: "nav-link  active show",
-    attrs: {
-      "data-toggle": "tab",
-      "href": "#m_tabs_1_1"
-    }
-  }, [_vm._v("Table")])]), _vm._v(" "), _c('li', {
-    staticClass: "nav-item"
-  }, [_c('a', {
-    staticClass: "nav-link",
-    attrs: {
-      "data-toggle": "tab",
-      "href": "#m_tabs_1_2"
-    }
-  }, [_vm._v("Graph")])])])])])])])
-},function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('div', {
-    staticClass: "col-sm-5"
-  }, [_c('div', {
-    staticClass: "form-group m-form__group row"
-  }, [_c('label', {
-    staticClass: "col-lg-2 col-form-label"
-  }, [_vm._v("\n                          From:\n                      ")]), _vm._v(" "), _c('div', {
-    staticClass: "col-lg-10"
-  }, [_c('input', {
-    staticClass: "form-control m-input m-input--solid",
-    attrs: {
-      "type": "text",
-      "id": "m_sms_datepicker_from"
-    }
-  })])])])
-},function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('div', {
-    staticClass: "col-sm-5"
-  }, [_c('div', {
-    staticClass: "form-group m-form__group row"
-  }, [_c('label', {
-    staticClass: "col-lg-2 col-form-label"
-  }, [_vm._v("\n                          To:\n                      ")]), _vm._v(" "), _c('div', {
-    staticClass: "col-lg-10"
-  }, [_c('input', {
-    staticClass: "form-control m-input m-input--solid",
-    attrs: {
-      "type": "text",
-      "id": "m_sms_datepicker_to"
-    }
-  })])])])
-},function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('div', {
-    staticClass: "tab-pane",
-    attrs: {
-      "id": "m_tabs_1_2",
-      "role": "tabpanel"
-    }
-  }, [_c('div', {
-    staticClass: "m-content"
-  }, [_c('div', {
-    staticClass: "m-portlet m-portlet--mobile",
-    staticStyle: {
-      "margin-bottom": "0"
-    }
-  }, [_c('div', {
-    staticClass: "m-portlet__body",
-    staticStyle: {
-      "padding": "10px"
-    },
-    attrs: {
-      "id": "graph_one_loading"
-    }
-  }, [_c('div', {
-    staticStyle: {
-      "height": "80vh"
-    },
-    attrs: {
-      "id": "battery_graph_one"
-    }
-  })])])]), _vm._v(" "), _c('div', {
-    staticClass: "m-content"
-  }, [_c('div', {
-    staticClass: "m-portlet m-portlet--mobile",
-    staticStyle: {
-      "margin-bottom": "0"
-    }
-  }, [_c('div', {
-    staticClass: "m-portlet__body",
-    staticStyle: {
-      "padding": "10px"
-    },
-    attrs: {
-      "id": "graph_two_loading"
-    }
-  }, [_c('div', {
-    staticStyle: {
-      "height": "80vh"
-    },
-    attrs: {
-      "id": "battery_graph_two"
-    }
-  })])])]), _vm._v(" "), _c('div', {
-    staticClass: "m-content"
-  }, [_c('div', {
-    staticClass: "m-portlet m-portlet--mobile",
-    staticStyle: {
-      "margin-bottom": "0"
-    }
-  }, [_c('div', {
-    staticClass: "m-portlet__body",
-    staticStyle: {
-      "padding": "10px"
-    },
-    attrs: {
-      "id": "graph_three_loading"
-    }
-  }, [_c('div', {
-    staticStyle: {
-      "height": "80vh"
-    },
-    attrs: {
-      "id": "battery_graph_three"
-    }
-  })])])])])
-},function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('div', {
-    staticClass: "cancel"
-  }, [_c('a', {
-    attrs: {
-      "href": "#",
-      "id": "discardModal",
-      "data-dismiss": "modal"
-    }
-  }, [_vm._v("X")])])
-}]}
-module.exports.render._withStripped = true
-if (false) {
-  module.hot.accept()
-  if (module.hot.data) {
-     require("vue-hot-reload-api").rerender("data-v-6b799c0a", module.exports)
-  }
-}
-
-/***/ }),
-/* 59 */
+/* 62 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
@@ -27947,7 +28738,7 @@ if (false) {
 }
 
 /***/ }),
-/* 60 */
+/* 63 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
@@ -28604,7 +29395,7 @@ if (false) {
 }
 
 /***/ }),
-/* 61 */
+/* 64 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
@@ -28674,7 +29465,7 @@ if (false) {
 }
 
 /***/ }),
-/* 62 */
+/* 65 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
@@ -29528,7 +30319,7 @@ if (false) {
 }
 
 /***/ }),
-/* 63 */
+/* 66 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
@@ -29643,7 +30434,7 @@ if (false) {
 }
 
 /***/ }),
-/* 64 */
+/* 67 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
@@ -30427,7 +31218,345 @@ if (false) {
 }
 
 /***/ }),
-/* 65 */
+/* 68 */
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('div', [_c('div', {
+    staticClass: "m-content",
+    staticStyle: {
+      "position": "relative",
+      "width": "100%"
+    }
+  }, [_c('div', {
+    staticClass: "m-portlet m-portlet--mobile",
+    staticStyle: {
+      "margin-bottom": "0"
+    }
+  }, [_c('div', {
+    staticClass: "m-portlet__body",
+    staticStyle: {
+      "padding": "5px"
+    }
+  }, [_c('table', {
+    staticClass: "table text-center",
+    staticStyle: {
+      "margin-bottom": "0px"
+    }
+  }, [_vm._m(0), _vm._v(" "), _c('td', {
+    staticClass: "text-left"
+  }, [_vm._v(_vm._s(_vm.battery_name))]), _vm._v(" "), _vm._m(1), _vm._v(" "), _c('td', {
+    staticClass: "text-left"
+  }, [_vm._v(_vm._s(_vm.source_url) + " ")]), _vm._v(" "), _c('td', {
+    staticClass: "text-right"
+  }, [_c('router-link', {
+    staticClass: "btn btn-default",
+    attrs: {
+      "to": '/batteries'
+    }
+  }, [_vm._v("Back to batteries")])], 1)])])])]), _vm._v(" "), _c('div', {
+    staticClass: "m-content",
+    staticStyle: {
+      "padding-bottom": "0"
+    }
+  }, [_c('div', {
+    staticClass: "m-portlet m-portlet--mobile",
+    staticStyle: {
+      "margin-bottom": "0"
+    }
+  }, [_c('div', {
+    staticClass: "m-portlet__body",
+    staticStyle: {
+      "padding": "10px"
+    }
+  }, [_c('div', {
+    staticClass: "m-form m-form--label-align-right"
+  }, [_c('div', {
+    staticClass: "row align-items-center"
+  }, [_vm._m(2), _vm._v(" "), _c('div', {
+    staticClass: "col-md-6 order-1 order-md-2 m--align-right"
+  }, [_c('div', {
+    staticClass: "row"
+  }, [_vm._m(3), _vm._v(" "), _vm._m(4), _vm._v(" "), _c('div', {
+    staticClass: "col-sm-2"
+  }, [_c('div', {
+    staticClass: "btn btn-default grey",
+    attrs: {
+      "href": "javascript:void(0)"
+    },
+    on: {
+      "click": _vm.onHideShowButton
+    }
+  }, [_c('i', {
+    staticClass: "fa fa-columns"
+  })])])])])])]), _vm._v(" "), _c('div')])])]), _vm._v(" "), _c('div', {
+    staticClass: "tab-content"
+  }, [_c('div', {
+    staticClass: "tab-pane  active show",
+    attrs: {
+      "id": "m_tabs_1_1",
+      "role": "tabpanel"
+    }
+  }, [_c('div', {
+    staticClass: "m-content",
+    staticStyle: {
+      "padding-top": "0"
+    }
+  }, [_c('div', {
+    staticClass: "m-portlet m-portlet--mobile",
+    staticStyle: {
+      "margin-bottom": "0"
+    }
+  }, [_c('div', {
+    staticClass: "m-portlet__body",
+    staticStyle: {
+      "padding": "10px"
+    }
+  }, [_c('table', {
+    staticClass: "table table-striped  table-hover table-bordered display nowrap",
+    attrs: {
+      "id": "status-datatable",
+      "cellspacing": "0",
+      "width": "100%"
+    }
+  }, [_c('thead', [_c('tr', _vm._l((_vm.headings), function(item, index) {
+    return _c('th', {
+      staticStyle: {
+        "vertical-align": "middle"
+      }
+    }, [_vm._v(_vm._s(item.column) + " "), _c('br'), _vm._v(" " + _vm._s(item.unit))])
+  }))])])])])])]), _vm._v(" "), _vm._m(5)]), _vm._v(" "), _c('div', {
+    ref: "hideShow",
+    staticClass: "modal fade toggle-datatable-columns",
+    staticStyle: {
+      "padding": "0px"
+    },
+    attrs: {
+      "tabindex": "-1",
+      "role": "dialog",
+      "aria-labelledby": "exampleModalLabel",
+      "aria-hidden": "true",
+      "data-backdrop": "static",
+      "data-keyboard": "false"
+    }
+  }, [_c('div', {
+    staticClass: "modal-dialog modal-sm",
+    attrs: {
+      "role": "document"
+    }
+  }, [_c('div', {
+    staticClass: "modal-content",
+    staticStyle: {
+      "padding": "0px"
+    }
+  }, [_c('div', {
+    staticClass: "modal-header"
+  }, [_c('h5', {
+    staticClass: "modal-title",
+    attrs: {
+      "id": "exampleModalLabel"
+    }
+  }, [_vm._v("\n                    " + _vm._s(_vm.form_labels.hide_show_title) + "\n                ")]), _vm._v(" "), _vm._m(6)]), _vm._v(" "), _c('div', {
+    staticClass: "modal-body",
+    attrs: {
+      "id": "body-sim-dis"
+    }
+  }, [_c('div', {
+    staticClass: "form-group"
+  }, _vm._l((_vm.headings), function(item, index) {
+    return _c('div', {
+      staticClass: "column-checkbox"
+    }, [_c('label', {
+      staticClass: "m-checkbox m-checkbox--single m-checkbox--solid m-checkbox--brand",
+      staticStyle: {
+        "width": "auto"
+      }
+    }, [_c('input', {
+      staticClass: "rule-column",
+      attrs: {
+        "type": "checkbox",
+        "data-id": item.id
+      },
+      on: {
+        "change": function($event) {
+          _vm.showHideColumns(item.id)
+        }
+      }
+    }), _c('span'), _vm._v(" " + _vm._s(item.column))])])
+  }))]), _vm._v(" "), _c('div', {
+    staticClass: "modal-footer"
+  }, [_c('button', {
+    staticClass: "btn btn-default",
+    attrs: {
+      "type": "button",
+      "data-dismiss": "modal"
+    }
+  }, [_vm._v(_vm._s(_vm.form_labels.hide_show_button))])])])])])])
+},staticRenderFns: [function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('td', [_c('strong', [_vm._v("Name:")])])
+},function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('td', [_c('strong', [_vm._v("Source URL:")])])
+},function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('div', {
+    staticClass: "col-md-6"
+  }, [_c('div', {
+    staticClass: "form-group m-form__group row align-items-center"
+  }, [_c('div', {
+    staticClass: "col-md-12"
+  }, [_c('div', {
+    staticClass: "m-input-icon m-input-icon--left"
+  }, [_c('ul', {
+    staticClass: "nav nav-pills",
+    attrs: {
+      "role": "tablist"
+    }
+  }, [_c('li', {
+    staticClass: "nav-item"
+  }, [_c('a', {
+    staticClass: "nav-link  active show",
+    attrs: {
+      "data-toggle": "tab",
+      "href": "#m_tabs_1_1"
+    }
+  }, [_vm._v("Table")])]), _vm._v(" "), _c('li', {
+    staticClass: "nav-item"
+  }, [_c('a', {
+    staticClass: "nav-link",
+    attrs: {
+      "data-toggle": "tab",
+      "href": "#m_tabs_1_2"
+    }
+  }, [_vm._v("Graph")])])])])])])])
+},function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('div', {
+    staticClass: "col-sm-5"
+  }, [_c('div', {
+    staticClass: "form-group m-form__group row"
+  }, [_c('label', {
+    staticClass: "col-lg-2 col-form-label"
+  }, [_vm._v("\n                          From:\n                      ")]), _vm._v(" "), _c('div', {
+    staticClass: "col-lg-10"
+  }, [_c('input', {
+    staticClass: "form-control m-input m-input--solid",
+    attrs: {
+      "type": "text",
+      "id": "m_sms_datepicker_from"
+    }
+  })])])])
+},function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('div', {
+    staticClass: "col-sm-5"
+  }, [_c('div', {
+    staticClass: "form-group m-form__group row"
+  }, [_c('label', {
+    staticClass: "col-lg-2 col-form-label"
+  }, [_vm._v("\n                          To:\n                      ")]), _vm._v(" "), _c('div', {
+    staticClass: "col-lg-10"
+  }, [_c('input', {
+    staticClass: "form-control m-input m-input--solid",
+    attrs: {
+      "type": "text",
+      "id": "m_sms_datepicker_to"
+    }
+  })])])])
+},function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('div', {
+    staticClass: "tab-pane",
+    attrs: {
+      "id": "m_tabs_1_2",
+      "role": "tabpanel"
+    }
+  }, [_c('div', {
+    staticClass: "m-content",
+    staticStyle: {
+      "padding-top": "0"
+    }
+  }, [_c('div', {
+    staticClass: "m-portlet m-portlet--mobile",
+    staticStyle: {
+      "margin-bottom": "0"
+    }
+  }, [_c('div', {
+    staticClass: "m-portlet__body",
+    staticStyle: {
+      "padding": "10px"
+    },
+    attrs: {
+      "id": "graph_one_loading"
+    }
+  }, [_c('div', {
+    staticStyle: {
+      "height": "80vh"
+    },
+    attrs: {
+      "id": "battery_graph_one"
+    }
+  })])])]), _vm._v(" "), _c('div', {
+    staticClass: "m-content"
+  }, [_c('div', {
+    staticClass: "m-portlet m-portlet--mobile",
+    staticStyle: {
+      "margin-bottom": "0"
+    }
+  }, [_c('div', {
+    staticClass: "m-portlet__body",
+    staticStyle: {
+      "padding": "10px"
+    },
+    attrs: {
+      "id": "graph_two_loading"
+    }
+  }, [_c('div', {
+    staticStyle: {
+      "height": "80vh"
+    },
+    attrs: {
+      "id": "battery_graph_two"
+    }
+  })])])]), _vm._v(" "), _c('div', {
+    staticClass: "m-content"
+  }, [_c('div', {
+    staticClass: "m-portlet m-portlet--mobile",
+    staticStyle: {
+      "margin-bottom": "0"
+    }
+  }, [_c('div', {
+    staticClass: "m-portlet__body",
+    staticStyle: {
+      "padding": "10px"
+    },
+    attrs: {
+      "id": "graph_three_loading"
+    }
+  }, [_c('div', {
+    staticStyle: {
+      "height": "80vh"
+    },
+    attrs: {
+      "id": "battery_graph_three"
+    }
+  })])])])])
+},function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('div', {
+    staticClass: "cancel"
+  }, [_c('a', {
+    attrs: {
+      "href": "#",
+      "id": "discardModal",
+      "data-dismiss": "modal"
+    }
+  }, [_vm._v("X")])])
+}]}
+module.exports.render._withStripped = true
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+     require("vue-hot-reload-api").rerender("data-v-d38b4488", module.exports)
+  }
+}
+
+/***/ }),
+/* 69 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
@@ -30819,7 +31948,7 @@ if (false) {
 }
 
 /***/ }),
-/* 66 */
+/* 70 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
@@ -31601,7 +32730,7 @@ if (false) {
 }
 
 /***/ }),
-/* 67 */
+/* 71 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(global, setImmediate) {/*!
@@ -42555,7 +43684,7 @@ return Vue;
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(3), __webpack_require__(5).setImmediate))
 
 /***/ }),
-/* 68 */
+/* 72 */
 /***/ (function(module, exports) {
 
 /* (ignored) */
