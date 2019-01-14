@@ -23285,7 +23285,7 @@ module.exports = {
       $('#m_sms_datepicker_from, #m_sms_datepicker_to').change(function () {
         var from_date = module.exports.methods.date_format("m_sms_datepicker_from");
         var to_date = module.exports.methods.date_format("m_sms_datepicker_to");
-        var new_url = "/battery/data/" + from_date + "/" + to_date;
+        var new_url = "/battery/data/" + window.location.href.substring(window.location.href.lastIndexOf('/') + 1) + "/" + from_date + "/" + to_date;
         table_data.ajax.url(new_url).load();
 
         $.get('/daily_battery/data/' + window.location.href.substring(window.location.href.lastIndexOf('/') + 1) + "/" + from_date + "/" + to_date, function (data) {
