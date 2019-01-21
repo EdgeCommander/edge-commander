@@ -1,12 +1,15 @@
 defmodule EdgeCommanderWeb.SimsController do
   use EdgeCommanderWeb, :controller
-  import EdgeCommander.ThreeScraper
-  import EdgeCommander.Nexmo, only: [get_message: 1, get_single_sim_messages: 2, get_last_message_details: 2, get_sms_since_last_bill: 3]
+  import EdgeCommander.ThreeScraper.Records
+  import EdgeCommander.Nexmo, only: [get_message: 1, get_single_sim_messages: 2, get_sms_count: 2]
   import EdgeCommander.Accounts, only: [current_user: 1]
   alias EdgeCommander.Nexmo.SimMessages
   alias EdgeCommander.ThreeScraper.SimLogs
   alias EdgeCommander.Repo
   alias EdgeCommander.Util
+  alias ThreeScraper.Scraper
+  alias EdgeCommander.ThreeScraper.Records
+  alias EdgeCommander.ThreeScraper.Sims
   require Logger
   use PhoenixSwagger
 
@@ -96,7 +99,7 @@ defmodule EdgeCommanderWeb.SimsController do
           "user_id" => current_user.id
         }
         Util.create_log(conn, logs_params)
-
+        add_to_sims_on_sms_command(params)
         conn
         |> put_status(:created)
         |> json(%{
@@ -174,78 +177,43 @@ defmodule EdgeCommanderWeb.SimsController do
   end
 
   def get_single_sim_name(conn, %{"sim_number" => sim_number } = _params) do
-    name =
-      get_sim_name(sim_number)
+    sim_records = Records.get_single_sim(sim_number)
     conn
     |> put_status(200)
     |> json(%{
-        sim_name: name
+        sim_name: sim_records.name
       })
   end
 
   def get_sim_logs(conn, params)  do
     current_user_id = Util.get_user_id(conn, params)
     logs =
-      get_sim_numbers(current_user_id)
-      |> Enum.map(fn(sims) ->
-        id = sims.id
-        number = sims.number
-        name = sims.name
-        bill_day = sims.bill_day
-        allowance = sims.allowance
-        today_volume_used = validate_value(sims.today_volume_used)
-        yesterday_volume_used = validate_value(sims.yesterday_volume_used)
-        datetime = sims.datetime
-        sim_provider = sims.sim_provider
-
-        {current_in_number, _} = today_volume_used |> String.replace(",", "") |> Float.parse()
-        {yesterday_in_number, _} = yesterday_volume_used |> String.replace(",", "") |> Float.parse()
-        {allowance_in_number, _} = allowance |> String.replace(",", "") |> Float.parse()
-
-        last_bill_date = get_bill_date(bill_day)
-
+      Records.get_sims(current_user_id)
+      |> Enum.map(fn(sim) ->
         %{
-          "id" => id,
-          "number" => number,
-          "name" => name,
-          "allowance" => allowance,
-          "volume_used_today" => today_volume_used,
-          "volume_used_yesterday" => yesterday_volume_used,
-          "percentage_used" => get_percentage_used(current_in_number , allowance_in_number),
-          "current_in_number" => current_in_number,
-          "yesterday_in_number" => yesterday_in_number,
-          "allowance_in_number" => allowance_in_number,
-          "date_of_use" => datetime |> Util.shift_zone(),
-          "sim_provider" => sim_provider,
-          "last_bill_date" => last_bill_date,
-          "last_sms" => "Loading....",
-          "last_sms_date" => "Loading....",
-          "total_sms_send" => "Loading....",
-          "bill_day" => bill_day
+          "id" => sim.id,
+          "number" => sim.number,
+          "name" => sim.name,
+          "addon" => sim.addon,
+          "allowance" => sim.allowance,
+          "volume_used" => sim.volume_used,
+          "volume_used_yesterday" => sim.yesterday_volume_used,
+          "percentage_used" => sim.percentage_used,
+          "remaning_days" => sim.remaning_days,
+          "last_log_reading_at" => sim.last_log_reading_at,
+          "sim_provider" => sim.sim_provider,
+          "last_bill_date" => sim.last_bill_date,
+          "last_sms" => sim.last_sms,
+          "last_sms_date" => sim.last_sms_date,
+          "sms_since_last_bill" => sim.sms_since_last_bill,
+          "status" => sim.status
         }
-      end) |> Enum.sort(& (&1["percentage_used"] >= &2["percentage_used"]))
+      end)
     conn
     |> put_status(200)
     |> json(%{
-        logs: logs
-      })
-  end
-
-  def last_sms_details(conn, params) do
-    number = params["number"]
-    current_user_id = Util.get_user_id(conn, params)
-    last_sms_details = get_last_message_details(number, current_user_id)
-    last_sms = get_last_sms(last_sms_details)
-    last_sms_date = get_last_sms_date(last_sms_details)
-    sms_details = %{
-      "last_sms" => last_sms,
-      "last_sms_date" => last_sms_date
-    }
-    conn
-    |> put_status(200)
-    |> json(%{
-        sms: sms_details
-      })
+      logs: logs
+    })
   end
 
   def create_chartjs_line_data(conn, %{"sim_number" => sim_number } = params) do
@@ -319,6 +287,37 @@ defmodule EdgeCommanderWeb.SimsController do
     end
   end
 
+  def receive_sms(conn, params) do
+    text = params["text"]
+    from_number = params["msisdn"] |> number_with_plus_code
+    is_new_sim(conn, text, from_number)
+    to_number = params["to"] |> number_with_plus_code
+    users = get_all_users_by_number(from_number)
+    Enum.each(users, fn(user_id) ->
+      params = %{
+        to: to_number,
+        from: from_number,
+        message_id: params["messageId"],
+        status: "Received",
+        text: params["text"],
+        type: "MO",
+        user_id: user_id,
+        delivery_datetime: NaiveDateTime.utc_now
+      }
+
+      changeset = SimMessages.changeset(%SimMessages{}, params)
+      case Repo.insert(changeset) do
+        {:ok, _} -> Logger.info "SMS has been saved"
+         update_last_sms_details(params)
+        send_daily_sms_alert(from_number)
+        send_monthly_sms_alert(from_number)
+        {:error, changeset} -> Logger.info Util.parse_changeset(changeset)
+      end
+    end)
+    conn
+    |> json(%{void: 0})
+  end
+
   defp choose_nexmo_number(number)  do
     ir_number = String.contains? number, "+353"
     if ir_number == true do
@@ -327,20 +326,6 @@ defmodule EdgeCommanderWeb.SimsController do
       System.get_env("NEXMO_API_UK_NUMBER")
     end
   end
-
-  def count_total_sms(conn, params) do
-    bill_day = params["bill_day"]
-    number = params["number"]
-    current_user_id = Util.get_user_id(conn, params)
-    last_bill_date = get_bill_date(bill_day)
-    total_sms = get_total_sms(number, last_bill_date, current_user_id)
-    conn
-    |> put_status(200)
-    |> json(%{result: total_sms})
-  end
-
-  defp get_total_sms(_number, nil, _current_user_id), do: 0
-  defp get_total_sms(number, last_bill_date, current_user_id), do: get_sms_since_last_bill(number, last_bill_date, current_user_id)
 
   defp save_send_sms("0", nexmo_number, results, sms_message, user_id) do
     params = %{
@@ -360,35 +345,32 @@ defmodule EdgeCommanderWeb.SimsController do
   end
   defp save_send_sms(_status, _nexmo_number, _results, _sms_message, _user_id), do: :noop
 
-  def receive_sms(conn, params) do
-    text = params["text"]
-    from_number = params["msisdn"] |> number_with_plus_code
+  defp update_last_sms_details(params) do
+    number = params[:from]
+    last_sms = params[:text]
+    last_sms_date = params[:delivery_datetime] |> Util.date_time_to_string
+    sim_record = Records.get_single_sim(number)
+    last_bill_date = sim_record.last_bill_date <> " 00:00:00" |> NaiveDateTime.from_iso8601!()
+    sms_since_last_bill = Scraper.get_total_sms(number, last_bill_date)
+    params = %{
+      last_sms: last_sms,
+      last_sms_date: last_sms_date,
+      sms_since_last_bill: sms_since_last_bill
+    }
+    number_already_exist(sim_record, params)
+  end
 
-    is_new_sim(conn, text, from_number)
-    to_number = params["to"] |> number_with_plus_code
-    users = get_all_users_by_number(from_number)
-    Enum.each(users, fn(user_id) ->
-      params = %{
-        to: to_number,
-        from: from_number,
-        message_id: params["messageId"],
-        status: "Received",
-        text: params["text"],
-        type: "MO",
-        user_id: user_id,
-        delivery_datetime: NaiveDateTime.utc_now
-      }
-
-      changeset = SimMessages.changeset(%SimMessages{}, params)
-      case Repo.insert(changeset) do
-        {:ok, _} -> Logger.info "SMS has been saved"
-        send_daily_sms_alert(from_number, user_id)
-        send_monthly_sms_alert(from_number, user_id)
-        {:error, changeset} -> Logger.info Util.parse_changeset(changeset)
-      end
-    end)
-    conn
-    |> json(%{void: 0})
+  def number_already_exist(nil, _params), do: :noop
+  def number_already_exist(sim_record, params) do
+    Records.get_sim!(sim_record.id)
+    |> Sims.changeset(params)
+    |> Repo.update
+    |> case do
+      {:ok, _sim} ->
+        Logger.info "SIM number has been updated"
+      {:error, _changeset} ->
+        Logger.error "SIM number did not updated due to failure."
+    end
   end
 
   defp is_new_sim(conn, message, number) do
@@ -399,12 +381,11 @@ defmodule EdgeCommanderWeb.SimsController do
 
   defp check_sms_command(false, _conn, _body, _number), do: :noop
   defp check_sms_command(true, conn, body, number) do
-
     sim_name = String.replace(Enum.at(body, 0), "add ", "")
     sim_provider = Enum.at(body, 1)
     addon = "Unknown"
-    allowance = "0"
-    volume_used = "0"
+    allowance = "-1.0"
+    volume_used = "-1.0"
     user_id = 1
     three_user_id = 0
     datetime = NaiveDateTime.utc_now
@@ -438,14 +419,7 @@ defmodule EdgeCommanderWeb.SimsController do
           user_id: params["user_id"],
           three_user_id: params["three_user_id"]
         }
-        number = params["number"]
-        name = params["name"]
-        current_user = current_user(conn)
-        logs_params = %{
-          "event" => "SIM: <span>#{number}</span> with the name of <span>#{name}</span> was created using SMS command.",
-          "user_id" => current_user.id
-        }
-        Util.create_log(conn, logs_params)
+        add_to_sims_on_sms_command(params)
         conn
         |> json(%{void: 0})
       {:error, _changeset} ->
@@ -455,10 +429,48 @@ defmodule EdgeCommanderWeb.SimsController do
   end
   defp ensure_number_exist(_, _conn, _params), do: :noop
 
-  defp send_daily_sms_alert(number, current_user_id) do
-    current_day_date = Util.get_current_date()
-    total_sms = get_total_sms(number, current_day_date, current_user_id)
+  defp add_to_sims_on_sms_command(params) do
+    number = params["number"]
+    sims_records = Records.get_single_sim(number)
+    volume_usage = Records.get_yesterday_usage(number)
+    yesterday_volume_used = volume_usage |> Scraper.ensure_yesterday_volume
 
+    allowance_in_number = params["allowance"] |> Util.convert_string_float
+    current_in_number = params["volume_used"] |> Util.convert_string_float
+    yesterday_in_number = yesterday_volume_used |> Util.convert_string_float
+
+    percentage_used = Scraper.get_percentage_used(current_in_number, allowance_in_number)
+    remaning_days = Scraper.get_remaing_days(current_in_number, allowance_in_number, yesterday_in_number)
+
+    last_bill_date = "-"
+    last_sms_records = Scraper.last_sms_details(number)
+    sms_since_last_bill = Scraper.get_total_sms(number, last_bill_date)
+
+    params = %{
+      number: number,
+      name: params["name"],
+      addon: params["addon"],
+      allowance: params["allowance"],
+      volume_used: params["volume_used"],
+      sim_provider: params["sim_provider"],
+      yesterday_volume_used: yesterday_volume_used,
+      percentage_used: percentage_used,
+      remaning_days: remaning_days,
+      last_log_reading_at: params["datetime"] |> Util.shift_zone() |> Util.date_time_to_string,
+      last_bill_date: last_bill_date ,
+      last_sms: last_sms_records.last_sms,
+      last_sms_date: last_sms_records.last_sms_date |> Util.date_time_to_string,
+      sms_since_last_bill: sms_since_last_bill,
+      status: "Not Found.",
+      user_id: params["user_id"],
+      three_user_id: params["three_user_id"]
+    }
+    Scraper.number_already_exist(sims_records, params)
+  end
+
+  defp send_daily_sms_alert(number) do
+    current_day_date = Util.get_current_date()
+    total_sms = get_sms_count(number, current_day_date)
     daily_sms_rules = EdgeCommander.Commands.get_daily_sms_usage_rules_list()
      Enum.each(daily_sms_rules, fn(rule) ->
       variable = rule.variable
@@ -474,12 +486,17 @@ defmodule EdgeCommanderWeb.SimsController do
      end)
   end
 
-  defp send_monthly_sms_alert(number, current_user_id) do
-    bill_day = get_sim_bill_day(number) |> Map.get(:bill_day)
-    last_bill_date = get_bill_date(bill_day)
-    total_monthly_sms = get_total_sms(number, last_bill_date, current_user_id)
-     monthly_sms_rules = EdgeCommander.Commands.get_monthly_sms_usage_rules_list()
-     Enum.each(monthly_sms_rules, fn(rule) ->
+  defp send_monthly_sms_alert(number) do
+    last_bill_date =  Records.get_last_bill_date(number)
+    is_valid_then_send_email(last_bill_date, number)
+  end
+
+  defp is_valid_then_send_email("-", _number), do: Logger.error "Monthly email did't send due to invalid last bill date."
+  defp is_valid_then_send_email(bill_date, number) do
+    last_bill_date = bill_date <> " 00:00:00" |> NaiveDateTime.from_iso8601!()
+    total_monthly_sms = get_sms_count(number, last_bill_date)
+    monthly_sms_rules = EdgeCommander.Commands.get_monthly_sms_usage_rules_list()
+    Enum.each(monthly_sms_rules, fn(rule) ->
       variable = rule.variable
       value = rule.value
       params = %{
@@ -491,14 +508,13 @@ defmodule EdgeCommanderWeb.SimsController do
         alert_for: "monthly_sms_alert"
       }
       Util.condition_for_sms_alert(params)
-     end)
+    end)
   end
 
   def daily_sms_count(conn, params) do
     number = params["number"]
-    current_user_id = Util.get_user_id(conn, params)
     current_day_date = Util.get_current_date()
-    total_sms = get_total_sms(number, current_day_date, current_user_id)
+    total_sms = get_sms_count(number, current_day_date)
     conn
     |> put_status(200)
     |> json(%{result: total_sms})
@@ -575,46 +591,4 @@ defmodule EdgeCommanderWeb.SimsController do
   defp get_allowance(log) do
     log.allowance
   end
-
-  defp get_month(_current_day, _bill_day, current_month) when current_month == 1, do: 12
-  defp get_month(current_day, bill_day, current_month) when current_day > bill_day, do: Util.ensure_number(current_month)
-  defp get_month(_current_day, _bill_day, current_month), do: Util.ensure_number(current_month - 1)
-
-  defp get_year(year, current_month) when current_month == 1, do: year - 1
-  defp get_year(year, _current_month), do: year
-
-  defp get_last_sms_date(nil), do: "-"
-  defp get_last_sms_date(last_sms_details), do: last_sms_details |> Map.get(:inserted_at) |> Util.shift_zone()
-
-  defp get_last_sms(nil), do: "-"
-  defp get_last_sms(last_sms_details), do: last_sms_details |> Map.get(:text)
-
-  defp get_bill_date(nil), do: nil
-  defp get_bill_date("null"), do: nil
-  defp get_bill_date(day) do
-    day = check_data_type(day)
-    bill_day = day |> Util.ensure_number
-    current_year = DateTime.utc_now |> Map.fetch!(:year)
-    current_month = DateTime.utc_now |> Map.fetch!(:month)
-    current_day = DateTime.utc_now |> Map.fetch!(:day)
-    month = get_month(current_day, bill_day, current_month)
-    year = get_year(current_year, current_month)
-    date_time = "#{year}-#{month}-#{bill_day} 00:00:00"
-    {:ok, date} = NaiveDateTime.from_iso8601(date_time)
-    date
-  end
-
-  defp check_data_type(number) when is_bitstring(number) do
-    {day, ""} = Integer.parse(number)
-    day
-  end
-  defp check_data_type(day), do: day
-
-  defp get_percentage_used(current_in_number, allowance_in_number) when allowance_in_number > 0  do
-    (current_in_number / allowance_in_number * 100) |> Float.round(3)
-  end
-  defp get_percentage_used(_current_in_number, _allowance_in_number), do: 0
-
-  defp validate_value(nil), do: "0"
-  defp validate_value(value), do: value
 end

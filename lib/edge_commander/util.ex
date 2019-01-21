@@ -8,6 +8,19 @@ defmodule EdgeCommander.Util do
   alias EdgeCommander.Activity.Logs
   alias EdgeCommander.Repo
 
+  def convert_into_string(value) do
+    value |> Kernel.inspect()
+  end
+
+  def convert_string_float(data) do
+    data
+    |> String.split( "MB")
+    |> List.first
+    |> String.replace(",", "")
+    |> String.trim
+    |> String.to_float()
+  end
+
   def parse_changeset(changeset) do
     Ecto.Changeset.traverse_errors(changeset, fn
       {msg, opts} -> String.replace(msg, "%{count}", to_string(opts[:count]))
@@ -186,7 +199,7 @@ defmodule EdgeCommander.Util do
     EdgeCommander.Commands.get_monthly_sms_usage_rules(variable, value)
     |> Enum.map(fn(recipients) ->
       variable = variable |> get_variable
-      EdgeCommander.EcMailer.monthly_sms_usage_alert(last_bill_date, recipients, number, total_sms, variable, value)
+      # EdgeCommander.EcMailer.monthly_sms_usage_alert(last_bill_date, recipients, number, total_sms, variable, value)
       Logger.info "Monthly SMS usage email alert has been sent."
     end)
   end
@@ -197,7 +210,7 @@ defmodule EdgeCommander.Util do
     EdgeCommander.Commands.get_active_sms_usage_rules(variable, value)
     |> Enum.map(fn(recipients) ->
       variable = variable |> get_variable
-      EdgeCommander.EcMailer.daily_sms_usage_alert(current_date, recipients, number, total_sms, variable, value)
+      # EdgeCommander.EcMailer.daily_sms_usage_alert(current_date, recipients, number, total_sms, variable, value)
       Logger.info "Daily SMS usage email alert has been sent."
     end)
   end
@@ -206,16 +219,37 @@ defmodule EdgeCommander.Util do
     EdgeCommander.Commands.get_battery_voltages_rules(variable, value)
     |> Enum.map(fn(recipients) ->
       variable = variable |> get_variable
-      EdgeCommander.EcMailer.battery_voltage_alert(recipients, total_volt, variable, value)
+      # EdgeCommander.EcMailer.battery_voltage_alert(recipients, total_volt, variable, value)
       Logger.info "Battery voltage alert has been sent."
     end)
   end
 
-  defp convert_date_format(date) do
+  def convert_date_format(date) do
     year = date.year
     month = date.month |> ensure_number
     day = date.day |> ensure_number
     "#{day}-#{month}-#{year}"
+  end
+
+  def date_time_to_string(nil), do: "-"
+  def date_time_to_string("-"), do: "-"
+  def date_time_to_string(date) do
+    year = date.year
+    month = date.month |> ensure_number
+    day = date.day |> ensure_number
+    hour = date.hour |> ensure_number
+    minute = date.minute |> ensure_number
+    second = date.second |> ensure_number
+    "#{year}-#{month}-#{day} #{hour}:#{minute}:#{second}"
+  end
+
+  def date_to_string(nil), do: "-"
+  def date_to_string("-"), do: "-"
+  def date_to_string(date) do
+    year = date.year
+    month = date.month |> ensure_number
+    day = date.day |> ensure_number
+    "#{year}-#{month}-#{day}"
   end
 
   def get_current_date() do

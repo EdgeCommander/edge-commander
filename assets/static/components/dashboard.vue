@@ -173,21 +173,6 @@ module.exports = {
   },
   methods: {
     initializeTable: function(){
-      $.fn.dataTable.ext.order['dom-span'] = function  (settings, col){
-        return this.api().column(col, {order:'index'}).nodes().map( function (td, i) {
-          return $('span', td).text();
-        });
-      }
-      $.fn.dataTable.ext.order['dom-text-numeric'] = function  (settings, col){
-        return this.api().column(col, {order:'index'}).nodes().map( function (td, i) {
-          return $('span', td).text() * 1;
-        });
-      }
-      $.fn.dataTable.ext.order['dom-text'] = function  (settings, col){
-        return this.api().column(col, {order:'index'}).nodes().map( function (td, i) {
-          return $(td).text();
-        });
-      }
 
       $.fn.dataTable.moment("DD-MM-YYYY HH:mm:ss");
       let simsDataTable = $('#sms_summary').DataTable({
@@ -197,12 +182,10 @@ module.exports = {
           $('.dataTables_scrollHead').css('overflow', 'auto');
           // Sync TFOOT scrolling with TBODY
           $('.dataTables_scrollFoot').on('scroll', function () {
-          $('.dataTables_scrollBody').scrollLeft($(this).scrollLeft());
-            simsDataTable.columns.adjust().draw();
+            $('.dataTables_scrollBody').scrollLeft($(this).scrollLeft());
           });
           $('.dataTables_scrollHead').on('scroll', function () {
             $('.dataTables_scrollBody').scrollLeft($(this).scrollLeft());
-            simsDataTable.columns.adjust().draw();
           });
       },
       ajax: {
@@ -222,7 +205,6 @@ module.exports = {
       {
         class: "text-left number",
         data: function(row, type, set, meta) {
-          let link = "%2B" + row.number;
           return row.number
         }
       },
@@ -233,48 +215,19 @@ module.exports = {
         }
       },
       {
-        class: "text-center last_sms_datetime",
-        orderDataType: "dom-text",
-        type: "dateTime",
+        class: "text-center last_sms_date",
         data: function(row, type, set, meta) {
           let last_sms_date = row.last_sms_date
-          return last_sms_date
-        },
-        createdCell: function (td, cellData, rowData, row, col) {
-          let date_value;
-          let number = rowData.number
-          if (cellData == "Loading....") {
-            $.get( "/sms/last/"+number+"/", function(data) {
-              let last_sms_date = data.sms.last_sms_date
-              if (last_sms_date == '-') {
-                  date_value = last_sms_date
-              }else{
-               date_value = moment(last_sms_date).format('DD-MM-YYYY HH:mm:ss');
-              }
-              $(td).html(date_value)
-            });
+          if(last_sms_date != "-"){
+            last_sms_date = moment(row.last_log_reading_at).format('DD-MM-YYYY HH:mm:ss');
           }
+          return last_sms_date;
         }
       },
       {
         class: "last_sms",
-        orderDataType: "dom-text",
-        type: "string",
         data: function(row, type, set, meta) {
           return row.last_sms;
-        },
-        createdCell: function (td, cellData, rowData, row, col) {
-          let number = rowData.number
-          if (cellData == "Loading....") {
-            $.get( "/sms/last/"+number+"/", function(data) {
-              let resize = false;
-              if(resize == false){
-                simsDataTable.draw();
-                resize = true;
-              }
-              $(td).html(data.sms.last_sms)
-            });
-          }
         }
       },
       {
@@ -282,28 +235,16 @@ module.exports = {
         data: function(row, type, set, meta) {
           let last_bill_date;
           last_bill_date = row.last_bill_date
-          if(last_bill_date == null){
-            return "-"
-          }else{
-            return moment(row.last_bill_date).format('DD-MM-YYYY');
+          if(last_bill_date != "-"){
+            last_bill_date = moment(row.last_bill_date).format('DD-MM-YYYY');
           }
+          return last_bill_date;
         }
       },
       {
         class: "text-center sms_since_last_bill",
-        orderDataType: "dom-text-numeric",
-        type: "numeric",
         data: function(row, type, set, meta) {
-          return row.total_sms_send;
-        },
-        createdCell: function (td, cellData, rowData, row, col) {
-          let bill_day = rowData.bill_day
-          let number = rowData.number
-          if (cellData == "Loading....") {
-            $.get( "/sims/"+number+"/"+bill_day, function(data) {
-              $(td).html("<span>"+data.result+"</span>")
-            });
-          }
+          return row.sms_since_last_bill;
         }
       }
       ],
