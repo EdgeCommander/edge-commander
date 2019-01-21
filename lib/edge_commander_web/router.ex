@@ -149,8 +149,6 @@ defmodule EdgeCommanderWeb.Router do
 
     post "/send_sms", SimsController, :send_sms
     get "/get_all_sms/:from_date/:to_date", SmsController, :get_all_sms
-    get "/sims/:number/:bill_day", SimsController, :count_total_sms
-    get "/sms/last/:number", SimsController, :last_sms_details
     get "/daily_sms_count/:number", SimsController, :daily_sms_count
 
     get "/three_accounts", ThreeController, :get_all_three_accounts
@@ -214,8 +212,6 @@ defmodule EdgeCommanderWeb.Router do
       post "/sims/:sim_number/sms", SimsController, :send_sms
       get "/receive_sms", SimsController, :receive_sms
       get "/delivery_receipt", SimsController, :delivery_receipt
-      get "/sims/:number/:bill_day", SimsController, :count_total_sms
-      get "/sms/last/:number", SimsController, :last_sms_details
       get "/daily_sms_count/:number", SimsController, :daily_sms_count
 
       get "/get_all_sms/:from_date/:to_date", SmsController, :get_all_sms

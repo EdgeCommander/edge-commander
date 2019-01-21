@@ -72,16 +72,16 @@ defmodule EdgeCommander.Nexmo do
     |>  Repo.all
   end
 
-  def get_sms_since_last_bill(number, last_bill_date, user_id) do
+  def get_sms_count(number, current_date) do
     SimMessages
-    |> where([c], (c.from == ^number or c.to == ^number) and c.type == "MO" and c.inserted_at  >= ^last_bill_date and c.user_id  == ^user_id)
+    |> where([c], (c.from == ^number or c.to == ^number) and c.type == "MO" and c.inserted_at  >= ^current_date)
     |> Repo.all
     |> Enum.count
   end
 
-  def get_last_message_details(number, user_id) do
+  def get_last_message_details(number) do
     SimMessages
-    |> where([c], (c.from == ^number or c.to == ^number) and (c.user_id == ^user_id) and (c.type == "MO"))
+    |> where([c], (c.from == ^number or c.to == ^number) and (c.type == "MO"))
     |> order_by(desc: :inserted_at)
     |> limit(1)
     |> Repo.one

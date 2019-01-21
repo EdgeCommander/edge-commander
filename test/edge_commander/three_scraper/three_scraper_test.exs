@@ -1,7 +1,7 @@
 defmodule EdgeCommander.ThreeScraperTest do
   use EdgeCommander.DataCase
 
-  alias EdgeCommander.ThreeScraper
+  alias EdgeCommander.ThreeScraper.Records
 
   describe "sim_logs" do
     alias EdgeCommander.ThreeScraper.SimLogs
@@ -14,23 +14,23 @@ defmodule EdgeCommander.ThreeScraperTest do
       {:ok, sim_logs} =
         attrs
         |> Enum.into(@valid_attrs)
-        |> ThreeScraper.create_sim_logs()
+        |> Records.create_sim_logs()
 
       sim_logs
     end
 
     test "list_sim_logs/0 returns all sim_logs" do
       sim_logs = sim_logs_fixture()
-      assert ThreeScraper.list_sim_logs() == [sim_logs]
+      assert Records.list_sim_logs() == [sim_logs]
     end
 
     test "get_sim_logs!/1 returns the sim_logs with given id" do
       sim_logs = sim_logs_fixture()
-      assert ThreeScraper.get_sim_logs!(sim_logs.id) == sim_logs
+      assert Records.get_sim_logs!(sim_logs.id) == sim_logs
     end
 
     test "create_sim_logs/1 with valid data creates a sim_logs" do
-      assert {:ok, %SimLogs{} = sim_logs} = ThreeScraper.create_sim_logs(@valid_attrs)
+      assert {:ok, %SimLogs{} = sim_logs} = Records.create_sim_logs(@valid_attrs)
       assert sim_logs.addon == "some addon"
       assert sim_logs.allowance == "some allowance"
       assert sim_logs.datetime == ~N[2010-04-17 14:00:00]
@@ -41,12 +41,12 @@ defmodule EdgeCommander.ThreeScraperTest do
     end
 
     test "create_sim_logs/1 with invalid data returns error changeset" do
-      assert {:error, %Ecto.Changeset{}} = ThreeScraper.create_sim_logs(@invalid_attrs)
+      assert {:error, %Ecto.Changeset{}} = Records.create_sim_logs(@invalid_attrs)
     end
 
     test "update_sim_logs/2 with valid data updates the sim_logs" do
       sim_logs = sim_logs_fixture()
-      assert {:ok, sim_logs} = ThreeScraper.update_sim_logs(sim_logs, @update_attrs)
+      assert {:ok, sim_logs} = Records.update_sim_logs(sim_logs, @update_attrs)
       assert %SimLogs{} = sim_logs
       assert sim_logs.addon == "some updated addon"
       assert sim_logs.allowance == "some updated allowance"
@@ -59,19 +59,19 @@ defmodule EdgeCommander.ThreeScraperTest do
 
     test "update_sim_logs/2 with invalid data returns error changeset" do
       sim_logs = sim_logs_fixture()
-      assert {:error, %Ecto.Changeset{}} = ThreeScraper.update_sim_logs(sim_logs, @invalid_attrs)
-      assert sim_logs == ThreeScraper.get_sim_logs!(sim_logs.id)
+      assert {:error, %Ecto.Changeset{}} = Records.update_sim_logs(sim_logs, @invalid_attrs)
+      assert sim_logs == Records.get_sim_logs!(sim_logs.id)
     end
 
     test "delete_sim_logs/1 deletes the sim_logs" do
       sim_logs = sim_logs_fixture()
-      assert {:ok, %SimLogs{}} = ThreeScraper.delete_sim_logs(sim_logs)
-      assert_raise Ecto.NoResultsError, fn -> ThreeScraper.get_sim_logs!(sim_logs.id) end
+      assert {:ok, %SimLogs{}} = Records.delete_sim_logs(sim_logs)
+      assert_raise Ecto.NoResultsError, fn -> Records.get_sim_logs!(sim_logs.id) end
     end
 
     test "change_sim_logs/1 returns a sim_logs changeset" do
       sim_logs = sim_logs_fixture()
-      assert %Ecto.Changeset{} = ThreeScraper.change_sim_logs(sim_logs)
+      assert %Ecto.Changeset{} = Records.change_sim_logs(sim_logs)
     end
   end
 end

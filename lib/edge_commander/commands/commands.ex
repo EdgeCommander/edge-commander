@@ -1,6 +1,6 @@
 defmodule EdgeCommander.Commands do
   import Ecto.Query, warn: false
-  import EdgeCommander.ThreeScraper, only: [all_sim_numbers: 0, get_last_record_for_number: 1]
+  import EdgeCommander.ThreeScraper.Records, only: [all_sim_numbers: 0, get_last_record_for_number: 1]
   alias EdgeCommander.Repo
   alias EdgeCommander.Commands.Rule
   alias EdgeCommander.Sharing.Member

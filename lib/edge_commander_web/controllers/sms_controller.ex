@@ -2,7 +2,7 @@ defmodule EdgeCommanderWeb.SmsController do
   use EdgeCommanderWeb, :controller
   import Ecto.Query, warn: false
   import EdgeCommander.Nexmo, only: [list_sms_messages: 3]
-  import EdgeCommander.ThreeScraper, only: [get_last_record_for_number: 1]
+  import EdgeCommander.ThreeScraper.Records, only: [get_last_record_for_number: 1]
   alias EdgeCommander.Util
 
   def get_all_sms(conn, params)  do

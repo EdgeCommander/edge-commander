@@ -2,7 +2,7 @@ defmodule EdgeCommanderWeb.DashboardController do
   use EdgeCommanderWeb, :controller
   alias EdgeCommander.Accounts.User
   alias EdgeCommander.Accounts.Guardian
-  alias EdgeCommander.ThreeScraper
+  alias EdgeCommander.ThreeScraper.Records
   alias EdgeCommander.Devices
   alias EdgeCommander.Util
   alias EdgeCommander.Sites
@@ -73,7 +73,7 @@ defmodule EdgeCommanderWeb.DashboardController do
 
   def total_sims(conn, params) do
     current_user_id = Util.get_user_id(conn, params)
-    total_sims = ThreeScraper.get_sim_numbers(current_user_id) |> Enum.count
+    total_sims = Records.get_sim_numbers(current_user_id) |> Enum.count
     conn
     |> put_status(:ok)
     |> json(%{

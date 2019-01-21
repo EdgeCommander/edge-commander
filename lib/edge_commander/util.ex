@@ -8,6 +8,19 @@ defmodule EdgeCommander.Util do
   alias EdgeCommander.Activity.Logs
   alias EdgeCommander.Repo
 
+  def convert_into_string(value) do
+    value |> Kernel.inspect()
+  end
+
+  def convert_string_float(data) do
+    data
+    |> String.split( "MB")
+    |> List.first
+    |> String.replace(",", "")
+    |> String.trim
+    |> String.to_float()
+  end
+
   def parse_changeset(changeset) do
     Ecto.Changeset.traverse_errors(changeset, fn
       {msg, opts} -> String.replace(msg, "%{count}", to_string(opts[:count]))
@@ -211,11 +224,32 @@ defmodule EdgeCommander.Util do
     end)
   end
 
-  defp convert_date_format(date) do
+  def convert_date_format(date) do
     year = date.year
     month = date.month |> ensure_number
     day = date.day |> ensure_number
     "#{day}-#{month}-#{year}"
+  end
+
+  def date_time_to_string(nil), do: "-"
+  def date_time_to_string("-"), do: "-"
+  def date_time_to_string(date) do
+    year = date.year
+    month = date.month |> ensure_number
+    day = date.day |> ensure_number
+    hour = date.hour |> ensure_number
+    minute = date.minute |> ensure_number
+    second = date.second |> ensure_number
+    "#{year}-#{month}-#{day} #{hour}:#{minute}:#{second}"
+  end
+
+  def date_to_string(nil), do: "-"
+  def date_to_string("-"), do: "-"
+  def date_to_string(date) do
+    year = date.year
+    month = date.month |> ensure_number
+    day = date.day |> ensure_number
+    "#{year}-#{month}-#{day}"
   end
 
   def get_current_date() do

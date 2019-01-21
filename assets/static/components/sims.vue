@@ -215,12 +215,12 @@ module.exports = {
         {column: "Name", id: "name"},
         {column: "Status", id: "status"},
         {column: "MB Allowance", id: "allowance"},
-        {column: "MB Used (Today)", id: "mb_used_today"},
-        {column: "MB Used (Yest.)", id: "mb_used_yesterday"},
-        {column: "% Used", id: "mb_used_percentage"},
+        {column: "MB Used (Today)", id: "volume_used"},
+        {column: "MB Used (Yest.)", id: "volume_used_yesterday"},
+        {column: "% Used", id: "percentage_used"},
         {column: "Remaning Days", id: "remaning_days"},
         {column: "Sim Provider", id: "sim_provider"},
-        {column: "Last Reading", id: "last_reading"},
+        {column: "Last Reading", id: "last_log_reading_at"},
         {column: "Last Bill Date", id: "last_bill_date"},
         {column: "Last SMS", id: "last_sms"},
         {column: "Last SMS DateTime", id: "last_sms_datetime"},
@@ -272,11 +272,9 @@ module.exports = {
           // Sync TFOOT scrolling with TBODY
           $('.dataTables_scrollFoot').on('scroll', function () {
           $('.dataTables_scrollBody').scrollLeft($(this).scrollLeft());
-            simsDataTable.columns.adjust().draw();
           });
           $('.dataTables_scrollHead').on('scroll', function () {
             $('.dataTables_scrollBody').scrollLeft($(this).scrollLeft());
-            simsDataTable.columns.adjust().draw();
           });
       },
       ajax: {
@@ -314,87 +312,59 @@ module.exports = {
       },
       {
         class: "text-left status",
-        orderDataType: "dom-span",
         data: function(row, type, set, meta) {
-          return row.last_sms;
-        },
-        createdCell: function (td, cellData, rowData, row, col) {
-          let number = rowData.number
-          if (cellData == "Loading....") {
-            $.get( "/sms/last/"+number+"/", function(data) {
-              let status = "<span>Not Found.</span>"
-              let str = data.sms.last_sms
-              let res = str.toLowerCase();
-
-              if (res.indexOf('lost connection') > 1 || res.indexOf('disconnected') > 1 || res.indexOf('shutdown') > 1) {
-                status = "<span class='red_text'>Disconnected</span>"
-              }else if (res.indexOf('connected') > 1 || res.indexOf('restored') > 1 || res.indexOf('alive') > 1) {
-                status = "<span class='green_text'>Connected</span>"
-              }else if (res.indexOf('reboot') > 1 || res.indexOf('restart') > 1) {
-                status = "<span class='orange_text'>Restarted</span>"
-              }
-              $(td).html(status)
-            });
+          let status = "<span>Not Found.</span>"
+          let res = row.last_sms.toLowerCase();
+          if (res.indexOf('lost connection') > 1 || res.indexOf('disconnected') > 1 || res.indexOf('shutdown') > 1) {
+            status = "<span class='red_text'>Disconnected</span>"
+          }else if (res.indexOf('connected') > 1 || res.indexOf('restored') > 1 || res.indexOf('alive') > 1) {
+            status = "<span class='green_text'>Connected</span>"
+          }else if (res.indexOf('reboot') > 1 || res.indexOf('restart') > 1) {
+            status = "<span class='orange_text'>Restarted</span>"
           }
+          return status;
         }
       },
       {
         class: "text-center allowance",
         data: function(row, type, set, meta) {
-          let allowance_value;
-          allowance_value = row.allowance_in_number
-          if (allowance_value == -1.0) {
-            allowance_value = "Unlimited";
+          let allowance = row.allowance
+          let addon = row.addon
+          if(addon == "Unknown"){
+            allowance = "-"
+          }else if(allowance == '-1.0'){
+            allowance = "Unlimited"
           }
-          return allowance_value;
+          return allowance;
         }
       },
       {
-        class: "text-center mb_used_today",
+        class: "text-center volume_used",
         data: function(row, type, set, meta) {
-          let allowance_value, current_in_number;
-          allowance_value = row.allowance_in_number
-          current_in_number = row.current_in_number
-          if (allowance_value == -1.0) {
-            current_in_number = "-";
-          }
-          return current_in_number;
+          return row.volume_used;
         }
       },
       {
-        class: "text-center mb_used_yesterday",
+        class: "text-center volume_used_yesterday",
         data: function(row, type, set, meta) {
-         let allowance_value, yesterday_in_number;
-         allowance_value = row.allowance_in_number
-          yesterday_in_number = row.yesterday_in_number
-          if (allowance_value == -1.0) {
-            yesterday_in_number = "-";
-          }
-          return yesterday_in_number;
+          return row.volume_used_yesterday;
         }
       },
       {
-        class: "text-center mb_used_percentage",
+        class: "text-center percentage_used",
         data: function(row, type, set, meta) {
-          let allowance_value, percentage_used;
-          allowance_value = row.allowance_in_number
-          percentage_used = row.percentage_used
-          if (allowance_value == -1.0) {
-            percentage_used = "-";
-          }
-          return percentage_used;
+          return row.percentage_used;
         }
       },
       {
         class: "text-center remaning_days",
         data: function(row, type, set, meta) {
-          let value;
-          var days_left = (row.allowance_in_number - row.current_in_number) / (row.current_in_number - row.yesterday_in_number)
-          value =  Math.round(days_left * 100) / 100;
-          if (row.current_in_number == 0){
-            value = "Infinity";
+          let remaning_days = row.remaning_days
+          let addon = row.addon
+          if(addon == "Unknown"){
+            remaning_days = "-"
           }
-          return value;
+          return remaning_days;
         }
       },
       {
@@ -404,9 +374,9 @@ module.exports = {
         }
       },
       {
-        class: "text-center last_reading",
+        class: "text-center last_log_reading_at",
         data: function(row, type, set, meta) {
-          return moment(row.date_of_use).format('DD-MM-YYYY HH:mm:ss');
+          return moment(row.last_log_reading_at).format('DD-MM-YYYY HH:mm:ss');
         }
       },
       {
@@ -414,73 +384,32 @@ module.exports = {
         data: function(row, type, set, meta) {
           let last_bill_date;
           last_bill_date = row.last_bill_date
-          if(last_bill_date == null){
-            return "-"
-          }else{
-            return moment(row.last_bill_date).format('DD-MM-YYYY');
+          if(last_bill_date != "-"){
+            last_bill_date = moment(row.last_bill_date).format('DD-MM-YYYY');
           }
+          return last_bill_date;
         }
       },
       {
         class: "last_sms",
-        orderDataType: "dom-text",
-        type: "string",
         data: function(row, type, set, meta) {
           return row.last_sms;
-        },
-        createdCell: function (td, cellData, rowData, row, col) {
-          let number = rowData.number
-          if (cellData == "Loading....") {
-            $.get( "/sms/last/"+number+"/", function(data) {
-              let resize = false;
-              if(resize == false){
-                simsDataTable.draw();
-                resize = true;
-              }
-              $(td).html(data.sms.last_sms)
-            });
-          }
         }
       },
       {
-        class: "text-center last_sms_datetime",
-        orderDataType: "dom-text",
-        type: "dateTime",
+        class: "text-center last_sms_date",
         data: function(row, type, set, meta) {
           let last_sms_date = row.last_sms_date
-          return last_sms_date
-        },
-        createdCell: function (td, cellData, rowData, row, col) {
-          let date_value;
-          let number = rowData.number
-          if (cellData == "Loading....") {
-            $.get( "/sms/last/"+number+"/", function(data) {
-              let last_sms_date = data.sms.last_sms_date
-              if (last_sms_date == '-') {
-                  date_value = last_sms_date
-              }else{
-               date_value = moment(last_sms_date).format('DD-MM-YYYY HH:mm:ss');
-              }
-              $(td).html(date_value)
-            });
+          if(last_sms_date != "-"){
+            last_sms_date = moment(row.last_log_reading_at).format('DD-MM-YYYY HH:mm:ss');
           }
+          return last_sms_date;
         }
       },
       {
         class: "text-center sms_since_last_bill",
-        orderDataType: "dom-text-numeric",
-        type: "numeric",
         data: function(row, type, set, meta) {
-          return row.total_sms_send;
-        },
-        createdCell: function (td, cellData, rowData, row, col) {
-          let bill_day = rowData.bill_day
-          let number = rowData.number
-          if (cellData == "Loading....") {
-            $.get( "/sims/"+number+"/"+bill_day, function(data) {
-              $(td).html("<span>"+data.result+"</span>")
-            });
-          }
+          return row.sms_since_last_bill;
         }
       }
       ],
@@ -570,8 +499,8 @@ module.exports = {
         number:  this.number,
         name: this.name,
         addon: "Unknown",
-        allowance: "0",
-        volume_used: "0",
+        allowance: "-1.0",
+        volume_used: "-1.0",
         user_id: this.user_id,
         three_user_id: 0
       }).then(function (response) {

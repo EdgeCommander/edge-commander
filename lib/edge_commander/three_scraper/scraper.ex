@@ -1,10 +1,13 @@
 defmodule ThreeScraper.Scraper do
   import Ecto.Query, warn: false
   import EdgeCommander.ThreeScraper.ThreeUsers, only: [users_list: 0, get_three_account!: 1]
+  import EdgeCommander.Nexmo, only: [get_last_message_details: 1, get_sms_count: 2]
   alias EdgeCommander.Repo
   alias ThreeScraper.Scraper
   alias EdgeCommander.ThreeScraper.SimLogs
-  alias EdgeCommander.ThreeScraper
+  alias EdgeCommander.ThreeScraper.Sims
+  alias EdgeCommander.ThreeScraper.Records
+  alias EdgeCommander.Util
   require Logger
   use GenServer
 
@@ -102,7 +105,7 @@ defmodule ThreeScraper.Scraper do
       new_volume_used = volume_used  |> ensure_used_value
       new_record_list = [new_addon, new_allowance, new_volume_used, name]
 
-      old_data = number |> number_with_code |> ThreeScraper.last_record_for_number_by_user(user_id)
+      old_data = number |> number_with_code |> Records.last_record_for_number_by_user(user_id)
 
       old_record_list = old_data |> ensure_old_record
 
@@ -111,8 +114,8 @@ defmodule ThreeScraper.Scraper do
         number: number |> number_with_code,
         name: name,
         addon: new_addon,
-        allowance: new_allowance |> Float.to_string ,
-        volume_used: new_volume_used  |> Float.to_string,
+        allowance: new_allowance,
+        volume_used: new_volume_used,
         datetime: datetime,
         sim_provider: "Three Ireland",
         user_id: user_id,
@@ -123,6 +126,7 @@ defmodule ThreeScraper.Scraper do
       case Repo.insert(changeset) do
         {:ok, _logs} ->
           Logger.info "Inserting SIM data for #{number}"
+          save_sim_to_db(sims_logs)
         {:error, _changeset} ->
           Logger.error "Inserting SIM data failed for #{number}"
         end
@@ -132,7 +136,134 @@ defmodule ThreeScraper.Scraper do
     end)
   end
 
-  defp get_info(cookie) do
+  def save_sim_to_db(params) do
+    number = params[:number]
+    sims_records = Records.get_single_sim(number)
+    volume_usage = Records.get_yesterday_usage(number)
+    yesterday_volume_used = volume_usage |> ensure_yesterday_volume
+
+    allowance_in_number = params[:allowance] |> Util.convert_string_float
+    current_in_number = params[:volume_used] |> Util.convert_string_float
+    yesterday_in_number = yesterday_volume_used |> Util.convert_string_float
+
+    percentage_used = get_percentage_used(current_in_number, allowance_in_number)
+    remaning_days = get_remaing_days(current_in_number, allowance_in_number, yesterday_in_number)
+
+    bill_records = Records.get_sim_bill_day(number)
+    last_bill_date = get_bill_date(bill_records.bill_day)
+    last_sms_records = last_sms_details(number)
+    sms_since_last_bill = get_total_sms(number, last_bill_date)
+
+    params = %{
+      number: params[:number],
+      name: params[:name],
+      addon: params[:addon],
+      allowance: params[:allowance],
+      volume_used: params[:volume_used],
+      sim_provider: params[:sim_provider],
+      yesterday_volume_used: yesterday_volume_used,
+      percentage_used: percentage_used,
+      remaning_days: remaning_days,
+      last_log_reading_at: params[:datetime] |> Util.shift_zone(),
+      last_bill_date: last_bill_date |> Util.date_to_string,
+      last_sms: last_sms_records.last_sms,
+      last_sms_date: last_sms_records.last_sms_date |> Util.date_time_to_string,
+      sms_since_last_bill: sms_since_last_bill,
+      status: "Not found",
+      user_id: params[:user_id],
+      three_user_id: params[:three_user_id]
+    }
+
+    number_already_exist(sims_records, params)
+  end
+
+  def get_remaing_days(-1.0, _allowance_in_number, _yesterday_in_number), do: "Infinity"
+  def get_remaing_days(0, _allowance_in_number, _yesterday_in_number), do: "Infinity"
+  def get_remaing_days(current_in_number, allowance_in_number, yesterday_in_number)  do
+    days_left = (allowance_in_number - current_in_number) / (current_in_number - yesterday_in_number)
+    val = (days_left / 100) * 100
+    val |> Util.convert_into_string
+  end
+
+  def get_percentage_used(current_in_number, allowance_in_number) when allowance_in_number > 0  do
+    (current_in_number / allowance_in_number * 100) |> Float.round(3)
+  end
+  def get_percentage_used(_current_in_number, _allowance_in_number), do: -1.0
+
+  def get_bill_date(nil), do: nil
+  def get_bill_date("null"), do: nil
+  def get_bill_date(day) do
+    day = check_data_type(day)
+    bill_day = day |> Util.ensure_number
+    current_year = DateTime.utc_now |> Map.fetch!(:year)
+    current_month = DateTime.utc_now |> Map.fetch!(:month)
+    current_day = DateTime.utc_now |> Map.fetch!(:day)
+    month = get_month(current_day, bill_day, current_month)
+    year = get_year(current_day, bill_day, current_year, current_month)
+    date_time = "#{year}-#{month}-#{bill_day} 00:00:00"
+    {:ok, date} = NaiveDateTime.from_iso8601(date_time)
+    date
+  end
+
+  defp get_month(current_day, bill_day, current_month) when current_month == 1 and current_day <= bill_day, do: 12
+  defp get_month(current_day, bill_day, current_month) when current_day > bill_day, do: Util.ensure_number(current_month)
+  defp get_month(_current_day, _bill_day, current_month), do: Util.ensure_number(current_month - 1)
+
+  defp get_year(current_day, bill_day, year, current_month) when current_month == 1 and current_day <= bill_day, do: year - 1
+  defp get_year(_current_day, _bill_day, year, _current_month), do: year
+
+  defp check_data_type(number) when is_bitstring(number) do
+    {day, ""} = Integer.parse(number)
+    day
+  end
+  defp check_data_type(day), do: day
+
+  def last_sms_details(number) do
+    last_sms_details = get_last_message_details(number)
+    last_sms = get_last_sms(last_sms_details)
+    last_sms_date = get_last_sms_date(last_sms_details)
+     %{
+      last_sms: last_sms,
+      last_sms_date: last_sms_date
+    }
+  end
+
+  defp get_last_sms_date(nil), do: "-"
+  defp get_last_sms_date(last_sms_details), do: last_sms_details |> Map.get(:inserted_at) |> Util.shift_zone()
+
+  defp get_last_sms(nil), do: "-"
+  defp get_last_sms(last_sms_details), do: last_sms_details |> Map.get(:text)
+
+  def get_total_sms(_number, "-"), do: 0
+  def get_total_sms(number, last_bill_date), do: get_sms_count(number, last_bill_date)
+
+  def number_already_exist(nil, params) do
+    changeset = Sims.changeset(%Sims{}, params)
+    case Repo.insert(changeset) do
+    {:ok, _logs} ->
+      Logger.info "SIM number has been saved"
+    {:error, _changeset} ->
+      Logger.error "SIM number did not saved due to failure."
+    end
+  end
+
+  def number_already_exist(already_exist, params) do
+    id = already_exist.id
+    Records.get_sim!(id)
+    |> Sims.changeset(params)
+    |> Repo.update
+    |> case do
+      {:ok, _sim} ->
+        Logger.info "SIM number has been updated"
+      {:error, _changeset} ->
+        Logger.error "SIM number did not updated due to failure."
+    end
+  end
+
+  def ensure_yesterday_volume(nil), do: "-1.0"
+  def ensure_yesterday_volume(volume_usage), do: volume_usage[:yesterday_volume_used]
+
+  def get_info(cookie) do
     for sim <- get_sims(cookie) do
       get_sim_data(sim, cookie)
     end
@@ -230,17 +361,11 @@ defmodule ThreeScraper.Scraper do
 
   defp number_with_code("0" <> number), do: "+353#{number}"
 
-  defp ensure_allowance_value(-1), do: -1.0
-  defp ensure_allowance_value(allowance) do
-    {new_allowance, _} = allowance  |> String.replace(",", "") |> Float.parse()
-     new_allowance
-  end
+  defp ensure_allowance_value(-1), do: "-1.0"
+  defp ensure_allowance_value(allowance), do: allowance
 
-  defp ensure_used_value("-"), do: 0.0
-  defp ensure_used_value(volume_used) do
-    {new_volume_used, _} = volume_used  |> String.replace(",", "") |> Float.parse()
-    new_volume_used
-  end
+  defp ensure_used_value("-"), do: "-1.0"
+  defp ensure_used_value(volume_used), do: volume_used
 
   defp ensure_addon_value(addon) do
     if is_binary(addon) == true  do

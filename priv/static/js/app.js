@@ -18958,21 +18958,6 @@ module.exports = {
   },
   methods: {
     initializeTable: function initializeTable() {
-      $.fn.dataTable.ext.order['dom-span'] = function (settings, col) {
-        return this.api().column(col, { order: 'index' }).nodes().map(function (td, i) {
-          return $('span', td).text();
-        });
-      };
-      $.fn.dataTable.ext.order['dom-text-numeric'] = function (settings, col) {
-        return this.api().column(col, { order: 'index' }).nodes().map(function (td, i) {
-          return $('span', td).text() * 1;
-        });
-      };
-      $.fn.dataTable.ext.order['dom-text'] = function (settings, col) {
-        return this.api().column(col, { order: 'index' }).nodes().map(function (td, i) {
-          return $(td).text();
-        });
-      };
 
       $.fn.dataTable.moment("DD-MM-YYYY HH:mm:ss");
       var simsDataTable = $('#sms_summary').DataTable({
@@ -18983,11 +18968,9 @@ module.exports = {
           // Sync TFOOT scrolling with TBODY
           $('.dataTables_scrollFoot').on('scroll', function () {
             $('.dataTables_scrollBody').scrollLeft($(this).scrollLeft());
-            simsDataTable.columns.adjust().draw();
           });
           $('.dataTables_scrollHead').on('scroll', function () {
             $('.dataTables_scrollBody').scrollLeft($(this).scrollLeft());
-            simsDataTable.columns.adjust().draw();
           });
         },
         ajax: {
@@ -19006,7 +18989,6 @@ module.exports = {
         columns: [{
           class: "text-left number",
           data: function data(row, type, set, meta) {
-            var link = "%2B" + row.number;
             return row.number;
           }
         }, {
@@ -19015,74 +18997,33 @@ module.exports = {
             return row.name;
           }
         }, {
-          class: "text-center last_sms_datetime",
-          orderDataType: "dom-text",
-          type: "dateTime",
+          class: "text-center last_sms_date",
           data: function data(row, type, set, meta) {
             var last_sms_date = row.last_sms_date;
-            return last_sms_date;
-          },
-          createdCell: function createdCell(td, cellData, rowData, row, col) {
-            var date_value = void 0;
-            var number = rowData.number;
-            if (cellData == "Loading....") {
-              $.get("/sms/last/" + number + "/", function (data) {
-                var last_sms_date = data.sms.last_sms_date;
-                if (last_sms_date == '-') {
-                  date_value = last_sms_date;
-                } else {
-                  date_value = moment(last_sms_date).format('DD-MM-YYYY HH:mm:ss');
-                }
-                $(td).html(date_value);
-              });
+            if (last_sms_date != "-") {
+              last_sms_date = moment(row.last_log_reading_at).format('DD-MM-YYYY HH:mm:ss');
             }
+            return last_sms_date;
           }
         }, {
           class: "last_sms",
-          orderDataType: "dom-text",
-          type: "string",
           data: function data(row, type, set, meta) {
             return row.last_sms;
-          },
-          createdCell: function createdCell(td, cellData, rowData, row, col) {
-            var number = rowData.number;
-            if (cellData == "Loading....") {
-              $.get("/sms/last/" + number + "/", function (data) {
-                var resize = false;
-                if (resize == false) {
-                  simsDataTable.draw();
-                  resize = true;
-                }
-                $(td).html(data.sms.last_sms);
-              });
-            }
           }
         }, {
           class: "text-center last_bill_date",
           data: function data(row, type, set, meta) {
             var last_bill_date = void 0;
             last_bill_date = row.last_bill_date;
-            if (last_bill_date == null) {
-              return "-";
-            } else {
-              return moment(row.last_bill_date).format('DD-MM-YYYY');
+            if (last_bill_date != "-") {
+              last_bill_date = moment(row.last_bill_date).format('DD-MM-YYYY');
             }
+            return last_bill_date;
           }
         }, {
           class: "text-center sms_since_last_bill",
-          orderDataType: "dom-text-numeric",
-          type: "numeric",
           data: function data(row, type, set, meta) {
-            return row.total_sms_send;
-          },
-          createdCell: function createdCell(td, cellData, rowData, row, col) {
-            var bill_day = rowData.bill_day;
-            var number = rowData.number;
-            if (cellData == "Loading....") {
-              $.get("/sims/" + number + "/" + bill_day, function (data) {
-                $(td).html("<span>" + data.result + "</span>");
-              });
-            }
+            return row.sms_since_last_bill;
           }
         }],
         info: false,
@@ -22457,7 +22398,7 @@ module.exports = {
       show_loading: false,
       show_errors: false,
       show_add_messages: ""
-    }, _defineProperty(_ref, 'show_loading', false), _defineProperty(_ref, 'show_add_errors', false), _defineProperty(_ref, 'show_edit_errors', false), _defineProperty(_ref, 'show_edit_messages', ""), _defineProperty(_ref, 'headings', [{ column: "Action", id: "action" }, { column: "Number", id: "number" }, { column: "Name", id: "name" }, { column: "Status", id: "status" }, { column: "MB Allowance", id: "allowance" }, { column: "MB Used (Today)", id: "mb_used_today" }, { column: "MB Used (Yest.)", id: "mb_used_yesterday" }, { column: "% Used", id: "mb_used_percentage" }, { column: "Remaning Days", id: "remaning_days" }, { column: "Sim Provider", id: "sim_provider" }, { column: "Last Reading", id: "last_reading" }, { column: "Last Bill Date", id: "last_bill_date" }, { column: "Last SMS", id: "last_sms" }, { column: "Last SMS DateTime", id: "last_sms_datetime" }, { column: "# SMS Since Last Bill", id: "sms_since_last_bill" }]), _defineProperty(_ref, 'form_labels', {
+    }, _defineProperty(_ref, 'show_loading', false), _defineProperty(_ref, 'show_add_errors', false), _defineProperty(_ref, 'show_edit_errors', false), _defineProperty(_ref, 'show_edit_messages', ""), _defineProperty(_ref, 'headings', [{ column: "Action", id: "action" }, { column: "Number", id: "number" }, { column: "Name", id: "name" }, { column: "Status", id: "status" }, { column: "MB Allowance", id: "allowance" }, { column: "MB Used (Today)", id: "volume_used" }, { column: "MB Used (Yest.)", id: "volume_used_yesterday" }, { column: "% Used", id: "percentage_used" }, { column: "Remaning Days", id: "remaning_days" }, { column: "Sim Provider", id: "sim_provider" }, { column: "Last Reading", id: "last_log_reading_at" }, { column: "Last Bill Date", id: "last_bill_date" }, { column: "Last SMS", id: "last_sms" }, { column: "Last SMS DateTime", id: "last_sms_datetime" }, { column: "# SMS Since Last Bill", id: "sms_since_last_bill" }]), _defineProperty(_ref, 'form_labels', {
       name: "Name",
       number: "Number",
       sim_provider: "SIM Provider",
@@ -22497,11 +22438,9 @@ module.exports = {
           // Sync TFOOT scrolling with TBODY
           $('.dataTables_scrollFoot').on('scroll', function () {
             $('.dataTables_scrollBody').scrollLeft($(this).scrollLeft());
-            simsDataTable.columns.adjust().draw();
           });
           $('.dataTables_scrollHead').on('scroll', function () {
             $('.dataTables_scrollBody').scrollLeft($(this).scrollLeft());
-            simsDataTable.columns.adjust().draw();
           });
         },
         ajax: {
@@ -22535,85 +22474,54 @@ module.exports = {
           }
         }, {
           class: "text-left status",
-          orderDataType: "dom-span",
           data: function data(row, type, set, meta) {
-            return row.last_sms;
-          },
-          createdCell: function createdCell(td, cellData, rowData, row, col) {
-            var number = rowData.number;
-            if (cellData == "Loading....") {
-              $.get("/sms/last/" + number + "/", function (data) {
-                var status = "<span>Not Found.</span>";
-                var str = data.sms.last_sms;
-                var res = str.toLowerCase();
-
-                if (res.indexOf('lost connection') > 1 || res.indexOf('disconnected') > 1 || res.indexOf('shutdown') > 1) {
-                  status = "<span class='red_text'>Disconnected</span>";
-                } else if (res.indexOf('connected') > 1 || res.indexOf('restored') > 1 || res.indexOf('alive') > 1) {
-                  status = "<span class='green_text'>Connected</span>";
-                } else if (res.indexOf('reboot') > 1 || res.indexOf('restart') > 1) {
-                  status = "<span class='orange_text'>Restarted</span>";
-                }
-                $(td).html(status);
-              });
+            var status = "<span>Not Found.</span>";
+            var res = row.last_sms.toLowerCase();
+            if (res.indexOf('lost connection') > 1 || res.indexOf('disconnected') > 1 || res.indexOf('shutdown') > 1) {
+              status = "<span class='red_text'>Disconnected</span>";
+            } else if (res.indexOf('connected') > 1 || res.indexOf('restored') > 1 || res.indexOf('alive') > 1) {
+              status = "<span class='green_text'>Connected</span>";
+            } else if (res.indexOf('reboot') > 1 || res.indexOf('restart') > 1) {
+              status = "<span class='orange_text'>Restarted</span>";
             }
+            return status;
           }
         }, {
           class: "text-center allowance",
           data: function data(row, type, set, meta) {
-            var allowance_value = void 0;
-            allowance_value = row.allowance_in_number;
-            if (allowance_value == -1.0) {
-              allowance_value = "Unlimited";
+            var allowance = row.allowance;
+            var addon = row.addon;
+            if (addon == "Unknown") {
+              allowance = "-";
+            } else if (allowance == '-1.0') {
+              allowance = "Unlimited";
             }
-            return allowance_value;
+            return allowance;
           }
         }, {
-          class: "text-center mb_used_today",
+          class: "text-center volume_used",
           data: function data(row, type, set, meta) {
-            var allowance_value = void 0,
-                current_in_number = void 0;
-            allowance_value = row.allowance_in_number;
-            current_in_number = row.current_in_number;
-            if (allowance_value == -1.0) {
-              current_in_number = "-";
-            }
-            return current_in_number;
+            return row.volume_used;
           }
         }, {
-          class: "text-center mb_used_yesterday",
+          class: "text-center volume_used_yesterday",
           data: function data(row, type, set, meta) {
-            var allowance_value = void 0,
-                yesterday_in_number = void 0;
-            allowance_value = row.allowance_in_number;
-            yesterday_in_number = row.yesterday_in_number;
-            if (allowance_value == -1.0) {
-              yesterday_in_number = "-";
-            }
-            return yesterday_in_number;
+            return row.volume_used_yesterday;
           }
         }, {
-          class: "text-center mb_used_percentage",
+          class: "text-center percentage_used",
           data: function data(row, type, set, meta) {
-            var allowance_value = void 0,
-                percentage_used = void 0;
-            allowance_value = row.allowance_in_number;
-            percentage_used = row.percentage_used;
-            if (allowance_value == -1.0) {
-              percentage_used = "-";
-            }
-            return percentage_used;
+            return row.percentage_used;
           }
         }, {
           class: "text-center remaning_days",
           data: function data(row, type, set, meta) {
-            var value = void 0;
-            var days_left = (row.allowance_in_number - row.current_in_number) / (row.current_in_number - row.yesterday_in_number);
-            value = Math.round(days_left * 100) / 100;
-            if (row.current_in_number == 0) {
-              value = "Infinity";
+            var remaning_days = row.remaning_days;
+            var addon = row.addon;
+            if (addon == "Unknown") {
+              remaning_days = "-";
             }
-            return value;
+            return remaning_days;
           }
         }, {
           class: "text-center sim_provider",
@@ -22621,79 +22529,38 @@ module.exports = {
             return row.sim_provider;
           }
         }, {
-          class: "text-center last_reading",
+          class: "text-center last_log_reading_at",
           data: function data(row, type, set, meta) {
-            return moment(row.date_of_use).format('DD-MM-YYYY HH:mm:ss');
+            return moment(row.last_log_reading_at).format('DD-MM-YYYY HH:mm:ss');
           }
         }, {
           class: "text-center last_bill_date",
           data: function data(row, type, set, meta) {
             var last_bill_date = void 0;
             last_bill_date = row.last_bill_date;
-            if (last_bill_date == null) {
-              return "-";
-            } else {
-              return moment(row.last_bill_date).format('DD-MM-YYYY');
+            if (last_bill_date != "-") {
+              last_bill_date = moment(row.last_bill_date).format('DD-MM-YYYY');
             }
+            return last_bill_date;
           }
         }, {
           class: "last_sms",
-          orderDataType: "dom-text",
-          type: "string",
           data: function data(row, type, set, meta) {
             return row.last_sms;
-          },
-          createdCell: function createdCell(td, cellData, rowData, row, col) {
-            var number = rowData.number;
-            if (cellData == "Loading....") {
-              $.get("/sms/last/" + number + "/", function (data) {
-                var resize = false;
-                if (resize == false) {
-                  simsDataTable.draw();
-                  resize = true;
-                }
-                $(td).html(data.sms.last_sms);
-              });
-            }
           }
         }, {
-          class: "text-center last_sms_datetime",
-          orderDataType: "dom-text",
-          type: "dateTime",
+          class: "text-center last_sms_date",
           data: function data(row, type, set, meta) {
             var last_sms_date = row.last_sms_date;
-            return last_sms_date;
-          },
-          createdCell: function createdCell(td, cellData, rowData, row, col) {
-            var date_value = void 0;
-            var number = rowData.number;
-            if (cellData == "Loading....") {
-              $.get("/sms/last/" + number + "/", function (data) {
-                var last_sms_date = data.sms.last_sms_date;
-                if (last_sms_date == '-') {
-                  date_value = last_sms_date;
-                } else {
-                  date_value = moment(last_sms_date).format('DD-MM-YYYY HH:mm:ss');
-                }
-                $(td).html(date_value);
-              });
+            if (last_sms_date != "-") {
+              last_sms_date = moment(row.last_log_reading_at).format('DD-MM-YYYY HH:mm:ss');
             }
+            return last_sms_date;
           }
         }, {
           class: "text-center sms_since_last_bill",
-          orderDataType: "dom-text-numeric",
-          type: "numeric",
           data: function data(row, type, set, meta) {
-            return row.total_sms_send;
-          },
-          createdCell: function createdCell(td, cellData, rowData, row, col) {
-            var bill_day = rowData.bill_day;
-            var number = rowData.number;
-            if (cellData == "Loading....") {
-              $.get("/sims/" + number + "/" + bill_day, function (data) {
-                $(td).html("<span>" + data.result + "</span>");
-              });
-            }
+            return row.sms_since_last_bill;
           }
         }],
         autoWidth: true,
@@ -22782,8 +22649,8 @@ module.exports = {
         number: this.number,
         name: this.name,
         addon: "Unknown",
-        allowance: "0",
-        volume_used: "0",
+        allowance: "-1.0",
+        volume_used: "-1.0",
         user_id: this.user_id,
         three_user_id: 0
       }).then(function (response) {
