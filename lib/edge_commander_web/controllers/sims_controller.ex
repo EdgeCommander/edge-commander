@@ -354,14 +354,19 @@ defmodule EdgeCommanderWeb.SimsController do
     last_sms = params[:text]
     last_sms_date = params[:delivery_datetime] |> Util.date_time_to_string
     sim_record = Records.get_single_sim(number)
-    last_bill_date = sim_record.last_bill_date <> " 00:00:00" |> NaiveDateTime.from_iso8601!()
-    sms_since_last_bill = Scraper.get_total_sms(number, last_bill_date)
+    sms_since_last_bill = is_valid_date(sim_record.last_bill_date, number)
     params = %{
       last_sms: last_sms,
       last_sms_date: last_sms_date,
       sms_since_last_bill: sms_since_last_bill
     }
     number_already_exist(sim_record, params)
+  end
+
+  defp is_valid_date("-", _number), do: 0
+  defp is_valid_date(bill_date, number)  do
+    last_bill_date  = bill_date <> " 00:00:00" |> NaiveDateTime.from_iso8601!()
+    Scraper.get_total_sms(number, last_bill_date)
   end
 
   def number_already_exist(nil, _params), do: :noop
