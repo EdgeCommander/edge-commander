@@ -196,9 +196,9 @@ defmodule EdgeCommanderWeb.SimsController do
           "name" => sim.name,
           "addon" => sim.addon,
           "allowance" => sim.allowance,
-          "volume_used" => sim.volume_used,
-          "volume_used_yesterday" => sim.yesterday_volume_used,
-          "percentage_used" => sim.percentage_used,
+          "volume_used" => sim.volume_used |> ensure_valid_data,
+          "volume_used_yesterday" => sim.yesterday_volume_used |> ensure_valid_data,
+          "percentage_used" => sim.percentage_used |> ensure_valid_data,
           "remaning_days" => sim.remaning_days,
           "last_log_reading_at" => sim.last_log_reading_at,
           "sim_provider" => sim.sim_provider,
@@ -215,6 +215,10 @@ defmodule EdgeCommanderWeb.SimsController do
       logs: logs
     })
   end
+
+  def ensure_valid_data(-1.0), do: "-"
+  def ensure_valid_data("-1.0"), do: "-"
+  def ensure_valid_data(value), do: value
 
   def create_chartjs_line_data(conn, %{"sim_number" => sim_number } = params) do
     current_user_id = Util.get_user_id(conn, params)

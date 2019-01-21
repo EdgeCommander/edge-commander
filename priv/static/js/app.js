@@ -22476,8 +22476,7 @@ module.exports = {
           class: "text-left status",
           data: function data(row, type, set, meta) {
             var status = "<span>Not Found.</span>";
-            var str = row.last_sms;
-            var res = str.toLowerCase();
+            var res = row.last_sms.toLowerCase();
             if (res.indexOf('lost connection') > 1 || res.indexOf('disconnected') > 1 || res.indexOf('shutdown') > 1) {
               status = "<span class='red_text'>Disconnected</span>";
             } else if (res.indexOf('connected') > 1 || res.indexOf('restored') > 1 || res.indexOf('alive') > 1) {
@@ -22502,29 +22501,17 @@ module.exports = {
         }, {
           class: "text-center volume_used",
           data: function data(row, type, set, meta) {
-            var volume_used = row.allowance;
-            if (volume_used == '-1.0') {
-              volume_used = "-";
-            }
-            return volume_used;
+            return row.volume_used;
           }
         }, {
           class: "text-center volume_used_yesterday",
           data: function data(row, type, set, meta) {
-            var volume_used_yesterday = row.volume_used_yesterday;
-            if (volume_used_yesterday == '-1.0') {
-              volume_used_yesterday = "-";
-            }
-            return volume_used_yesterday;
+            return row.volume_used_yesterday;
           }
         }, {
           class: "text-center percentage_used",
           data: function data(row, type, set, meta) {
-            var percentage_used = row.percentage_used;
-            if (percentage_used == '-1.0') {
-              percentage_used = "-";
-            }
-            return percentage_used;
+            return row.percentage_used;
           }
         }, {
           class: "text-center remaning_days",
