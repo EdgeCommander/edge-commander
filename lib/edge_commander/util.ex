@@ -199,7 +199,7 @@ defmodule EdgeCommander.Util do
     EdgeCommander.Commands.get_monthly_sms_usage_rules(variable, value)
     |> Enum.map(fn(recipients) ->
       variable = variable |> get_variable
-      # EdgeCommander.EcMailer.monthly_sms_usage_alert(last_bill_date, recipients, number, total_sms, variable, value)
+      EdgeCommander.EcMailer.monthly_sms_usage_alert(last_bill_date, recipients, number, total_sms, variable, value)
       Logger.info "Monthly SMS usage email alert has been sent."
     end)
   end
@@ -210,7 +210,7 @@ defmodule EdgeCommander.Util do
     EdgeCommander.Commands.get_active_sms_usage_rules(variable, value)
     |> Enum.map(fn(recipients) ->
       variable = variable |> get_variable
-      # EdgeCommander.EcMailer.daily_sms_usage_alert(current_date, recipients, number, total_sms, variable, value)
+      EdgeCommander.EcMailer.daily_sms_usage_alert(current_date, recipients, number, total_sms, variable, value)
       Logger.info "Daily SMS usage email alert has been sent."
     end)
   end
@@ -219,7 +219,7 @@ defmodule EdgeCommander.Util do
     EdgeCommander.Commands.get_battery_voltages_rules(variable, value)
     |> Enum.map(fn(recipients) ->
       variable = variable |> get_variable
-      # EdgeCommander.EcMailer.battery_voltage_alert(recipients, total_volt, variable, value)
+      EdgeCommander.EcMailer.battery_voltage_alert(recipients, total_volt, variable, value)
       Logger.info "Battery voltage alert has been sent."
     end)
   end
