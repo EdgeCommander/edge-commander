@@ -246,24 +246,7 @@ module.exports = {
   },
   methods: {
     initializeTable: function(){
-      $.fn.dataTable.ext.order['dom-span'] = function  (settings, col){
-        return this.api().column(col, {order:'index'}).nodes().map( function (td, i) {
-          return $('span', td).text();
-        });
-      }
-      $.fn.dataTable.ext.order['dom-text-numeric'] = function  (settings, col){
-        return this.api().column(col, {order:'index'}).nodes().map( function (td, i) {
-          return $('span', td).text() * 1;
-        });
-      }
-      $.fn.dataTable.ext.order['dom-text'] = function  (settings, col){
-        return this.api().column(col, {order:'index'}).nodes().map( function (td, i) {
-          return $(td).text();
-        });
-      }
-
       $.fn.dataTable.moment("DD/MM/YYYY HH:mm:ss");
-
       let simsDataTable = $('#sims-datatable').DataTable({
       fnInitComplete: function(){
           // Enable TFOOT scoll bars
@@ -271,7 +254,7 @@ module.exports = {
           $('.dataTables_scrollHead').css('overflow', 'auto');
           // Sync TFOOT scrolling with TBODY
           $('.dataTables_scrollFoot').on('scroll', function () {
-          $('.dataTables_scrollBody').scrollLeft($(this).scrollLeft());
+            $('.dataTables_scrollBody').scrollLeft($(this).scrollLeft());
           });
           $('.dataTables_scrollHead').on('scroll', function () {
             $('.dataTables_scrollBody').scrollLeft($(this).scrollLeft());
@@ -401,7 +384,7 @@ module.exports = {
         data: function(row, type, set, meta) {
           let last_sms_date = row.last_sms_date
           if(last_sms_date != "-"){
-            last_sms_date = moment(row.last_log_reading_at).format('DD-MM-YYYY HH:mm:ss');
+            last_sms_date = moment(row.last_sms_date).format('DD-MM-YYYY HH:mm:ss');
           }
           return last_sms_date;
         }
