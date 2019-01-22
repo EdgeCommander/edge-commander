@@ -109,7 +109,7 @@ defmodule ThreeScraper.Scraper do
 
       old_record_list = old_data |> ensure_old_record
 
-      if (old_record_list == new_record_list) == true do
+      if (old_record_list == new_record_list) == false do
       sims_logs = %{
         number: number |> number_with_code,
         name: name,

@@ -124,10 +124,10 @@ defmodule EdgeCommanderWeb.SimsController do
 
   def update(conn, %{"id" => id} = params) do
     new_name = params["name"]
-    records = get_sim_logs!(id)
+    records = get_sim!(id)
     old_name = records.name
     records
-    |> SimLogs.changeset(params)
+    |> Sims.changeset(params)
     |> Repo.update
     |> case do
       {:ok, _sim} ->
