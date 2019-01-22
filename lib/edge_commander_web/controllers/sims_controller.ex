@@ -312,7 +312,7 @@ defmodule EdgeCommanderWeb.SimsController do
       changeset = SimMessages.changeset(%SimMessages{}, params)
       case Repo.insert(changeset) do
         {:ok, _} -> Logger.info "SMS has been saved"
-         update_last_sms_details(params)
+        update_last_sms_details(params)
         send_daily_sms_alert(from_number)
         send_monthly_sms_alert(from_number)
         {:error, changeset} -> Logger.info Util.parse_changeset(changeset)

@@ -22412,24 +22412,7 @@ module.exports = {
   },
   methods: {
     initializeTable: function initializeTable() {
-      $.fn.dataTable.ext.order['dom-span'] = function (settings, col) {
-        return this.api().column(col, { order: 'index' }).nodes().map(function (td, i) {
-          return $('span', td).text();
-        });
-      };
-      $.fn.dataTable.ext.order['dom-text-numeric'] = function (settings, col) {
-        return this.api().column(col, { order: 'index' }).nodes().map(function (td, i) {
-          return $('span', td).text() * 1;
-        });
-      };
-      $.fn.dataTable.ext.order['dom-text'] = function (settings, col) {
-        return this.api().column(col, { order: 'index' }).nodes().map(function (td, i) {
-          return $(td).text();
-        });
-      };
-
       $.fn.dataTable.moment("DD/MM/YYYY HH:mm:ss");
-
       var simsDataTable = $('#sims-datatable').DataTable({
         fnInitComplete: function fnInitComplete() {
           // Enable TFOOT scoll bars
@@ -22553,7 +22536,7 @@ module.exports = {
           data: function data(row, type, set, meta) {
             var last_sms_date = row.last_sms_date;
             if (last_sms_date != "-") {
-              last_sms_date = moment(row.last_log_reading_at).format('DD-MM-YYYY HH:mm:ss');
+              last_sms_date = moment(row.last_sms_date).format('DD-MM-YYYY HH:mm:ss');
             }
             return last_sms_date;
           }

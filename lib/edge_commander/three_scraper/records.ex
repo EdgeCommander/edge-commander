@@ -95,14 +95,6 @@ defmodule EdgeCommander.ThreeScraper.Records do
     |>  Repo.all
   end
 
-  def get_all_users_by_number(sim_number) do
-    SimLogs
-    |> select([sim], sim.user_id)
-    |> where(number: ^sim_number)
-    |> distinct(true)
-    |> Repo.all
-  end
-
   def list_sim_logs do
     Repo.all(SimLogs)
   end
@@ -141,6 +133,13 @@ defmodule EdgeCommander.ThreeScraper.Records do
   end
 
   ##=======================================sims=======================================
+
+  def get_all_users_by_number(sim_number) do
+    Sims
+    |> select([sim], sim.user_id)
+    |> where(number: ^sim_number)
+    |> Repo.all
+  end
 
   def get_single_sim(number) do
     Sims

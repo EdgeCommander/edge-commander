@@ -74,7 +74,7 @@ defmodule EdgeCommander.Nexmo do
 
   def get_sms_count(number, current_date) do
     SimMessages
-    |> where([c], (c.from == ^number or c.to == ^number) and c.type == "MO" and c.inserted_at  >= ^current_date)
+    |> where([c], (c.from == ^number or c.to == ^number) and (c.inserted_at  >= ^current_date) and (c.type == "MO"))
     |> Repo.all
     |> Enum.count
   end
