@@ -73,7 +73,7 @@ defmodule EdgeCommanderWeb.DashboardController do
 
   def total_sims(conn, params) do
     current_user_id = Util.get_user_id(conn, params)
-    total_sims = Records.get_sim_numbers(current_user_id) |> Enum.count
+    total_sims = Records.get_sims(current_user_id) |> Enum.count
     conn
     |> put_status(:ok)
     |> json(%{

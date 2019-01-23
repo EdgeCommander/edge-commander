@@ -400,6 +400,7 @@ module.exports = {
         $('.dataTables_scrollHead').on('scroll', function () {
           $('.dataTables_scrollBody').scrollLeft($(this).scrollLeft());
         });
+        nvrDataTable.search("").draw();
       },
       ajax: {
       url: "/nvrs/data",
@@ -563,7 +564,6 @@ module.exports = {
         }
       },
       ],
-      autoWidth: true,
       info: false,
       bPaginate: false,
       lengthChange: false,
@@ -769,7 +769,6 @@ module.exports = {
     this.deleteNvr();
     let table =  this.initializeTable();
     this.getUniqueIdentifier(table);
-    this.search();
     this.initHideShow();
     this.active_menu_link();
   }

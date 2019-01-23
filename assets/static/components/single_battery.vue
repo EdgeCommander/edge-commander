@@ -325,7 +325,6 @@ module.exports = {
         }
       },
       ],
-      autoWidth: true,
       info: false,
       bPaginate: false,
       lengthChange: false,

@@ -260,6 +260,7 @@ module.exports = {
         $('.dataTables_scrollHead').on('scroll', function () {
           $('.dataTables_scrollBody').scrollLeft($(this).scrollLeft());
         });
+        batteryDataTable.search("").draw();
       },
       ajax: {
       url: "/battery",
@@ -306,7 +307,6 @@ module.exports = {
         },
       },
       ],
-      autoWidth: true,
       info: false,
       bPaginate: false,
       lengthChange: false,
@@ -454,7 +454,6 @@ module.exports = {
     this.deleteBattery();
     let table = this.initializeTable();
     this.getUniqueIdentifier(table);
-    this.search();
     this.get_session();
     this.initHideShow();
     this.active_menu_link();

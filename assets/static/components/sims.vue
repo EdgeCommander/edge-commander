@@ -249,16 +249,17 @@ module.exports = {
       $.fn.dataTable.moment("DD/MM/YYYY HH:mm:ss");
       let simsDataTable = $('#sims-datatable').DataTable({
       fnInitComplete: function(){
-          // Enable TFOOT scoll bars
-          $('.dataTables_scrollFoot').css('overflow', 'auto');
-          $('.dataTables_scrollHead').css('overflow', 'auto');
-          // Sync TFOOT scrolling with TBODY
-          $('.dataTables_scrollFoot').on('scroll', function () {
-            $('.dataTables_scrollBody').scrollLeft($(this).scrollLeft());
-          });
-          $('.dataTables_scrollHead').on('scroll', function () {
-            $('.dataTables_scrollBody').scrollLeft($(this).scrollLeft());
-          });
+        // Enable TFOOT scoll bars
+        $('.dataTables_scrollFoot').css('overflow', 'auto');
+        $('.dataTables_scrollHead').css('overflow', 'auto');
+        // Sync TFOOT scrolling with TBODY
+        $('.dataTables_scrollFoot').on('scroll', function () {
+          $('.dataTables_scrollBody').scrollLeft($(this).scrollLeft());
+        });
+        $('.dataTables_scrollHead').on('scroll', function () {
+          $('.dataTables_scrollBody').scrollLeft($(this).scrollLeft());
+        });
+        simsDataTable.search("").draw();
       },
       ajax: {
       url: "/sims/data/json",
@@ -546,15 +547,11 @@ module.exports = {
     }
   }, // end of methods
   mounted(){
-    let table =  this.initializeTable();
+    let table = this.initializeTable();
     this.getUniqueIdentifier(table);
-    this.search();
     this.get_session();
     this.initHideShow();
     this.active_menu_link();
-    table.on("column-reorder", function() {
-      table.ajax.reload();
-    });
   }
 }
 </script>

@@ -317,6 +317,7 @@ module.exports = {
           $('.dataTables_scrollHead').on('scroll', function () {
             $('.dataTables_scrollBody').scrollLeft($(this).scrollLeft());
           });
+          routersDataTable.search("").draw();
         },
         ajax: {
         url: "/routers/data",
@@ -381,7 +382,6 @@ module.exports = {
           },
         },
         ],
-        autoWidth: true,
         info: false,
         bPaginate: false,
         lengthChange: false,
@@ -550,7 +550,6 @@ module.exports = {
     let table = this.initializeTable();
     this.getUniqueIdentifier(table);
     this.get_session();
-    this.search();
     this.initHideShow();
     this.active_menu_link();
   }

@@ -247,6 +247,7 @@ module.exports = {
           $('.dataTables_scrollHead').on('scroll', function () {
             $('.dataTables_scrollBody').scrollLeft($(this).scrollLeft());
           });
+          smsDataTable.search("").draw();
         },
         ajax: {
         url: "/get_all_sms/" + from_date + "/" + to_date,
@@ -344,7 +345,6 @@ module.exports = {
           },
         }
         ],
-        autoWidth: true,
         info: false,
         bPaginate: false,
         lengthChange: false,
@@ -548,7 +548,6 @@ module.exports = {
     this.onSendSMSFocus();
     this.get_session();
     this.get_sims();
-    this.search();
     this.active_menu_link();
     $('[data-toggle="popover"]').popover({ trigger: "hover" });
     this.messages_input_init();

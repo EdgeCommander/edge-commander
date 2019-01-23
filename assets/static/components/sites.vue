@@ -384,6 +384,7 @@ module.exports = {
           $('.dataTables_scrollHead').on('scroll', function () {
             $('.dataTables_scrollBody').scrollLeft($(this).scrollLeft());
           });
+          sitesDataTable.search("").draw();
         },
         ajax: {
         url: "/sites/data",
@@ -448,7 +449,6 @@ module.exports = {
           },
         },
         ],
-        autoWidth: true,
         info: false,
         bPaginate: false,
         lengthChange: false,
@@ -795,7 +795,6 @@ module.exports = {
     this.deleteSite();
     let table = this.initializeTable();
     this.getUniqueIdentifier(table);
-    this.search();
     this.initHideShow();
     this.active_menu_link();
    }

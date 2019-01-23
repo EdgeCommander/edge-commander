@@ -320,6 +320,7 @@ module.exports = {
         $('.dataTables_scrollHead').on('scroll', function () {
           $('.dataTables_scrollBody').scrollLeft($(this).scrollLeft());
         });
+        commandsDataTable.search("").draw();
       },
       ajax: {
       url: "/rules",
@@ -387,7 +388,6 @@ module.exports = {
         },
       },
       ],
-      autoWidth: true,
       info: false,
       bPaginate: false,
       lengthChange: false,
@@ -562,7 +562,6 @@ module.exports = {
     this.deleteRule();
     let table = this.initializeTable();
     this.getUniqueIdentifier(table);
-    this.search();
     this.get_session();
     this.initHideShow();
     this.active_menu_link();

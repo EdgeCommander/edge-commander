@@ -18009,6 +18009,7 @@ module.exports = {
           $('.dataTables_scrollHead').on('scroll', function () {
             $('.dataTables_scrollBody').scrollLeft($(this).scrollLeft());
           });
+          batteryDataTable.search("").draw();
         },
         ajax: {
           url: "/battery",
@@ -18049,7 +18050,6 @@ module.exports = {
             return moment(row.created_at).format('DD-MM-YYYY HH:mm:ss');
           }
         }],
-        autoWidth: true,
         info: false,
         bPaginate: false,
         lengthChange: false,
@@ -18199,7 +18199,6 @@ module.exports = {
     this.deleteBattery();
     var table = this.initializeTable();
     this.getUniqueIdentifier(table);
-    this.search();
     this.get_session();
     this.initHideShow();
     this.active_menu_link();
@@ -18534,6 +18533,7 @@ module.exports = {
           $('.dataTables_scrollHead').on('scroll', function () {
             $('.dataTables_scrollBody').scrollLeft($(this).scrollLeft());
           });
+          commandsDataTable.search("").draw();
         },
         ajax: {
           url: "/rules",
@@ -18592,7 +18592,6 @@ module.exports = {
             return moment(row.created_at).format('DD-MM-YYYY HH:mm:ss');
           }
         }],
-        autoWidth: true,
         info: false,
         bPaginate: false,
         lengthChange: false,
@@ -18769,7 +18768,6 @@ module.exports = {
     this.deleteRule();
     var table = this.initializeTable();
     this.getUniqueIdentifier(table);
-    this.search();
     this.get_session();
     this.initHideShow();
     this.active_menu_link();
@@ -19424,6 +19422,7 @@ module.exports = {
           $('.dataTables_scrollHead').on('scroll', function () {
             $('.dataTables_scrollBody').scrollLeft($(this).scrollLeft());
           });
+          smsDataTable.search("").draw();
         },
         ajax: {
           url: "/get_all_sms/" + from_date + "/" + to_date,
@@ -19510,7 +19509,6 @@ module.exports = {
             }
           }
         }],
-        autoWidth: true,
         info: false,
         bPaginate: false,
         lengthChange: false,
@@ -19700,7 +19698,6 @@ module.exports = {
     this.onSendSMSFocus();
     this.get_session();
     this.get_sims();
-    this.search();
     this.active_menu_link();
     $('[data-toggle="popover"]').popover({ trigger: "hover" });
     this.messages_input_init();
@@ -20103,6 +20100,7 @@ module.exports = {
           $('.dataTables_scrollHead').on('scroll', function () {
             $('.dataTables_scrollBody').scrollLeft($(this).scrollLeft());
           });
+          nvrDataTable.search("").draw();
         },
         ajax: {
           url: "/nvrs/data",
@@ -20245,7 +20243,6 @@ module.exports = {
             return moment(row.created_at).format('DD-MM-YYYY HH:mm:ss');
           }
         }],
-        autoWidth: true,
         info: false,
         bPaginate: false,
         lengthChange: false,
@@ -20455,7 +20452,6 @@ module.exports = {
     this.deleteNvr();
     var table = this.initializeTable();
     this.getUniqueIdentifier(table);
-    this.search();
     this.initHideShow();
     this.active_menu_link();
   }
@@ -20786,6 +20782,7 @@ module.exports = {
           $('.dataTables_scrollHead').on('scroll', function () {
             $('.dataTables_scrollBody').scrollLeft($(this).scrollLeft());
           });
+          routersDataTable.search("").draw();
         },
         ajax: {
           url: "/routers/data",
@@ -20841,7 +20838,6 @@ module.exports = {
             return moment(row.created_at).format('DD-MM-YYYY HH:mm:ss');
           }
         }],
-        autoWidth: true,
         info: false,
         bPaginate: false,
         lengthChange: false,
@@ -21013,7 +21009,6 @@ module.exports = {
     var table = this.initializeTable();
     this.getUniqueIdentifier(table);
     this.get_session();
-    this.search();
     this.initHideShow();
     this.active_menu_link();
   }
@@ -21514,7 +21509,6 @@ module.exports = {
             return row.event;
           }
         }],
-        autoWidth: true,
         info: false,
         bPaginate: false,
         lengthChange: false,
@@ -21578,7 +21572,6 @@ module.exports = {
             return moment(row.created_at).format('DD-MM-YYYY HH:mm:ss');
           }
         }],
-        autoWidth: true,
         info: false,
         bPaginate: false,
         lengthChange: false,
@@ -21587,7 +21580,6 @@ module.exports = {
         stateSave: true
       });
       return this.dataTable = nvrDataTable;
-      this.dataTable.search("");
     },
     updateMyProfile: function updateMyProfile() {
       this.my_profile.show_loading = true;
@@ -22425,6 +22417,7 @@ module.exports = {
           $('.dataTables_scrollHead').on('scroll', function () {
             $('.dataTables_scrollBody').scrollLeft($(this).scrollLeft());
           });
+          simsDataTable.search("").draw();
         },
         ajax: {
           url: "/sims/data/json",
@@ -22700,13 +22693,9 @@ module.exports = {
   mounted: function mounted() {
     var table = this.initializeTable();
     this.getUniqueIdentifier(table);
-    this.search();
     this.get_session();
     this.initHideShow();
     this.active_menu_link();
-    table.on("column-reorder", function () {
-      table.ajax.reload();
-    });
   }
 };
 
@@ -23018,7 +23007,6 @@ module.exports = {
             return row.h23_value;
           }
         }],
-        autoWidth: true,
         info: false,
         bPaginate: false,
         lengthChange: false,
@@ -24447,6 +24435,7 @@ module.exports = {
           $('.dataTables_scrollHead').on('scroll', function () {
             $('.dataTables_scrollBody').scrollLeft($(this).scrollLeft());
           });
+          sitesDataTable.search("").draw();
         },
         ajax: {
           url: "/sites/data",
@@ -24502,7 +24491,6 @@ module.exports = {
             return moment(row.created_at).format('DD-MM-YYYY HH:mm:ss');
           }
         }],
-        autoWidth: true,
         info: false,
         bPaginate: false,
         lengthChange: false,
@@ -24858,7 +24846,6 @@ module.exports = {
     this.deleteSite();
     var table = this.initializeTable();
     this.getUniqueIdentifier(table);
-    this.search();
     this.initHideShow();
     this.active_menu_link();
   }
