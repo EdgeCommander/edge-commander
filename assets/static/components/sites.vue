@@ -360,7 +360,7 @@ module.exports = {
       nvr_id: "",
       notes: "",
       map_area: "Dublin, Ireland",
-      user_id: "",
+      user_id: this.$root.user_id,
       edit_id: "",
       edit_name: "",
       edit_sim_number: "",
@@ -757,11 +757,6 @@ module.exports = {
         }
       });
     },
-    get_session: function(){
-      this.$http.get('/get_porfile').then(response => {
-        this.user_id = response.body.id;
-      });
-    },
     get_sims: function(){
       this.$http.get('/sims/data/json').then(response => {
         this.sims_list = response.body.logs;
@@ -786,7 +781,6 @@ module.exports = {
     }
    }, // end of methods\
   created() {
-    this.get_session();
     this.get_sims();
     this.get_routers();
     this.get_nvrs();

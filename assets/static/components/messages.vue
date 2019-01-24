@@ -219,7 +219,7 @@ module.exports = {
       },
       smsMessage: "",
       toNumber: "",
-      user_id: "",
+      user_id: this.$root.user_id,
       smsMessage_text: "",
     }
   },
@@ -423,11 +423,6 @@ module.exports = {
         placeholder: "Choose or type",
       });
     },
-    get_session: function(){
-      this.$http.get('/get_porfile').then(response => {
-        this.user_id = response.body.id;
-      });
-    },
     get_sims: function(){
       this.$http.get('/sims/data/json').then(response => {
         this.sims_list = response.body.logs;
@@ -546,7 +541,6 @@ module.exports = {
     this.init_select();
     this.dateFilterInitialize();
     this.onSendSMSFocus();
-    this.get_session();
     this.get_sims();
     this.active_menu_link();
     $('[data-toggle="popover"]').popover({ trigger: "hover" });

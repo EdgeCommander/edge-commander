@@ -303,7 +303,7 @@ module.exports = {
       rule_value: "",
       rule_recipients: "",
       rule_is_active: false,
-      user_id: ""
+      user_id: this.$root.user_id
     }
   },
   methods: {
@@ -526,11 +526,6 @@ module.exports = {
         }
       });
     },
-    get_session: function(){
-      this.$http.get('/get_porfile').then(response => {
-        this.user_id = response.body.id;
-      });
-    },
     deleteRule: function(){
     $(document).off("click").on("click", ".delRule", function(){
       let ruleRow, result;
@@ -562,7 +557,6 @@ module.exports = {
     this.deleteRule();
     let table = this.initializeTable();
     this.getUniqueIdentifier(table);
-    this.get_session();
     this.initHideShow();
     this.active_menu_link();
    }

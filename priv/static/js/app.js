@@ -17990,7 +17990,7 @@ module.exports = {
       edit_battery_source_url: "",
       battery_name: "",
       battery_source_url: "",
-      user_id: "",
+      user_id: this.$root.user_id,
       battery_is_active: false,
       edit_battery_is_active: false
     };
@@ -18160,13 +18160,6 @@ module.exports = {
         }
       });
     },
-    get_session: function get_session() {
-      var _this = this;
-
-      this.$http.get('/get_porfile').then(function (response) {
-        _this.user_id = response.body.id;
-      });
-    },
     deleteBattery: function deleteBattery() {
       $(document).off("click").on("click", ".delBattery", function () {
         var recordRow = void 0,
@@ -18199,7 +18192,6 @@ module.exports = {
     this.deleteBattery();
     var table = this.initializeTable();
     this.getUniqueIdentifier(table);
-    this.get_session();
     this.initHideShow();
     this.active_menu_link();
   }
@@ -18516,7 +18508,7 @@ module.exports = {
       rule_value: "",
       rule_recipients: "",
       rule_is_active: false,
-      user_id: ""
+      user_id: this.$root.user_id
     };
   },
   methods: {
@@ -18729,13 +18721,6 @@ module.exports = {
         }
       });
     },
-    get_session: function get_session() {
-      var _this = this;
-
-      this.$http.get('/get_porfile').then(function (response) {
-        _this.user_id = response.body.id;
-      });
-    },
     deleteRule: function deleteRule() {
       $(document).off("click").on("click", ".delRule", function () {
         var ruleRow = void 0,
@@ -18768,7 +18753,6 @@ module.exports = {
     this.deleteRule();
     var table = this.initializeTable();
     this.getUniqueIdentifier(table);
-    this.get_session();
     this.initHideShow();
     this.active_menu_link();
   }
@@ -19394,7 +19378,7 @@ module.exports = {
       },
       smsMessage: "",
       toNumber: "",
-      user_id: "",
+      user_id: this.$root.user_id,
       smsMessage_text: ""
     };
   },
@@ -19587,18 +19571,11 @@ module.exports = {
         placeholder: "Choose or type"
       });
     },
-    get_session: function get_session() {
+    get_sims: function get_sims() {
       var _this = this;
 
-      this.$http.get('/get_porfile').then(function (response) {
-        _this.user_id = response.body.id;
-      });
-    },
-    get_sims: function get_sims() {
-      var _this2 = this;
-
       this.$http.get('/sims/data/json').then(function (response) {
-        _this2.sims_list = response.body.logs;
+        _this.sims_list = response.body.logs;
       });
     },
     active_menu_link: function active_menu_link() {
@@ -19696,7 +19673,6 @@ module.exports = {
     this.init_select();
     this.dateFilterInitialize();
     this.onSendSMSFocus();
-    this.get_session();
     this.get_sims();
     this.active_menu_link();
     $('[data-toggle="popover"]').popover({ trigger: "hover" });
@@ -20061,7 +20037,7 @@ module.exports = {
       sdk_nvr_port: "",
       vh_nvr_port: "",
       rtsp_nvr_port: "",
-      user_id: "",
+      user_id: this.$root.user_id,
       nvr_is_monitoring: "",
       edit_nvr_id: "",
       edit_nvr_name: "",
@@ -20389,13 +20365,6 @@ module.exports = {
         }
       });
     },
-    get_session: function get_session() {
-      var _this = this;
-
-      this.$http.get('/get_porfile').then(function (response) {
-        _this.user_id = response.body.id;
-      });
-    },
     deleteNvr: function deleteNvr() {
       $(document).on("click", ".delNVR", function () {
         var nvrRow = void 0,
@@ -20447,7 +20416,6 @@ module.exports = {
     }
   }, // end of methods
   mounted: function mounted() {
-    this.get_session();
     this.rebootNVR();
     this.deleteNvr();
     var table = this.initializeTable();
@@ -20765,7 +20733,7 @@ module.exports = {
       edit_router_password: "",
       edit_http_router_port: "",
       edit_router_is_monitoring: false,
-      user_id: ""
+      user_id: this.$root.user_id
     };
   },
   methods: {
@@ -20971,13 +20939,6 @@ module.exports = {
         }
       });
     },
-    get_session: function get_session() {
-      var _this = this;
-
-      this.$http.get('/get_porfile').then(function (response) {
-        _this.user_id = response.body.id;
-      });
-    },
     deleteRouter: function deleteRouter() {
       $(document).off("click").on("click", ".delRouter", function () {
         var routerRow = void 0,
@@ -21008,7 +20969,6 @@ module.exports = {
     this.deleteRouter();
     var table = this.initializeTable();
     this.getUniqueIdentifier(table);
-    this.get_session();
     this.initHideShow();
     this.active_menu_link();
   }
@@ -22400,22 +22360,26 @@ module.exports = {
       add_sim_button: "Add SIM",
       hide_show_button: "OK",
       submit_button: "Save changes"
-    }), _defineProperty(_ref, 'name', ""), _defineProperty(_ref, 'number', ""), _defineProperty(_ref, 'sim_provider', ""), _defineProperty(_ref, 'other_sim_provider', ""), _defineProperty(_ref, 'user_id', ""), _ref;
+    }), _defineProperty(_ref, 'name', ""), _defineProperty(_ref, 'number', ""), _defineProperty(_ref, 'sim_provider', ""), _defineProperty(_ref, 'other_sim_provider', ""), _defineProperty(_ref, 'user_id', this.$root.user_id), _ref;
   },
   methods: {
     initializeTable: function initializeTable() {
-      $.fn.dataTable.moment("DD/MM/YYYY HH:mm:ss");
       var simsDataTable = $('#sims-datatable').DataTable({
         fnInitComplete: function fnInitComplete() {
           // Enable TFOOT scoll bars
-          $('.dataTables_scrollFoot').css('overflow', 'auto');
           $('.dataTables_scrollHead').css('overflow', 'auto');
+          $('.dataTables_scrollFoot').css('overflow', 'auto');
           // Sync TFOOT scrolling with TBODY
           $('.dataTables_scrollFoot').on('scroll', function () {
             $('.dataTables_scrollBody').scrollLeft($(this).scrollLeft());
           });
+          var offset = $('.dataTables_scrollBody').offset().left - $(window).scrollLeft();
           $('.dataTables_scrollHead').on('scroll', function () {
             $('.dataTables_scrollBody').scrollLeft($(this).scrollLeft());
+            var offset = $('.dataTables_scrollBody').scrollLeft();
+            if (offset == 1) {
+              simsDataTable.columns.adjust().draw();
+            }
           });
         },
         ajax: {
@@ -22648,13 +22612,6 @@ module.exports = {
       this.show_add_messages = "";
       this.show_errors = false;
     },
-    get_session: function get_session() {
-      var _this = this;
-
-      this.$http.get('/get_porfile').then(function (response) {
-        _this.user_id = response.body.id;
-      });
-    },
     initializeInput: function initializeInput() {
       $("#number").intlTelInput({
         nationalMode: false,
@@ -22692,10 +22649,8 @@ module.exports = {
   mounted: function mounted() {
     var table = this.initializeTable();
     this.getUniqueIdentifier(table);
-    this.get_session();
     this.initHideShow();
     this.active_menu_link();
-    this.search();
   }
 };
 
@@ -23049,7 +23004,7 @@ module.exports = {
     },
     active_menu_link: function active_menu_link() {
       $("li").removeClass(" m-menu__item--active");
-      $(".status").addClass(" m-menu__item--active");
+      $(".batteries").addClass(" m-menu__item--active");
       $("#m_aside_left").removeClass("m-aside-left--on");
       $("body").removeClass("m-aside-left--on");
       $(".m-aside-left-overlay").removeClass("m-aside-left-overlay");
@@ -24411,7 +24366,7 @@ module.exports = {
       nvr_id: "",
       notes: "",
       map_area: "Dublin, Ireland",
-      user_id: "",
+      user_id: this.$root.user_id,
       edit_id: "",
       edit_name: "",
       edit_sim_number: "",
@@ -24800,32 +24755,25 @@ module.exports = {
         }
       });
     },
-    get_session: function get_session() {
+    get_sims: function get_sims() {
       var _this = this;
 
-      this.$http.get('/get_porfile').then(function (response) {
-        _this.user_id = response.body.id;
-      });
-    },
-    get_sims: function get_sims() {
-      var _this2 = this;
-
       this.$http.get('/sims/data/json').then(function (response) {
-        _this2.sims_list = response.body.logs;
+        _this.sims_list = response.body.logs;
       });
     },
     get_routers: function get_routers() {
-      var _this3 = this;
+      var _this2 = this;
 
       this.$http.get('/routers/data').then(function (response) {
-        _this3.routers_list = response.body.routers;
+        _this2.routers_list = response.body.routers;
       });
     },
     get_nvrs: function get_nvrs() {
-      var _this4 = this;
+      var _this3 = this;
 
       this.$http.get('/nvrs/data').then(function (response) {
-        _this4.nvrs_list = response.body.nvrs;
+        _this3.nvrs_list = response.body.nvrs;
       });
     },
     active_menu_link: function active_menu_link() {
@@ -24837,7 +24785,6 @@ module.exports = {
     }
   }, // end of methods\
   created: function created() {
-    this.get_session();
     this.get_sims();
     this.get_routers();
     this.get_nvrs();
@@ -25175,10 +25122,15 @@ var router = new _vueRouter2.default({
   }]
 });
 
+var user_id = $("#app").attr("data-user");
+
 new _vue2.default({
   el: '#app',
   router: router,
   template: '<App/>',
+  data: {
+    user_id: user_id
+  },
   components: { App: _App2.default }
 }).$mount('#app');
 
@@ -25610,7 +25562,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
   }), _vm._v(" "), _c('span', {
     staticClass: "m-menu__link-text"
   }, [_vm._v("Messages")])])], 1), _vm._v(" "), _c('li', {
-    staticClass: "m-menu__item vue_links status",
+    staticClass: "m-menu__item vue_links batteries",
     attrs: {
       "aria-haspopup": "true"
     }

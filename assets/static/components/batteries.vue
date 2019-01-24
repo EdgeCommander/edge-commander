@@ -241,7 +241,7 @@ module.exports = {
       edit_battery_source_url: "",
       battery_name: "",
       battery_source_url: "",
-      user_id: "",
+      user_id: this.$root.user_id,
       battery_is_active: false,
       edit_battery_is_active: false
     }
@@ -418,11 +418,6 @@ module.exports = {
         }
       });
     },
-    get_session: function(){
-      this.$http.get('/get_porfile').then(response => {
-        this.user_id = response.body.id;
-      });
-    },
     deleteBattery: function(){
     $(document).off("click").on("click", ".delBattery", function(){
       let recordRow, result;
@@ -454,7 +449,6 @@ module.exports = {
     this.deleteBattery();
     let table = this.initializeTable();
     this.getUniqueIdentifier(table);
-    this.get_session();
     this.initHideShow();
     this.active_menu_link();
    }

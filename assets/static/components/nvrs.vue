@@ -361,7 +361,7 @@ module.exports = {
      sdk_nvr_port: "",
      vh_nvr_port: "",
      rtsp_nvr_port: "",
-     user_id: "",
+     user_id: this.$root.user_id,
      nvr_is_monitoring: "",
      edit_nvr_id: "",
      edit_nvr_name: "",
@@ -710,11 +710,6 @@ module.exports = {
         }
       });
     },
-    get_session: function(){
-      this.$http.get('/get_porfile').then(response => {
-        this.user_id = response.body.id;
-      });
-   },
    deleteNvr: function(){
     $(document).on("click", ".delNVR", function(){
       let nvrRow, result;
@@ -764,7 +759,6 @@ module.exports = {
     }
   }, // end of methods
   mounted(){
-    this.get_session();
     this.rebootNVR();
     this.deleteNvr();
     let table =  this.initializeTable();
