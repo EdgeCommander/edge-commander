@@ -47,6 +47,10 @@ defmodule ThreeScraper.Scraper do
       password = user.password
       user_id = user.user_id
       three_user_id = user.id
+      bill_day = user.bill_day
+
+      update_bill_days(three_user_id, bill_day)
+
       headers = get_login(username, password)
       cookie = headers |> get_cookies
       cookie |> insert_into_db(user_id, three_user_id)
@@ -177,6 +181,27 @@ defmodule ThreeScraper.Scraper do
     number_already_exist(sims_records, params)
   end
 
+  def update_bill_days(three_user_id, bill_day) do
+    last_bill_date = get_bill_date(bill_day)
+    numbers = Records.numbers_by_three_user_id(three_user_id)
+    Enum.each(numbers, fn(sim) ->
+      sms_since_last_bill = get_total_sms(sim.number, last_bill_date)
+      params = %{
+        last_bill_date: last_bill_date |> Util.date_to_string,
+        sms_since_last_bill: sms_since_last_bill
+      }
+      Records.get_sim!(sim.id)
+      |> Sims.changeset(params)
+      |> Repo.update
+      |> case do
+        {:ok, _sim} ->
+          Logger.info "Last bill date & SMS count has been updated for this number #{sim.number}"
+        {:error, _changeset} ->
+           Logger.info "Last bill date & SMS count did't update for this number #{sim.number}"
+      end
+    end)
+  end
+
   def get_remaing_days(-1.0, _allowance_in_number, _yesterday_in_number), do: "Infinity"
   def get_remaing_days(0, _allowance_in_number, _yesterday_in_number), do: "Infinity"
   def get_remaing_days(current_in_number, allowance_in_number, yesterday_in_number)  do
@@ -193,24 +218,37 @@ defmodule ThreeScraper.Scraper do
   def get_bill_date(nil), do: nil
   def get_bill_date("null"), do: nil
   def get_bill_date(day) do
-    day = check_data_type(day)
-    bill_day = day |> Util.ensure_number
-    current_year = DateTime.utc_now |> Map.fetch!(:year)
-    current_month = DateTime.utc_now |> Map.fetch!(:month)
+    bill_day = check_data_type(day)
     current_day = DateTime.utc_now |> Map.fetch!(:day)
-    month = get_month(current_day, bill_day, current_month)
-    year = get_year(current_day, bill_day, current_year, current_month)
-    date_time = "#{year}-#{month}-#{bill_day} 00:00:00"
+    current_year = DateTime.utc_now |> Map.fetch!(:year)
+    current_month = DateTime.utc_now |> Map.fetch!(:month) |> Util.ensure_number
+    bill_day_in_string = bill_day |> Util.ensure_number
+    params = %{
+      bill_day: bill_day,
+      current_day: current_day,
+      current_year: current_year,
+      current_month: current_month,
+      bill_day_in_string: bill_day_in_string
+    }
+    get_full_date(params)
+  end
+
+  defp get_full_date(%{bill_day: bill_day, current_day: current_day} = params) when bill_day > current_day  do
+    date_in_string = "#{params.current_year}-#{params.current_month}-#{params.bill_day_in_string}"
+    {:ok, date} = Date.from_iso8601(date_in_string)
+    native_date = Util.previous_month(date)
+    year = native_date |> Map.fetch!(:year)
+    month = native_date |> Map.fetch!(:month) |> Util.ensure_number
+    date_time = "#{year}-#{month}-#{params.bill_day_in_string} 00:00:00"
     {:ok, date} = NaiveDateTime.from_iso8601(date_time)
     date
   end
 
-  defp get_month(current_day, bill_day, current_month) when current_month == 1 and current_day <= bill_day, do: 12
-  defp get_month(current_day, bill_day, current_month) when current_day > bill_day, do: Util.ensure_number(current_month)
-  defp get_month(_current_day, _bill_day, current_month), do: Util.ensure_number(current_month - 1)
-
-  defp get_year(current_day, bill_day, year, current_month) when current_month == 1 and current_day <= bill_day, do: year - 1
-  defp get_year(_current_day, _bill_day, year, _current_month), do: year
+  defp get_full_date(%{bill_day: bill_day, current_day: current_day} = params) when bill_day <= current_day  do
+    date_time = "#{params.current_year}-#{params.current_month}-#{params.bill_day_in_string} 00:00:00"
+    {:ok, date} = NaiveDateTime.from_iso8601(date_time)
+    date
+  end
 
   defp check_data_type(number) when is_bitstring(number) do
     {day, ""} = Integer.parse(number)

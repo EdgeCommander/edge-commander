@@ -123,9 +123,14 @@ const router = new VueRouter({
   ],
 });
 
+let user_id =  $("#app").attr("data-user")
+
 new Vue({
   el: '#app',
   router,
   template: '<App/>',
+  data: {
+    user_id: user_id
+  },
   components: { App }
 }).$mount('#app');

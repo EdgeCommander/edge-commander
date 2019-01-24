@@ -241,24 +241,28 @@ module.exports = {
       number: "",
       sim_provider: "",
       other_sim_provider: "",
-      user_id: ""
+      user_id: this.$root.user_id
     }
   },
   methods: {
     initializeTable: function(){
-      $.fn.dataTable.moment("DD/MM/YYYY HH:mm:ss");
       let simsDataTable = $('#sims-datatable').DataTable({
       fnInitComplete: function(){
-          // Enable TFOOT scoll bars
-          $('.dataTables_scrollFoot').css('overflow', 'auto');
-          $('.dataTables_scrollHead').css('overflow', 'auto');
-          // Sync TFOOT scrolling with TBODY
-          $('.dataTables_scrollFoot').on('scroll', function () {
-            $('.dataTables_scrollBody').scrollLeft($(this).scrollLeft());
-          });
-          $('.dataTables_scrollHead').on('scroll', function () {
-            $('.dataTables_scrollBody').scrollLeft($(this).scrollLeft());
-          });
+        // Enable TFOOT scoll bars
+        $('.dataTables_scrollHead').css('overflow', 'auto');
+        $('.dataTables_scrollFoot').css('overflow', 'auto');
+        // Sync TFOOT scrolling with TBODY
+        $('.dataTables_scrollFoot').on('scroll', function () {
+          $('.dataTables_scrollBody').scrollLeft($(this).scrollLeft());
+        });
+        var offset = $('.dataTables_scrollBody').offset().left - $(window).scrollLeft();
+        $('.dataTables_scrollHead').on('scroll', function () {
+          $('.dataTables_scrollBody').scrollLeft($(this).scrollLeft());
+          var offset = $('.dataTables_scrollBody').scrollLeft();
+          if(offset == 1){
+            simsDataTable.columns.adjust().draw()
+          }
+        });
       },
       ajax: {
       url: "/sims/data/json",
@@ -506,11 +510,6 @@ module.exports = {
       this.show_add_messages = "";
       this.show_errors = false;
     },
-    get_session: function(){
-      this.$http.get('/get_porfile').then(response => {
-        this.user_id = response.body.id;
-      });
-    },
     initializeInput: function() {
       $("#number").intlTelInput({
           nationalMode: false,
@@ -546,15 +545,10 @@ module.exports = {
     }
   }, // end of methods
   mounted(){
-    let table =  this.initializeTable();
+    let table = this.initializeTable();
     this.getUniqueIdentifier(table);
-    this.search();
-    this.get_session();
     this.initHideShow();
     this.active_menu_link();
-    table.on("column-reorder", function() {
-      table.ajax.reload();
-    });
   }
 }
 </script>

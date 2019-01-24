@@ -499,7 +499,6 @@ module.exports = {
         }
       }
       ],
-      autoWidth: true,
       info: false,
       bPaginate: false,
       lengthChange: false,
@@ -569,7 +568,6 @@ module.exports = {
         }
       },
       ],
-      autoWidth: true,
       info: false,
       bPaginate: false,
       lengthChange: false,
@@ -578,7 +576,6 @@ module.exports = {
       stateSave:  true
     });
       return this.dataTable = nvrDataTable;
-      this.dataTable.search("");
    },
     updateMyProfile: function() {
       this.my_profile.show_loading = true;

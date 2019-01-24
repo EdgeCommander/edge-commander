@@ -300,7 +300,7 @@ module.exports = {
     edit_router_password: "",
     edit_http_router_port: "",
     edit_router_is_monitoring:  false,
-    user_id: ""
+    user_id: this.$root.user_id
     }
   },
   methods: {
@@ -317,6 +317,7 @@ module.exports = {
           $('.dataTables_scrollHead').on('scroll', function () {
             $('.dataTables_scrollBody').scrollLeft($(this).scrollLeft());
           });
+          routersDataTable.search("").draw();
         },
         ajax: {
         url: "/routers/data",
@@ -381,7 +382,6 @@ module.exports = {
           },
         },
         ],
-        autoWidth: true,
         info: false,
         bPaginate: false,
         lengthChange: false,
@@ -515,11 +515,6 @@ module.exports = {
         }
       });
     },
-    get_session: function(){
-      this.$http.get('/get_porfile').then(response => {
-        this.user_id = response.body.id;
-      });
-    },
     deleteRouter: function(){
     $(document).off("click").on("click", ".delRouter", function(){
       let routerRow, result;
@@ -549,8 +544,6 @@ module.exports = {
     this.deleteRouter();
     let table = this.initializeTable();
     this.getUniqueIdentifier(table);
-    this.get_session();
-    this.search();
     this.initHideShow();
     this.active_menu_link();
   }
