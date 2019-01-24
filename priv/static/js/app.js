@@ -22417,7 +22417,6 @@ module.exports = {
           $('.dataTables_scrollHead').on('scroll', function () {
             $('.dataTables_scrollBody').scrollLeft($(this).scrollLeft());
           });
-          simsDataTable.search("").draw();
         },
         ajax: {
           url: "/sims/data/json",
@@ -22696,6 +22695,7 @@ module.exports = {
     this.get_session();
     this.initHideShow();
     this.active_menu_link();
+    this.search();
   }
 };
 

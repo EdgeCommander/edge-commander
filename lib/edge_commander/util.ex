@@ -265,4 +265,9 @@ defmodule EdgeCommander.Util do
 
   def ensure_number(number) when number >= 1 and number <= 9, do: "0#{number}"
   def ensure_number(number), do: number
+
+  def previous_month(%Date{day: day} = date) do
+    days = max(day, (Date.add(date, -day)).day)
+    Date.add(date, -days)
+  end
 end

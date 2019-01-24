@@ -122,6 +122,12 @@ defmodule EdgeCommander.ThreeScraper.Records do
 
   ##=======================================sims=======================================
 
+  def numbers_by_three_user_id(three_user_id) do
+    Sims
+    |> where(three_user_id: ^three_user_id)
+    |> Repo.all
+  end
+
   def get_all_users_by_number(sim_number) do
     Sims
     |> select([sim], sim.user_id)
