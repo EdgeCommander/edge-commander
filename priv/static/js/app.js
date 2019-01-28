@@ -18132,7 +18132,7 @@ module.exports = {
         active: $('#edit_battery_is_active').is(':checked'),
         id: recordID
       }).then(function (response) {
-        app.$notify({ group: 'notify', title: 'Rule has been updated' });
+        app.$notify({ group: 'notify', title: 'Device has been updated' });
         this.show_loading = false;
         this.dataTable.ajax.reload();
         this.editClearFrom();
