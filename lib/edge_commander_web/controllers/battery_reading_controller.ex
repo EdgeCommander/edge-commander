@@ -20,10 +20,14 @@ defmodule EdgeCommanderWeb.BatteryReadingController do
     case HTTPoison.get(url) do
       {:ok, %HTTPoison.Response{status_code: 200, body: body}} ->
 
+        IO.inspect body
+
         data =
           String.split(body, "\n")
           |> Enum.sort(&(&2 > &1))
           |> Enum.drop_while(fn(x) -> x == "" end)
+
+        IO.inspect data
 
         pid_record = element_value_and_remainng_data(data, "PID")
         pid = pid_record.value
@@ -216,6 +220,8 @@ defmodule EdgeCommanderWeb.BatteryReadingController do
           "ar_value" => ar_value,
           "bmv_value" => bmv_value
         }
+
+        IO.inspect params
 
         save_battery_readings(voltage, params)
 
