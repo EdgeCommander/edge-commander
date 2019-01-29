@@ -6,6 +6,7 @@ defmodule EdgeCommanderWeb.BatteryReadingController do
   import EdgeCommander.Solar, only: [get_readings: 3, list_active_batteries: 0]
   import Ecto.Query, warn: false
   require Logger
+  require IEx
 
   def get_all_batteries() do
     list_active_batteries()
@@ -17,7 +18,8 @@ defmodule EdgeCommanderWeb.BatteryReadingController do
   end
 
   defp save_status_data(battery_id, url) do
-    case HTTPoison.get(url, [], [timeout: 10_000, recv_timeout: 10_000]) do
+    IO.inspect HTTPoison.get(url)
+    case HTTPoison.get(url) do
       {:ok, %HTTPoison.Response{status_code: 200, body: body}} ->
         data =
           String.split(body, "\n")
