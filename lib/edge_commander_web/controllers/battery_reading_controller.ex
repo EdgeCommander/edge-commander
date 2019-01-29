@@ -11,12 +11,13 @@ defmodule EdgeCommanderWeb.BatteryReadingController do
     list_active_batteries()
     |> Enum.each(fn(data) ->
       battery_id = data.id
-      source_url = data.source_url
-      save_status_data(battery_id, source_url)
+      url = data.source_url
+      save_status_data(battery_id, url)
     end)
   end
 
   defp save_status_data(battery_id, url) do
+    IO.inspect HTTPoison.get(url)
     case HTTPoison.get(url) do
       {:ok, %HTTPoison.Response{status_code: 200, body: body}} ->
 
@@ -220,8 +221,6 @@ defmodule EdgeCommanderWeb.BatteryReadingController do
           "ar_value" => ar_value,
           "bmv_value" => bmv_value
         }
-
-        IO.inspect params
 
         save_battery_readings(voltage, params)
 
