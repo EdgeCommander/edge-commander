@@ -17,18 +17,12 @@ defmodule EdgeCommanderWeb.BatteryReadingController do
   end
 
   defp save_status_data(battery_id, url) do
-    IO.inspect HTTPoison.get(url)
-    case HTTPoison.get(url) do
+    case HTTPoison.get(url, [], [timeout: 10_000, recv_timeout: 10_000]) do
       {:ok, %HTTPoison.Response{status_code: 200, body: body}} ->
-
-        IO.inspect body
-
         data =
           String.split(body, "\n")
           |> Enum.sort(&(&2 > &1))
           |> Enum.drop_while(fn(x) -> x == "" end)
-
-        IO.inspect data
 
         pid_record = element_value_and_remainng_data(data, "PID")
         pid = pid_record.value
@@ -171,7 +165,6 @@ defmodule EdgeCommanderWeb.BatteryReadingController do
         data = bmv_record.remain_data
 
         mv_record = element_value_and_remainng_data(data, "MV")
-        mv_value = mv_record.value
         data = mv_record.remain_data
 
         voltage_record = element_value_and_remainng_data(data, "V")
@@ -221,9 +214,7 @@ defmodule EdgeCommanderWeb.BatteryReadingController do
           "ar_value" => ar_value,
           "bmv_value" => bmv_value
         }
-
         save_battery_readings(voltage, params)
-
       {:ok, %HTTPoison.Response{status_code: 404}} ->
         Logger.info "Not found :("
       {:error, %HTTPoison.Error{reason: reason}} ->
