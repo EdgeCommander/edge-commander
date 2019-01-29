@@ -6,7 +6,6 @@ defmodule EdgeCommanderWeb.BatteryReadingController do
   import EdgeCommander.Solar, only: [get_readings: 3, list_active_batteries: 0]
   import Ecto.Query, warn: false
   require Logger
-  require IEx
 
   def get_all_batteries() do
     list_active_batteries()
@@ -222,6 +221,7 @@ defmodule EdgeCommanderWeb.BatteryReadingController do
       {:error, %HTTPoison.Error{reason: reason}} ->
         Logger.error reason
     end
+    :timer.sleep(5000)
   end
 
   defp save_battery_readings("0", _params), do: Logger.error "Battery voltage is zero did not save."
