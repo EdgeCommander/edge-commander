@@ -165,6 +165,10 @@ defmodule EdgeCommanderWeb.BatteryReadingController do
         bmv_value = bmv_record.value
         data = bmv_record.remain_data
 
+        mv_record = element_value_and_remainng_data(data, "MV")
+        mv_value = mv_record.value
+        data = mv_record.remain_data
+
         voltage_record = element_value_and_remainng_data(data, "V")
         voltage = voltage_record.value |> get_numric_value_only
         data = voltage_record.remain_data
