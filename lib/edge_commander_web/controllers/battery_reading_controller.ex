@@ -17,7 +17,6 @@ defmodule EdgeCommanderWeb.BatteryReadingController do
   end
 
   defp save_status_data(battery_id, url) do
-    IO.inspect HTTPoison.get(url)
     case HTTPoison.get(url) do
       {:ok, %HTTPoison.Response{status_code: 200, body: body}} ->
         data =
@@ -221,7 +220,7 @@ defmodule EdgeCommanderWeb.BatteryReadingController do
       {:error, %HTTPoison.Error{reason: reason}} ->
         Logger.error reason
     end
-    :timer.sleep(5000)
+    :timer.sleep(10000)
   end
 
   defp save_battery_readings("0", _params), do: Logger.error "Battery voltage is zero did not save."
@@ -261,7 +260,27 @@ defmodule EdgeCommanderWeb.BatteryReadingController do
           h23_value: data.h23_value,
           il_value: data.il_value,
           mppt_value: data.mppt_value,
-          load_value: data.load_value
+          load_value: data.load_value,
+          p_value: data.p_value,
+          consumed_amphours: data.consumed_amphours,
+          soc_value: data.soc_value,
+          time_to_go: data.time_to_go,
+          alarm: data.alarm,
+          relay: data.relay,
+          ar_value: data.ar_value,
+          bmv_value: data.bmv_value,
+          ar_value: data.ar_value,
+          h1_value: data.h1_value,
+          h2_value: data.h2_value,
+          h3_value: data.h3_value,
+          h4_value: data.h4_value,
+          h5_value: data.h5_value,
+          h6_value: data.h6_value,
+          h7_value: data.h7_value,
+          h8_value: data.h8_value,
+          h9_value: data.h9_value,
+          h10_value: data.h10_value,
+          h11_value: data.h11_value
         }
       end)
     conn

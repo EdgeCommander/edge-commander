@@ -181,7 +181,23 @@ module.exports = {
         {column: "Yield today", id: "h20_value", unit: "Wh"},
         {column: "Maximum power today", id: "h21_value", unit: "W"},
         {column: "Yield yesterday", id: "h22_value", unit: "Wh"},
-        {column: "Maximum power yesterday", id: "h23_value", unit: "W"}
+        {column: "Maximum power yesterday", id: "h23_value", unit: "W"},
+        {column: "Consumed amphours", id: "consumed_amphours"},
+        {column: "Soc", id: "soc_value"},
+        {column: "Time To Go", id: "time_to_go"},
+        {column: "Alarm", id: "alarm"},
+        {column: "Relay", id: "relay"},
+        {column: "Deepest Discharge", id: "h1_value"},
+        {column: "Last Discharge", id: "h2_value"},
+        {column: "Average Discharge", id: "h3_value"},
+        {column: "Charge Cycles", id: "h4_value"},
+        {column: "Full Discharges", id: "h5_value"},
+        {column: "Total Drawn", id: "h6_value", unit: "Ah"},
+        {column: "Minimum Voltage", id: "h7_value"},
+        {column: "Maximum Voltage", id: "h8_value"},
+        {column: "Time Since Last Full Charge", id: "h9_value"},
+        {column: "Automatic Syncs", id: "h10_value"},
+        {column: "Low Voltage Alarms", id: "h11_value"}
       ],
       form_labels: {
         hide_show_title: "Show/Hide Columns",
@@ -324,6 +340,102 @@ module.exports = {
           return row.h23_value;
         }
       },
+      {
+        class: "text-center consumed_amphours",
+        data: function(row, type, set, meta) {
+          return row.consumed_amphours;
+        }
+      },
+      {
+        class: "text-center soc_value",
+        data: function(row, type, set, meta) {
+          return row.soc_value;
+        }
+      },
+      {
+        class: "text-center time_to_go",
+        data: function(row, type, set, meta) {
+          return row.time_to_go;
+        }
+      },
+      {
+        class: "text-center alarm",
+        data: function(row, type, set, meta) {
+          return row.alarm;
+        }
+      },
+      {
+        class: "text-center relay",
+        data: function(row, type, set, meta) {
+          return row.relay;
+        }
+      },
+      {
+        class: "text-center h1_value",
+        data: function(row, type, set, meta) {
+          return row.h1_value;
+        }
+      },
+      {
+        class: "text-center h2_value",
+        data: function(row, type, set, meta) {
+          return row.h2_value;
+        }
+      },
+      {
+        class: "text-center h3_value",
+        data: function(row, type, set, meta) {
+          return row.h3_value;
+        }
+      },
+      {
+        class: "text-center h4_value",
+        data: function(row, type, set, meta) {
+          return row.h4_value;
+        }
+      },
+      {
+        class: "text-center h5_value",
+        data: function(row, type, set, meta) {
+          return row.h5_value;
+        }
+      },
+      {
+        class: "text-center h6_value",
+        data: function(row, type, set, meta) {
+          return row.h6_value;
+        }
+      },
+      {
+        class: "text-center h7_value",
+        data: function(row, type, set, meta) {
+          return row.h7_value;
+        }
+      },
+      {
+        class: "text-center h8_value",
+        data: function(row, type, set, meta) {
+          return row.h8_value;
+        }
+      },
+      {
+        class: "text-center h9_value",
+        data: function(row, type, set, meta) {
+          return row.h9_value;
+        }
+      },
+      {
+        class: "text-center h10_value",
+        data: function(row, type, set, meta) {
+          return row.h10_value;
+        }
+      },
+      {
+        class: "text-center h11_value",
+        data: function(row, type, set, meta) {
+          return row.h11_value;
+        }
+      }
       ],
       info: false,
       bPaginate: false,
