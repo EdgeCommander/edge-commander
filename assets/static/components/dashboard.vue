@@ -78,14 +78,14 @@
             </div>
           </div>
         </div>
-        <div class="col-sm-8" style="padding-right: 5px">
+        <div class="col-sm-8 sms_history_panel">
           <div class="m-portlet m-portlet--mobile" style="margin-bottom: 5px;">
             <div class="m-portlet__body" style="padding: 5px;" id="sms_history_content">
               <div id="container" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
             </div>
           </div>
         </div>
-        <div class="col-sm-4 sim_log_datatable" style="padding-left: 0">
+        <div class="col-sm-4 sim_log_datatable">
                 <div class="m-portlet m-portlet--mobile" id="activity_content" style="min-height: 410px;max-height: 410px; overflow-y: auto;">
                   <div class="m-portlet__head">
               <div class="m-portlet__head-caption">

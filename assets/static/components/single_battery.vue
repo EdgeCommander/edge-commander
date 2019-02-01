@@ -2,17 +2,17 @@
   <div>
     <div class="m-content" style="position: relative; width: 100%">
       <div class="m-portlet m-portlet--mobile" style="margin-bottom: 0;">
-        <div class="m-portlet__body" style="padding: 5px;">
-        <table class="table text-center" style="margin-bottom: 0px;">
-          <td><strong>Name:</strong></td> 
-          <td class="text-left">{{battery_name}}</td> 
-          <td><strong>Source URL:</strong></td>
-           <td class="text-left">{{source_url}} </td> 
-           <td class="text-right">
-            <router-link v-bind:to="'/batteries'" class="btn btn-default">Back to batteries</router-link>
-           </td> 
-         </table>
-         </div>
+          <div class="row battery_details" style="padding:10px">
+            <div class="col-lg-3 col-md-6" style="padding-top: 10px">
+              <span>Name:</span> {{battery_name}}
+            </div>
+           <div class="col-lg-6 col-md-6" style="padding-top: 10px">
+             <span>Source URL:</span> {{source_url}}
+           </div>
+            <div class="col-lg-3 btn_back">
+              <router-link v-bind:to="'/batteries'" class="btn btn-default">Back to batteries</router-link>
+            </div>
+          </div>
        </div>
     </div>
     <div class="m-content"  style="padding-bottom: 0">
@@ -21,10 +21,10 @@
           <!--begin: Search Form -->
           <div class="m-form m-form--label-align-right">
             <div class="row align-items-center">
-              <div class="col-md-6">
+              <div class="col-md-4">
                 <div class="form-group m-form__group row align-items-center">
                   <div class="col-md-12">
-                    <div class="m-input-icon m-input-icon--left">
+                    <div class="m-input-icon m-input-icon--left tabs_panel">
                       <ul class="nav nav-pills" role="tablist">
                         <li class="nav-item">
                             <a class="nav-link  active show" data-toggle="tab" href="#m_tabs_1_1">Table</a>
@@ -37,29 +37,29 @@
                   </div>
                 </div>
               </div>
-                <div class="col-md-6 order-1 order-md-2 m--align-right">
+                <div class="col-md-8 order-1 order-md-2">
                   <div class="row">
                     <div class="col-sm-5">
                          <div class="form-group m-form__group row">
-                        <label class="col-lg-2 col-form-label">
+                        <label class="col-sm-2 col-form-label">
                             From:
                         </label>
-                        <div class="col-lg-10">
+                        <div class="col-sm-10">
                             <input type="text" class="form-control m-input m-input--solid" id="m_sms_datepicker_from">
                         </div>
                         </div>
                     </div>
                     <div class="col-sm-5">
                          <div class="form-group m-form__group row">
-                        <label class="col-lg-2 col-form-label">
+                        <label class="col-sm-2 col-form-label">
                             To:
                         </label>
-                        <div class="col-lg-10">
+                        <div class="col-sm-10">
                             <input type="text" class="form-control m-input m-input--solid" id="m_sms_datepicker_to">
                         </div>
                         </div>
                     </div>
-                    <div class="col-sm-2">
+                    <div class="col-sm-2 battery_column_hide_button">
                       <div href="javascript:void(0)" class="btn btn-default grey" v-on:click="onHideShowButton">
                         <i class="fa fa-columns"></i>
                       </div>

@@ -4,16 +4,20 @@
         <div class="row">
           <div class="col-sm-12 ">
                 <div class="m-portlet m-portlet--mobile" style="margin-bottom: 5px">
-                    <div class="m-portlet__body" style="padding: 5px">
-                      <table class="table table-bordered text-center" style="margin-bottom: 0">
-                        <td><strong>Name:</strong></td>
-                        <td>{{sim_name}}</td>
-                        <td><strong>Number:</strong></td>
-                        <td>{{toNumber}}</td>
-                        <td><strong>Daily SMS Count</strong></td>
-                        <td id="dailySMSCount"></td>
-                      </table>
+                  <div class="row battery_details" style="padding:10px">
+                    <div class="col-lg-5 col-md-4" style="padding-top: 10px">
+                      <span>Name:</span> {{sim_name}}
                     </div>
+                   <div class="col-lg-3 col-md-4" style="padding-top: 10px">
+                     <span>Number:</span> {{toNumber}}
+                   </div>
+                   <div class="col-lg-2 col-md-4" style="padding-top: 10px">
+                     <span>Daily SMS Count:</span> <span id="dailySMSCount"></span>
+                   </div>
+                    <div class="col-lg-2 btn_back">
+                      <router-link v-bind:to="'/sims'" class="btn btn-default">Back to Sims</router-link>
+                    </div>
+                  </div>
                 </div>
             </div>
             <div class="col-sm-5 sim_graph_panel">
