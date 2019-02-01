@@ -7,7 +7,7 @@ elixir: 1.7.4
 otp_release: 20.0
 
 addons:
-  postgresql: 9.4
+  postgresql: 9.5
 
 services:
   - redis-server
