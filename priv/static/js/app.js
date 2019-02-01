@@ -23594,6 +23594,10 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 //
 //
 //
+//
+//
+//
+//
 
 var app = new _vue2.default(_App2.default);
 
@@ -28501,10 +28505,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
   }, [_vm._v("\n                            Place of deployment\n                        ")]), _vm._v(" "), _c('span', {
     staticClass: "m-widget24__stats m--font-success"
   }, [_vm._v("\n                            " + _vm._s(_vm.total_sites) + "\n                        ")])])])])])])])]), _vm._v(" "), _vm._m(0), _vm._v(" "), _c('div', {
-    staticClass: "col-sm-4 sim_log_datatable",
-    staticStyle: {
-      "padding-left": "0"
-    }
+    staticClass: "col-sm-4 sim_log_datatable"
   }, [_c('div', {
     staticClass: "m-portlet m-portlet--mobile",
     staticStyle: {
@@ -28549,10 +28550,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
   }))])])])])]), _vm._v(" "), _vm._m(2)])])])
 },staticRenderFns: [function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
   return _c('div', {
-    staticClass: "col-sm-8",
-    staticStyle: {
-      "padding-right": "5px"
-    }
+    staticClass: "col-sm-8 sms_history_panel"
   }, [_c('div', {
     staticClass: "m-portlet m-portlet--mobile",
     staticStyle: {
@@ -31118,27 +31116,28 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       "margin-bottom": "0"
     }
   }, [_c('div', {
-    staticClass: "m-portlet__body",
+    staticClass: "row battery_details",
     staticStyle: {
-      "padding": "5px"
+      "padding": "10px"
     }
-  }, [_c('table', {
-    staticClass: "table text-center",
+  }, [_c('div', {
+    staticClass: "col-lg-3 col-md-6",
     staticStyle: {
-      "margin-bottom": "0px"
+      "padding-top": "10px"
     }
-  }, [_vm._m(0), _vm._v(" "), _c('td', {
-    staticClass: "text-left"
-  }, [_vm._v(_vm._s(_vm.battery_name))]), _vm._v(" "), _vm._m(1), _vm._v(" "), _c('td', {
-    staticClass: "text-left"
-  }, [_vm._v(_vm._s(_vm.source_url) + " ")]), _vm._v(" "), _c('td', {
-    staticClass: "text-right"
+  }, [_c('span', [_vm._v("Name:")]), _vm._v(" " + _vm._s(_vm.battery_name) + "\n          ")]), _vm._v(" "), _c('div', {
+    staticClass: "col-lg-6 col-md-6",
+    staticStyle: {
+      "padding-top": "10px"
+    }
+  }, [_c('span', [_vm._v("Source URL:")]), _vm._v(" " + _vm._s(_vm.source_url) + "\n         ")]), _vm._v(" "), _c('div', {
+    staticClass: "col-lg-3 btn_back"
   }, [_c('router-link', {
     staticClass: "btn btn-default",
     attrs: {
       "to": '/batteries'
     }
-  }, [_vm._v("Back to batteries")])], 1)])])])]), _vm._v(" "), _c('div', {
+  }, [_vm._v("Back to batteries")])], 1)])])]), _vm._v(" "), _c('div', {
     staticClass: "m-content",
     staticStyle: {
       "padding-bottom": "0"
@@ -31157,12 +31156,12 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "m-form m-form--label-align-right"
   }, [_c('div', {
     staticClass: "row align-items-center"
-  }, [_vm._m(2), _vm._v(" "), _c('div', {
-    staticClass: "col-md-6 order-1 order-md-2 m--align-right"
+  }, [_vm._m(0), _vm._v(" "), _c('div', {
+    staticClass: "col-md-8 order-1 order-md-2"
   }, [_c('div', {
     staticClass: "row"
-  }, [_vm._m(3), _vm._v(" "), _vm._m(4), _vm._v(" "), _c('div', {
-    staticClass: "col-sm-2"
+  }, [_vm._m(1), _vm._v(" "), _vm._m(2), _vm._v(" "), _c('div', {
+    staticClass: "col-sm-2 battery_column_hide_button"
   }, [_c('div', {
     staticClass: "btn btn-default grey",
     attrs: {
@@ -31209,7 +31208,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         "vertical-align": "middle"
       }
     }, [_vm._v(_vm._s(item.column) + " "), _c('br'), _vm._v(" " + _vm._s(item.unit))])
-  }))])])])])])]), _vm._v(" "), _vm._m(5)]), _vm._v(" "), _c('div', {
+  }))])])])])])]), _vm._v(" "), _vm._m(3)]), _vm._v(" "), _c('div', {
     ref: "hideShow",
     staticClass: "modal fade toggle-datatable-columns",
     staticStyle: {
@@ -31240,7 +31239,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     attrs: {
       "id": "exampleModalLabel"
     }
-  }, [_vm._v("\n                    " + _vm._s(_vm.form_labels.hide_show_title) + "\n                ")]), _vm._v(" "), _vm._m(6)]), _vm._v(" "), _c('div', {
+  }, [_vm._v("\n                    " + _vm._s(_vm.form_labels.hide_show_title) + "\n                ")]), _vm._v(" "), _vm._m(4)]), _vm._v(" "), _c('div', {
     staticClass: "modal-body",
     attrs: {
       "id": "body-sim-dis"
@@ -31277,18 +31276,14 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }
   }, [_vm._v(_vm._s(_vm.form_labels.hide_show_button))])])])])])])
 },staticRenderFns: [function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('td', [_c('strong', [_vm._v("Name:")])])
-},function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('td', [_c('strong', [_vm._v("Source URL:")])])
-},function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
   return _c('div', {
-    staticClass: "col-md-6"
+    staticClass: "col-md-4"
   }, [_c('div', {
     staticClass: "form-group m-form__group row align-items-center"
   }, [_c('div', {
     staticClass: "col-md-12"
   }, [_c('div', {
-    staticClass: "m-input-icon m-input-icon--left"
+    staticClass: "m-input-icon m-input-icon--left tabs_panel"
   }, [_c('ul', {
     staticClass: "nav nav-pills",
     attrs: {
@@ -31317,9 +31312,9 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
   }, [_c('div', {
     staticClass: "form-group m-form__group row"
   }, [_c('label', {
-    staticClass: "col-lg-2 col-form-label"
+    staticClass: "col-sm-2 col-form-label"
   }, [_vm._v("\n                          From:\n                      ")]), _vm._v(" "), _c('div', {
-    staticClass: "col-lg-10"
+    staticClass: "col-sm-10"
   }, [_c('input', {
     staticClass: "form-control m-input m-input--solid",
     attrs: {
@@ -31333,9 +31328,9 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
   }, [_c('div', {
     staticClass: "form-group m-form__group row"
   }, [_c('label', {
-    staticClass: "col-lg-2 col-form-label"
+    staticClass: "col-sm-2 col-form-label"
   }, [_vm._v("\n                          To:\n                      ")]), _vm._v(" "), _c('div', {
-    staticClass: "col-lg-10"
+    staticClass: "col-sm-10"
   }, [_c('input', {
     staticClass: "form-control m-input m-input--solid",
     attrs: {
@@ -31460,20 +31455,28 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       "margin-bottom": "5px"
     }
   }, [_c('div', {
-    staticClass: "m-portlet__body",
+    staticClass: "row battery_details",
     staticStyle: {
-      "padding": "5px"
+      "padding": "10px"
     }
-  }, [_c('table', {
-    staticClass: "table table-bordered text-center",
+  }, [_c('div', {
+    staticClass: "col-lg-5 col-md-4",
     staticStyle: {
-      "margin-bottom": "0"
+      "padding-top": "10px"
     }
-  }, [_vm._m(0), _vm._v(" "), _c('td', [_vm._v(_vm._s(_vm.sim_name))]), _vm._v(" "), _vm._m(1), _vm._v(" "), _c('td', [_vm._v(_vm._s(_vm.toNumber))]), _vm._v(" "), _vm._m(2), _vm._v(" "), _c('td', {
+  }, [_c('span', [_vm._v("Name:")]), _vm._v(" " + _vm._s(_vm.sim_name) + "\n                  ")]), _vm._v(" "), _c('div', {
+    staticClass: "col-lg-3 col-md-4",
+    staticStyle: {
+      "padding-top": "10px"
+    }
+  }, [_c('span', [_vm._v("Number:")]), _vm._v(" " + _vm._s(_vm.toNumber) + "\n                 ")]), _vm._v(" "), _vm._m(0), _vm._v(" "), _c('div', {
+    staticClass: "col-lg-2 btn_back"
+  }, [_c('router-link', {
+    staticClass: "btn btn-default",
     attrs: {
-      "id": "dailySMSCount"
+      "to": '/sims'
     }
-  })])])])]), _vm._v(" "), _vm._m(3), _vm._v(" "), _c('div', {
+  }, [_vm._v("Back to Sims")])], 1)])])]), _vm._v(" "), _vm._m(1), _vm._v(" "), _c('div', {
     staticClass: "col-sm-7 sim_log_datatable"
   }, [_c('div', {
     staticClass: "m-portlet m-portlet--mobile",
@@ -31514,7 +31517,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       "src": "/images/loading.gif",
       "id": "api-wait"
     }
-  }) : _vm._e(), _vm._v(" "), _vm._m(4)])])])]), _vm._v(" "), _c('div', {
+  }) : _vm._e(), _vm._v(" "), _vm._m(2)])])])]), _vm._v(" "), _c('div', {
     staticClass: "m-portlet m-portlet--mobile",
     staticStyle: {
       "margin-bottom": "0"
@@ -31526,7 +31529,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }
   }, [_c('div', {
     staticClass: "m-portlet__body  m-portlet__body--no-padding"
-  }, [_vm._m(5), _vm._v(" "), _c('table', {
+  }, [_vm._m(3), _vm._v(" "), _c('table', {
     staticClass: "table table-striped  table-hover table-bordered display nowrap",
     attrs: {
       "id": "sms-datatable",
@@ -31636,7 +31639,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         _vm.user_id = $event.target.value
       }
     }
-  }), _vm._v(" "), _vm._m(6), _vm._v("  \n                            "), _c('span', {
+  }), _vm._v(" "), _vm._m(4), _vm._v("  \n                            "), _c('span', {
     staticClass: "fa fa-info",
     staticStyle: {
       "cursor": "pointer"
@@ -31662,11 +31665,16 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }
   }, [_vm._v(_vm._s(_vm.form_labels.send_button))])])])])])])
 },staticRenderFns: [function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('td', [_c('strong', [_vm._v("Name:")])])
-},function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('td', [_c('strong', [_vm._v("Number:")])])
-},function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('td', [_c('strong', [_vm._v("Daily SMS Count")])])
+  return _c('div', {
+    staticClass: "col-lg-2 col-md-4",
+    staticStyle: {
+      "padding-top": "10px"
+    }
+  }, [_c('span', [_vm._v("Daily SMS Count:")]), _vm._v(" "), _c('span', {
+    attrs: {
+      "id": "dailySMSCount"
+    }
+  })])
 },function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
   return _c('div', {
     staticClass: "col-sm-5 sim_graph_panel"
