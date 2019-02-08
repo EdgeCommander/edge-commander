@@ -581,6 +581,11 @@ select.form-control:not([size]):not([multiple]) {
   max-width: 650px !important;
 }
 
+.nav-pills .nav-link.active, .show>.nav-pills .nav-link {
+  color: #fff;
+  background-color: #212121;
+}
+
 @media (max-width: 992px){
   .m-brand{
     width: 100%;
@@ -650,6 +655,14 @@ select.form-control:not([size]):not([multiple]) {
   .btn_back{
     text-align: right;
   }
+}
+
+.sharing_inputs .custom-combobox input{
+  width: 91%;
+  height: 40px;
+  margin: 0;
+  background:none;
+  padding-left: 10px
 }
 
 .custom-combobox input{

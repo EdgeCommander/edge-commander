@@ -7,7 +7,7 @@ defmodule EdgeCommanderWeb.UsersController do
   alias EdgeCommander.Util
   require Logger
   import EdgeCommander.Accounts, only: [get_user!: 1, email_exist: 1, get_user_by_token: 1, current_user: 1]
-  import EdgeCommander.Sharing, only: [user_already_exist: 1]
+  import EdgeCommander.Sharing, only: [user_by_email: 1]
   import Gravatar
 
   def get_porfile(conn, _params) do
@@ -59,8 +59,10 @@ defmodule EdgeCommanderWeb.UsersController do
         {:ok, user} ->
           Logger.info "[POST /create_user] [#{user.email}] [#{user.last_signed_in}]"
 
-          user_already_exist(email)
-          |> update_sharing_record(user)
+          user_by_email(email)
+          |> Enum.map(fn(data) ->
+            update_sharing_record(data, user)
+          end)
 
           conn
           |> put_flash(:info, "Your account has been created.")

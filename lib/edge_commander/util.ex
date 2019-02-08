@@ -270,4 +270,10 @@ defmodule EdgeCommander.Util do
     days = max(day, (Date.add(date, -day)).day)
     Date.add(date, -days)
   end
+
+  def string_to_integer(val) do
+    {intVal, ""} = Integer.parse(val)
+    intVal
+  end
+
 end
