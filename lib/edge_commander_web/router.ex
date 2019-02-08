@@ -90,7 +90,6 @@ defmodule EdgeCommanderWeb.Router do
     pipe_through [:browser, :auth, :ensure_auth]
 
     get "/get_porfile", UsersController, :get_porfile
-    get "/get_shared_users", SharingController, :shared_users
     get "/get_other_users", SharingController, :get_other_users
 
     get "/sims", RooterController, :main
@@ -98,7 +97,6 @@ defmodule EdgeCommanderWeb.Router do
     get "/routers", RooterController, :main
     get "/commands", RooterController, :main
     get "/sims/:sim_number", RooterController, :main
-    get "/settings", RooterController, :main
     get "/sites", RooterController, :main
     get "/messages", RooterController, :main
     get "/status_report", RooterController, :main
@@ -107,6 +105,10 @@ defmodule EdgeCommanderWeb.Router do
     get "/dashboard", RooterController, :main
     get "/battery/:id", RooterController, :main
     get "/batteries", RooterController, :main
+    get "/my_profile", RooterController, :main
+    get "/three_users", RooterController, :main
+    get "/activities", RooterController, :main
+    get "/sharing", RooterController, :main
 
     get "/sims/data/json", SimsController, :get_sim_logs
     get "/sims/data/:sim_number", SimsController, :get_single_sim_data

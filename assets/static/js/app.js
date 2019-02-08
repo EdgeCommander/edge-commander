@@ -27,7 +27,6 @@ import Notifications from 'vue-notification'
 
 // Import Vue components
 import App from "../components/App"
-import settings from "../components/settings"
 import commands from "../components/commands"
 import routers from "../components/routers"
 import nvrs from "../components/nvrs"
@@ -41,6 +40,11 @@ import single_sims from "../components/single_sims"
 import dashboard from "../components/dashboard"
 import single_battery from "../components/single_battery"
 import batteries from "../components/batteries"
+import my_profile from "../components/my_profile"
+import three_users from "../components/three_users"
+import activities from "../components/activities"
+import sharing from "../components/sharing"
+
 
 Vue.config.productionTip = false
 Vue.use(VueResource)
@@ -50,11 +54,6 @@ Vue.use(Notifications)
 const router = new VueRouter({
   mode: 'history',
   routes: [
-    {
-      path: '/settings',
-      name: 'settings',
-      component: settings,
-    },
     {
       path: '/commands',
       name: 'commands',
@@ -119,6 +118,26 @@ const router = new VueRouter({
       path: '/batteries',
       name: 'batteries',
       component: batteries
+    },
+    {
+      path: '/my_profile',
+      name: 'my_profile',
+      component: my_profile
+    },
+    {
+      path: '/three_users',
+      name: 'three_users',
+      component: three_users
+    },
+    {
+      path: '/activities',
+      name: 'activities',
+      component: activities
+    },
+    {
+      path: '/sharing',
+      name: 'sharing',
+      component: sharing
     }
   ],
 });

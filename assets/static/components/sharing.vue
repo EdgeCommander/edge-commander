@@ -6,32 +6,56 @@
           <!--begin: Search Form -->
           <div class="m-form m-form--label-align-right m--margin-bottom-10">
             <div class="row align-items-center">
-              <div class="col-md-8 order-2 order-md-1">
+              <div class="col-md-12">
                 <div class="form-group m-form__group row align-items-center">
-                  <div class="col-md-5">
+                  <div class="col-md-12">
                     <div class="m-input-icon m-input-icon--left">
-                      <input type="text" class="form-control m-input m-input--solid" placeholder="Search..." id="m_form_search" v-model="m_form_search" v-on:keyup="search()">
-                      <span class="m-input-icon__icon m-input-icon__icon--left">
-                        <span>
-                          <i class="la la-search"></i>
-                        </span>
-                      </span>
+                      <ul class="nav nav-pills" role="tablist">
+                        <li class="nav-item">
+                            <router-link v-bind:to="'/my_profile'" class="nav-link">My Profile</router-link>
+                        </li>
+                        <li class="nav-item">
+                            <router-link v-bind:to="'/three_users'" class="nav-link">Three Users</router-link>
+                        </li>
+                        <li class="nav-item">
+                            <router-link v-bind:to="'/activities'" class="nav-link">Activities</router-link>
+                        </li>
+                        <li class="nav-item">
+                            <router-link v-bind:to="'/sharing'" class="nav-link active show">Sharing</router-link>
+                        </li>
+                      </ul>
                     </div>
                   </div>
                 </div>
               </div>
               <div class="col-md-4 order-1 order-md-2 m--align-right">
-                 <a href="javascript:void(0)" class="btn btn-primary m-btn m-btn--icon" v-on:click="onMemberButton">
-                      <span>
-                          <i class="fa fa-plus-square"></i>
-                          <span>
-                              {{form_labels.add_sharing_button}}
-                          </span>
-                      </span>
-                  </a>
-                  <div href="javascript:void(0)" class="btn btn-default grey" v-on:click="onMemeberHideShowButton">
-                    <i class="fa fa-columns"></i>
-                  </div>
+              </div>
+            </div>
+          </div>
+          <!--end: Search Form -->
+          <div class="heading_panel">
+            <div class="pull-left">
+              <h4>Only Following Users Can Access My Account <i class="fa fa-long-arrow-right"></i></h4>
+            </div>
+            <div class="pull-right">
+              <a href="javascript:void(0)" class="btn btn-primary m-btn m-btn--icon" v-on:click="onMemberButton">
+                <span>
+                    <i class="fa fa-plus-square"></i>
+                    <span>
+                        {{form_labels.add_sharing_button}}
+                    </span>
+                </span>
+              </a>
+              <div href="javascript:void(0)" class="btn btn-default grey" v-on:click="onMemeberHideShowButton">
+              <i class="fa fa-columns"></i>
+              </div>
+            </div>
+            <div class="clearfix"></div>
+          </div>
+          <!--begin: Search Form -->
+          <div class="m-form m-form--label-align-right m--margin-bottom-10">
+            <div class="row align-items-center">
+              <div class="col-md-4 order-1 order-md-2 m--align-right">
               </div>
             </div>
           </div>
@@ -102,8 +126,8 @@
                             <label class="col-3 col-form-label">
                                 {{form_labels.member_email}}
                             </label>
-                            <div class="col-9">
-                               <select class="js-example-basic-single form-control m-input " id="member_email"  style="width: 100%;" multiple="multiple" data-tags="true" >
+                            <div class="col-9 sharing_inputs">
+                               <select class="form-control m-input " id="member_email"   multiple="multiple" data-tags="true"  >
                                   <option v-bind:value="other_user.id" v-for="other_user in other_users">{{other_user.email}}</option>
                                 </select>
                             </div>
@@ -124,8 +148,12 @@
 </template>
 
 <script>
+import Vue from 'vue'
+import App from './App.vue'
+const app = new Vue(App)
+
 module.exports = {
-  name: 'shares',
+  name: 'sharing',
   data: function(){
     return{
       dataTable: null,
@@ -151,7 +179,7 @@ module.exports = {
         hide_show_button: "OK"
       },
       role: 1,
-      user_id: "",
+      user_id: this.$root.user_id,
       user_email: ""
     }
   },
@@ -248,7 +276,7 @@ module.exports = {
     $(this.$refs.hideShow).modal("show");
    },
    clearForm: function(){
-    $("#member_email").val('').trigger('change')
+    $(".custom-combobox-input").val("");
     this.role = 1;
     $('ul#errorOnMember').html("");
     this.show_errors = false;
@@ -257,7 +285,7 @@ module.exports = {
     this.show_loading = true;
     this.show_errors = true;
 
-    member_email = $( "#member_email option:selected" ).text()
+    member_email = $(".custom-combobox-input").val();
 
     var user_id      = this.user_id,
         member_email = member_email,
@@ -289,7 +317,7 @@ module.exports = {
     return false;
    },
    onSaveSuccess: function(result, status, jqXHR) {
-    $.notify({message: 'Member has been added.'},{type: 'info'});
+    app.$notify({group: 'notify', title: 'Member has been added'});
     $(this.$refs.addmodal).modal('hide');
     this.show_loading = false;
     this.dataTable.ajax.reload();
@@ -315,64 +343,143 @@ module.exports = {
       });
     },
     deleteMember: function(){
-      $(document).on("click", ".delShare", function(){
-        let memberRow, result, memberID, settings;
-        memberRow = $(this).closest('tr');
-        memberID = $(this).data("id")
-        result = confirm("Are you sure to delete this Member?");
-        if (result === false) {
-          return;
-        }
-        let data = {};
-        data.id = memberID;
+    $(document).off("click").on("click", ".delShare", function(){
+      let memberRow, result;
+      memberRow = $(this).closest('tr');
+      let memberID = $(this).data("id");
 
-        settings = {
-          cache: false,
-          data: data,
-          dataType: 'json',
-          error: function(){return false},
-          success: function(){
-            memberRow.remove();
-            $.notify({message: 'Member has been deleted.'},{type: 'info'});
-            return true;
-          },
-          contentType: "application/x-www-form-urlencoded",
-          context: {memberRow: memberRow},
-          type: "DELETE",
-          url: "/members/" + memberID
-        };
-        $.ajax(settings)
+      result = confirm("Are you sure to delete this Member?");
+      if (result === false) {
+        return;
+      }
+      app.$http.delete("/members/" + memberID, {memberRow: memberRow}).then(function (response) {
+        memberRow.remove();
+        app.$notify({group: 'notify', title: 'Member has been deleted.'});
+      }).catch(function (error) {
+         return false
       });
-    },
-    get_session: function(){
-      this.$http.get('/get_porfile').then(response => {
-        this.user_id = response.body.id;
-        this.user_email = response.body.email;
-      });
-    },
-    get_shared_users: function(){
-      this.$http.get('/get_shared_users').then(response => {
-                console.log(response.body.users)
-        this.shared_users = response.body.users
-      });
-    },
+    });
+   },
     get_other_users: function(){
       this.$http.get('/get_other_users').then(response => {
         this.other_users = response.body.users
       });
+    },
+    messages_input_init: function(){
+      $.widget( "custom.combobox", {
+        _create: function() {
+          this.wrapper = $( "<span>" )
+            .addClass( "custom-combobox" )
+            .insertAfter( this.element );
+          this.element.hide();
+          this._createAutocomplete();
+          this._createShowAllButton();
+        },
+        _createAutocomplete: function() {
+          var selected = this.element.children( ":selected" ),
+            value = selected.val() ? selected.text() : "";
+          this.input = $( "<input>" )
+            .appendTo( this.wrapper )
+            .val( value )
+            .attr( "title", "" )
+            .addClass( "custom-combobox-input ui-widget ui-widget-content ui-state-default ui-corner-left" )
+            .autocomplete({
+              delay: 0,
+              minLength: 0,
+              source: $.proxy( this, "_source" )
+            })
+            .tooltip({
+              classes: {
+                "ui-tooltip": "ui-state-highlight"
+              }
+            });
+          this._on( this.input, {
+            autocompleteselect: function( event, ui ) {
+              ui.item.option.selected = true;
+              this._trigger( "select", event, {
+                item: ui.item.option
+              });
+            },
+            autocompletechange: "_removeIfInvalid"
+          });
+        },
+        _createShowAllButton: function() {
+          var input = this.input,
+            wasOpen = false;
+          $( "<a>" )
+            .attr( "tabIndex", -1 )
+            .attr( "title", "Show All Items" )
+            .tooltip()
+            .appendTo( this.wrapper )
+            .button({
+              icons: {
+                primary: "ui-icon-triangle-1-s"
+              },
+              text: false
+            })
+            .removeClass( "ui-corner-all" )
+            .addClass( "custom-combobox-toggle ui-corner-right" )
+            .on( "mousedown", function() {
+              wasOpen = input.autocomplete( "widget" ).is( ":visible" );
+            })
+            .on( "click", function() {
+              input.trigger( "focus" );
+              if ( wasOpen ) {
+                return;
+              }
+              input.autocomplete( "search", "" );
+            });
+        },
+        _source: function( request, response ) {
+          var matcher = new RegExp( $.ui.autocomplete.escapeRegex(request.term), "i" );
+          var aa = response( this.element.children( "option" ).map(function() {
+            var text = $( this ).text();
+            if ( this.value && ( !request.term || matcher.test(text) ) )
+              return {
+                label: text,
+                value: text,
+                option: this,
+              };
+          }) );
+        },
+        _removeIfInvalid: function( event, ui ) {
+          if ( ui.item ) {
+            return;
+          }
+          var value = this.input.val(),
+            valueLowerCase = value.toLowerCase(),
+            valid = false;
+         this.selected = valid = true;
+         console.log(this.element)
+          this.element.val( value );
+          this._delay(function() {
+            this.input.tooltip( "close" ).attr( "title", "" );
+          }, 2500 );
+          this.input.autocomplete( "instance" ).term = "";
+        },
+        _destroy: function() {
+          this.wrapper.remove();
+          this.element.show();
+        }
+      });
+      $( "#member_email" ).combobox();
+      $('.ui-button').tooltip('disable');
+    },
+    active_menu_link: function(){
+      $("li").removeClass(" m-menu__item--active");
+      $(".settings").addClass(" m-menu__item--active");
+      $("#m_aside_left").removeClass("m-aside-left--on");
+      $("body").removeClass("m-aside-left--on");
+      $(".m-aside-left-overlay").removeClass("m-aside-left-overlay");
     }
   }, // end of methods
    mounted(){
+    this.deleteMember();
     this.init_select();
     this.initializeTable();
-    this.deleteMember();
-    this.get_session();
-    this.get_shared_users();
     this.get_other_users();
-   },
-   updated(){
-    $('div.alert .close').on('click', function() {$(this).parent().alert('close'); });
-    setTimeout(function() {$(".alert-info").alert('close')}, 6000)
+    this.messages_input_init();
+    this.active_menu_link();
    }
 }
 </script>

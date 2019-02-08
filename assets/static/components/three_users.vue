@@ -10,15 +10,18 @@
                 <div class="form-group m-form__group row align-items-center">
                   <div class="col-md-12">
                     <div class="m-input-icon m-input-icon--left">
-                      <ul class="nav nav-tabs" role="tablist">
+                      <ul class="nav nav-pills" role="tablist">
                         <li class="nav-item">
-                            <a class="nav-link  active show" data-toggle="tab" href="#m_tabs_1_1">My Profile</a>
+                            <router-link v-bind:to="'/my_profile'" class="nav-link">My Profile</router-link>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" data-toggle="tab" href="#m_tabs_1_2" v-on:click="redraw_table">Three Users</a>
+                            <router-link v-bind:to="'/three_users'" class="nav-link  active show">Three Users</router-link>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" data-toggle="tab" href="#m_tabs_1_3" v-on:click="redraw_table">Activities</a>
+                            <router-link v-bind:to="'/activities'" class="nav-link">Activities</router-link>
+                        </li>
+                        <li class="nav-item">
+                            <router-link v-bind:to="'/sharing'" class="nav-link">Sharing</router-link>
                         </li>
                       </ul>
                     </div>
@@ -30,161 +33,32 @@
             </div>
           </div>
           <!--end: Search Form -->
-           <div class="tab-content">
-              <div class="tab-pane  active show" id="m_tabs_1_1" role="tabpanel">
-                <div class="heading_panel">
-                    <div class="pull-left">
-                      <h4>My Profile Details <i class="fa fa-long-arrow-right"></i></h4>
-                    </div>
-                    <div class="pull-right"></div>
-                    <div class="clearfix"></div>
-                  </div>
-                  <div class="col-sm-6">
-                   <div id="myProfileErrorDetail" v-if="my_profile.show_errors">
-                      <div class="form-group m-form__group m--margin-top-10">
-                          <div class="alert m-alert m-alert--default" role="alert">
-                              <ul style="margin:0px">
-                                <li v-for="message in my_profile.show_message">{{message}}</li>
-                              </ul>
-                          </div>
-                      </div>
-                    </div>
-                   <div class="m--margin-top-20">
-                    <img class="gravatar pull-left" v-bind:src="my_profile.gravatar_url">
-                    <div class="username">
-                      <span class="grey">Username </span><strong><span v-html="my_profile.username"></span></strong>
-                    </div>
-                    <p class="small grey">Manage your avatar with <a href="https://en.gravatar.com/" target="_blank">Gravatar</a> </p>
-                  </div>
-                  <div class="clearfix"></div>
-                  <div class="m-form m-form--fit m-form--label-align-left" style="margin-left:10px">
-                      <input type="hidden" id="id"  v-model="user_id">
-                      <input type="hidden"  v-model="my_profile.csrf_token">
-                      <div class="form-group m-form__group row" style="margin-bottom: 0">
-                          <label class="col-3 col-form-label">
-                              {{form_labels.fname}}
-                          </label>
-                          <div class="col-9">
-                              <input type="text" class="form-control m-input" v-model="my_profile.firstname">
-                          </div>
-                      </div>
-                      <div class="form-group m-form__group row" style="margin-bottom: 0">
-                          <label class="col-3 col-form-label">
-                              {{form_labels.lname}}
-                          </label>
-                          <div class="col-9">
-                              <input type="text" class="form-control m-input" v-model="my_profile.lastname">
-                          </div>
-                      </div>
-                      <div class="form-group m-form__group row" style="margin-bottom: 0">
-                          <label class="col-3 col-form-label">
-                              {{form_labels.email}}
-                          </label>
-                          <div class="col-9">
-                              <input type="email" class="form-control m-input" v-model="my_profile.email">
-                          </div>
-                      </div>
-                      <div class="form-group m-form__group row">
-                          <label class="col-3 col-form-label">
-                              {{form_labels.password}}
-                          </label>
-                          <div class="col-9">
-                              <input type="password" class="form-control m-input" v-model="my_profile.password" >
-                          </div>
-                      </div>
-                      <div class="form-group m-form__group row">
-                          <label class="col-3 col-form-label">
-                              {{form_labels.api_key}}
-                          </label>
-                          <div class="col-9" style="padding:10px 15px" v-html="my_profile.api_key"></div>
-                      </div>
-                      <div class="form-group m-form__group row" style="padding-top:0">
-                          <label class="col-3 col-form-label">
-                              {{form_labels.api_id}}
-                          </label>
-                          <div class="col-9" style="padding:10px 15px" v-html="my_profile.api_id"></div>
-                      </div>
-                      <div class="form-group m-form__group row">
-                          <label class="col-3 col-form-label">
-                          </label>
-                          <div class="col-9">
-                            <button type="button" class="btn btn-default" id="updateMyProfile" v-on:click="updateMyProfile()">
-                              {{form_labels.submit_button}}
-                            </button>
-                          </div>
-                      </div>
-                      <div style="height:20px"></div>
-                  </div>
+            <div class="heading_panel" style="margin-bottom: 10px">
+              <div class="pull-left">
+                <h4>Three Users <i class="fa fa-long-arrow-right"></i></h4>
               </div>
+              <div class="pull-right">
+                <a href="javascript:void(0)" class="btn btn-primary m-btn m-btn--icon" v-on:click="onUserButton">
+                    <span>
+                        <i class="fa fa-plus-square"></i>
+                        <span>
+                            {{add_button_label}}
+                        </span>
+                    </span>
+                </a>
+                <div href="javascript:void(0)" class="btn btn-default grey" v-on:click="onUserHideShowButton">
+                  <i class="fa fa-columns"></i>
+                </div>
               </div>
-              <div class="tab-pane" id="m_tabs_1_2" role="tabpanel">
-                  <div class="heading_panel" style="margin-bottom: 10px">
-                    <div class="pull-left">
-                      <h4>Three Users <i class="fa fa-long-arrow-right"></i></h4>
-                    </div>
-                    <div class="pull-right">
-                      <a href="javascript:void(0)" class="btn btn-primary m-btn m-btn--icon" v-on:click="onUserButton">
-                          <span>
-                              <i class="fa fa-plus-square"></i>
-                              <span>
-                                  {{add_button_label}}
-                              </span>
-                          </span>
-                      </a>
-                      <div href="javascript:void(0)" class="btn btn-default grey" v-on:click="onUserHideShowButton">
-                        <i class="fa fa-columns"></i>
-                      </div>
-                    </div>
-                    <div class="clearfix"></div>
-                  </div>
-                  <table id="nvr-datatable" class="table table-striped  table-hover table-bordered datatable display nowrap" cellspacing="0" width="100%">
-                      <thead>
-                          <tr>
-                              <th v-for="(item, index) in headings">{{item.column}}</th>
-                          </tr>
-                      </thead>
-                  </table>
-              </div>
-              <div class="tab-pane" id="m_tabs_1_3" role="tabpanel">
-                  <div class="heading_panel">
-                    <div class="pull-left">
-                      <h4>Activity logs <i class="fa fa-long-arrow-right"></i></h4>
-                    </div>
-                    <div class="pull-right">
-                      <div class="row">
-                        <div class="col-sm-6">
-                             <div class="form-group m-form__group row">
-                            <label class="col-lg-2 col-form-label">
-                                From:
-                            </label>
-                            <div class="col-lg-10">
-                                <input type="text" class="form-control m-input m-input--solid" id="m_sms_datepicker_from">
-                            </div>
-                            </div>
-                        </div>
-                        <div class="col-sm-6">
-                             <div class="form-group m-form__group row">
-                            <label class="col-lg-1 col-form-label">
-                                To:
-                            </label>
-                            <div class="col-lg-10">
-                                <input type="text" class="form-control m-input m-input--solid" id="m_sms_datepicker_to">
-                            </div>
-                            </div>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="clearfix"></div>
-                  </div>
-                  <table id="logs-datatable" class="table table-striped  table-hover table-bordered datatable display nowrap" cellspacing="0" width="100%">
-                      <thead>
-                          <tr>
-                              <th v-for="(item, index) in headings_logs">{{item.column}}</th>
-                          </tr>
-                      </thead>
-                  </table>
-              </div>
-          </div>
+              <div class="clearfix"></div>
+            </div>
+            <table id="user-datatable" class="table table-striped  table-hover table-bordered datatable display nowrap" cellspacing="0" width="100%">
+                <thead>
+                    <tr>
+                        <th v-for="(item, index) in headings">{{item.column}}</th>
+                    </tr>
+                </thead>
+            </table>
         </div>
       </div>
             <!-- start:: add user Models -->
@@ -298,7 +172,7 @@
                     </div>
                 </div>
                 <div class="m-form m-form--fit m-form--label-align-left">
-                    <input type="hidden" id="user_id" value="<%= @user.id %>">
+                    <input type="hidden" id="user_id" v-model="user_id">
                     <input type="hidden" id="edit_three_three_id">
                     <div class="form-group m-form__group row">
                         <label class="col-3 col-form-label">
@@ -346,27 +220,13 @@ import App from './App.vue'
 const app = new Vue(App)
 
 module.exports = {
-  name: 'settings',
+  name: 'three_users',
   data: function(){
     return{
       table_records: '',
       dataTable: null,
-      logsDataTable: null,
+      sharing_dataTable: null,
       add_button_label: "Add New",
-      my_profile: {
-        show_loading: false,
-        show_message: [],
-        show_errors: false,
-        firstname: "",
-        lastname: "",
-        email: "",
-        password: "",
-        api_key: "",
-        api_id: "",
-        username: "",
-        gravatar_url: "",
-        csrf_token: ""
-      },
       three_user: {
         show_loading: false,
         show_add_errors: false,
@@ -388,13 +248,6 @@ module.exports = {
         {column: "Bill Day", id: "bill_day", class: "text-center"},
         {column: "Created At", id: "created_at", class: "text-center"}
       ],
-      headings_logs: [
-        {column: "Browser", id: "browser"},
-        {column: "IP address", id: "ip_address"},
-        {column: "Country", id: "country", class: "text-center"},
-        {column: "Date & Time", id: "created_at", class: "text-center"},
-        {column: "Event", id: "created_at"}
-      ],
       form_labels: {
         fname: "First Name",
         lname: "Last Name",
@@ -410,9 +263,9 @@ module.exports = {
         day: "Bill Day",
         edit_title: "Edit account details",
         hide_show_title: "Show/Hide Columns",
-        hide_show_button: "OK"
+        hide_show_button: "OK",
       },
-      user_id: ""
+      user_id: this.$root.user_id
     }
   },
   methods: {
@@ -420,97 +273,8 @@ module.exports = {
       let string = $("#" + id).val().split("-")
       return string[2] +"-"+ string[1]  +"-"+ string[0]
     },
-    initializeLogsTable: function(){
-      $("#m_sms_datepicker_from").datepicker({autoclose:true, dateFormat:"dd-mm-yy"}).datepicker("setDate", new Date(new Date().getTime() - (48 * 60 * 60 * 1000)));
-      $("#m_sms_datepicker_to").datepicker({autoclose:true, dateFormat:"dd-mm-yy"}).datepicker("setDate", new Date());
-
-      let from_date = this.date_format("m_sms_datepicker_from");
-      let to_date = this.date_format("m_sms_datepicker_to");
-
-      let logsDataTable = $('#logs-datatable').DataTable({
-        fnInitComplete: function(){
-          // Enable TFOOT scoll bars
-          $('.dataTables_scrollFoot').css('overflow', 'auto');
-          $('.dataTables_scrollHead').css('overflow', 'auto');
-          // Sync TFOOT scrolling with TBODY
-          $('.dataTables_scrollFoot').on('scroll', function () {
-          $('.dataTables_scrollBody').scrollLeft($(this).scrollLeft());
-        });
-        $('.dataTables_scrollHead').on('scroll', function () {
-          $('.dataTables_scrollBody').scrollLeft($(this).scrollLeft());
-        });
-      },
-      ajax: {
-      url: "/user_logs/" + from_date + "/" + to_date,
-        dataSrc: function(data) {
-          return data.activity_logs;
-        },
-        error: function(xhr, error, thrown) {
-          if (xhr.responseJSON) {
-            console.log(xhr.responseJSON.message);
-          } else {
-            console.log("Something went wrong, Please try again.");
-          }
-        }
-      },
-      columns: [
-      {
-        class: "text-left browser",
-        data: function(row, type, set, meta) {
-          let browser = row.browser
-          let platform = row.platform
-          let browser_icon
-          if(browser == 'IE'){
-              browser_icon = "internet-explorer"
-          }else{
-            browser_icon = browser.toLowerCase()
-          }
-          return '<i class="fa fa-'+browser_icon+'" aria-hidden="true"></i> ' +browser + ' on ' + platform ;
-        }
-      },
-      {
-        class: "text-center ip",
-        data: function(row, type, set, meta) {
-          return row.ip;
-        }
-      },
-      {
-        class: "country",
-        data: function(row, type, set, meta) {
-          let country = row.country
-          let country_code = row.country_code
-          if(country != null){
-            return '<img src="https://www.countryflags.io/'+country_code+'/shiny/16.png"> '+row.country;
-          }else{
-            return "---"
-          }
-        }
-      },
-      {
-        class: "text-center inserted_at",
-        data: function(row, type, set, meta) {
-          return moment(row.inserted_at).format('DD-MM-YYYY HH:mm:ss');
-        }
-      },
-      {
-        class: "text-left event",
-        data: function(row, type, set, meta) {
-          return row.event;
-        }
-      }
-      ],
-      info: false,
-      bPaginate: false,
-      lengthChange: false,
-      scrollX: true,
-      colReorder: true,
-      stateSave:  true,
-      order: [[ 3, "desc" ]]
-    });
-      this.logsDataTable = logsDataTable
-   },
     initializeTable: function(){
-      let nvrDataTable = $('#nvr-datatable').DataTable({
+      let userDataTable = $('#user-datatable').DataTable({
         fnInitComplete: function(){
           // Enable TFOOT scoll bars
           $('.dataTables_scrollFoot').css('overflow', 'auto');
@@ -540,7 +304,7 @@ module.exports = {
       {
         class: "text-center actions",
         data: function(row, type, set, meta) {
-          return '<div class="action_btn"><div id class="editNVR cursor_to_pointer fa fa-edit" data-id="'+ row.id +'"></div> <div class="cursor_to_pointer fa fa-trash delNVR" data-id="'+ row.id +'"></div></div>';
+          return '<div class="action_btn"><div id class="editUser cursor_to_pointer fa fa-edit" data-id="'+ row.id +'"></div> <div class="cursor_to_pointer fa fa-trash delUser" data-id="'+ row.id +'"></div></div>';
         }
       },
       {
@@ -575,43 +339,8 @@ module.exports = {
       colReorder: true,
       stateSave:  true
     });
-      return this.dataTable = nvrDataTable;
+      return this.dataTable = userDataTable;
    },
-    updateMyProfile: function() {
-      this.my_profile.show_loading = true;
-      this.my_profile.show_errors = true;
-
-      this.$http.patch('/update_profile', {
-        firstname: this.my_profile.firstname,
-        lastname: this.my_profile.lastname,
-        email: this.my_profile.email,
-        password: this.my_profile.password,
-        id: this.user_id
-      }).then(function (response) {
-        this.my_profile.show_message = "";
-        this.my_profile.show_errors = false;
-        this.my_profile.show_loading = false;
-        this.my_profile.password = "";
-        app.$notify({group: 'notify', title: 'Profile has been updated.'});
-      }).catch(function (error) {
-        this.my_profile.show_message = error.body.errors;
-        this.my_profile.show_errors = true;
-        this.my_profile.show_loading = false;
-       });
-    },
-    get_my_prfile: function(){
-      this.$http.get('/get_porfile').then(response => {
-        this.my_profile.firstname = response.body.firstname;
-        this.my_profile.lastname = response.body.lastname;
-        this.my_profile.email = response.body.email;
-        this.my_profile.api_key = response.body.api_key;
-        this.my_profile.api_id = response.body.api_id;
-        this.user_id = response.body.id;
-        this.my_profile.username = response.body.username;
-        this.my_profile.gravatar_url = response.body.gravatar_url;
-        this.my_profile.csrf_token = response.body.csrf_token;
-      });
-    },
     onUserButton: function(){
       $(this.$refs.addmodal).modal("show");
     },
@@ -642,24 +371,24 @@ module.exports = {
       this.three_user.show_add_errors = false;
       this.three_user.show_add_messages = "";
     },
-    getUniqueIdentifier: function(nvrDataTable){
-      $(document).on("click", ".editNVR", function(){
+    getUniqueIdentifier: function(userDataTable){
+      $(document).on("click", ".editUser", function(){
         let tr = $(this).closest('tr');
-        let row = nvrDataTable.row(tr);
+        let row = userDataTable.row(tr);
         let data = row.data();
-        let nvr_id = $(this).data("id");
-        module.exports.methods.onThreeEditButton(nvr_id, data);
+        let user_id = $(this).data("id");
+        module.exports.methods.onThreeEditButton(user_id, data);
       });
     },
-    onThreeEditButton: function(nvr_id, data){
-      $("#edit_three_three_id").val(nvr_id);
+    onThreeEditButton: function(user_id, data){
+      $("#edit_three_three_id").val(user_id);
       $("#edit_username").val(data.username);
       $("#edit_password").val(data.password);
       $("#edit_bill_day").val(data.bill_day);
       $('#edit_three_user_to_db').modal('show');
     },
     deleteThree: function(){
-    $(document).on("click", ".delNVR", function(){
+    $(document).on("click", ".delUser", function(){
       let threeRow, result;
       threeRow = $(this).closest('tr');
       let threeID = $(this).data("id");
@@ -676,15 +405,6 @@ module.exports = {
       });
     });
    },
-   dateFilterInitialize: function() {
-    let table_data = this.logsDataTable;
-    $('#m_sms_datepicker_from, #m_sms_datepicker_to').change(function(){
-      let from_date = module.exports.methods.date_format("m_sms_datepicker_from");
-      let to_date = module.exports.methods.date_format("m_sms_datepicker_to");
-      let new_url = "/user_logs/" + from_date + "/" + to_date
-      table_data.ajax.url(new_url).load();
-    });
-  },
    updateThree: function(){
     this.three_user.show_edit_messages = "";
     this.three_user.show_loading = true;
@@ -718,7 +438,6 @@ module.exports = {
    },
    showHideColumns: function(id){
     let column = this.dataTable.columns(id);
-    console.log(column.visible()[0])
     if(column.visible()[0] == true){
       column.visible(false);
     }else{
@@ -732,19 +451,12 @@ module.exports = {
     $("body").removeClass("m-aside-left--on");
     $(".m-aside-left-overlay").removeClass("m-aside-left-overlay");
    },
-   redraw_table: function(){
-    this.dataTable.ajax.reload();
-    this.logsDataTable.ajax.reload();
-   }
   },
   mounted(){
-    this.get_my_prfile();
     this.active_menu_link();
     let table =  this.initializeTable();
     this.getUniqueIdentifier(table)
     this.deleteThree();
-    this.initializeLogsTable();
-    this.dateFilterInitialize();
   }
 }
 </script>

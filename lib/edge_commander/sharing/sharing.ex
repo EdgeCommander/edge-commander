@@ -20,16 +20,14 @@ defmodule EdgeCommander.Sharing do
   """
   def list_sharing(user_id) do
     Member
-    |> where(user_id: ^user_id)
-    |> or_where(member_id: ^user_id)
-    |> or_where(account_id: ^user_id)
+    |> where(account_id: ^user_id)
     |> Repo.all
   end
 
   def all_shared_users(user_id) do
     query = from u in User,
-      inner_join: m in Member, on: u.id == m.account_id,
-      where: m.member_id == ^user_id
+      left_join: m in Member, on: u.id == m.account_id,
+      where: m.member_id == ^user_id or u.id == ^user_id
     query
     |> Repo.all
   end
@@ -53,7 +51,14 @@ defmodule EdgeCommander.Sharing do
   def user_already_exist(member_email) do
     Member
     |> where(member_email: ^member_email)
+    |> limit(1)
     |> Repo.one
+  end
+
+  def user_by_email(member_email) do
+    Member
+    |> where(member_email: ^member_email)
+    |> Repo.all
   end
 
   def already_sharing(member_email, account_id) do
@@ -66,7 +71,14 @@ defmodule EdgeCommander.Sharing do
   def member_by_token(token) do
     Member
     |> where(token: ^token)
+    |> limit(1)
     |> Repo.one
+  end
+
+  def all_members_by_token(token) do
+    Member
+    |> where(token: ^token)
+    |> Repo.all
   end
 
   @doc """
