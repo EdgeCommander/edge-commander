@@ -319,10 +319,22 @@ defmodule EdgeCommanderWeb.BatteryReadingController do
       |> Enum.sort(&(&2 > &1))
       |> Enum.drop_while(fn(x) -> x == "" end)
 
-    column_value = List.first(value) |> is_list_empty(column)
+    string_value = List.first(value) |> is_list_empty(column)
+    last_chrector = String.last(string_value)
+    convert_voltage_units(last_chrector, string_value, list_data, column)
+  end
 
+  defp convert_voltage_units("V", string_value, list_data, column) do
+    value_in_volts = string_value |> String.slice(0..-2) |> String.to_float()
+    column_value = Kernel.round(value_in_volts * 1000) |> Util.convert_into_string
     remain_data = list_data |> Enum.reject(fn(x) -> x == column_value end)
-
+    %{
+      value: column_value,
+      remain_data: remain_data
+    }
+  end
+  defp convert_voltage_units(_, column_value, list_data, column) do
+    remain_data = list_data |> Enum.reject(fn(x) -> x == column_value end)
     %{
       value: column_value |> get_column_value(column),
       remain_data: remain_data
@@ -344,5 +356,4 @@ defmodule EdgeCommanderWeb.BatteryReadingController do
   defp get_numric_value_only(string) do
     string |> String.replace(~r/[^\d]/, "")
   end
-
 end
