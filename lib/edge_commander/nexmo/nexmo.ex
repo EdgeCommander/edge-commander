@@ -23,7 +23,19 @@ defmodule EdgeCommander.Nexmo do
     to = NaiveDateTime.from_iso8601!(to_date <> " 23:59:59")
     query = from l in SimMessages,
       left_join: m in Member, on: l.user_id == m.account_id,
-      where: (m.member_id == ^user_id or l.user_id == ^user_id) and (l.inserted_at >= ^from and l.inserted_at <= ^to)
+      where: (m.member_id == ^user_id or l.user_id == ^user_id) and (l.inserted_at >= ^from and l.inserted_at <= ^to),
+      distinct: l.id,
+      select: %{
+          id: l.id,
+          from: l.from,
+          to: l.to,
+          message_id: l.message_id,
+          status: l.status,
+          text: l.text,
+          type: l.type,
+          inserted_at: l.inserted_at,
+          delivery_datetime: l.delivery_datetime
+        }
     query
     |> order_by(desc: :inserted_at)
     |> Repo.all

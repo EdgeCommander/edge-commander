@@ -4,17 +4,17 @@ defmodule EdgeCommanderWeb.SharingController do
   alias EdgeCommander.Repo
   alias EdgeCommander.Util
   import Ecto.Query, warn: false
-  import EdgeCommander.Sharing, only: [list_sharing: 1, get_member!: 1, already_sharing: 2, all_shared_users: 1, all_members_by_token: 1]
+  import EdgeCommander.Sharing, only: [get_member_list: 1, list_sharing: 1, get_member!: 1, already_sharing: 2, all_shared_users: 1, all_members_by_token: 1, member_by_account: 1]
   import EdgeCommander.Accounts, only: [email_exist: 1, get_user!: 1, get_other_users: 1]
   require Logger
 
   def create(conn, params) do
     user_id = params["user_id"]
     token = Util.string_generator(30)
+    member_id = params["member_email"] |> email_exist |> get_member_id
     all_shared_users(user_id)
     |> Enum.map(fn(user) ->
       account_id = user.id
-      member_id = params["member_email"] |> email_exist |> get_member_id
       params = %{
         "user_id" => params["user_id"],
         "member_id" => member_id,
@@ -46,21 +46,13 @@ defmodule EdgeCommanderWeb.SharingController do
       list_sharing(current_user_id)
       |> Enum.map(fn(member) ->
 
-        member_name = get_member_name(member.member_id)
-
-        share_by_details = member.user_id |> get_user_details
-        share_by_name = share_by_details.full_name
-        share_by_email = share_by_details.email
-
-        account_of_details = member.account_id |> get_user_details
-        account_of_name = account_of_details.full_name
-        account_of_email = account_of_details.email
+        member_name = get_user_name(member.member_id)
+        account_of_name = get_user_name(member.account_id)
+        account_of_email = member.member_email
 
         %{
           id: member.id,
           user_id: member.user_id,
-          share_by_name: share_by_name,
-          share_by_email: share_by_email,
           member_id: member.member_id,
           member_name: member_name,
           member_email: member.member_email,
@@ -91,8 +83,8 @@ defmodule EdgeCommanderWeb.SharingController do
 
   def delete(conn, %{"id" => id} = _params) do
     records = get_member!(id)
-    token = records.token
-    all_members_by_token(token)
+    member_id = records.member_id
+    get_member_list(member_id)
     |> Enum.each(fn(member) ->
       member
       |> Repo.delete
@@ -100,9 +92,7 @@ defmodule EdgeCommanderWeb.SharingController do
         {:ok, %EdgeCommander.Sharing.Member{}} ->
           conn
           |> put_status(200)
-          |> json(%{
-            deleted: true
-          })
+          |> json("")
         {:error, changeset} ->
           errors = Util.parse_changeset(changeset)
           traversed_errors = for {_key, values} <- errors, value <- values, do: "#{value}"
@@ -135,8 +125,8 @@ defmodule EdgeCommanderWeb.SharingController do
       member_details.id
   end
 
-  defp get_member_name(0),  do: "Pending...."
-  defp get_member_name(member_id) do
+  defp get_user_name(0),  do: "Pending...."
+  defp get_user_name(member_id) do
     member_details = member_id |> get_user_details
     member_details.full_name
   end
@@ -148,6 +138,10 @@ defmodule EdgeCommanderWeb.SharingController do
     member_email = params["member_email"]
     account_id = params["account_id"]
     token = params["token"]
+
+     member_by_account(account_id)
+     |> share_others(conn, params)
+
 
     changeset = Member.changeset(%Member{}, params)
     case Repo.insert(changeset) do
@@ -178,6 +172,49 @@ defmodule EdgeCommanderWeb.SharingController do
     conn
     |> put_status(400)
     |> json(%{ errors: ["Rights have been already given to that email address."]})
+  end
+
+  defp share_others(nil, conn, params) do
+    user_id = params["user_id"] |> Util.string_to_integer
+    user = get_user!(user_id)
+
+    param = %{
+      user_id: user_id,
+      member_id: params["user_id"],
+      role: params["role"],
+      member_email: user.email,
+      account_id: params["member_id"],
+      token: params["token"]
+     }
+
+    changeset = Member.changeset(%Member{}, param)
+    case Repo.insert(changeset) do
+      {:ok, _member} ->
+        conn
+        |> put_status(:created)
+      {:error, changeset} ->
+    end
+  end
+  defp share_others(_, conn, params) do
+    account_id = params["account_id"]
+    user = member_by_account(account_id)
+
+    param = %{
+      user_id: params["user_id"] |> Util.string_to_integer,
+      member_id: account_id,
+      role: params["role"],
+      member_email: user.member_email,
+      account_id: params["member_id"],
+      token: params["token"]
+     }
+
+    changeset = Member.changeset(%Member{}, param)
+    case Repo.insert(changeset) do
+      {:ok, _member} ->
+        conn
+        |> put_status(:created)
+      {:error, changeset} ->
+    end
   end
 
   defp ensure_user_send_email(true, params) do

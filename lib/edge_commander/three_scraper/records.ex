@@ -154,9 +154,27 @@ defmodule EdgeCommander.ThreeScraper.Records do
     query = from l in Sims,
       left_join: m in Member, on: l.user_id == m.account_id,
       where: (m.member_id == ^user_id or l.user_id == ^user_id),
+      distinct: l.number,
+      select: %{
+        id: l.id,
+        number: l.number,
+        name: l.name,
+        addon: l.addon,
+        allowance: l.allowance,
+        volume_used: l.volume_used,
+        yesterday_volume_used: l.yesterday_volume_used,
+        percentage_used: l.percentage_used,
+        remaning_days: l.remaning_days,
+        last_log_reading_at: l.last_log_reading_at,
+        sim_provider: l.sim_provider,
+        last_bill_date: l.last_bill_date,
+        last_sms: l.last_sms,
+        last_sms_date: l.last_sms_date,
+        sms_since_last_bill: l.sms_since_last_bill,
+        status: l.status
+       },
       order_by: [desc: l.percentage_used]
     query
     |>  Repo.all
   end
-
 end

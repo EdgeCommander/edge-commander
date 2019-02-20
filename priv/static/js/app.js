@@ -22122,7 +22122,6 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 //
 //
 //
-//
 
 var app = new _vue2.default(_App2.default);
 
@@ -22137,7 +22136,7 @@ module.exports = {
       show_add_messages: "",
       shared_users: "",
       other_users: "",
-      headings: [{ column: "Actions", visible: "checked", id: "actions" }, { column: "Share With", visible: "checked", id: "member_email" }, { column: "Share by", visible: "checked", id: "user_id" }, { column: "Rights", visible: "checked", id: "role" }],
+      headings: [{ column: "Actions", visible: "checked", id: "actions" }, { column: "Users", visible: "checked", id: "member_email" }, { column: "Access Type", visible: "checked", id: "role" }],
       form_labels: {
         member_email: "Share With",
         role: "Role",
@@ -22195,11 +22194,6 @@ module.exports = {
               color = "red";
             }
             return "<b style='color:" + color + "'>" + row.member_name + "</b></br>" + row.member_email;
-          }
-        }, {
-          class: "user_id",
-          data: function data(row, type, set, meta) {
-            return "<b>" + row.share_by_name + "</b></br>" + row.share_by_email;
           }
         }, {
           class: "text-center role",
@@ -26696,7 +26690,9 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "col-md-4 order-1 order-md-2 m--align-right"
   })])]), _vm._v(" "), _c('div', {
     staticClass: "heading_panel"
-  }, [_vm._m(0), _vm._v(" "), _c('div', {
+  }, [_c('div', {
+    staticClass: "pull-left"
+  }), _vm._v(" "), _c('div', {
     staticClass: "pull-right"
   }, [_c('a', {
     staticClass: "btn btn-primary m-btn m-btn--icon",
@@ -26720,7 +26716,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "fa fa-columns"
   })])]), _vm._v(" "), _c('div', {
     staticClass: "clearfix"
-  })]), _vm._v(" "), _vm._m(1), _vm._v(" "), _c('div'), _vm._v(" "), _c('table', {
+  })]), _vm._v(" "), _vm._m(0), _vm._v(" "), _c('div'), _vm._v(" "), _c('table', {
     staticClass: "table table-striped  table-hover table-bordered display nowrap",
     attrs: {
       "id": "members-datatable",
@@ -26953,12 +26949,6 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }
   }, [_vm._v("\n                      " + _vm._s(_vm.form_labels.submit_button) + "\n                  ")])])])])])])
 },staticRenderFns: [function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('div', {
-    staticClass: "pull-left"
-  }, [_c('h4', [_vm._v("Only Following Users Can Access My Account "), _c('i', {
-    staticClass: "fa fa-long-arrow-right"
-  })])])
-},function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
   return _c('div', {
     staticClass: "m-form m-form--label-align-right m--margin-bottom-10"
   }, [_c('div', {

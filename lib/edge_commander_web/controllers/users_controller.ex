@@ -7,7 +7,7 @@ defmodule EdgeCommanderWeb.UsersController do
   alias EdgeCommander.Util
   require Logger
   import EdgeCommander.Accounts, only: [get_user!: 1, email_exist: 1, get_user_by_token: 1, current_user: 1]
-  import EdgeCommander.Sharing, only: [user_by_email: 1]
+  import EdgeCommander.Sharing, only: [user_by_email: 1, members_by_token_zero_account: 1]
   import Gravatar
 
   def get_porfile(conn, _params) do
@@ -212,5 +212,15 @@ defmodule EdgeCommanderWeb.UsersController do
     member_details
     |> Member.changeset(sharing_params)
     |> Repo.update
+
+    member_id = user.id
+    token = member_details.token
+    sharing_params_other = %{"account_id" => user.id}
+    members_by_token_zero_account(token)
+    |> Enum.map(fn(member_details) ->
+        member_details
+        |> Member.changeset(sharing_params_other)
+        |> Repo.update
+    end)
   end
 end

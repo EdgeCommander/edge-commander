@@ -324,8 +324,15 @@ defmodule EdgeCommanderWeb.NvrsController do
     all_logs = get_logs_for_days(days, current_user.id)
 
     query = from n in Nvr,
-      left_join: m in Member, on: n.user_id == m.user_id,
-      where: (m.member_id == ^current_user_id or n.user_id == ^current_user_id)
+      left_join: m in Member, on: n.user_id == m.account_id,
+      where: (m.member_id == ^current_user_id or n.user_id == ^current_user_id),
+      distinct: n.id,
+      select: %{
+        name: n.name,
+        nvr_status: n.nvr_status,
+        inserted_at: n.inserted_at,
+        id: n.id
+      }
 
     current_user_nvrs = query |> Repo.all
     nvr_logs =

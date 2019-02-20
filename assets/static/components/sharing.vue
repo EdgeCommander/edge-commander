@@ -35,7 +35,6 @@
           <!--end: Search Form -->
           <div class="heading_panel">
             <div class="pull-left">
-              <h4>Only Following Users Can Access My Account <i class="fa fa-long-arrow-right"></i></h4>
             </div>
             <div class="pull-right">
               <a href="javascript:void(0)" class="btn btn-primary m-btn m-btn--icon" v-on:click="onMemberButton">
@@ -165,9 +164,8 @@ module.exports = {
       other_users: "",
       headings: [
         {column: "Actions", visible: "checked", id: "actions"},
-        {column: "Share With", visible: "checked", id: "member_email"},
-        {column: "Share by", visible: "checked", id: "user_id"},
-        {column: "Rights", visible: "checked", id: "role"}
+        {column: "Users", visible: "checked", id: "member_email"},
+        {column: "Access Type", visible: "checked", id: "role"}
       ],
       form_labels: {
         member_email: "Share With",
@@ -228,12 +226,6 @@ module.exports = {
             color = "red";
           }
             return "<b style='color:"+color+"'>"+row.member_name+"</b></br>" + row.member_email;
-        }
-      },
-      {
-        class: "user_id",
-        data: function(row, type, set, meta) {
-          return "<b>"+row.share_by_name+"</b></br>" + row.share_by_email;
         }
       },
       {
