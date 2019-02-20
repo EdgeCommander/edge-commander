@@ -139,7 +139,15 @@ defmodule EdgeCommander.Solar do
 
     query = from n in Battery,
       left_join: m in Member, on: n.user_id == m.account_id,
-      where: (m.member_id == ^user_id or n.user_id == ^user_id)
+      where: (m.member_id == ^user_id or n.user_id == ^user_id),
+      distinct: n.id,
+      select: %{
+        id: n.id,
+        name: n.name,
+        source_url: n.source_url,
+        active: n.active,
+        inserted_at: n.inserted_at
+      }
     query
     |> order_by(desc: :inserted_at)
     |> Repo.all

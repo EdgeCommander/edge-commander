@@ -15,7 +15,7 @@
           <div style="clear: both;"></div>
       </div>
       <div style="text-align: center;">
-        <p>Congratulation, Account of <%= @from_user %> has been shared with you. click in below link & get a login or sign up if the account does not exist.</p>
+        <p>Account data has been shared with you from <%= @from_user %>. click in below link & get a login or sign up if your account does not exist.</p>
         <div style="height: 10px"></div>
         <a href="https://app.edgecommander.com/sign_up/<%= @token %>" style="background: #fdc735; padding: 10px; text-decoration: none;color: #343433;">Access your account</a>
         <div style="height: 10px"></div>
