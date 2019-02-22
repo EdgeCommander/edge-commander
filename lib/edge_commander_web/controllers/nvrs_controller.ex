@@ -1,13 +1,12 @@
 defmodule EdgeCommanderWeb.NvrsController do
   use EdgeCommanderWeb, :controller
   alias EdgeCommander.Devices.Nvr
-  alias EdgeCommander.Sharing.Member
   alias EdgeCommander.Repo
   alias EdgeCommander.Util
   import Ecto.Query, warn: false
   import EdgeCommander.Accounts, only: [current_user: 1]
   import EdgeCommander.Monitors
-  import EdgeCommander.Devices, only: [update_nvr_ISAPI: 1, list_nvrs: 1, get_nvr!: 1]
+  import EdgeCommander.Devices, only: [update_nvr_ISAPI: 1, list_nvrs: 0, get_nvr!: 1]
   use PhoenixSwagger
 
   def swagger_definitions do
@@ -154,10 +153,9 @@ defmodule EdgeCommanderWeb.NvrsController do
     end
   end
 
-  def get_all_nvrs(conn, params)  do
-    current_user_id = Util.get_user_id(conn, params)
+  def get_all_nvrs(conn, _params)  do
     nvrs = 
-      list_nvrs(current_user_id)
+      list_nvrs()
       |> Enum.map(fn(nvr) ->
         %{
           id: nvr.id,
@@ -320,21 +318,9 @@ defmodule EdgeCommanderWeb.NvrsController do
   def update_status_report(conn, params) do
     days = get_history_days(params["history_days"])
     current_user = current_user(conn)
-    current_user_id = current_user.id
     all_logs = get_logs_for_days(days, current_user.id)
 
-    query = from n in Nvr,
-      left_join: m in Member, on: n.user_id == m.account_id,
-      where: (m.member_id == ^current_user_id or n.user_id == ^current_user_id),
-      distinct: n.id,
-      select: %{
-        name: n.name,
-        nvr_status: n.nvr_status,
-        inserted_at: n.inserted_at,
-        id: n.id
-      }
-
-    current_user_nvrs = query |> Repo.all
+    current_user_nvrs = Nvr |> Repo.all
     nvr_logs =
       Enum.map(current_user_nvrs, fn (nvr) ->
         %{

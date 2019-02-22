@@ -3,7 +3,6 @@ defmodule EdgeCommander.Commands do
   import EdgeCommander.ThreeScraper.Records, only: [all_sim_numbers: 0, get_last_record_for_number: 1]
   alias EdgeCommander.Repo
   alias EdgeCommander.Commands.Rule
-  alias EdgeCommander.Sharing.Member
   require Logger
 
   def start_usage_command do
@@ -52,22 +51,8 @@ defmodule EdgeCommander.Commands do
     # EdgeCommander.EcMailer.usage_monitoring(senders, usage, number, volume_used, allowance, name, addon)
   end
 
-  def list_rules(user_id) do
-    query = from r in Rule,
-      left_join: m in Member, on: r.user_id == m.account_id,
-      where: (m.member_id == ^user_id or r.user_id == ^user_id),
-      distinct: r.id,
-      select: %{
-          id: r.id,
-          rule_name: r.rule_name,
-          active: r.active,
-          category: r.category,
-          variable: r.variable,
-          value: r.value,
-          recipients: r.recipients,
-          inserted_at: r.inserted_at
-        }
-    query
+  def list_rules() do
+    Rule
     |>  Repo.all
   end
 

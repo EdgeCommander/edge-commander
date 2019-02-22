@@ -8,7 +8,6 @@ defmodule EdgeCommander.Solar do
 
   alias EdgeCommander.Solar.Reading
   alias EdgeCommander.Solar.Battery
-  alias EdgeCommander.Sharing.Member
 
   @doc """
   Returns the list of reading.
@@ -135,20 +134,8 @@ defmodule EdgeCommander.Solar do
 
   ##----------------------batteries-----------------------
 
-  def list_batteries(user_id) do
-
-    query = from n in Battery,
-      left_join: m in Member, on: n.user_id == m.account_id,
-      where: (m.member_id == ^user_id or n.user_id == ^user_id),
-      distinct: n.id,
-      select: %{
-        id: n.id,
-        name: n.name,
-        source_url: n.source_url,
-        active: n.active,
-        inserted_at: n.inserted_at
-      }
-    query
+  def list_batteries() do
+    Battery
     |> order_by(desc: :inserted_at)
     |> Repo.all
   end

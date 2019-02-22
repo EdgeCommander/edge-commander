@@ -7,7 +7,6 @@ defmodule EdgeCommander.Nexmo do
   alias EdgeCommander.Repo
 
   alias EdgeCommander.Nexmo.SimMessages
-  alias EdgeCommander.Sharing.Member
 
   @doc """
   Returns the list of sms_messages.
@@ -23,35 +22,21 @@ defmodule EdgeCommander.Nexmo do
     |> Repo.all
   end
 
-  def get_all_messages(from_date, to_date, user_id) do
+  def get_all_messages(from_date, to_date) do
     from = NaiveDateTime.from_iso8601!(from_date <> " 00:00:00")
     to = NaiveDateTime.from_iso8601!(to_date <> " 23:59:59")
     query = from l in SimMessages,
-      left_join: m in Member, on: l.user_id == m.account_id,
-      where: (m.member_id == ^user_id or l.user_id == ^user_id) and (l.inserted_at >= ^from and l.inserted_at <= ^to),
-      distinct: l.id,
-      select: %{
-          id: l.id,
-          from: l.from,
-          to: l.to,
-          message_id: l.message_id,
-          status: l.status,
-          text: l.text,
-          type: l.type,
-          inserted_at: l.inserted_at,
-          delivery_datetime: l.delivery_datetime
-        }
+      where: l.inserted_at >= ^from and l.inserted_at <= ^to
     query
     |> order_by(desc: :inserted_at)
     |> Repo.all
   end
 
-  def get_total_messages(from_date, to_date, user_id, status) do
+  def get_total_messages(from_date, to_date, status) do
     from = NaiveDateTime.from_iso8601!(from_date <> " 00:00:00")
     to = NaiveDateTime.from_iso8601!(to_date <> " 23:59:59")
     query = from l in SimMessages,
-      left_join: m in Member, on: l.user_id == m.account_id,
-      where: (m.member_id == ^user_id or l.user_id == ^user_id) and (l.inserted_at >= ^from and l.inserted_at <= ^to) and (l.status == ^status)
+      where: (l.inserted_at >= ^from and l.inserted_at <= ^to) and (l.status == ^status)
     query
     |> Repo.all
     |> Enum.count
@@ -79,10 +64,9 @@ defmodule EdgeCommander.Nexmo do
     |> Repo.one
   end
 
-  def get_single_sim_messages(number, user_id) do
+  def get_single_sim_messages(number) do
     query = from l in SimMessages,
-      left_join: m in Member, on: l.user_id == m.account_id,
-      where: (m.member_id == ^user_id or l.user_id == ^user_id) and (l.from == ^number or l.to == ^number)
+      where: (l.from == ^number or l.to == ^number)
     query
     |> order_by(desc: :inserted_at)
     |> limit(10)

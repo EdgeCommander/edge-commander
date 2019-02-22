@@ -8,7 +8,6 @@ defmodule EdgeCommander.ThreeScraper.Records do
 
   alias EdgeCommander.ThreeScraper.SimLogs
   alias EdgeCommander.ThreeScraper.Sims
-  alias EdgeCommander.Sharing.Member
   alias EdgeCommander.ThreeScraper.ThreeUsers
   require Logger
 
@@ -38,9 +37,9 @@ defmodule EdgeCommander.ThreeScraper.Records do
     |> Repo.one
   end
 
-  def last_record_for_number_by_user(number, user_id) do
+  def last_record_for_number_by_user(number) do
     SimLogs
-    |> where([c], c.number == ^number and c.user_id == ^user_id)
+    |> where([c], c.number == ^number)
     |> order_by(desc: :id)
     |> limit(1)
     |> Repo.one
@@ -55,10 +54,9 @@ defmodule EdgeCommander.ThreeScraper.Records do
     |> Repo.all
   end
 
-  def get_single_sim_by_user(sim_number, user_id) do
+  def get_single_sim_by_user(sim_number) do
     query = from l in SimLogs,
-      left_join: m in Member, on: l.user_id == m.user_id,
-      where: (m.member_id == ^user_id or l.user_id == ^user_id) and l.number == ^sim_number
+      where: l.number == ^sim_number
     query
     |> distinct([s], [desc: fragment("date_trunc('day', ?)", s.datetime)])
     |> order_by(desc: :id)
@@ -73,10 +71,9 @@ defmodule EdgeCommander.ThreeScraper.Records do
     |> Repo.all
   end
 
-  def get_all_records_for_sim_by_user(sim_number, user_id) do
+  def get_all_records_for_sim_by_user(sim_number) do
     query = from l in SimLogs,
-      left_join: m in Member, on: l.user_id == m.user_id,
-      where: (m.member_id == ^user_id or l.user_id == ^user_id) and l.number == ^sim_number
+      where: l.number == ^sim_number
     query
     |> distinct([s], fragment("date_trunc('day', ?)", s.datetime))
     |> order_by(asc: :datetime)
@@ -150,31 +147,8 @@ defmodule EdgeCommander.ThreeScraper.Records do
 
   def get_sim!(id), do: Repo.get!(Sims, id)
 
-  def get_sims(user_id) do
-    query = from l in Sims,
-      left_join: m in Member, on: l.user_id == m.account_id,
-      where: (m.member_id == ^user_id or l.user_id == ^user_id),
-      distinct: l.number,
-      select: %{
-        id: l.id,
-        number: l.number,
-        name: l.name,
-        addon: l.addon,
-        allowance: l.allowance,
-        volume_used: l.volume_used,
-        yesterday_volume_used: l.yesterday_volume_used,
-        percentage_used: l.percentage_used,
-        remaning_days: l.remaning_days,
-        last_log_reading_at: l.last_log_reading_at,
-        sim_provider: l.sim_provider,
-        last_bill_date: l.last_bill_date,
-        last_sms: l.last_sms,
-        last_sms_date: l.last_sms_date,
-        sms_since_last_bill: l.sms_since_last_bill,
-        status: l.status
-       },
-      order_by: [desc: l.percentage_used]
-    query
-    |>  Repo.all
+  def get_sims() do
+    Sims
+    |> Repo.all
   end
 end

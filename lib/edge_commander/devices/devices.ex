@@ -6,7 +6,6 @@ defmodule EdgeCommander.Devices do
   import EdgeCommander.Util, only: [parse_inner_array: 1, parse_single_element: 2]
   alias EdgeCommander.Repo
   require Logger
-  alias EdgeCommander.Sharing.Member
   alias EdgeCommander.Devices.Nvr
 
   def update_nvr_ISAPI(nvr)  do
@@ -63,30 +62,8 @@ defmodule EdgeCommander.Devices do
 
   """
 
-  def list_nvrs(user_id) do
-    query = from n in Nvr,
-      left_join: m in Member, on: n.user_id == m.account_id,
-      where: (m.member_id == ^user_id or n.user_id == ^user_id),
-      distinct: n.id,
-      select: %{
-        id: n.id,
-        name: n.name,
-        username: n.username,
-        password: n.password,
-        ip: n.ip,
-        port: n.port,
-        is_monitoring: n.is_monitoring,
-        inserted_at: n.inserted_at,
-        firmware_version: n.firmware_version,
-        model: n.model,
-        extra: n.extra,
-        vh_port: n.vh_port,
-        sdk_port: n.sdk_port,
-        rtsp_port: n.rtsp_port,
-        extra: n.extra,
-        nvr_status: n.nvr_status
-      }
-    query
+  def list_nvrs() do
+    Nvr
     |>  Repo.all
   end
 
@@ -183,23 +160,8 @@ defmodule EdgeCommander.Devices do
 
   """
 
-  def list_routers(user_id) do
-    query = from r in Router,
-      left_join: m in Member, on: r.user_id == m.account_id,
-      where: (m.member_id == ^user_id or r.user_id == ^user_id),
-      distinct: r.id,
-      select: %{
-        id: r.id,
-        name: r.name,
-        username: r.username,
-        password: r.password,
-        ip: r.ip,
-        port: r.port,
-        is_monitoring: r.is_monitoring,
-        inserted_at: r.inserted_at,
-        extra: r.extra
-      }
-    query
+  def list_routers() do
+    Router
     |> order_by(:name)
     |>  Repo.all
   end

@@ -74,7 +74,6 @@ defmodule EdgeCommanderWeb.Router do
     post "/users/session", SessionController, :create
     get "/users/session", SessionController, :delete
     post "/users/sign_up", UsersController, :sign_up
-    get "/users/sign_up", DashboardController, :sign_up
     get "/users/forgot_password", DashboardController, :forgot_password
     get "/users/reset_password/:token", DashboardController, :reset_password
     post "/users/forgot_password", UsersController, :forgot_password
@@ -83,14 +82,12 @@ defmodule EdgeCommanderWeb.Router do
     get "/delivery_receipt", SimsController, :delivery_receipt
     get "/users/reset_password_success", DashboardController, :reset_password_success
 
-    get "/sign_up/:token", DashboardController, :sharing_confirm
   end
 
   scope "/", EdgeCommanderWeb do
     pipe_through [:browser, :auth, :ensure_auth]
 
     get "/get_porfile", UsersController, :get_porfile
-    get "/get_other_users", SharingController, :get_other_users
 
     get "/sims", RooterController, :main
     get "/nvrs", RooterController, :main

@@ -97,13 +97,13 @@
                     </div>
                     <div class="m-form m-form--fit m-form--label-align-left">
                         <input type="hidden" id="user_id"  v-model="user_id">
-                        <input type="hidden" id="role" value="1" v-model="role">
+                        <input type="hidden" id="rights" value="1" v-model="rights">
                         <div class="form-group m-form__group row">
                             <label class="col-3 col-form-label">
-                                {{form_labels.member_email}}
+                                {{form_labels.sharee_email}}
                             </label>
                             <div class="col-9">
-                               <select class="js-example-basic-single form-control m-input " id="member_email"  style="width: 100%;" multiple="multiple" data-tags="true" >
+                               <select class="js-example-basic-single form-control m-input " id="sharee_email"  style="width: 100%;" multiple="multiple" data-tags="true" >
                                   <option v-bind:value="other_user.id" v-for="other_user in other_users">{{other_user.email}}</option>
                                 </select>
                             </div>
@@ -137,20 +137,20 @@ module.exports = {
       other_users: "",
       headings: [
         {column: "Actions", visible: "checked", id: "actions"},
-        {column: "Share With", visible: "checked", id: "member_email"},
+        {column: "Share With", visible: "checked", id: "sharee_email"},
         {column: "Share by", visible: "checked", id: "user_id"},
-        {column: "Rights", visible: "checked", id: "role"}
+        {column: "Rights", visible: "checked", id: "rights"}
       ],
       form_labels: {
-        member_email: "Share With",
-        role: "Role",
+        sharee_email: "Share With",
+        rights: "Rights",
         submit_button: "Share",
         add_title: "Share Account",
         hide_show_title: "Show/Hide Columns",
         add_sharing_button: "Share Details",
         hide_show_button: "OK"
       },
-      role: 1,
+      rights: 1,
       user_id: "",
       user_email: ""
     }
@@ -191,7 +191,7 @@ module.exports = {
         }
       },
       {
-        class: "member_email",
+        class: "sharee_email",
         data: function(row, type, set, meta) {
           let color;
           let member_name = row.member_name;
@@ -199,7 +199,7 @@ module.exports = {
           if(member_name == 'Pending....'){
             color = "red";
           }
-            return "<b style='color:"+color+"'>"+row.member_name+"</b></br>" + row.member_email;
+            return "<b style='color:"+color+"'>"+row.member_name+"</b></br>" + row.sharee_email;
         }
       },
       {
@@ -209,10 +209,10 @@ module.exports = {
         }
       },
       {
-        class: "text-center role",
+        class: "text-center rights",
         data: function(row, type, set, meta) {
-          let role = row.role;
-          if(role == 1){
+          let rights = row.rights;
+          if(rights == 1){
             return "Full Rights";
           }else{
             return "Read-Only";
@@ -248,8 +248,8 @@ module.exports = {
     $(this.$refs.hideShow).modal("show");
    },
    clearForm: function(){
-    $("#member_email").val('').trigger('change')
-    this.role = 1;
+    $("#sharee_email").val('').trigger('change')
+    this.rights = 1;
     $('ul#errorOnMember').html("");
     this.show_errors = false;
    },
@@ -257,17 +257,17 @@ module.exports = {
     this.show_loading = true;
     this.show_errors = true;
 
-    member_email = $( "#member_email option:selected" ).text()
+    sharee_email = $( "#sharee_email option:selected" ).text()
 
     var user_id      = this.user_id,
-        member_email = member_email,
-        role         = this.role
+        sharee_email = sharee_email,
+        rights         = this.rights
 
     var data = {};
    
     data.user_id = user_id;
-    data.member_email = member_email;
-    data.role = role
+    data.sharee_email = sharee_email;
+    data.rights = rights
 
     var settings;
 

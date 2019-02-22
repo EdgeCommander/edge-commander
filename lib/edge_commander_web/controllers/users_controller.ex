@@ -2,12 +2,10 @@ defmodule EdgeCommanderWeb.UsersController do
   use EdgeCommanderWeb, :controller
   alias EdgeCommander.Repo
   alias EdgeCommander.Accounts.User
-  alias EdgeCommander.Sharing.Member
   alias EdgeCommanderWeb.SessionController
   alias EdgeCommander.Util
   require Logger
   import EdgeCommander.Accounts, only: [get_user!: 1, email_exist: 1, get_user_by_token: 1, current_user: 1]
-  import EdgeCommander.Sharing, only: [user_by_email: 1, members_by_token_zero_account: 1]
   import Gravatar
 
   def get_porfile(conn, _params) do
@@ -58,11 +56,6 @@ defmodule EdgeCommanderWeb.UsersController do
       case Repo.insert(changeset) do
         {:ok, user} ->
           Logger.info "[POST /create_user] [#{user.email}] [#{user.last_signed_in}]"
-
-          user_by_email(email)
-          |> Enum.map(fn(data) ->
-            update_sharing_record(data, user)
-          end)
 
           conn
           |> put_flash(:info, "Your account has been created.")
@@ -188,13 +181,13 @@ defmodule EdgeCommanderWeb.UsersController do
       end
   end
 
-  defp merge_last_signed_in(params) do
+  def merge_last_signed_in(params) do
     username = String.split(params["email"], "@") |> List.first
     utc_datetime = Calendar.DateTime.now_utc |> DateTime.truncate(:second)
     {:ok, Map.merge(params, %{"username" => username, "last_signed_in" => utc_datetime})}
   end
 
-  defp changeset_is_fine(params) do
+  def changeset_is_fine(params) do
     api_id = UUID.uuid4(:hex) |> String.slice(0..7)
     api_key = UUID.uuid4(:hex)
     updated_params = Map.merge(params, %{"api_key" => api_key, "api_id" => api_id})
@@ -206,21 +199,20 @@ defmodule EdgeCommanderWeb.UsersController do
     end
   end
 
-  defp update_sharing_record(nil, _user), do: :noop
-  defp update_sharing_record(member_details, user)  do
-    sharing_params = %{"member_id" => user.id}
-    member_details
-    |> Member.changeset(sharing_params)
-    |> Repo.update
-
-    member_id = user.id
-    token = member_details.token
-    sharing_params_other = %{"account_id" => user.id}
-    members_by_token_zero_account(token)
-    |> Enum.map(fn(member_details) ->
-        member_details
-        |> Member.changeset(sharing_params_other)
-        |> Repo.update
-    end)
+  def delete(conn, %{"id" => id} = _params) do
+    get_user!(id)
+    |> Repo.delete
+    |> case do
+      {:ok, %EdgeCommander.Accounts.User{}} ->
+        conn
+        |> put_status(200)
+        |> json("")
+      {:error, changeset} ->
+        errors = Util.parse_changeset(changeset)
+        traversed_errors = for {_key, values} <- errors, value <- values, do: "#{value}"
+        conn
+        |> put_status(400)
+        |> json(%{ errors: traversed_errors })
+    end
   end
 end

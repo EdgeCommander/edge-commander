@@ -1,16 +1,15 @@
 defmodule EdgeCommanderWeb.SmsController do
   use EdgeCommanderWeb, :controller
   import Ecto.Query, warn: false
-  import EdgeCommander.Nexmo, only: [get_all_messages: 3]
+  import EdgeCommander.Nexmo, only: [get_all_messages: 2]
   import EdgeCommander.ThreeScraper.Records, only: [get_last_record_for_number: 1]
   alias EdgeCommander.Util
 
   def get_all_sms(conn, params)  do
-    current_user_id = Util.get_user_id(conn, params)
     from_date = params["from_date"]
     to_date = params["to_date"]
     sms_messages = 
-      get_all_messages(from_date, to_date, current_user_id)
+      get_all_messages(from_date, to_date)
       |> Enum.map(fn(sms) ->
         %{
           id: sms.id,

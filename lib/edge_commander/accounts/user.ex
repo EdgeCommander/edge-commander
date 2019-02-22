@@ -48,18 +48,13 @@ defmodule EdgeCommander.Accounts.User do
   def changeset(%User{} = user, attrs) do
     user
     |> cast(attrs, [:firstname, :lastname, :username, :password, :email, :api_id, :api_key, :reset_token, :token_expire])
-    |> validate_required(:firstname, [message: "Firstname cannot be empty."])
-    |> validate_required(:lastname, [message: "Lastname cannot be empty."])
     |> validate_required(:password, [message: "Password cannot be empty."])
     |> validate_required(:email, [message: "Email cannot be empty."])
     |> validate_required(:username)
-    |> unique_constraint(:username, [name: :user_username_unique_index, message: "Username has already been taken."])
     |> unique_constraint(:email, [name: :user_email_unique_index, message: "Email has already been taken."])
     |> validate_confirmation(:password, [message: "Passwords do not match"])
     |> encrypt_password
     |> update_last_signed_in
-    |> update_change(:firstname, &String.trim/1)
-    |> update_change(:lastname, &String.trim/1)
     |> validate_length(:firstname, [min: 3, message: "Firstname should be at least 2 character(s)."])
     |> validate_length(:lastname, [min: 3, message: "Lastname should be at least 2 character(s)."])
   end
