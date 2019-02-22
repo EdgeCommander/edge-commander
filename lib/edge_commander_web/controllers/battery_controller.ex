@@ -4,7 +4,7 @@ defmodule EdgeCommanderWeb.BatteryController do
   alias EdgeCommander.Repo
   alias EdgeCommander.Util
   import Ecto.Query, warn: false
-  import EdgeCommander.Solar, only: [list_batteries: 1, get_battery!: 1]
+  import EdgeCommander.Solar, only: [list_batteries: 0, get_battery!: 1]
   import EdgeCommander.Accounts, only: [current_user: 1]
   use PhoenixSwagger
 
@@ -45,9 +45,8 @@ defmodule EdgeCommanderWeb.BatteryController do
   end
 
   def get_all_batteries(conn, params)  do
-    current_user_id = Util.get_user_id(conn, params)
     batteries =
-      list_batteries(current_user_id)
+      list_batteries
       |> Enum.map(fn(battery) ->
         %{
           id: battery.id,

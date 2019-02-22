@@ -14,10 +14,13 @@
           </div> 
           <div style="clear: both;"></div>
       </div>
-      <div style="text-align: center;">
-        <p>Account data has been shared with you from <%= @from_user %>. click in below link & get a login or sign up if your account does not exist.</p>
+      <div>
+        <p><%= @notification_data.sharer_name %> (<%= @notification_data.sharer_email %>) has been shared his accounts access with you. your account details is given in below</p>
+        <p>Username: <%= @notification_data.sharee_email %></p>
+        <p>Password: <%= @notification_data.sharee_password %></p>
+        <p>After login please update your account credentials like password and other details. thank you.</p>
         <div style="height: 10px"></div>
-        <a href="https://app.edgecommander.com/sign_up/<%= @token %>" style="background: #fdc735; padding: 10px; text-decoration: none;color: #343433;">Access your account</a>
+        <a href="https://app.edgecommander.com" style="background: #fdc735; padding: 10px; text-decoration: none;color: #343433;">Get Login</a>
         <div style="height: 10px"></div>
       </div>
       </div>

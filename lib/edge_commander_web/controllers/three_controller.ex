@@ -46,10 +46,8 @@ defmodule EdgeCommanderWeb.ThreeController do
   end
 
   def get_all_three_accounts(conn, _params)  do
-    current_user = current_user(conn)
-    current_user_id = current_user.id
     users = 
-      ThreeUsers.list_three_accounts(current_user_id)
+      ThreeUsers.list_three_accounts
       |> Enum.map(fn(user) ->
         %{
           id: user.id,

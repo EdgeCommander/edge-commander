@@ -1,7 +1,7 @@
 defmodule EdgeCommanderWeb.SimsController do
   use EdgeCommanderWeb, :controller
   import EdgeCommander.ThreeScraper.Records
-  import EdgeCommander.Nexmo, only: [get_message: 1, get_single_sim_messages: 2, get_sms_count: 2]
+  import EdgeCommander.Nexmo, only: [get_message: 1, get_single_sim_messages: 1, get_sms_count: 2]
   import EdgeCommander.Accounts, only: [current_user: 1]
   alias EdgeCommander.Nexmo.SimMessages
   alias EdgeCommander.ThreeScraper.SimLogs
@@ -186,9 +186,8 @@ defmodule EdgeCommanderWeb.SimsController do
   end
 
   def get_sim_logs(conn, params)  do
-    current_user_id = Util.get_user_id(conn, params)
     logs =
-      Records.get_sims(current_user_id)
+      Records.get_sims
       |> Enum.map(fn(sim) ->
         %{
           "id" => sim.id,
@@ -537,9 +536,8 @@ defmodule EdgeCommanderWeb.SimsController do
   end
 
   def get_single_sim_sms(conn, %{"sim_number" => sim_number} = params) do
-    current_user_id = Util.get_user_id(conn, params)
     single_sim_sms =
-      get_single_sim_messages(sim_number, current_user_id)
+      get_single_sim_messages(sim_number)
       |> Enum.map(fn(sms) ->
         %{
           inserted_at: sms.inserted_at |> Util.shift_zone(),

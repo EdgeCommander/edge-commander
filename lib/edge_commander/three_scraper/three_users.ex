@@ -20,20 +20,8 @@ defmodule EdgeCommander.ThreeScraper.ThreeUsers do
     |> Repo.all
   end
 
-  def list_three_accounts(user_id) do
-    query = from u in ThreeUsers,
-      left_join: m in Member, on: u.user_id == m.account_id,
-      where: (m.member_id == ^user_id or u.user_id == ^user_id),
-      distinct: u.id,
-      select: %{
-          id: u.id,
-          username: u.username,
-          password: u.password,
-          user_id: u.user_id,
-          bill_day: u.bill_day,
-          inserted_at: u.inserted_at
-        }
-    query
+  def list_three_accounts() do
+    ThreeUsers
     |>  Repo.all
   end
 

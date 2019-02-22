@@ -3,12 +3,9 @@ defmodule EdgeCommander.Sharing.Member do
   import Ecto.Changeset
 
   schema "sharing" do
-    field :member_id, :integer
-    field :role, :integer
-    field :user_id, :integer
-    field :member_email, :string
-    field :account_id, :integer
-    field :token, :string
+    field :sharee_id, :integer
+    field :rights, :integer
+    field :sharer_id, :integer
 
     timestamps()
   end
@@ -16,9 +13,9 @@ defmodule EdgeCommander.Sharing.Member do
   @doc false
   def changeset(member, attrs) do
     member
-    |> cast(attrs, [:user_id, :member_id, :role, :member_email, :account_id, :token])
-    |> validate_required(:account_id, [message: "Account cannot be empty."])
-    |> validate_required(:member_email, [message: "Email cannot be empty."])
-    |> validate_required(:role, [message: "Role cannot be empty."])
+    |> cast(attrs, [:sharee_id, :sharer_id, :rights])
+    |> validate_required(:sharee_id, [message: "sharee cannot be empty."])
+    |> validate_required(:sharer_id, [message: "sharer cannot be empty."])
+    |> validate_required(:rights, [message: "Rights cannot be empty."])
   end
 end

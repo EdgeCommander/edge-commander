@@ -7,8 +7,7 @@ defmodule EdgeCommanderWeb.DashboardController do
   alias EdgeCommander.Util
   alias EdgeCommander.Sites
   import EdgeCommander.Accounts, only: [current_user: 1]
-  import EdgeCommander.Sharing, only: [member_by_token: 1]
-  import EdgeCommander.Nexmo, only: [get_total_messages: 4]
+  import EdgeCommander.Nexmo, only: [get_total_messages: 3]
   import EdgeCommander.Solar, only: [get_readings: 3, get_maximum_voltage: 2, get_minimum_voltage: 2]
 
   def sign_up(conn, _params) do
@@ -61,19 +60,8 @@ defmodule EdgeCommanderWeb.DashboardController do
     |> redirect(to: "/users/reset_password/#{token}")
   end
 
-  def sharing_confirm(conn, %{"token" => token} = _params) do
-    user_details = member_by_token(token)
-    if user_details.member_id != 0 do
-      conn
-      |> redirect(to: "/dashboard")
-      else
-        render(conn, "sign_up_on_sharing.html", user_details: user_details)
-    end
-  end
-
   def total_sims(conn, params) do
-    current_user_id = Util.get_user_id(conn, params)
-    total_sims = Records.get_sims(current_user_id) |> Enum.count
+    total_sims = Records.get_sims() |> Enum.count
     conn
     |> put_status(:ok)
     |> json(%{
@@ -82,8 +70,7 @@ defmodule EdgeCommanderWeb.DashboardController do
   end
 
   def total_nvrs(conn, params) do
-    current_user_id = Util.get_user_id(conn, params)
-    total_nvrs = Devices.list_nvrs(current_user_id) |> Enum.count
+    total_nvrs = Devices.list_nvrs() |> Enum.count
     conn
       |> put_status(:ok)
       |> json(%{
@@ -92,8 +79,7 @@ defmodule EdgeCommanderWeb.DashboardController do
   end
 
   def total_routers(conn, params) do
-    current_user_id = Util.get_user_id(conn, params)
-    total_routers = Devices.list_routers(current_user_id) |> Enum.count
+    total_routers = Devices.list_routers |> Enum.count
     conn
       |> put_status(:ok)
       |> json(%{
@@ -102,8 +88,7 @@ defmodule EdgeCommanderWeb.DashboardController do
   end
 
   def total_sites(conn, params) do
-    current_user_id = Util.get_user_id(conn, params)
-    total_sites = Sites.list_sites(current_user_id) |> Enum.count
+    total_sites = Sites.list_sites() |> Enum.count
     conn
       |> put_status(:ok)
       |> json(%{
@@ -112,7 +97,6 @@ defmodule EdgeCommanderWeb.DashboardController do
   end
 
   def weekly_sms_overview(conn, params) do
-    current_user_id = Util.get_user_id(conn, params)
     to_date = Date.utc_today
     from_date = Date.add(to_date, -7)
 
@@ -124,9 +108,9 @@ defmodule EdgeCommanderWeb.DashboardController do
         month = value.month |> ensure_number
         day = value.day |> ensure_number
         date = "#{value.year}-#{month}-#{day}"
-        pending_sms =  get_total_messages(date, date, current_user_id, "accepted")
-        delivered_sms =  get_total_messages(date, date, current_user_id, "delivered")
-        received_sms =  get_total_messages(date, date, current_user_id, "Received")
+        pending_sms =  get_total_messages(date, date, "accepted")
+        delivered_sms =  get_total_messages(date, date, "delivered")
+        received_sms =  get_total_messages(date, date, "Received")
         %{
           date: date,
           pending_sms: pending_sms,

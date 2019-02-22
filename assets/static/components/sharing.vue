@@ -120,15 +120,13 @@
                     </div>
                     <div class="m-form m-form--fit m-form--label-align-left">
                         <input type="hidden" id="user_id"  v-model="user_id">
-                        <input type="hidden" id="role" value="1" v-model="role">
+                        <input type="hidden" id="rights" value="1" v-model="rights">
                         <div class="form-group m-form__group row">
                             <label class="col-3 col-form-label">
-                                {{form_labels.member_email}}
+                                {{form_labels.sharee_email}}
                             </label>
                             <div class="col-9 sharing_inputs">
-                               <select class="form-control m-input " id="member_email"   multiple="multiple" data-tags="true"  >
-                                  <option v-bind:value="other_user.id" v-for="other_user in other_users">{{other_user.email}}</option>
-                                </select>
+                              <input type="text" class="form-control m-input" v-model="sharee_email">
                             </div>
                         </div>
                     </div>
@@ -164,21 +162,23 @@ module.exports = {
       other_users: "",
       headings: [
         {column: "Actions", visible: "checked", id: "actions"},
-        {column: "Users", visible: "checked", id: "member_email"},
-        {column: "Access Type", visible: "checked", id: "role"}
+        {column: "Share with", visible: "checked", id: "sharee_email"},
+        {column: "Shared by", visible: "checked", id: "sharer_email"},
+        {column: "Access Type", visible: "checked", id: "rights"}
       ],
       form_labels: {
-        member_email: "Share With",
-        role: "Role",
+        sharee_email: "Share With",
+        rights: "Rights",
         submit_button: "Share",
         add_title: "Share Account",
         hide_show_title: "Show/Hide Columns",
         add_sharing_button: "Share Details",
         hide_show_button: "OK"
       },
-      role: 1,
+      rights: 1,
       user_id: this.$root.user_id,
-      user_email: ""
+      user_email: "",
+      sharee_email: ""
     }
   },
   methods: {
@@ -217,22 +217,22 @@ module.exports = {
         }
       },
       {
-        class: "member_email",
+        class: "sharee_email",
         data: function(row, type, set, meta) {
-          let color;
-          let member_name = row.member_name;
-          color = "";
-          if(member_name == 'Pending....'){
-            color = "red";
-          }
-            return "<b style='color:"+color+"'>"+row.member_name+"</b></br>" + row.member_email;
+          return "<span style='font-weight: bold;text-transform: capitalize'>"+row.sharee_name+"</span></br>" + row.sharee_email;
         }
       },
       {
-        class: "text-center role",
+        class: "sharer_email",
         data: function(row, type, set, meta) {
-          let role = row.role;
-          if(role == 1){
+          return "<span style='font-weight: bold;text-transform: capitalize'>"+row.sharer_name+"</span></br>" + row.sharer_email;
+        }
+      },
+      {
+        class: "text-center rights",
+        data: function(row, type, set, meta) {
+          let rights = row.rights;
+          if(rights == 1){
             return "Full Rights";
           }else{
             return "Read-Only";
@@ -268,8 +268,8 @@ module.exports = {
     $(this.$refs.hideShow).modal("show");
    },
    clearForm: function(){
-    $(".custom-combobox-input").val("");
-    this.role = 1;
+    this.sharee_email = ""
+    this.rights = 1;
     $('ul#errorOnMember').html("");
     this.show_errors = false;
    },
@@ -277,17 +277,15 @@ module.exports = {
     this.show_loading = true;
     this.show_errors = true;
 
-    member_email = $(".custom-combobox-input").val();
-
     var user_id      = this.user_id,
-        member_email = member_email,
-        role         = this.role
+        sharee_email = this.sharee_email,
+        rights         = this.rights
 
     var data = {};
    
     data.user_id = user_id;
-    data.member_email = member_email;
-    data.role = role
+    data.sharee_email = sharee_email;
+    data.rights = rights
 
     var settings;
 
@@ -309,7 +307,7 @@ module.exports = {
     return false;
    },
    onSaveSuccess: function(result, status, jqXHR) {
-    app.$notify({group: 'notify', title: 'Member has been added'});
+    app.$notify({group: 'notify', title: 'Account has been shared and notify through email.'});
     $(this.$refs.addmodal).modal('hide');
     this.show_loading = false;
     this.dataTable.ajax.reload();
@@ -327,136 +325,24 @@ module.exports = {
         }
       });
     },
-    init_select: function(){
-      $('.js-example-basic-single').select2({
-        closeOnSelect: true,
-        maximumSelectionLength: 1,
-        placeholder: "Select an email",
-      });
-    },
     deleteMember: function(){
     $(document).off("click").on("click", ".delShare", function(){
       let memberRow, result;
       memberRow = $(this).closest('tr');
       let memberID = $(this).data("id");
 
-      result = confirm("Are you sure to delete this Member?");
+      result = confirm("Are you sure to delete this user account?");
       if (result === false) {
         return;
       }
       app.$http.delete("/members/" + memberID, {memberRow: memberRow}).then(function (response) {
         memberRow.remove();
-        app.$notify({group: 'notify', title: 'Member has been deleted.'});
+        app.$notify({group: 'notify', title: 'User account has been deleted.'});
       }).catch(function (error) {
          return false
       });
     });
    },
-    get_other_users: function(){
-      this.$http.get('/get_other_users').then(response => {
-        this.other_users = response.body.users
-      });
-    },
-    messages_input_init: function(){
-      $.widget( "custom.combobox", {
-        _create: function() {
-          this.wrapper = $( "<span>" )
-            .addClass( "custom-combobox" )
-            .insertAfter( this.element );
-          this.element.hide();
-          this._createAutocomplete();
-          this._createShowAllButton();
-        },
-        _createAutocomplete: function() {
-          var selected = this.element.children( ":selected" ),
-            value = selected.val() ? selected.text() : "";
-          this.input = $( "<input>" )
-            .appendTo( this.wrapper )
-            .val( value )
-            .attr( "title", "" )
-            .addClass( "custom-combobox-input ui-widget ui-widget-content ui-state-default ui-corner-left" )
-            .autocomplete({
-              delay: 0,
-              minLength: 0,
-              source: $.proxy( this, "_source" )
-            })
-            .tooltip({
-              classes: {
-                "ui-tooltip": "ui-state-highlight"
-              }
-            });
-          this._on( this.input, {
-            autocompleteselect: function( event, ui ) {
-              ui.item.option.selected = true;
-              this._trigger( "select", event, {
-                item: ui.item.option
-              });
-            },
-            autocompletechange: "_removeIfInvalid"
-          });
-        },
-        _createShowAllButton: function() {
-          var input = this.input,
-            wasOpen = false;
-          $( "<a>" )
-            .attr( "tabIndex", -1 )
-            .attr( "title", "Show All Items" )
-            .tooltip()
-            .appendTo( this.wrapper )
-            .button({
-              icons: {
-                primary: "ui-icon-triangle-1-s"
-              },
-              text: false
-            })
-            .removeClass( "ui-corner-all" )
-            .addClass( "custom-combobox-toggle ui-corner-right" )
-            .on( "mousedown", function() {
-              wasOpen = input.autocomplete( "widget" ).is( ":visible" );
-            })
-            .on( "click", function() {
-              input.trigger( "focus" );
-              if ( wasOpen ) {
-                return;
-              }
-              input.autocomplete( "search", "" );
-            });
-        },
-        _source: function( request, response ) {
-          var matcher = new RegExp( $.ui.autocomplete.escapeRegex(request.term), "i" );
-          var aa = response( this.element.children( "option" ).map(function() {
-            var text = $( this ).text();
-            if ( this.value && ( !request.term || matcher.test(text) ) )
-              return {
-                label: text,
-                value: text,
-                option: this,
-              };
-          }) );
-        },
-        _removeIfInvalid: function( event, ui ) {
-          if ( ui.item ) {
-            return;
-          }
-          var value = this.input.val(),
-            valueLowerCase = value.toLowerCase(),
-            valid = false;
-         this.selected = valid = true;
-         console.log(this.element)
-          this.element.val( value );
-          this._delay(function() {
-            this.input.tooltip( "close" ).attr( "title", "" );
-          }, 2500 );
-          this.input.autocomplete( "instance" ).term = "";
-        },
-        _destroy: function() {
-          this.wrapper.remove();
-          this.element.show();
-        }
-      });
-      $( "#member_email" ).combobox();
-      $('.ui-button').tooltip('disable');
-    },
     active_menu_link: function(){
       $("li").removeClass(" m-menu__item--active");
       $(".settings").addClass(" m-menu__item--active");
@@ -467,10 +353,7 @@ module.exports = {
   }, // end of methods
    mounted(){
     this.deleteMember();
-    this.init_select();
     this.initializeTable();
-    this.get_other_users();
-    this.messages_input_init();
     this.active_menu_link();
    }
 }

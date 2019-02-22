@@ -42,12 +42,13 @@ defmodule EdgeCommander.EcMailer do
     |> EdgeCommander.Mailer.deliver
   end
 
-  def signup_email_on_share(to, token, from_user) do
+  def notification_email_on_share(notification_data) do
+    to = notification_data.sharee_email
     new()
     |> from(@from)
     |> to(to)
     |> subject("EdgeCommander Account Sharing")
-    |> render_body("account_sharing.html", %{token: token, from_user: from_user})
+    |> render_body("account_sharing.html", %{notification_data: notification_data})
     |> EdgeCommander.Mailer.deliver
   end
 
