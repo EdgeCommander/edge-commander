@@ -3,7 +3,6 @@ defmodule EdgeCommander.Commands do
   import EdgeCommander.ThreeScraper.Records, only: [all_sim_numbers: 0, get_last_record_for_number: 1]
   alias EdgeCommander.Repo
   alias EdgeCommander.Commands.Rule
-  alias EdgeCommander.Sharing.Member
   require Logger
 
   def start_usage_command do

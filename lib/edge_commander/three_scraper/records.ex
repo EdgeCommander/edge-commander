@@ -37,9 +37,9 @@ defmodule EdgeCommander.ThreeScraper.Records do
     |> Repo.one
   end
 
-  def last_record_for_number_by_user(number, user_id) do
+  def last_record_for_number_by_user(number) do
     SimLogs
-    |> where([c], c.number == ^number and c.user_id == ^user_id)
+    |> where([c], c.number == ^number)
     |> order_by(desc: :id)
     |> limit(1)
     |> Repo.one
@@ -54,7 +54,7 @@ defmodule EdgeCommander.ThreeScraper.Records do
     |> Repo.all
   end
 
-  def get_single_sim_by_user(sim_number, user_id) do
+  def get_single_sim_by_user(sim_number) do
     query = from l in SimLogs,
       where: l.number == ^sim_number
     query
@@ -71,7 +71,7 @@ defmodule EdgeCommander.ThreeScraper.Records do
     |> Repo.all
   end
 
-  def get_all_records_for_sim_by_user(sim_number, user_id) do
+  def get_all_records_for_sim_by_user(sim_number) do
     query = from l in SimLogs,
       where: l.number == ^sim_number
     query

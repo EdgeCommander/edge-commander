@@ -89,9 +89,9 @@ defmodule EdgeCommanderWeb.CommandsController do
     end
   end
 
-  def get_all_rules(conn, params)  do
+  def get_all_rules(conn, _params)  do
     rules = 
-      list_rules
+      list_rules()
       |> Enum.map(fn(rule) ->
         %{
           id: rule.id,

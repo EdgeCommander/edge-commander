@@ -109,7 +109,7 @@ defmodule ThreeScraper.Scraper do
       new_volume_used = volume_used  |> ensure_used_value
       new_record_list = [new_addon, new_allowance, new_volume_used, name]
 
-      old_data = number |> number_with_code |> Records.last_record_for_number_by_user(user_id)
+      old_data = number |> number_with_code |> Records.last_record_for_number_by_user()
 
       old_record_list = old_data |> ensure_old_record
 

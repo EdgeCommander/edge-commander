@@ -4,7 +4,6 @@ defmodule EdgeCommanderWeb.DashboardController do
   alias EdgeCommander.Accounts.Guardian
   alias EdgeCommander.ThreeScraper.Records
   alias EdgeCommander.Devices
-  alias EdgeCommander.Util
   alias EdgeCommander.Sites
   import EdgeCommander.Accounts, only: [current_user: 1]
   import EdgeCommander.Nexmo, only: [get_total_messages: 3]
@@ -60,7 +59,7 @@ defmodule EdgeCommanderWeb.DashboardController do
     |> redirect(to: "/users/reset_password/#{token}")
   end
 
-  def total_sims(conn, params) do
+  def total_sims(conn, _params) do
     total_sims = Records.get_sims() |> Enum.count
     conn
     |> put_status(:ok)
@@ -69,7 +68,7 @@ defmodule EdgeCommanderWeb.DashboardController do
     })
   end
 
-  def total_nvrs(conn, params) do
+  def total_nvrs(conn, _params) do
     total_nvrs = Devices.list_nvrs() |> Enum.count
     conn
       |> put_status(:ok)
@@ -78,7 +77,7 @@ defmodule EdgeCommanderWeb.DashboardController do
       })
   end
 
-  def total_routers(conn, params) do
+  def total_routers(conn, _params) do
     total_routers = Devices.list_routers |> Enum.count
     conn
       |> put_status(:ok)
@@ -87,7 +86,7 @@ defmodule EdgeCommanderWeb.DashboardController do
       })
   end
 
-  def total_sites(conn, params) do
+  def total_sites(conn, _params) do
     total_sites = Sites.list_sites() |> Enum.count
     conn
       |> put_status(:ok)
@@ -96,7 +95,7 @@ defmodule EdgeCommanderWeb.DashboardController do
       })
   end
 
-  def weekly_sms_overview(conn, params) do
+  def weekly_sms_overview(conn, _params) do
     to_date = Date.utc_today
     from_date = Date.add(to_date, -7)
 

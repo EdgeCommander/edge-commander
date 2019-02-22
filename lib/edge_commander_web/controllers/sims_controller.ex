@@ -153,10 +153,9 @@ defmodule EdgeCommanderWeb.SimsController do
     end
   end
 
-  def get_single_sim_data(conn, %{"sim_number" => sim_number } = params) do
-    current_user_id = Util.get_user_id(conn, params)
+  def get_single_sim_data(conn, %{"sim_number" => sim_number } = _params) do
     logs =
-      get_single_sim_by_user(sim_number, current_user_id)
+      get_single_sim_by_user(sim_number)
       |> Enum.map(fn(number) ->
         {current_in_number, _} = number |> get_volume_used() |> String.replace(",", "") |> Float.parse()
         {allowance_in_number, _} = number |> get_allowance() |> String.replace(",", "") |> Float.parse()
@@ -185,7 +184,7 @@ defmodule EdgeCommanderWeb.SimsController do
       })
   end
 
-  def get_sim_logs(conn, params)  do
+  def get_sim_logs(conn, _params)  do
     logs =
       Records.get_sims
       |> Enum.map(fn(sim) ->
@@ -219,11 +218,10 @@ defmodule EdgeCommanderWeb.SimsController do
   def ensure_valid_data("-1.0"), do: "-"
   def ensure_valid_data(value), do: value
 
-  def create_chartjs_line_data(conn, %{"sim_number" => sim_number } = params) do
-    current_user_id = Util.get_user_id(conn, params)
+  def create_chartjs_line_data(conn, %{"sim_number" => sim_number } = _params) do
     chartjs_data =
       sim_number
-      |> get_all_records_for_sim_by_user(current_user_id)
+      |> get_all_records_for_sim_by_user
       |> Enum.map(fn(one_record) ->
         {current_in_number, _} = one_record |> get_volume_used() |> String.replace(",", "") |> Float.parse()
         {allowance_in_number, _} = one_record |> get_allowance() |> String.replace(",", "") |> Float.parse()
@@ -535,7 +533,7 @@ defmodule EdgeCommanderWeb.SimsController do
     |> json(%{void: 0})
   end
 
-  def get_single_sim_sms(conn, %{"sim_number" => sim_number} = params) do
+  def get_single_sim_sms(conn, %{"sim_number" => sim_number} = _params) do
     single_sim_sms =
       get_single_sim_messages(sim_number)
       |> Enum.map(fn(sms) ->

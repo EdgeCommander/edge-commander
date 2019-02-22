@@ -44,9 +44,9 @@ defmodule EdgeCommanderWeb.BatteryController do
     end
   end
 
-  def get_all_batteries(conn, params)  do
+  def get_all_batteries(conn, _params)  do
     batteries =
-      list_batteries
+      list_batteries()
       |> Enum.map(fn(battery) ->
         %{
           id: battery.id,

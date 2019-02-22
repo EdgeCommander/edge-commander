@@ -1,7 +1,6 @@
 defmodule EdgeCommanderWeb.NvrsController do
   use EdgeCommanderWeb, :controller
   alias EdgeCommander.Devices.Nvr
-  alias EdgeCommander.Sharing.Member
   alias EdgeCommander.Repo
   alias EdgeCommander.Util
   import Ecto.Query, warn: false
@@ -154,9 +153,9 @@ defmodule EdgeCommanderWeb.NvrsController do
     end
   end
 
-  def get_all_nvrs(conn, params)  do
+  def get_all_nvrs(conn, _params)  do
     nvrs = 
-      list_nvrs
+      list_nvrs()
       |> Enum.map(fn(nvr) ->
         %{
           id: nvr.id,
@@ -319,7 +318,6 @@ defmodule EdgeCommanderWeb.NvrsController do
   def update_status_report(conn, params) do
     days = get_history_days(params["history_days"])
     current_user = current_user(conn)
-    current_user_id = current_user.id
     all_logs = get_logs_for_days(days, current_user.id)
 
     current_user_nvrs = Nvr |> Repo.all

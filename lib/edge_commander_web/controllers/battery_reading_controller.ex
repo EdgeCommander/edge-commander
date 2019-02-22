@@ -269,7 +269,6 @@ defmodule EdgeCommanderWeb.BatteryReadingController do
           relay: data.relay,
           ar_value: data.ar_value,
           bmv_value: data.bmv_value,
-          ar_value: data.ar_value,
           h1_value: data.h1_value,
           h2_value: data.h2_value,
           h3_value: data.h3_value,
@@ -324,7 +323,7 @@ defmodule EdgeCommanderWeb.BatteryReadingController do
     convert_voltage_units(last_chrector, string_value, list_data, column)
   end
 
-  defp convert_voltage_units("V", string_value, list_data, column) do
+  defp convert_voltage_units("V", string_value, list_data, _column) do
     value_in_volts = string_value |> String.slice(0..-2) |> String.to_float()
     column_value = Kernel.round(value_in_volts * 1000) |> Util.convert_into_string
     remain_data = list_data |> Enum.reject(fn(x) -> x == column_value end)

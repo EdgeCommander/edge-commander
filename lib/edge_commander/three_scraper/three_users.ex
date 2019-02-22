@@ -4,7 +4,6 @@ defmodule EdgeCommander.ThreeScraper.ThreeUsers do
   import Ecto.Query, warn: false
   alias EdgeCommander.ThreeScraper.ThreeUsers
   alias EdgeCommander.Repo
-  alias EdgeCommander.Sharing.Member
 
   schema "three_users" do
     field :username, :string

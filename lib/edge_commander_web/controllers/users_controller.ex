@@ -2,7 +2,6 @@ defmodule EdgeCommanderWeb.UsersController do
   use EdgeCommanderWeb, :controller
   alias EdgeCommander.Repo
   alias EdgeCommander.Accounts.User
-  alias EdgeCommander.Sharing.Member
   alias EdgeCommanderWeb.SessionController
   alias EdgeCommander.Util
   require Logger

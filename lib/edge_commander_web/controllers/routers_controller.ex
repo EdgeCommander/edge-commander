@@ -126,9 +126,9 @@ defmodule EdgeCommanderWeb.RoutersController do
     end
   end
 
-  def get_all_routers(conn, params)  do
+  def get_all_routers(conn, _params)  do
     routers = 
-      list_routers
+      list_routers()
       |> Enum.map(fn(router) ->
         %{
           id: router.id,

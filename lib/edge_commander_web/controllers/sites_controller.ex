@@ -99,9 +99,9 @@ defmodule EdgeCommanderWeb.SitesController do
     end
   end
 
-  def get_all_sites(conn, params)  do
+  def get_all_sites(conn, _params)  do
     sites = 
-      list_sites
+      list_sites()
       |> Enum.map(fn(site) ->
         %{
           id: site.id,
