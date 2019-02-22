@@ -55,8 +55,6 @@ defmodule EdgeCommander.Accounts.User do
     |> validate_confirmation(:password, [message: "Passwords do not match"])
     |> encrypt_password
     |> update_last_signed_in
-    |> update_change(:firstname, &String.trim/1)
-    |> update_change(:lastname, &String.trim/1)
     |> validate_length(:firstname, [min: 3, message: "Firstname should be at least 2 character(s)."])
     |> validate_length(:lastname, [min: 3, message: "Lastname should be at least 2 character(s)."])
   end
