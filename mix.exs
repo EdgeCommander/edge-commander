@@ -50,7 +50,7 @@ defmodule EdgeCommander.Mixfile do
       {:floki, "~> 0.20.4"},
       {:calendar, "~> 0.17.4"},
       {:con_cache, "~> 0.13.0"},
-      {:swoosh, "~> 0.21"},
+      {:swoosh, "~> 0.22"},
       {:phoenix_swoosh, "~> 0.2"},
       {:sshex, "2.2.1"},
       {:phoenix_swagger, "~> 0.8.1"},
