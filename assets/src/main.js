@@ -2,16 +2,13 @@ import Vue from 'vue'
 import App from './App.vue'
 import router from './router'
 import store from './store'
-
 import $ from "jquery";
-
 import 'bootstrap'
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './assets/vendors/base/vendors.bundle.css';
 import './assets/css/dataTables.semanticui.min.css';
 import './assets/demo/default/base/style.bundle.css';
 import DataTable from "datatables.net";
-
 import './assets/css/personal.css';
 
 Vue.config.productionTip = false
