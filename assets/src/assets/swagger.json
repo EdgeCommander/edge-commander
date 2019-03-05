@@ -1,0 +1,1056 @@
+{
+  "tags": [
+    {
+      "name": "sims",
+      "description": "Everything about sims"
+    },
+    {
+      "name": "nvrs",
+      "description": "Operations related to nvrs"
+    },
+    {
+      "name": "sites",
+      "description": "Operations related to sites"
+    },
+    {
+      "name": "rules",
+      "description": "Operations related to rules"
+    },
+    {
+      "name": "routers",
+      "description": "Operations related to routers"
+    }
+  ],
+  "swagger": "2.0",
+  "paths": {
+    "/v1/sites/{id}": {
+      "delete": {
+        "tags": [
+          "sites"
+        ],
+        "summary": "Delete site by ID",
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        },
+        "parameters": [
+          {
+            "type": "string",
+            "required": true,
+            "name": "id",
+            "in": "path",
+            "description": "Site id to delete"
+          },
+          {
+            "type": "string",
+            "required": true,
+            "name": "api_id",
+            "in": "query",
+            "description": ""
+          },
+          {
+            "type": "string",
+            "required": true,
+            "name": "api_key",
+            "in": "query",
+            "description": ""
+          }
+        ],
+        "operationId": "EdgeCommanderWeb.SitesController.delete_site",
+        "description": ""
+      }
+    },
+    "/v1/sites": {
+      "get": {
+        "tags": [
+          "sites"
+        ],
+        "summary": "Returns all sites",
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        },
+        "parameters": [
+          {
+            "type": "string",
+            "required": true,
+            "name": "api_id",
+            "in": "query",
+            "description": ""
+          },
+          {
+            "type": "string",
+            "required": true,
+            "name": "api_key",
+            "in": "query",
+            "description": ""
+          }
+        ],
+        "operationId": "EdgeCommanderWeb.SitesController.get_all_sites",
+        "description": "Returns sites list"
+      }
+    },
+    "/v1/sims/{sim_number}/usage": {
+      "get": {
+        "tags": [
+          "sims"
+        ],
+        "summary": "Find data usage in % by sim number",
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        },
+        "parameters": [
+          {
+            "type": "string",
+            "required": true,
+            "name": "sim_number",
+            "in": "path",
+            "description": "Sim number in given format (08xxxxxxxx)"
+          },
+          {
+            "type": "string",
+            "required": true,
+            "name": "api_id",
+            "in": "query",
+            "description": ""
+          },
+          {
+            "type": "string",
+            "required": true,
+            "name": "api_key",
+            "in": "query",
+            "description": ""
+          }
+        ],
+        "operationId": "EdgeCommanderWeb.SimsController.create_chartjs_line_data",
+        "description": "Returns data usage in % for single sim"
+      }
+    },
+    "/v1/sims/{sim_number}/sms": {
+      "post": {
+        "tags": [
+          "sims"
+        ],
+        "summary": "Send sms to sim",
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        },
+        "parameters": [
+          {
+            "type": "string",
+            "required": true,
+            "name": "sim_number",
+            "in": "path",
+            "description": "Sim number in given format (08xxxxxxxx)"
+          },
+          {
+            "type": "string",
+            "required": true,
+            "name": "sms_message",
+            "in": "query",
+            "description": ""
+          },
+          {
+            "type": "string",
+            "required": true,
+            "name": "api_id",
+            "in": "query",
+            "description": ""
+          },
+          {
+            "type": "string",
+            "required": true,
+            "name": "api_key",
+            "in": "query",
+            "description": ""
+          }
+        ],
+        "operationId": "EdgeCommanderWeb.SimsController.send_sms",
+        "description": ""
+      },
+      "get": {
+        "tags": [
+          "sims"
+        ],
+        "summary": "Find sms by sim number",
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        },
+        "parameters": [
+          {
+            "type": "string",
+            "required": true,
+            "name": "sim_number",
+            "in": "path",
+            "description": "Sim number in given format (08xxxxxxxx)"
+          },
+          {
+            "type": "string",
+            "required": true,
+            "name": "api_id",
+            "in": "query",
+            "description": ""
+          },
+          {
+            "type": "string",
+            "required": true,
+            "name": "api_key",
+            "in": "query",
+            "description": ""
+          }
+        ],
+        "operationId": "EdgeCommanderWeb.SimsController.get_single_sim_sms",
+        "description": "Returns latest 10 sms for single sim"
+      }
+    },
+    "/v1/sims/{sim_number}": {
+      "get": {
+        "tags": [
+          "sims"
+        ],
+        "summary": "Find data by sim number",
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        },
+        "parameters": [
+          {
+            "type": "string",
+            "required": true,
+            "name": "sim_number",
+            "in": "path",
+            "description": "Sim number in given format (08xxxxxxxx)"
+          },
+          {
+            "type": "string",
+            "required": true,
+            "name": "api_id",
+            "in": "query",
+            "description": ""
+          },
+          {
+            "type": "string",
+            "required": true,
+            "name": "api_key",
+            "in": "query",
+            "description": ""
+          }
+        ],
+        "operationId": "EdgeCommanderWeb.SimsController.get_single_sim_data",
+        "description": "Returns list of data for single sim"
+      }
+    },
+    "/v1/sims": {
+      "get": {
+        "tags": [
+          "sims"
+        ],
+        "summary": "Returns all sims data",
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        },
+        "parameters": [
+          {
+            "type": "string",
+            "required": true,
+            "name": "api_id",
+            "in": "query",
+            "description": ""
+          },
+          {
+            "type": "string",
+            "required": true,
+            "name": "api_key",
+            "in": "query",
+            "description": ""
+          }
+        ],
+        "operationId": "EdgeCommanderWeb.SimsController.get_sim_logs",
+        "description": ""
+      }
+    },
+    "/v1/rules/{id}": {
+      "delete": {
+        "tags": [
+          "rules"
+        ],
+        "summary": "Delete rule by ID",
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        },
+        "parameters": [
+          {
+            "type": "string",
+            "required": true,
+            "name": "id",
+            "in": "path",
+            "description": "Rule id to delete"
+          },
+          {
+            "type": "string",
+            "required": true,
+            "name": "api_id",
+            "in": "query",
+            "description": ""
+          },
+          {
+            "type": "string",
+            "required": true,
+            "name": "api_key",
+            "in": "query",
+            "description": ""
+          }
+        ],
+        "operationId": "EdgeCommanderWeb.CommandsController.delete_rule",
+        "description": ""
+      }
+    },
+    "/v1/rules": {
+      "get": {
+        "tags": [
+          "rules"
+        ],
+        "summary": "Returns all rules",
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        },
+        "parameters": [
+          {
+            "type": "string",
+            "required": true,
+            "name": "api_id",
+            "in": "query",
+            "description": ""
+          },
+          {
+            "type": "string",
+            "required": true,
+            "name": "api_key",
+            "in": "query",
+            "description": ""
+          }
+        ],
+        "operationId": "EdgeCommanderWeb.CommandsController.get_all_rules",
+        "description": "Returns rules list"
+      }
+    },
+    "/v1/routers/{id}": {
+      "patch": {
+        "tags": [
+          "routers"
+        ],
+        "summary": "Updates a router by ID",
+        "responses": {
+          "201": {
+            "description": "Success"
+          }
+        },
+        "parameters": [
+          {
+            "type": "string",
+            "required": true,
+            "name": "id",
+            "in": "path",
+            "description": "ID of router that needs to be updated"
+          },
+          {
+            "type": "string",
+            "required": false,
+            "name": "name",
+            "in": "query",
+            "description": "Updated name of the router"
+          },
+          {
+            "type": "string",
+            "required": false,
+            "name": "username",
+            "in": "query",
+            "description": "Updated username of the router"
+          },
+          {
+            "type": "string",
+            "required": false,
+            "name": "password",
+            "in": "query",
+            "description": "Updated password of the router"
+          },
+          {
+            "type": "string",
+            "required": false,
+            "name": "ip",
+            "in": "query",
+            "description": "Updated ip of the router"
+          },
+          {
+            "type": "integer",
+            "required": false,
+            "name": "port",
+            "in": "query",
+            "description": "Updated port of the router"
+          },
+          {
+            "type": "boolean",
+            "required": false,
+            "name": "is_monitoring",
+            "in": "query",
+            "description": ""
+          },
+          {
+            "type": "string",
+            "required": true,
+            "name": "api_id",
+            "in": "query",
+            "description": ""
+          },
+          {
+            "type": "string",
+            "required": true,
+            "name": "api_key",
+            "in": "query",
+            "description": ""
+          }
+        ],
+        "operationId": "EdgeCommanderWeb.RoutersController.update",
+        "description": ""
+      },
+      "delete": {
+        "tags": [
+          "routers"
+        ],
+        "summary": "Delete router by ID",
+        "responses": {
+          "201": {
+            "description": "Success"
+          }
+        },
+        "parameters": [
+          {
+            "type": "string",
+            "required": true,
+            "name": "id",
+            "in": "path",
+            "description": "Router id to delete"
+          },
+          {
+            "type": "string",
+            "required": true,
+            "name": "api_id",
+            "in": "query",
+            "description": ""
+          },
+          {
+            "type": "string",
+            "required": true,
+            "name": "api_key",
+            "in": "query",
+            "description": ""
+          }
+        ],
+        "operationId": "EdgeCommanderWeb.RoutersController.delete_router",
+        "description": ""
+      }
+    },
+    "/v1/routers": {
+      "post": {
+        "tags": [
+          "routers"
+        ],
+        "summary": "Add a new router",
+        "responses": {
+          "201": {
+            "description": "Success"
+          }
+        },
+        "parameters": [
+          {
+            "type": "string",
+            "required": true,
+            "name": "name",
+            "in": "query",
+            "description": ""
+          },
+          {
+            "type": "string",
+            "required": true,
+            "name": "username",
+            "in": "query",
+            "description": ""
+          },
+          {
+            "type": "string",
+            "required": true,
+            "name": "password",
+            "in": "query",
+            "description": ""
+          },
+          {
+            "type": "string",
+            "required": true,
+            "name": "ip",
+            "in": "query",
+            "description": ""
+          },
+          {
+            "type": "integer",
+            "required": true,
+            "name": "port",
+            "in": "query",
+            "description": ""
+          },
+          {
+            "type": "boolean",
+            "required": false,
+            "name": "is_monitoring",
+            "in": "query",
+            "description": "",
+            "default": false
+          },
+          {
+            "type": "string",
+            "required": true,
+            "name": "api_id",
+            "in": "query",
+            "description": ""
+          },
+          {
+            "type": "string",
+            "required": true,
+            "name": "api_key",
+            "in": "query",
+            "description": ""
+          }
+        ],
+        "operationId": "EdgeCommanderWeb.RoutersController.create",
+        "description": ""
+      },
+      "get": {
+        "tags": [
+          "routers"
+        ],
+        "summary": "Returns all routers",
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        },
+        "parameters": [
+          {
+            "type": "string",
+            "required": true,
+            "name": "api_id",
+            "in": "query",
+            "description": ""
+          },
+          {
+            "type": "string",
+            "required": true,
+            "name": "api_key",
+            "in": "query",
+            "description": ""
+          }
+        ],
+        "operationId": "EdgeCommanderWeb.RoutersController.get_all_routers",
+        "description": "Returns routers list"
+      }
+    },
+    "/v1/nvrs/{id}": {
+      "patch": {
+        "tags": [
+          "nvrs"
+        ],
+        "summary": "Update nvr by ID",
+        "responses": {
+          "201": {
+            "description": "Success"
+          }
+        },
+        "parameters": [
+          {
+            "type": "string",
+            "required": true,
+            "name": "id",
+            "in": "path",
+            "description": "ID of nvr that needs to be updated"
+          },
+          {
+            "type": "string",
+            "required": false,
+            "name": "name",
+            "in": "query",
+            "description": "Updated name of the nvr"
+          },
+          {
+            "type": "string",
+            "required": false,
+            "name": "username",
+            "in": "query",
+            "description": "Updated username of the nvr"
+          },
+          {
+            "type": "string",
+            "required": false,
+            "name": "password",
+            "in": "query",
+            "description": "Updated password of the nvr"
+          },
+          {
+            "type": "string",
+            "required": false,
+            "name": "ip",
+            "in": "query",
+            "description": "Updated ip of the nvr"
+          },
+          {
+            "type": "integer",
+            "required": false,
+            "name": "port",
+            "in": "query",
+            "description": "Updated http port of the nvr"
+          },
+          {
+            "type": "integer",
+            "required": false,
+            "name": "vh_port",
+            "in": "query",
+            "description": "Updated vh port of the nvr"
+          },
+          {
+            "type": "integer",
+            "required": false,
+            "name": "rtsp_port",
+            "in": "query",
+            "description": "Updated rtsp port of the nvr"
+          },
+          {
+            "type": "integer",
+            "required": false,
+            "name": "sdk_port",
+            "in": "query",
+            "description": "Updated sdk port of the nvr"
+          },
+          {
+            "type": "boolean",
+            "required": false,
+            "name": "is_monitoring",
+            "in": "query",
+            "description": ""
+          },
+          {
+            "type": "string",
+            "required": true,
+            "name": "api_id",
+            "in": "query",
+            "description": ""
+          },
+          {
+            "type": "string",
+            "required": true,
+            "name": "api_key",
+            "in": "query",
+            "description": ""
+          }
+        ],
+        "operationId": "EdgeCommanderWeb.NvrsController.update",
+        "description": ""
+      },
+      "delete": {
+        "tags": [
+          "nvrs"
+        ],
+        "summary": "Delete nvr by ID",
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        },
+        "parameters": [
+          {
+            "type": "string",
+            "required": true,
+            "name": "id",
+            "in": "path",
+            "description": "Nvr id to delete"
+          },
+          {
+            "type": "string",
+            "required": true,
+            "name": "api_id",
+            "in": "query",
+            "description": ""
+          },
+          {
+            "type": "string",
+            "required": true,
+            "name": "api_key",
+            "in": "query",
+            "description": ""
+          }
+        ],
+        "operationId": "EdgeCommanderWeb.NvrsController.delete_nvr",
+        "description": ""
+      }
+    },
+    "/v1/nvrs": {
+      "post": {
+        "tags": [
+          "nvrs"
+        ],
+        "summary": "Add a new nvr",
+        "responses": {
+          "201": {
+            "description": "Success"
+          }
+        },
+        "parameters": [
+          {
+            "type": "string",
+            "required": true,
+            "name": "name",
+            "in": "query",
+            "description": ""
+          },
+          {
+            "type": "string",
+            "required": true,
+            "name": "username",
+            "in": "query",
+            "description": ""
+          },
+          {
+            "type": "string",
+            "required": true,
+            "name": "password",
+            "in": "query",
+            "description": ""
+          },
+          {
+            "type": "string",
+            "required": true,
+            "name": "ip",
+            "in": "query",
+            "description": ""
+          },
+          {
+            "type": "integer",
+            "required": true,
+            "name": "port",
+            "in": "query",
+            "description": ""
+          },
+          {
+            "type": "integer",
+            "required": true,
+            "name": "vh_port",
+            "in": "query",
+            "description": ""
+          },
+          {
+            "type": "integer",
+            "required": true,
+            "name": "rtsp_port",
+            "in": "query",
+            "description": ""
+          },
+          {
+            "type": "integer",
+            "required": true,
+            "name": "sdk_port",
+            "in": "query",
+            "description": ""
+          },
+          {
+            "type": "boolean",
+            "required": false,
+            "name": "is_monitoring",
+            "in": "query",
+            "description": "",
+            "default": false
+          },
+          {
+            "type": "string",
+            "required": true,
+            "name": "api_id",
+            "in": "query",
+            "description": ""
+          },
+          {
+            "type": "string",
+            "required": true,
+            "name": "api_key",
+            "in": "query",
+            "description": ""
+          }
+        ],
+        "operationId": "EdgeCommanderWeb.NvrsController.create",
+        "description": ""
+      },
+      "get": {
+        "tags": [
+          "nvrs"
+        ],
+        "summary": "Returns all nvrs",
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        },
+        "parameters": [
+          {
+            "type": "string",
+            "required": true,
+            "name": "api_id",
+            "in": "query",
+            "description": ""
+          },
+          {
+            "type": "string",
+            "required": true,
+            "name": "api_key",
+            "in": "query",
+            "description": ""
+          }
+        ],
+        "operationId": "EdgeCommanderWeb.NvrsController.get_all_nvrs",
+        "description": "Returns nvrs list"
+      }
+    }
+  },
+  "info": {
+    "version": "1.0",
+    "title": "Edge Commander"
+  },
+  "host": "app.edgecommander.com",
+  "definitions": {
+    "Site": {
+      "type": "object",
+      "title": "Site",
+      "required": [
+        "lat",
+        "lng",
+        "location",
+        "nvr_name",
+        "router_name",
+        "sim_number"
+      ],
+      "properties": {
+        "sim_number": {
+          "type": "string",
+          "description": ""
+        },
+        "router_name": {
+          "type": "string",
+          "description": ""
+        },
+        "nvr_name": {
+          "type": "string",
+          "description": ""
+        },
+        "notes": {
+          "type": "string",
+          "description": ""
+        },
+        "location": {
+          "type": "string",
+          "description": ""
+        },
+        "lng": {
+          "type": "string",
+          "description": "Longitude of the location"
+        },
+        "lat": {
+          "type": "string",
+          "description": "Latitude of the location"
+        },
+        "id": {
+          "type": "integer",
+          "description": ""
+        }
+      },
+      "description": "A site of the application"
+    },
+    "Rule": {
+      "type": "object",
+      "title": "Rule",
+      "required": [
+        "active",
+        "category",
+        "recipients",
+        "rule_name"
+      ],
+      "properties": {
+        "rule_name": {
+          "type": "string",
+          "description": ""
+        },
+        "recipients": {
+          "type": "string",
+          "example": "test@user.com, who@am.io",
+          "description": ""
+        },
+        "id": {
+          "type": "integer",
+          "description": ""
+        },
+        "category": {
+          "type": "string",
+          "enum": [
+            "usage_command"
+          ],
+          "description": ""
+        },
+        "active": {
+          "type": "boolean",
+          "description": "",
+          "default": false
+        }
+      },
+      "description": "A rule of the application"
+    },
+    "Router": {
+      "type": "object",
+      "title": "Router",
+      "properties": {
+        "username": {
+          "type": "string",
+          "description": ""
+        },
+        "port": {
+          "type": "integer",
+          "description": ""
+        },
+        "password": {
+          "type": "string",
+          "description": ""
+        },
+        "name": {
+          "type": "string",
+          "description": ""
+        },
+        "is_monitoring": {
+          "type": "boolean",
+          "description": "",
+          "default": false
+        },
+        "ip": {
+          "type": "integer",
+          "description": ""
+        },
+        "id": {
+          "type": "integer",
+          "description": ""
+        }
+      },
+      "description": "A router of the application"
+    },
+    "Nvr": {
+      "type": "object",
+      "title": "Nvr",
+      "required": [
+        "is_monitoring",
+        "sdk_port",
+        "rtsp_port",
+        "vh_port",
+        "port",
+        "ip",
+        "password",
+        "username",
+        "name"
+      ],
+      "properties": {
+        "vh_port": {
+          "type": "integer",
+          "description": ""
+        },
+        "username": {
+          "type": "string",
+          "description": ""
+        },
+        "serial_number": {
+          "type": "string",
+          "description": ""
+        },
+        "sdk_port": {
+          "type": "integer",
+          "description": ""
+        },
+        "rtsp_port": {
+          "type": "integer",
+          "description": ""
+        },
+        "reason": {
+          "type": "string",
+          "description": "Offline reason"
+        },
+        "port": {
+          "type": "integer",
+          "description": ""
+        },
+        "password": {
+          "type": "string",
+          "description": ""
+        },
+        "nvr_status": {
+          "type": "boolean",
+          "description": ""
+        },
+        "name": {
+          "type": "string",
+          "description": ""
+        },
+        "model": {
+          "type": "string",
+          "description": ""
+        },
+        "mac_address": {
+          "type": "string",
+          "description": ""
+        },
+        "is_monitoring": {
+          "type": "boolean",
+          "description": "",
+          "default": false
+        },
+        "ip": {
+          "type": "integer",
+          "description": ""
+        },
+        "id": {
+          "type": "integer",
+          "description": ""
+        },
+        "firmware_version": {
+          "type": "string",
+          "description": ""
+        },
+        "firmware_released_date": {
+          "type": "string",
+          "description": ""
+        },
+        "encoder_version": {
+          "type": "string",
+          "description": ""
+        },
+        "encoder_released_date": {
+          "type": "string",
+          "description": ""
+        }
+      },
+      "description": "A network video recorder of the application"
+    }
+  }
+}
