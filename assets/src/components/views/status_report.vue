@@ -16,8 +16,8 @@
     <!-- END: Subheader -->
     <div class="m-content">
         <div class="m-portlet m-portlet--mobile" style="margin-bottom: 0">
-            <div class="m-portlet__body">
-                <div style="margin: 0 auto; width: 100%;padding: 10px" id="visavail_container">
+            <div class="m-portlet__body" style="padding: 10px">
+                <div style="margin: 0 auto; width: 100%" id="visavail_container">
                     <img src="../../assets/images/loading.gif" id="api-waiting" v-if="show_loading">
                     <p id="draw_report" class="margin-top-5"></p>
                 </div>
