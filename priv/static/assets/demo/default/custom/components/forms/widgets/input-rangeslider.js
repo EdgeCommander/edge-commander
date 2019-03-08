@@ -1,1 +1,0 @@
-var InputRangeSlider=function(){var n=function(){};return{init:function(){n()}}}();jQuery(document).ready(function(){InputRangeSlider.init()});

@@ -16,7 +16,7 @@
           <div class="m-login__container">
             <div class="m-login__logo">
               <a href="#">
-                <img src="../../../assets/app/media/img//logos/logo-1.png">
+                <div class="login_logo"></div>
               </a>
             </div>
             <div class="m-login__signup" style="display: block;">

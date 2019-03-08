@@ -81,14 +81,13 @@ defmodule EdgeCommanderWeb.Router do
     get "/receive_sms", SimsController, :receive_sms
     get "/delivery_receipt", SimsController, :delivery_receipt
     get "/users/reset_password_success", DashboardController, :reset_password_success
-
   end
 
   scope "/", EdgeCommanderWeb do
     pipe_through [:browser, :auth, :ensure_auth]
 
     get "/get_porfile", UsersController, :get_porfile
-
+    get "/about", RooterController, :main
     get "/sims", RooterController, :main
     get "/nvrs", RooterController, :main
     get "/routers", RooterController, :main

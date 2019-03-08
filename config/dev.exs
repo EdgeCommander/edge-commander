@@ -11,7 +11,7 @@ config :edge_commander, EdgeCommanderWeb.Endpoint,
   debug_errors: true,
   code_reloader: true,
   check_origin: false,
-  watchers: [npm: ["run", "watch", "--prefix", "assets"]]
+  watchers: [npm: ["run", "build", cd: Path.expand("../assets", __DIR__)]]
 
 
 # ## SSL Support
