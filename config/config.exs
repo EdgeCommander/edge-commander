@@ -38,7 +38,7 @@ config :edge_commander, EdgeCommander.Scheduler,
 
 config :edge_commander, :phoenix_swagger,
   swagger_files: %{
-    "priv/static/swagger.json" => [
+    "assets/public/swagger.json" => [
       router: EdgeCommanderWeb.Router,     # phoenix routes will be converted to swagger paths
       endpoint: EdgeCommanderWeb.Endpoint  # (optional) endpoint config used to set host, port and https schemes.
     ]

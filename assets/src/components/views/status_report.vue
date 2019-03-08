@@ -3,7 +3,7 @@
     <!-- BEGIN: Subheader -->
     <div class="m-subheader " style="padding: 5px 30px 0 5px;">
         <div class="d-flex align-items-center">
-          <div style="z-index: 100000">
+          <div style="z-index: 1000">
           <select  @change="change_date($event)" class="form-control" v-model="key" >
             <option value="1">Today</option>
             <option value="2">Yesterday</option>

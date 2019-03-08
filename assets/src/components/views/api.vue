@@ -30,9 +30,6 @@
 
 import Vue from 'vue'
 import $ from "jquery";
-
-import swagger from '../../assets/swagger.json';
-
 import batteries from './batteries.vue';
 import App from '../../App.vue'
 const app = new Vue(App)

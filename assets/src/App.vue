@@ -158,5 +158,3 @@
     <!-- end:: Page -->
 </body>
 </template>
-
-

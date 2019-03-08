@@ -26,3 +26,4 @@ npm-debug.log
 
 .env
 .idea
+/priv/static

@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "serve": "vue-cli-service serve",
-    "build": "vue-cli-service build",
+    "build": "vue-cli-service build --no-clean",
     "test:unit": "vue-cli-service test:unit"
   },
   "dependencies": {
@@ -22,6 +22,7 @@
     "jquery-ui": "^1.12.1",
     "moment": "^2.24.0",
     "popper.js": "^1.14.7",
+    "register-service-worker": "^1.6.2",
     "swagger-ui": "^3.20.9",
     "visavail": "^1.0.6",
     "vue": "^2.6.6",
