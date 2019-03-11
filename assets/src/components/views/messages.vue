@@ -395,7 +395,6 @@ export default {
         this.show_loading = false;
         this.clearForm();
       }).catch(function (error) {
-        Vue.notify({group: 'notify', title: 'Something went wrong.', type: 'error'});
         this.show_loading = false;
         this.clearForm();
       });

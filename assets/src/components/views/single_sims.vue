@@ -366,7 +366,6 @@ export default {
         this.show_loading = false;
         this.clearForm();
       }).catch(function (error) {
-        Vue.notify({group: 'notify', title: 'Something went wrong.',  type: 'error'});
         this.show_loading = false;
         this.clearForm();
       });
@@ -376,7 +375,6 @@ export default {
       this.smsMessage_text = "";
       $(".custom-combobox-input").val("");
       $('.close').on('click', function() {$(this).parent().alert('close'); });
-      setTimeout(function() {$(".alert-danger").alert('close')}, 6000);
     },
     onSendSMSFocus: function() {
       $('#smsModal').on('shown.bs.modal', function () {
