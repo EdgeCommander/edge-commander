@@ -148,7 +148,7 @@ import datepicker from 'jquery-ui'
 
 import Vue from 'vue'
 import moment from "moment";
-import block from "block-ui";
+import Highcharts from "highcharts";
 import single_battery from './single_battery.vue'
 import App from '../../App.vue'
 const app = new Vue(App)
@@ -538,16 +538,6 @@ export default {
           this.graph_three(this.categories_dates, this.maximum_voltages, this.minimum_voltages);
       });
    },
-   show_loading_animation: function(selector){
-    $("#"+selector).block({ 
-        type: "loader",
-        state: "success",
-        message: "Loading...",
-        overlayCSS:  { 
-          opacity: 0.3
-        }
-      });
-   },
    on_date_change: function() {
       let table_data = this.dataTable;
       let time_list = this.time_list;
@@ -595,7 +585,6 @@ export default {
       });
    },
    graph_one: function(time_list, battery_voltages){
-      this.show_loading_animation("graph_one_loading")
       Highcharts.setOptions({
         lang: {
           thousandsSep: ','
@@ -669,10 +658,8 @@ export default {
           data: battery_voltages
         }]
       });
-      $("#graph_one_loading").unblock(); 
    },
    graph_two: function(time_list, battery_voltages, panel_voltages){
-      this.show_loading_animation("graph_two_loading")
       Highcharts.setOptions({
         lang: {
           thousandsSep: ','
@@ -751,10 +738,8 @@ export default {
           data: panel_voltages
         }]
       });
-      $("#graph_two_loading").unblock(); 
    },
    graph_three: function(categories_dates, maximum_voltages, minimum_voltages){
-      this.show_loading_animation("graph_three_loading")
       Highcharts.setOptions({
         lang: {
           thousandsSep: ','
@@ -796,7 +781,6 @@ export default {
           data: minimum_voltages
         }]
       });
-      $("#graph_three_loading").unblock(); 
    },
    get_single_battery: function(){
       this.$http.get('/battery/data/'+ window.location.href.substring(window.location.href.lastIndexOf('/') + 1)).then(response => {
