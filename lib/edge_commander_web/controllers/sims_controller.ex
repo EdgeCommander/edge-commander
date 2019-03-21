@@ -184,35 +184,82 @@ defmodule EdgeCommanderWeb.SimsController do
       })
   end
 
-  def get_sim_logs(conn, _params)  do
-    logs =
-      Records.get_sims
-      |> Enum.map(fn(sim) ->
-        %{
-          "id" => sim.id,
-          "number" => sim.number,
-          "name" => sim.name,
-          "addon" => sim.addon,
-          "allowance" => sim.allowance,
-          "volume_used" => sim.volume_used |> ensure_valid_data,
-          "volume_used_yesterday" => sim.yesterday_volume_used |> ensure_valid_data,
-          "percentage_used" => sim.percentage_used |> ensure_valid_data,
-          "remaning_days" => sim.remaning_days,
-          "last_log_reading_at" => sim.last_log_reading_at,
-          "sim_provider" => sim.sim_provider,
-          "last_bill_date" => sim.last_bill_date,
-          "last_sms" => sim.last_sms,
-          "last_sms_date" => sim.last_sms_date,
-          "sms_since_last_bill" => sim.sms_since_last_bill,
-          "status" => sim.status
-        }
-      end)
-    conn
-    |> put_status(200)
-    |> json(%{
-      logs: logs
-    })
+  def get_sim_logs(conn, params)  do
+    [column, order] = params["sort"] |> String.split("|")
+    search = if params["search"] in ["", nil], do: "", else: params["search"]
+    query = "select * from sims as sm Where lower(sm.name) like lower('%#{search}%') OR lower(sm.number) like lower('%#{search}%') OR lower(sm.sim_provider) like lower('%#{search}%') #{add_sorting(column, order)}"
+    models = Ecto.Adapters.SQL.query!(Repo, query, [])
+    cols = Enum.map models.columns, &(String.to_atom(&1))
+    roles = Enum.map models.rows, fn(row) ->
+      Enum.zip(cols, row)
+    end
+
+    total_records = models.num_rows
+    d_length = String.to_integer(params["per_page"])
+    display_length = if d_length < 0, do: total_records, else: d_length
+    display_start = if String.to_integer(params["page"]) <= 1, do: 0, else: (String.to_integer(params["page"]) - 1) * display_length + 1
+    index_e = ((String.to_integer(params["page"]) - 1) * display_length) + display_length
+    index_end = if index_e > total_records, do: total_records - 1, else: index_e
+    last_page = Float.round(total_records / (display_length / 1))
+
+    data =
+      case total_records <= 0 do
+        true -> []
+        _ ->
+          Enum.reduce(display_start..index_end, [], fn i, acc ->
+            sim = Enum.at(roles, i)
+            sm = %{
+              id: sim[:id],
+              number: sim[:number],
+              name: sim[:name],
+              addon: sim[:addon],
+              allowance: sim[:allowance],
+              volume_used: sim[:volume_used]  |> ensure_valid_data,
+              yesterday_volume_used: sim[:yesterday_volume_used] |> ensure_valid_data,
+              percentage_used: sim[:percentage_used] |> ensure_valid_data,
+              remaning_days: sim[:remaning_days],
+              last_log_reading_at: sim[:last_log_reading_at],
+              sim_provider: sim[:sim_provider],
+              last_bill_date: sim[:last_bill_date],
+              last_sms: sim[:last_sms],
+              last_sms_date: sim[:last_sms_date],
+              sms_since_last_bill: sim[:sms_since_last_bill],
+              status: sim[:status]
+            }
+            acc ++ [sm]
+          end)
+      end
+
+    records = %{
+      data: (if total_records < 1, do: [], else: data),
+      total: total_records,
+      per_page: display_length,
+      from: display_start,
+      to: index_end,
+      current_page: String.to_integer(params["page"]),
+      last_page: last_page,
+      next_page_url: (if String.to_integer(params["page"]) == last_page, do: "", else: "/sims/data/json?sort=#{params["sort"]}&per_page=#{display_length}&page=#{String.to_integer(params["page"]) + 1}"),
+      prev_page_url: (if String.to_integer(params["page"]) < 1, do: "", else: "/sims/data/json?sort=#{params["sort"]}&per_page=#{display_length}&page=#{String.to_integer(params["page"]) - 1}")
+    }
+    json(conn, records)
   end
+
+  defp add_sorting("id", order), do: "ORDER BY id #{order}"
+  defp add_sorting("number", order), do: "ORDER BY number #{order}"
+  defp add_sorting("name", order), do: "ORDER BY addon #{order}"
+  defp add_sorting("addon", order), do: "ORDER BY name #{order}"
+  defp add_sorting("allowance", order), do: "ORDER BY allowance #{order}"
+  defp add_sorting("volume_used", order), do: "ORDER BY volume_used #{order}"
+  defp add_sorting("yesterday_volume_used", order), do: "ORDER BY yesterday_volume_used #{order}"
+  defp add_sorting("percentage_used", order), do: "ORDER BY percentage_used #{order}"
+  defp add_sorting("remaning_days", order), do: "ORDER BY remaning_days #{order}"
+  defp add_sorting("last_log_reading_at", order), do: "ORDER BY last_log_reading_at #{order}"
+  defp add_sorting("sim_provider", order), do: "ORDER BY sim_provider #{order}"
+  defp add_sorting("last_bill_date", order), do: "ORDER BY last_bill_date #{order}"
+  defp add_sorting("last_sms", order), do: "ORDER BY last_sms #{order}"
+  defp add_sorting("last_sms_date", order), do: "ORDER BY last_sms_date #{order}"
+  defp add_sorting("sms_since_last_bill", order), do: "ORDER BY sms_since_last_bill #{order}"
+  defp add_sorting("status", order), do: "ORDER BY status #{order}"
 
   def ensure_valid_data(-1.0), do: "-"
   def ensure_valid_data("-1.0"), do: "-"

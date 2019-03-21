@@ -2,9 +2,15 @@ import Vue from 'vue'
 import Router from 'vue-router'
 import VueResource from "vue-resource"
 import Notifications from 'vue-notification'
+import VueEvents from "vue-events"
+
+Vue.use(Router)
+Vue.use(VueResource)
+Vue.use(Notifications)
+Vue.use(VueEvents)
 
 import dashboard from './components/views/dashboard.vue'
-import sims from './components/views/sims.vue'
+import sims from './components/views/sims/sims.vue'
 import nvrs from './components/views/nvrs.vue'
 import routers from './components/views/routers.vue'
 import sites from './components/views/sites.vue'
@@ -20,9 +26,11 @@ import single_battery from './components/views/single_battery.vue'
 import single_sims from './components/views/single_sims.vue'
 import status_report from './components/views/status_report.vue'
 
-Vue.use(Router)
-Vue.use(VueResource)
-Vue.use(Notifications)
+import SimShowHide from "./components/views/sims/sim_show_hide";
+Vue.component("v-sim-show-hide", SimShowHide);
+
+import HorizontalScroll from "./components/shared/horizontal_scroll";
+Vue.component("v-horizontal-scroll", HorizontalScroll);
 
 export default new Router({
   mode: 'history',
