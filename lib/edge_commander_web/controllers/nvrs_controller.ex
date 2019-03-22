@@ -153,49 +153,65 @@ defmodule EdgeCommanderWeb.NvrsController do
     end
   end
 
-  def get_all_nvrs(conn, _params)  do
-    nvrs = 
-      list_nvrs()
-      |> Enum.map(fn(nvr) ->
-        %{
-          id: nvr.id,
-          name: nvr.name,
-          username: nvr.username,
-          password: nvr.password,
-          ip: nvr.ip,
-          port: nvr.port,
-          is_monitoring: nvr.is_monitoring,
-          created_at: nvr.inserted_at |> Util.shift_zone(),
-          firmware_version: nvr.firmware_version,
-          model: nvr.model,
-          extra: nvr.extra,
-          vh_port: nvr.vh_port,
-          sdk_port: nvr.sdk_port,
-          rtsp_port: nvr.rtsp_port,
-          encoder_released_date: nvr |> get_extra_data("encoder_released_date"),
-          encoder_version: nvr |> get_extra_data("encoder_version"),
-          firmware_released_date: nvr |> get_extra_data("firmware_released_date"),
-          serial_number: nvr |> get_extra_data("serial_number"),
-          mac_address: nvr |> get_extra_data("mac_address"),
-          reason: nvr |> get_extra_data("reason"),
-          nvr_status: nvr.nvr_status
-        }
-      end)
-    conn
-    |> put_status(200)
-    |> json(%{
-        nvrs: nvrs
-      })
+  def get_all_nvrs(conn, params)  do
+
+    [column, order] = params["sort"] |> String.split("|")
+    search = if params["search"] in ["", nil], do: "", else: params["search"]
+    query = "select * from nvrs as n Where lower(n.name) like lower('%#{search}%') or lower(n.ip) like lower('%#{search}%')  or lower(n.model) like lower('%#{search}%')  #{add_sorting(column, order)}"
+    nvrs = Ecto.Adapters.SQL.query!(Repo, query, [])
+    cols = Enum.map nvrs.columns, &(String.to_atom(&1))
+    roles = Enum.map nvrs.rows, fn(row) ->
+      Enum.zip(cols, row)
+    end
+
+    total_records = nvrs.num_rows
+    d_length = String.to_integer(params["per_page"])
+    display_length = if d_length < 0, do: total_records, else: d_length
+    display_start = if String.to_integer(params["page"]) <= 1, do: 0, else: (String.to_integer(params["page"]) - 1) * display_length + 1
+    index_e = ((String.to_integer(params["page"]) - 1) * display_length) + display_length
+    index_end = if index_e > total_records, do: total_records - 1, else: index_e
+    last_page = Float.round(total_records / (display_length / 1))
+
+    data =
+      case total_records <= 0 do
+        true -> []
+        _ ->
+          Enum.reduce(display_start..index_end, [], fn i, acc ->
+              nvr = Enum.at(roles, i)
+              nv = %{
+              id: nvr[:id],
+              name: nvr[:name],
+              username: nvr[:username],
+              password: nvr[:password],
+              ip: nvr[:ip],
+              port: nvr[:port],
+              is_monitoring: nvr[:is_monitoring],
+              created_at: nvr[:inserted_at] |> Util.shift_zone(),
+              firmware_version: nvr[:firmware_version],
+              model: nvr[:model],
+              extra: nvr[:extra],
+              vh_port: nvr[:vh_port],
+              sdk_port: nvr[:sdk_port],
+              rtsp_port: nvr[:rtsp_port],
+              nvr_status: nvr[:nvr_status]
+            }
+            acc ++ [nv]
+          end)
+      end
+      records = %{
+        data: (if total_records < 1, do: [], else: data),
+        total: total_records,
+        per_page: display_length,
+        from: display_start,
+        to: index_end,
+        current_page: String.to_integer(params["page"]),
+        last_page: last_page,
+        next_page_url: (if String.to_integer(params["page"]) == last_page, do: "", else: "/sims/data/json?sort=#{params["sort"]}&per_page=#{display_length}&page=#{String.to_integer(params["page"]) + 1}"),
+        prev_page_url: (if String.to_integer(params["page"]) < 1, do: "", else: "/sims/data/json?sort=#{params["sort"]}&per_page=#{display_length}&page=#{String.to_integer(params["page"]) - 1}")
+      }
+      json(conn, records)
   end
   
-  defp get_extra_data(nvr,extra_field) do
-    nvr.extra
-    |> get_extra_value(nvr, extra_field)
-  end
-
-  defp get_extra_value(nil, _, _), do: ""
-  defp get_extra_value(_, nvr, extra_field),  do: nvr.extra |> Map.get(extra_field)
-
   def delete_nvr(conn, %{"id" => id} = _params) do
     records = get_nvr!(id)
     records
@@ -400,6 +416,22 @@ defmodule EdgeCommanderWeb.NvrsController do
     |> Calendar.Strftime.strftime("%Y-%m-%d %H:%M:%S")
     |> elem(1)
   end
+
+  defp add_sorting("id", order), do: "ORDER BY id #{order}"
+  defp add_sorting("name", order), do: "ORDER BY name #{order}"
+  defp add_sorting("username", order), do: "ORDER BY username #{order}"
+  defp add_sorting("password", order), do: "ORDER BY password #{order}"
+  defp add_sorting("ip", order), do: "ORDER BY ip #{order}"
+  defp add_sorting("port", order), do: "ORDER BY port #{order}"
+  defp add_sorting("is_monitoring", order), do: "ORDER BY is_monitoring #{order}"
+  defp add_sorting("created_at", order), do: "ORDER BY created_at #{order}"
+  defp add_sorting("firmware_version", order), do: "ORDER BY firmware_version #{order}"
+  defp add_sorting("model", order), do: "ORDER BY model #{order}"
+  defp add_sorting("extra", order), do: "ORDER BY extra #{order}"
+  defp add_sorting("vh_port", order), do: "ORDER BY vh_port #{order}"
+  defp add_sorting("sdk_port", order), do: "ORDER BY sdk_port #{order}"
+  defp add_sorting("rtsp_port", order), do: "ORDER BY rtsp_port #{order}"
+  defp add_sorting("nvr_status", order), do: "ORDER BY nvr_status #{order}"
 
   defp set_action_single(log) do
     case log.action do

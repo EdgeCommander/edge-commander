@@ -15,7 +15,7 @@
                             </div>
                         </div>
                         <div class="col-md-4 order-1 order-md-2">
-                            <v-sim-show-hide :vuetableFields="vuetableFields" />
+                            <v-show-hide :vuetableFields="vuetableFields" />
                             <add-sim :simData="AddSim" />
                         </div>
                     </div>
@@ -38,7 +38,7 @@
                       :css="css.table"
                     >
                     <template slot="actions" slot-scope="props">
-                      <span @click="onActionClicked($event, props.rowData)" class="fa fa-edit email-template"></span>
+                      <span @click="onActionClicked($event, props.rowData)" class="fa fa-edit cursor"></span>
                     </template>
                     <template slot="number" slot-scope="props">
                        <router-link v-bind:to="get_url(props.rowData.number)" class="m-menu__link">

@@ -11,7 +11,7 @@ Vue.use(VueEvents)
 
 import dashboard from './components/views/dashboard.vue'
 import sims from './components/views/sims/sims.vue'
-import nvrs from './components/views/nvrs.vue'
+import nvrs from './components/views/nvrs/nvrs.vue'
 import routers from './components/views/routers.vue'
 import sites from './components/views/sites.vue'
 import commands from './components/views/commands.vue'
@@ -26,8 +26,8 @@ import single_battery from './components/views/single_battery.vue'
 import single_sims from './components/views/single_sims.vue'
 import status_report from './components/views/status_report.vue'
 
-import SimShowHide from "./components/views/sims/sim_show_hide";
-Vue.component("v-sim-show-hide", SimShowHide);
+import ShowHide from "./components/shared/show_hide";
+Vue.component("v-show-hide", ShowHide);
 
 import HorizontalScroll from "./components/shared/horizontal_scroll";
 Vue.component("v-horizontal-scroll", HorizontalScroll);

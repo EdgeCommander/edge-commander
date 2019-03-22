@@ -816,3 +816,7 @@ td, th {
 .ui.segment {
   margin: 0 !important;
 }
+
+.cursor{
+  cursor: pointer;
+}
