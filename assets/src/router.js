@@ -12,7 +12,7 @@ Vue.use(VueEvents)
 import dashboard from './components/views/dashboard.vue'
 import sims from './components/views/sims/sims.vue'
 import nvrs from './components/views/nvrs/nvrs.vue'
-import routers from './components/views/routers.vue'
+import routers from './components/views/routers/routers.vue'
 import sites from './components/views/sites.vue'
 import commands from './components/views/commands.vue'
 import messages from './components/views/messages.vue'

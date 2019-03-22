@@ -206,8 +206,8 @@ defmodule EdgeCommanderWeb.NvrsController do
         to: index_end,
         current_page: String.to_integer(params["page"]),
         last_page: last_page,
-        next_page_url: (if String.to_integer(params["page"]) == last_page, do: "", else: "/sims/data/json?sort=#{params["sort"]}&per_page=#{display_length}&page=#{String.to_integer(params["page"]) + 1}"),
-        prev_page_url: (if String.to_integer(params["page"]) < 1, do: "", else: "/sims/data/json?sort=#{params["sort"]}&per_page=#{display_length}&page=#{String.to_integer(params["page"]) - 1}")
+        next_page_url: (if String.to_integer(params["page"]) == last_page, do: "", else: "/nvrs/data?sort=#{params["sort"]}&per_page=#{display_length}&page=#{String.to_integer(params["page"]) + 1}"),
+        prev_page_url: (if String.to_integer(params["page"]) < 1, do: "", else: "/nvrs/data?sort=#{params["sort"]}&per_page=#{display_length}&page=#{String.to_integer(params["page"]) - 1}")
       }
       json(conn, records)
   end
