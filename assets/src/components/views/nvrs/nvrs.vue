@@ -1,6 +1,6 @@
 <template>
 <div>
-    <nvr-edit-modal :showNvrModal="showNvrModal" :nvrEditData="nvrEditData"/>
+    <edit-modal :showNvrModal="showNvrModal" :nvrEditData="nvrEditData"/>
     <div class="m-content">
         <div class="m-portlet m-portlet--mobile" style="margin-bottom: 0">
             <div class="m-portlet__body" style="padding: 10px;">
@@ -102,7 +102,7 @@ import FieldsDef from "./FieldsDef.js";
 import TableWrapper from "./TableWrapper.js";
 import AddNVR from "./add_nvr";
 import NvrFilters from "./nvrs_filters";
-import NvrEditModal from "./nvr_edit";
+import editModal from "./nvr_edit";
 import moment from "moment";
 
 export default {
@@ -110,7 +110,7 @@ export default {
     TableWrapper,
     "add-nvr": AddNVR,
     "v-nvrs-filters": NvrFilters,
-    "nvr-edit-modal": NvrEditModal
+    "edit-modal": editModal
   },
   data() {
     return {

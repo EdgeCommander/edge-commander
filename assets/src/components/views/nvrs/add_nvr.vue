@@ -118,10 +118,6 @@
   </div>
 </template>
 
-<style scoped>
-
-</style>
-
 <script>
 import jQuery from 'jquery'
 export default {
@@ -181,7 +177,6 @@ export default {
       this.user_id = nvr.user_id
     },
     saveData (e) {
-
       this.show_loading = true;
       this.show_add_errors = true;
 
@@ -197,10 +192,8 @@ export default {
         is_monitoring: this.nvr_is_monitoring,
         user_id: this.user_id
       }).then(function (response) {
-        Vue.notify({group: 'notify', title: 'NVR has been added'});
-        this.show_loading = false;
-        this.dataTable.ajax.reload();
-        this.clearForm();
+        this.$notify({group: 'notify', title: 'NVR has been added.'});
+        this.clearForm()
         jQuery('#addModel').modal('hide')
       }).catch(function (error) {
         this.show_add_messages = error.body.errors;
