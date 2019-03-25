@@ -27,13 +27,6 @@
 </div>
 </template>
 <script>
-
-import Vue from 'vue'
-import $ from "jquery";
-import batteries from './batteries.vue';
-import App from '../../App.vue'
-const app = new Vue(App)
-
 export default {
   name: 'api',
   data: function(){
@@ -50,7 +43,7 @@ export default {
     });
    },
    swagger_api: function(){
-        var url = window.location.origin + '/swagger/swagger.json';
+      var url = window.location.origin + '/swagger/swagger.json';
       const swagger_url = new URL(window.location);
       swagger_url.pathname = swagger_url.pathname.replace("index.html", "swagger.json");
       swagger_url.hash = "";
@@ -65,30 +58,12 @@ export default {
         layout: "StandaloneLayout"
       })
       window.ui = ui
-    },
-    resizeScreen: function(){
-      // $('#double-scroll').doubleScroll();
-      // var table_width = $("#swagger-ui").width();
-      // $(".doubleScroll-scroll").width(table_width);
-    },
-    select_menu_link: function(){
-      $("li").removeClass(" m-menu__item--active");
-      $(".api").addClass(" m-menu__item--active");
-      $("#m_aside_left").removeClass("m-aside-left--on");
-      $("body").removeClass("m-aside-left--on");
-      $(".m-aside-left-overlay").removeClass("m-aside-left-overlay");
     }
   },
   mounted(){
-   this.get_session();
-    this.resizeScreen();
+    this.get_session();
     this.swagger_api();
     window.addEventListener('load', this.swagger_api);
-    window.addEventListener('resize', this.resizeScreen);
-    this.select_menu_link();
   }
 }
 </script>
-
-<style lang="scss">
-</style>

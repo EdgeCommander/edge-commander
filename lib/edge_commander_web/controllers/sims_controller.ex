@@ -184,6 +184,22 @@ defmodule EdgeCommanderWeb.SimsController do
       })
   end
 
+  def get_all_sims(conn, params)  do
+    sims =
+      Records.get_sims
+      |> Enum.map(fn(sim) ->
+        %{
+          "number" => sim.number,
+          "name" => sim.name
+        }
+      end)
+    conn
+    |> put_status(200)
+    |> json(%{
+      sims: sims
+    })
+  end
+
   def get_sim_logs(conn, params)  do
     [column, order] = params["sort"] |> String.split("|")
     search = if params["search"] in ["", nil], do: "", else: params["search"]

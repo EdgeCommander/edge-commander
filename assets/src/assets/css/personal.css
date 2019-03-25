@@ -798,15 +798,15 @@ td, th {
 }
 
 .table-responsive{
-  overflow-x: scroll;
+  overflow-x: auto;
 }
 
 .top-scrollbar {
   width: 100%;
-  height: 20px;
-  overflow-x: scroll;
+  max-height: 20px !important;
+  overflow-x: auto !important;;
   overflow-y: hidden;
-  margin-left: 6px;
+  margin-left: -1px  !important;
 }
 
 .top-scrollbar .top-horizontal-scroll {
@@ -819,4 +819,31 @@ td, th {
 
 .cursor{
   cursor: pointer;
+}
+
+.mx-datepicker{
+  width: 100% !important;
+}
+
+.modal .modal-content .modal-body {
+  padding: 5px 25px;
+  text-align: left;
+}
+
+.helping_div{
+  background: #eee;
+  padding: 10px;
+  margin-top: 10px;
+}
+
+#input_container .input-group{
+  width: 97%;
+}
+
+#input_container .input-group .form-control {
+  height: 40px;
+}
+
+.ui.basic.segment {
+  padding: 0;
 }

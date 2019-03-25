@@ -115,6 +115,7 @@ defmodule EdgeCommanderWeb.Router do
     get "/user_logs/:from_date/:to_date", LogsController, :get_user_logs
     get "/sims/name/:sim_number", SimsController, :get_single_sim_name
     patch "/sim/:id", SimsController, :update
+    get "/sim/all", SimsController, :get_all_sims
 
     get "/routers/data", RoutersController, :get_all_routers
     post "/routers", RoutersController, :create
@@ -146,7 +147,7 @@ defmodule EdgeCommanderWeb.Router do
     patch "/update_profile", UsersController, :update_profile
 
     post "/send_sms", SimsController, :send_sms
-    get "/get_all_sms/:from_date/:to_date", SmsController, :get_all_sms
+    get "/get_all_sms", SmsController, :get_all_sms
     get "/daily_sms_count/:number", SimsController, :daily_sms_count
 
     get "/three_accounts", ThreeController, :get_all_three_accounts
