@@ -637,8 +637,8 @@ export default {
                 y2: 1
               },
               stops: [
-                [0, Highcharts.getOptions().colors[0]],
-                [1, Highcharts.Color(Highcharts.getOptions().colors[0]).setOpacity(0).get('rgba')]
+                [0, "#7cb5ec"],
+                [1, Highcharts.Color("#7cb5ec").setOpacity(0).get('rgba')]
               ]
             },
             marker: {

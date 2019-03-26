@@ -161,7 +161,7 @@ defmodule EdgeCommanderWeb.Router do
     get "/dashboard/total_sites", DashboardController, :total_sites
     get "/dashboard/weekly_sms_overview", DashboardController, :weekly_sms_overview
 
-    get "/battery/data/:battery_id/:from_date/:to_date", BatteryReadingController, :get_battery_record
+    get "/batteries/reading", BatteryReadingController, :get_battery_record
     get "/daily_battery/data/:battery_id/:from_date/:to_date", DashboardController, :daily_batery_voltages
     get "/battery_voltages_summary/data/:battery_id/:from_date/:to_date", DashboardController, :battery_voltages_summary
 
@@ -214,7 +214,6 @@ defmodule EdgeCommanderWeb.Router do
       get "/daily_sms_count/:number", SimsController, :daily_sms_count
 
       get "/get_all_sms/:from_date/:to_date", SmsController, :get_all_sms
-      get "/battery/data/:date", BatteryReadingController, :get_battery_record
     end
   end
 end
