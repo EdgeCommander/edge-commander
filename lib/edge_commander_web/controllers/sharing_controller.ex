@@ -14,28 +14,66 @@ defmodule EdgeCommanderWeb.SharingController do
     validate_email(is_valid_email, conn, params)
   end
 
-  def get_all_members(conn, _params)  do
-    members = 
-      list_sharing()
-      |> Enum.map(fn(member) ->
-        sharee_record = get_user_details(member.sharee_id)
-        sharer_record = get_user_details(member.sharer_id)
-        %{
-          id: member.id,
-          sharee_email: sharee_record.email,
-          sharee_name: sharee_record.full_name,
-          sharer_email: sharer_record.email,
-          sharer_name: sharer_record.full_name,
-          rights: member.rights,
-          created_at: member.inserted_at |> Util.shift_zone()
-        }
-      end)
-    conn
-    |> put_status(200)
-    |> json(%{
-        members: members
-      })
+  def get_all_members(conn, params)  do
+    [column, order] = params["sort"] |> String.split("|")
+    query = "select * from sharing as s #{add_sorting(column, order)}"
+    sharing = Ecto.Adapters.SQL.query!(Repo, query, [])
+    cols = Enum.map sharing.columns, &(String.to_atom(&1))
+    roles = Enum.map sharing.rows, fn(row) ->
+      Enum.zip(cols, row)
+    end
+
+    total_records = sharing.num_rows
+    d_length = String.to_integer(params["per_page"])
+    display_length = if d_length < 0, do: total_records, else: d_length
+    display_start = if String.to_integer(params["page"]) <= 1, do: 0, else: (String.to_integer(params["page"]) - 1) * display_length + 1
+    index_e = ((String.to_integer(params["page"]) - 1) * display_length) + display_length
+    index_end = if index_e > total_records, do: total_records - 1, else: index_e
+    last_page = Float.round(total_records / (display_length / 1))
+
+    data =
+      case total_records <= 0 do
+        true -> []
+        _ ->
+          Enum.reduce(display_start..index_end, [], fn i, acc ->
+              share = Enum.at(roles, i)
+              sharee_record = get_user_details(share[:sharee_id])
+              sharer_record = get_user_details(share[:sharee_id])
+              sh = %{
+              id: share[:id],
+              sharee_email: sharee_record.email,
+              sharee_name: sharee_record.full_name,
+              sharer_email: sharer_record.email,
+              sharer_name: sharer_record.full_name,
+              rights: share[:rights] |> get_rights_text,
+              created_at: share[:inserted_at] |> Util.shift_zone()
+            }
+            acc ++ [sh]
+          end)
+      end
+
+      records = %{
+        data: (if total_records < 1, do: [], else: data),
+        total: total_records,
+        per_page: display_length,
+        from: display_start,
+        to: index_end,
+        current_page: String.to_integer(params["page"]),
+        last_page: last_page,
+        next_page_url: (if String.to_integer(params["page"]) == last_page, do: "", else: "/members?sort=#{params["sort"]}&per_page=#{display_length}&page=#{String.to_integer(params["page"]) + 1}"),
+        prev_page_url: (if String.to_integer(params["page"]) < 1, do: "", else: "/members?sort=#{params["sort"]}&per_page=#{display_length}&page=#{String.to_integer(params["page"]) - 1}")
+      }
+      json(conn, records)
   end
+
+  defp get_rights_text(1),  do: "Full Rights"
+  defp get_rights_text(_),  do: "Read-Only"
+
+  defp add_sorting("id", order), do: "ORDER BY id #{order}"
+  defp add_sorting("sharee_email", order), do: "ORDER BY sharee_id #{order}"
+  defp add_sorting("sharer_email", order), do: "ORDER BY sharer_id #{order}"
+  defp add_sorting("rights", order), do: "ORDER BY rights #{order}"
+  defp add_sorting("created_at", order), do: "ORDER BY created_at #{order}"
 
   def delete(conn, %{"id" => id} = _params) do
     member_records = get_member!(id)

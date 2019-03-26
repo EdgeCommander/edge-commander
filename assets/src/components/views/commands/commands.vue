@@ -20,7 +20,7 @@
                         </div>
                     </div>
                 </div>
-                    <v-horizontal-scroll />
+                 <v-horizontal-scroll />
                 <div id="table-wrapper" :class="['vuetable-wrapper ui basic segment', loading]">
                   <div class="table-responsive">
                     <vuetable ref="vuetable" 
