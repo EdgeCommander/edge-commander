@@ -11,7 +11,7 @@ import './assets/theme/base/vendors.bundle.css';
 import './assets/theme/style.bundle.css';
 import DataTable from "datatables.net";
 import './assets/css/personal.css';
-import './assets/js/custom.js';
+// import './assets/js/custom.js';
 
 import {Vuetable, VuetablePagination, VuetablePaginationDropDown, VuetablePaginationInfo, VuetableFieldCheckbox} from "vuetable-2";
 Vue.component("vuetable", Vuetable);

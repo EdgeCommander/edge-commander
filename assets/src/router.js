@@ -18,13 +18,13 @@ import commands from './components/views/commands/commands.vue'
 import messages from './components/views/messages/messages.vue'
 import batteries from './components/views/batteries/batteries.vue'
 import api from './components/views/api/api.vue'
-import my_profile from './components/views/my_profile.vue'
+import my_profile from './components/views/settings/my_profile.vue'
 import three_users from './components/views/three_users.vue'
-import activities from './components/views/activities.vue'
+import activities from './components/views/settings/activities/activities.vue'
 import sharing from './components/views/sharing.vue'
 import single_battery from './components/views/single_battery.vue'
 import single_sims from './components/views/single_sims.vue'
-import status_report from './components/views/status_report.vue'
+import status_report from './components/views/reports/status_report.vue'
 
 import ShowHide from "./components/shared/show_hide";
 Vue.component("v-show-hide", ShowHide);

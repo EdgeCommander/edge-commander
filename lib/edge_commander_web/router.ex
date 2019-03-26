@@ -112,7 +112,7 @@ defmodule EdgeCommanderWeb.Router do
     get "/sims/sms/:sim_number", SimsController, :get_single_sim_sms
     post "/sims", SimsController, :create
     post "/messages", SimsController, :create
-    get "/user_logs/:from_date/:to_date", LogsController, :get_user_logs
+    get "/user_logs", LogsController, :get_user_logs
     get "/sims/name/:sim_number", SimsController, :get_single_sim_name
     patch "/sim/:id", SimsController, :update
     get "/sim/all", SimsController, :get_all_sims
