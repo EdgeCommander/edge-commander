@@ -84,7 +84,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="m-form m-form--fit m-form--label-align-left">
+                      <div class="m-form m-form--fit m-form--label-align-left">
                         <input type="hidden" v-model="user_id" >
                         <div class="form-group m-form__group row">
                             <label class="col-3 col-form-label">
