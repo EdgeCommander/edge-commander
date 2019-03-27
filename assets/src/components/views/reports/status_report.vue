@@ -28,8 +28,9 @@
 </template>
 
 <script>
+
+import $ from 'jquery'
 import * as d3 from 'd3'
-import * as  moment from "moment";
 import {visavailChart} from '../../../assets/js/visavail.js'
 import '../../../assets/css/visavail.css'
 import status_report from './status_report.vue';
@@ -52,7 +53,7 @@ export default {
         };
         settings.headers = headers;
       }
-      return xhrRequestChangeMonth = jQuery.ajax(settings);
+      return xhrRequestChangeMonth = $.ajax(settings);
     },
     onErrorR: function(jqXHR, status, error) {
       return false;
