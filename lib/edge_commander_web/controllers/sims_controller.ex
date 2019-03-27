@@ -175,12 +175,15 @@ defmodule EdgeCommanderWeb.SimsController do
       })
   end
 
+
+
   def get_single_sim_name(conn, %{"sim_number" => sim_number } = _params) do
     sim_records = Records.get_single_sim(sim_number)
     conn
     |> put_status(200)
     |> json(%{
-        sim_name: sim_records.name
+        name: sim_records.name,
+        number: sim_records.number
       })
   end
 

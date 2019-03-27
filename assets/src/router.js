@@ -23,7 +23,7 @@ import three_users from './components/views/settings/three_users/three_users.vue
 import activities from './components/views/settings/activities/activities.vue'
 import sharing from './components/views/settings/sharing/sharing.vue'
 import single_battery from './components/views/batteries/single_battery.vue'
-import single_sims from './components/views/single_sims.vue'
+import single_sims from './components/views/sims/single_sims.vue'
 import status_report from './components/views/reports/status_report.vue'
 
 import ShowHide from "./components/shared/show_hide";
