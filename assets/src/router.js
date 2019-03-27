@@ -9,7 +9,7 @@ Vue.use(VueResource)
 Vue.use(Notifications)
 Vue.use(VueEvents)
 
-import dashboard from './components/views/dashboard.vue'
+import dashboard from './components/views/dashboard/dashboard.vue'
 import sims from './components/views/sims/sims.vue'
 import nvrs from './components/views/nvrs/nvrs.vue'
 import routers from './components/views/routers/routers.vue'
