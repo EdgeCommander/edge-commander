@@ -28,8 +28,6 @@
 </template>
 
 <script>
-
-import $ from 'jquery'
 import * as d3 from 'd3'
 import {visavailChart} from '../../../assets/js/visavail.js'
 import '../../../assets/css/visavail.css'
@@ -44,53 +42,27 @@ export default {
     }
   },
   methods: {
-    sendAJAXRequest: function(settings) {
-      var headers, token, xhrRequestChangeMonth;
-      token = $('meta[name="csrf-token"]');
-      if (token.length > 0) {
-        headers = {
-        "X-CSRF-Token": token.attr("content")
-        };
-        settings.headers = headers;
-      }
-      return xhrRequestChangeMonth = $.ajax(settings);
-    },
-    onErrorR: function(jqXHR, status, error) {
-      return false;
-    },
-    onSuccessR: function(result, status, jqXHR) {
-      this.show_loading = false;
-      status_report.methods.startReport(result.data)
-      return true;
-    },
     startReport: function(logs) {
       let draw_report = document.getElementById('draw_report');
-      var chart;
-      var nvr_logs = logs;
+      let chart;
+      let nvr_logs = logs;
       chart = visavailChart();
-      chart.width($('.m-portlet__body').width() - 150)
+      let main_width = document.querySelector("div.m-portlet__body").offsetWidth;
+      chart.width(main_width - 150)
       chart.dataHeight = 10
       draw_report.innerHTML = "";
       d3.select(draw_report).datum(logs).call(chart);
     },
     initializeReport: function(days) {
       this.show_loading = true;
-      var data = {};
-      data.history_days = days
-      var settings;
-
-      settings = {
-        cache: false,
-        data: data,
-        dataType: 'json',
-        error: this.onErrorR,
-        success: this.onSuccessR,
-        contentType: "application/x-www-form-urlencoded",
-        type: "GET",
-        url: "update_status_report"
-      };
-
-      this.sendAJAXRequest(settings);
+      this.$http.get("/update_status_report", {
+        params:{
+          history_days: days
+        }
+        }).then(response => {
+          this.show_loading = false;
+          status_report.methods.startReport(response.body.data)
+      });
     },
     change_date: function(event){
       let clickedValues = event.target.value
