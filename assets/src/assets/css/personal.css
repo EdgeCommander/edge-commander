@@ -847,3 +847,27 @@ td, th {
 .ui.basic.segment {
   padding: 0;
 }
+
+.pac-container {
+  z-index: 1500 !important;
+}
+
+.autocomplete_panel input{
+  background-color: #e4e4e4;
+  border-color: #f4f5f8;
+  color: #575962;
+  display: block;
+  width: 100%;
+  padding: .65rem 1.25rem;
+  font-size: 1rem;
+  line-height: 1.25;
+  background-image: none;
+  background-clip: padding-box;
+  border: 1px solid rgba(0,0,0,.15);
+  border-radius: .25rem;
+  -webkit-transition: border-color .15s ease-in-out,-webkit-box-shadow .15s ease-in-out;
+  transition: border-color .15s ease-in-out,-webkit-box-shadow .15s ease-in-out;
+  transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+  transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out,-webkit-box-shadow .15s ease-in-out;
+  height: calc(1.5em + .75rem + 2px);
+}

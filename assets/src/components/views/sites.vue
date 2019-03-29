@@ -768,8 +768,8 @@ export default {
       });
     },
     get_sims: function(){
-      this.$http.get('/sims/data/json').then(response => {
-        this.sims_list = response.body.logs;
+      this.$http.get('/sim/all').then(response => {
+        this.sims_list = response.body.sims;
       });
     },
     get_routers: function(){

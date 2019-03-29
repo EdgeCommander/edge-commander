@@ -115,18 +115,20 @@ defmodule EdgeCommanderWeb.Router do
     get "/user_logs", LogsController, :get_user_logs
     get "/sims/name/:sim_number", SimsController, :get_single_sim_name
     patch "/sim/:id", SimsController, :update
-    get "/sim/all", SimsController, :get_all_sims
+    get "/all_sim", SimsController, :get_all_sims
 
     get "/routers/data", RoutersController, :get_all_routers
     post "/routers", RoutersController, :create
     patch "/routers/:id", RoutersController, :update
     delete "/routers/:id", RoutersController, :delete_router
+    get "/all_routers", RoutersController, :get_all
 
     get "/nvrs/data", NvrsController, :get_all_nvrs
     post "/nvrs", NvrsController, :create
     delete "/nvrs/:id", NvrsController, :delete_nvr
     patch "/nvrs/:id", NvrsController, :update
     get "/nvrs/:id", NvrsController, :reboot
+    get "/all_nvrs", NvrsController, :get_all
 
     get "/members", SharingController, :get_all_members
     post "/members/new", SharingController, :create

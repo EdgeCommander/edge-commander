@@ -39,7 +39,7 @@ defmodule EdgeCommanderWeb.NvrsController do
     }
   end
 
-  swagger_path :get_all_nvrs do
+  swagger_path :get_all do
     get "/v1/nvrs"
     description "Returns nvrs list"
     summary "Returns all nvrs"
@@ -210,6 +210,22 @@ defmodule EdgeCommanderWeb.NvrsController do
         prev_page_url: (if String.to_integer(params["page"]) < 1, do: "", else: "/nvrs/data?sort=#{params["sort"]}&per_page=#{display_length}&page=#{String.to_integer(params["page"]) - 1}")
       }
       json(conn, records)
+  end
+
+  def get_all(conn, _params)  do
+    nvrs =
+      list_nvrs()
+      |> Enum.map(fn(nvr) ->
+        %{
+          "id" => nvr.id,
+          "name" => nvr.name
+        }
+      end)
+    conn
+    |> put_status(200)
+    |> json(%{
+      nvrs: nvrs
+    })
   end
   
   def delete_nvr(conn, %{"id" => id} = _params) do

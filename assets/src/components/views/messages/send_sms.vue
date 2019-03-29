@@ -158,7 +158,7 @@ export default {
     },
 
     get_sims: function(){
-      this.$http.get('/sim/all').then(response => {
+      this.$http.get('/all_sim').then(response => {
         this.sims_list = response.body.sims;
       });
     },

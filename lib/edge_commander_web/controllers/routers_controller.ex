@@ -26,7 +26,7 @@ defmodule EdgeCommanderWeb.RoutersController do
     }
   end
 
-  swagger_path :get_all_routers do
+  swagger_path :get_all do
     get "/v1/routers"
     description "Returns routers list"
     summary "Returns all routers"
@@ -177,6 +177,22 @@ defmodule EdgeCommanderWeb.RoutersController do
         prev_page_url: (if String.to_integer(params["page"]) < 1, do: "", else: "/sims/data/json?sort=#{params["sort"]}&per_page=#{display_length}&page=#{String.to_integer(params["page"]) - 1}")
       }
       json(conn, records)
+  end
+
+  def get_all(conn, _params)  do
+    routers =
+      list_routers()
+      |> Enum.map(fn(router) ->
+        %{
+          "id" => router.id,
+          "name" => router.name
+        }
+      end)
+    conn
+    |> put_status(200)
+    |> json(%{
+      routers: routers
+    })
   end
 
   def update(conn, %{"id" => id} = params) do
