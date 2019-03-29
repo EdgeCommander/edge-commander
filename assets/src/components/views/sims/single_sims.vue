@@ -126,12 +126,8 @@
                             {{form_labels.message}}
                         </label>
                         <div class="col-9" id="input_container">
-                          <vue-bootstrap-typeahead 
-                            v-model="smsMessage_text"
-                            :data="['Disconnect', 'Connect', 'Restart', 'Reconnect', 'Status', 'VPN on', 'VPN off', 'Upgrade', 'Internet on', 'Internet off', 'WLAN on', 'WLAN off', 'WLAN on', 'WLAN off', 'On', 'Off', '#01#', '#02#', 'Reboot', 'Cellstatus']"
-                            placeholder="Type SMS command here..."
-                          />
-                          <a href="javascript:void(0)" @click='toggle = !toggle'> Needs help?</a>
+                           <vue-autosuggest :suggestions="filteredOptions" @selected="onSelected" @click="show_all" @keyup="addMessage($event)" :input-props="inputProps"></vue-autosuggest>
+                            <a href="javascript:void(0)" @click='toggle = !toggle'> Needs help?</a>
                         </div>
                     </div>
                     <div class="helping_div" v-show='toggle'>
@@ -173,16 +169,26 @@ import FieldsDef from "./FieldsDef.js";
 import TableWrapper from "./TableWrapper.js";
 import moment from "moment";
 import {Chart} from 'highcharts-vue'
-import VueBootstrapTypeahead from 'vue-bootstrap-typeahead'
+import { VueAutosuggest } from 'vue-autosuggest';
 
 export default {
   components: {
     TableWrapper,
     highcharts: Chart,
-    VueBootstrapTypeahead
+    VueAutosuggest
   },
   data() {
     return {
+      selected: '',
+      options: [{
+      data: ['Disconnect', 'Connect', 'Restart', 'Reconnect', 'Status', 'VPN on', 'VPN off', 'Upgrade', 'Internet on', 'Internet off', 'WLAN on', 'WLAN off', 'WLAN on', 'WLAN off', 'On', 'Off', '#01#', '#02#', 'Reboot', 'Cellstatus']
+      }],
+      filteredOptions: [],
+      inputProps: {
+        id: "autosuggest__input",
+        onInputChange: this.onInputChange,
+        placeholder: "Type SMS command here..."
+      },
       toggle: false,
       show_loading: false,
       smsMessage_text: "",
@@ -281,6 +287,30 @@ export default {
   },
 
   methods: {
+    onSelected(option) {
+      this.smsMessage_text = option.item;
+    },
+
+    show_all() {
+      this.filteredOptions = [{
+        data: this.options[0].data
+      }];
+    },
+
+    addMessage(e) {
+      this.smsMessage_text = e.target.value;
+    },
+
+    onInputChange(text) {
+      const filteredData = this.options[0].data.filter(item => {
+        return item.toLowerCase().indexOf(text.toLowerCase()) > -1;
+      }).slice(0, this.limit);
+
+      this.filteredOptions = [{
+        data: filteredData
+      }];
+    },
+
     show_model(){
       jQuery('#addModel').modal('show')
     },

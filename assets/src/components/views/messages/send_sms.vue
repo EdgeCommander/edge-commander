@@ -21,7 +21,6 @@
                 <div class="modal-body" id="body-sms-dis">
                     <img src="../../../assets/images/loading.gif" id="api-wait" v-if="show_loading">
                     <div class="m-form m-form--fit m-form--label-align-left">
-                        <input type="hidden" id="user_id" v-model="user_id">
                         <div class="form-group m-form__group row">
                             <label class="col-3 col-form-label">
                                 {{form_labels.sim}}
@@ -37,11 +36,7 @@
                                 {{form_labels.message}}
                             </label>
                             <div class="col-9" id="input_container">
-                              <vue-bootstrap-typeahead 
-                                v-model="smsMessage_text"
-                                :data="['Disconnect', 'Connect', 'Restart', 'Reconnect', 'Status', 'VPN on', 'VPN off', 'Upgrade', 'Internet on', 'Internet off', 'WLAN on', 'WLAN off', 'WLAN on', 'WLAN off', 'On', 'Off', '#01#', '#02#', 'Reboot', 'Cellstatus']"
-                                placeholder="Type SMS command here..."
-                              />
+                             <vue-autosuggest :suggestions="filteredOptions" @selected="onSelected" @click="show_all" @keyup="addMessage($event)" :input-props="inputProps"></vue-autosuggest>
                               <a href="javascript:void(0)" @click='toggle = !toggle'> Needs help?</a>
                             </div>
                         </div>
@@ -82,15 +77,24 @@
 <script>
 import jQuery from 'jquery'
 import VueTelInput from 'vue-tel-input'
-import VueBootstrapTypeahead from 'vue-bootstrap-typeahead'
+import { VueAutosuggest } from 'vue-autosuggest';
 
 export default {
   components: {
-    VueBootstrapTypeahead
+    VueAutosuggest
   },
   props: ["smsData"],
   data: () => {
     return {
+      selected: '',
+      options: [{
+      data: ['Disconnect', 'Connect', 'Restart', 'Reconnect', 'Status', 'VPN on', 'VPN off', 'Upgrade', 'Internet on', 'Internet off', 'WLAN on', 'WLAN off', 'WLAN on', 'WLAN off', 'On', 'Off', '#01#', '#02#', 'Reboot', 'Cellstatus']
+      }],
+      filteredOptions: [],
+      inputProps: {
+        id: "autosuggest__input",
+        placeholder: "Type SMS command here..."
+      },
       sims_list: "",
       form_labels: {
         sim: "SIM",
@@ -107,7 +111,6 @@ export default {
       show_add_errors: false,
       smsMessage: "",
       toNumber: "",
-      user_id: 1,
       smsMessage_text: "",
       toggle: false
     }
@@ -122,17 +125,40 @@ export default {
     this.get_sims();
   },
   methods: {
+    onSelected(option) {
+      this.smsMessage_text = option.item;
+    },
+
+    show_all() {
+      this.filteredOptions = [{
+        data: this.options[0].data
+      }];
+    },
+
+    addMessage(e) {
+      this.smsMessage_text = e.target.value;
+    },
+
+    onInputChange(text) {
+      const filteredData = this.options[0].data.filter(item => {
+        return item.toLowerCase().indexOf(text.toLowerCase()) > -1;
+      }).slice(0, this.limit);
+
+      this.filteredOptions = [{
+        data: filteredData
+      }];
+    },
+
     updatePropsValue(router) {
       this.smsMessage_text = router.sms_message
       this.toNumber = router.sim_number
-      this.user_id = router.user_id
     },
     saveData (e) {
       this.show_loading = true;
       this.$http.post('/send_sms', {
         sms_message: this.smsMessage_text,
         sim_number:  this.toNumber,
-        user_id: this.user_id
+        user_id: this.$root.user_id
       }).then(function (response) {
         if (response.body.status != 0) {
           this.$notify({group: 'notify', title: response.body.error_text, type: 'error'});
@@ -145,11 +171,12 @@ export default {
         this.show_loading = false;
         this.clearForm();
       });
-
     },
+
     show_model(){
 		  jQuery('#addModel').modal('show')
     },
+
     clearForm () {
       this.smsMessage_text = "";
       this.toNumber = "";

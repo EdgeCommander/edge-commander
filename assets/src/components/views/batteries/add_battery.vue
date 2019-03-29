@@ -27,7 +27,6 @@
                         </div>
                     </div>
                     <div class="m-form m-form--fit m-form--label-align-left">
-                        <input type="hidden" id="user_id" v-model="user_id">
                         <div class="form-group m-form__group row">
                             <label class="col-2 col-form-label">
                                 {{form_labels.name}}
@@ -94,7 +93,6 @@ export default {
       show_add_errors: false,
       battery_name: "",
       battery_source_url: "",
-      user_id: 1,
       battery_is_active: false
     }
   },
@@ -109,13 +107,12 @@ export default {
       this.battery_name = battery.name
       this.battery_source_url = battery.source_url
       this.battery_is_active = battery.active
-      this.user_id = battery.user_id
     },
     saveData (e) {
       this.show_loading = true;
       this.$http.post('/battery/new', {
         name: this.battery_name,
-        user_id:  this.user_id,
+        user_id:  this.$root.user_id,
         source_url: this.battery_source_url,
         active: this.battery_is_active
       }).then(function (response) {
