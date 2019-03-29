@@ -27,7 +27,6 @@
                     </div>
                 </div>
                  <div class="m-form m-form--fit m-form--label-align-left">
-                    <input type="hidden" id="user_id"  v-model="user_id">
                       <div class="form-group m-form__group row">
                           <label class="col-3 col-form-label">
                                {{form_labels.name}}
@@ -153,7 +152,6 @@ export default {
       sdk_nvr_port: "",
       vh_nvr_port: "",
       rtsp_nvr_port: "",
-      user_id: 1,
       nvr_is_monitoring: ""
     }
   },
@@ -174,7 +172,6 @@ export default {
       this.vh_nvr_port = nvr.vh_port
       this.rtsp_nvr_port = nvr.rtsp_port
       this.nvr_is_monitoring = nvr.is_monitoring
-      this.user_id = nvr.user_id
     },
     saveData (e) {
       this.show_loading = true;
@@ -190,7 +187,7 @@ export default {
         vh_port: this.vh_nvr_port,
         rtsp_port: this.rtsp_nvr_port,
         is_monitoring: this.nvr_is_monitoring,
-        user_id: this.user_id
+        user_id: this.$root.user_id
       }).then(function (response) {
         this.$notify({group: 'notify', title: 'NVR has been added.'});
         this.clearForm()
@@ -201,9 +198,11 @@ export default {
         this.show_loading = false;
       });
     },
+
     show_model(){
 		  jQuery('#addModel').modal('show')
     },
+
     clearForm () {
 			this.nvr_name = "";
       this.nvr_ip = "";

@@ -29,7 +29,6 @@
                         </div>
                     </div>
                     <div class="m-form m-form--fit m-form--label-align-left">
-                        <input type="hidden" id="user_id" v-model="user_id">
                         <div class="form-group m-form__group row">
                             <label class="col-2 col-form-label">
                                 {{form_labels.name}}
@@ -126,8 +125,7 @@ export default {
       rule_variable: "",
       rule_value: "",
       rule_recipients: "",
-      rule_is_active: false,
-      user_id: 1
+      rule_is_active: false
     }
   },
 
@@ -144,7 +142,6 @@ export default {
       this.router_password = router.password
       this.http_router_port = router.port
       this.router_is_monitoring = router.is_monitoring
-      this.user_id = router.user_id
     },
     saveData (e) {
       this.show_loading = true;
@@ -158,7 +155,7 @@ export default {
 
       this.$http.post('/rules/new', {
         rule_name: this.rule_name,
-        user_id:  this.user_id,
+        user_id:  this.$root.user_id,
         category: this.rule_category,
         variable: this.rule_variable,
         value: this.rule_value,

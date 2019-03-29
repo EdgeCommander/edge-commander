@@ -29,7 +29,6 @@
                         </div>
                     </div>
                     <div class="m-form m-form--fit m-form--label-align-left">
-                        <input type="hidden" v-model="user_id" >
                         <div class="form-group m-form__group row">
                             <label class="col-3 col-form-label">
                                 {{form_labels.username}}
@@ -94,8 +93,7 @@ export default {
       show_add_errors: false,
       username: "",
       password: "",
-      bill_day: "",
-      user_id: 1
+      bill_day: ""
     }
   },
 
@@ -109,14 +107,13 @@ export default {
       this.username = user.username
       this.password = user.password
       this.bill_day = user.bill_day
-      this.user_id = user.user_id
     },
     saveData (e) {
       this.show_loading = true;
       this.$http.post('/three_accounts', {
         username: this.username,
         password: this.password,
-        user_id:  this.user_id,
+        user_id:  this.$root.user_id,
         bill_day: this.bill_day
       }).then(function (response) {
         this.$notify({group: 'notify', title: 'Three user has been added.'});

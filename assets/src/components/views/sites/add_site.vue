@@ -30,7 +30,6 @@
                     </div>
                     <div style="height: 10px"></div>
                     <div class="m-form m-form--fit m-form--label-align-left">
-                      <input type="hidden" id="user_id" v-model="user_id">
                       <div class="row">
                               <div class="col-lg-6">
                                   <div class="form-group m-form__group row">
@@ -180,7 +179,6 @@ export default {
       router_id: "",
       nvr_id: "",
       notes: "",
-      user_id: 1,
       sims_list: "",
       routers_list: "",
       nvrs_list: ""
@@ -264,7 +262,6 @@ export default {
       this.nvr_id = router.nvr_id
       this.notes = router.notes
       this.notes = router.notes
-      this.user_id = router.user_id
     },
     saveData (e) {
       this.show_loading = true;
@@ -282,7 +279,7 @@ export default {
           lng: this.lng,
           map_area: map_area
         },
-        user_id: this.user_id
+        user_id: this.$root.user_id
       }).then(function (response) {
         this.$notify({group: 'notify', title: 'Router has been added.'});
         this.clearForm()
@@ -293,9 +290,11 @@ export default {
         this.show_loading = false;
       });
     },
+
     show_model(){
 		  jQuery('#addModel').modal('show')
     },
+
     clearForm () {
       this.name = "";
       this.sim_number = "";

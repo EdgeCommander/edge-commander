@@ -27,7 +27,6 @@
                         </div>
                     </div>
                     <div class="m-form m-form--fit m-form--label-align-left">
-                        <input type="hidden" id="user_id" value="<%= @user.id %>" v-model="user_id">
                         <div class="form-group m-form__group row">
                             <label class="col-3 col-form-label">
                                 {{form_labels.name}}
@@ -129,8 +128,7 @@ export default {
       router_username: "",
       router_password: "",
       http_router_port: "",
-      router_is_monitoring: false,
-      user_id: 1
+      router_is_monitoring: false
     }
   },
 
@@ -147,7 +145,6 @@ export default {
       this.router_password = router.password
       this.http_router_port = router.port
       this.router_is_monitoring = router.is_monitoring
-      this.user_id = router.user_id
     },
     saveData (e) {
       this.show_loading = true;
@@ -159,7 +156,7 @@ export default {
         password: this.router_password,
         port: this.http_router_port,
         is_monitoring: this.router_is_monitoring,
-        user_id: this.user_id
+        user_id: this.$root.user_id
       }).then(function (response) {
         this.$notify({group: 'notify', title: 'Router has been added.'});
         this.clearForm()

@@ -27,7 +27,6 @@
                         </div>
                     </div>
                     <div class="m-form m-form--fit m-form--label-align-left">
-                        <input type="hidden" id="user_id" v-model="user_id">
                         <div class="form-group m-form__group row">
                             <label class="col-3 col-form-label">
                                 {{form_labels.name}}
@@ -117,7 +116,6 @@ export default {
       name: "",
       number: "",
       sim_provider: "",
-      user_id: 1,
       other_sim_provider: ""
     }
   },
@@ -132,7 +130,6 @@ export default {
       this.name = sim.name,
       this.number = sim.number,
       this.sim_provider = sim.sim_provider
-      this.user_id = sim.user_id
     },
     saveData (e) {
 			this.show_loading = true;
@@ -149,7 +146,7 @@ export default {
 				addon: "Unknown",
 				allowance: "-1.0",
 				volume_used: "-1.0",
-				user_id: this.user_id,
+				user_id: this.$root.user_id,
 				three_user_id: 0
 			}).then(response => {
 			  this.$notify({group: 'notify', title: 'SIM has been added.'});

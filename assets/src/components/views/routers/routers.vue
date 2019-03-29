@@ -20,7 +20,7 @@
                         </div>
                     </div>
                 </div>
-                    <v-horizontal-scroll />
+                <v-horizontal-scroll />
                 <div id="table-wrapper" :class="['vuetable-wrapper ui basic segment', loading]">
                   <div class="table-responsive">
                     <vuetable ref="vuetable" 
@@ -41,20 +41,11 @@
                       <span @click="onActionClicked('edit-item', props.rowData)" class="fa fa-edit cursor"></span>&nbsp;
                       <span @click="onActionClicked('delete-item', props.rowData)" class="fa fa-trash cursor"></span>
                     </template>
-                    <template slot="number" slot-scope="props">
-                       <router-link v-bind:to="get_url(props.rowData.number)" class="m-menu__link">
-                        {{props.rowData.number}}
-                      </router-link>
-
-                    </template>
-                      <template slot="allowance" scope="props" class="text-center">
-                          {{get_mb_allownce(props.rowData)}}
-                      </template>
                     </vuetable>
                   </div>
                   <div style="height: 10px"></div>
                   <div class="">
-                    <div class="pull-left">
+                    <div class="pull-left" style="display: none;">
                       <div class="field perPage-margin">
                       <label>Per Page:</label>
                         <select class="ui simple dropdown" v-model="perPage">
@@ -101,7 +92,7 @@ export default {
       paginationComponent: "vuetable-pagination",
       loading: "",
       vuetableFields: false,
-      perPage: 60,
+      perPage: 500,
       sortOrder: [
         {
           field: 'name',

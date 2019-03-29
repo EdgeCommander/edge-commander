@@ -20,7 +20,7 @@
                         </div>
                     </div>
                 </div>
-                    <v-horizontal-scroll />
+                <v-horizontal-scroll />
                 <div id="table-wrapper" :class="['vuetable-wrapper ui basic segment', loading]">
                   <div class="table-responsive">
                     <vuetable ref="vuetable" 
@@ -65,12 +65,10 @@
                       </div>
                       <vuetable-pagination-info ref="paginationInfo"></vuetable-pagination-info>
                     </div>
-                    
                     <component :is="paginationComponent" ref="pagination" :css="css.pagination"
                       @vuetable-pagination:change-page="onChangePage"
                     ></component>
                     <div class="clearfix"></div>
-
                   </div>
                 </div>
             </div>

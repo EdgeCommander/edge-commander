@@ -29,7 +29,6 @@
                         </div>
                     </div>
                     <div class="m-form m-form--fit m-form--label-align-left">
-                        <input type="hidden" id="user_id"  v-model="user_id">
                         <input type="hidden" id="rights" value="1" v-model="rights">
                         <div class="form-group m-form__group row">
                             <label class="col-3 col-form-label">
@@ -75,7 +74,6 @@ export default {
       show_loading: false,
       show_add_errors: false,
       rights: 1,
-      user_id: 1,
       user_email: "",
       sharee_email: ""
     }
@@ -92,11 +90,10 @@ export default {
     },
     saveData (e) {
       this.show_loading = true;
-
       this.$http.post('/members/new', {
         sharee_email: this.sharee_email,
         rights: this.rights,
-        user_id:  this.user_id
+        user_id:  this.$root.user_id
       }).then(function (response) {
         this.$notify({group: 'notify', title: 'Account has been shared and notify through email.'});
         this.clearForm()

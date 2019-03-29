@@ -20,7 +20,7 @@
                         </div>
                     </div>
                 </div>
-                    <v-horizontal-scroll />
+                <v-horizontal-scroll />
                 <div id="table-wrapper" :class="['vuetable-wrapper ui basic segment', loading]">
                   <div class="table-responsive">
                     <vuetable ref="vuetable" 
@@ -70,7 +70,7 @@
                   </div>
                   <div style="height: 10px"></div>
                   <div class="">
-                    <div class="pull-left">
+                    <div class="pull-left" style="display: none;">
                       <div class="field perPage-margin">
                       <label>Per Page:</label>
                         <select class="ui simple dropdown" v-model="perPage">
@@ -117,7 +117,7 @@ export default {
       paginationComponent: "vuetable-pagination",
       loading: "",
       vuetableFields: false,
-      perPage: 60,
+      perPage: 500,
       sortOrder: [
         {
           field: 'name',
