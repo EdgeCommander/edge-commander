@@ -11,18 +11,18 @@
                     <div class="m-stack m-stack--ver m-stack--general">
                 <div class="menu_head">
                   <div class="m-stack__item m-stack__item--middle m-brand__logo">
-                    <a href="javascript:;" class="m-brand__logo-wrapper menu_collapse">
+                    <a href="javascript:;" class="m-brand__logo-wrapper menu_collapse" @click="menu_collapse()">
                       <img alt="" src="./assets/images/logo_default_dark.png" />
                     </a>
                   </div>
                 </div>
                         <div class="m-stack__item m-stack__item--middle m-brand__tools">
-                          <a href="javascript:;" class="menu_expand">
+                          <a href="javascript:;" class="menu_expand"  @click="menu_expand()">
                             <img alt="" src="./assets/images/logo_sm.png" style="margin: 0 20px;" />
                           </a>
                             <!-- END -->
                             <!-- BEGIN: Responsive Aside Left Menu Toggler -->
-                            <a href="javascript:;" id="m_aside_left_offcanvas_toggle" class="m-brand__icon m-brand__toggler m-brand__toggler--left m--visible-tablet-and-mobile-inline-block">
+                            <a href="javascript:;" id="m_aside_left_offcanvas_toggle" class="m-brand__icon m-brand__toggler m-brand__toggler--left m--visible-tablet-and-mobile-inline-block" @click="m_aside_left_offcanvas_toggle()">
                                 <span></span>
                             </a>
                             <!-- END -->
@@ -128,12 +128,8 @@
                 <li class="m-menu__item bottom_link" aria-haspopup="true" style="border-top: solid 1px #333333;">
                     <a  href="/users/session" class="m-menu__link ">
                         <i class="m-menu__link-icon fa fa-power-off"></i>
-                        <span class="m-menu__link-title">
-                            <span class="m-menu__link-wrap">
-                                <span class="m-menu__link-text">
-                                    Logout
-                                </span>
-                            </span>
+                        <span class="m-menu__link-text">
+                          Logout
                         </span>
                     </a>
                 </li>

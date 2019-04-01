@@ -3,7 +3,6 @@ import Vue from 'vue'
 import App from './App.vue'
 import router from './router'
 import store from './store'
-import $ from "jquery";
 
 import 'bootstrap'
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -11,7 +10,6 @@ import './assets/css/dataTables.semanticui.min.css';
 import './assets/theme/base/vendors.bundle.css';
 import './assets/theme/style.bundle.css';
 import './assets/css/personal.css';
-// import './assets/js/custom.js';
 
 import {Vuetable, VuetablePagination, VuetablePaginationDropDown, VuetablePaginationInfo, VuetableFieldCheckbox} from "vuetable-2";
 Vue.component("vuetable", Vuetable);
@@ -37,11 +35,29 @@ Vue.mixin({
       let tableWrapper = document.querySelector("div.table-responsive").offsetWidth;
       document.querySelector("div.top-horizontal-scroll").style.width = tableWidth + "px";
       document.querySelector("div.top-scrollbar").style.width = tableWrapper + "px"
+    },
+    menu_collapse: () => {
+      let app = document.getElementById("app");
+      app.classList.add("m-brand--minimize");
+      app.classList.add("m-aside-left--minimize");
+      document.querySelector(".menu_expand").style.display = "block";
+      document.querySelector("i.m-menu__link-icon").style.display = "inline";
+    },
+    menu_expand: () => {
+      let app = document.getElementById("app");
+      app.classList.remove("m-brand--minimize");
+      app.classList.remove("m-aside-left--minimize");
+      document.querySelector(".menu_expand").style.display = "none";
+      document.querySelector("i.m-menu__link-icon").style.display = "inline";
+    },
+    m_aside_left_offcanvas_toggle: () => {
+      let element = document.getElementById("m_aside_left");
+      element.classList.toggle("m-aside-left--on");
     }
   }
 })
 
-let user_id =  $("#app").attr("data-user")
+let user_id = document.getElementById("app").getAttribute("data-user"); 
 
 new Vue({
   router,

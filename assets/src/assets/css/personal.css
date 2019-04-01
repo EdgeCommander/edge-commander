@@ -791,6 +791,7 @@ td, th {
   border: solid 1px red;
   padding: 10px;
   list-style: none;
+  margin-bottom: 10px;
 }
 
 .m-menu__link{
@@ -942,4 +943,12 @@ td, th {
 .autosuggest__results .autosuggest__results_item:focus,
 .autosuggest__results .autosuggest__results_item.autosuggest__results_item-highlighted {
   background-color: #ddd;
+}
+
+.m-menu__link-icon{
+  display: inline !important;
+}
+
+.m-menu__link span{
+  padding-left: 25px !important;
 }
