@@ -112,20 +112,23 @@ defmodule EdgeCommanderWeb.Router do
     get "/sims/sms/:sim_number", SimsController, :get_single_sim_sms
     post "/sims", SimsController, :create
     post "/messages", SimsController, :create
-    get "/user_logs/:from_date/:to_date", LogsController, :get_user_logs
+    get "/user_logs", LogsController, :get_user_logs
     get "/sims/name/:sim_number", SimsController, :get_single_sim_name
     patch "/sim/:id", SimsController, :update
+    get "/all_sim", SimsController, :get_all_sims
 
     get "/routers/data", RoutersController, :get_all_routers
     post "/routers", RoutersController, :create
     patch "/routers/:id", RoutersController, :update
     delete "/routers/:id", RoutersController, :delete_router
+    get "/all_routers", RoutersController, :get_all
 
     get "/nvrs/data", NvrsController, :get_all_nvrs
     post "/nvrs", NvrsController, :create
     delete "/nvrs/:id", NvrsController, :delete_nvr
     patch "/nvrs/:id", NvrsController, :update
     get "/nvrs/:id", NvrsController, :reboot
+    get "/all_nvrs", NvrsController, :get_all
 
     get "/members", SharingController, :get_all_members
     post "/members/new", SharingController, :create
@@ -146,7 +149,7 @@ defmodule EdgeCommanderWeb.Router do
     patch "/update_profile", UsersController, :update_profile
 
     post "/send_sms", SimsController, :send_sms
-    get "/get_all_sms/:from_date/:to_date", SmsController, :get_all_sms
+    get "/get_all_sms", SmsController, :get_all_sms
     get "/daily_sms_count/:number", SimsController, :daily_sms_count
 
     get "/three_accounts", ThreeController, :get_all_three_accounts
@@ -160,7 +163,7 @@ defmodule EdgeCommanderWeb.Router do
     get "/dashboard/total_sites", DashboardController, :total_sites
     get "/dashboard/weekly_sms_overview", DashboardController, :weekly_sms_overview
 
-    get "/battery/data/:battery_id/:from_date/:to_date", BatteryReadingController, :get_battery_record
+    get "/batteries/reading", BatteryReadingController, :get_battery_record
     get "/daily_battery/data/:battery_id/:from_date/:to_date", DashboardController, :daily_batery_voltages
     get "/battery_voltages_summary/data/:battery_id/:from_date/:to_date", DashboardController, :battery_voltages_summary
 
@@ -213,7 +216,6 @@ defmodule EdgeCommanderWeb.Router do
       get "/daily_sms_count/:number", SimsController, :daily_sms_count
 
       get "/get_all_sms/:from_date/:to_date", SmsController, :get_all_sms
-      get "/battery/data/:date", BatteryReadingController, :get_battery_record
     end
   end
 end

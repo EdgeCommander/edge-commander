@@ -26,7 +26,7 @@ defmodule EdgeCommanderWeb.RoutersController do
     }
   end
 
-  swagger_path :get_all_routers do
+  swagger_path :get_all do
     get "/v1/routers"
     description "Returns routers list"
     summary "Returns all routers"
@@ -126,27 +126,73 @@ defmodule EdgeCommanderWeb.RoutersController do
     end
   end
 
-  def get_all_routers(conn, _params)  do
-    routers = 
+  def get_all_routers(conn, params)  do
+    [column, order] = params["sort"] |> String.split("|")
+    search = if params["search"] in ["", nil], do: "", else: params["search"]
+    query = "select * from routers as r Where lower(r.name) like lower('%#{search}%') or lower(r.ip) like lower('%#{search}%') #{add_sorting(column, order)}"
+    routers = Ecto.Adapters.SQL.query!(Repo, query, [])
+    cols = Enum.map routers.columns, &(String.to_atom(&1))
+    roles = Enum.map routers.rows, fn(row) ->
+      Enum.zip(cols, row)
+    end
+
+    total_records = routers.num_rows
+    d_length = String.to_integer(params["per_page"])
+    display_length = if d_length < 0, do: total_records, else: d_length
+    display_start = if String.to_integer(params["page"]) <= 1, do: 0, else: (String.to_integer(params["page"]) - 1) * display_length + 1
+    index_e = ((String.to_integer(params["page"]) - 1) * display_length) + display_length
+    index_end = if index_e > total_records, do: total_records - 1, else: index_e
+    last_page = Float.round(total_records / (display_length / 1))
+
+    data =
+      case total_records <= 0 do
+        true -> []
+        _ ->
+          Enum.reduce(display_start..index_end, [], fn i, acc ->
+              router = Enum.at(roles, i)
+              ru = %{
+              id: router[:id],
+              name: router[:name],
+              username: router[:username],
+              password: router[:password],
+              ip: router[:ip],
+              port: router[:port],
+              is_monitoring: router[:is_monitoring],
+              created_at: router[:inserted_at] |> Util.shift_zone(),
+              extra: router[:extra]
+            }
+            acc ++ [ru]
+          end)
+      end
+
+      records = %{
+        data: (if total_records < 1, do: [], else: data),
+        total: total_records,
+        per_page: display_length,
+        from: display_start,
+        to: index_end,
+        current_page: String.to_integer(params["page"]),
+        last_page: last_page,
+        next_page_url: (if String.to_integer(params["page"]) == last_page, do: "", else: "/sims/data/json?sort=#{params["sort"]}&per_page=#{display_length}&page=#{String.to_integer(params["page"]) + 1}"),
+        prev_page_url: (if String.to_integer(params["page"]) < 1, do: "", else: "/sims/data/json?sort=#{params["sort"]}&per_page=#{display_length}&page=#{String.to_integer(params["page"]) - 1}")
+      }
+      json(conn, records)
+  end
+
+  def get_all(conn, _params)  do
+    routers =
       list_routers()
       |> Enum.map(fn(router) ->
         %{
-          id: router.id,
-          name: router.name,
-          username: router.username,
-          password: router.password,
-          ip: router.ip,
-          port: router.port,
-          is_monitoring: router.is_monitoring,
-          created_at: router.inserted_at |> Util.shift_zone(),
-          extra: router.extra
+          "id" => router.id,
+          "name" => router.name
         }
       end)
     conn
     |> put_status(200)
     |> json(%{
-        routers: routers
-      })
+      routers: routers
+    })
   end
 
   def update(conn, %{"id" => id} = params) do
@@ -218,4 +264,13 @@ defmodule EdgeCommanderWeb.RoutersController do
         |> json(%{ errors: traversed_errors })
     end
   end
+
+  defp add_sorting("id", order), do: "ORDER BY id #{order}"
+  defp add_sorting("name", order), do: "ORDER BY name #{order}"
+  defp add_sorting("username", order), do: "ORDER BY username #{order}"
+  defp add_sorting("password", order), do: "ORDER BY password #{order}"
+  defp add_sorting("ip", order), do: "ORDER BY ip #{order}"
+  defp add_sorting("port", order), do: "ORDER BY port #{order}"
+  defp add_sorting("is_monitoring", order), do: "ORDER BY is_monitoring #{order}"
+  defp add_sorting("created_at", order), do: "ORDER BY created_at #{order}"
 end

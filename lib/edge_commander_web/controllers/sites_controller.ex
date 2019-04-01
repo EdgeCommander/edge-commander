@@ -99,29 +99,70 @@ defmodule EdgeCommanderWeb.SitesController do
     end
   end
 
-  def get_all_sites(conn, _params)  do
-    sites = 
-      list_sites()
-      |> Enum.map(fn(site) ->
-        %{
-          id: site.id,
-          name: site.name,
-          location: site.location,
-          sim_number: site.sim_number,
-          router_name: site.router_id |> get_router_name,
-          router_id: site.router_id,
-          nvr_name: site.nvr_id |> get_nvr_name,
-          nvr_id: site.nvr_id,
-          notes: site.notes,
-          created_at: site.inserted_at |> Util.shift_zone()
-        }
-      end)
-    conn
-    |> put_status(200)
-    |> json(%{
-        sites: sites
-      })
+  def get_all_sites(conn, params)  do
+    [column, order] = params["sort"] |> String.split("|")
+    search = if params["search"] in ["", nil], do: "", else: params["search"]
+    query = "select * from sites as s Where lower(s.name) like lower('%#{search}%') #{add_sorting(column, order)}"
+    sites = Ecto.Adapters.SQL.query!(Repo, query, [])
+    cols = Enum.map sites.columns, &(String.to_atom(&1))
+    roles = Enum.map sites.rows, fn(row) ->
+      Enum.zip(cols, row)
+    end
+
+    total_records = sites.num_rows
+    d_length = String.to_integer(params["per_page"])
+    display_length = if d_length < 0, do: total_records, else: d_length
+    display_start = if String.to_integer(params["page"]) <= 1, do: 0, else: (String.to_integer(params["page"]) - 1) * display_length + 1
+    index_e = ((String.to_integer(params["page"]) - 1) * display_length) + display_length
+    index_end = if index_e > total_records, do: total_records - 1, else: index_e
+    last_page = Float.round(total_records / (display_length / 1))
+
+    data =
+      case total_records <= 0 do
+        true -> []
+        _ ->
+          Enum.reduce(display_start..index_end, [], fn i, acc ->
+              site = Enum.at(roles, i)
+              st = %{
+              id: site[:id],
+              name: site[:name],
+              sim_number: site[:sim_number],
+              router_name: site[:router_id] |> get_router_name,
+              router_id: site[:router_id],
+              nvr_name: site[:nvr_id] |> get_nvr_name,
+              nvr_id: site[:nvr_id],
+              notes: site[:notes],
+              lng: site[:location] |> Map.get("lng"),
+              lat: site[:location] |> Map.get("lat"),
+              map_area: site[:location] |> Map.get("map_area"),
+              created_at: site[:inserted_at] |> Util.shift_zone()
+            }
+            acc ++ [st]
+          end)
+      end
+
+      records = %{
+        data: (if total_records < 1, do: [], else: data),
+        total: total_records,
+        per_page: display_length,
+        from: display_start,
+        to: index_end,
+        current_page: String.to_integer(params["page"]),
+        last_page: last_page,
+        next_page_url: (if String.to_integer(params["page"]) == last_page, do: "", else: "/sites/data?sort=#{params["sort"]}&per_page=#{display_length}&page=#{String.to_integer(params["page"]) + 1}"),
+        prev_page_url: (if String.to_integer(params["page"]) < 1, do: "", else: "/sites/data?sort=#{params["sort"]}&per_page=#{display_length}&page=#{String.to_integer(params["page"]) - 1}")
+      }
+      json(conn, records)
   end
+
+  defp add_sorting("id", order), do: "ORDER BY id #{order}"
+  defp add_sorting("name", order), do: "ORDER BY name #{order}"
+  defp add_sorting("location", order), do: "ORDER BY location #{order}"
+  defp add_sorting("sim_number", order), do: "ORDER BY sim_number #{order}"
+  defp add_sorting("router_name", order), do: "ORDER BY router_id #{order}"
+  defp add_sorting("nvr_name", order), do: "ORDER BY nvr_id #{order}"
+  defp add_sorting("notes", order), do: "ORDER BY notes #{order}"
+  defp add_sorting("created_at", order), do: "ORDER BY inserted_at #{order}"
 
   def update(conn, %{"id" => id} = params) do
     get_records!(id)

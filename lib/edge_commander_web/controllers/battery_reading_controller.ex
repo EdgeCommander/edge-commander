@@ -237,57 +237,98 @@ defmodule EdgeCommanderWeb.BatteryReadingController do
   end
 
   def get_battery_record(conn, params)  do
-    from_date = params["from_date"]
-    to_date = params["to_date"]
+    current_user_id = Util.get_user_id(conn, params)
     battery_id = params["battery_id"]
-    records =
-      get_readings(from_date, to_date, battery_id)
-      |> Enum.map(fn(data) ->
-        %{
-          id: data.id,
-          voltage: data.voltage,
-          datetime: data.datetime,
-          serial_no: data.serial_no,
-          i_value: data.i_value,
-          vpv_value: data.vpv_value,
-          ppv_value: data.ppv_value,
-          cs_value: data.cs_value,
-          err_value: data.err_value,
-          h19_value: data.h19_value,
-          h20_value: data.h20_value,
-          h21_value: data.h21_value,
-          h22_value: data.h22_value,
-          h23_value: data.h23_value,
-          il_value: data.il_value,
-          mppt_value: data.mppt_value,
-          load_value: data.load_value,
-          p_value: data.p_value,
-          consumed_amphours: data.consumed_amphours,
-          soc_value: data.soc_value,
-          time_to_go: data.time_to_go,
-          alarm: data.alarm,
-          relay: data.relay,
-          ar_value: data.ar_value,
-          bmv_value: data.bmv_value,
-          h1_value: data.h1_value,
-          h2_value: data.h2_value,
-          h3_value: data.h3_value,
-          h4_value: data.h4_value,
-          h5_value: data.h5_value,
-          h6_value: data.h6_value,
-          h7_value: data.h7_value,
-          h8_value: data.h8_value,
-          h9_value: data.h9_value,
-          h10_value: data.h10_value,
-          h11_value: data.h11_value
-        }
-      end)
-    conn
-    |> put_status(200)
-    |> json(%{
-        records: records
-      })
+    from_date = params["fromDate"]
+    to_date = params["toDate"]
+
+    [column, order] = params["sort"] |> String.split("|")
+    search = if params["search"] in ["", nil], do: "", else: params["search"]
+    query = "select * from battery_reading as bt Where (DATE(datetime) >= '#{from_date}' and DATE(datetime) <= '#{to_date}') and (bt.battery_id = #{battery_id}) #{add_sorting(column, order)}"
+    data = Ecto.Adapters.SQL.query!(Repo, query, [])
+    cols = Enum.map data.columns, &(String.to_atom(&1))
+    roles = Enum.map data.rows, fn(row) ->
+      Enum.zip(cols, row)
+    end
+
+    total_records = data.num_rows
+    d_length = String.to_integer(params["per_page"])
+    display_length = if d_length < 0, do: total_records, else: d_length
+    display_start = if String.to_integer(params["page"]) <= 1, do: 0, else: (String.to_integer(params["page"]) - 1) * display_length + 1
+    index_e = ((String.to_integer(params["page"]) - 1) * display_length) + display_length
+    index_end = if index_e > total_records, do: total_records - 1, else: index_e
+    last_page = Float.round(total_records / (display_length / 1))
+
+    data =
+      case total_records <= 0 do
+        true -> []
+        _ ->
+          Enum.reduce(display_start..index_end, [], fn i, acc ->
+            data = Enum.at(roles, i)
+            lg = %{
+              id: data[:id],
+              voltage: data[:voltage],
+              datetime: data[:datetime],
+              serial_no: data[:serial_no],
+              i_value: data[:i_value],
+              vpv_value: data[:vpv_value],
+              ppv_value: data[:ppv_value],
+              cs_value: data[:cs_value],
+              err_value: data[:err_value],
+              h19_value: data[:h19_value],
+              h20_value: data[:h20_value],
+              h21_value: data[:h21_value],
+              h22_value: data[:h22_value],
+              h23_value: data[:h23_value],
+              il_value: data[:il_value],
+              mppt_value: data[:mppt_value],
+              load_value: data[:load_value],
+              p_value: data[:p_value],
+              consumed_amphours: data[:consumed_amphours],
+              soc_value: data[:soc_value],
+              time_to_go: data[:time_to_go],
+              alarm: data[:alarm],
+              relay: data[:relay],
+              ar_value: data[:ar_value],
+              bmv_value: data[:bmv_value],
+              h1_value: data[:h1_value],
+              h2_value: data[:h2_value],
+              h3_value: data[:h3_value],
+              h4_value: data[:h4_value],
+              h5_value: data[:h5_value],
+              h6_value: data[:h6_value],
+              h7_value: data[:h7_value],
+              h8_value: data[:h8_value],
+              h9_value: data[:h9_value],
+              h10_value: data[:h10_value],
+              h11_value: data[:h11_value]
+            }
+            acc ++ [lg]
+          end)
+      end
+
+    records = %{
+      data: (if total_records < 1, do: [], else: data),
+      total: total_records,
+      per_page: display_length,
+      from: display_start,
+      to: index_end,
+      current_page: String.to_integer(params["page"]),
+      last_page: last_page,
+      next_page_url: (if String.to_integer(params["page"]) == last_page, do: "", else: "/battery/data?sort=#{params["sort"]}&per_page=#{display_length}&page=#{String.to_integer(params["page"]) + 1}"),
+      prev_page_url: (if String.to_integer(params["page"]) < 1, do: "", else: "/battery/data?sort=#{params["sort"]}&per_page=#{display_length}&page=#{String.to_integer(params["page"]) - 1}")
+    }
+    json(conn, records)
   end
+
+  defp add_sorting("id", order), do: "ORDER BY id #{order}"
+  defp add_sorting("voltage", order), do: "ORDER BY voltage #{order}"
+  defp add_sorting("datetime", order), do: "ORDER BY datetime #{order}"
+  defp add_sorting("serial_no", order), do: "ORDER BY serial_no #{order}"
+  defp add_sorting("i_value", order), do: "ORDER BY i_value #{order}"
+  defp add_sorting("vpv_value", order), do: "ORDER BY vpv_value #{order}"
+  defp add_sorting("ppv_value", order), do: "ORDER BY ppv_value #{order}"
+  defp add_sorting("cs_value", order), do: "ORDER BY cs_value #{order}"
 
   defp ensure_voltage_value(value) do
     voltage =

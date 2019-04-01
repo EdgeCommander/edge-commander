@@ -41,7 +41,6 @@
     <%= render @view_module, @view_template, assigns %>
   </main>
 
-  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBfX46k9qCXNL6WR8wu8Jmb8yF4WxrpuUM&libraries=places"></script>
   <link href="<%= static_path(@conn, "/swagger/swagger-ui.css") %>" rel="stylesheet" type="text/css" />
   <script src="<%= static_path(@conn, "/swagger/swagger-ui-bundle.js") %>" type="text/javascript"></script>
   <script src="<%= static_path(@conn, "/swagger/swagger-ui-standalone-preset.js") %>" type="text/javascript"></script>

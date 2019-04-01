@@ -263,6 +263,25 @@ defmodule EdgeCommander.Util do
     date
   end
 
+  def get_current_date_only() do
+    current_year = DateTime.utc_now |> Map.fetch!(:year)
+    month = DateTime.utc_now |> Map.fetch!(:month)
+    day = DateTime.utc_now |> Map.fetch!(:day)
+    current_month = ensure_number(month)
+    current_day = ensure_number(day)
+    "#{current_year}-#{current_month}-#{current_day}"
+  end
+
+  def get_required_day_date(day) do
+    date_value = Date.add(DateTime.utc_now, day)
+    current_year = date_value |> Map.fetch!(:year)
+    month = date_value |> Map.fetch!(:month)
+    day = date_value|> Map.fetch!(:day)
+    current_month = ensure_number(month)
+    current_day = ensure_number(day)
+    "#{current_year}-#{current_month}-#{current_day}"
+  end
+
   def ensure_number(number) when number >= 1 and number <= 9, do: "0#{number}"
   def ensure_number(number), do: number
 
