@@ -84,7 +84,7 @@
                   <span v-html="get_browser(props.rowData)"></span>
                 </template>
                 <template slot="country" slot-scope="props">
-                    {{get_country(props.rowData)}}
+                  <span v-html="get_country(props.rowData)"></span>
                 </template>
                 </vuetable>
               </div>

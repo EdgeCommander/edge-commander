@@ -433,7 +433,7 @@ export default {
 
     formatDateTime (value) {
       return (value != "")
-      ? moment(value).format('YYYY-MM-DD HH:mm:ss')
+      ? moment(value).format('DD-MM-YYYY HH:mm:ss')
       : ''
     },
 
