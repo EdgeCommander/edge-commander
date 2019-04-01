@@ -81,9 +81,7 @@ export default [
     titleClass: 'text-center',
     dataClass: 'text-center',
     togglable: true,
-    formatter: (value) => {
-      return date_time_format(value)
-    }
+    callback: 'formatDateTime|DD-MM-YYYY HH:mm:ss'
   },
   {
     name: 'last_bill_date',
@@ -92,6 +90,7 @@ export default [
     togglable: true,
     titleClass: 'text-center',
     dataClass: 'text-center',
+    callback: 'formatDateTime|DD-MM-YYYY'
   },
   {
     name: 'last_sms',
@@ -106,6 +105,7 @@ export default [
     togglable: true,
     titleClass: 'text-center',
     dataClass: 'text-center',
+    callback: 'formatDateTime|DD-MM-YYYY HH:mm:ss'
   },
   {
     name: 'sms_since_last_bill',
@@ -116,9 +116,3 @@ export default [
     dataClass: 'text-center',
   }
 ]
-
-var date_time_format;
-
-date_time_format = (value) => {
-  return moment(value).format('DD-MM-YYYY HH:mm:ss');
-}

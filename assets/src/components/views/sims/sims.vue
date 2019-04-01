@@ -84,6 +84,7 @@ import TableWrapper from "./TableWrapper.js";
 import AddSim from "./add_sim";
 import SimFilters from "./sims_filters";
 import SimEditModal from "./sim_edit";
+import moment from "moment";
 
 export default {
   components: {
@@ -203,6 +204,12 @@ export default {
         allowance = "Unlimited"
       }
       return allowance;
+    },
+
+    formatDateTime (value, fmt) {
+      return (value == null || value == '-')
+      ? '-'
+      : moment(value).format(fmt)
     }
   }
 }

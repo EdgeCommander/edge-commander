@@ -25,6 +25,7 @@ export default [
     togglable: true,
     titleClass: 'text-center',
     dataClass: 'text-center',
+    callback: 'formatDateTime|DD-MM-YYYY HH:mm:ss'
   },
   {
     name: 'last_bill_date',
@@ -33,6 +34,7 @@ export default [
     togglable: true,
     titleClass: 'text-center',
     dataClass: 'text-center',
+    callback: 'formatDateTime|DD-MM-YYYY'
   },
   {
     name: 'sms_since_last_bill',
@@ -40,6 +42,6 @@ export default [
     sortField: 'sms_since_last_bill',
     togglable: true,
     titleClass: 'text-center',
-    dataClass: 'text-center',
+    dataClass: 'text-center'
   }
 ]

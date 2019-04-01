@@ -392,6 +392,12 @@ export default {
 
     get_url(number) {
       return "/sims/" + number
+    },
+
+    formatDateTime (value, fmt) {
+      return (value == null || value == '-')
+      ? '-'
+      : moment(value).format(fmt)
     }
 
   },
