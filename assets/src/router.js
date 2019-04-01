@@ -34,6 +34,8 @@ Vue.component("v-horizontal-scroll", HorizontalScroll);
 
 export default new Router({
   mode: 'history',
+  linkActiveClass: 'm-menu__item--active',
+  linkExactActiveClass: "active",
   base: process.env.BASE_URL,
   routes: [
     {
