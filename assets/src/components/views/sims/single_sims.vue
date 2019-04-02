@@ -326,6 +326,11 @@ export default {
         if (response.body.status != 0) {
           this.$notify({group: 'notify', title: response.body.error_text, type: 'error'});
         }else{
+          this.$nextTick(function () {
+            window.setInterval(() => {
+              this.init_sms_table_data(this.number)
+            }, 5000);
+          });
           this.$notify({group: 'notify', title: 'Your message has been sent.'});
         }
         jQuery('#addModel').modal('hide')
