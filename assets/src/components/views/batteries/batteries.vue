@@ -86,6 +86,7 @@ import EditModal from "./battery_edit";
 import moment from "moment";
 
 export default {
+  name: "battery",
   components: {
     TableWrapper,
     "add-battery": AddBattery,

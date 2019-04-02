@@ -105,7 +105,7 @@ export default new Router({
     },
     {
       path: '/battery/:id',
-      name: 'single_battery',
+      name: 'battery',
       component: single_battery
     },
     {
