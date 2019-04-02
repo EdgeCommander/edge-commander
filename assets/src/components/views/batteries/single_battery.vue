@@ -4,7 +4,10 @@
       <div class="m-portlet m-portlet--mobile" style="margin-bottom: 0;">
           <div class="row battery_details" style="padding:10px">
             <div class="col-lg-3 col-md-6" style="padding-top: 10px">
-              <span>Name:</span> {{battery_name}}
+              <span>Name:</span>
+              <select v-model="battery_switch_id" @change="switch_battery()">
+                <option v-for="battery in batteries_list" v-bind:value="battery.id">{{battery.name}}</option>
+              </select>
             </div>
            <div class="col-lg-6 col-md-6" style="padding-top: 10px">
              <span>Source URL:</span> {{source_url}}
@@ -163,10 +166,12 @@ export default {
   },
   data() {
     return {
+      battery_switch_id: this.$route.params.id,
       paginationComponent: "vuetable-pagination",
       loading: "",
       vuetableFields: false,
       perPage: 60,
+      batteries_list: [],
       sortOrder: [
         {
           field: 'datetime',
@@ -378,9 +383,14 @@ export default {
     });
     this.init_graphs_data(this.from_dateTime, this.to_dateTime, this.battery_id)
     this.get_single_battery();
+    this.get_batteries();
   },
 
   methods: {
+    switch_battery(){
+      let battery_id =  this.battery_switch_id
+      window.location = '/battery/' + battery_id;
+    },
     convert_date_time_format(times){
       let times_array = []
       for (let i = 0; i < times.length; i++) {
@@ -475,6 +485,18 @@ export default {
       this.$http.get('/battery/data/'+ this.battery_id).then(response => {
         this.battery_name = response.body.name;
         this.source_url = response.body.source_url;
+      });
+    },
+
+    get_batteries: function(){
+      this.$http.get("/battery", {
+      params:{
+        sort: "name|desc",
+        page: 1,
+        per_page: 500
+      }
+      }).then(response => {
+        this.batteries_list = response.body.data;
       });
     },
 
