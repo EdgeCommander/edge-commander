@@ -327,9 +327,13 @@ export default {
           this.$notify({group: 'notify', title: response.body.error_text, type: 'error'});
         }else{
           this.$nextTick(function () {
+            let counter = 6
             window.setInterval(() => {
-              this.init_sms_table_data(this.number)
-            }, 5000);
+              counter--
+              if(counter >= 1){
+                this.init_sms_table_data(this.number)
+              }
+            }, 3000);
           });
           this.$notify({group: 'notify', title: 'Your message has been sent.'});
         }

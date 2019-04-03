@@ -161,6 +161,15 @@ export default {
         user_id: this.$root.user_id
       }).then(function (response) {
         if (response.body.status != 0) {
+          this.$nextTick(function () {
+            let counter = 6
+            window.setInterval(() => {
+              counter--
+              if(counter >= 1){
+                this.$events.fire("refresh-table", true);
+              }
+            }, 3000);
+          });
           this.$notify({group: 'notify', title: response.body.error_text, type: 'error'});
         }else{
           this.$notify({group: 'notify', title: 'Your message has been sent.'});
