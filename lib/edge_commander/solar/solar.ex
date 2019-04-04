@@ -51,6 +51,14 @@ defmodule EdgeCommander.Solar do
     Repo.all(Reading)
   end
 
+  def get_last_reading(id) do
+    Reading
+    |> where([c], (c.battery_id == ^id))
+    |> order_by(desc: :inserted_at)
+    |> limit(1)
+    |> Repo.one
+  end
+
   @doc """
   Gets a single reading.
 

@@ -12,10 +12,30 @@ export default [
     togglable: true
   },
   {
-    name: 'source_url',
-    title: 'URL',
+    name: '__slot:source_url',
+    title: 'Open URL',
     sortField: 'source_url',
-    togglable: true
+    togglable: true,
+    titleClass: 'text-center',
+    dataClass: 'text-center'
+  },
+  {
+    name: 'last_voltage',
+    title: 'Last Voltage (V)',
+    sortField: 'name',
+    togglable: true,
+    titleClass: 'text-center',
+    dataClass: 'text-center',
+    callback: 'divide_value'
+  },
+  {
+    name: 'last_seen',
+    title: 'Last Seen',
+    sortField: 'created_at',
+    togglable: true,
+    titleClass: 'text-center',
+    dataClass: 'text-center',
+    callback: 'formatDateTime|DD-MM-YYYY HH:mm:ss'
   },
   {
     name: 'active',

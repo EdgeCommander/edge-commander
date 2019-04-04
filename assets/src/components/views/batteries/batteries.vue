@@ -46,6 +46,9 @@
                       <span @click="onActionClicked('edit-item', props.rowData)" class="fa fa-edit cursor"></span>&nbsp;
                       <span @click="onActionClicked('delete-item', props.rowData)" class="fa fa-trash cursor"></span>
                     </template>
+                    <template slot="source_url" slot-scope="props">
+                      <a v-bind:href="props.rowData.source_url" target="_blank"><span class="fa fa-external-link"></span></a>
+                    </template>
                     </vuetable>
                   </div>
                   <div style="height: 10px"></div>
@@ -183,6 +186,10 @@ export default {
 
     get_url(id) {
       return "/battery/" + id
+    },
+
+    divide_value(value){
+      return (value/1000).toFixed(2)
     },
 
     onActionClicked(action, data) {
