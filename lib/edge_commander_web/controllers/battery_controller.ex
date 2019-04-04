@@ -4,9 +4,10 @@ defmodule EdgeCommanderWeb.BatteryController do
   alias EdgeCommander.Repo
   alias EdgeCommander.Util
   import Ecto.Query, warn: false
-  import EdgeCommander.Solar, only: [list_batteries: 0, get_battery!: 1]
+  import EdgeCommander.Solar, only: [list_batteries: 0, get_battery!: 1, get_last_reading: 1]
   import EdgeCommander.Accounts, only: [current_user: 1]
   use PhoenixSwagger
+  require IEx
 
   def create(conn, params) do
     changeset = Battery.changeset(%Battery{}, params)
@@ -68,11 +69,14 @@ defmodule EdgeCommanderWeb.BatteryController do
         _ ->
           Enum.reduce(display_start..index_end, [], fn i, acc ->
               battery = Enum.at(roles, i)
+              last_reading_records = get_last_reading(battery[:id]) |> ensure_reading
               bt = %{
               id: battery[:id],
               name: battery[:name],
               source_url: battery[:source_url],
               active: battery[:active],
+              last_seen: last_reading_records[:last_seen],
+              last_voltage: last_reading_records[:last_voltage],
               created_at: battery[:inserted_at] |> Util.shift_zone()
             }
             acc ++ [bt]
@@ -163,5 +167,18 @@ defmodule EdgeCommanderWeb.BatteryController do
   defp add_sorting("source_url", order), do: "ORDER BY source_url #{order}"
   defp add_sorting("active", order), do: "ORDER BY active #{order}"
   defp add_sorting("created_at", order), do: "ORDER BY created_at #{order}"
+
+  defp ensure_reading(nil) do
+    %{
+      last_seen: nil,
+      last_voltage: "0",
+    }
+  end
+  defp ensure_reading(last_reading_records) do
+    %{
+      last_seen: last_reading_records.datetime,
+      last_voltage: last_reading_records.voltage,
+    }
+  end
 
 end
