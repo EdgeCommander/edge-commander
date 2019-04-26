@@ -215,11 +215,11 @@ defmodule EdgeCommander.Util do
     end)
   end
 
-  defp ensure_and_send_alert("battery_voltage_alert", %{total_sms: total_volt, variable: variable, value: value} = _params) do
+  defp ensure_and_send_alert("battery_voltage_alert", %{total_sms: total_volt, variable: variable, value: value, name: name, url: url} = _params) do
     EdgeCommander.Commands.get_battery_voltages_rules(variable, value)
     |> Enum.map(fn(recipients) ->
       variable = variable |> get_variable
-      EdgeCommander.EcMailer.battery_voltage_alert(recipients, total_volt, variable, value)
+      EdgeCommander.EcMailer.battery_voltage_alert(recipients, total_volt, variable, value, name, url)
       Logger.info "Battery voltage alert has been sent."
     end)
   end

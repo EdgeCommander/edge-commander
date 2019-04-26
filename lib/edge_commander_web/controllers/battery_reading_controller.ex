@@ -3,20 +3,25 @@ defmodule EdgeCommanderWeb.BatteryReadingController do
   alias EdgeCommander.Solar.Reading
   alias EdgeCommander.Repo
   alias EdgeCommander.Util
-  import EdgeCommander.Solar, only: [get_readings: 3, list_active_batteries: 0]
+  import EdgeCommander.Solar, only: [get_readings: 3, list_active_batteries: 0, get_last_reading: 1]
   import Ecto.Query, warn: false
   require Logger
 
   def get_all_batteries() do
     list_active_batteries()
     |> Enum.each(fn(data) ->
-      battery_id = data.id
-      url = data.source_url
-      save_status_data(battery_id, url)
+      params = %{
+        battery_id: data.id,
+        url: data.source_url,
+        name: data.name,
+      }
+      save_status_data(params)
     end)
   end
 
-  defp save_status_data(battery_id, url) do
+  defp save_status_data(battery_params) do
+    battery_id = battery_params[:battery_id]
+    url = battery_params[:url]
     case HTTPoison.get(url) do
       {:ok, %HTTPoison.Response{status_code: 200, body: body}} ->
         data =
@@ -214,7 +219,9 @@ defmodule EdgeCommanderWeb.BatteryReadingController do
           "ar_value" => ar_value,
           "bmv_value" => bmv_value
         }
-        save_battery_readings(voltage, params)
+
+        last_voltage = get_last_reading(battery_id) |> ensure_last_record
+        save_battery_readings(voltage, last_voltage, params, battery_params)
       {:ok, %HTTPoison.Response{status_code: 404}} ->
         Logger.info "Not found :("
       {:error, %HTTPoison.Error{reason: reason}} ->
@@ -223,14 +230,17 @@ defmodule EdgeCommanderWeb.BatteryReadingController do
     :timer.sleep(10000)
   end
 
-  defp save_battery_readings("0", _params), do: Logger.error "Battery voltage is zero did not save."
-  defp save_battery_readings(_, params) do
+  defp ensure_last_record(nil), do: 0
+  defp ensure_last_record(last_record), do: last_record.voltage
+
+  defp save_battery_readings("0", _last_voltage, _params, _battery_params), do: Logger.error "Battery voltage is zero did not save."
+  defp save_battery_readings(_, last_voltage, params, battery_params) do
     changeset = Reading.changeset(%Reading{}, params)
     case Repo.insert(changeset) do
     {:ok, _data} ->
       Logger.info "Battery status has been saved."
-      voltage = params["voltage"]
-      ensure_voltage_value(voltage)
+      voltage = params["voltage"] |> Decimal.new |> Decimal.to_integer
+      ensure_voltage_value(last_voltage, voltage, battery_params)
     {:error, _changeset} ->
       Logger.error "Battery status did not save."
     end
@@ -330,10 +340,9 @@ defmodule EdgeCommanderWeb.BatteryReadingController do
   defp add_sorting("ppv_value", order), do: "ORDER BY ppv_value #{order}"
   defp add_sorting("cs_value", order), do: "ORDER BY cs_value #{order}"
 
-  defp ensure_voltage_value(value) do
-    voltage =
-      Decimal.new(value)
-      |> Decimal.to_integer
+  defp ensure_voltage_value(last_voltage, voltage, battery_params) when last_voltage != voltage  do
+    name = battery_params[:name]
+    url = battery_params[:url]
     value_in_volt = voltage / 1000
     voltage_rules = EdgeCommander.Commands.get_battery_voltages_rule_list()
     Enum.each(voltage_rules, fn(rule) ->
@@ -343,11 +352,15 @@ defmodule EdgeCommanderWeb.BatteryReadingController do
         total_sms: value_in_volt,
         variable: variable,
         value: value,
-        alert_for: "battery_voltage_alert"
+        alert_for: "battery_voltage_alert",
+        name: name,
+        url: url
       }
+
       Util.condition_for_sms_alert(params)
      end)
   end
+  defp ensure_voltage_value(_last_voltage, _voltage, _battery_params), do: :noop;
 
   defp element_value_and_remainng_data(list_data, column) do
     value =

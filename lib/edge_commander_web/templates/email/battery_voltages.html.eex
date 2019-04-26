@@ -14,8 +14,9 @@
           </div> 
           <div style="clear: both;"></div>
       </div>
-      <div style="text-align: center;">
-        <p>Your solar battery voltage is currently recorded:  <%= @voltage %> V. which is <%= @variable %> <%= @value %> volts.</p>
+      <div>
+        <p>Battery voltage is currently recorded:  <%= @voltage %> V. which is <%= @variable %> <%= @value %> volts.</p>
+        <p><span style="font-weight:bold">Battery Name:</span> <%= @name %></br><span style="font-weight:bold">Battery URL:</span> <a href="<%= @url %>" target="_blank"><%= @url %></a> </p>
         <div style="height: 10px"></div>
       </div>
       </div>
