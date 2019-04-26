@@ -70,12 +70,12 @@ defmodule EdgeCommander.EcMailer do
     |> EdgeCommander.Mailer.deliver
   end
 
-  def battery_voltage_alert(senders, voltage, variable, value) do
+  def battery_voltage_alert(senders, voltage, variable, value, name, url) do
     new()
     |> from(@from)
     |> to(senders)
     |> subject("Battery voltage alert")
-    |> render_body("battery_voltages.html", %{voltage: voltage, variable: variable, value: value})
+    |> render_body("battery_voltages.html", %{voltage: voltage, variable: variable, value: value, name: name, url: url})
     |> EdgeCommander.Mailer.deliver
   end
 end
