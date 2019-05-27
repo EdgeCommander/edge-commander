@@ -2,7 +2,7 @@ defmodule EdgeCommanderWeb.SmsController do
   use EdgeCommanderWeb, :controller
   import Ecto.Query, warn: false
   import EdgeCommander.Nexmo, only: [get_all_messages: 2]
-  import EdgeCommander.ThreeScraper.Records, only: [get_last_record_for_number: 1]
+  import EdgeCommander.ThreeScraper.Records, only: [get_single_sim: 1]
   alias EdgeCommander.Util
   alias EdgeCommander.Repo
 
@@ -81,7 +81,7 @@ defmodule EdgeCommanderWeb.SmsController do
     if number == ir_nexmo_number or  number == uk_nexmo_number do
       "EdgeCommander"
     else
-     get_last_record_for_number(number) |> validate_sim_name
+     get_single_sim(number) |> validate_sim_name
     end
   end
 

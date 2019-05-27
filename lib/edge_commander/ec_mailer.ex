@@ -74,7 +74,7 @@ defmodule EdgeCommander.EcMailer do
     new()
     |> from(@from)
     |> to(senders)
-    |> subject("Battery voltage alert")
+    |> subject("Battery voltage alert for #{name}")
     |> render_body("battery_voltages.html", %{voltage: voltage, variable: variable, value: value, name: name, url: url})
     |> EdgeCommander.Mailer.deliver
   end
