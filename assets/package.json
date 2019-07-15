@@ -8,6 +8,7 @@
     "test:unit": "vue-cli-service test:unit"
   },
   "dependencies": {
+    "axios": "0.18.1",
     "bootstrap": "^4.3.1",
     "bootstrap-datepicker": "^1.8.0",
     "chart.js": "^2.7.3",
@@ -19,6 +20,7 @@
     "moment": "^2.24.0",
     "popper.js": "^1.14.7",
     "register-service-worker": "^1.6.2",
+    "remarkable": "^1.7.1",
     "semantic-ui-css": "2.4.1",
     "swagger-ui": "^3.20.9",
     "vue": "^2.6.6",
