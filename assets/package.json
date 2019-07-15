@@ -8,6 +8,7 @@
     "test:unit": "vue-cli-service test:unit"
   },
   "dependencies": {
+    "axios": "0.18.1",
     "bootstrap": "^4.3.1",
     "bootstrap-datepicker": "^1.8.0",
     "chart.js": "^2.7.3",
