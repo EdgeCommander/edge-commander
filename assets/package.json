@@ -22,6 +22,7 @@
     "register-service-worker": "^1.6.2",
     "remarkable": "^1.7.1",
     "semantic-ui-css": "2.4.1",
+    "set-value": "^3.0.1",
     "swagger-ui": "^3.20.9",
     "vue": "^2.6.6",
     "vue-autosuggest": "^1.8.3",
