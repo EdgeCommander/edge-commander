@@ -116,6 +116,7 @@ defmodule EdgeCommanderWeb.Router do
     get "/sims/name/:sim_number", SimsController, :get_single_sim_name
     patch "/sim/:id", SimsController, :update
     get "/all_sim", SimsController, :get_all_sims
+    delete "/sims/:id", SimsController, :delete_sim
 
     get "/routers/data", RoutersController, :get_all_routers
     post "/routers", RoutersController, :create
