@@ -175,8 +175,6 @@ defmodule EdgeCommanderWeb.SimsController do
       })
   end
 
-
-
   def get_single_sim_name(conn, %{"sim_number" => sim_number } = _params) do
     sim_records = Records.get_single_sim(sim_number)
     conn
@@ -243,7 +241,8 @@ defmodule EdgeCommanderWeb.SimsController do
               last_sms: sim[:last_sms],
               last_sms_date: sim[:last_sms_date],
               sms_since_last_bill: sim[:sms_since_last_bill],
-              status: sim[:status]
+              status: sim[:status],
+              three_user_id: sim[:three_user_id]
             }
             acc ++ [sm]
           end)
@@ -383,6 +382,33 @@ defmodule EdgeCommanderWeb.SimsController do
     end)
     conn
     |> json(%{void: 0})
+  end
+
+  def delete_sim(conn, %{"id" => id} = _params) do
+    records = Records.get_sim!(id)
+    records
+    |> Repo.delete
+    |> case do
+      {:ok, %EdgeCommander.ThreeScraper.Sims{}} ->
+        conn
+        |> put_status(200)
+        |> json(%{
+          deleted: true
+        })
+        name = records.name
+        current_user = current_user(conn)
+        logs_params = %{
+          "event" => "Sims: <span>#{name}</span> was deleted.",
+          "user_id" => current_user.id
+        }
+        Util.create_log(conn, logs_params)
+      {:error, changeset} ->
+        errors = Util.parse_changeset(changeset)
+        traversed_errors = for {_key, values} <- errors, value <- values, do: "#{value}"
+        conn
+        |> put_status(400)
+        |> json(%{ errors: traversed_errors })
+    end
   end
 
   defp choose_nexmo_number(number)  do

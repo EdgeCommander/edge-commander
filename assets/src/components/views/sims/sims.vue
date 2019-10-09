@@ -37,8 +37,10 @@
                       @vuetable:loaded="hideLoader"
                       :css="css.table"
                     >
-                    <template slot="actions" slot-scope="props">
-                      <span @click="onActionClicked($event, props.rowData)" class="fa fa-edit cursor"></span>
+                    <template slot="actions" slot-scope="props" v-if="props.rowData.three_user_id == 0">
+                      <span @click="onActionClicked('edit-item', props.rowData)" class="fa fa-edit cursor"></span>
+                      &nbsp;
+                      <span @click="onActionClicked('delete-item', props.rowData)" class="fa fa-trash cursor"></span>
                     </template>
                     <template slot="number" slot-scope="props">
                        <router-link v-bind:to="get_url(props.rowData.number)" class="m-menu__link">
@@ -181,9 +183,21 @@ export default {
       this.loading = "";
     },
 
-    onActionClicked(e, data) {
-      this.simEditData = data;
-      this.showSimModal = true;
+    onActionClicked(action, data) {
+      if (action == "delete-item") {
+        if (window.confirm("Are you sure you want to delete this Sim?")) {
+          this.$http.delete(`/sims/${data.id}`).then(response => {
+            this.$notify({group: 'notify', title: 'Sim has been deleted.'});
+          }, error => {
+            this.$notify({group: 'notify',  type: "error", title: 'Something went wrong.'});
+          });
+          this.$nextTick( () => this.$refs.vuetable.refresh())
+        }
+      }
+      if (action == "edit-item") {
+        this.simEditData = data;
+        this.showSimModal = true;
+      }
     },
 
     onCloseSimModal(modal) {
