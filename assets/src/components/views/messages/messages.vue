@@ -4,42 +4,43 @@
         <div class="m-portlet m-portlet--mobile" style="margin-bottom: 0">
             <div class="m-portlet__body" style="padding: 10px;">
                 <!--begin: Search Form -->
-                <div class="m-form m-form--label-align-right m--margin-bottom-10">
-                    <div class="row align-items-center">
-                      <div class="col-xl-9 order-3 order-xl-1">
-                            <div class="form-group m-form__group row align-items-center">
-                              <v-message-filters />
-                              <div class="col-md-8">
-                                <div class="row">
-                                    <div class="col-sm-6">
-                                         <div class="form-group m-form__group row">
-                                        <label class="col-lg-2 col-form-label">
-                                            From:
-                                        </label>
-                                        <div class="col-lg-10">
-                                           <date-picker v-model="from_dateTime" ref="datepicker" @change="handleChange" lang="en" date  value-type="format"></date-picker>
-                                        </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-sm-6">
-                                         <div class="form-group m-form__group row">
-                                        <label class="col-lg-1 col-form-label">
-                                            To:
-                                        </label>
-                                        <div class="col-lg-10">
-                                           <date-picker v-model="to_dateTime" ref="datepicker" @change="handleChange" lang="en" date  value-type="format"></date-picker>
-                                        </div>
-                                        </div>
-                                    </div>
-                                </div>
-                              </div>
+                <div class="m-form m-form--label-align-right">
+                  <div class="row">
+                    <div class="col-sm-10">
+                      <div class="message_filter_panel">
+                        <div class="row">
+                           <div class="form-group col-md-3">
+                              <date-picker v-model="from_dateTime" ref="datepicker" @change="handleChange" lang="en" date  value-type="format"></date-picker>
+                            </div>
+                            <div class="form-group col-md-3">
+                              <date-picker v-model="to_dateTime" ref="datepicker" @change="handleChange" lang="en" date  value-type="format"></date-picker>
+                            </div>
+                            <div class="form-group col-md-3">
+                              <input type="text" placeholder="Search for number" v-model="sim_number" @keyup="handleChange"  class="form-control m-input m-input--solid m-custom-input">
+                            </div>
+                            <div class="form-group col-md-3">
+                              <input type="text" placeholder="Search for name" v-model="sim_name" @keyup="handleChange"  class="form-control m-input m-input--solid m-custom-input">
+                            </div>
+                            <div class="form-group col-md-3">
+                              <input type="text" placeholder="Search for text here." v-model="message_text" @keyup="handleChange" class="form-control m-input m-input--solid m-custom-input">
+                            </div>
+                            <div class="form-group col-md-3">
+                              <input type="text" placeholder="Search for type" v-model="message_type" @keyup="handleChange" class="form-control m-input m-input--solid m-custom-input">
+                            </div>
+                            <div class="form-group col-md-3">
+                              <input type="text" placeholder="Search for status" v-model="message_status" @keyup="handleChange" class="form-control m-input m-input--solid m-custom-input">
+                            </div>
+                            <div class="form-group col-md-3">
+                              <input type="text" placeholder="Search for Delivery datetime" v-model="message_delivery" @keyup="handleChange" class="form-control m-input m-input--solid m-custom-input">
                             </div>
                         </div>
-                        <div class="col-xl-3 order-1 order-xl-3 m--align-right">
-                            <v-show-hide :vuetableFields="vuetableFields" />
-                            <send-sms :smsData="SendSMS" />
-                        </div>
+                      </div>
                     </div>
+                    <div class="col-sm-2">
+                      <v-show-hide :vuetableFields="vuetableFields" />
+                      <send-sms :smsData="SendSMS" />
+                    </div>
+                  </div>
                 </div>
                 <v-horizontal-scroll />
                 <div id="table-wrapper" :class="['vuetable-wrapper ui basic segment', loading]">
@@ -132,7 +133,13 @@ export default {
         }
       },
       from_dateTime: moment().subtract(7, "days").format("YYYY-MM-DD"),
-      to_dateTime: moment().format("YYYY-MM-DD")
+      to_dateTime: moment().format("YYYY-MM-DD"),
+      message_text: "",
+      sim_name: "",
+      message_type: "",
+      message_status: "",
+      sim_number: "",
+      message_delivery: ""
     }
   },
   watch: {
@@ -170,6 +177,12 @@ export default {
       this.moreParams = {
         "fromDate": this.from_dateTime,
         "toDate": this.to_dateTime,
+        "text": this.message_text,
+        "sim_name": this.sim_name,
+        "type": this.message_type,
+        "status": this.message_status,
+        "number": this.sim_number,
+        "message_delivery": this.message_delivery
       }
       this.$nextTick( () => this.$refs.vuetable.refresh())
     },
@@ -177,8 +190,7 @@ export default {
     onFilterSet (filters) {
       this.moreParams = {
         "fromDate": this.from_dateTime,
-        "toDate": this.to_dateTime,
-        "search": filters.search
+        "toDate": this.to_dateTime
       }
       this.$nextTick( () => this.$refs.vuetable.refresh())
     },
@@ -220,23 +232,23 @@ export default {
 
     return_status (status) {
       if(status == "Received"){
-        return '<span title="Received"><svg id="Layer_1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 18 18" width="18" height="18"><path fill="#4FC3F7" d="M17.394 5.035l-.57-.444a.434.434 0 0 0-.609.076l-6.39 8.198a.38.38 0 0 1-.577.039l-.427-.388a.381.381 0 0 0-.578.038l-.451.576a.497.497 0 0 0 .043.645l1.575 1.51a.38.38 0 0 0 .577-.039l7.483-9.602a.436.436 0 0 0-.076-.609zm-4.892 0l-.57-.444a.434.434 0 0 0-.609.076l-6.39 8.198a.38.38 0 0 1-.577.039l-2.614-2.556a.435.435 0 0 0-.614.007l-.505.516a.435.435 0 0 0 .007.614l3.887 3.8a.38.38 0 0 0 .577-.039l7.483-9.602a.435.435 0 0 0-.075-.609z"></path></svg></span>'
+        return '<span title="Received"><svg id="Layer_1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 18 18" width="18" height="18"><path fill="#4FC3F7" d="M17.394 5.035l-.57-.444a.434.434 0 0 0-.609.076l-6.39 8.198a.38.38 0 0 1-.577.039l-.427-.388a.381.381 0 0 0-.578.038l-.451.576a.497.497 0 0 0 .043.645l1.575 1.51a.38.38 0 0 0 .577-.039l7.483-9.602a.436.436 0 0 0-.076-.609zm-4.892 0l-.57-.444a.434.434 0 0 0-.609.076l-6.39 8.198a.38.38 0 0 1-.577.039l-2.614-2.556a.435.435 0 0 0-.614.007l-.505.516a.435.435 0 0 0 .007.614l3.887 3.8a.38.38 0 0 0 .577-.039l7.483-9.602a.435.435 0 0 0-.075-.609z"></path></svg></span> Received'
       }else if(status == "delivered"){
-        return '<span title="Delivered"><svg id="Layer_1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 18 18" width="18" height="18"><path fill="#4FC3F7" d="M17.394 5.035l-.57-.444a.434.434 0 0 0-.609.076l-6.39 8.198a.38.38 0 0 1-.577.039l-.427-.388a.381.381 0 0 0-.578.038l-.451.576a.497.497 0 0 0 .043.645l1.575 1.51a.38.38 0 0 0 .577-.039l7.483-9.602a.436.436 0 0 0-.076-.609zm-4.892 0l-.57-.444a.434.434 0 0 0-.609.076l-6.39 8.198a.38.38 0 0 1-.577.039l-2.614-2.556a.435.435 0 0 0-.614.007l-.505.516a.435.435 0 0 0 .007.614l3.887 3.8a.38.38 0 0 0 .577-.039l7.483-9.602a.435.435 0 0 0-.075-.609z"></path></svg></span>'
+        return '<span title="Delivered"><svg id="Layer_1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 18 18" width="18" height="18"><path fill="#4FC3F7" d="M17.394 5.035l-.57-.444a.434.434 0 0 0-.609.076l-6.39 8.198a.38.38 0 0 1-.577.039l-.427-.388a.381.381 0 0 0-.578.038l-.451.576a.497.497 0 0 0 .043.645l1.575 1.51a.38.38 0 0 0 .577-.039l7.483-9.602a.436.436 0 0 0-.076-.609zm-4.892 0l-.57-.444a.434.434 0 0 0-.609.076l-6.39 8.198a.38.38 0 0 1-.577.039l-2.614-2.556a.435.435 0 0 0-.614.007l-.505.516a.435.435 0 0 0 .007.614l3.887 3.8a.38.38 0 0 0 .577-.039l7.483-9.602a.435.435 0 0 0-.075-.609z"></path></svg></span> Delivered'
       }else if(status == "Failed"){
-        return "<span title='Failed' style='color:#b51010;font-size:16px;font-weight:bold'>&#10005;</span>"
+        return "<span title='Failed' style='color:#b51010;font-size:16px;font-weight:bold'>&#10005;</span> Failed"
       }else if(status == "accepted"){
-        return '<span title="Not Delivered"><svg id="Layer_1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 15" width="18" height="18"><path fill="#92A58C" d="M10.91 3.316l-.478-.372a.365.365 0 0 0-.51.063L4.566 9.879a.32.32 0 0 1-.484.033L1.891 7.769a.366.366 0 0 0-.515.006l-.423.433a.364.364 0 0 0 .006.514l3.258 3.185c.143.14.361.125.484-.033l6.272-8.048a.365.365 0 0 0-.063-.51z"></path></svg></span>'
+        return '<span title="Not Delivered"><svg id="Layer_1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 15" width="18" height="18"><path fill="#92A58C" d="M10.91 3.316l-.478-.372a.365.365 0 0 0-.51.063L4.566 9.879a.32.32 0 0 1-.484.033L1.891 7.769a.366.366 0 0 0-.515.006l-.423.433a.364.364 0 0 0 .006.514l3.258 3.185c.143.14.361.125.484-.033l6.272-8.048a.365.365 0 0 0-.063-.51z"></path></svg></span> Accepted'
       }else{
-        return "<span title='Pending'><i class='fa fa-clock-o' style='color:gray;font-size:16px'></i></span>"
+        return "<span title='Pending'><i class='fa fa-clock-o' style='color:gray;font-size:16px'></i></span> Pending"
       }
     },
 
     return_type(type){
-      if(type == "MO"){
-        return "<span class='m-badge m-badge--metal m-badge--wide'>Incoming</span>";
+      if(type == "Incoming"){
+        return "<span class='m-badge m-badge--metal m-badge--wide'>"+type+"</span>";
       }else{
-        return "<span class='m-badge m-badge--success m-badge--wide'>Outgoing</span>";
+        return "<span class='m-badge m-badge--success m-badge--wide'>"+type+"</span>";
       }
     }
 

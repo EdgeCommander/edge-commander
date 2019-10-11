@@ -956,3 +956,9 @@ td, th {
 .btn_back .m-menu__item--active, .btn_back  .m-menu__item:hover {
   background-color: #e5e5e5 !important;
 }
+
+.m-custom-input{
+  background-color: #ffffff !important;
+  border-color: #cbcbcb !important;
+  height: 35px !important;
+}
