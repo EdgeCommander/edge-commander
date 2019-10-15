@@ -40,7 +40,7 @@ defmodule EdgeCommander.Mixfile do
       {:postgrex, ">= 0.14.1"},
       {:phoenix_html, "~> 2.13"},
       {:phoenix_live_reload, "~> 1.2", only: :dev},
-      {:gettext, "~> 0.16.1"},
+      {:gettext, "~> 0.17.0"},
       {:plug_cowboy, "~> 2.0"},
       {:comeonin, "~> 3.0"},
       {:dotenv, "~> 3.0.0"},
