@@ -42,7 +42,7 @@ defmodule EdgeCommander.Mixfile do
       {:phoenix_live_reload, "~> 1.2", only: :dev},
       {:gettext, "~> 0.17.0"},
       {:plug_cowboy, "~> 2.0"},
-      {:comeonin, "~> 3.0"},
+      {:comeonin, "~> 5.1"},
       {:dotenv, "~> 3.0.0"},
       {:httpoison, "~> 1.5", override: true},
       {:quantum, "~> 2.3"},
