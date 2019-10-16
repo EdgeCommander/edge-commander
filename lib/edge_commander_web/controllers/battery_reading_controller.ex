@@ -3,7 +3,7 @@ defmodule EdgeCommanderWeb.BatteryReadingController do
   alias EdgeCommander.Solar.Reading
   alias EdgeCommander.Repo
   alias EdgeCommander.Util
-  import EdgeCommander.Solar, only: [get_readings: 3, list_active_batteries: 0, get_last_reading: 1]
+  import EdgeCommander.Solar, only: [list_active_batteries: 0, get_last_reading: 1]
   import Ecto.Query, warn: false
   require Logger
 
@@ -247,13 +247,11 @@ defmodule EdgeCommanderWeb.BatteryReadingController do
   end
 
   def get_battery_record(conn, params)  do
-    current_user_id = Util.get_user_id(conn, params)
     battery_id = params["battery_id"]
     from_date = params["fromDate"]
     to_date = params["toDate"]
 
     [column, order] = params["sort"] |> String.split("|")
-    search = if params["search"] in ["", nil], do: "", else: params["search"]
     query = "select * from battery_reading as bt Where (DATE(datetime) >= '#{from_date}' and DATE(datetime) <= '#{to_date}') and (bt.battery_id = #{battery_id}) #{add_sorting(column, order)}"
     data = Ecto.Adapters.SQL.query!(Repo, query, [])
     cols = Enum.map data.columns, &(String.to_atom(&1))

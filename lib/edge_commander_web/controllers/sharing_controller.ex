@@ -5,7 +5,7 @@ defmodule EdgeCommanderWeb.SharingController do
   alias EdgeCommander.Util
   alias EdgeCommander.Accounts.User
   import Ecto.Query, warn: false
-  import EdgeCommander.Sharing, only: [list_sharing: 0, get_member!: 1]
+  import EdgeCommander.Sharing, only: [get_member!: 1]
   import EdgeCommander.Accounts, only: [email_exist: 1, get_user!: 1]
   require Logger
 

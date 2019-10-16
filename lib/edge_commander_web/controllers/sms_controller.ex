@@ -1,7 +1,6 @@
 defmodule EdgeCommanderWeb.SmsController do
   use EdgeCommanderWeb, :controller
   import Ecto.Query, warn: false
-  import EdgeCommander.Nexmo, only: [get_all_messages: 2]
   import EdgeCommander.ThreeScraper.Records, only: [get_single_sim: 1]
   alias EdgeCommander.Util
   alias EdgeCommander.Repo
@@ -16,7 +15,6 @@ defmodule EdgeCommanderWeb.SmsController do
     conditions = condition(params)
 
     [column, order] = params["sort"] |> String.split("|")
-    search = if params["search"] in ["", nil], do: "", else: params["search"]
     query = "select * from sms_messages_view as ms Where (DATE(inserted_at) >= '#{from_date}' and DATE(inserted_at) <= '#{to_date}') #{conditions} #{add_sorting(column, order)}"
     messages = Ecto.Adapters.SQL.query!(Repo, query, [])
     cols = Enum.map messages.columns, &(String.to_atom(&1))
