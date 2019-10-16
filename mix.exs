@@ -58,7 +58,8 @@ defmodule EdgeCommander.Mixfile do
       {:uuid, "~> 1.1.8"},
       {:guardian, github: "ueberauth/guardian"},
       {:geoip, "~> 0.2.3"},
-      {:browser, github: "danhper/elixir-browser"}
+      {:browser, github: "danhper/elixir-browser"},
+      {:bcrypt_elixir, "~> 2.0"}
     ]
   end
 

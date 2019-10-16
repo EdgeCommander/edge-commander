@@ -17,7 +17,7 @@ defmodule EdgeCommander.Accounts do
 
   defp check_password(nil, _), do: {:error, "Incorrect username or password"}
   defp check_password(user, plain_text_password) do
-    case Comeonin.Bcrypt.checkpw(plain_text_password, user.password) do
+    case Bcrypt.verify_pass(plain_text_password, user.password) do
       true -> {:ok, user}
       false -> {:error, "Incorrect username or password"}
     end
@@ -50,7 +50,7 @@ defmodule EdgeCommander.Accounts do
   defp authenticate(user, password) do
     case user do
       nil -> false
-      _   -> Comeonin.Bcrypt.checkpw(password, user.password)
+      _   -> Bcrypt.verify_pass(password, user.password)
     end
   end
 
