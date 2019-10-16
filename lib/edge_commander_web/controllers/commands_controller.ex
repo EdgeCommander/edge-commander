@@ -4,7 +4,7 @@ defmodule EdgeCommanderWeb.CommandsController do
   alias EdgeCommander.Repo
   alias EdgeCommander.Util
   import Ecto.Query, warn: false
-  import EdgeCommander.Commands, only: [list_rules: 0, get_rule!: 1]
+  import EdgeCommander.Commands, only: [get_rule!: 1]
   import EdgeCommander.Accounts, only: [current_user: 1]
   use PhoenixSwagger
 

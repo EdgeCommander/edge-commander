@@ -4,7 +4,7 @@ defmodule EdgeCommanderWeb.SitesController do
   alias EdgeCommander.Repo
   alias EdgeCommander.Util
   import Ecto.Query, warn: false
-  import EdgeCommander.Sites, only: [list_sites: 0, get_records!: 1]
+  import EdgeCommander.Sites, only: [get_records!: 1]
   import EdgeCommander.Devices, only: [get_router!: 1, get_nvr!: 1]
   import EdgeCommander.Accounts, only: [current_user: 1]
   use PhoenixSwagger

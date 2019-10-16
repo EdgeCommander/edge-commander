@@ -41,7 +41,7 @@ defmodule EdgeCommander.Accounts.User do
   end
 
   def hash_password(password) do
-    Comeonin.Bcrypt.hashpass(password, Comeonin.Bcrypt.gen_salt(12, true))
+    Bcrypt.Base.hash_password(password, Bcrypt.gen_salt(12, true))
   end
 
   @doc false

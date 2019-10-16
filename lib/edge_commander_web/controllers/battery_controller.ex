@@ -4,7 +4,7 @@ defmodule EdgeCommanderWeb.BatteryController do
   alias EdgeCommander.Repo
   alias EdgeCommander.Util
   import Ecto.Query, warn: false
-  import EdgeCommander.Solar, only: [list_batteries: 0, get_battery!: 1, get_last_reading: 1]
+  import EdgeCommander.Solar, only: [get_battery!: 1, get_last_reading: 1]
   import EdgeCommander.Accounts, only: [current_user: 1]
   use PhoenixSwagger
   require IEx

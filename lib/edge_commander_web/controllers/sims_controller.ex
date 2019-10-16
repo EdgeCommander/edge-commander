@@ -190,7 +190,7 @@ defmodule EdgeCommanderWeb.SimsController do
       })
   end
 
-  def get_all_sims(conn, params)  do
+  def get_all_sims(conn, _params)  do
     sims =
       Records.get_sims
       |> Enum.map(fn(sim) ->

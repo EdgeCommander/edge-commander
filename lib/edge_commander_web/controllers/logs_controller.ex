@@ -1,12 +1,10 @@
 defmodule EdgeCommanderWeb.LogsController do
   use EdgeCommanderWeb, :controller
   import Ecto.Query, warn: false
-  import EdgeCommander.Activity, only: [get_list_logs: 3]
   alias EdgeCommander.Util
   alias EdgeCommander.Repo
 
   def get_user_logs(conn, params)  do
-    current_user_id = Util.get_user_id(conn, params)
     from_date = if params["fromDate"] == nil, do: Util.get_required_day_date(-7), else: params["fromDate"]
     to_date = if params["toDate"] == nil, do: Util.get_current_date_only, else: params["toDate"]
 
