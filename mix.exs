@@ -49,7 +49,7 @@ defmodule EdgeCommander.Mixfile do
       {:timex, "~> 3.4"},
       {:floki, "~> 0.20.4"},
       {:calendar, "~> 0.18.0"},
-      {:con_cache, "~> 0.13.0"},
+      {:con_cache, "~> 0.14.0"},
       {:swoosh, "~> 0.22"},
       {:phoenix_swoosh, "~> 0.2"},
       {:sshex, "2.2.1"},
