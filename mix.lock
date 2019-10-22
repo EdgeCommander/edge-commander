@@ -26,7 +26,7 @@
   "gen_state_machine": {:hex, :gen_state_machine, "2.0.5", "9ac15ec6e66acac994cc442dcc2c6f9796cf380ec4b08267223014be1c728a95", [:mix], [], "hexpm"},
   "geoip": {:hex, :geoip, "0.2.6", "bf12b696c1ca8f099a40b82854c2f5c69397662811fe40946fee339a514537cf", [:mix], [{:cachex, "~> 3.0", [hex: :cachex, repo: "hexpm", optional: false]}, {:httpoison, "~> 1.0", [hex: :httpoison, repo: "hexpm", optional: false]}, {:jason, "~> 1.1", [hex: :jason, repo: "hexpm", optional: false]}], "hexpm"},
   "gettext": {:hex, :gettext, "0.17.0", "abe21542c831887a2b16f4c94556db9c421ab301aee417b7c4fbde7fbdbe01ec", [:mix], [], "hexpm"},
-  "guardian": {:git, "https://github.com/ueberauth/guardian.git", "38a5558752445293f3b92636c5613a5924f5944d", []},
+  "guardian": {:git, "https://github.com/ueberauth/guardian.git", "57de1b2ddb159ace2e5b2ecb98a4714384fd6d8a", []},
   "hackney": {:hex, :hackney, "1.15.2", "07e33c794f8f8964ee86cebec1a8ed88db5070e52e904b8f12209773c1036085", [:rebar3], [{:certifi, "2.5.1", [hex: :certifi, repo: "hexpm", optional: false]}, {:idna, "6.0.0", [hex: :idna, repo: "hexpm", optional: false]}, {:metrics, "1.0.1", [hex: :metrics, repo: "hexpm", optional: false]}, {:mimerl, "~>1.1", [hex: :mimerl, repo: "hexpm", optional: false]}, {:ssl_verify_fun, "1.1.5", [hex: :ssl_verify_fun, repo: "hexpm", optional: false]}], "hexpm"},
   "html_entities": {:hex, :html_entities, "0.4.0", "f2fee876858cf6aaa9db608820a3209e45a087c5177332799592142b50e89a6b", [:mix], [], "hexpm"},
   "httpoison": {:hex, :httpoison, "1.6.1", "2ce5bf6e535cd0ab02e905ba8c276580bab80052c5c549f53ddea52d72e81f33", [:mix], [{:hackney, "~> 1.15 and >= 1.15.2", [hex: :hackney, repo: "hexpm", optional: false]}], "hexpm"},
