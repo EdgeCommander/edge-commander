@@ -33,7 +33,7 @@ defmodule EdgeCommanderWeb.Router do
         version: "1.0",
         title: "Edge Commander"
       },
-      host: "localhost:4000",
+      host: "app.edgecommander.com",
       tags: [
         %{
           name: "sims",
