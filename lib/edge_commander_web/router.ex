@@ -183,28 +183,28 @@ defmodule EdgeCommanderWeb.Router do
     scope "/" do
       pipe_through :swagger_auth
 
-      get "/sims", SimsController, :get_sim_logs
+      get "/sims", SimsController, :get_all_sims_by_users
       get "/sims/:sim_number/usage", SimsController, :create_chartjs_line_data
       get "/sims/:sim_number", SimsController, :get_single_sim_data
       get "/sims/:sim_number/sms", SimsController, :get_single_sim_sms
       post "/sims", SimsController, :create
 
-      get "/routers", RoutersController, :get_all_routers
+      get "/routers", RoutersController, :get_all_routers_by_users
       post "/routers", RoutersController, :create
       patch "/routers/:id", RoutersController, :update
       delete "/routers/:id", RoutersController, :delete
 
-      get "/nvrs", NvrsController, :get_all_nvrs
+      get "/nvrs", NvrsController, :get_all_nvrs_by_users
       post "/nvrs", NvrsController, :create
       delete "/nvrs/:id", NvrsController, :delete
       patch "/nvrs/:id", NvrsController, :update
 
-      get "/rules", CommandsController, :get_all_rules
+      get "/rules", CommandsController, :get_all_rules_by_users
       post "/rules/new", CommandsController, :create
       patch "/rules/update", CommandsController, :update
       delete "/rules/:id", CommandsController, :delete
 
-      get "/sites", SitesController, :get_all_sites
+      get "/sites", SitesController, :get_all_sites_by_users
       post "/sites/new", SitesController, :create
       patch "/sites/update", SitesController, :update
       delete "/sites/:id", SitesController, :delete

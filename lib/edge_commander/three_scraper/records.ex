@@ -151,4 +151,10 @@ defmodule EdgeCommander.ThreeScraper.Records do
     Sims
     |> Repo.all
   end
+
+  def get_sims_by_user(user_id) do
+    Sims
+    |> where(user_id: ^user_id)
+    |> Repo.all
+  end
 end

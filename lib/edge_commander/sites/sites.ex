@@ -39,6 +39,13 @@ defmodule EdgeCommander.Sites do
   """
   def get_records!(id), do: Repo.get!(Records, id)
 
+
+  def get_sites_by_user(user_id) do
+    Records
+    |> where(user_id: ^user_id)
+    |>  Repo.all
+  end
+
   @doc """
   Creates a records.
 

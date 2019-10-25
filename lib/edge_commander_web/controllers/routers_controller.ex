@@ -4,7 +4,7 @@ defmodule EdgeCommanderWeb.RoutersController do
   alias EdgeCommander.Repo
   alias EdgeCommander.Util
   import Ecto.Query, warn: false
-  import EdgeCommander.Devices, only: [list_routers: 0, get_router!: 1]
+  import EdgeCommander.Devices, only: [list_routers: 0, get_router!: 1, get_routers_by_user: 1]
   import EdgeCommander.Accounts, only: [current_user: 1]
   use PhoenixSwagger
 
@@ -18,15 +18,17 @@ defmodule EdgeCommanderWeb.RoutersController do
           name :string, ""
           username :string, ""
           password :string, ""
-          ip :integer, ""
+          ip :string, ""
           port :integer, ""
           is_monitoring :boolean, "", default: false
+          extra :json, ""
+          created_at :string, ""
         end
       end
     }
   end
 
-  swagger_path :get_all do
+  swagger_path :get_all_routers_by_users do
     get "/v1/routers"
     description "Returns routers list"
     summary "Returns all routers"
@@ -124,6 +126,31 @@ defmodule EdgeCommanderWeb.RoutersController do
         |> put_status(400)
         |> json(%{ errors: traversed_errors })
     end
+  end
+
+  def get_all_routers_by_users(conn, params) do
+    user_id = Util.get_user_id(conn, params)
+    routers =
+      get_routers_by_user(user_id)
+      |> Enum.map(fn(router) ->
+        %{
+          "id" => router.id,
+          "name" => router.name,
+          "username" => router.username,
+          "password" => router.password,
+          "ip" => router.ip,
+          "port" => router.port,
+          "is_monitoring" => router.is_monitoring,
+          "created_at" => router.inserted_at,
+          "extra" => router.extra
+        }
+      end)
+
+    conn
+    |> put_status(200)
+    |> json(%{
+        routers: routers
+      })
   end
 
   def get_all_routers(conn, params)  do

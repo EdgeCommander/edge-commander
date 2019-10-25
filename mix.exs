@@ -53,13 +53,14 @@ defmodule EdgeCommander.Mixfile do
       {:swoosh, "~> 0.22"},
       {:phoenix_swoosh, "~> 0.2"},
       {:sshex, "2.2.1"},
-      {:phoenix_swagger, "~> 0.8.1"},
-      {:ex_json_schema, "~> 0.5"}, # optional
+      {:phoenix_swagger, github: "xerions/phoenix_swagger"},
+      {:ex_json_schema, "~> 0.7.1"},
       {:uuid, "~> 1.1.8"},
       {:guardian, github: "ueberauth/guardian"},
       {:geoip, "~> 0.2.3"},
       {:browser, github: "danhper/elixir-browser"},
-      {:bcrypt_elixir, "~> 2.0"}
+      {:bcrypt_elixir, "~> 2.0"},
+      {:poison, "~> 4.0", override: true}
     ]
   end
 

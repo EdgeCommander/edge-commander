@@ -13,7 +13,7 @@ defmodule EdgeCommanderWeb.SimsController do
   require Logger
   use PhoenixSwagger
 
-  swagger_path :get_sim_logs do
+  swagger_path :get_all_sims_by_users do
     get "/v1/sims"
     summary "Returns all sims data"
     parameters do
@@ -29,7 +29,7 @@ defmodule EdgeCommanderWeb.SimsController do
     description "Returns list of data for single sim"
     summary "Find data by sim number"
     parameters do
-      sim_number :path, :string, "Sim number in given format (08xxxxxxxx)", required: true
+      sim_number :path, :string, "Sim number in given format (+353xxxxxxxx)", required: true
       api_id :query, :string, "", required: true
       api_key :query, :string, "", required: true
     end
@@ -42,7 +42,7 @@ defmodule EdgeCommanderWeb.SimsController do
     description "Returns latest 10 sms for single sim"
     summary "Find sms by sim number"
     parameters do
-      sim_number :path, :string, "Sim number in given format (08xxxxxxxx)", required: true
+      sim_number :path, :string, "Sim number in given format (+353xxxxxxxx)", required: true
       api_id :query, :string, "", required: true
       api_key :query, :string, "", required: true
     end
@@ -55,7 +55,7 @@ defmodule EdgeCommanderWeb.SimsController do
     description "Returns data usage in % for single sim"
     summary "Find data usage in % by sim number"
     parameters do
-      sim_number :path, :string, "Sim number in given format (08xxxxxxxx)", required: true
+      sim_number :path, :string, "Sim number in given format (+353xxxxxxxx)", required: true
       api_id :query, :string, "", required: true
       api_key :query, :string, "", required: true
     end
@@ -67,7 +67,7 @@ defmodule EdgeCommanderWeb.SimsController do
     post "/v1/sims/{sim_number}/sms"
     summary "Send sms to sim"
     parameters do
-      sim_number :path, :string, "Sim number in given format (08xxxxxxxx)", required: true
+      sim_number :path, :string, "Sim number in given format (+353xxxxxxxx)", required: true
       sms_message :query, :string, "", required: true
       api_id :query, :string, "", required: true
       api_key :query, :string, "", required: true
@@ -204,6 +204,40 @@ defmodule EdgeCommanderWeb.SimsController do
     |> json(%{
       sims: sims
     })
+  end
+
+  def get_all_sims_by_users(conn, params) do
+    user_id = Util.get_user_id(conn, params)
+    sims =
+      Records.get_sims_by_user(user_id)
+      |> Enum.map(fn(sim) ->
+        %{
+          "id" => sim.id,
+          "number" => sim.number,
+          "name" => sim.name,
+          "addon" => sim.addon,
+          "allowance" => sim.allowance,
+          "volume_used" => sim.volume_used,
+          "sim_provider" => sim.sim_provider,
+          "yesterday_volume_used" => sim.yesterday_volume_used,
+          "percentage_used" => sim.percentage_used,
+          "remaning_days" => sim.remaning_days,
+          "last_log_reading_at" => sim.last_log_reading_at,
+          "last_bill_date" => sim.last_bill_date,
+          "last_sms" => sim.last_sms,
+          "last_sms_date" => sim.last_sms_date,
+          "sms_since_last_bill" => sim.sms_since_last_bill,
+          "status" => sim.status,
+          "user_id" => sim.user_id,
+          "three_user_id" => sim.three_user_id,
+        }
+      end)
+
+    conn
+    |> put_status(200)
+    |> json(%{
+        sims: sims
+      })
   end
 
   def get_sim_logs(conn, params)  do
