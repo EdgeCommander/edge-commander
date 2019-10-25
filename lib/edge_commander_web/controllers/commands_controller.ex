@@ -4,7 +4,7 @@ defmodule EdgeCommanderWeb.CommandsController do
   alias EdgeCommander.Repo
   alias EdgeCommander.Util
   import Ecto.Query, warn: false
-  import EdgeCommander.Commands, only: [get_rule!: 1]
+  import EdgeCommander.Commands, only: [get_rule!: 1, get_rules_by_user: 1]
   import EdgeCommander.Accounts, only: [current_user: 1]
   use PhoenixSwagger
 
@@ -12,19 +12,22 @@ defmodule EdgeCommanderWeb.CommandsController do
     %{
       Rule: swagger_schema do
         title "Rule"
-        description "A rule of the application"
+        description "A rule module of the application"
         properties do
-          id :integer, ""
-          rule_name :string, "", required: true
-          recipients :string, "", required: true, example: "test@user.com, who@am.io"
-          category :string, "", required: true, enum: ["usage_command"]
           active :boolean, "", required: true, default: false
+          category :string, "", required: true
+          created_at :string, "", required: true
+          id :integer, ""
+          recipients :array, "", required: true, example: "['test@user.com', 'who@am.io']"
+          rule_name :string, "", required: true
+          value :integer, "", required: true
+          variable :string, "", required: true, example: "greater_than"
         end
       end
     }
   end
 
-  swagger_path :get_all_rules do
+  swagger_path :get_all_rules_by_users do
     get "/v1/rules"
     description "Returns rules list"
     summary "Returns all rules"
@@ -87,6 +90,30 @@ defmodule EdgeCommanderWeb.CommandsController do
         |> put_status(400)
         |> json(%{ errors: traversed_errors })
     end
+  end
+
+  def get_all_rules_by_users(conn, params) do
+    user_id = Util.get_user_id(conn, params)
+    rules =
+      get_rules_by_user(user_id)
+      |> Enum.map(fn(rule) ->
+        %{
+          "id" => rule.id,
+          "rule_name" => rule.rule_name,
+          "active" => rule.active,
+          "category" => rule.category,
+          "variable" => rule.variable,
+          "value" => rule.value,
+          "recipients" => rule.recipients,
+          "created_at" => rule.inserted_at
+        }
+      end)
+
+    conn
+    |> put_status(200)
+    |> json(%{
+        rules: rules
+      })
   end
 
   def get_all_rules(conn, params)  do

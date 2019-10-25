@@ -88,7 +88,7 @@
             "description": ""
           }
         ],
-        "operationId": "EdgeCommanderWeb.SitesController.get_all_sites",
+        "operationId": "EdgeCommanderWeb.SitesController.get_all_sites_by_users",
         "description": "Returns sites list"
       }
     },
@@ -109,7 +109,7 @@
             "required": true,
             "name": "sim_number",
             "in": "path",
-            "description": "Sim number in given format (08xxxxxxxx)"
+            "description": "Sim number in given format (+353xxxxxxxx)"
           },
           {
             "type": "string",
@@ -147,7 +147,7 @@
             "required": true,
             "name": "sim_number",
             "in": "path",
-            "description": "Sim number in given format (08xxxxxxxx)"
+            "description": "Sim number in given format (+353xxxxxxxx)"
           },
           {
             "type": "string",
@@ -190,7 +190,7 @@
             "required": true,
             "name": "sim_number",
             "in": "path",
-            "description": "Sim number in given format (08xxxxxxxx)"
+            "description": "Sim number in given format (+353xxxxxxxx)"
           },
           {
             "type": "string",
@@ -228,7 +228,7 @@
             "required": true,
             "name": "sim_number",
             "in": "path",
-            "description": "Sim number in given format (08xxxxxxxx)"
+            "description": "Sim number in given format (+353xxxxxxxx)"
           },
           {
             "type": "string",
@@ -276,7 +276,7 @@
             "description": ""
           }
         ],
-        "operationId": "EdgeCommanderWeb.SimsController.get_sim_logs",
+        "operationId": "EdgeCommanderWeb.SimsController.get_all_sims_by_users",
         "description": ""
       }
     },
@@ -345,7 +345,7 @@
             "description": ""
           }
         ],
-        "operationId": "EdgeCommanderWeb.CommandsController.get_all_rules",
+        "operationId": "EdgeCommanderWeb.CommandsController.get_all_rules_by_users",
         "description": "Returns rules list"
       }
     },
@@ -564,7 +564,7 @@
             "description": ""
           }
         ],
-        "operationId": "EdgeCommanderWeb.RoutersController.get_all_routers",
+        "operationId": "EdgeCommanderWeb.RoutersController.get_all_routers_by_users",
         "description": "Returns routers list"
       }
     },
@@ -825,7 +825,7 @@
             "description": ""
           }
         ],
-        "operationId": "EdgeCommanderWeb.NvrsController.get_all_nvrs",
+        "operationId": "EdgeCommanderWeb.NvrsController.get_all_nvrs_by_users",
         "description": "Returns nvrs list"
       }
     }
@@ -834,16 +834,17 @@
     "version": "1.0",
     "title": "Edge Commander"
   },
-  "host": "app.edgecommander.com",
+  "host": "localhost:4000",
   "definitions": {
     "Site": {
       "type": "object",
       "title": "Site",
       "required": [
-        "lat",
-        "lng",
-        "location",
+        "created_at",
+        "name",
+        "nvr_id",
         "nvr_name",
+        "router_id",
         "router_name",
         "sim_number"
       ],
@@ -856,61 +857,95 @@
           "type": "string",
           "description": ""
         },
+        "router_id": {
+          "type": "integer",
+          "description": ""
+        },
         "nvr_name": {
           "type": "string",
+          "description": ""
+        },
+        "nvr_id": {
+          "type": "integer",
           "description": ""
         },
         "notes": {
           "type": "string",
           "description": ""
         },
-        "location": {
+        "name": {
           "type": "string",
           "description": ""
         },
-        "lng": {
-          "type": "string",
-          "description": "Longitude of the location"
-        },
-        "lat": {
-          "type": "string",
-          "description": "Latitude of the location"
+        "location": {
+          "type": "object",
+          "properties": {
+            "map_area": {
+              "type": "string",
+              "description": ""
+            },
+            "lng": {
+              "type": "float",
+              "description": ""
+            },
+            "lat": {
+              "type": "float",
+              "description": ""
+            }
+          }
         },
         "id": {
           "type": "integer",
           "description": ""
+        },
+        "created_at": {
+          "type": "string",
+          "description": ""
         }
       },
-      "description": "A site of the application"
+      "description": "A site module of the application"
     },
     "Rule": {
       "type": "object",
       "title": "Rule",
       "required": [
-        "active",
-        "category",
+        "variable",
+        "value",
+        "rule_name",
         "recipients",
-        "rule_name"
+        "created_at",
+        "category",
+        "active"
       ],
       "properties": {
+        "variable": {
+          "type": "string",
+          "example": "greater_than",
+          "description": ""
+        },
+        "value": {
+          "type": "integer",
+          "description": ""
+        },
         "rule_name": {
           "type": "string",
           "description": ""
         },
         "recipients": {
-          "type": "string",
-          "example": "test@user.com, who@am.io",
+          "type": "array",
+          "example": "['test@user.com', 'who@am.io']",
           "description": ""
         },
         "id": {
           "type": "integer",
           "description": ""
         },
+        "created_at": {
+          "type": "string",
+          "description": ""
+        },
         "category": {
           "type": "string",
-          "enum": [
-            "usage_command"
-          ],
           "description": ""
         },
         "active": {
@@ -919,7 +954,7 @@
           "default": false
         }
       },
-      "description": "A rule of the application"
+      "description": "A rule module of the application"
     },
     "Router": {
       "type": "object",
@@ -947,11 +982,19 @@
           "default": false
         },
         "ip": {
-          "type": "integer",
+          "type": "string",
           "description": ""
         },
         "id": {
           "type": "integer",
+          "description": ""
+        },
+        "extra": {
+          "type": "json",
+          "description": ""
+        },
+        "created_at": {
+          "type": "string",
           "description": ""
         }
       },
@@ -961,15 +1004,15 @@
       "type": "object",
       "title": "Nvr",
       "required": [
-        "is_monitoring",
         "sdk_port",
         "rtsp_port",
         "vh_port",
         "port",
-        "ip",
         "password",
         "username",
-        "name"
+        "name",
+        "is_monitoring",
+        "ip"
       ],
       "properties": {
         "vh_port": {
@@ -980,10 +1023,6 @@
           "type": "string",
           "description": ""
         },
-        "serial_number": {
-          "type": "string",
-          "description": ""
-        },
         "sdk_port": {
           "type": "integer",
           "description": ""
@@ -991,10 +1030,6 @@
         "rtsp_port": {
           "type": "integer",
           "description": ""
-        },
-        "reason": {
-          "type": "string",
-          "description": "Offline reason"
         },
         "port": {
           "type": "integer",
@@ -1016,10 +1051,6 @@
           "type": "string",
           "description": ""
         },
-        "mac_address": {
-          "type": "string",
-          "description": ""
-        },
         "is_monitoring": {
           "type": "boolean",
           "description": "",
@@ -1037,15 +1068,48 @@
           "type": "string",
           "description": ""
         },
-        "firmware_released_date": {
-          "type": "string",
-          "description": ""
+        "extra": {
+          "type": "object",
+          "properties": {
+            "serial_number": {
+              "type": "string",
+              "description": ""
+            },
+            "reason": {
+              "type": "string",
+              "description": ""
+            },
+            "mac_address": {
+              "type": "string",
+              "description": ""
+            },
+            "firmware_released_date": {
+              "type": "string",
+              "description": ""
+            },
+            "encoder_version": {
+              "type": "string",
+              "description": ""
+            },
+            "encoder_released_date": {
+              "type": "string",
+              "description": ""
+            },
+            "device_type": {
+              "type": "string",
+              "description": ""
+            },
+            "device_name": {
+              "type": "string",
+              "description": ""
+            },
+            "device_id": {
+              "type": "string",
+              "description": ""
+            }
+          }
         },
-        "encoder_version": {
-          "type": "string",
-          "description": ""
-        },
-        "encoder_released_date": {
+        "created_at": {
           "type": "string",
           "description": ""
         }

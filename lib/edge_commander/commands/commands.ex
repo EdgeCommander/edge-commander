@@ -58,6 +58,12 @@ defmodule EdgeCommander.Commands do
 
   def get_rule!(id), do: Repo.get!(Rule, id)
 
+  def get_rules_by_user(user_id) do
+    Rule
+    |> where(user_id: ^user_id)
+    |>  Repo.all
+  end
+
   def create_rule(attrs \\ %{}) do
     %Rule{}
     |> Rule.changeset(attrs)

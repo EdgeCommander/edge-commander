@@ -4,7 +4,7 @@ defmodule EdgeCommanderWeb.SitesController do
   alias EdgeCommander.Repo
   alias EdgeCommander.Util
   import Ecto.Query, warn: false
-  import EdgeCommander.Sites, only: [get_records!: 1]
+  import EdgeCommander.Sites, only: [get_records!: 1, get_sites_by_user: 1]
   import EdgeCommander.Devices, only: [get_router!: 1, get_nvr!: 1]
   import EdgeCommander.Accounts, only: [current_user: 1]
   use PhoenixSwagger
@@ -13,22 +13,30 @@ defmodule EdgeCommanderWeb.SitesController do
     %{
       Site: swagger_schema do
         title "Site"
-        description "A site of the application"
+        description "A site module of the application"
         properties do
           id :integer, ""
           sim_number :string, "", required: true
           router_name :string, "", required: true
+          router_id :integer, "", required: true
           nvr_name :string, "", required: true
+          nvr_id :integer, "", required: true
           notes :string, ""
-          location :string, "", required: true
-          lng :string, "Longitude of the location", required: true
-          lat :string, "Latitude of the location", required: true
+          name :string, "", required: true
+          location (Schema.new do
+            properties do
+              lat :float, ""
+              lng :float, ""
+              map_area :string, ""
+            end
+          end)
+          created_at :string, "", required: true
         end
       end
     }
   end
 
-  swagger_path :get_all_sites do
+  swagger_path :get_all_sites_by_users do
     get "/v1/sites"
     description "Returns sites list"
     summary "Returns all sites"
@@ -97,6 +105,32 @@ defmodule EdgeCommanderWeb.SitesController do
         |> put_status(400)
         |> json(%{errors: traversed_errors})
     end
+  end
+
+  def get_all_sites_by_users(conn, params) do
+    user_id = Util.get_user_id(conn, params)
+    sites =
+      get_sites_by_user(user_id)
+      |> Enum.map(fn(site) ->
+        %{
+          "id" => site.id,
+          "name" => site.name,
+          "sim_number" => site.sim_number,
+          "router_name" => site.router_id |> get_router_name,
+          "router_id" => site.router_id,
+          "nvr_name" => site.nvr_id |> get_nvr_name,
+          "nvr_id" => site.nvr_id,
+          "notes" => site.notes,
+          "location" => site.location,
+          "created_at" => site.inserted_at
+        }
+      end)
+
+    conn
+    |> put_status(200)
+    |> json(%{
+        sites: sites
+      })
   end
 
   def get_all_sites(conn, params)  do

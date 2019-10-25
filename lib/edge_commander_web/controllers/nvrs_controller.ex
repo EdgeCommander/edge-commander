@@ -6,7 +6,7 @@ defmodule EdgeCommanderWeb.NvrsController do
   import Ecto.Query, warn: false
   import EdgeCommander.Accounts, only: [current_user: 1]
   import EdgeCommander.Monitors
-  import EdgeCommander.Devices, only: [update_nvr_ISAPI: 1, list_nvrs: 0, get_nvr!: 1]
+  import EdgeCommander.Devices, only: [update_nvr_ISAPI: 1, list_nvrs: 0, get_nvr!: 1, get_nvrs_by_user: 1]
   use PhoenixSwagger
 
   def swagger_definitions do
@@ -15,31 +15,39 @@ defmodule EdgeCommanderWeb.NvrsController do
         title "Nvr"
         description "A network video recorder of the application"
         properties do
+          created_at :string, ""
+          extra (Schema.new do
+            properties do
+              device_id :string, ""
+              device_name :string, ""
+              device_type :string, ""
+              encoder_released_date :string, ""
+              encoder_version :string, ""
+              firmware_released_date :string, ""
+              mac_address :string, ""
+              reason :string, ""
+              serial_number :string, ""
+            end
+          end)
+          firmware_version :string, ""
           id :integer, ""
+          ip :integer, "", required: true
+          is_monitoring :boolean, "", default: false, required: true
+          model :string, ""
           name :string, "", required: true
+          nvr_status :boolean, ""
           username :string, "", required: true
           password :string, "", required: true
-          ip :integer, "", required: true
           port :integer, "", required: true
           vh_port :integer, "", required: true
           rtsp_port :integer, "", required: true
           sdk_port :integer, "", required: true
-          is_monitoring :boolean, "", default: false, required: true
-          nvr_status :boolean, ""
-          model :string, ""
-          mac_address :string, ""
-          firmware_version :string, ""
-          firmware_released_date :string, ""
-          encoder_version :string, ""
-          encoder_released_date :string, ""
-          serial_number :string, ""
-          reason :string, "Offline reason"
         end
       end
     }
   end
 
-  swagger_path :get_all do
+  swagger_path :get_all_nvrs_by_users do
     get "/v1/nvrs"
     description "Returns nvrs list"
     summary "Returns all nvrs"
@@ -151,6 +159,36 @@ defmodule EdgeCommanderWeb.NvrsController do
         |> put_status(400)
         |> json(%{ errors: traversed_errors })
     end
+  end
+
+  def get_all_nvrs_by_users(conn, params) do
+    user_id = Util.get_user_id(conn, params)
+    nvrs =
+      get_nvrs_by_user(user_id)
+      |> Enum.map(fn(nvr) ->
+        %{
+          "id" => nvr.id,
+          "name" => nvr.name,
+          "username" => nvr.username,
+          "password" => nvr.password,
+          "ip" => nvr.ip,
+          "port" => nvr.port,
+          "is_monitoring" => nvr.is_monitoring,
+          "created_at" => nvr.inserted_at,
+          "firmware_version" => nvr.firmware_version,
+          "model" => nvr.model,
+          "extra" => nvr.extra,
+          "vh_port" => nvr.vh_port,
+          "sdk_port" => nvr.sdk_port,
+          "rtsp_port" => nvr.rtsp_port,
+          "nvr_status" => nvr.nvr_status
+        }
+      end)
+    conn
+    |> put_status(200)
+    |> json(%{
+        nvrs: nvrs
+      })
   end
 
   def get_all_nvrs(conn, params)  do

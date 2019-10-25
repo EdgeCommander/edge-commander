@@ -67,6 +67,12 @@ defmodule EdgeCommander.Devices do
     |>  Repo.all
   end
 
+  def get_nvrs_by_user(user_id) do
+    Nvr
+    |> where(user_id: ^user_id)
+    |>  Repo.all
+  end
+
   @doc """
   Gets a single nvr.
 
@@ -163,6 +169,12 @@ defmodule EdgeCommander.Devices do
   def list_routers() do
     Router
     |> order_by(:name)
+    |>  Repo.all
+  end
+
+  def get_routers_by_user(user_id) do
+    Router
+    |> where(user_id: ^user_id)
     |>  Repo.all
   end
 
