@@ -49,6 +49,7 @@
                             </label>
                             <div class="col-9">
                                 <select class="form-control m-input" id="sim_provider" v-model="sim_provider">
+                                    <option value="Three Ireland">Three Ireland</option>
                                     <option value="Lyca Mobile (Ireland)">Lyca Mobile (Ireland)</option>
                                     <option value="Vodafone (Ireland)">Vodafone (Ireland)</option>
                                     <option value="Vodafone (UK)">Vodafone (UK)</option>

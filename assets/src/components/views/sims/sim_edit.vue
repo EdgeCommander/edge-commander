@@ -109,7 +109,7 @@ export default {
       show_edit_messages: "",
       sim_provider: "",
       other_sim_provider: "",
-      networks: ["Lyca Mobile (Ireland)", "Vodafone (Ireland)", "Vodafone (UK)", "Three (UK)", "O2 (UK)", "Other"]
+      networks: ["Three Ireland", "Lyca Mobile (Ireland)", "Vodafone (Ireland)", "Vodafone (UK)", "Three (UK)", "O2 (UK)", "Other"]
     }
   },
 
