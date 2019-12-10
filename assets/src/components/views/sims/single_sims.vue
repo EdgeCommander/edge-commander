@@ -20,36 +20,6 @@
                   </div>
                 </div>
             </div>
-            <div class="col-sm-5 sim_graph_panel">
-                <div class="m-portlet m-portlet--mobile">
-                    <div class="m-portlet__body">
-                        <highcharts :options="chartOptions"></highcharts>
-                    </div>
-                </div>
-            </div>
-            <div class="col-sm-7 sim_log_datatable" >
-                <div class="m-portlet m-portlet--mobile" id="sm_datatable_inner">
-                    <div class="m-portlet__body" style="max-height: 420px;overflow-y: auto; min-height: 420px;">
-                      <div class="table-responsive">
-                        <table id="sim-datatable" class="table table-striped  table-hover table-bordered  nowrap vuetable" cellspacing="0" width="100%">
-                            <thead>
-                                <tr>
-                                    <th v-for="(item, index) in SimHeadings" v-bind:class="item.class">{{item.column}}</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                              <tr v-for="sims_data in sims_table_data">
-                                <td class="text-left">{{formatDateTime(sims_data.date_of_use)}}</td>
-                                <td class="text-center">{{ensure_allowance(sims_data.allowance)}}</td>
-                                <td class="text-center">{{get_volume_used_today(sims_data)}}</td>
-                                <td class="text-center">{{get_percentage_used(sims_data)}}</td>
-                              </tr>
-                            </tbody>
-                        </table>
-                      </div>
-                    </div>
-                </div>
-            </div>
             <!--begin::Modal-->
             <div class="modal fade" id="m_modal_4" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" data-backdrop="static" data-keyboard="false">
                 <div class="modal-dialog modal-lg" role="document">
@@ -233,25 +203,7 @@ export default {
       moreParams: {
         number: this.$route.params.number
       },
-      fields: FieldsDef,
-      chartOptions: {
-        chart: {
-          type: 'spline'
-        },
-        credits: {
-          enabled: false
-        },
-        xAxis: {
-          categories: []
-        },
-        title: {
-          text: ''
-        },
-        series: [{
-          name: '% Allowance Used',
-          data: []
-        }]
-      },
+      fields: FieldsDef
     }
   },
   watch: {
@@ -363,7 +315,6 @@ export default {
           this.categories_dates.push(date);
           this.percentages.push(percentage_used);
         }
-        this.chart_one_data(this.categories_dates, this.percentages)
       });
     },
 
@@ -377,18 +328,6 @@ export default {
       this.$http.get('/sims/sms/' + number).then(response => {
         this.sms_table_data = response.body.single_sim_sms
       });
-    },
-
-    chart_one_data(categories_dates, percentages){
-      this.chartOptions = {
-        xAxis: {
-          categories: categories_dates
-        },
-        series: [{
-          name: '% Allowance Used',
-          data: percentages
-        }]
-      }
     },
 
     get_sim_data: function(){

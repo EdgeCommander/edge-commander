@@ -37,7 +37,7 @@
                       @vuetable:loaded="hideLoader"
                       :css="css.table"
                     >
-                    <template slot="actions" slot-scope="props" v-if="props.rowData.three_user_id == 0">
+                    <template slot="actions" slot-scope="props" >
                       <span @click="onActionClicked('edit-item', props.rowData)" class="fa fa-edit cursor"></span>
                       &nbsp;
                       <span @click="onActionClicked('delete-item', props.rowData)" class="fa fa-trash cursor"></span>
