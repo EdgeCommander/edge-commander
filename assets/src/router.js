@@ -19,7 +19,6 @@ import messages from './components/views/messages/messages.vue'
 import batteries from './components/views/batteries/batteries.vue'
 import api from './components/views/api/api.vue'
 import my_profile from './components/views/settings/my_profile.vue'
-import three_users from './components/views/settings/three_users/three_users.vue'
 import activities from './components/views/settings/activities/activities.vue'
 import sharing from './components/views/settings/sharing/sharing.vue'
 import single_battery from './components/views/batteries/single_battery.vue'
@@ -87,11 +86,6 @@ export default new Router({
       path: '/my_profile',
       name: 'my_profile',
       component: my_profile
-    },
-    {
-      path: '/three_users',
-      name: 'three_users',
-      component: three_users
     },
     {
       path: '/activities',
