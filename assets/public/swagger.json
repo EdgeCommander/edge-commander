@@ -92,44 +92,6 @@
         "description": "Returns sites list"
       }
     },
-    "/v1/sims/{sim_number}/usage": {
-      "get": {
-        "tags": [
-          "sims"
-        ],
-        "summary": "Find data usage in % by sim number",
-        "responses": {
-          "200": {
-            "description": "Success"
-          }
-        },
-        "parameters": [
-          {
-            "type": "string",
-            "required": true,
-            "name": "sim_number",
-            "in": "path",
-            "description": "Sim number in given format (+353xxxxxxxx)"
-          },
-          {
-            "type": "string",
-            "required": true,
-            "name": "api_id",
-            "in": "query",
-            "description": ""
-          },
-          {
-            "type": "string",
-            "required": true,
-            "name": "api_key",
-            "in": "query",
-            "description": ""
-          }
-        ],
-        "operationId": "EdgeCommanderWeb.SimsController.create_chartjs_line_data",
-        "description": "Returns data usage in % for single sim"
-      }
-    },
     "/v1/sims/{sim_number}/sms": {
       "post": {
         "tags": [
@@ -216,7 +178,7 @@
         "tags": [
           "sims"
         ],
-        "summary": "Find data by sim number",
+        "summary": "Find Single sim data by sim number",
         "responses": {
           "200": {
             "description": "Success"
@@ -246,7 +208,7 @@
           }
         ],
         "operationId": "EdgeCommanderWeb.SimsController.get_single_sim_data",
-        "description": "Returns list of data for single sim"
+        "description": "Returns details for single sim"
       }
     },
     "/v1/sims": {

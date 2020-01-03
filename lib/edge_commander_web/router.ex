@@ -106,16 +106,13 @@ defmodule EdgeCommanderWeb.Router do
     get "/activities", RooterController, :main
     get "/sharing", RooterController, :main
 
-    get "/sims/data/json", SimsController, :get_sim_logs
-    get "/sims/data/:sim_number", SimsController, :get_single_sim_data
-    get "/chartjs/data/:sim_number", SimsController, :create_chartjs_line_data
+    get "/sims/data/json", SimsController, :get_sims_list
     get "/sims/sms/:sim_number", SimsController, :get_single_sim_sms
     post "/sims", SimsController, :create
     post "/messages", SimsController, :create
     get "/user_logs", LogsController, :get_user_logs
-    get "/sims/name/:sim_number", SimsController, :get_single_sim_name
+    get "/sims/:sim_number/json", SimsController, :get_single_sim_data
     patch "/sim/:id", SimsController, :update
-    get "/all_sim", SimsController, :get_all_sims
     delete "/sims/:id", SimsController, :delete_sim
 
     get "/routers/data", RoutersController, :get_all_routers
@@ -153,11 +150,6 @@ defmodule EdgeCommanderWeb.Router do
     get "/get_all_sms", SmsController, :get_all_sms
     get "/daily_sms_count/:number", SimsController, :daily_sms_count
 
-    get "/three_accounts", ThreeController, :get_all_three_accounts
-    post "/three_accounts", ThreeController, :create
-    patch "/three_accounts", ThreeController, :update
-    delete "/three_accounts/:id", ThreeController, :delete
-
     get "/dashboard/total_sims", DashboardController, :total_sims
     get "/dashboard/total_nvrs", DashboardController, :total_nvrs
     get "/dashboard/total_routers", DashboardController, :total_routers
@@ -184,10 +176,9 @@ defmodule EdgeCommanderWeb.Router do
       pipe_through :swagger_auth
 
       get "/sims", SimsController, :get_all_sims_by_users
-      get "/sims/:sim_number/usage", SimsController, :create_chartjs_line_data
-      get "/sims/:sim_number", SimsController, :get_single_sim_data
       get "/sims/:sim_number/sms", SimsController, :get_single_sim_sms
       post "/sims", SimsController, :create
+      get "/sims/:sim_number", SimsController, :get_single_sim_data
 
       get "/routers", RoutersController, :get_all_routers_by_users
       post "/routers", RoutersController, :create

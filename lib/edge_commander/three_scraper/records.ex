@@ -8,7 +8,6 @@ defmodule EdgeCommander.ThreeScraper.Records do
 
   alias EdgeCommander.ThreeScraper.SimLogs
   alias EdgeCommander.ThreeScraper.Sims
-  alias EdgeCommander.ThreeScraper.ThreeUsers
   require Logger
 
   def all_sim_numbers do
@@ -16,17 +15,6 @@ defmodule EdgeCommander.ThreeScraper.Records do
     |> select([sim], sim.number)
     |> distinct(true)
     |> Repo.all
-  end
-
-  def get_sim_bill_day(number) do
-    query = from l in SimLogs,
-      left_join: t in ThreeUsers, on: l.three_user_id == t.id,
-      where: (l.number == ^number),
-      select: %{bill_day: t.bill_day},
-      distinct: [l.number],
-      order_by: [desc: l.id]
-    query
-    |>  Repo.one
   end
 
   def get_last_record_for_number(number) do

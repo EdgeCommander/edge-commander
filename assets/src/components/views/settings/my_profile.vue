@@ -15,9 +15,6 @@
                             <router-link v-bind:to="'/my_profile'" class="nav-link active show">My Profile</router-link>
                         </li>
                         <li class="nav-item">
-                            <router-link v-bind:to="'/three_users'" class="nav-link">Three Users</router-link>
-                        </li>
-                        <li class="nav-item">
                             <router-link v-bind:to="'/activities'" class="nav-link">Activities</router-link>
                         </li>
                         <li class="nav-item">

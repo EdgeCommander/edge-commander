@@ -166,10 +166,7 @@ export default {
       toNumber: "",
       user_id: this.$root.user_id,
       total_count_daily_sms: 0,
-      sims_table_data: [],
       sms_table_data:[],
-      categories_dates: [],
-      percentages: [],
       SimHeadings: [
         {column: "DateTime", class: "text-left"},
         {column: "MB Allowance", class: "text-center"},
@@ -231,8 +228,6 @@ export default {
       window.addEventListener('resize', this.setScrollBar);
       this.setScrollBar()
     });
-    this.init_graphs_data(this.number)
-    this.init_sims_table_data(this.number)
     this.init_sms_table_data(this.number)
     this.get_sim_data()
     this.count_daily_sms()
@@ -304,26 +299,6 @@ export default {
       this.smsMessage_text = "";
     },
 
-    init_graphs_data(number){
-      this.$http.get('/chartjs/data/' + number).then(response => {
-        let history = response.body.chartjs_data
-        let i;
-        for (i = 0; i < history.length; i++) {
-          let percentage_used = history[i].percentage_used
-          let string = history[i].datetime.split("-")
-          let date = string[2] +"-"+ string[1]  +"-"+ string[0]
-          this.categories_dates.push(date);
-          this.percentages.push(percentage_used);
-        }
-      });
-    },
-
-    init_sims_table_data(number){
-      this.$http.get('/sims/data/' + number).then(response => {
-        this.sims_table_data = response.body.logs
-      });
-    },
-
     init_sms_table_data(number){
       this.$http.get('/sims/sms/' + number).then(response => {
         this.sms_table_data = response.body.single_sim_sms
@@ -331,7 +306,7 @@ export default {
     },
 
     get_sim_data: function(){
-      this.$http.get('/sims/name/'+ this.number).then(response => {
+      this.$http.get('/sims/'+ this.number+'/json').then(response => {
         this.sim_name = response.body.name;
         this.toNumber = response.body.number;
       });
