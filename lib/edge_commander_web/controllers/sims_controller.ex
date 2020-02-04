@@ -170,6 +170,22 @@ defmodule EdgeCommanderWeb.SimsController do
       })
   end
 
+  def get_all_sims(conn, _params)  do
+    sims =
+      Records.get_sims
+      |> Enum.map(fn(sim) ->
+        %{
+          "number" => sim.number,
+          "name" => sim.name
+        }
+      end)
+    conn
+    |> put_status(200)
+    |> json(%{
+      sims: sims
+    })
+  end
+
   def get_all_sims_by_users(conn, params) do
     user_id = Util.get_user_id(conn, params)
     sims =
