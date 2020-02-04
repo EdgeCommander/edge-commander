@@ -113,6 +113,7 @@ defmodule EdgeCommanderWeb.Router do
     get "/user_logs", LogsController, :get_user_logs
     get "/sims/:sim_number/json", SimsController, :get_single_sim_data
     patch "/sim/:id", SimsController, :update
+    get "/all_sim", SimsController, :get_all_sims
     delete "/sims/:id", SimsController, :delete_sim
 
     get "/routers/data", RoutersController, :get_all_routers
