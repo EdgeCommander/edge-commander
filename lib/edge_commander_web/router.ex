@@ -95,6 +95,7 @@ defmodule EdgeCommanderWeb.Router do
     get "/sims/:sim_number", RooterController, :main
     get "/sites", RooterController, :main
     get "/messages", RooterController, :main
+    get "/messages/:number", RooterController, :main
     get "/status_report", RooterController, :main
     get "/api", RooterController, :main
     get "/shares", RooterController, :main

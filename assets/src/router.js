@@ -73,6 +73,11 @@ export default new Router({
       component: messages
     },
     {
+      path: '/messages/:number',
+      name: 'messages',
+      component: messages
+    },
+    {
       path: '/batteries',
       name: 'batteries',
       component: batteries

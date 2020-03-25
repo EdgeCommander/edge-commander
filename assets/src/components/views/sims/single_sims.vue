@@ -70,6 +70,9 @@
                           </tr>
                         </tbody>
                     </table>
+                    <router-link v-bind:to="'/messages/'+ number" >
+                      Show All
+                   </router-link>
                 </div>
             </div>
         </div>

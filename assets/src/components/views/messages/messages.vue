@@ -158,6 +158,13 @@ export default {
     }
   },
 
+  created() {
+    if(this.$route.params.number != undefined) {
+      this.sim_number = this.$route.params.number
+      this.handleChange()
+    }
+  },
+
   beforeUpdate() {
     document.addEventListener("resize", this.setScrollBar());
   },
@@ -190,7 +197,8 @@ export default {
     onFilterSet (filters) {
       this.moreParams = {
         "fromDate": this.from_dateTime,
-        "toDate": this.to_dateTime
+        "toDate": this.to_dateTime,
+        "number": this.sim_number
       }
       this.$nextTick( () => this.$refs.vuetable.refresh())
     },
