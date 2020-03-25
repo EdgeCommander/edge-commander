@@ -235,6 +235,11 @@ defmodule EdgeCommanderWeb.BatteryReadingController do
 
   defp save_battery_readings("0", _last_voltage, _params, _battery_params), do: Logger.error "Battery voltage is zero did not save."
   defp save_battery_readings(_, last_voltage, params, battery_params) do
+    valid_datetime = params["datetime"] |> String.length
+    ensure_datetime(valid_datetime, last_voltage, params, battery_params)
+  end
+
+  defp ensure_datetime(19, last_voltage, params, battery_params) do
     changeset = Reading.changeset(%Reading{}, params)
     case Repo.insert(changeset) do
     {:ok, _data} ->
@@ -245,6 +250,7 @@ defmodule EdgeCommanderWeb.BatteryReadingController do
       Logger.error "Battery status did not save."
     end
   end
+  defp ensure_datetime(_datetime_length, _last_voltage, _params, _battery_params), do: Logger.error "Battery datetime is wrong did not save."
 
   def get_battery_record(conn, params)  do
     battery_id = params["battery_id"]
