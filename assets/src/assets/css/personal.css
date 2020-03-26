@@ -609,12 +609,18 @@ select.form-control:not([size]):not([multiple]) {
     color: #9c9c9c !important;
   }
 
-  .bottom_links{
-    position: fixed;
-    padding: 0 !important;
-    bottom: 0;
-    width: inherit;
+  .top_links {
+    min-height: 500px !important;
+    height: calc(100vh - 230px);
   }
+
+  .bottom_links{
+    position: absolute !important;
+    padding: 0 !important;
+    width: inherit;
+    margin-bottom: 70px;
+  }
+
   .m-header--fixed .m-header{
     z-index: 0 !important;
   }
@@ -624,6 +630,8 @@ select.form-control:not([size]):not([multiple]) {
 
   .m-aside-menu{
     position: fixed;
+    overflow: scroll;
+    height: 100vh;
   }
   .m-stack.m-stack--general{
     position: relative;
