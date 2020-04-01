@@ -203,13 +203,12 @@ export default {
       battery_voltages: [],
       time_list: null,
       panel_voltages: [],
-      categories_dates: [],
       source_url: "",
       battery_name: "",
       chartOneOptions: {
         chart: {
           type: 'area',
-          zoomType: 'x'
+          zoomType: 'xy'
         },
         credits: {
           enabled: false
@@ -263,7 +262,8 @@ export default {
         yAxis: {
           title: {
             text: 'Voltages'
-          }
+          },
+          min: 0
         },
         tooltip: {
           valueSuffix: ' V'
@@ -276,7 +276,7 @@ export default {
       chartTwoOptions: {
         chart: {
           type: 'line',
-          zoomType: 'x'
+          zoomType: 'xy'
         },
         credits: {
           enabled: false
@@ -409,31 +409,100 @@ export default {
         this.time_list = this.convert_date_time_format(history.time_list)
         this.battery_voltages = history.battery_voltages;
         this.panel_voltages = history.panel_voltages;
-        this.chart_one_data(this.time_list, this.battery_voltages);
-        this.chart_two_data(this.time_list, this.battery_voltages, this.panel_voltages);
+
+        var listDate = [];
+        var startDate = this.from_dateTime;
+        var endDate = this.to_dateTime;
+        var dateMove = new Date(startDate);
+        var strDate = startDate;
+
+        while (strDate < endDate){
+          var strDate = dateMove.toISOString().slice(0,10)
+          listDate.push(moment(strDate).format("DD-MM-YYYY"))
+          dateMove.setDate(dateMove.getDate()+1)
+        }
+
+        let category_list = this.time_list
+        let battery_voltages = this.battery_voltages
+        let panel_voltages = this.panel_voltages
+
+        let dates_list = []
+        category_list.forEach(datetime => {
+          let [date, time] = datetime.split(" ")
+          dates_list.push(date)
+        })
+
+        listDate.forEach(date => {
+          if(dates_list.indexOf(date) == -1) {
+            category_list.push(date + " 00:00:00")
+            battery_voltages.push(null)
+            panel_voltages.push(null)
+          }
+        })
+
+        let i = 0
+        let data_set = []
+        category_list.forEach(datetime => {
+          let item = {
+            datetime: datetime,
+            voltage: battery_voltages[i],
+            panel_voltages: panel_voltages[i]
+          }
+          data_set.push(item)
+        i++
+        })
+
+        let capitalsList = data_set.sort(function(a,b){
+          let [a_date, a_time] = a.datetime.split(" ")
+          let [a_day, a_month, a_year] = a_date.split("-")
+          let a_datetime = moment(a_year + "-" + a_month + "-" + a_day + " " + a_time)
+
+          let [b_date, b_time] = b.datetime.split(" ")
+          let [b_day, b_month, b_year] = b_date.split("-")
+          let b_datetime = moment(b_year + "-" + b_month + "-" + b_day + " " + b_time)
+
+          if (a_datetime > b_datetime) return 1
+          if (a_datetime < b_datetime) return -1
+        });
+
+        let category_list_new = []
+        let battery_voltages_new = []
+        let panel_voltages_new = []
+        capitalsList.forEach(data => {
+          category_list_new.push(data.datetime)
+          battery_voltages_new.push(data.voltage)
+          panel_voltages_new.push(data.panel_voltages)
+        })
+
+        this.chart_one_data(category_list_new, battery_voltages_new);
+        this.chart_two_data(category_list_new, battery_voltages_new, panel_voltages_new);
       });
 
       this.$http.get('/battery_voltages_summary/data/' + battery_id + "/" + from_date + "/" + to_date).then(response => {
         let history = response.body.records
         let i;
-        for (i = 0; i < history.length; i++) {
-          let min_value = history[i].min_value
+        let categories_dates = []
+        let maximum_voltages = []
+        let minimum_voltages = []
+        history.forEach(data => {
+
+          let min_value = data.min_value
           if(min_value == null){
             min_value = 0;
           }
-          let max_value = history[i].max_value
+          let max_value = data.max_value
           if(max_value == null){
             max_value = 0;
           }
 
-          let string = history[i].date.split("-")
+          let string = data.date.split("-")
           let date = string[2] +"-"+ string[1]  +"-"+ string[0]
 
-          this.categories_dates.push(date);
-          this.maximum_voltages.push(max_value);
-          this.minimum_voltages.push(min_value);
-        }
-        this.chart_three_data(this.categories_dates, this.maximum_voltages, this.minimum_voltages);
+          categories_dates.push(date)
+          maximum_voltages.push(max_value)
+          minimum_voltages.push(min_value)
+        })
+        this.chart_three_data(categories_dates, maximum_voltages, minimum_voltages);
       });
     },
 
