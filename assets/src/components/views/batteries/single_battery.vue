@@ -126,25 +126,28 @@
       </div>
        <div class="tab-pane" id="m_tabs_1_2" role="tabpanel">
           <div class="m-content" style="padding-top:0">
-              <div class="m-portlet m-portlet--mobile" style="margin-bottom: 0">
-                <div class="m-portlet__body" style="padding: 10px;" id="graph_one_loading">
-                    <highcharts :options="chartOneOptions" style="height:80vh"></highcharts>
-                </div>
+            <div class="ui segment">
+              <div class="ui active inverted dimmer" v-if="show_loading_one">
+                <div class="ui text loader">Loading</div>
               </div>
+              <highcharts :options="chartOneOptions" style="height:80vh"></highcharts>
+            </div>
           </div>
           <div class="m-content">
-              <div class="m-portlet m-portlet--mobile" style="margin-bottom: 0">
-                <div class="m-portlet__body" style="padding: 10px;" id="graph_two_loading">
-                    <highcharts :options="chartTwoOptions" style="height:80vh"></highcharts>
-                </div>
+            <div class="ui segment">
+              <div class="ui active inverted dimmer" v-if="show_loading_two">
+                <div class="ui text loader">Loading</div>
               </div>
+              <highcharts :options="chartTwoOptions" style="height:80vh"></highcharts>
+            </div>
           </div>
           <div class="m-content">
-              <div class="m-portlet m-portlet--mobile" style="margin-bottom: 0">
-                <div class="m-portlet__body" style="padding: 10px;" id="graph_three_loading">
-                      <highcharts :options="chartThreeOptions" style="height:80vh"></highcharts>
-                </div>
+            <div class="ui segment">
+              <div class="ui active inverted dimmer" v-if="show_loading_three">
+                <div class="ui text loader">Loading</div>
               </div>
+              <highcharts :options="chartThreeOptions" style="height:80vh"></highcharts>
+            </div>
           </div>
       </div>
     </div>
@@ -205,6 +208,7 @@ export default {
       panel_voltages: [],
       source_url: "",
       battery_name: "",
+      show_loading_one: true,
       chartOneOptions: {
         chart: {
           type: 'area',
@@ -273,6 +277,7 @@ export default {
           data: []
         }]
       },
+      show_loading_two: true,
       chartTwoOptions: {
         chart: {
           type: 'line',
@@ -319,9 +324,11 @@ export default {
           data: []
         }]
       },
+      show_loading_three: false,
       chartThreeOptions: {
         chart: {
-          type: 'column'
+          type: 'column',
+          zoomType: 'xy'
         },
         colors: ['#363636', '#47bcfa', '#9c2a3d'],
         credits: {
@@ -404,6 +411,8 @@ export default {
     },
 
     init_graphs_data(from_date, to_date, battery_id){
+      this.show_loading_one = true
+      this.show_loading_two = true
       this.$http.get('/daily_battery/data/' + battery_id + "/" + from_date + "/" + to_date).then(response => {
         let history = response.body.voltages_history
         this.time_list = this.convert_date_time_format(history.time_list)
@@ -478,6 +487,7 @@ export default {
         this.chart_two_data(category_list_new, battery_voltages_new, panel_voltages_new);
       });
 
+      this.show_loading_three = true
       this.$http.get('/battery_voltages_summary/data/' + battery_id + "/" + from_date + "/" + to_date).then(response => {
         let history = response.body.records
         let i;
@@ -507,6 +517,7 @@ export default {
     },
 
     chart_one_data(category_list, battery_voltages){
+      this.show_loading_one = false
       this.chartOneOptions = {
         xAxis: {
           categories: category_list
@@ -519,6 +530,7 @@ export default {
     },
 
     chart_two_data(category_list, battery_voltages, panel_voltages){
+      this.show_loading_two = false
       this.chartTwoOptions = {
         xAxis: {
           categories: category_list
@@ -535,6 +547,7 @@ export default {
     },
 
     chart_three_data(categories_dates, maximum_voltages, minimum_voltages){
+      this.show_loading_three = false
       this.chartThreeOptions = {
         xAxis: {
           categories: categories_dates
