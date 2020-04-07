@@ -5,6 +5,14 @@ defmodule EdgeCommanderWeb.SessionController do
   alias EdgeCommander.Accounts.Guardian
   alias EdgeCommander.Util
 
+  def target_path(conn) do
+    get_session(conn, :login_retargeting_path) |> ensure_path
+  end
+
+  defp ensure_path(nil), do: "/dashboard"
+  defp ensure_path("/users/session"), do: "/dashboard"
+  defp ensure_path(path), do: path
+
   def create(conn, params) do
     email = String.downcase(params["email"])
     password = params["password"]
@@ -38,9 +46,10 @@ defmodule EdgeCommanderWeb.SessionController do
     }
     Util.create_log(conn, params)
     update_last_login(%{"email" => user.email}, Repo)
+    redirect_url = target_path(conn)
     conn
     |> put_flash(:info, "You have logged in.")
     |> Guardian.Plug.sign_in(user)
-    |> redirect(to: "/dashboard")
+    |> redirect(to: redirect_url)
   end
 end

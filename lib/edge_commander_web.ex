@@ -48,6 +48,7 @@ defmodule EdgeCommanderWeb do
       use Phoenix.Router
       import Plug.Conn
       import Phoenix.Controller
+      import EdgeCommander.Redirection
     end
   end
 
