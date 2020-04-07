@@ -18,6 +18,7 @@ defmodule EdgeCommanderWeb.Router do
 
   pipeline :auth do
     plug EdgeCommander.Accounts.Pipeline
+    plug :store_path_in_session
   end
   pipeline :ensure_auth do
     plug Guardian.Plug.EnsureAuthenticated
