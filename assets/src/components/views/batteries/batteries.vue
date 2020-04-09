@@ -24,7 +24,7 @@
                 <div id="table-wrapper" :class="['vuetable-wrapper ui basic segment', loading]">
                   <div class="table-responsive">
                     <vuetable ref="vuetable" 
-                      api-url="/battery"
+                      api-url="/batteries/data"
                       :fields="fields"
                       pagination-path=""
                       data-path="data"
@@ -195,7 +195,7 @@ export default {
     onActionClicked(action, data) {
       if (action == "delete-item") {
         if (window.confirm("Are you sure you want to delete this Battery?")) {
-          this.$http.delete(`/battery/${data.id}`).then(response => {
+          this.$http.delete(`/batteries/${data.id}`).then(response => {
             this.$notify({group: 'notify', title: 'Battery has been deleted.'});
           }, error => {
             this.$notify({group: 'notify',  type: "error", title: 'Something went wrong.'});

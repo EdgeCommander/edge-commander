@@ -152,7 +152,7 @@ defmodule EdgeCommanderWeb.BatteryController do
     end
   end
 
-  def get_single_battery(conn, %{"battery_id" => battery_id} = _params) do
+  def get_single_battery(conn, %{"id" => battery_id} = _params) do
       data = get_battery!(battery_id)
       conn
       |> put_status(:created)

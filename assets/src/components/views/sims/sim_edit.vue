@@ -137,7 +137,7 @@ export default {
         sim_provider = this.other_sim_provider;
       }
 
-      this.$http.patch("/sim/" + simID, {
+      this.$http.patch("/sims/" + simID, {
         name: this.name,
         number: this.number,
         sim_provider: sim_provider,

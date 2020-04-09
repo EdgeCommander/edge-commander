@@ -84,7 +84,7 @@
             <div id="table-wrapper" :class="['vuetable-wrapper ui basic segment', loading]">
               <div class="table-responsive">
                 <vuetable ref="vuetable" 
-                  api-url="/batteries/reading"
+                  :api-url="`/batteries/${battery_id}/readings`"
                   :fields="fields"
                   pagination-path=""
                   data-path="data"
@@ -169,6 +169,7 @@ export default {
   },
   data() {
     return {
+      api_url: "",
       battery_switch_id: this.$route.params.id,
       paginationComponent: "vuetable-pagination",
       loading: "",
@@ -413,7 +414,13 @@ export default {
     init_graphs_data(from_date, to_date, battery_id){
       this.show_loading_one = true
       this.show_loading_two = true
-      this.$http.get('/daily_battery/data/' + battery_id + "/" + from_date + "/" + to_date).then(response => {
+
+      this.$http.get("/batteries/"+battery_id+"/readings/voltages", {
+      params:{
+        from_date: from_date,
+        to_date: to_date
+      }
+      }).then(response => {
         let history = response.body.voltages_history
         this.time_list = this.convert_date_time_format(history.time_list)
         this.battery_voltages = history.battery_voltages;
@@ -487,8 +494,12 @@ export default {
         this.chart_two_data(category_list_new, battery_voltages_new, panel_voltages_new);
       });
 
-      this.show_loading_three = true
-      this.$http.get('/battery_voltages_summary/data/' + battery_id + "/" + from_date + "/" + to_date).then(response => {
+      this.$http.get("/batteries/"+battery_id+"/readings/voltages/comparison", {
+      params:{
+        from_date: from_date,
+        to_date: to_date
+      }
+      }).then(response => {
         let history = response.body.records
         let i;
         let categories_dates = []
@@ -513,7 +524,7 @@ export default {
           minimum_voltages.push(min_value)
         })
         this.chart_three_data(categories_dates, maximum_voltages, minimum_voltages);
-      });
+      })
     },
 
     chart_one_data(category_list, battery_voltages){
@@ -564,14 +575,14 @@ export default {
     },
 
     get_single_battery: function(){
-      this.$http.get('/battery/data/'+ this.battery_id).then(response => {
+      this.$http.get('/batteries/'+ this.battery_id).then(response => {
         this.battery_name = response.body.name;
         this.source_url = response.body.source_url;
       });
     },
 
     get_batteries: function(){
-      this.$http.get("/battery", {
+      this.$http.get("/batteries/data", {
       params:{
         sort: "name|desc",
         page: 1,

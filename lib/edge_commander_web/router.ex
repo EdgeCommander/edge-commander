@@ -108,15 +108,16 @@ defmodule EdgeCommanderWeb.Router do
     get "/activities", RooterController, :main
     get "/sharing", RooterController, :main
 
+    post "/sims", SimsController, :create
+    patch "/sims/:id", SimsController, :update
+    delete "/sims/:id", SimsController, :delete_sim
+    get "/all_sim", SimsController, :get_all_sims
+
     get "/sims/data/json", SimsController, :get_sims_list
     get "/sims/sms/:sim_number", SimsController, :get_single_sim_sms
-    post "/sims", SimsController, :create
     post "/messages", SimsController, :create
     get "/user_logs", LogsController, :get_user_logs
     get "/sims/:sim_number/json", SimsController, :get_single_sim_data
-    patch "/sim/:id", SimsController, :update
-    get "/all_sim", SimsController, :get_all_sims
-    delete "/sims/:id", SimsController, :delete_sim
 
     get "/routers/data", RoutersController, :get_all_routers
     post "/routers", RoutersController, :create
@@ -159,15 +160,15 @@ defmodule EdgeCommanderWeb.Router do
     get "/dashboard/total_sites", DashboardController, :total_sites
     get "/dashboard/weekly_sms_overview", DashboardController, :weekly_sms_overview
 
-    get "/batteries/reading", BatteryReadingController, :get_battery_record
-    get "/daily_battery/data/:battery_id/:from_date/:to_date", DashboardController, :daily_batery_voltages
-    get "/battery_voltages_summary/data/:battery_id/:from_date/:to_date", DashboardController, :battery_voltages_summary
-
-    get "/battery", BatteryController, :get_all_batteries
-    post "/battery/new", BatteryController, :create
+    get "/batteries/data", BatteryController, :get_all_batteries
+    post "/batteries/new", BatteryController, :create
     patch "/battery/update", BatteryController, :update
-    delete "/battery/:id", BatteryController, :delete_battery
-    get "/battery/data/:battery_id", BatteryController, :get_single_battery
+    delete "/batteries/:id", BatteryController, :delete_battery
+    get "/batteries/:id", BatteryController, :get_single_battery
+
+    get "/batteries/:id/readings", BatteryReadingController, :get_battery_record
+    get "/batteries/:id/readings/voltages", DashboardController, :daily_battery_voltages
+    get "/batteries/:id/readings/voltages/comparison", DashboardController, :battery_voltages_summary
 
   end
 
