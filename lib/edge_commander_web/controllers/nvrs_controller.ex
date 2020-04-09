@@ -4,7 +4,7 @@ defmodule EdgeCommanderWeb.NvrsController do
   alias EdgeCommander.Repo
   alias EdgeCommander.Util
   import Ecto.Query, warn: false
-  import EdgeCommander.Accounts, only: [current_user: 1]
+  import EdgeCommander.Accounts, only: [current_user: 1, get_current_resource: 1]
   import EdgeCommander.Monitors
   import EdgeCommander.Devices, only: [update_nvr_ISAPI: 1, list_nvrs: 0, get_nvr!: 1, get_nvrs_by_user: 1]
   use PhoenixSwagger
@@ -113,6 +113,8 @@ defmodule EdgeCommanderWeb.NvrsController do
   end
 
   def create(conn, params) do
+    current_user = get_current_resource(conn)
+    params = Map.merge(params, %{"user_id" => current_user.id})
     changeset = Nvr.changeset(%Nvr{}, params)
     case Repo.insert(changeset) do
       {:ok, nvr} ->
@@ -131,7 +133,6 @@ defmodule EdgeCommanderWeb.NvrsController do
         update_nvr_ISAPI(nvr)
 
         name = params["name"]
-        current_user = current_user(conn)
         logs_params = %{
           "event" => "NVR: A new <span>#{name}</span> was created",
           "user_id" => current_user.id
@@ -267,6 +268,7 @@ defmodule EdgeCommanderWeb.NvrsController do
   end
   
   def delete_nvr(conn, %{"id" => id} = _params) do
+    current_user = get_current_resource(conn)
     records = get_nvr!(id)
     records
     |> Repo.delete
@@ -278,7 +280,6 @@ defmodule EdgeCommanderWeb.NvrsController do
           deleted: true
         })
         name = records.name
-        current_user = current_user(conn)
         logs_params = %{
           "event" => "NVR: <span>#{name}</span> was deleted",
           "user_id" => current_user.id
@@ -312,7 +313,7 @@ defmodule EdgeCommanderWeb.NvrsController do
         } = nvr
 
         name = params["name"]
-        current_user = current_user(conn)
+        current_user = get_current_resource(conn)
         logs_params = %{
         "event" => "NVR: <span>#{name}</span> was updated",
         "user_id" => current_user.id

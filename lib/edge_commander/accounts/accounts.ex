@@ -42,7 +42,7 @@ defmodule EdgeCommander.Accounts do
   def get_by_api_keys(nil, _api_key), do: nil
   def get_by_api_keys(_api_id, nil), do: nil
   def get_by_api_keys(api_id, api_key) do
-    ConCache.dirty_get_or_store(:users, "#{api_id}_#{api_key}", fn() ->
+   ConCache.dirty_get_or_store(:users, "#{api_id}_#{api_key}", fn() ->
       by_api_keys(api_id, api_key)
     end)
   end
@@ -57,6 +57,13 @@ defmodule EdgeCommander.Accounts do
   def current_user(conn) do
     Guardian.Plug.current_resource(conn)
   end
+
+  def get_current_resource(conn) do
+    Guardian.Plug.current_resource(conn) |> ensure_current_user(conn)
+  end
+
+  defp ensure_current_user(nil, conn), do: conn.assigns.current_user
+  defp ensure_current_user(id, _conn), do: id
 
   def logged_in?(conn), do: !!current_user(conn)
 

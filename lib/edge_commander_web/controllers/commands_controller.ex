@@ -5,7 +5,7 @@ defmodule EdgeCommanderWeb.CommandsController do
   alias EdgeCommander.Util
   import Ecto.Query, warn: false
   import EdgeCommander.Commands, only: [get_rule!: 1, get_rules_by_user: 1]
-  import EdgeCommander.Accounts, only: [current_user: 1]
+  import EdgeCommander.Accounts, only: [current_user: 1, get_current_resource: 1]
   use PhoenixSwagger
 
   def swagger_definitions do
@@ -202,6 +202,7 @@ defmodule EdgeCommanderWeb.CommandsController do
   end
 
   def delete_rule(conn, %{"id" => id} = _params) do
+    current_user = get_current_resource(conn)
     records = get_rule!(id)
     records
     |> Repo.delete
@@ -213,7 +214,6 @@ defmodule EdgeCommanderWeb.CommandsController do
           deleted: true
         })
         rule_name = records.rule_name
-        current_user = current_user(conn)
         logs_params = %{
           "event" => "Rule: <span>#{rule_name}</span> was deleted in <span>commands</span>",
           "user_id" => current_user.id

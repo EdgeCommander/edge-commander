@@ -6,7 +6,7 @@ defmodule EdgeCommanderWeb.SitesController do
   import Ecto.Query, warn: false
   import EdgeCommander.Sites, only: [get_records!: 1, get_sites_by_user: 1]
   import EdgeCommander.Devices, only: [get_router!: 1, get_nvr!: 1]
-  import EdgeCommander.Accounts, only: [current_user: 1]
+  import EdgeCommander.Accounts, only: [current_user: 1, get_current_resource: 1]
   use PhoenixSwagger
 
   def swagger_definitions do
@@ -248,6 +248,7 @@ defmodule EdgeCommanderWeb.SitesController do
   end
 
   def delete_site(conn, %{"id" => id} = _params) do
+    current_user = get_current_resource(conn)
     records = get_records!(id)
     records
     |> Repo.delete
@@ -259,7 +260,6 @@ defmodule EdgeCommanderWeb.SitesController do
           deleted: true
         })
         name = records.name
-        current_user = current_user(conn)
         logs_params = %{
           "event" => "Site: <span>#{name}</span> was deleted",
           "user_id" => current_user.id
