@@ -5,9 +5,8 @@ defmodule EdgeCommanderWeb.BatteryController do
   alias EdgeCommander.Util
   import Ecto.Query, warn: false
   import EdgeCommander.Solar, only: [get_battery!: 1, get_last_reading: 1]
-  import EdgeCommander.Accounts, only: [current_user: 1]
+  import EdgeCommander.Accounts, only: [current_user: 1,  get_current_resource: 1]
   use PhoenixSwagger
-  require IEx
 
   def create(conn, params) do
     changeset = Battery.changeset(%Battery{}, params)
@@ -21,7 +20,7 @@ defmodule EdgeCommanderWeb.BatteryController do
         } = battery
 
         battery_name = params["name"]
-        current_user = current_user(conn)
+        current_user = get_current_resource(conn)
         logs_params = %{
           "event" => "Battery: <span>#{battery_name}</span> was created",
           "user_id" => current_user.id
@@ -152,7 +151,7 @@ defmodule EdgeCommanderWeb.BatteryController do
     end
   end
 
-  def get_single_battery(conn, %{"battery_id" => battery_id} = _params) do
+  def get_single_battery(conn, %{"id" => battery_id} = _params) do
       data = get_battery!(battery_id)
       conn
       |> put_status(:created)

@@ -108,15 +108,16 @@ defmodule EdgeCommanderWeb.Router do
     get "/activities", RooterController, :main
     get "/sharing", RooterController, :main
 
+    post "/sims", SimsController, :create
+    patch "/sims/:id", SimsController, :update
+    delete "/sims/:id", SimsController, :delete_sim
+    get "/all_sim", SimsController, :get_all_sims
+
     get "/sims/data/json", SimsController, :get_sims_list
     get "/sims/sms/:sim_number", SimsController, :get_single_sim_sms
-    post "/sims", SimsController, :create
     post "/messages", SimsController, :create
     get "/user_logs", LogsController, :get_user_logs
     get "/sims/:sim_number/json", SimsController, :get_single_sim_data
-    patch "/sim/:id", SimsController, :update
-    get "/all_sim", SimsController, :get_all_sims
-    delete "/sims/:id", SimsController, :delete_sim
 
     get "/routers/data", RoutersController, :get_all_routers
     post "/routers", RoutersController, :create
@@ -159,15 +160,15 @@ defmodule EdgeCommanderWeb.Router do
     get "/dashboard/total_sites", DashboardController, :total_sites
     get "/dashboard/weekly_sms_overview", DashboardController, :weekly_sms_overview
 
-    get "/batteries/reading", BatteryReadingController, :get_battery_record
-    get "/daily_battery/data/:battery_id/:from_date/:to_date", DashboardController, :daily_batery_voltages
-    get "/battery_voltages_summary/data/:battery_id/:from_date/:to_date", DashboardController, :battery_voltages_summary
-
-    get "/battery", BatteryController, :get_all_batteries
-    post "/battery/new", BatteryController, :create
+    get "/batteries/data", BatteryController, :get_all_batteries
+    post "/batteries/new", BatteryController, :create
     patch "/battery/update", BatteryController, :update
-    delete "/battery/:id", BatteryController, :delete_battery
-    get "/battery/data/:battery_id", BatteryController, :get_single_battery
+    delete "/batteries/:id", BatteryController, :delete_battery
+    get "/batteries/:id", BatteryController, :get_single_battery
+
+    get "/batteries/:id/readings", BatteryReadingController, :get_battery_record
+    get "/batteries/:id/readings/voltages", DashboardController, :daily_battery_voltages
+    get "/batteries/:id/readings/voltages/comparison", DashboardController, :battery_voltages_summary
 
   end
 
@@ -178,6 +179,8 @@ defmodule EdgeCommanderWeb.Router do
     scope "/" do
       pipe_through :swagger_auth
 
+      post "/batteries", BatteryController, :create
+
       get "/sims", SimsController, :get_all_sims_by_users
       get "/sims/:sim_number/sms", SimsController, :get_single_sim_sms
       post "/sims", SimsController, :create
@@ -186,22 +189,22 @@ defmodule EdgeCommanderWeb.Router do
       get "/routers", RoutersController, :get_all_routers_by_users
       post "/routers", RoutersController, :create
       patch "/routers/:id", RoutersController, :update
-      delete "/routers/:id", RoutersController, :delete
+      delete "/routers/:id", RoutersController, :delete_router
 
       get "/nvrs", NvrsController, :get_all_nvrs_by_users
       post "/nvrs", NvrsController, :create
-      delete "/nvrs/:id", NvrsController, :delete
+      delete "/nvrs/:id", NvrsController, :delete_nvr
       patch "/nvrs/:id", NvrsController, :update
 
       get "/rules", CommandsController, :get_all_rules_by_users
       post "/rules/new", CommandsController, :create
       patch "/rules/update", CommandsController, :update
-      delete "/rules/:id", CommandsController, :delete
+      delete "/rules/:id", CommandsController, :delete_rule
 
       get "/sites", SitesController, :get_all_sites_by_users
       post "/sites/new", SitesController, :create
       patch "/sites/update", SitesController, :update
-      delete "/sites/:id", SitesController, :delete
+      delete "/sites/:id", SitesController, :delete_site
 
       patch "/update_profile", UsersController, :update_profile
 

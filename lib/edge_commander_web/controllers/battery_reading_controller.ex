@@ -253,7 +253,7 @@ defmodule EdgeCommanderWeb.BatteryReadingController do
   defp ensure_datetime(_datetime_length, _last_voltage, _params, _battery_params), do: Logger.error "Battery datetime is wrong did not save."
 
   def get_battery_record(conn, params)  do
-    battery_id = params["battery_id"]
+    battery_id = params["id"]
     from_date = params["fromDate"]
     to_date = params["toDate"]
 

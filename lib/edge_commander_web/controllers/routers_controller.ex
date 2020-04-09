@@ -5,7 +5,7 @@ defmodule EdgeCommanderWeb.RoutersController do
   alias EdgeCommander.Util
   import Ecto.Query, warn: false
   import EdgeCommander.Devices, only: [list_routers: 0, get_router!: 1, get_routers_by_user: 1]
-  import EdgeCommander.Accounts, only: [current_user: 1]
+  import EdgeCommander.Accounts, only: [current_user: 1, get_current_resource: 1]
   use PhoenixSwagger
 
   def swagger_definitions do
@@ -88,6 +88,8 @@ defmodule EdgeCommanderWeb.RoutersController do
   end
 
   def create(conn, params) do
+    current_user = get_current_resource(conn)
+    params = Map.merge(params, %{"user_id" => current_user.id})
     changeset = Router.changeset(%Router{}, params)
     case Repo.insert(changeset) do
       {:ok, router} ->
@@ -101,7 +103,6 @@ defmodule EdgeCommanderWeb.RoutersController do
         } = router
 
         name = params["name"]
-        current_user = current_user(conn)
         logs_params = %{
           "event" => "Router: <span>#{name}</span> was created.",
           "user_id" => current_user.id
@@ -238,7 +239,7 @@ defmodule EdgeCommanderWeb.RoutersController do
         } = router
 
         name = params["name"]
-        current_user = current_user(conn)
+        current_user = get_current_resource(conn)
         logs_params = %{
           "event" => "Router: <span>#{name}</span> was updated.",
           "user_id" => current_user.id
@@ -266,6 +267,7 @@ defmodule EdgeCommanderWeb.RoutersController do
   end
 
   def delete_router(conn, %{"id" => id} = _params) do
+    current_user = get_current_resource(conn)
     records = get_router!(id)
     records
     |> Repo.delete
@@ -277,7 +279,6 @@ defmodule EdgeCommanderWeb.RoutersController do
           deleted: true
         })
         name = records.name
-        current_user = current_user(conn)
         logs_params = %{
           "event" => "Router: <span>#{name}</span> was deleted.",
           "user_id" => current_user.id

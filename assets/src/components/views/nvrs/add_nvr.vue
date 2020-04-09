@@ -186,8 +186,7 @@ export default {
         sdk_port: this.sdk_nvr_port,
         vh_port: this.vh_nvr_port,
         rtsp_port: this.rtsp_nvr_port,
-        is_monitoring: this.nvr_is_monitoring,
-        user_id: this.$root.user_id
+        is_monitoring: this.nvr_is_monitoring
       }).then(function (response) {
         this.$notify({group: 'notify', title: 'NVR has been added.'});
         this.clearForm()

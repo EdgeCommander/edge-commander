@@ -125,10 +125,10 @@ defmodule EdgeCommanderWeb.DashboardController do
     })
   end
 
-  def daily_batery_voltages(conn, params) do
+  def daily_battery_voltages(conn, params) do
     from_date = params["from_date"]
     to_date = params["to_date"]
-    battery_id = params["battery_id"]
+    battery_id = params["id"]
       time_list =
         get_readings(from_date, to_date, battery_id)
         |> Enum.map(fn(data) ->
@@ -165,7 +165,7 @@ defmodule EdgeCommanderWeb.DashboardController do
   def battery_voltages_summary(conn, params) do
     from_date = Date.from_iso8601!(params["from_date"])
     to_date = Date.from_iso8601!(params["to_date"])
-    battery_id = params["battery_id"]
+    battery_id = params["id"]
 
     range = Date.range(from_date, to_date)
     dates = Enum.to_list(range)
