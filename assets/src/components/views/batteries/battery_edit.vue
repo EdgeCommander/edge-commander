@@ -122,11 +122,10 @@ export default {
       this.show_loading = true;
       var recordID = this.edit_battery_id;
 
-      this.$http.patch('/battery/update', {
+      this.$http.patch('/batteries/' + recordID, {
         name: this.edit_battery_name,
         source_url: this.edit_battery_source_url,
-        active: this.edit_battery_is_active,
-        id: recordID
+        active: this.edit_battery_is_active
       }).then(function (response) {
         this.$notify({group: 'notify', title: 'Battery has been updated'});
         this.show_loading = false;

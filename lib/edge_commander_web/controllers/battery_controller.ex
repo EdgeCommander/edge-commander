@@ -4,11 +4,77 @@ defmodule EdgeCommanderWeb.BatteryController do
   alias EdgeCommander.Repo
   alias EdgeCommander.Util
   import Ecto.Query, warn: false
-  import EdgeCommander.Solar, only: [get_battery!: 1, get_last_reading: 1]
+  import EdgeCommander.Solar, only: [get_battery!: 1, get_last_reading: 1, get_batteries_by_user: 1]
   import EdgeCommander.Accounts, only: [current_user: 1,  get_current_resource: 1]
   use PhoenixSwagger
 
+  swagger_path :create do
+    post "/v1/batteries"
+    summary "Add a new battery"
+    parameters do
+      name :query, :string, "", required: true
+      source_url :query, :string, "", required: true
+      active :query, :boolean, "", default: false
+      api_id :query, :string, "", required: true
+      api_key :query, :string, "", required: true
+    end
+    tag "batteries"
+    response 201, "Success"
+  end
+
+  swagger_path :get_all_batteries_by_users do
+    get "/v1/batteries"
+    summary "Returns all batteries"
+    parameters do
+      api_id :query, :string, "", required: true
+      api_key :query, :string, "", required: true
+    end
+    tag "batteries"
+    response 200, "Success"
+  end
+
+  swagger_path :delete_battery do
+    delete "/v1/batteries/{id}"
+    summary "Delete battery by ID"
+    parameters do
+      id :path, :string, "battery id to delete", required: true
+      api_id :query, :string, "", required: true
+      api_key :query, :string, "", required: true
+    end
+    tag "batteries"
+    response 200, "Success"
+  end
+
+  swagger_path :update do
+    patch "/v1/batteries/{id}"
+    summary "Update battery by ID"
+    parameters do
+      id :path, :string, "ID of battery that needs to be updated", required: true
+      name :query, :string, "Updated name of the battery"
+      source_url :query, :string, "Updated source url of the battery"
+      active :query, :boolean, "", default: false
+      api_id :query, :string, "", required: true
+      api_key :query, :string, "", required: true
+    end
+    tag "batteries"
+    response 201, "Success"
+  end
+
+  swagger_path :get_single_battery do
+    get "/v1/batteries/{id}"
+    summary "Returns battery details by ID"
+    parameters do
+      id :path, :string, "ID of battery that needs to be fetch", required: true
+      api_id :query, :string, "", required: true
+      api_key :query, :string, "", required: true
+    end
+    tag "batteries"
+    response 201, "Success"
+  end
+
   def create(conn, params) do
+    current_user = get_current_resource(conn)
+    params = Map.merge(params, %{"user_id" => current_user.id})
     changeset = Battery.changeset(%Battery{}, params)
     case Repo.insert(changeset) do
       {:ok, battery} ->
@@ -20,7 +86,6 @@ defmodule EdgeCommanderWeb.BatteryController do
         } = battery
 
         battery_name = params["name"]
-        current_user = get_current_resource(conn)
         logs_params = %{
           "event" => "Battery: <span>#{battery_name}</span> was created",
           "user_id" => current_user.id
@@ -96,14 +161,34 @@ defmodule EdgeCommanderWeb.BatteryController do
       json(conn, records)
   end
 
+  def get_all_batteries_by_users(conn, params) do
+    user_id = Util.get_user_id(conn, params)
+    batteries =
+      get_batteries_by_user(user_id)
+      |> Enum.map(fn(battery) ->
+        %{
+          "id" => battery.id,
+          "name" => battery.name,
+          "source_url" => battery.source_url,
+          "active" => battery.active,
+          "created_at" => battery.inserted_at
+        }
+      end)
+    conn
+    |> put_status(200)
+    |> json(%{
+        batteries: batteries
+      })
+  end
+
   def update(conn, %{"id" => id} = params) do
     get_battery!(id)
     |> Battery.changeset(params)
     |> Repo.update
     |> case do
-      {:ok, _battery} ->
+      {:ok, battery} ->
         battery_name = params["name"]
-        current_user = current_user(conn)
+        current_user = get_current_resource(conn)
         logs_params = %{
         "event" => "Battery: <span>#{battery_name}</span> was updated.",
         "user_id" => current_user.id
@@ -113,7 +198,10 @@ defmodule EdgeCommanderWeb.BatteryController do
         conn
         |> put_status(:created)
         |> json(%{
-          "name" => battery_name
+          "id" => battery.id,
+          "name" => battery.name,
+          "source_url" => battery.source_url,
+          "active" => battery.active
         })
       {:error, changeset} ->
         errors = Util.parse_changeset(changeset)
@@ -125,6 +213,7 @@ defmodule EdgeCommanderWeb.BatteryController do
   end
 
   def delete_battery(conn, %{"id" => id} = _params) do
+    current_user = get_current_resource(conn)
     records = get_battery!(id)
     records
     |> Repo.delete
@@ -136,7 +225,6 @@ defmodule EdgeCommanderWeb.BatteryController do
           deleted: true
         })
         battery_name = records.name
-        current_user = current_user(conn)
         logs_params = %{
           "event" => "Battery: <span>#{battery_name}</span> was deleted.",
           "user_id" => current_user.id
@@ -151,13 +239,14 @@ defmodule EdgeCommanderWeb.BatteryController do
     end
   end
 
-  def get_single_battery(conn, %{"id" => battery_id} = _params) do
-      data = get_battery!(battery_id)
+  def get_single_battery(conn, %{"id" => id} = _params) do
+      data = get_battery!(id)
       conn
       |> put_status(:created)
       |> json(%{
         "name" => data.name,
-        "source_url" => data.source_url
+        "source_url" => data.source_url,
+        "active" => data.active
       })
   end
 

@@ -55,6 +55,10 @@ defmodule EdgeCommanderWeb.Router do
         %{
           name: "routers",
           description: "Operations related to routers"
+        },
+        %{
+          name: "batteries",
+          description: "Operations related to batteries"
         }
       ]
     }
@@ -162,7 +166,7 @@ defmodule EdgeCommanderWeb.Router do
 
     get "/batteries/data", BatteryController, :get_all_batteries
     post "/batteries/new", BatteryController, :create
-    patch "/battery/update", BatteryController, :update
+    patch "/batteries/:id", BatteryController, :update
     delete "/batteries/:id", BatteryController, :delete_battery
     get "/batteries/:id", BatteryController, :get_single_battery
 
@@ -214,6 +218,15 @@ defmodule EdgeCommanderWeb.Router do
       get "/daily_sms_count/:number", SimsController, :daily_sms_count
 
       get "/get_all_sms/:from_date/:to_date", SmsController, :get_all_sms
+
+      post "/batteries/new", BatteryController, :create
+      get "/batteries", BatteryController, :get_all_batteries_by_users
+      delete "/batteries/:id", BatteryController, :delete_battery
+      patch "/batteries/:id", BatteryController, :update
+      get "/batteries/:id", BatteryController, :get_single_battery
+
+      get "/batteries/:id/readings", BatteryReadingController, :get_all_readings_by_battery
+
     end
   end
 end

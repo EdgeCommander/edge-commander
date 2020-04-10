@@ -1,5 +1,6 @@
 defmodule EdgeCommanderWeb.DashboardController do
   use EdgeCommanderWeb, :controller
+  use PhoenixSwagger
   alias EdgeCommander.Accounts.User
   alias EdgeCommander.Accounts.Guardian
   alias EdgeCommander.ThreeScraper.Records
@@ -126,8 +127,8 @@ defmodule EdgeCommanderWeb.DashboardController do
   end
 
   def daily_battery_voltages(conn, params) do
-    from_date = params["from_date"]
-    to_date = params["to_date"]
+    from_date = params["from"]
+    to_date = params["to"]
     battery_id = params["id"]
       time_list =
         get_readings(from_date, to_date, battery_id)

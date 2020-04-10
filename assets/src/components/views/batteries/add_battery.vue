@@ -112,7 +112,6 @@ export default {
       this.show_loading = true;
       this.$http.post('/batteries/new', {
         name: this.battery_name,
-        user_id:  this.$root.user_id,
         source_url: this.battery_source_url,
         active: this.battery_is_active
       }).then(function (response) {

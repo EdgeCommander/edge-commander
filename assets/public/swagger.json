@@ -19,6 +19,10 @@
     {
       "name": "routers",
       "description": "Operations related to routers"
+    },
+    {
+      "name": "batteries",
+      "description": "Operations related to batteries"
     }
   ],
   "swagger": "2.0",
@@ -789,6 +793,272 @@
         ],
         "operationId": "EdgeCommanderWeb.NvrsController.get_all_nvrs_by_users",
         "description": "Returns nvrs list"
+      }
+    },
+    "/v1/batteries/{id}/readings": {
+      "get": {
+        "tags": [
+          "batteries"
+        ],
+        "summary": "Returns battery readings by ID",
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        },
+        "parameters": [
+          {
+            "type": "string",
+            "required": true,
+            "name": "id",
+            "in": "path",
+            "description": "battery id to read"
+          },
+          {
+            "type": "string",
+            "required": true,
+            "name": "from",
+            "in": "query",
+            "description": "Date (YYYY-MM-DD)"
+          },
+          {
+            "type": "string",
+            "required": true,
+            "name": "to",
+            "in": "query",
+            "description": "Date (YYYY-MM-DD)"
+          },
+          {
+            "type": "string",
+            "required": true,
+            "name": "api_id",
+            "in": "query",
+            "description": ""
+          },
+          {
+            "type": "string",
+            "required": true,
+            "name": "api_key",
+            "in": "query",
+            "description": ""
+          }
+        ],
+        "operationId": "EdgeCommanderWeb.BatteryReadingController.get_all_readings_by_battery",
+        "description": ""
+      }
+    },
+    "/v1/batteries/{id}": {
+      "patch": {
+        "tags": [
+          "batteries"
+        ],
+        "summary": "Update battery by ID",
+        "responses": {
+          "201": {
+            "description": "Success"
+          }
+        },
+        "parameters": [
+          {
+            "type": "string",
+            "required": true,
+            "name": "id",
+            "in": "path",
+            "description": "ID of battery that needs to be updated"
+          },
+          {
+            "type": "string",
+            "required": false,
+            "name": "name",
+            "in": "query",
+            "description": "Updated name of the battery"
+          },
+          {
+            "type": "string",
+            "required": false,
+            "name": "source_url",
+            "in": "query",
+            "description": "Updated source url of the battery"
+          },
+          {
+            "type": "boolean",
+            "required": false,
+            "name": "active",
+            "in": "query",
+            "description": "",
+            "default": false
+          },
+          {
+            "type": "string",
+            "required": true,
+            "name": "api_id",
+            "in": "query",
+            "description": ""
+          },
+          {
+            "type": "string",
+            "required": true,
+            "name": "api_key",
+            "in": "query",
+            "description": ""
+          }
+        ],
+        "operationId": "EdgeCommanderWeb.BatteryController.update",
+        "description": ""
+      },
+      "get": {
+        "tags": [
+          "batteries"
+        ],
+        "summary": "Returns battery details by ID",
+        "responses": {
+          "201": {
+            "description": "Success"
+          }
+        },
+        "parameters": [
+          {
+            "type": "string",
+            "required": true,
+            "name": "id",
+            "in": "path",
+            "description": "ID of battery that needs to be fetch"
+          },
+          {
+            "type": "string",
+            "required": true,
+            "name": "api_id",
+            "in": "query",
+            "description": ""
+          },
+          {
+            "type": "string",
+            "required": true,
+            "name": "api_key",
+            "in": "query",
+            "description": ""
+          }
+        ],
+        "operationId": "EdgeCommanderWeb.BatteryController.get_single_battery",
+        "description": ""
+      },
+      "delete": {
+        "tags": [
+          "batteries"
+        ],
+        "summary": "Delete battery by ID",
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        },
+        "parameters": [
+          {
+            "type": "string",
+            "required": true,
+            "name": "id",
+            "in": "path",
+            "description": "battery id to delete"
+          },
+          {
+            "type": "string",
+            "required": true,
+            "name": "api_id",
+            "in": "query",
+            "description": ""
+          },
+          {
+            "type": "string",
+            "required": true,
+            "name": "api_key",
+            "in": "query",
+            "description": ""
+          }
+        ],
+        "operationId": "EdgeCommanderWeb.BatteryController.delete_battery",
+        "description": ""
+      }
+    },
+    "/v1/batteries": {
+      "post": {
+        "tags": [
+          "batteries"
+        ],
+        "summary": "Add a new battery",
+        "responses": {
+          "201": {
+            "description": "Success"
+          }
+        },
+        "parameters": [
+          {
+            "type": "string",
+            "required": true,
+            "name": "name",
+            "in": "query",
+            "description": ""
+          },
+          {
+            "type": "string",
+            "required": true,
+            "name": "source_url",
+            "in": "query",
+            "description": ""
+          },
+          {
+            "type": "boolean",
+            "required": false,
+            "name": "active",
+            "in": "query",
+            "description": "",
+            "default": false
+          },
+          {
+            "type": "string",
+            "required": true,
+            "name": "api_id",
+            "in": "query",
+            "description": ""
+          },
+          {
+            "type": "string",
+            "required": true,
+            "name": "api_key",
+            "in": "query",
+            "description": ""
+          }
+        ],
+        "operationId": "EdgeCommanderWeb.BatteryController.create",
+        "description": ""
+      },
+      "get": {
+        "tags": [
+          "batteries"
+        ],
+        "summary": "Returns all batteries",
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        },
+        "parameters": [
+          {
+            "type": "string",
+            "required": true,
+            "name": "api_id",
+            "in": "query",
+            "description": ""
+          },
+          {
+            "type": "string",
+            "required": true,
+            "name": "api_key",
+            "in": "query",
+            "description": ""
+          }
+        ],
+        "operationId": "EdgeCommanderWeb.BatteryController.get_all_batteries_by_users",
+        "description": ""
       }
     }
   },
