@@ -28,6 +28,42 @@
   "swagger": "2.0",
   "paths": {
     "/v1/sites/{id}": {
+      "get": {
+        "tags": [
+          "sites"
+        ],
+        "summary": "Returns site details by ID",
+        "responses": {
+          "201": {
+            "description": "Success"
+          }
+        },
+        "parameters": [
+          {
+            "type": "string",
+            "required": true,
+            "name": "id",
+            "in": "path",
+            "description": "ID of site that needs to be fetch"
+          },
+          {
+            "type": "string",
+            "required": true,
+            "name": "api_id",
+            "in": "query",
+            "description": ""
+          },
+          {
+            "type": "string",
+            "required": true,
+            "name": "api_key",
+            "in": "query",
+            "description": ""
+          }
+        ],
+        "operationId": "EdgeCommanderWeb.SitesController.get_single_site",
+        "description": ""
+      },
       "delete": {
         "tags": [
           "sites"
@@ -215,7 +251,152 @@
         "description": "Returns details for single sim"
       }
     },
+    "/v1/sims/{id}": {
+      "patch": {
+        "tags": [
+          "sims"
+        ],
+        "summary": "Update sim by ID",
+        "responses": {
+          "201": {
+            "description": "Success"
+          }
+        },
+        "parameters": [
+          {
+            "type": "string",
+            "required": true,
+            "name": "id",
+            "in": "path",
+            "description": "ID of sim that needs to be updated"
+          },
+          {
+            "type": "string",
+            "required": false,
+            "name": "name",
+            "in": "query",
+            "description": "Updated name of the sim"
+          },
+          {
+            "type": "string",
+            "required": false,
+            "name": "number",
+            "in": "query",
+            "description": "Updated number of the sim"
+          },
+          {
+            "type": "string",
+            "required": false,
+            "name": "sim_provider",
+            "in": "query",
+            "description": "Updated sim provider of the sim"
+          },
+          {
+            "type": "string",
+            "required": true,
+            "name": "api_id",
+            "in": "query",
+            "description": ""
+          },
+          {
+            "type": "string",
+            "required": true,
+            "name": "api_key",
+            "in": "query",
+            "description": ""
+          }
+        ],
+        "operationId": "EdgeCommanderWeb.SimsController.update",
+        "description": ""
+      },
+      "delete": {
+        "tags": [
+          "sims"
+        ],
+        "summary": "Delete sim by ID",
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        },
+        "parameters": [
+          {
+            "type": "string",
+            "required": true,
+            "name": "id",
+            "in": "path",
+            "description": "Sim id to delete"
+          },
+          {
+            "type": "string",
+            "required": true,
+            "name": "api_id",
+            "in": "query",
+            "description": ""
+          },
+          {
+            "type": "string",
+            "required": true,
+            "name": "api_key",
+            "in": "query",
+            "description": ""
+          }
+        ],
+        "operationId": "EdgeCommanderWeb.SimsController.delete_sim",
+        "description": ""
+      }
+    },
     "/v1/sims": {
+      "post": {
+        "tags": [
+          "sims"
+        ],
+        "summary": "Add a new sim",
+        "responses": {
+          "201": {
+            "description": "Success"
+          }
+        },
+        "parameters": [
+          {
+            "type": "string",
+            "required": true,
+            "name": "number",
+            "in": "query",
+            "description": ""
+          },
+          {
+            "type": "string",
+            "required": true,
+            "name": "name",
+            "in": "query",
+            "description": ""
+          },
+          {
+            "type": "string",
+            "required": true,
+            "name": "sim_provider",
+            "in": "query",
+            "description": ""
+          },
+          {
+            "type": "string",
+            "required": true,
+            "name": "api_id",
+            "in": "query",
+            "description": ""
+          },
+          {
+            "type": "string",
+            "required": true,
+            "name": "api_key",
+            "in": "query",
+            "description": ""
+          }
+        ],
+        "operationId": "EdgeCommanderWeb.SimsController.create",
+        "description": ""
+      },
       "get": {
         "tags": [
           "sims"
@@ -247,6 +428,42 @@
       }
     },
     "/v1/rules/{id}": {
+      "get": {
+        "tags": [
+          "rules"
+        ],
+        "summary": "Returns rule details by ID",
+        "responses": {
+          "201": {
+            "description": "Success"
+          }
+        },
+        "parameters": [
+          {
+            "type": "string",
+            "required": true,
+            "name": "id",
+            "in": "path",
+            "description": "ID of rule that needs to be fetch"
+          },
+          {
+            "type": "string",
+            "required": true,
+            "name": "api_id",
+            "in": "query",
+            "description": ""
+          },
+          {
+            "type": "string",
+            "required": true,
+            "name": "api_key",
+            "in": "query",
+            "description": ""
+          }
+        ],
+        "operationId": "EdgeCommanderWeb.CommandsController.get_single_rule",
+        "description": ""
+      },
       "delete": {
         "tags": [
           "rules"
@@ -392,6 +609,42 @@
           }
         ],
         "operationId": "EdgeCommanderWeb.RoutersController.update",
+        "description": ""
+      },
+      "get": {
+        "tags": [
+          "routers"
+        ],
+        "summary": "Returns router details by ID",
+        "responses": {
+          "201": {
+            "description": "Success"
+          }
+        },
+        "parameters": [
+          {
+            "type": "string",
+            "required": true,
+            "name": "id",
+            "in": "path",
+            "description": "ID of router that needs to be fetch"
+          },
+          {
+            "type": "string",
+            "required": true,
+            "name": "api_id",
+            "in": "query",
+            "description": ""
+          },
+          {
+            "type": "string",
+            "required": true,
+            "name": "api_key",
+            "in": "query",
+            "description": ""
+          }
+        ],
+        "operationId": "EdgeCommanderWeb.RoutersController.get_single_router",
         "description": ""
       },
       "delete": {
@@ -632,6 +885,42 @@
           }
         ],
         "operationId": "EdgeCommanderWeb.NvrsController.update",
+        "description": ""
+      },
+      "get": {
+        "tags": [
+          "nvrs"
+        ],
+        "summary": "Returns nvr details by ID",
+        "responses": {
+          "201": {
+            "description": "Success"
+          }
+        },
+        "parameters": [
+          {
+            "type": "string",
+            "required": true,
+            "name": "id",
+            "in": "path",
+            "description": "ID of nvr that needs to be fetch"
+          },
+          {
+            "type": "string",
+            "required": true,
+            "name": "api_id",
+            "in": "query",
+            "description": ""
+          },
+          {
+            "type": "string",
+            "required": true,
+            "name": "api_key",
+            "in": "query",
+            "description": ""
+          }
+        ],
+        "operationId": "EdgeCommanderWeb.NvrsController.get_single_nvr",
         "description": ""
       },
       "delete": {

@@ -87,6 +87,18 @@ defmodule EdgeCommanderWeb.RoutersController do
     response 201, "Success"
   end
 
+  swagger_path :get_single_router do
+    get "/v1/routers/{id}"
+    summary "Returns router details by ID"
+    parameters do
+      id :path, :string, "ID of router that needs to be fetch", required: true
+      api_id :query, :string, "", required: true
+      api_key :query, :string, "", required: true
+    end
+    tag "routers"
+    response 201, "Success"
+  end
+
   def create(conn, params) do
     current_user = get_current_resource(conn)
     params = Map.merge(params, %{"user_id" => current_user.id})
@@ -264,6 +276,21 @@ defmodule EdgeCommanderWeb.RoutersController do
         |> put_status(400)
         |> json(%{ errors: traversed_errors })   
     end
+  end
+
+  def get_single_router(conn, %{"id" => id} = _params) do
+    data = get_router!(id)
+    conn
+    |> put_status(:ok)
+    |> json(%{
+      "name" => data.name,
+      "username" => data.username,
+      "password" => data.password,
+      "ip" => data.ip,
+      "port" => data.port,
+      "is_monitoring" => data.is_monitoring,
+      "created_at" => data.inserted_at
+    })
   end
 
   def delete_router(conn, %{"id" => id} = _params) do

@@ -189,26 +189,32 @@ defmodule EdgeCommanderWeb.Router do
       get "/sims/:sim_number/sms", SimsController, :get_single_sim_sms
       post "/sims", SimsController, :create
       get "/sims/:sim_number", SimsController, :get_single_sim_data
+      patch "/sims/:id", SimsController, :update
+      delete "/sims/:id", SimsController, :delete_sim
 
       get "/routers", RoutersController, :get_all_routers_by_users
       post "/routers", RoutersController, :create
       patch "/routers/:id", RoutersController, :update
       delete "/routers/:id", RoutersController, :delete_router
+      get "/routers/:id", RoutersController, :get_single_router
 
       get "/nvrs", NvrsController, :get_all_nvrs_by_users
       post "/nvrs", NvrsController, :create
       delete "/nvrs/:id", NvrsController, :delete_nvr
       patch "/nvrs/:id", NvrsController, :update
+      get "/nvrs/:id", NvrsController, :get_single_nvr
 
       get "/rules", CommandsController, :get_all_rules_by_users
       post "/rules/new", CommandsController, :create
       patch "/rules/update", CommandsController, :update
       delete "/rules/:id", CommandsController, :delete_rule
+      get "/rules/:id", CommandsController, :get_single_rule
 
       get "/sites", SitesController, :get_all_sites_by_users
       post "/sites/new", SitesController, :create
       patch "/sites/update", SitesController, :update
       delete "/sites/:id", SitesController, :delete_site
+      get "/sites/:id", SitesController, :get_single_site
 
       patch "/update_profile", UsersController, :update_profile
 

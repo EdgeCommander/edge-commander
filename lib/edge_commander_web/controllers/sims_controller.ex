@@ -2,7 +2,7 @@ defmodule EdgeCommanderWeb.SimsController do
   use EdgeCommanderWeb, :controller
   import EdgeCommander.ThreeScraper.Records
   import EdgeCommander.Nexmo, only: [get_last_message_details: 1, get_message: 1, get_single_sim_messages: 1, get_sms_count: 2]
-  import EdgeCommander.Accounts, only: [current_user: 1]
+  import EdgeCommander.Accounts, only: [current_user: 1, get_current_resource: 1]
   alias EdgeCommander.Nexmo.SimMessages
   alias EdgeCommander.ThreeScraper.SimLogs
   alias EdgeCommander.Repo
@@ -11,7 +11,22 @@ defmodule EdgeCommanderWeb.SimsController do
   alias EdgeCommander.ThreeScraper.Records
   alias EdgeCommander.ThreeScraper.Sims
   require Logger
+  require IEx
   use PhoenixSwagger
+
+  swagger_path :create do
+    post "/v1/sims"
+    summary "Add a new sim"
+    parameters do
+      number :query, :string, "", required: true
+      name :query, :string, "", required: true
+      sim_provider :query, :string, "", required: true
+      api_id :query, :string, "", required: true
+      api_key :query, :string, "", required: true
+    end
+    tag "sims"
+    response 201, "Success"
+  end
 
   swagger_path :get_all_sims_by_users do
     get "/v1/sims"
@@ -63,8 +78,37 @@ defmodule EdgeCommanderWeb.SimsController do
     response 200, "Success"
   end
 
+  swagger_path :update do
+    patch "/v1/sims/{id}"
+    summary "Update sim by ID"
+    parameters do
+      id :path, :string, "ID of sim that needs to be updated", required: true
+      name :query, :string, "Updated name of the sim"
+      number :query, :string, "Updated number of the sim"
+      sim_provider :query, :string, "Updated sim provider of the sim"
+      api_id :query, :string, "", required: true
+      api_key :query, :string, "", required: true
+    end
+    tag "sims"
+    response 201, "Success"
+  end
+
+  swagger_path :delete_sim do
+    delete "/v1/sims/{id}"
+    summary "Delete sim by ID"
+    parameters do
+      id :path, :string, "Sim id to delete", required: true
+      api_id :query, :string, "", required: true
+      api_key :query, :string, "", required: true
+    end
+    tag "sims"
+    response 200, "Success"
+  end
+
   def create(conn, params) do
-    params = Map.merge(params, %{"datetime" => NaiveDateTime.utc_now})
+    current_user = get_current_resource(conn)
+    has_addon = Map.has_key?(params, "addon")
+    params = Map.merge(ensure_params(has_addon, params), %{"datetime" => NaiveDateTime.utc_now, "user_id" => current_user.id})
     changeset = SimLogs.changeset(%SimLogs{}, params)
     case Repo.insert(changeset) do
       {:ok, site} ->
@@ -80,7 +124,6 @@ defmodule EdgeCommanderWeb.SimsController do
 
         number = params["number"]
         name = params["name"]
-        current_user = current_user(conn)
         logs_params = %{
           "event" => "SIM: <span>#{number}</span> with the name of <span>#{name}</span> was created.",
           "user_id" => current_user.id
@@ -109,6 +152,19 @@ defmodule EdgeCommanderWeb.SimsController do
     end
   end
 
+  defp ensure_params(false, params) do
+    %{      
+      "addon" => "Unknown",
+      "allowance" => "-1.0",
+      "name" => params["name"],
+      "number" => params["number"],
+      "sim_provider" => params["sim_provider"],
+      "three_user_id" => 0,
+      "volume_used" => "-1.0"
+    }
+  end
+  defp ensure_params(true, params), do: params
+
   def update(conn, %{"id" => id} = params) do
     new_name = params["name"]
     new_number = params["number"]
@@ -121,20 +177,21 @@ defmodule EdgeCommanderWeb.SimsController do
     |> Sims.changeset(params)
     |> Repo.update
     |> case do
-      {:ok, _sim} ->
+      {:ok, sim} ->
         name = params["name"]
-        current_user = current_user(conn)
+        current_user = get_current_resource(conn)
         event = "<span>Sim Edit: </span> Old => [<strong>Name: </strong>#{old_name}, <strong>Number: </strong> #{old_number}, <strong>Provider:</strong> #{old_sim_provider}], New => [<strong>Name: </strong>#{new_name}, <strong>Number: </strong> #{new_number}, <strong>Provider:</strong> #{new_sim_provider}]"
         logs_params = %{
         "event" => event,
         "user_id" => current_user.id
         }
         Util.create_log(conn, logs_params)
-
         conn
         |> put_status(:created)
         |> json(%{
-          "name" => name
+          "name" => sim.name,
+          "number" => sim.number,
+          "sim_provider" => sim.sim_provider
         })
       {:error, changeset} ->
         errors = Util.parse_changeset(changeset)
@@ -303,6 +360,7 @@ defmodule EdgeCommanderWeb.SimsController do
   def ensure_valid_data(value), do: value
 
   def delete_sim(conn, %{"id" => id} = _params) do
+    current_user = get_current_resource(conn)
     records = Records.get_sim!(id)
     records
     |> Repo.delete
@@ -314,7 +372,6 @@ defmodule EdgeCommanderWeb.SimsController do
           deleted: true
         })
         name = records.name
-        current_user = current_user(conn)
         logs_params = %{
           "event" => "Sims: <span>#{name}</span> was deleted.",
           "user_id" => current_user.id

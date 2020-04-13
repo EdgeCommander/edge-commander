@@ -112,6 +112,18 @@ defmodule EdgeCommanderWeb.NvrsController do
     response 201, "Success"
   end
 
+  swagger_path :get_single_nvr do
+    get "/v1/nvrs/{id}"
+    summary "Returns nvr details by ID"
+    parameters do
+      id :path, :string, "ID of nvr that needs to be fetch", required: true
+      api_id :query, :string, "", required: true
+      api_key :query, :string, "", required: true
+    end
+    tag "nvrs"
+    response 201, "Success"
+  end
+
   def create(conn, params) do
     current_user = get_current_resource(conn)
     params = Map.merge(params, %{"user_id" => current_user.id})
@@ -292,6 +304,24 @@ defmodule EdgeCommanderWeb.NvrsController do
         |> put_status(400)
         |> json(%{ errors: traversed_errors })
     end
+  end
+
+  def get_single_nvr(conn, %{"id" => id} = _params) do
+    data = get_nvr!(id)
+    conn
+    |> put_status(:ok)
+    |> json(%{
+      "name" => data.name,
+      "username" => data.username,
+      "password" => data.password,
+      "ip" => data.ip,
+      "port" => data.port,
+      "vh_port" => data.vh_port,
+      "rtsp_port" => data.rtsp_port,
+      "sdk_port" => data.sdk_port,
+      "is_monitoring" => data.is_monitoring,
+      "created_at" => data.inserted_at
+    })
   end
 
   def update(conn, %{"id" => id} = params) do

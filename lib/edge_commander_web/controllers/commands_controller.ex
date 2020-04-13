@@ -51,6 +51,18 @@ defmodule EdgeCommanderWeb.CommandsController do
     response 200, "Success"
   end
 
+  swagger_path :get_single_rule do
+    get "/v1/rules/{id}"
+    summary "Returns rule details by ID"
+    parameters do
+      id :path, :string, "ID of rule that needs to be fetch", required: true
+      api_id :query, :string, "", required: true
+      api_key :query, :string, "", required: true
+    end
+    tag "rules"
+    response 201, "Success"
+  end
+
   def create(conn, params) do
     changeset = Rule.changeset(%Rule{}, params)
     case Repo.insert(changeset) do
@@ -226,6 +238,22 @@ defmodule EdgeCommanderWeb.CommandsController do
         |> put_status(400)
         |> json(%{ errors: traversed_errors })
     end
+  end
+
+  def get_single_rule(conn, %{"id" => id} = _params) do
+    data = get_rule!(id)
+    conn
+    |> put_status(:ok)
+    |> json(%{
+    "id" => data.id,
+    "rule_name" => data.rule_name,
+    "active" => data.active,
+    "category" => data.category,
+    "variable" => data.variable,
+    "value" => data.value,
+    "recipients" => data.recipients,
+    "created_at" => data.inserted_at
+    })
   end
 
   defp add_sorting("id", order), do: "ORDER BY id #{order}"
