@@ -1426,6 +1426,96 @@
       },
       "description": "A site module of the application"
     },
+    "Sim": {
+      "type": "object",
+      "title": "Sim",
+      "required": [
+        "allowance",
+        "addon",
+        "sim_provider",
+        "name",
+        "number"
+      ],
+      "properties": {
+        "yesterday_volume_used": {
+          "type": "string",
+          "description": ""
+        },
+        "volume_used": {
+          "type": "string",
+          "description": ""
+        },
+        "user_id": {
+          "type": "integer",
+          "description": ""
+        },
+        "three_user_id": {
+          "type": "integer",
+          "description": ""
+        },
+        "status": {
+          "type": "string",
+          "description": ""
+        },
+        "sms_since_last_bill": {
+          "type": "string",
+          "description": ""
+        },
+        "sim_provider": {
+          "type": "string",
+          "description": ""
+        },
+        "remaning_days": {
+          "type": "string",
+          "description": ""
+        },
+        "percentage_used": {
+          "type": "string",
+          "description": ""
+        },
+        "number": {
+          "type": "string",
+          "description": ""
+        },
+        "name": {
+          "type": "string",
+          "description": ""
+        },
+        "last_sms_date": {
+          "type": "string",
+          "description": ""
+        },
+        "last_sms": {
+          "type": "string",
+          "description": ""
+        },
+        "last_log_reading_at": {
+          "type": "string",
+          "description": ""
+        },
+        "last_bill_date": {
+          "type": "string",
+          "description": ""
+        },
+        "id": {
+          "type": "integer",
+          "description": ""
+        },
+        "created_at": {
+          "type": "string",
+          "description": ""
+        },
+        "allowance": {
+          "type": "string",
+          "description": ""
+        },
+        "addon": {
+          "type": "string",
+          "description": ""
+        }
+      },
+      "description": "A sim module of the application"
+    },
     "Rule": {
       "type": "object",
       "title": "Rule",
@@ -1636,6 +1726,37 @@
         }
       },
       "description": "A network video recorder of the application"
+    },
+    "Battery": {
+      "type": "object",
+      "title": "Battery",
+      "required": [
+        "source_url",
+        "name"
+      ],
+      "properties": {
+        "source_url": {
+          "type": "string",
+          "description": ""
+        },
+        "name": {
+          "type": "string",
+          "description": ""
+        },
+        "id": {
+          "type": "integer",
+          "description": ""
+        },
+        "created_at": {
+          "type": "string",
+          "description": ""
+        },
+        "active": {
+          "type": "boolean",
+          "description": ""
+        }
+      },
+      "description": "A battery module of the application"
     }
   }
 }

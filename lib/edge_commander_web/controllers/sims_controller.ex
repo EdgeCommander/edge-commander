@@ -11,8 +11,37 @@ defmodule EdgeCommanderWeb.SimsController do
   alias EdgeCommander.ThreeScraper.Records
   alias EdgeCommander.ThreeScraper.Sims
   require Logger
-  require IEx
   use PhoenixSwagger
+
+  def swagger_definitions do
+    %{
+      Sim: swagger_schema do
+        title "Sim"
+        description "A sim module of the application"
+        properties do
+          id :integer, ""
+          number :string, "", required: true
+          name :string, "", required: true
+          sim_provider :string, "", required: true
+          addon :string, "", required: true
+          allowance :string, "", required: true
+          last_bill_date :string, ""
+          last_log_reading_at :string, ""
+          last_sms :string, ""
+          last_sms_date :string, ""
+          percentage_used :string, ""
+          remaning_days :string, ""
+          sms_since_last_bill :string, ""
+          three_user_id :integer, ""
+          user_id :integer, ""
+          volume_used :string, ""
+          yesterday_volume_used :string, ""
+          status :string, ""
+          created_at :string, ""
+        end
+      end
+    }
+  end
 
   swagger_path :create do
     post "/v1/sims"
@@ -223,7 +252,8 @@ defmodule EdgeCommanderWeb.SimsController do
         sms_since_last_bill: sim_records.sms_since_last_bill,
         status: sim_records.status,
         user_id: sim_records.user_id,
-        three_user_id: sim_records.three_user_id
+        three_user_id: sim_records.three_user_id,
+        created_at: sim_records.inserted_at
       })
   end
 
@@ -267,6 +297,7 @@ defmodule EdgeCommanderWeb.SimsController do
           "status" => sim.status,
           "user_id" => sim.user_id,
           "three_user_id" => sim.three_user_id,
+          "created_at" => sim.inserted_at
         }
       end)
 

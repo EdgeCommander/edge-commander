@@ -8,6 +8,22 @@ defmodule EdgeCommanderWeb.BatteryController do
   import EdgeCommander.Accounts, only: [current_user: 1,  get_current_resource: 1]
   use PhoenixSwagger
 
+  def swagger_definitions do
+    %{
+      Battery: swagger_schema do
+        title "Battery"
+        description "A battery module of the application"
+        properties do
+          id :integer, ""
+          name :string, "", required: true
+          source_url :string, "", required: true
+          active :boolean, ""
+          created_at :string, ""
+        end
+      end
+    }
+  end
+
   swagger_path :create do
     post "/v1/batteries"
     summary "Add a new battery"
@@ -246,7 +262,8 @@ defmodule EdgeCommanderWeb.BatteryController do
       |> json(%{
         "name" => data.name,
         "source_url" => data.source_url,
-        "active" => data.active
+        "active" => data.active,
+        "created_at" => data.inserted_at
       })
   end
 
