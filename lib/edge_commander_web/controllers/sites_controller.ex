@@ -60,6 +60,18 @@ defmodule EdgeCommanderWeb.SitesController do
     response 200, "Success"
   end
 
+  swagger_path :get_single_site do
+    get "/v1/sites/{id}"
+    summary "Returns site details by ID"
+    parameters do
+      id :path, :string, "ID of site that needs to be fetch", required: true
+      api_id :query, :string, "", required: true
+      api_key :query, :string, "", required: true
+    end
+    tag "sites"
+    response 201, "Success"
+  end
+
   def create(conn, params) do
     changeset = Records.changeset(%Records{}, params)
     case Repo.insert(changeset) do
@@ -272,6 +284,25 @@ defmodule EdgeCommanderWeb.SitesController do
         |> put_status(400)
         |> json(%{errors: traversed_errors})
     end
+  end
+
+  def get_single_site(conn, %{"id" => id} = _params) do
+    data = get_records!(id)
+    conn
+    |> put_status(:ok)
+    |> json(%{
+      "name" => data.name,
+      "location" => %{
+        "lat" => data.location["lat"],
+        "lng" => data.location["lng"],
+        "map_area" => data.location["map_area"]
+      },
+      "sim_number" => data.sim_number,
+      "router_id" => data.router_id,
+      "nvr_id" => data.nvr_id,
+      "notes" => data.notes,
+      "created_at" => data.inserted_at
+    })
   end
 
   defp get_router_name(id),  do: get_router!(id) |> Map.get(:name)

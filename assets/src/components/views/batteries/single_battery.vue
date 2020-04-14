@@ -417,8 +417,8 @@ export default {
 
       this.$http.get("/batteries/"+battery_id+"/readings/voltages", {
       params:{
-        from_date: from_date,
-        to_date: to_date
+        from: from_date,
+        to: to_date
       }
       }).then(response => {
         let history = response.body.voltages_history
@@ -496,8 +496,8 @@ export default {
 
       this.$http.get("/batteries/"+battery_id+"/readings/voltages/comparison", {
       params:{
-        from_date: from_date,
-        to_date: to_date
+        from: from_date,
+        to: to_date
       }
       }).then(response => {
         let history = response.body.records

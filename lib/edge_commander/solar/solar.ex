@@ -154,6 +154,12 @@ defmodule EdgeCommander.Solar do
     |> Repo.all
   end
 
+  def get_batteries_by_user(user_id) do
+    Battery
+    |> where(user_id: ^user_id)
+    |> Repo.all
+  end
+
   @doc """
   Gets a single battery.
 

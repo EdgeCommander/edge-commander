@@ -1,11 +1,26 @@
 defmodule EdgeCommanderWeb.BatteryReadingController do
   use EdgeCommanderWeb, :controller
+  use PhoenixSwagger
   alias EdgeCommander.Solar.Reading
   alias EdgeCommander.Repo
   alias EdgeCommander.Util
-  import EdgeCommander.Solar, only: [list_active_batteries: 0, get_last_reading: 1]
+  import EdgeCommander.Solar, only: [list_active_batteries: 0, get_last_reading: 1, get_readings: 3]
   import Ecto.Query, warn: false
   require Logger
+
+  swagger_path :get_all_readings_by_battery do
+    get "/v1/batteries/{id}/readings"
+    summary "Returns battery readings by ID"
+    parameters do
+      id :path, :string, "battery id to read", required: true
+      from :query, :string, "Date (YYYY-MM-DD)", required: true
+      to :query, :string, "Date (YYYY-MM-DD)", required: true
+      api_id :query, :string, "", required: true
+      api_key :query, :string, "", required: true
+    end
+    tag "batteries"
+    response 200, "Success"
+  end
 
   def get_all_batteries() do
     list_active_batteries()
@@ -333,6 +348,62 @@ defmodule EdgeCommanderWeb.BatteryReadingController do
       prev_page_url: (if String.to_integer(params["page"]) < 1, do: "", else: "/battery/data?sort=#{params["sort"]}&per_page=#{display_length}&page=#{String.to_integer(params["page"]) - 1}")
     }
     json(conn, records)
+  end
+
+  def get_all_readings_by_battery(conn, params) do
+    battery_id = params["id"]
+    from_date = params["from"]
+    to_date = params["to"]
+
+    batteries =
+    get_readings(from_date, to_date, battery_id)
+      |> Enum.map(fn(battery) ->
+        %{
+          "pid" => battery.pid,
+          "fw" => battery.fw,
+          "serial_no" => battery.serial_no,
+          "voltage" => battery.voltage,
+          "i_value" => battery.i_value,
+          "vpv_value" => battery.vpv_value,
+          "ppv_value" => battery.ppv_value,
+          "cs_value" => battery.cs_value,
+          "err_value" => battery.err_value,
+          "h1_value" => battery.h1_value,
+          "h2_value" => battery.h2_value,
+          "h3_value" => battery.h3_value,
+          "h4_value" => battery.h4_value,
+          "h5_value" => battery.h5_value,
+          "h6_value" => battery.h6_value,
+          "h7_value" => battery.h7_value,
+          "h8_value" => battery.h8_value,
+          "h9_value" => battery.h9_value,
+          "h10_value" => battery.h10_value,
+          "h11_value" => battery.h11_value,
+          "h19_value" => battery.h19_value,
+          "h20_value" => battery.h20_value,
+          "h21_value" => battery.h21_value,
+          "h22_value" => battery.h22_value,
+          "h23_value" => battery.h23_value,
+          "datetime" => battery.datetime,
+          "battery_id" => battery.battery_id,
+          "il_value" => battery.il_value,
+          "mppt_value" => battery.mppt_value,
+          "load_value" => battery.load_value,
+          "p_value" => battery.p_value,
+          "consumed_amphours" => battery.consumed_amphours,
+          "soc_value" => battery.soc_value,
+          "time_to_go" => battery.time_to_go,
+          "alarm" => battery.alarm,
+          "relay" => battery.relay,
+          "ar_value" => battery.ar_value,
+          "bmv_value" => battery.bmv_value
+        }
+      end)
+    conn
+    |> put_status(200)
+    |> json(%{
+        batteries: batteries
+      })
   end
 
   defp add_sorting("id", order), do: "ORDER BY id #{order}"

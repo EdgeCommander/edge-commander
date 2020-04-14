@@ -2,7 +2,7 @@ defmodule EdgeCommanderWeb.SimsController do
   use EdgeCommanderWeb, :controller
   import EdgeCommander.ThreeScraper.Records
   import EdgeCommander.Nexmo, only: [get_last_message_details: 1, get_message: 1, get_single_sim_messages: 1, get_sms_count: 2]
-  import EdgeCommander.Accounts, only: [current_user: 1]
+  import EdgeCommander.Accounts, only: [current_user: 1, get_current_resource: 1]
   alias EdgeCommander.Nexmo.SimMessages
   alias EdgeCommander.ThreeScraper.SimLogs
   alias EdgeCommander.Repo
@@ -12,6 +12,50 @@ defmodule EdgeCommanderWeb.SimsController do
   alias EdgeCommander.ThreeScraper.Sims
   require Logger
   use PhoenixSwagger
+
+  def swagger_definitions do
+    %{
+      Sim: swagger_schema do
+        title "Sim"
+        description "A sim module of the application"
+        properties do
+          id :integer, ""
+          number :string, "", required: true
+          name :string, "", required: true
+          sim_provider :string, "", required: true
+          addon :string, "", required: true
+          allowance :string, "", required: true
+          last_bill_date :string, ""
+          last_log_reading_at :string, ""
+          last_sms :string, ""
+          last_sms_date :string, ""
+          percentage_used :string, ""
+          remaning_days :string, ""
+          sms_since_last_bill :string, ""
+          three_user_id :integer, ""
+          user_id :integer, ""
+          volume_used :string, ""
+          yesterday_volume_used :string, ""
+          status :string, ""
+          created_at :string, ""
+        end
+      end
+    }
+  end
+
+  swagger_path :create do
+    post "/v1/sims"
+    summary "Add a new sim"
+    parameters do
+      number :query, :string, "", required: true
+      name :query, :string, "", required: true
+      sim_provider :query, :string, "", required: true
+      api_id :query, :string, "", required: true
+      api_key :query, :string, "", required: true
+    end
+    tag "sims"
+    response 201, "Success"
+  end
 
   swagger_path :get_all_sims_by_users do
     get "/v1/sims"
@@ -25,11 +69,11 @@ defmodule EdgeCommanderWeb.SimsController do
   end
 
   swagger_path :get_single_sim_data do
-    get "/v1/sims/{sim_number}"
+    get "/v1/sims/{number}"
     description "Returns details for single sim"
     summary "Find Single sim data by sim number"
     parameters do
-      sim_number :path, :string, "Sim number in given format (+353xxxxxxxx)", required: true
+      number :path, :string, "Sim number in given format (+353xxxxxxxx)", required: true
       api_id :query, :string, "", required: true
       api_key :query, :string, "", required: true
     end
@@ -38,11 +82,11 @@ defmodule EdgeCommanderWeb.SimsController do
   end
 
   swagger_path :get_single_sim_sms do
-    get "/v1/sims/{sim_number}/sms"
+    get "/v1/sims/{number}/sms"
     description "Returns latest 10 sms for single sim"
     summary "Find sms by sim number"
     parameters do
-      sim_number :path, :string, "Sim number in given format (+353xxxxxxxx)", required: true
+      number :path, :string, "Sim number in given format (+353xxxxxxxx)", required: true
       api_id :query, :string, "", required: true
       api_key :query, :string, "", required: true
     end
@@ -51,10 +95,10 @@ defmodule EdgeCommanderWeb.SimsController do
   end
 
   swagger_path :send_sms do
-    post "/v1/sims/{sim_number}/sms"
+    post "/v1/sims/{number}/sms"
     summary "Send sms to sim"
     parameters do
-      sim_number :path, :string, "Sim number in given format (+353xxxxxxxx)", required: true
+      number :path, :string, "Sim number in given format (+353xxxxxxxx)", required: true
       sms_message :query, :string, "", required: true
       api_id :query, :string, "", required: true
       api_key :query, :string, "", required: true
@@ -63,8 +107,37 @@ defmodule EdgeCommanderWeb.SimsController do
     response 200, "Success"
   end
 
+  swagger_path :update do
+    patch "/v1/sims/{id}"
+    summary "Update sim by ID"
+    parameters do
+      id :path, :string, "ID of sim that needs to be updated", required: true
+      name :query, :string, "Updated name of the sim"
+      number :query, :string, "Updated number of the sim"
+      sim_provider :query, :string, "Updated sim provider of the sim"
+      api_id :query, :string, "", required: true
+      api_key :query, :string, "", required: true
+    end
+    tag "sims"
+    response 201, "Success"
+  end
+
+  swagger_path :delete_sim do
+    delete "/v1/sims/{id}"
+    summary "Delete sim by ID"
+    parameters do
+      id :path, :string, "Sim id to delete", required: true
+      api_id :query, :string, "", required: true
+      api_key :query, :string, "", required: true
+    end
+    tag "sims"
+    response 200, "Success"
+  end
+
   def create(conn, params) do
-    params = Map.merge(params, %{"datetime" => NaiveDateTime.utc_now})
+    current_user = get_current_resource(conn)
+    has_addon = Map.has_key?(params, "addon")
+    params = Map.merge(ensure_params(has_addon, params), %{"datetime" => NaiveDateTime.utc_now, "user_id" => current_user.id})
     changeset = SimLogs.changeset(%SimLogs{}, params)
     case Repo.insert(changeset) do
       {:ok, site} ->
@@ -80,7 +153,6 @@ defmodule EdgeCommanderWeb.SimsController do
 
         number = params["number"]
         name = params["name"]
-        current_user = current_user(conn)
         logs_params = %{
           "event" => "SIM: <span>#{number}</span> with the name of <span>#{name}</span> was created.",
           "user_id" => current_user.id
@@ -109,6 +181,19 @@ defmodule EdgeCommanderWeb.SimsController do
     end
   end
 
+  defp ensure_params(false, params) do
+    %{      
+      "addon" => "Unknown",
+      "allowance" => "-1.0",
+      "name" => params["name"],
+      "number" => params["number"],
+      "sim_provider" => params["sim_provider"],
+      "three_user_id" => 0,
+      "volume_used" => "-1.0"
+    }
+  end
+  defp ensure_params(true, params), do: params
+
   def update(conn, %{"id" => id} = params) do
     new_name = params["name"]
     new_number = params["number"]
@@ -121,20 +206,21 @@ defmodule EdgeCommanderWeb.SimsController do
     |> Sims.changeset(params)
     |> Repo.update
     |> case do
-      {:ok, _sim} ->
+      {:ok, sim} ->
         name = params["name"]
-        current_user = current_user(conn)
+        current_user = get_current_resource(conn)
         event = "<span>Sim Edit: </span> Old => [<strong>Name: </strong>#{old_name}, <strong>Number: </strong> #{old_number}, <strong>Provider:</strong> #{old_sim_provider}], New => [<strong>Name: </strong>#{new_name}, <strong>Number: </strong> #{new_number}, <strong>Provider:</strong> #{new_sim_provider}]"
         logs_params = %{
         "event" => event,
         "user_id" => current_user.id
         }
         Util.create_log(conn, logs_params)
-
         conn
         |> put_status(:created)
         |> json(%{
-          "name" => name
+          "name" => sim.name,
+          "number" => sim.number,
+          "sim_provider" => sim.sim_provider
         })
       {:error, changeset} ->
         errors = Util.parse_changeset(changeset)
@@ -145,7 +231,7 @@ defmodule EdgeCommanderWeb.SimsController do
     end
   end
 
-  def get_single_sim_data(conn, %{"sim_number" => sim_number } = _params) do
+  def get_single_sim_data(conn, %{"number" => sim_number } = _params) do
     sim_records = Records.get_single_sim(sim_number)
     conn
     |> put_status(200)
@@ -166,7 +252,8 @@ defmodule EdgeCommanderWeb.SimsController do
         sms_since_last_bill: sim_records.sms_since_last_bill,
         status: sim_records.status,
         user_id: sim_records.user_id,
-        three_user_id: sim_records.three_user_id
+        three_user_id: sim_records.three_user_id,
+        created_at: sim_records.inserted_at
       })
   end
 
@@ -210,6 +297,7 @@ defmodule EdgeCommanderWeb.SimsController do
           "status" => sim.status,
           "user_id" => sim.user_id,
           "three_user_id" => sim.three_user_id,
+          "created_at" => sim.inserted_at
         }
       end)
 
@@ -303,6 +391,7 @@ defmodule EdgeCommanderWeb.SimsController do
   def ensure_valid_data(value), do: value
 
   def delete_sim(conn, %{"id" => id} = _params) do
+    current_user = get_current_resource(conn)
     records = Records.get_sim!(id)
     records
     |> Repo.delete
@@ -314,7 +403,6 @@ defmodule EdgeCommanderWeb.SimsController do
           deleted: true
         })
         name = records.name
-        current_user = current_user(conn)
         logs_params = %{
           "event" => "Sims: <span>#{name}</span> was deleted.",
           "user_id" => current_user.id
@@ -330,9 +418,10 @@ defmodule EdgeCommanderWeb.SimsController do
   end
 
   def send_sms(conn, params) do
+    current_user = get_current_resource(conn)
     sms_message = params["sms_message"]
-    to_number = params["sim_number"]
-    user_id = params["user_id"]
+    to_number = params["number"]
+    user_id = current_user.id
     nexmo_number = choose_nexmo_number(to_number)
     current_user = ensure_user_id(conn, user_id)
     url = "https://rest.nexmo.com/sms/json"
@@ -344,7 +433,6 @@ defmodule EdgeCommanderWeb.SimsController do
       text: sms_message
     })
     headers = [{"Content-type", "application/json"}]
-    
     case HTTPoison.post(url, body, headers, []) do
       {:ok, %HTTPoison.Response{status_code: 200, body: body}} ->
 
@@ -359,7 +447,6 @@ defmodule EdgeCommanderWeb.SimsController do
         status_code |> save_send_sms(nexmo_number, results, sms_message, current_user)
 
         sim_number = params["sim_number"]
-        current_user = current_user(conn)
         logs_params = %{
           "event" => "SMS: <span>#{sms_message}</span> command was sent to <span>#{sim_number}</span>",
           "user_id" => current_user.id
@@ -659,7 +746,7 @@ defmodule EdgeCommanderWeb.SimsController do
     |> json(%{void: 0})
   end
 
-  def get_single_sim_sms(conn, %{"sim_number" => sim_number} = _params) do
+  def get_single_sim_sms(conn, %{"number" => sim_number} = _params) do
     single_sim_sms =
       get_single_sim_messages(sim_number)
       |> Enum.map(fn(sms) ->

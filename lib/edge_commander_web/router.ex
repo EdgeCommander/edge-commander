@@ -55,6 +55,10 @@ defmodule EdgeCommanderWeb.Router do
         %{
           name: "routers",
           description: "Operations related to routers"
+        },
+        %{
+          name: "batteries",
+          description: "Operations related to batteries"
         }
       ]
     }
@@ -114,10 +118,10 @@ defmodule EdgeCommanderWeb.Router do
     get "/all_sim", SimsController, :get_all_sims
 
     get "/sims/data/json", SimsController, :get_sims_list
-    get "/sims/sms/:sim_number", SimsController, :get_single_sim_sms
+    get "/sims/sms/:number", SimsController, :get_single_sim_sms
     post "/messages", SimsController, :create
     get "/user_logs", LogsController, :get_user_logs
-    get "/sims/:sim_number/json", SimsController, :get_single_sim_data
+    get "/sims/:number/json", SimsController, :get_single_sim_data
 
     get "/routers/data", RoutersController, :get_all_routers
     post "/routers", RoutersController, :create
@@ -150,7 +154,7 @@ defmodule EdgeCommanderWeb.Router do
 
     patch "/update_profile", UsersController, :update_profile
 
-    post "/send_sms", SimsController, :send_sms
+    post "/sims/:number/sms", SimsController, :send_sms
     get "/get_all_sms", SmsController, :get_all_sms
     get "/daily_sms_count/:number", SimsController, :daily_sms_count
 
@@ -162,7 +166,7 @@ defmodule EdgeCommanderWeb.Router do
 
     get "/batteries/data", BatteryController, :get_all_batteries
     post "/batteries/new", BatteryController, :create
-    patch "/battery/update", BatteryController, :update
+    patch "/batteries/:id", BatteryController, :update
     delete "/batteries/:id", BatteryController, :delete_battery
     get "/batteries/:id", BatteryController, :get_single_battery
 
@@ -182,38 +186,53 @@ defmodule EdgeCommanderWeb.Router do
       post "/batteries", BatteryController, :create
 
       get "/sims", SimsController, :get_all_sims_by_users
-      get "/sims/:sim_number/sms", SimsController, :get_single_sim_sms
+      get "/sims/:number/sms", SimsController, :get_single_sim_sms
       post "/sims", SimsController, :create
-      get "/sims/:sim_number", SimsController, :get_single_sim_data
+      get "/sims/:number", SimsController, :get_single_sim_data
+      patch "/sims/:id", SimsController, :update
+      delete "/sims/:id", SimsController, :delete_sim
 
       get "/routers", RoutersController, :get_all_routers_by_users
       post "/routers", RoutersController, :create
       patch "/routers/:id", RoutersController, :update
       delete "/routers/:id", RoutersController, :delete_router
+      get "/routers/:id", RoutersController, :get_single_router
 
       get "/nvrs", NvrsController, :get_all_nvrs_by_users
       post "/nvrs", NvrsController, :create
       delete "/nvrs/:id", NvrsController, :delete_nvr
       patch "/nvrs/:id", NvrsController, :update
+      get "/nvrs/:id", NvrsController, :get_single_nvr
 
       get "/rules", CommandsController, :get_all_rules_by_users
       post "/rules/new", CommandsController, :create
       patch "/rules/update", CommandsController, :update
       delete "/rules/:id", CommandsController, :delete_rule
+      get "/rules/:id", CommandsController, :get_single_rule
 
       get "/sites", SitesController, :get_all_sites_by_users
       post "/sites/new", SitesController, :create
       patch "/sites/update", SitesController, :update
       delete "/sites/:id", SitesController, :delete_site
+      get "/sites/:id", SitesController, :get_single_site
 
       patch "/update_profile", UsersController, :update_profile
 
-      post "/sims/:sim_number/sms", SimsController, :send_sms
+      post "/sims/:number/sms", SimsController, :send_sms
       get "/receive_sms", SimsController, :receive_sms
       get "/delivery_receipt", SimsController, :delivery_receipt
       get "/daily_sms_count/:number", SimsController, :daily_sms_count
 
       get "/get_all_sms/:from_date/:to_date", SmsController, :get_all_sms
+
+      post "/batteries/new", BatteryController, :create
+      get "/batteries", BatteryController, :get_all_batteries_by_users
+      delete "/batteries/:id", BatteryController, :delete_battery
+      patch "/batteries/:id", BatteryController, :update
+      get "/batteries/:id", BatteryController, :get_single_battery
+
+      get "/batteries/:id/readings", BatteryReadingController, :get_all_readings_by_battery
+
     end
   end
 end
