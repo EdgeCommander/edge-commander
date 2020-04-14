@@ -132,7 +132,7 @@
         "description": "Returns sites list"
       }
     },
-    "/v1/sims/{sim_number}/sms": {
+    "/v1/sims/{number}/sms": {
       "post": {
         "tags": [
           "sims"
@@ -147,7 +147,7 @@
           {
             "type": "string",
             "required": true,
-            "name": "sim_number",
+            "name": "number",
             "in": "path",
             "description": "Sim number in given format (+353xxxxxxxx)"
           },
@@ -190,7 +190,7 @@
           {
             "type": "string",
             "required": true,
-            "name": "sim_number",
+            "name": "number",
             "in": "path",
             "description": "Sim number in given format (+353xxxxxxxx)"
           },
@@ -213,7 +213,7 @@
         "description": "Returns latest 10 sms for single sim"
       }
     },
-    "/v1/sims/{sim_number}": {
+    "/v1/sims/{number}": {
       "get": {
         "tags": [
           "sims"
@@ -228,7 +228,7 @@
           {
             "type": "string",
             "required": true,
-            "name": "sim_number",
+            "name": "number",
             "in": "path",
             "description": "Sim number in given format (+353xxxxxxxx)"
           },

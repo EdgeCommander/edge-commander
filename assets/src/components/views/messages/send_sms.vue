@@ -155,10 +155,8 @@ export default {
     },
     saveData (e) {
       this.show_loading = true;
-      this.$http.post('/send_sms', {
-        sms_message: this.smsMessage_text,
-        sim_number:  this.toNumber,
-        user_id: this.$root.user_id
+      this.$http.post('/sims/'+this.toNumber+'/sms', {
+        sms_message: this.smsMessage_text
       }).then(function (response) {
         if (response.body.status != 0) {
           this.$notify({group: 'notify', title: response.body.error_text, type: 'error'});

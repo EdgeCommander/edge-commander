@@ -118,10 +118,10 @@ defmodule EdgeCommanderWeb.Router do
     get "/all_sim", SimsController, :get_all_sims
 
     get "/sims/data/json", SimsController, :get_sims_list
-    get "/sims/sms/:sim_number", SimsController, :get_single_sim_sms
+    get "/sims/sms/:number", SimsController, :get_single_sim_sms
     post "/messages", SimsController, :create
     get "/user_logs", LogsController, :get_user_logs
-    get "/sims/:sim_number/json", SimsController, :get_single_sim_data
+    get "/sims/:number/json", SimsController, :get_single_sim_data
 
     get "/routers/data", RoutersController, :get_all_routers
     post "/routers", RoutersController, :create
@@ -154,7 +154,7 @@ defmodule EdgeCommanderWeb.Router do
 
     patch "/update_profile", UsersController, :update_profile
 
-    post "/send_sms", SimsController, :send_sms
+    post "/sims/:number/sms", SimsController, :send_sms
     get "/get_all_sms", SmsController, :get_all_sms
     get "/daily_sms_count/:number", SimsController, :daily_sms_count
 
@@ -186,9 +186,9 @@ defmodule EdgeCommanderWeb.Router do
       post "/batteries", BatteryController, :create
 
       get "/sims", SimsController, :get_all_sims_by_users
-      get "/sims/:sim_number/sms", SimsController, :get_single_sim_sms
+      get "/sims/:number/sms", SimsController, :get_single_sim_sms
       post "/sims", SimsController, :create
-      get "/sims/:sim_number", SimsController, :get_single_sim_data
+      get "/sims/:number", SimsController, :get_single_sim_data
       patch "/sims/:id", SimsController, :update
       delete "/sims/:id", SimsController, :delete_sim
 
@@ -218,7 +218,7 @@ defmodule EdgeCommanderWeb.Router do
 
       patch "/update_profile", UsersController, :update_profile
 
-      post "/sims/:sim_number/sms", SimsController, :send_sms
+      post "/sims/:number/sms", SimsController, :send_sms
       get "/receive_sms", SimsController, :receive_sms
       get "/delivery_receipt", SimsController, :delivery_receipt
       get "/daily_sms_count/:number", SimsController, :daily_sms_count

@@ -40,11 +40,11 @@ defmodule EdgeCommanderWeb.SimsController do
   end
 
   swagger_path :get_single_sim_data do
-    get "/v1/sims/{sim_number}"
+    get "/v1/sims/{number}"
     description "Returns details for single sim"
     summary "Find Single sim data by sim number"
     parameters do
-      sim_number :path, :string, "Sim number in given format (+353xxxxxxxx)", required: true
+      number :path, :string, "Sim number in given format (+353xxxxxxxx)", required: true
       api_id :query, :string, "", required: true
       api_key :query, :string, "", required: true
     end
@@ -53,11 +53,11 @@ defmodule EdgeCommanderWeb.SimsController do
   end
 
   swagger_path :get_single_sim_sms do
-    get "/v1/sims/{sim_number}/sms"
+    get "/v1/sims/{number}/sms"
     description "Returns latest 10 sms for single sim"
     summary "Find sms by sim number"
     parameters do
-      sim_number :path, :string, "Sim number in given format (+353xxxxxxxx)", required: true
+      number :path, :string, "Sim number in given format (+353xxxxxxxx)", required: true
       api_id :query, :string, "", required: true
       api_key :query, :string, "", required: true
     end
@@ -66,10 +66,10 @@ defmodule EdgeCommanderWeb.SimsController do
   end
 
   swagger_path :send_sms do
-    post "/v1/sims/{sim_number}/sms"
+    post "/v1/sims/{number}/sms"
     summary "Send sms to sim"
     parameters do
-      sim_number :path, :string, "Sim number in given format (+353xxxxxxxx)", required: true
+      number :path, :string, "Sim number in given format (+353xxxxxxxx)", required: true
       sms_message :query, :string, "", required: true
       api_id :query, :string, "", required: true
       api_key :query, :string, "", required: true
@@ -202,7 +202,7 @@ defmodule EdgeCommanderWeb.SimsController do
     end
   end
 
-  def get_single_sim_data(conn, %{"sim_number" => sim_number } = _params) do
+  def get_single_sim_data(conn, %{"number" => sim_number } = _params) do
     sim_records = Records.get_single_sim(sim_number)
     conn
     |> put_status(200)
@@ -387,9 +387,10 @@ defmodule EdgeCommanderWeb.SimsController do
   end
 
   def send_sms(conn, params) do
+    current_user = get_current_resource(conn)
     sms_message = params["sms_message"]
-    to_number = params["sim_number"]
-    user_id = params["user_id"]
+    to_number = params["number"]
+    user_id = current_user.id
     nexmo_number = choose_nexmo_number(to_number)
     current_user = ensure_user_id(conn, user_id)
     url = "https://rest.nexmo.com/sms/json"
@@ -401,7 +402,6 @@ defmodule EdgeCommanderWeb.SimsController do
       text: sms_message
     })
     headers = [{"Content-type", "application/json"}]
-    
     case HTTPoison.post(url, body, headers, []) do
       {:ok, %HTTPoison.Response{status_code: 200, body: body}} ->
 
@@ -416,7 +416,6 @@ defmodule EdgeCommanderWeb.SimsController do
         status_code |> save_send_sms(nexmo_number, results, sms_message, current_user)
 
         sim_number = params["sim_number"]
-        current_user = current_user(conn)
         logs_params = %{
           "event" => "SMS: <span>#{sms_message}</span> command was sent to <span>#{sim_number}</span>",
           "user_id" => current_user.id
@@ -716,7 +715,7 @@ defmodule EdgeCommanderWeb.SimsController do
     |> json(%{void: 0})
   end
 
-  def get_single_sim_sms(conn, %{"sim_number" => sim_number} = _params) do
+  def get_single_sim_sms(conn, %{"number" => sim_number} = _params) do
     single_sim_sms =
       get_single_sim_messages(sim_number)
       |> Enum.map(fn(sms) ->
