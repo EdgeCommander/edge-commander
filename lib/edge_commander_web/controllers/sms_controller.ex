@@ -12,10 +12,16 @@ defmodule EdgeCommanderWeb.SmsController do
 
     params = Map.put(params, "fromDate", from_date)
     params = Map.put(params, "toDate", to_date)
-    conditions = condition(params)
+
+    text_column_condition = ensure_text_column(params["text"])
+    sim_name_column_condition = ensure_sim_name_column(params["sim_name"])
+    number_column_condition = ensure_number_column(params["number"])
+    type_column_condition = ensure_type_column(params["type"])
+    status_column_condition = ensure_status_column(params["status"])
+    message_delivery_column_condition = ensure_message_delivery_column(params["message_delivery"])
 
     [column, order] = params["sort"] |> String.split("|")
-    query = "select * from sms_messages_view as ms Where (DATE(inserted_at) >= '#{from_date}' and DATE(inserted_at) <= '#{to_date}') #{conditions} #{add_sorting(column, order)}"
+    query = "select * from sms_messages_view as ms Where (DATE(inserted_at) >= '#{from_date}' and DATE(inserted_at) <= '#{to_date}') #{text_column_condition} #{sim_name_column_condition} #{number_column_condition} #{type_column_condition} #{status_column_condition} #{message_delivery_column_condition} #{add_sorting(column, order)}"
     messages = Ecto.Adapters.SQL.query!(Repo, query, [])
     cols = Enum.map messages.columns, &(String.to_atom(&1))
     roles = Enum.map messages.rows, fn(row) ->
@@ -67,20 +73,23 @@ defmodule EdgeCommanderWeb.SmsController do
     json(conn, records)
   end
 
-  defp condition(params) do
-    Enum.reduce(params, "", fn param, condition = _acc ->
-      {name, value} = param
-      cond do
-        name == "text" && value != "" -> " and (lower(ms.text) like lower('%#{value}%'))"
-        name == "sim_name" && value != "" -> " and ((lower(ms.from_name) like lower('%#{value}%')) or (lower(ms.to_name ) like lower('%#{value}%')))"
-        name == "type" && value != "" -> " and (lower(ms.type) like lower('%#{value}%'))"
-        name == "status" && value != "" -> " and (lower(ms.status) like lower('%#{value}%'))"
-        name == "number" && value != "" -> " and ((lower(ms.from) like lower('%#{value}%')) or (lower(ms.to) like lower('%#{value}%')))"
-        name == "message_delivery" && value != "" -> " and (lower(ms.delivery_datetime) like lower('%#{change_datetime_format(value)}%'))"
-        true -> condition
-      end
-    end)
-  end
+  defp ensure_text_column(nil), do: ""
+  defp ensure_text_column(value), do: " and (lower(ms.text) like lower('%#{value}%'))"
+
+  defp ensure_sim_name_column(nil), do: ""
+  defp ensure_sim_name_column(value), do: " and ((lower(ms.from_name) like lower('%#{value}%')) or (lower(ms.to_name ) like lower('%#{value}%')))"
+
+  defp ensure_number_column(nil), do: ""
+  defp ensure_number_column(value), do: " and ((lower(ms.from) like lower('%#{value}%')) or (lower(ms.to) like lower('%#{value}%')))"
+
+  defp ensure_type_column(nil), do: ""
+  defp ensure_type_column(value), do: " and (lower(ms.type) like lower('%#{value}%'))"
+
+  defp ensure_status_column(nil), do: ""
+  defp ensure_status_column(value), do: " and (lower(ms.status) like lower('%#{value}%'))"
+
+  defp ensure_message_delivery_column(nil), do: ""
+  defp ensure_message_delivery_column(value), do: " and (lower(ms.delivery_datetime) like lower('%#{change_datetime_format(value)}%'))"
 
   defp change_datetime_format(""), do: ""
   defp change_datetime_format(value) do
