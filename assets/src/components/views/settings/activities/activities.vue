@@ -42,7 +42,7 @@
                         From:
                     </label>
                     <div class="col-lg-10">
-                       <date-picker v-model="from_dateTime" ref="datepicker" @change="handleChange" lang="en" date  value-type="format"></date-picker>
+                       <date-picker v-model="from_dateTime" ref="datepicker" @change="handleChange" lang="en" date  value-type="format" :format="momentFormat"></date-picker>
                     </div>
                     </div>
                 </div>
@@ -52,7 +52,7 @@
                         To:
                     </label>
                     <div class="col-lg-10">
-                       <date-picker v-model="to_dateTime" ref="datepicker" @change="handleChange" lang="en" date  value-type="format"></date-picker>
+                       <date-picker v-model="to_dateTime" ref="datepicker" @change="handleChange" lang="en" date  value-type="format" :format="momentFormat"></date-picker>
                     </div>
                     </div>
                 </div>
@@ -125,6 +125,14 @@ export default {
   },
   data() {
     return {
+      momentFormat: {
+        stringify: (date) => {
+          return date ? moment(date).format('DD-MM-YYYY') : ''
+        },
+        parse: (value) => {
+          return value ? moment(value, 'DD-MM-YYYY').toDate() : null
+        }
+      },
       paginationComponent: "vuetable-pagination",
       loading: "",
       vuetableFields: false,
@@ -147,8 +155,8 @@ export default {
           dateRange: 'Select Date Range'
         }
       },
-      from_dateTime: moment().subtract(7, "days").format("YYYY-MM-DD"),
-      to_dateTime: moment().format("YYYY-MM-DD")
+      from_dateTime: moment().subtract(7, "days").format("DD-MM-YYYY"),
+      to_dateTime: moment().format("DD-MM-YYYY")
     }
   },
   watch: {
@@ -180,9 +188,13 @@ export default {
 
   methods: {
     handleChange(val) {
+      let from_date_string =  this.from_dateTime.split("-")
+      let to_dateTime_string =  this.to_dateTime.split("-")
+      let from_dateTime = from_date_string[2] + "-" + from_date_string[1] + "-" + from_date_string[0]
+      let to_dateTime = to_dateTime_string[2] + "-" + to_dateTime_string[1] + "-" + to_dateTime_string[0]
       this.moreParams = {
-        "fromDate": this.from_dateTime,
-        "toDate": this.to_dateTime,
+        "fromDate": from_dateTime,
+        "toDate": to_dateTime,
       }
       this.$nextTick( () => this.$refs.vuetable.refresh())
     },
