@@ -506,7 +506,7 @@ export default {
         this.chart_two_data(category_list_new, battery_voltages_new, panel_voltages_new);
       });
 
-      this.$http.get("/batteries/"+battery_id+"/readings/voltages/comparison", {
+    this.$http.get("/batteries/"+battery_id+"/readings/voltages/comparison", {
       params:{
         from: from_date,
         to: to_date

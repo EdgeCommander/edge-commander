@@ -164,10 +164,9 @@ defmodule EdgeCommanderWeb.DashboardController do
 
 
   def battery_voltages_summary(conn, params) do
-    from_date = Date.from_iso8601!(params["from_date"])
-    to_date = Date.from_iso8601!(params["to_date"])
+    from_date = Date.from_iso8601!(params["from"])
+    to_date = Date.from_iso8601!(params["to"])
     battery_id = params["id"]
-
     range = Date.range(from_date, to_date)
     dates = Enum.to_list(range)
     records =
