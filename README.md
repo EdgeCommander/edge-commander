@@ -1,6 +1,6 @@
 # Edge Commander : Device Management & Monitoring [![Build Status][travis-image]][travis-url]
 
-* Update: This app has served its purpose for us and is now offline. If the code or the idea is of interest to anyone, please feel welcome to work with it. You can contact me at @marcoherbst *
+##Update: This app has served its purpose for us and is now offline. If the code or the idea is of interest to anyone, please feel welcome to work with it. You can contact me at @marcoherbst ##
 
 This is an open source application written in Phoenix that allows monitoring & management of devices on the edge.
 
