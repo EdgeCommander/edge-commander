@@ -45,7 +45,7 @@ defmodule EdgeCommander.Mixfile do
       {:comeonin, "~> 5.1"},
       {:dotenv, "~> 3.0.0"},
       {:httpoison, "~> 1.5", override: true},
-      {:quantum, "~> 2.3"},
+      {:quantum, "~> 3.1"},
       {:timex, "~> 3.4"},
       {:floki, "~> 0.26.0"},
       {:calendar, "~> 0.18.0"},
