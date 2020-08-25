@@ -4383,10 +4383,10 @@ highcharts-vue@^1.2.0:
   resolved "https://registry.yarnpkg.com/highcharts-vue/-/highcharts-vue-1.2.0.tgz#13ec436eae14fb1ec361033fce9ca66f0a9fbb12"
   integrity sha512-S44yU56BcN6hOJk2PFXGokaG2HYeMS3fr/Gq8i+0Wf6tUY9Mak/c3WOkKvnQIEC8pO2HoU2gPZXPN2SMmWX9qA==
 
-highcharts@^7.0.3:
-  version "7.0.3"
-  resolved "https://registry.yarnpkg.com/highcharts/-/highcharts-7.0.3.tgz#0c8edb578bae28774b9f0d49cf1ae4887b126305"
-  integrity sha512-ubfHLDqKZkGLfDGWYPaa9txLwiJDSWphMZ15xdC0RKKKxZ2ZBc13+MjDfz5ARpYGQvCHmytGOGFUgRWEvkOhNA==
+highcharts@^7.2.2:
+  version "7.2.2"
+  resolved "https://registry.yarnpkg.com/highcharts/-/highcharts-7.2.2.tgz#94d6bae545d7f0fbf49615b28640f5fdbf99d11e"
+  integrity sha512-jRKujQuPKHLgGQd2sByBI9K5m56CInm2augVZnBYqdmyoU88hcI62uuAXHvxC3FW8YY0FJ74A1uw6sxrcmcmvg==
 
 hmac-drbg@^1.0.0:
   version "1.0.1"
